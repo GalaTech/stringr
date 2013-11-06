@@ -14,16 +14,27 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+
+- (IBAction)publishString:(UIButton *)sender
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning
+
+- (IBAction)closeProfileModal:(UIBarButtonItem *)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)closeDiscoverPreLoggedIn:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)loggedOut:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

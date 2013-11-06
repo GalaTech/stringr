@@ -14,13 +14,20 @@
 		BF8349DB18297FD600D15963 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8349DA18297FD600D15963 /* main.m */; };
 		BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8349DE18297FD600D15963 /* AppDelegate.m */; };
 		BF8349E218297FD600D15963 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8349E018297FD600D15963 /* Main.storyboard */; };
-		BF8349E518297FD600D15963 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8349E418297FD600D15963 /* ViewController.m */; };
 		BF8349E718297FD600D15963 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF8349E618297FD600D15963 /* Images.xcassets */; };
 		BF8349EE18297FD600D15963 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349ED18297FD600D15963 /* XCTest.framework */; };
 		BF8349EF18297FD600D15963 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349CE18297FD600D15963 /* Foundation.framework */; };
 		BF8349F018297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
 		BF8349F818297FD600D15963 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF8349F618297FD600D15963 /* InfoPlist.strings */; };
 		BF8349FA18297FD600D15963 /* StringrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8349F918297FD600D15963 /* StringrTests.m */; };
+		BF834A461829975E00D15963 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A411829975E00D15963 /* REFrostedViewController.m */; };
+		BF834A471829975E00D15963 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A431829975E00D15963 /* UIImage+REFrostedViewController.m */; };
+		BF834A481829975E00D15963 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A451829975E00D15963 /* UIView+REFrostedViewController.m */; };
+		BF834A4F1829A80A00D15963 /* StringrMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A4E1829A80A00D15963 /* StringrMenuViewController.m */; };
+		BF834A521829B7F100D15963 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A511829B7F100D15963 /* ViewController.m */; };
+		BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A531829CAD900D15963 /* StringrLogo.jpg */; };
+		BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A551829CBA500D15963 /* orca-stock-photo.jpg */; };
+		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +52,25 @@
 		BF8349DD18297FD600D15963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF8349DE18297FD600D15963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BF8349E118297FD600D15963 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BF8349E318297FD600D15963 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BF8349E418297FD600D15963 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BF8349E618297FD600D15963 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BF8349EC18297FD600D15963 /* StringrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StringrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8349ED18297FD600D15963 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BF8349F518297FD600D15963 /* StringrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StringrTests-Info.plist"; sourceTree = "<group>"; };
 		BF8349F718297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF8349F918297FD600D15963 /* StringrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringrTests.m; sourceTree = "<group>"; };
+		BF834A401829975E00D15963 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
+		BF834A411829975E00D15963 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
+		BF834A421829975E00D15963 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
+		BF834A431829975E00D15963 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
+		BF834A441829975E00D15963 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
+		BF834A451829975E00D15963 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
+		BF834A4D1829A80900D15963 /* StringrMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrMenuViewController.h; sourceTree = "<group>"; };
+		BF834A4E1829A80A00D15963 /* StringrMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrMenuViewController.m; sourceTree = "<group>"; };
+		BF834A501829B7F100D15963 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BF834A511829B7F100D15963 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StringrLogo.jpg; sourceTree = "<group>"; };
+		BF834A551829CBA500D15963 /* orca-stock-photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "orca-stock-photo.jpg"; sourceTree = "<group>"; };
+		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = following.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				BF8349D418297FD600D15963 /* Stringr */,
+				BF834A3E1829973000D15963 /* External */,
 				BF8349F318297FD600D15963 /* StringrTests */,
 				BF8349CD18297FD600D15963 /* Frameworks */,
 				BF8349CC18297FD600D15963 /* Products */,
@@ -112,12 +131,14 @@
 		BF8349D418297FD600D15963 /* Stringr */ = {
 			isa = PBXGroup;
 			children = (
+				BF8349E018297FD600D15963 /* Main.storyboard */,
+				BF834A501829B7F100D15963 /* ViewController.h */,
+				BF834A511829B7F100D15963 /* ViewController.m */,
 				BF8349DD18297FD600D15963 /* AppDelegate.h */,
 				BF8349DE18297FD600D15963 /* AppDelegate.m */,
-				BF8349E018297FD600D15963 /* Main.storyboard */,
-				BF8349E318297FD600D15963 /* ViewController.h */,
-				BF8349E418297FD600D15963 /* ViewController.m */,
-				BF8349E618297FD600D15963 /* Images.xcassets */,
+				BF834A4D1829A80900D15963 /* StringrMenuViewController.h */,
+				BF834A4E1829A80A00D15963 /* StringrMenuViewController.m */,
+				BF834A491829978300D15963 /* Resources */,
 				BF8349D518297FD600D15963 /* Supporting Files */,
 			);
 			path = Stringr;
@@ -150,6 +171,39 @@
 				BF8349F618297FD600D15963 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF834A3E1829973000D15963 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				BF834A3F1829975E00D15963 /* REFrostedViewController */,
+			);
+			name = External;
+			path = Stringr;
+			sourceTree = "<group>";
+		};
+		BF834A3F1829975E00D15963 /* REFrostedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF834A401829975E00D15963 /* REFrostedViewController.h */,
+				BF834A411829975E00D15963 /* REFrostedViewController.m */,
+				BF834A421829975E00D15963 /* UIImage+REFrostedViewController.h */,
+				BF834A431829975E00D15963 /* UIImage+REFrostedViewController.m */,
+				BF834A441829975E00D15963 /* UIView+REFrostedViewController.h */,
+				BF834A451829975E00D15963 /* UIView+REFrostedViewController.m */,
+			);
+			path = REFrostedViewController;
+			sourceTree = "<group>";
+		};
+		BF834A491829978300D15963 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BF834A571829D39E00D15963 /* following.png */,
+				BF834A551829CBA500D15963 /* orca-stock-photo.jpg */,
+				BF834A531829CAD900D15963 /* StringrLogo.jpg */,
+				BF8349E618297FD600D15963 /* Images.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +253,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "GalaTech LLC";
 				TargetAttributes = {
+					BF8349CA18297FD600D15963 = {
+						DevelopmentTeam = A79V5KH4FK;
+					};
 					BF8349EB18297FD600D15963 = {
 						TestTargetID = BF8349CA18297FD600D15963;
 					};
@@ -228,8 +285,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */,
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
+				BF834A581829D39E00D15963 /* following.png in Resources */,
+				BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,9 +309,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF8349E518297FD600D15963 /* ViewController.m in Sources */,
+				BF834A521829B7F100D15963 /* ViewController.m in Sources */,
+				BF834A461829975E00D15963 /* REFrostedViewController.m in Sources */,
+				BF834A4F1829A80A00D15963 /* StringrMenuViewController.m in Sources */,
+				BF834A481829975E00D15963 /* UIView+REFrostedViewController.m in Sources */,
 				BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
+				BF834A471829975E00D15963 /* UIImage+REFrostedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +382,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -357,7 +422,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -378,10 +444,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "33A506F5-76ED-4F26-8D74-609877E415F7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -391,10 +460,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "33A506F5-76ED-4F26-8D74-609877E415F7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -460,6 +532,7 @@
 				BF8349FF18297FD600D15963 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF834A0018297FD600D15963 /* Build configuration list for PBXNativeTarget "StringrTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +541,7 @@
 				BF834A0218297FD600D15963 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
