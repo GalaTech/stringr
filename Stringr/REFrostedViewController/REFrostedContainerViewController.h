@@ -1,5 +1,5 @@
 //
-// UIView+REFrostedViewController.h
+// REFrostedContainerViewController.h
 // REFrostedViewController
 //
 // Copyright (c) 2013 Roman Efimov (https://github.com/romaonthego)
@@ -24,10 +24,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 
-@interface UIView (REFrostedViewController)
+@class REFrostedViewController;
 
-- (UIImage *)re_screenshot;
+@interface REFrostedContainerViewController : UIViewController
+
+@property (strong, readwrite, nonatomic) UIImage *screenshotImage;
+@property (weak, readwrite, nonatomic) REFrostedViewController *frostedViewController;
+@property (assign, readwrite, nonatomic) BOOL animateApperance;
+@property (strong, readonly, nonatomic) UIView *containerView;
+
+- (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer;
+- (void)hide;
+- (void)refreshBackgroundImage;
 
 @end

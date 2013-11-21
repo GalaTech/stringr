@@ -24,18 +24,55 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+REFrostedViewController.h"
+
+typedef NS_ENUM(NSInteger, REFrostedViewControllerDirection) {
+    REFrostedViewControllerDirectionLeft,
+    REFrostedViewControllerDirectionRight,
+    REFrostedViewControllerDirectionTop,
+    REFrostedViewControllerDirectionBottom
+};
+
+typedef NS_ENUM(NSInteger, REFrostedViewControllerLiveBackgroundStyle) {
+    REFrostedViewControllerLiveBackgroundStyleLight,
+    REFrostedViewControllerLiveBackgroundStyleDark
+};
+
+@protocol REFrostedViewControllerDelegate;
 
 @interface REFrostedViewController : UIViewController
 
+@property (strong, readonly, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
+@property (assign, readwrite, nonatomic) BOOL panGestureEnabled;
+@property (assign, readwrite, nonatomic) REFrostedViewControllerDirection direction;
 @property (strong, readwrite, nonatomic) UIColor *blurTintColor;
-@property (assign, readwrite, nonatomic) CGFloat blurRadius;
-@property (assign, readwrite, nonatomic) CGFloat blurSaturationDeltaFactor;
-@property (assign, readwrite, nonatomic) CGFloat threshold;
+@property (assign, readwrite, nonatomic) CGFloat blurRadius; // Used only when live blur is off
+@property (assign, readwrite, nonatomic) CGFloat blurSaturationDeltaFactor; // Used only when live blur is off
 @property (assign, readwrite, nonatomic) NSTimeInterval animationDuration;
-@property (assign, readonly, nonatomic, getter = isHidden) BOOL hidden;
+@property (assign, readwrite, nonatomic) BOOL limitMenuViewSize;
+@property (assign, readwrite, nonatomic) CGSize menuViewSize;
+@property (assign, readwrite, nonatomic) BOOL liveBlur; // iOS 7 only
+@property (assign, readwrite, nonatomic) REFrostedViewControllerLiveBackgroundStyle liveBlurBackgroundStyle; // iOS 7 only
 
-- (void)presentFromViewController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completionHandler;
-- (void)presentFromViewController:(UIViewController *)controller panGestureRecognizer:(UIPanGestureRecognizer *)recognizer;
-- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion;
+@property (weak, readwrite, nonatomic) id<REFrostedViewControllerDelegate> delegate;
+@property (strong, readwrite, nonatomic) UIViewController *contentViewController;
+@property (strong, readwrite, nonatomic) UIViewController *menuViewController;
+
+- (id)initWithContentViewController:(UIViewController *)contentViewController menuViewController:(UIViewController *)menuViewController;
+- (void)presentMenuViewController;
+- (void)hideMenuViewController;
+- (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer;
+
+@end
+
+@protocol REFrostedViewControllerDelegate <NSObject>
+
+@optional
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController didRecognizePanGesture:(UIPanGestureRecognizer *)recognizer;
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willShowMenuViewController:(UIViewController *)menuViewController;
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController didShowMenuViewController:(UIViewController *)menuViewController;
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willHideMenuViewController:(UIViewController *)menuViewController;
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController didHideMenuViewController:(UIViewController *)menuViewController;
 
 @end

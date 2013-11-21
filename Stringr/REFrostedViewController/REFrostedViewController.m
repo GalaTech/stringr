@@ -24,17 +24,22 @@
 //
 
 #import "REFrostedViewController.h"
+#import "REFrostedContainerViewController.h"
 #import "UIImage+REFrostedViewController.h"
 #import "UIView+REFrostedViewController.h"
+#import "UIViewController+REFrostedViewController.h"
+#import "RECommonFunctions.h"
 
 @interface REFrostedViewController ()
 
 @property (assign, readwrite, nonatomic) CGFloat imageViewWidth;
 @property (strong, readwrite, nonatomic) UIImage *image;
 @property (strong, readwrite, nonatomic) UIImageView *imageView;
-@property (strong, readwrite, nonatomic) UIButton *fadedView;
 @property (assign, readwrite, nonatomic) BOOL visible;
-@property (assign, readwrite, nonatomic) CGFloat minimumChildViewWidth;
+@property (strong, readwrite, nonatomic) REFrostedContainerViewController *containerViewController;
+@property (strong, readwrite, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
+@property (assign, readwrite, nonatomic) BOOL automaticSize;
+@property (assign, readwrite, nonatomic) CGSize calculatedMenuViewSize;
 
 @end
 
@@ -49,17 +54,9 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder*)coder
+- (id)initWithCoder:(NSCoder *)decoder
 {
-    if ((self = [super initWithCoder:coder])) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithCoder:decoder];
     if (self) {
         [self commonInit];
     }
@@ -68,235 +65,199 @@
 
 - (void)commonInit
 {
-    self.view.clipsToBounds = YES;
-    self.view.hidden = NO;
-    self.animationDuration = 0.25f;
-    self.blurTintColor = [UIColor colorWithWhite:1 alpha:0.75f];
-    self.blurSaturationDeltaFactor = 1.8f;
-    self.threshold = 50.0f;
-    self.blurRadius = 10.0f;
-    self.imageView = ({
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectNull];
-        imageView.contentMode = UIViewContentModeLeft;
-        imageView.clipsToBounds = YES;
-        imageView;
-    });
-    [self.view addSubview:self.imageView];
-    
-    self.fadedView = ({
-        UIButton *button = [[UIButton alloc] initWithFrame:self.view.bounds];
-        button.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3f];
-        button.alpha = 0;
-        [button addTarget:self action:@selector(fadedViewPressed:) forControlEvents:UIControlEventTouchUpInside];
-        button;
-    });
-    [self.view addSubview:self.fadedView];
-    
-    [self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizerDidRecognize:)]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    self.wantsFullScreenLayout = YES;
+#pragma clang diagnostic pop
+    _panGestureEnabled = YES;
+    _animationDuration = 0.35f;
+    _blurTintColor = REUIKitIsFlatMode() ? nil : [UIColor colorWithWhite:1 alpha:0.75f];
+    _blurSaturationDeltaFactor = 1.8f;
+    _blurRadius = 10.0f;
+    _containerViewController = [[REFrostedContainerViewController alloc] init];
+    _containerViewController.frostedViewController = self;
+    _menuViewSize = CGSizeZero;
+    _liveBlur = REUIKitIsFlatMode();
+    _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
+    _automaticSize = YES;
 }
 
-- (BOOL)isHidden
+- (id)initWithContentViewController:(UIViewController *)contentViewController menuViewController:(UIViewController *)menuViewController
 {
-    return !self.visible;
+    self = [self init];
+    if (self) {
+        _contentViewController = contentViewController;
+        _menuViewController = menuViewController;
+    }
+    return self;
 }
 
-- (void)addToParentViewController:(UIViewController *)parentViewController callingAppearanceMethods:(BOOL)callAppearanceMethods
+- (void)viewDidLoad
 {
-    if (self.parentViewController != nil) {
-        [self removeFromParentViewControllerCallingAppearanceMethods:callAppearanceMethods];
+    [super viewDidLoad];
+    [self re_displayController:self.contentViewController frame:self.view.frame];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.contentViewController beginAppearanceTransition:YES animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.contentViewController endAppearanceTransition];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.contentViewController beginAppearanceTransition:NO animated:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.contentViewController endAppearanceTransition];
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    return self.contentViewController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden
+{
+    return self.contentViewController;
+}
+
+#pragma mark -
+#pragma mark Setters
+
+- (void)setContentViewController:(UIViewController *)contentViewController
+{
+    _contentViewController = contentViewController;
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    }
+}
+
+- (void)setMenuViewController:(UIViewController *)menuViewController
+{
+    if (!_menuViewController) {
+        _menuViewController = menuViewController;
+        return;
+    }
+    CGRect frame = _menuViewController.view.frame;
+    [_menuViewController willMoveToParentViewController:nil];
+    [_menuViewController removeFromParentViewController];
+     [_menuViewController.view removeFromSuperview];
+    _menuViewController = menuViewController;
+    if (!_menuViewController)
+        return;
+    
+    [self.containerViewController addChildViewController:menuViewController];
+    menuViewController.view.frame = frame;
+    [self.containerViewController.containerView addSubview:menuViewController.view];
+    [menuViewController didMoveToParentViewController:self];
+}
+
+- (void)setMenuViewSize:(CGSize)menuViewSize
+{
+    _menuViewSize = menuViewSize;
+    self.automaticSize = NO;
+}
+
+#pragma mark -
+
+- (void)presentMenuViewController
+{
+    [self presentMenuViewControllerWithAnimatedApperance:YES];
+}
+
+- (void)presentMenuViewControllerWithAnimatedApperance:(BOOL)animateApperance
+{
+    if ([self.delegate conformsToProtocol:@protocol(REFrostedViewControllerDelegate)] && [self.delegate respondsToSelector:@selector(frostedViewController:willShowMenuViewController:)]) {
+        [self.delegate frostedViewController:self willShowMenuViewController:self.menuViewController];
     }
     
-    if (callAppearanceMethods)
-        [self beginAppearanceTransition:YES animated:NO];
-    [parentViewController addChildViewController:self];
-    [parentViewController.view addSubview:self.view];
-    [self didMoveToParentViewController:self];
-    if (callAppearanceMethods)
-        [self endAppearanceTransition];
-}
-
-- (void)removeFromParentViewControllerCallingAppearanceMethods:(BOOL)callAppearanceMethods
-{
-    if (callAppearanceMethods)
-        [self beginAppearanceTransition:NO animated:NO];
-    [self willMoveToParentViewController:nil];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
-    if (callAppearanceMethods)
-        [self endAppearanceTransition];
-}
-
-- (void)presentFromViewController:(UIViewController *)controller
-{
+    self.containerViewController.animateApperance = animateApperance;
+    if (self.automaticSize) {
+        if (self.direction == REFrostedViewControllerDirectionLeft || self.direction == REFrostedViewControllerDirectionRight)
+            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width - 50.0f, self.contentViewController.view.frame.size.height);
+        
+        if (self.direction == REFrostedViewControllerDirectionTop || self.direction == REFrostedViewControllerDirectionBottom)
+            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width, self.contentViewController.view.frame.size.height - 50.0f);
+    } else {
+        self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.contentViewController.view.frame.size.width,
+                                                 _menuViewSize.height > 0 ? _menuViewSize.height : self.contentViewController.view.frame.size.height);
+    }
+    
+    if (!self.liveBlur) {
+        if (REUIKitIsFlatMode() && !self.blurTintColor) {
+            self.blurTintColor = [UIColor colorWithWhite:1 alpha:0.75f];
+        }
+        self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
+    }
+        
+    [self re_displayController:self.containerViewController frame:self.contentViewController.view.frame];
     self.visible = YES;
-    self.imageViewWidth = 0;
-    self.imageView.image = [[controller.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
-    self.view.frame = controller.view.bounds;
-    [self addToParentViewController:controller callingAppearanceMethods:YES];
-    
-    self.imageView.frame = CGRectMake(0, 0, 0, self.imageView.image.size.height);
-    self.fadedView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
-    
-    self.minimumChildViewWidth = self.view.frame.size.width - self.threshold;
-    [self updateChildViewLayout];
-    [self.view.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        if (![view isEqual:self.imageView] && ![view isEqual:self.fadedView]) {
-            [self.view bringSubviewToFront:view];
-        }
-    }];
 }
 
-- (void)presentFromViewController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completionHandler
+- (void)hideMenuViewController
 {
-    [self presentFromViewController:controller];
-    
-    void (^completionHandlerBlock)(BOOL finished) = ^(BOOL finished) {
-        if (completionHandler)
-            completionHandler();
-    };
-    
-    if (animated) {
-        [UIView animateWithDuration:self.animationDuration animations:^{
-            self.fadedView.alpha = 1;
-            [self updateViewsWithThreshold:self.threshold];
-        } completion:completionHandlerBlock];
-    } else {
-        self.fadedView.alpha = 1;
-        [self updateViewsWithThreshold:self.threshold];
-        completionHandlerBlock(YES);
+    if (!self.liveBlur) {
+        self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
+        [self.containerViewController refreshBackgroundImage];
     }
+    [self.containerViewController hide];
 }
 
-- (void)presentFromViewController:(UIViewController *)controller panGestureRecognizer:(UIPanGestureRecognizer *)recognizer
+- (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer
 {
+    if ([self.delegate conformsToProtocol:@protocol(REFrostedViewControllerDelegate)] && [self.delegate respondsToSelector:@selector(frostedViewController:didRecognizePanGesture:)])
+        [self.delegate frostedViewController:self didRecognizePanGesture:recognizer];
+    
+    if (!self.panGestureEnabled)
+        return;
+    
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [self presentFromViewController:controller];
-    } else {
-        [self panGestureRecognizerDidRecognize:recognizer];
+        [self presentMenuViewControllerWithAnimatedApperance:NO];
     }
-}
-
-- (void)reloadBackground
-{
-    UIView *superview = self.view.superview;
-    [self.view removeFromSuperview];
-    self.imageView.image = [[superview re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
-    [superview addSubview:self.view];
-}
-
-- (void)dismissAnimated:(BOOL)animated animationDuration:(CGFloat)duration completion:(void(^)(void))completionHandler
-{
-    self.visible = NO;
-    void (^hideBlock)(void) = ^{
-        self.fadedView.alpha = 0;
-        [self updateViewsWithThreshold:self.view.frame.size.width];
-    };
-    void (^completionHandlerBlock)(BOOL finished) = ^(BOOL finished) {
-        [self removeFromParentViewControllerCallingAppearanceMethods:YES];
-        if (completionHandler)
-            completionHandler();
-    };
     
-    if (animated) {
-        [UIView animateWithDuration:duration animations:^{
-            hideBlock();
-        } completion:completionHandlerBlock];
-    } else {
-        if (completionHandlerBlock)
-            completionHandlerBlock(YES);
-    }
-}
-
-- (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion
-{
-    [self reloadBackground];
-    [self dismissAnimated:animated animationDuration:self.animationDuration completion:completion];
-}
-
-- (void)updateViewsWithThreshold:(CGFloat)threshold
-{
-    CGFloat offset = self.view.frame.size.width - threshold;
-    
-    CGRect frame = self.imageView.frame;
-    frame.size.width = offset;
-    self.imageView.frame = frame;
-    
-    frame = self.fadedView.frame;
-    frame.size.width = self.view.frame.size.width - offset;
-    frame.origin.x = offset;
-    self.fadedView.frame = frame;
-    
-    [self updateChildViewLayout];
-}
-
-- (void)updateChildViewLayout
-{
-    for (UIView *view in self.view.subviews) {
-        if ([view isEqual:self.imageView] || [view isEqual:self.fadedView])
-            continue;
-        CGFloat width = self.imageView.frame.size.width < self.minimumChildViewWidth ? self.minimumChildViewWidth : self.imageView.frame.size.width;
-        CGFloat x = self.imageView.frame.size.width < self.minimumChildViewWidth ? self.imageView.frame.size.width - self.minimumChildViewWidth : 0;
-        
-        CGRect frame = CGRectMake(x, 0, width, self.view.frame.size.height);
-        view.frame = frame;
-    }
+    [self.containerViewController panGestureRecognized:recognizer];
 }
 
 #pragma mark -
-#pragma mark Button action
+#pragma mark Rotation handler
 
-- (void)fadedViewPressed:(id)sender
+- (BOOL)shouldAutorotate
 {
-    [self dismissAnimated:YES animationDuration:self.animationDuration completion:nil];
+    return self.contentViewController.shouldAutorotate;
 }
 
-#pragma mark -
-#pragma mark Gesture recognizer
-
-- (void)panGestureRecognizerDidRecognize:(UIPanGestureRecognizer *)recognizer
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    if ([self.delegate conformsToProtocol:@protocol(REFrostedViewControllerDelegate)] && [self.delegate respondsToSelector:@selector(frostedViewController:willAnimateRotationToInterfaceOrientation:duration:)])
+        [self.delegate frostedViewController:self willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
-    CGPoint point = [recognizer translationInView:self.view];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        self.imageViewWidth = self.imageView.frame.size.width;
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateChanged) {
-        
-        CGFloat offset = self.imageViewWidth + point.x;
-        if (offset > self.view.frame.size.width)
-            offset = self.view.frame.size.width;
-        
-        if (offset < 0)
-            return;
-        
-        CGRect frame = self.imageView.frame;
-        frame.size.width = offset;
-        self.imageView.frame = frame;
-        
-        frame = self.fadedView.frame;
-        frame.size.width = self.view.frame.size.width - offset;
-        frame.origin.x = offset;
-        self.fadedView.frame = frame;
-        
-        [self updateChildViewLayout];
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if ([recognizer velocityInView:self.view].x < 0) {
-            [self dismissAnimated:YES animationDuration:0.2f completion:nil];
-        } else {
-            [UIView animateWithDuration:0.2f animations:^{
-                [self updateViewsWithThreshold:self.threshold];
-            }];
+    if (self.visible) {
+        if (self.automaticSize) {
+            if (self.direction == REFrostedViewControllerDirectionLeft || self.direction == REFrostedViewControllerDirectionRight)
+                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width - 50.0f, self.view.bounds.size.height);
             
-            if (self.fadedView.alpha != 1) {
-                [UIView animateWithDuration:self.animationDuration animations:^{
-                    self.fadedView.alpha = 1;
-                } completion:nil];
-            }
+            if (self.direction == REFrostedViewControllerDirectionTop || self.direction == REFrostedViewControllerDirectionBottom)
+                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - 50.0f);
+        } else {
+            self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.view.bounds.size.width,
+                                                     _menuViewSize.height > 0 ? _menuViewSize.height : self.view.bounds.size.height);
         }
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    if (!self.visible) {
+        self.calculatedMenuViewSize = CGSizeZero;
     }
 }
 

@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD5183AADCB0071E047 /* StringrConstants.m */; };
+		BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */; };
+		BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */; };
+		BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDDE183D8F880071E047 /* REFrostedContainerViewController.m */; };
+		BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE0183D8F880071E047 /* REFrostedViewController.m */; };
+		BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE2183D8F880071E047 /* UIImage+REFrostedViewController.m */; };
+		BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE4183D8F880071E047 /* UIView+REFrostedViewController.m */; };
+		BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE6183D8F880071E047 /* UIViewController+REFrostedViewController.m */; };
+		BF3EDDEF183D90A60071E047 /* StringrTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDEE183D90A60071E047 /* StringrTestViewController.m */; };
+		BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF1183D92330071E047 /* StringrNavigationController.m */; };
+		BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */; };
 		BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349CE18297FD600D15963 /* Foundation.framework */; };
 		BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D018297FD600D15963 /* CoreGraphics.framework */; };
 		BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
@@ -20,10 +31,6 @@
 		BF8349F018297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
 		BF8349F818297FD600D15963 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF8349F618297FD600D15963 /* InfoPlist.strings */; };
 		BF8349FA18297FD600D15963 /* StringrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8349F918297FD600D15963 /* StringrTests.m */; };
-		BF834A461829975E00D15963 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A411829975E00D15963 /* REFrostedViewController.m */; };
-		BF834A471829975E00D15963 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A431829975E00D15963 /* UIImage+REFrostedViewController.m */; };
-		BF834A481829975E00D15963 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A451829975E00D15963 /* UIView+REFrostedViewController.m */; };
-		BF834A4F1829A80A00D15963 /* StringrMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A4E1829A80A00D15963 /* StringrMenuViewController.m */; };
 		BF834A521829B7F100D15963 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF834A511829B7F100D15963 /* ViewController.m */; };
 		BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A531829CAD900D15963 /* StringrLogo.jpg */; };
 		BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A551829CBA500D15963 /* orca-stock-photo.jpg */; };
@@ -41,6 +48,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF3EDDD4183AADCB0071E047 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrConstants.h; sourceTree = "<group>"; };
+		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrConstants.m; sourceTree = "<group>"; };
+		BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrRootViewController.h; path = Menu/StringrRootViewController.h; sourceTree = "<group>"; };
+		BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrRootViewController.m; path = Menu/StringrRootViewController.m; sourceTree = "<group>"; };
+		BF3EDDDB183D8F880071E047 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		BF3EDDDD183D8F880071E047 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
+		BF3EDDDE183D8F880071E047 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
+		BF3EDDDF183D8F880071E047 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
+		BF3EDDE0183D8F880071E047 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
+		BF3EDDE1183D8F880071E047 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
+		BF3EDDE2183D8F880071E047 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
+		BF3EDDE3183D8F880071E047 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
+		BF3EDDE4183D8F880071E047 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
+		BF3EDDE5183D8F880071E047 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
+		BF3EDDE6183D8F880071E047 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
+		BF3EDDED183D90A60071E047 /* StringrTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTestViewController.h; path = Menu/StringrTestViewController.h; sourceTree = "<group>"; };
+		BF3EDDEE183D90A60071E047 /* StringrTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrTestViewController.m; path = Menu/StringrTestViewController.m; sourceTree = "<group>"; };
+		BF3EDDF0183D92330071E047 /* StringrNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigationController.h; path = Menu/StringrNavigationController.h; sourceTree = "<group>"; };
+		BF3EDDF1183D92330071E047 /* StringrNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigationController.m; path = Menu/StringrNavigationController.m; sourceTree = "<group>"; };
+		BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMenuViewController.h; path = Menu/StringrMenuViewController.h; sourceTree = "<group>"; };
+		BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrMenuViewController.m; path = Menu/StringrMenuViewController.m; sourceTree = "<group>"; };
 		BF8349CB18297FD600D15963 /* Stringr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stringr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8349CE18297FD600D15963 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF8349D018297FD600D15963 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,14 +87,6 @@
 		BF8349F518297FD600D15963 /* StringrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StringrTests-Info.plist"; sourceTree = "<group>"; };
 		BF8349F718297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF8349F918297FD600D15963 /* StringrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringrTests.m; sourceTree = "<group>"; };
-		BF834A401829975E00D15963 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
-		BF834A411829975E00D15963 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
-		BF834A421829975E00D15963 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
-		BF834A431829975E00D15963 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
-		BF834A441829975E00D15963 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
-		BF834A451829975E00D15963 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
-		BF834A4D1829A80900D15963 /* StringrMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrMenuViewController.h; sourceTree = "<group>"; };
-		BF834A4E1829A80A00D15963 /* StringrMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrMenuViewController.m; sourceTree = "<group>"; };
 		BF834A501829B7F100D15963 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BF834A511829B7F100D15963 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StringrLogo.jpg; sourceTree = "<group>"; };
@@ -97,6 +118,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF3EDDC9183AAC630071E047 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BF3EDDCA183AAC6A0071E047 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF834A501829B7F100D15963 /* ViewController.h */,
+				BF834A511829B7F100D15963 /* ViewController.m */,
+				BF3EDDCB183AAC900071E047 /* Menu */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		BF3EDDCB183AAC900071E047 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */,
+				BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */,
+				BF3EDDF0183D92330071E047 /* StringrNavigationController.h */,
+				BF3EDDF1183D92330071E047 /* StringrNavigationController.m */,
+				BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */,
+				BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */,
+				BF3EDDED183D90A60071E047 /* StringrTestViewController.h */,
+				BF3EDDEE183D90A60071E047 /* StringrTestViewController.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		BF3EDDDA183D8F880071E047 /* REFrostedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDDDB183D8F880071E047 /* RECommonFunctions.h */,
+				BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */,
+				BF3EDDDD183D8F880071E047 /* REFrostedContainerViewController.h */,
+				BF3EDDDE183D8F880071E047 /* REFrostedContainerViewController.m */,
+				BF3EDDDF183D8F880071E047 /* REFrostedViewController.h */,
+				BF3EDDE0183D8F880071E047 /* REFrostedViewController.m */,
+				BF3EDDE1183D8F880071E047 /* UIImage+REFrostedViewController.h */,
+				BF3EDDE2183D8F880071E047 /* UIImage+REFrostedViewController.m */,
+				BF3EDDE3183D8F880071E047 /* UIView+REFrostedViewController.h */,
+				BF3EDDE4183D8F880071E047 /* UIView+REFrostedViewController.m */,
+				BF3EDDE5183D8F880071E047 /* UIViewController+REFrostedViewController.h */,
+				BF3EDDE6183D8F880071E047 /* UIViewController+REFrostedViewController.m */,
+			);
+			path = REFrostedViewController;
+			sourceTree = "<group>";
+		};
 		BF8349C218297FD600D15963 = {
 			isa = PBXGroup;
 			children = (
@@ -131,13 +203,13 @@
 		BF8349D418297FD600D15963 /* Stringr */ = {
 			isa = PBXGroup;
 			children = (
-				BF8349E018297FD600D15963 /* Main.storyboard */,
-				BF834A501829B7F100D15963 /* ViewController.h */,
-				BF834A511829B7F100D15963 /* ViewController.m */,
+				BF3EDDC9183AAC630071E047 /* Views */,
+				BF3EDDCA183AAC6A0071E047 /* Controllers */,
 				BF8349DD18297FD600D15963 /* AppDelegate.h */,
 				BF8349DE18297FD600D15963 /* AppDelegate.m */,
-				BF834A4D1829A80900D15963 /* StringrMenuViewController.h */,
-				BF834A4E1829A80A00D15963 /* StringrMenuViewController.m */,
+				BF3EDDD4183AADCB0071E047 /* StringrConstants.h */,
+				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
+				BF8349E018297FD600D15963 /* Main.storyboard */,
 				BF834A491829978300D15963 /* Resources */,
 				BF8349D518297FD600D15963 /* Supporting Files */,
 			);
@@ -176,23 +248,10 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				BF834A3F1829975E00D15963 /* REFrostedViewController */,
+				BF3EDDDA183D8F880071E047 /* REFrostedViewController */,
 			);
 			name = External;
 			path = Stringr;
-			sourceTree = "<group>";
-		};
-		BF834A3F1829975E00D15963 /* REFrostedViewController */ = {
-			isa = PBXGroup;
-			children = (
-				BF834A401829975E00D15963 /* REFrostedViewController.h */,
-				BF834A411829975E00D15963 /* REFrostedViewController.m */,
-				BF834A421829975E00D15963 /* UIImage+REFrostedViewController.h */,
-				BF834A431829975E00D15963 /* UIImage+REFrostedViewController.m */,
-				BF834A441829975E00D15963 /* UIView+REFrostedViewController.h */,
-				BF834A451829975E00D15963 /* UIView+REFrostedViewController.m */,
-			);
-			path = REFrostedViewController;
 			sourceTree = "<group>";
 		};
 		BF834A491829978300D15963 /* Resources */ = {
@@ -310,12 +369,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF834A521829B7F100D15963 /* ViewController.m in Sources */,
-				BF834A461829975E00D15963 /* REFrostedViewController.m in Sources */,
-				BF834A4F1829A80A00D15963 /* StringrMenuViewController.m in Sources */,
-				BF834A481829975E00D15963 /* UIView+REFrostedViewController.m in Sources */,
+				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
+				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
+				BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */,
+				BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */,
+				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
+				BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */,
+				BF3EDDEF183D90A60071E047 /* StringrTestViewController.m in Sources */,
+				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
+				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */,
+				BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
-				BF834A471829975E00D15963 /* UIImage+REFrostedViewController.m in Sources */,
+				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,7 +516,7 @@
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33A506F5-76ED-4F26-8D74-609877E415F7";
+				PROVISIONING_PROFILE = "4795B012-7A30-4C8B-B4C3-D15615D3BDC3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -466,7 +532,7 @@
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33A506F5-76ED-4F26-8D74-609877E415F7";
+				PROVISIONING_PROFILE = "4795B012-7A30-4C8B-B4C3-D15615D3BDC3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

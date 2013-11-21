@@ -1,5 +1,5 @@
 //
-// UIView+REFrostedViewController.h
+// RECommonFunctions.h
 // REFrostedViewController
 //
 // Copyright (c) 2013 Roman Efimov (https://github.com/romaonthego)
@@ -23,11 +23,9 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+#import <Foundation/Foundation.h>
 
-@interface UIView (REFrostedViewController)
-
-- (UIImage *)re_screenshot;
-
-@end
+#ifndef REUIKitIsFlatModeFunction
+#define REUIKitIsFlatModeFunction
+BOOL REUIKitIsFlatMode();
+#endif
