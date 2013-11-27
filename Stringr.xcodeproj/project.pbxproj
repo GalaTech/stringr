@@ -33,6 +33,11 @@
 		BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE28184449C80071E047 /* StringrUserTableViewController.m */; };
 		BF3EDE2D184459620071E047 /* StringrFollowingFollowersTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE2C184459620071E047 /* StringrFollowingFollowersTabBarViewController.m */; };
 		BF3EDE3018445AF10071E047 /* StringrStringEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE2F18445AF10071E047 /* StringrStringEditViewController.m */; };
+		BF3EDE3918452F3E0071E047 /* PPCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE3418452F3E0071E047 /* PPCollectionViewCell.m */; };
+		BF3EDE3A18452F3E0071E047 /* PPImageScrollingCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE3618452F3E0071E047 /* PPImageScrollingCellView.m */; };
+		BF3EDE3B18452F3E0071E047 /* PPImageScrollingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE3818452F3E0071E047 /* PPImageScrollingTableViewCell.m */; };
+		BF3EDE41184530E80071E047 /* M6ParallaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE3E184530E80071E047 /* M6ParallaxController.m */; };
+		BF3EDE42184530E80071E047 /* UIViewController+M6ParallaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE40184530E80071E047 /* UIViewController+M6ParallaxController.m */; };
 		BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349CE18297FD600D15963 /* Foundation.framework */; };
 		BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D018297FD600D15963 /* CoreGraphics.framework */; };
 		BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
@@ -62,8 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BF3EDDD4183AADCB0071E047 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrConstants.h; sourceTree = "<group>"; };
-		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrConstants.m; sourceTree = "<group>"; };
+		BF3EDDD4183AADCB0071E047 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = "/Users/JonnyBillings/Documents/Programming/Xcode Workspace/Stringr/Stringr/Utility/StringrConstants.h"; sourceTree = "<absolute>"; };
+		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConstants.m; path = Utility/StringrConstants.m; sourceTree = "<group>"; };
 		BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrRootViewController.h; path = Menu/StringrRootViewController.h; sourceTree = "<group>"; };
 		BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrRootViewController.m; path = Menu/StringrRootViewController.m; sourceTree = "<group>"; };
 		BF3EDDDB183D8F880071E047 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
@@ -114,13 +119,23 @@
 		BF3EDE2C184459620071E047 /* StringrFollowingFollowersTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFollowingFollowersTabBarViewController.m; path = "Tab Bar Controller/StringrFollowingFollowersTabBarViewController.m"; sourceTree = "<group>"; };
 		BF3EDE2E18445AF10071E047 /* StringrStringEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringEditViewController.h; path = "String Edit/StringrStringEditViewController.h"; sourceTree = "<group>"; };
 		BF3EDE2F18445AF10071E047 /* StringrStringEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringEditViewController.m; path = "String Edit/StringrStringEditViewController.m"; sourceTree = "<group>"; };
+		BF3EDE3318452F3E0071E047 /* PPCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCollectionViewCell.h; sourceTree = "<group>"; };
+		BF3EDE3418452F3E0071E047 /* PPCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCollectionViewCell.m; sourceTree = "<group>"; };
+		BF3EDE3518452F3E0071E047 /* PPImageScrollingCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPImageScrollingCellView.h; sourceTree = "<group>"; };
+		BF3EDE3618452F3E0071E047 /* PPImageScrollingCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPImageScrollingCellView.m; sourceTree = "<group>"; };
+		BF3EDE3718452F3E0071E047 /* PPImageScrollingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPImageScrollingTableViewCell.h; sourceTree = "<group>"; };
+		BF3EDE3818452F3E0071E047 /* PPImageScrollingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPImageScrollingTableViewCell.m; sourceTree = "<group>"; };
+		BF3EDE3D184530E80071E047 /* M6ParallaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M6ParallaxController.h; sourceTree = "<group>"; };
+		BF3EDE3E184530E80071E047 /* M6ParallaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M6ParallaxController.m; sourceTree = "<group>"; };
+		BF3EDE3F184530E80071E047 /* UIViewController+M6ParallaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+M6ParallaxController.h"; sourceTree = "<group>"; };
+		BF3EDE40184530E80071E047 /* UIViewController+M6ParallaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+M6ParallaxController.m"; sourceTree = "<group>"; };
 		BF8349CB18297FD600D15963 /* Stringr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stringr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8349CE18297FD600D15963 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF8349D018297FD600D15963 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BF8349D218297FD600D15963 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BF8349D618297FD600D15963 /* Stringr-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stringr-Info.plist"; sourceTree = "<group>"; };
 		BF8349D818297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "/Users/JonnyBillings/Documents/Programming/Xcode Workspace/Stringr/Stringr/main.m"; sourceTree = "<absolute>"; };
 		BF8349DC18297FD600D15963 /* Stringr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stringr-Prefix.pch"; sourceTree = "<group>"; };
 		BF8349DD18297FD600D15963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF8349DE18297FD600D15963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -309,6 +324,30 @@
 			name = "String Edit";
 			sourceTree = "<group>";
 		};
+		BF3EDE3218452F3E0071E047 /* PPImageScrollingTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDE3318452F3E0071E047 /* PPCollectionViewCell.h */,
+				BF3EDE3418452F3E0071E047 /* PPCollectionViewCell.m */,
+				BF3EDE3518452F3E0071E047 /* PPImageScrollingCellView.h */,
+				BF3EDE3618452F3E0071E047 /* PPImageScrollingCellView.m */,
+				BF3EDE3718452F3E0071E047 /* PPImageScrollingTableViewCell.h */,
+				BF3EDE3818452F3E0071E047 /* PPImageScrollingTableViewCell.m */,
+			);
+			path = PPImageScrollingTableViewCell;
+			sourceTree = "<group>";
+		};
+		BF3EDE3C184530E80071E047 /* ParallaxController */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDE3D184530E80071E047 /* M6ParallaxController.h */,
+				BF3EDE3E184530E80071E047 /* M6ParallaxController.m */,
+				BF3EDE3F184530E80071E047 /* UIViewController+M6ParallaxController.h */,
+				BF3EDE40184530E80071E047 /* UIViewController+M6ParallaxController.m */,
+			);
+			path = ParallaxController;
+			sourceTree = "<group>";
+		};
 		BF8349C218297FD600D15963 = {
 			isa = PBXGroup;
 			children = (
@@ -390,10 +429,11 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BF3EDE3C184530E80071E047 /* ParallaxController */,
+				BF3EDE3218452F3E0071E047 /* PPImageScrollingTableViewCell */,
 				BF3EDDDA183D8F880071E047 /* REFrostedViewController */,
 			);
-			name = External;
-			path = Stringr;
+			path = External;
 			sourceTree = "<group>";
 		};
 		BF834A491829978300D15963 /* Resources */ = {
@@ -512,14 +552,19 @@
 			files = (
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrStringDiscoveryTabBarViewController.m in Sources */,
+				BF3EDE3A18452F3E0071E047 /* PPImageScrollingCellView.m in Sources */,
 				BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */,
 				BF3EDE1F183EA4F10071E047 /* StringrStringTableViewController.m in Sources */,
 				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
+				BF3EDE42184530E80071E047 /* UIViewController+M6ParallaxController.m in Sources */,
+				BF3EDE3B18452F3E0071E047 /* PPImageScrollingTableViewCell.m in Sources */,
+				BF3EDE3918452F3E0071E047 /* PPCollectionViewCell.m in Sources */,
 				BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */,
 				BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
 				BF3EDE2D184459620071E047 /* StringrFollowingFollowersTabBarViewController.m in Sources */,
 				BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */,
+				BF3EDE41184530E80071E047 /* M6ParallaxController.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				BF3EDE22183EA7D90071E047 /* StringrPhotoViewerViewController.m in Sources */,

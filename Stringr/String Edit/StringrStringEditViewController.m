@@ -18,6 +18,9 @@
 {
     self.title = @"Publish String";
     
+    // Disables the menu from being able to be pulled out via gesture
+    self.frostedViewController.panGestureEnabled = NO;
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish"
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self

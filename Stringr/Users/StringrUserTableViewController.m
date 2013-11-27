@@ -23,8 +23,6 @@
     
     profileVC.title = sender.currentTitle;
     
-    
-    
     profileVC.canGoBack = YES;
     profileVC.canEditProfile = NO;
     

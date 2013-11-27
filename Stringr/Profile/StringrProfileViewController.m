@@ -17,24 +17,12 @@
 
 @implementation StringrProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     // Could potentiall use the title to state who's profile it is.
 	//self.title = @"My Profile";
-
-    //[self.navigationController.navigationBar setTranslucent:NO];
-    // Creates the navigation item to access the menu
     
     // If the user is not supposed to be able to go back then we init with the menu item
     if (!self.canGoBack) {
@@ -64,11 +52,5 @@
     [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:editProfileVC animated:YES];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

@@ -21,16 +21,8 @@
     
     self.title = @"Following";
     
-    // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                             style:UIBarButtonItemStyleBordered target:self
-                                                                            action:@selector(showMenu)];
 }
 
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {

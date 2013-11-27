@@ -21,7 +21,9 @@
     [super viewDidLoad];
     
     self.title = @"Detail View";
-	
+    
+    // Disables the menu from being able to be pulled out via gesture
+    self.frostedViewController.panGestureEnabled = NO;
 }
 
 

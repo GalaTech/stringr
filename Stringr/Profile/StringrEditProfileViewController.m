@@ -14,6 +14,10 @@
 
 @implementation StringrEditProfileViewController
 
-
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+}
 
 @end
