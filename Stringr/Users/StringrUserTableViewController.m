@@ -17,28 +17,6 @@
 
 @implementation StringrUserTableViewController
 
-- (void)viewDidLoad
-{
-    self.title = @"University People";
-    
-}
-
-
-- (IBAction)openUserProfile:(UIButton *)sender
-{
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
-    
-    profileVC.title = sender.currentTitle;
-    
-    profileVC.canGoBack = YES;
-    profileVC.canEditProfile = NO;
-    
-    profileVC.view.backgroundColor = [UIColor blackColor];
-    
-    [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:profileVC animated:YES];
-}
-
-
 
 #pragma mark - Table View Data Source
 
@@ -62,39 +40,26 @@
     if ([cell isKindOfClass:[StringrUserTableViewCell class]]) {
         
         StringrUserTableViewCell * userProfileCell = (StringrUserTableViewCell *)cell;
-        
-        //userProfileCell.profileDisplayName = @"Alonso Holmes";
-        
-        // Sets all of the information to the user results for this cell
-        userProfileCell.profileDisplayNameLabel.text = @"Alonso Holmes";
-        userProfileCell.profileUniversityNameLabel.text = @"Boston University";
-        userProfileCell.profileNumberOfStringsLabel.text = @"13";
-        
+    
         // Creates the path and image for a profile thumbnail
         GBPathImageView *image1 = (GBPathImageView *)[self.view viewWithTag:1];
-        [image1 setPathColor:[UIColor darkGrayColor]];
+        [image1 setPathColor:[UIColor whiteColor]];
         [image1 setBorderColor:[UIColor darkGrayColor]];
-        [image1 setPathWidth:1.0];
+        [image1 setPathWidth:2.0];
         [image1 setPathType:GBPathImageViewTypeCircle];
         [image1 draw];
         
         userProfileCell.ProfileThumbnailImageView = image1;
-    }
-     
-    /*
-    
-    static NSString *cellIdentifier = @"UserProfileCell";
-    
-    StringrUserTableViewCell *cell = (StringrUserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-   
-    if (!cell) {
-        cell = [[StringrUserTableViewCell alloc] init];
         
-        cell.profileDisplayName = @"Alonso Holmes";
+        // Sets all of the information to the user results for this cell
+        userProfileCell.profileDisplayNameLabel.text = @"Alonso Holmes";
+        //userProfileCell.profileDisplayName = @"Alonso Holmes";
+        //userProfileCell.profileUniversityName = @"Boston University";
+        userProfileCell.profileUniversityNameLabel.text = @"Boston University";
+        //userProfileCell.profileNumberOfStrings = 13;
+        userProfileCell.profileNumberOfStringsLabel.text = @"13";
     }
-    */
-    
-    
+
     return cell;
 }
 

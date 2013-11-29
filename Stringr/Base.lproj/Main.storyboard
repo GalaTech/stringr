@@ -509,7 +509,7 @@
                         <viewControllerLayoutGuide type="bottom" id="QTk-Iw-LgV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6c1-OJ-Den">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" text="Awesome Strings" placeholder="Search Strings" translatesAutoresizingMaskIntoConstraints="NO" id="qa6-SE-q0Q">
@@ -556,7 +556,7 @@
                 <tabBarController storyboardIdentifier="SearchTabBar" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1xn-9U-OGj" customClass="StringrSearchViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Search" id="ejd-K4-3qy"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="T1n-yF-Vfm">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="T1n-yF-Vfm">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -569,68 +569,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sqf-kZ-hQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3157" y="-4496"/>
-        </scene>
-        <!--Stringr User Table View Controller - Find People-->
-        <scene sceneID="IeC-xv-qi5">
-            <objects>
-                <viewController id="bCM-04-Zt4" customClass="StringrUserTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EqF-VD-nm3"/>
-                        <viewControllerLayoutGuide type="bottom" id="4E9-Mn-tja"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gvC-6N-eqL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="Jed Erbar" placeholder="Find People" translatesAutoresizingMaskIntoConstraints="NO" id="otX-7r-a8Y">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qv-Fh-Ss6">
-                                <rect key="frame" x="99" y="53" width="122" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Alonso Holmes">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="openUserProfile:" destination="bCM-04-Zt4" eventType="touchUpInside" id="m0I-aV-5f8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAG-4d-kcX">
-                                <rect key="frame" x="99" y="102" width="122" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Jed Erbar">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="openUserProfile:" destination="bCM-04-Zt4" eventType="touchUpInside" id="35H-l2-TwK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXR-Cg-EfD">
-                                <rect key="frame" x="99" y="152" width="122" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Jonathan Howard">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="openUserProfile:" destination="bCM-04-Zt4" eventType="touchUpInside" id="r57-k5-9sd"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.75348404770623345" green="1" blue="0.79669586218773569" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Find People" id="b2g-Ld-Yml"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qJh-Np-S9n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2991" y="-3658"/>
         </scene>
         <!--Stringr Root View Controller-->
         <scene sceneID="VVi-cb-kts">
@@ -956,36 +894,6 @@
             </objects>
             <point key="canvasLocation" x="-2681" y="-1417"/>
         </scene>
-        <!--View Controller - Followers-->
-        <scene sceneID="uv6-Zd-8QB">
-            <objects>
-                <viewController id="O03-U4-M9F" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wKl-jz-onk"/>
-                        <viewControllerLayoutGuide type="bottom" id="1fI-uf-hXU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jm7-vU-9uA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCo-gA-MQ1">
-                                <rect key="frame" x="40" y="20" width="240" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">The list of following and followers will be a standard list of people. It will show their name, profile picture, university, and number of published strings.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.84220901569587714" green="0.84354307002713624" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Followers" id="cHy-vE-8x4"/>
-                    <navigationItem key="navigationItem" title="Followers" id="s5A-v1-ngL"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bCQ-To-Yck" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1015" y="-3812"/>
-        </scene>
         <!--Stringr Following Followers Tab Bar View Controller - Following/Followers-->
         <scene sceneID="e2o-nH-UZp">
             <objects>
@@ -998,43 +906,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="RUG-DZ-GTZ" kind="relationship" relationship="viewControllers" id="0U6-96-1xx"/>
-                        <segue destination="O03-U4-M9F" kind="relationship" relationship="viewControllers" id="gPR-s2-MCq"/>
+                        <segue destination="gg4-Bj-SCG" kind="relationship" relationship="viewControllers" id="E07-NR-3gu"/>
+                        <segue destination="npL-RY-hdL" kind="relationship" relationship="viewControllers" id="NEI-5u-8c7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="elQ-LB-rJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="820" y="-4599"/>
-        </scene>
-        <!--View Controller - Following-->
-        <scene sceneID="O0M-Xl-P8i">
-            <objects>
-                <viewController id="RUG-DZ-GTZ" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ln3-ki-7zR"/>
-                        <viewControllerLayoutGuide type="bottom" id="8xe-8t-lsZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="YYo-yR-WAQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUU-Ee-YGJ">
-                                <rect key="frame" x="40" y="20" width="240" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">The list of following and followers will be a standard list of people. It will show their name, profile picture, university, and number of published strings.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.97668012448727848" green="1" blue="0.76467207115067337" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Following" id="gxk-ju-IML"/>
-                    <navigationItem key="navigationItem" title="Following" id="n9q-BU-KCN"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8TL-om-76Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="604" y="-3812"/>
         </scene>
         <!--Stringr User Table View Controller - People-->
         <scene sceneID="xFR-ej-PgF">
@@ -1056,10 +934,10 @@
             </objects>
             <point key="canvasLocation" x="-1180" y="-2924"/>
         </scene>
-        <!--Stringr User Table View Controller - University People-->
+        <!--Stringr User University People Table View Controller - University People-->
         <scene sceneID="bfX-Ol-Orw">
             <objects>
-                <tableViewController id="0Ju-67-NHz" customClass="StringrUserTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UniversityFindPeopleVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0Ju-67-NHz" customClass="StringrUserUniversityPeopleTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bhf-0n-9SO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1165,17 +1043,25 @@
             </objects>
             <point key="canvasLocation" x="-1441" y="-3818"/>
         </scene>
-        <!--Stringr User Table View Controller - University People-->
+        <!--Stringr User Search View Controller - Find People-->
         <scene sceneID="2jQ-IL-q75">
             <objects>
-                <tableViewController id="Fxr-yd-WV2" customClass="StringrUserTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchFindPeopleVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Fxr-yd-WV2" customClass="StringrUserSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ud3-LV-inT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for Users" id="nKb-f9-qLf">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Fxr-yd-WV2" id="hnV-MF-Cwo"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="ewR-Pa-Cga" customClass="StringrUserTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ewR-Pa-Cga" id="Baw-gf-hoc">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
@@ -1221,11 +1107,176 @@
                             <outlet property="delegate" destination="Fxr-yd-WV2" id="S0t-fd-ySp"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="University People" id="S5s-Gw-nbo"/>
+                    <tabBarItem key="tabBarItem" title="Find People" id="S5s-Gw-nbo"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="Jjl-gE-5jr" id="g0Q-t8-bPs"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zO8-oY-B5t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="r8m-Ap-wI8">
+                    <connections>
+                        <outlet property="delegate" destination="Fxr-yd-WV2" id="XGa-py-w6B"/>
+                        <outlet property="searchContentsController" destination="Fxr-yd-WV2" id="Ojr-n1-li0"/>
+                        <outlet property="searchResultsDataSource" destination="Fxr-yd-WV2" id="Jff-Fy-5aN"/>
+                        <outlet property="searchResultsDelegate" destination="Fxr-yd-WV2" id="jTs-il-ENK"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="Jjl-gE-5jr">
+                    <connections>
+                        <outlet property="delegate" destination="Fxr-yd-WV2" id="09l-Ak-eju"/>
+                        <outlet property="searchContentsController" destination="Fxr-yd-WV2" id="df6-SJ-Uwk"/>
+                        <outlet property="searchResultsDataSource" destination="Fxr-yd-WV2" id="NVW-Ec-57R"/>
+                        <outlet property="searchResultsDelegate" destination="Fxr-yd-WV2" id="7Zu-z5-W6i"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-2597" y="-3658"/>
+            <point key="canvasLocation" x="-2872" y="-3698"/>
+        </scene>
+        <!--Stringr User Connections Table View Controller - Following-->
+        <scene sceneID="eAI-vz-yqI">
+            <objects>
+                <tableViewController storyboardIdentifier="FollowingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gg4-Bj-SCG" customClass="StringrUserConnectionsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="8gJ-dQ-api">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="pXy-39-5SJ" customClass="StringrUserTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pXy-39-5SJ" id="EWA-pc-D6l">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="l7y-9n-Vwz" customClass="GBPathImageView">
+                                            <rect key="frame" x="20" y="10" width="60" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkv-6x-IGy">
+                                            <rect key="frame" x="88" y="20" width="171" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="University Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ku-aU-kfd">
+                                            <rect key="frame" x="88" y="42" width="171" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="13" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0P-8B-dlQ">
+                                            <rect key="frame" x="267" y="29" width="20" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" red="0.1827110062" green="0.43744292880000002" blue="0.61302649460000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ProfileThumbnailImageView" destination="l7y-9n-Vwz" id="O1A-QP-V2r"/>
+                                    <outlet property="profileDisplayNameLabel" destination="Zkv-6x-IGy" id="9r9-pA-4Aw"/>
+                                    <outlet property="profileNumberOfStringsLabel" destination="j0P-8B-dlQ" id="5f7-EX-dfc"/>
+                                    <outlet property="profileUniversityNameLabel" destination="4Ku-aU-kfd" id="GYV-bm-6Js"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="gg4-Bj-SCG" id="IDG-i2-96T"/>
+                            <outlet property="delegate" destination="gg4-Bj-SCG" id="2Ad-Qv-O7o"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Following" id="v8J-b2-url"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="r8m-Ap-wI8" id="16t-wf-c2R"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nj5-4f-pSu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="g9C-PD-paH">
+                    <connections>
+                        <outlet property="delegate" destination="gg4-Bj-SCG" id="KNe-jX-oA3"/>
+                        <outlet property="searchContentsController" destination="gg4-Bj-SCG" id="EdK-lV-4gi"/>
+                        <outlet property="searchResultsDataSource" destination="gg4-Bj-SCG" id="qhc-Ew-mEN"/>
+                        <outlet property="searchResultsDelegate" destination="gg4-Bj-SCG" id="9ff-w8-rhV"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="540" y="-3803"/>
+        </scene>
+        <!--Stringr User Connections Table View Controller - Followers-->
+        <scene sceneID="kBm-sR-LbV">
+            <objects>
+                <tableViewController storyboardIdentifier="FollowersVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="npL-RY-hdL" customClass="StringrUserConnectionsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="zRx-Ob-zJR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="N2D-cJ-CCB" customClass="StringrUserTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N2D-cJ-CCB" id="bnA-B2-i6x">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Pes-m8-9mV" customClass="GBPathImageView">
+                                            <rect key="frame" x="20" y="10" width="60" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yed-pV-dAu">
+                                            <rect key="frame" x="88" y="20" width="171" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="University Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFs-WZ-eMD">
+                                            <rect key="frame" x="88" y="42" width="171" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="13" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5un-f4-qKX">
+                                            <rect key="frame" x="267" y="29" width="20" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" red="0.1827110062" green="0.43744292880000002" blue="0.61302649460000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ProfileThumbnailImageView" destination="Pes-m8-9mV" id="Xjp-AQ-1hd"/>
+                                    <outlet property="profileDisplayNameLabel" destination="Yed-pV-dAu" id="kp0-hd-yI6"/>
+                                    <outlet property="profileNumberOfStringsLabel" destination="5un-f4-qKX" id="MVS-DV-ztJ"/>
+                                    <outlet property="profileUniversityNameLabel" destination="GFs-WZ-eMD" id="hcH-C1-xgq"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="npL-RY-hdL" id="vFC-Vj-Rk8"/>
+                            <outlet property="delegate" destination="npL-RY-hdL" id="xeO-Mg-vgD"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Followers" id="SSy-5p-Yr0"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="r8m-Ap-wI8" id="0uP-HC-dTp"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hdz-1j-ohn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="REb-M5-hFc">
+                    <connections>
+                        <outlet property="delegate" destination="npL-RY-hdL" id="hiM-ai-Sk9"/>
+                        <outlet property="searchContentsController" destination="npL-RY-hdL" id="WoK-vu-2Mw"/>
+                        <outlet property="searchResultsDataSource" destination="npL-RY-hdL" id="chf-5X-NPb"/>
+                        <outlet property="searchResultsDelegate" destination="npL-RY-hdL" id="pJO-f6-jOv"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="994" y="-3803"/>
         </scene>
     </scenes>
     <resources>

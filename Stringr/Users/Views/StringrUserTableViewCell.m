@@ -35,7 +35,29 @@
     return self;
 }
 
+/*
+- (NSString *)profileDisplayName
+{
+    self.profileDisplayNameLabel.text = _profileDisplayName;
+    
+    return _profileDisplayName;
+}
 
+- (NSString *)profileUniversityName
+{
+    self.profileUniversityNameLabel.text = _profileUniversityName;
+    
+    return _profileUniversityName;
+}
+
+- (NSUInteger)profileNumberOfStrings
+{
+    NSString *numberOfStrings = [NSString stringWithFormat:@"%d", _profileNumberOfStrings];
+    self.profileNumberOfStringsLabel.text = numberOfStrings;
+    
+    return _profileNumberOfStrings;
+}
+*/
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -43,6 +65,8 @@
 
     // Configure the view for the selected state
 }
+ 
+
 
 
 
