@@ -27,6 +27,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.frostedViewController.panGestureEnabled = YES;
 }
 
 
@@ -37,6 +38,7 @@
     // Disables the menu from being able to be pulled out via gesture
     self.frostedViewController.panGestureEnabled = NO;
 }
+
 
 
 

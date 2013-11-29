@@ -38,6 +38,9 @@
 		BF3EDE3B18452F3E0071E047 /* PPImageScrollingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE3818452F3E0071E047 /* PPImageScrollingTableViewCell.m */; };
 		BF3EDE41184530E80071E047 /* M6ParallaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE3E184530E80071E047 /* M6ParallaxController.m */; };
 		BF3EDE42184530E80071E047 /* UIViewController+M6ParallaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE40184530E80071E047 /* UIViewController+M6ParallaxController.m */; };
+		BF3EDE471847BBAF0071E047 /* GBPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE461847BBAF0071E047 /* GBPathImageView.m */; };
+		BF3EDE491847BD9F0071E047 /* alonsoAvatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF3EDE481847BD9F0071E047 /* alonsoAvatar.jpg */; };
+		BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */; };
 		BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349CE18297FD600D15963 /* Foundation.framework */; };
 		BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D018297FD600D15963 /* CoreGraphics.framework */; };
 		BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
@@ -129,6 +132,11 @@
 		BF3EDE3E184530E80071E047 /* M6ParallaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M6ParallaxController.m; sourceTree = "<group>"; };
 		BF3EDE3F184530E80071E047 /* UIViewController+M6ParallaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+M6ParallaxController.h"; sourceTree = "<group>"; };
 		BF3EDE40184530E80071E047 /* UIViewController+M6ParallaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+M6ParallaxController.m"; sourceTree = "<group>"; };
+		BF3EDE451847BBAF0071E047 /* GBPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPathImageView.h; sourceTree = "<group>"; };
+		BF3EDE461847BBAF0071E047 /* GBPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPathImageView.m; sourceTree = "<group>"; };
+		BF3EDE481847BD9F0071E047 /* alonsoAvatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = alonsoAvatar.jpg; path = Resources/alonsoAvatar.jpg; sourceTree = "<group>"; };
+		BF3EDE4A1847C05D0071E047 /* StringrUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserTableViewCell.h; path = Users/Views/StringrUserTableViewCell.h; sourceTree = "<group>"; };
+		BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserTableViewCell.m; path = Users/Views/StringrUserTableViewCell.m; sourceTree = "<group>"; };
 		BF8349CB18297FD600D15963 /* Stringr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stringr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8349CE18297FD600D15963 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF8349D018297FD600D15963 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -146,9 +154,9 @@
 		BF8349F518297FD600D15963 /* StringrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StringrTests-Info.plist"; sourceTree = "<group>"; };
 		BF8349F718297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF8349F918297FD600D15963 /* StringrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringrTests.m; sourceTree = "<group>"; };
-		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StringrLogo.jpg; sourceTree = "<group>"; };
-		BF834A551829CBA500D15963 /* orca-stock-photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "orca-stock-photo.jpg"; sourceTree = "<group>"; };
-		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = following.png; sourceTree = "<group>"; };
+		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = StringrLogo.jpg; path = Resources/StringrLogo.jpg; sourceTree = "<group>"; };
+		BF834A551829CBA500D15963 /* orca-stock-photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "orca-stock-photo.jpg"; path = "Resources/orca-stock-photo.jpg"; sourceTree = "<group>"; };
+		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +186,7 @@
 		BF3EDDC9183AAC630071E047 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BF3EDE4D1847C0670071E047 /* User Table View Cell */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -348,6 +357,24 @@
 			path = ParallaxController;
 			sourceTree = "<group>";
 		};
+		BF3EDE441847BBAF0071E047 /* Image Path */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDE451847BBAF0071E047 /* GBPathImageView.h */,
+				BF3EDE461847BBAF0071E047 /* GBPathImageView.m */,
+			);
+			path = "Image Path";
+			sourceTree = "<group>";
+		};
+		BF3EDE4D1847C0670071E047 /* User Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDE4A1847C05D0071E047 /* StringrUserTableViewCell.h */,
+				BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */,
+			);
+			name = "User Table View Cell";
+			sourceTree = "<group>";
+		};
 		BF8349C218297FD600D15963 = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +456,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BF3EDE441847BBAF0071E047 /* Image Path */,
 				BF3EDE3C184530E80071E047 /* ParallaxController */,
 				BF3EDE3218452F3E0071E047 /* PPImageScrollingTableViewCell */,
 				BF3EDDDA183D8F880071E047 /* REFrostedViewController */,
@@ -439,6 +467,7 @@
 		BF834A491829978300D15963 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF3EDE481847BD9F0071E047 /* alonsoAvatar.jpg */,
 				BF834A571829D39E00D15963 /* following.png */,
 				BF834A551829CBA500D15963 /* orca-stock-photo.jpg */,
 				BF834A531829CAD900D15963 /* StringrLogo.jpg */,
@@ -526,6 +555,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF3EDE491847BD9F0071E047 /* alonsoAvatar.jpg in Resources */,
 				BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */,
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
@@ -561,6 +591,7 @@
 				BF3EDE3918452F3E0071E047 /* PPCollectionViewCell.m in Sources */,
 				BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */,
 				BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */,
+				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
 				BF3EDE2D184459620071E047 /* StringrFollowingFollowersTabBarViewController.m in Sources */,
 				BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */,
@@ -582,6 +613,7 @@
 				BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */,
 				BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
+				BF3EDE471847BBAF0071E047 /* GBPathImageView.m in Sources */,
 				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

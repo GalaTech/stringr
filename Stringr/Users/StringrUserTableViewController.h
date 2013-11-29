@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StringrUserTableViewController : UIViewController
+@interface StringrUserTableViewController : UITableViewController
 
 
 - (IBAction)openUserProfile:(UIButton *)sender;
