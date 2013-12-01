@@ -25,6 +25,15 @@
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(saveAndPublishString)];
+    
+
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                                 style:UIBarButtonItemStyleBordered
+                                                                                target:self
+                                                                                action:@selector(returnToPreviousScreen)];
 }
 
 
@@ -33,6 +42,11 @@
     UINavigationController *navController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     [navController popToRootViewControllerAnimated:YES];
+}
+
+- (void)returnToPreviousScreen
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

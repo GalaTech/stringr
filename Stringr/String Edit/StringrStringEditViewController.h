@@ -11,4 +11,6 @@
 
 @interface StringrStringEditViewController : UIViewController
 
+@property (nonatomic) BOOL isNewString;
+
 @end

@@ -5,50 +5,33 @@
     </dependencies>
     <scenes>
         <!--Stringr String Table View Controller - Following-->
-        <scene sceneID="59D-Tw-SyW">
+        <scene sceneID="S8w-cJ-uAO">
             <objects>
-                <viewController title="Following" id="h1h-El-xJQ" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="XCI-Ed-ydM"/>
-                        <viewControllerLayoutGuide type="bottom" id="V35-7E-m6d"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9XA-0y-Oer">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oj-fe-DPS">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="h1h-El-xJQ" eventType="touchUpInside" id="Rzs-GG-Sk4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMv-qj-8tm">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.6824618942263474" green="1" blue="0.57736399331697807" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="h1h-El-xJQ" eventType="touchUpInside" id="Kaw-Sx-8v3"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.02122632042" green="0.2937418222" blue="0.98048371079999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Following" id="EFy-p2-azt"/>
-                    <navigationItem key="navigationItem" title="Following" id="4d0-3r-4c5"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mjY-Eb-Mcv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="Ad9-Kw-uiV" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gh9-25-Iet">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="7t5-2d-6Gg" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7t5-2d-6Gg" id="bqP-44-iLd">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ad9-Kw-uiV" id="Sa8-O9-UU2"/>
+                            <outlet property="delegate" destination="Ad9-Kw-uiV" id="T1a-kI-g56"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Following" id="QMh-sF-MF6"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LWQ-xo-UE1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="-1448"/>
+            <point key="canvasLocation" x="-44" y="-1548"/>
         </scene>
         <!--Stringr Photo Viewer View Controller - Full Screen Photo-->
         <scene sceneID="6v8-B8-vLq">
@@ -73,11 +56,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="orca-stock-photo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3hs-Wa-FJF">
-                                <rect key="frame" x="0.0" y="134" width="320" height="236"/>
+                                <rect key="frame" x="0.0" y="166" width="320" height="236"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Orca Whale Breaking the ocean!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dV-yV-jUB">
-                                <rect key="frame" x="37" y="378" width="247" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orca Whale Breaking the ocean!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dV-yV-jUB">
+                                <rect key="frame" x="37" y="410" width="247" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -86,14 +69,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2dV-yV-jUB" firstAttribute="centerX" secondItem="jO0-Dg-5R6" secondAttribute="centerX" id="1BP-Pn-nMg"/>
-                            <constraint firstItem="2dV-yV-jUB" firstAttribute="top" secondItem="3hs-Wa-FJF" secondAttribute="bottom" constant="8" symbolic="YES" id="HVZ-dE-YbE"/>
+                            <constraint firstItem="2dV-yV-jUB" firstAttribute="centerX" secondItem="3hs-Wa-FJF" secondAttribute="centerX" id="DfD-gD-DIk"/>
+                            <constraint firstItem="jO0-Dg-5R6" firstAttribute="top" secondItem="2dV-yV-jUB" secondAttribute="bottom" constant="87" id="ILG-qo-r92"/>
                             <constraint firstAttribute="bottom" secondItem="jO0-Dg-5R6" secondAttribute="bottom" constant="20" symbolic="YES" id="KfY-vH-q7N"/>
-                            <constraint firstItem="3hs-Wa-FJF" firstAttribute="centerY" secondItem="IcP-hP-YmP" secondAttribute="centerY" id="Ly6-lk-kWD"/>
-                            <constraint firstItem="3hs-Wa-FJF" firstAttribute="centerX" secondItem="2dV-yV-jUB" secondAttribute="centerX" id="TCa-rB-jjQ"/>
+                            <constraint firstItem="2dV-yV-jUB" firstAttribute="top" secondItem="3hs-Wa-FJF" secondAttribute="bottom" constant="8" symbolic="YES" id="MXy-oZ-zmu"/>
                             <constraint firstItem="jO0-Dg-5R6" firstAttribute="centerX" secondItem="IcP-hP-YmP" secondAttribute="centerX" id="Vvy-qU-BhC"/>
-                            <constraint firstItem="3hs-Wa-FJF" firstAttribute="leading" secondItem="IcP-hP-YmP" secondAttribute="leading" id="gPp-aM-kfo"/>
-                            <constraint firstItem="3hs-Wa-FJF" firstAttribute="top" secondItem="ZrA-DU-MWA" secondAttribute="bottom" constant="134" id="zRk-fY-fc0"/>
+                            <constraint firstItem="2dV-yV-jUB" firstAttribute="centerX" secondItem="jO0-Dg-5R6" secondAttribute="centerX" id="Y6y-Ek-B0y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Full Screen Photo" id="VRB-vp-kNk">
@@ -214,16 +195,16 @@
                 <tabBarController storyboardIdentifier="StringDiscoveryTabBar" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KCK-X7-T46" customClass="StringrStringDiscoveryTabBarViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Stringr Discovery" id="MqY-UB-YoZ"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="I0R-t3-eLv">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="I0R-t3-eLv">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="h1h-El-xJQ" kind="relationship" relationship="viewControllers" id="d5X-lz-wpH"/>
-                        <segue destination="1na-MW-9bY" kind="relationship" relationship="viewControllers" id="7Ce-RQ-RwG"/>
-                        <segue destination="vvC-Z6-8Ob" kind="relationship" relationship="viewControllers" id="GcT-jA-96P"/>
-                        <segue destination="Iz1-W5-G89" kind="relationship" relationship="viewControllers" id="I3d-uQ-fEM"/>
+                        <segue destination="Ad9-Kw-uiV" kind="relationship" relationship="viewControllers" id="ujP-fb-QQw"/>
+                        <segue destination="XU8-AD-fVL" kind="relationship" relationship="viewControllers" id="2bW-Tn-Etg"/>
+                        <segue destination="Acq-Dv-Oc1" kind="relationship" relationship="viewControllers" id="JL4-Zn-Awq"/>
+                        <segue destination="Myt-vJ-oPv" kind="relationship" relationship="viewControllers" id="boZ-wS-N82"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im3-yc-3pC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -317,239 +298,6 @@
             </objects>
             <point key="canvasLocation" x="-2435" y="-5431"/>
         </scene>
-        <!--Stringr Liked Strings View Controller - Liked Strings-->
-        <scene sceneID="rzG-ev-0nP">
-            <objects>
-                <viewController storyboardIdentifier="LikedStringsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HOc-6u-BYg" customClass="StringrLikedStringsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="o18-wg-wZb"/>
-                        <viewControllerLayoutGuide type="bottom" id="QfW-wU-9me"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cnO-JQ-6aM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBT-2o-oH2">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="HOc-6u-BYg" eventType="touchUpInside" id="RXk-sP-SXW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rh4-He-vxM">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="HOc-6u-BYg" eventType="touchUpInside" id="ZwH-SI-F3h"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.39544412364130432" green="0.23839947154279256" blue="0.18426625170672969" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Liked Strings" id="NiR-Q3-29J"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u2d-LZ-R8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-695" y="-2752"/>
-        </scene>
-        <!--Stringr String Table View Controller - Popular-->
-        <scene sceneID="EHO-Wt-dbq">
-            <objects>
-                <viewController title="Popular" id="1na-MW-9bY" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RgG-3q-0TG"/>
-                        <viewControllerLayoutGuide type="bottom" id="c5V-Im-Yft"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iY0-Vg-m1T">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9R-GB-fHS">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="1na-MW-9bY" eventType="touchUpInside" id="YRv-wK-BaJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2X-yu-dBr">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="1na-MW-9bY" eventType="touchUpInside" id="hUi-Io-jZj"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.92939342000000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Popular" id="DRP-xm-naq"/>
-                    <navigationItem key="navigationItem" title="Popular" id="OM6-8R-Bdc"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1zW-7k-z27" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="846" y="-1448"/>
-        </scene>
-        <!--Stringr String Table View Controller - Discover-->
-        <scene sceneID="uIT-JW-h5A">
-            <objects>
-                <viewController title="Discover" id="vvC-Z6-8Ob" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="C6Y-ng-2mH"/>
-                        <viewControllerLayoutGuide type="bottom" id="caR-qn-nVN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iwX-gK-Ziu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWz-ct-ibe">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="vvC-Z6-8Ob" eventType="touchUpInside" id="m9l-zK-PyE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Glb-WA-UyC">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="vvC-Z6-8Ob" eventType="touchUpInside" id="xpt-J4-NpC"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.98048371079999996" green="0.77604555121991192" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Discover" id="MjC-lD-vT4"/>
-                    <navigationItem key="navigationItem" title="Discover" id="cfG-V7-lCp"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xVi-n1-g7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1207" y="-1448"/>
-        </scene>
-        <!--Stringr String Table View Controller - Near You-->
-        <scene sceneID="61U-K6-hy4">
-            <objects>
-                <viewController title="Near You" id="Iz1-W5-G89" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Lc4-Ma-Yi8"/>
-                        <viewControllerLayoutGuide type="bottom" id="si2-Gd-74i"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="BnS-kg-Qwa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8H-KD-Mip">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="Iz1-W5-G89" eventType="touchUpInside" id="dKY-Yn-MQ4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMB-oG-CYa">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="Iz1-W5-G89" eventType="touchUpInside" id="WF0-5M-gMz"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.6410710739752008" green="0.0" blue="0.98048371079999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Near You" id="dI6-V5-qwA"/>
-                    <navigationItem key="navigationItem" title="Near You" id="tAz-o8-gA9"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C2m-po-BrC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="480" y="-1448"/>
-        </scene>
-        <!--Stringr String Table View Controller - Search Strings-->
-        <scene sceneID="x3e-He-bCB">
-            <objects>
-                <viewController id="2cr-Hs-3Ph" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AbF-NY-Mss"/>
-                        <viewControllerLayoutGuide type="bottom" id="QTk-Iw-LgV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6c1-OJ-Den">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="Awesome Strings" placeholder="Search Strings" translatesAutoresizingMaskIntoConstraints="NO" id="qa6-SE-q0Q">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBE-0f-1Vl">
-                                <rect key="frame" x="20" y="62" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="2cr-Hs-3Ph" eventType="touchUpInside" id="8Ps-OM-WSn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FN-2L-c35">
-                                <rect key="frame" x="112" y="53" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="2cr-Hs-3Ph" eventType="touchUpInside" id="fWK-Eh-cog"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.79168576789025957" green="0.96776096800487521" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Search Strings" id="PWS-Qu-tm4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A48-RN-n2M" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3360" y="-3698"/>
-        </scene>
         <!--Stringr Search View Controller - Search-->
         <scene sceneID="AAh-7c-c7o">
             <objects>
@@ -562,7 +310,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="2cr-Hs-3Ph" kind="relationship" relationship="viewControllers" id="yWB-QO-bK7"/>
+                        <segue destination="75q-Er-pmp" kind="relationship" relationship="viewControllers" id="hAa-oN-H3w"/>
                         <segue destination="Fxr-yd-WV2" kind="relationship" relationship="viewControllers" id="ExM-In-M68"/>
                     </connections>
                 </tabBarController>
@@ -637,52 +385,6 @@
             </objects>
             <point key="canvasLocation" x="-975" y="-4523"/>
         </scene>
-        <!--Stringr String Table View Controller - Discovery-->
-        <scene sceneID="GB9-aS-7Lx">
-            <objects>
-                <viewController id="z2d-Ot-XPm" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="avu-6y-1VY"/>
-                        <viewControllerLayoutGuide type="bottom" id="BKv-LF-ePs"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MdV-dQ-liD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-5i-TET">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="z2d-Ot-XPm" eventType="touchUpInside" id="7Fc-M5-i4E"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rth-Ru-4WF">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="z2d-Ot-XPm" eventType="touchUpInside" id="VXQ-1Q-6Sh"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.90019955842391308" green="0.66767483758999369" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="University Discovery" id="aj6-Yv-C0W"/>
-                    <navigationItem key="navigationItem" title="Discovery" id="Khd-iK-IbQ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h4F-Gr-iql" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2057" y="-2417"/>
-        </scene>
         <!--Stringr My School View Controller - My School-->
         <scene sceneID="QRR-Iq-sgM">
             <objects>
@@ -695,60 +397,14 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="6SG-Fi-FNj" kind="relationship" relationship="viewControllers" id="GHx-xe-54Y"/>
-                        <segue destination="z2d-Ot-XPm" kind="relationship" relationship="viewControllers" id="inB-WY-oVS"/>
+                        <segue destination="nNg-dB-4nC" kind="relationship" relationship="viewControllers" id="d8B-wQ-fgh"/>
+                        <segue destination="LYZ-T6-FUG" kind="relationship" relationship="viewControllers" id="u17-tE-xRI"/>
                         <segue destination="0Ju-67-NHz" kind="relationship" relationship="viewControllers" id="KJk-oH-bsj"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8o0-4K-cdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2050" y="-3156"/>
-        </scene>
-        <!--Stringr String Table View Controller - Popular-->
-        <scene sceneID="pvz-lf-gdD">
-            <objects>
-                <viewController id="6SG-Fi-FNj" customClass="StringrStringTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9XY-jy-xiG"/>
-                        <viewControllerLayoutGuide type="bottom" id="O8U-at-y7Q"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZZm-0Q-ceM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtS-nw-bFg">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="6SG-Fi-FNj" eventType="touchUpInside" id="PId-A8-s8S"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhH-Vv-i5j">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="6SG-Fi-FNj" eventType="touchUpInside" id="aVv-VO-Pp9"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.029372868982582217" green="0.00037887705122054827" blue="0.62126358695652173" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="University Popular" id="pFP-TW-Dlj"/>
-                    <navigationItem key="navigationItem" title="Popular" id="K9h-Wi-9iK"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="trF-Im-aIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2525" y="-2417"/>
         </scene>
         <!--Stringr Profile View Controller - My Profile-->
         <scene sceneID="QA3-wO-aZ3">
@@ -829,51 +485,6 @@
             </objects>
             <point key="canvasLocation" x="540" y="-5271"/>
         </scene>
-        <!--Stringr My Strings View Controller - My Strings-->
-        <scene sceneID="FRv-UD-g1d">
-            <objects>
-                <viewController storyboardIdentifier="MyStringsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FJm-PQ-K86" customClass="StringrMyStringsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uP1-dd-hOT"/>
-                        <viewControllerLayoutGuide type="bottom" id="e8v-WG-RD6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="eb1-zu-j25">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5L-5z-T2J">
-                                <rect key="frame" x="20" y="29" width="84" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Detail Tab">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToStringDetailView:" destination="FJm-PQ-K86" eventType="touchUpInside" id="dgM-al-TVH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gJ-ry-ZNW">
-                                <rect key="frame" x="112" y="20" width="104" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.68246189420000003" green="1" blue="0.57736399329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Single Photo">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushToPhotoViewer:" destination="FJm-PQ-K86" eventType="touchUpInside" id="ywg-rN-iON"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="My Strings" id="vkW-A2-Qt0"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="54t-Yp-RJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-321" y="-3766"/>
-        </scene>
         <!--View Controller - String Comments-->
         <scene sceneID="yvq-QI-32Z">
             <objects>
@@ -913,26 +524,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="elQ-LB-rJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="820" y="-4599"/>
-        </scene>
-        <!--Stringr User Table View Controller - People-->
-        <scene sceneID="xFR-ej-PgF">
-            <objects>
-                <viewController id="gWy-rz-H5c" customClass="StringrUserTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zZw-ZK-c21"/>
-                        <viewControllerLayoutGuide type="bottom" id="l6E-Mp-Pto"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Kbr-CV-k8c">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.20785920516304346" green="0.20785920516304346" blue="0.20785920516304346" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="University People" id="Sca-wD-fej"/>
-                    <navigationItem key="navigationItem" title="People" id="D6f-SG-juz"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ps6-Ps-yP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1180" y="-2924"/>
         </scene>
         <!--Stringr User University People Table View Controller - University People-->
         <scene sceneID="bfX-Ol-Orw">
@@ -994,7 +585,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YY-Ns-naw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1564" y="-2410"/>
+            <point key="canvasLocation" x="-1630" y="-2417"/>
         </scene>
         <!--Stringr Navigation Controller-->
         <scene sceneID="3ht-SX-3Be">
@@ -1051,10 +642,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for Users" id="nKb-f9-qLf">
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search Users" id="nKb-f9-qLf">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Users</string>
+                                <string>Universites</string>
+                                <string>Both</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="Fxr-yd-WV2" id="hnV-MF-Cwo"/>
                             </connections>
@@ -1277,6 +873,250 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="994" y="-3803"/>
+        </scene>
+        <!--Stringr String Table View Controller - Popular-->
+        <scene sceneID="zev-TN-k8p">
+            <objects>
+                <tableViewController id="XU8-AD-fVL" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="AKe-1b-oef">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="GbJ-T4-Xu0" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GbJ-T4-Xu0" id="VZo-qd-WHi">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="XU8-AD-fVL" id="FnL-yf-hnq"/>
+                            <outlet property="delegate" destination="XU8-AD-fVL" id="kmG-Cy-UjC"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Popular" id="Tco-e8-vd4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DdF-sC-sdz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="392" y="-1548"/>
+        </scene>
+        <!--Stringr String Table View Controller - Discover-->
+        <scene sceneID="8VS-fz-CGW">
+            <objects>
+                <tableViewController id="Acq-Dv-Oc1" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="c7E-ny-MUU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="UOz-Pa-kOu" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UOz-Pa-kOu" id="K9s-e9-dn6">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Acq-Dv-Oc1" id="8VS-qd-tzg"/>
+                            <outlet property="delegate" destination="Acq-Dv-Oc1" id="VHj-jV-oHD"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Discover" id="JRq-Z1-vA2"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e5h-BF-J7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="784" y="-1548"/>
+        </scene>
+        <!--Stringr String Table View Controller - Near You-->
+        <scene sceneID="pvW-mO-lKc">
+            <objects>
+                <tableViewController id="Myt-vJ-oPv" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="XYC-GU-M0u">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="6Ae-Uf-M54" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Ae-Uf-M54" id="T9Q-5D-fkK">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Myt-vJ-oPv" id="DPg-Yc-Nhw"/>
+                            <outlet property="delegate" destination="Myt-vJ-oPv" id="kG8-7Y-fQ6"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Near You" id="8ZN-P5-7gl"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zFp-ia-1eO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1175" y="-1548"/>
+        </scene>
+        <!--Stringr String Table View Controller - University Popular-->
+        <scene sceneID="py2-Yj-AOM">
+            <objects>
+                <tableViewController id="nNg-dB-4nC" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ozx-7X-kAU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="rfy-v1-KcE" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rfy-v1-KcE" id="cT9-Nh-67F">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="nNg-dB-4nC" id="Lg0-ny-Rqc"/>
+                            <outlet property="delegate" destination="nNg-dB-4nC" id="0X6-Jp-JzW"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="University Popular" id="QFh-b4-d4F"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="teU-L7-bLM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2472" y="-2417"/>
+        </scene>
+        <!--Stringr String Table View Controller - University Discover-->
+        <scene sceneID="AIc-6K-0qL">
+            <objects>
+                <tableViewController id="LYZ-T6-FUG" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="aFk-Ru-BRT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="2ab-Tz-UEn" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2ab-Tz-UEn" id="Vne-4C-epH">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="LYZ-T6-FUG" id="FWB-nL-sPa"/>
+                            <outlet property="delegate" destination="LYZ-T6-FUG" id="UxY-PK-EB8"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="University Discover" id="1cW-Qw-57T"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wU7-HN-JoI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2050" y="-2417"/>
+        </scene>
+        <!--Stringr Liked Strings Table View Controller - University Discover-->
+        <scene sceneID="6Vh-YO-Smu">
+            <objects>
+                <tableViewController storyboardIdentifier="LikedStringsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tk4-M2-qci" customClass="StringrLikedStringsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="SHd-9h-yqN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="bLq-hD-2nW" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bLq-hD-2nW" id="4Ot-HM-9v6">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Tk4-M2-qci" id="wyK-HA-I2k"/>
+                            <outlet property="delegate" destination="Tk4-M2-qci" id="htY-tJ-NaP"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="University Discover" id="Efn-gb-lR5"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oIg-fK-4DE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-728" y="-2754"/>
+        </scene>
+        <!--Stringr My Strings Table View Controller - University Discover-->
+        <scene sceneID="QjL-Yr-oDl">
+            <objects>
+                <tableViewController storyboardIdentifier="MyStringsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uaT-nT-cQ4" customClass="StringrMyStringsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="ae6-bb-kUX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="BEQ-CD-EhJ" customClass="PPImageScrollingTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BEQ-CD-EhJ" id="vcM-HW-kSP">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uaT-nT-cQ4" id="7mP-jP-g08"/>
+                            <outlet property="delegate" destination="uaT-nT-cQ4" id="h1k-J4-dKv"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="University Discover" id="fcY-ZM-xIJ"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gMk-TY-M3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-728" y="-3766"/>
+        </scene>
+        <!--Stringr String Search Table View Controller - Search Strings-->
+        <scene sceneID="wLE-gj-SHl">
+            <objects>
+                <tableViewController id="75q-Er-pmp" customClass="StringrStringSearchTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="165" sectionHeaderHeight="22" sectionFooterHeight="22" id="bJc-VR-ref">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Strings" id="ub8-bH-WUq">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                                <string>Title</string>
+                            </scopeButtonTitles>
+                            <connections>
+                                <outlet property="delegate" destination="75q-Er-pmp" id="thr-jQ-Fev"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="fuO-DD-A9R" customClass="StringTableCellViewCell">
+                                <rect key="frame" x="0.0" y="66" width="320" height="165"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fuO-DD-A9R" id="2vV-0E-9PY">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="75q-Er-pmp" id="eDc-sE-Oyj"/>
+                            <outlet property="delegate" destination="75q-Er-pmp" id="t0b-ie-bgy"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Search Strings" id="6eg-92-6VH"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iza-zn-vpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3324" y="-3698"/>
         </scene>
     </scenes>
     <resources>

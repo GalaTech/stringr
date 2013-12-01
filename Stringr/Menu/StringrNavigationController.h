@@ -11,6 +11,6 @@
 
 @interface StringrNavigationController : UINavigationController
 
-- (void)panGestureRecognized:(UIPanGestureRecognizer *)sender;
+//- (void)panGestureRecognized:(UIPanGestureRecognizer *)sender;
 
 @end

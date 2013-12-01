@@ -1,21 +1,19 @@
 //
-//  StringrMyStringsViewController.m
+//  StringrMyStringsTableViewController.m
 //  Stringr
 //
-//  Created by Jonathan Howard on 11/21/13.
+//  Created by Jonathan Howard on 11/29/13.
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrMyStringsViewController.h"
+#import "StringrMyStringsTableViewController.h"
 #import "StringrStringEditViewController.h"
 
-
-@interface StringrMyStringsViewController ()
+@interface StringrMyStringsTableViewController ()
 
 @end
 
-@implementation StringrMyStringsViewController
-
+@implementation StringrMyStringsTableViewController
 
 - (void)viewDidLoad
 {
@@ -38,6 +36,5 @@
     
     [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:stringEditVC animated:YES];
 }
-
 
 @end

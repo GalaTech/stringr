@@ -9,19 +9,24 @@
 #import "StringrMenuViewController.h"
 
 #import "StringrProfileViewController.h"
-#import "StringrMyStringsViewController.h"
-#import "StringrLikedStringsViewController.h"
+#import "StringrMyStringsTableViewController.h"
+#import "StringrLikedStringsTableViewController.h"
 
 #import "StringrStringDiscoveryTabBarViewController.h"
 #import "StringrMySchoolViewController.h"
 #import "StringrSearchViewController.h"
 
+#import "StringrStringEditViewController.h"
+
 #import "StringrSettingsViewController.h"
 #import "StringrLoginViewController.h"
 
 #import "UIViewController+REFrostedViewController.h"
+#import "GBPathImageView.h"
 
 @interface StringrMenuViewController ()
+
+@property (strong,nonatomic) UIButton *cameraButton;
 
 @end
 
@@ -43,6 +48,31 @@
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
         
+        
+        self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 20, 25, 25)];
+        [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
+        
+        [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImageView *cameraImage = [[UIImageView alloc] initWithFrame:CGRectMake(120, 15, 30, 30)];
+        [cameraImage setImage:[UIImage imageNamed:@"following.png"]];
+        
+        //cameraImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        // Creates the circular profile image in the slide out menu
+        GBPathImageView *imageView = [[GBPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
+                                                                      image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+                                                                   pathType:GBPathImageViewTypeCircle
+                                                                  pathColor:[UIColor whiteColor]
+                                                                borderColor:[UIColor whiteColor]
+                                                                  pathWidth:3.0];
+        
+        // Sets the auto resizing for both the left and right margins.
+        // This will automatically add the center to the center of the view.
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        
+        /* Original version of adding the profile image to the view
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         imageView.image = [UIImage imageNamed:@"orca-stock-photo.jpg"];
@@ -53,7 +83,8 @@
         imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         imageView.layer.shouldRasterize = YES;
         imageView.clipsToBounds = YES;
-        
+        */
+         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
         label.text = @"Jed Erbar";
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
@@ -63,6 +94,7 @@
         label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         [view addSubview:imageView];
+        [view addSubview:self.cameraButton];
         [view addSubview:label];
         view;
     });
@@ -97,6 +129,23 @@
      */
     
 }
+
+- (IBAction)cameraButtonPushed:(UIButton *)sender
+{
+    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    
+    StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+    
+    
+    
+    [navigationController pushViewController:stringEditVC animated:NO];
+    
+    
+    
+    // Closes the menu after we move to a new VC
+    [self.frostedViewController hideMenuViewController];
+}
+
 
 #pragma mark -
 #pragma mark UITableView Delegate
@@ -162,10 +211,10 @@
         profileVC.canEditProfile = YES;
         navigationController.viewControllers = @[profileVC];
     } else if (indexPath.section == 0 && indexPath.row == 1) {
-        StringrMyStringsViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyStringsVC"];
+        StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyStringsVC"];
         navigationController.viewControllers = @[myStringsVC];
     } else if (indexPath.section == 0 && indexPath.row == 2) {
-        StringrLikedStringsViewController *likedStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LikedStringsVC"];
+        StringrLikedStringsTableViewController *likedStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LikedStringsVC"];
         navigationController.viewControllers = @[likedStringsVC];
     }
     

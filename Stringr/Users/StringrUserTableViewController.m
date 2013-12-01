@@ -35,7 +35,7 @@
     
     static NSString *cellIdentifier = @"UserProfileCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if ([cell isKindOfClass:[StringrUserTableViewCell class]]) {
         

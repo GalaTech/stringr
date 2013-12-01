@@ -1,36 +1,36 @@
 //
-//  StringrUserSearchViewController.m
+//  StringrStringSearchTableViewController.m
 //  Stringr
 //
 //  Created by Jonathan Howard on 11/29/13.
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrUserSearchViewController.h"
+#import "StringrStringSearchTableViewController.h"
 
-@interface StringrUserSearchViewController ()
+@interface StringrStringSearchTableViewController () <UISearchBarDelegate>
 
 @end
 
-@implementation StringrUserSearchViewController
+@implementation StringrStringSearchTableViewController
 
 - (void)viewDidLoad
 {
-    self.title = @"Find People";
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
 }
+
 
 // Presents/Hides the scope bar and cancel button whenever the user goes to search
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    searchBar.showsScopeBar = YES;
-    [searchBar sizeToFit];
+
     [searchBar setShowsCancelButton:YES animated:YES];
     
     return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    searchBar.showsScopeBar = NO;
-    [searchBar sizeToFit];
+
     [searchBar setShowsCancelButton:NO animated:YES];
     
     return YES;
@@ -47,6 +47,5 @@
 {
     [searchBar resignFirstResponder];
 }
-
 
 @end

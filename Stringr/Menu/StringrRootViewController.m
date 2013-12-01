@@ -18,6 +18,8 @@
 {
     self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrNavigationController"];
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
+    
+    self.liveBlur = YES;
 }
 
 

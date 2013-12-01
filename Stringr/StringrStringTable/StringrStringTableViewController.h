@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 
-@interface StringrStringTableViewController : UIViewController
+@interface StringrStringTableViewController : UITableViewController
 
-- (IBAction)pushToStringDetailView:(UIButton *)sender;
-
-- (IBAction)pushToPhotoViewer:(UIButton *)sender;
 
 @end
