@@ -84,7 +84,7 @@
         profileVC.canGoBack = YES;
         profileVC.canEditProfile = NO;
         
-        profileVC.view.backgroundColor = [UIColor blackColor];
+       // profileVC.view.backgroundColor = [UIColor whiteColor];
         
         [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:profileVC animated:YES];
     }

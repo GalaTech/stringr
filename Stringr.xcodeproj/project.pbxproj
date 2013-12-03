@@ -24,6 +24,8 @@
 		BF170EC9184BEB700056ECE7 /* StringCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EC8184BEB700056ECE7 /* StringCellView.m */; };
 		BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF170ECC184BEC400056ECE7 /* StringCollectionViewCell.xib */; };
 		BF170ECF184BEC5D0056ECE7 /* StringCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF170ECE184BEC5D0056ECE7 /* StringCellView.xib */; };
+		BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */; };
+		BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */; };
 		BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD5183AADCB0071E047 /* StringrConstants.m */; };
 		BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */; };
 		BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */; };
@@ -108,6 +110,10 @@
 		BF170EC8184BEB700056ECE7 /* StringCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCellView.m; path = String/StringCellView.m; sourceTree = "<group>"; };
 		BF170ECC184BEC400056ECE7 /* StringCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringCollectionViewCell.xib; sourceTree = "<group>"; };
 		BF170ECE184BEC5D0056ECE7 /* StringCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringCellView.xib; sourceTree = "<group>"; };
+		BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTopViewController.h; path = Profile/StringrProfileTopViewController.h; sourceTree = "<group>"; };
+		BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTopViewController.m; path = Profile/StringrProfileTopViewController.m; sourceTree = "<group>"; };
+		BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTableViewController.h; path = Profile/StringrProfileTableViewController.h; sourceTree = "<group>"; };
+		BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTableViewController.m; path = Profile/StringrProfileTableViewController.m; sourceTree = "<group>"; };
 		BF3EDDD4183AADCB0071E047 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = "/Users/JonnyBillings/Documents/Programming/Xcode Workspace/Stringr/Stringr/Utility/StringrConstants.h"; sourceTree = "<absolute>"; };
 		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConstants.m; path = Utility/StringrConstants.m; sourceTree = "<group>"; };
 		BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrRootViewController.h; path = Menu/StringrRootViewController.h; sourceTree = "<group>"; };
@@ -302,6 +308,10 @@
 			children = (
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
+				BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */,
+				BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */,
+				BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */,
+				BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */,
 				BF3EDE24183EDF700071E047 /* StringrEditProfileViewController.h */,
 				BF3EDE25183EDF700071E047 /* StringrEditProfileViewController.m */,
 			);
@@ -640,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrStringDiscoveryTabBarViewController.m in Sources */,
@@ -663,6 +674,7 @@
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				BF170EC3184BEB100056ECE7 /* StringTableCellViewCell.m in Sources */,
+				BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */,
 				BF7321951849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m in Sources */,
 				BF3EDE3018445AF10071E047 /* StringrStringEditViewController.m in Sources */,
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,

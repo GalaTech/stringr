@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
+#import "M6ParallaxController.h"
 
-@interface StringrProfileViewController : UIViewController
+@interface StringrProfileViewController : M6ParallaxController<UIGestureRecognizerDelegate>
 
 @property (nonatomic) BOOL canGoBack;
 @property (nonatomic) BOOL canEditProfile;

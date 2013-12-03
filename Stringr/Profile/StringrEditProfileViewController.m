@@ -7,6 +7,7 @@
 //
 
 #import "StringrEditProfileViewController.h"
+#import "StringrProfileViewController.h"
 
 @interface StringrEditProfileViewController ()
 

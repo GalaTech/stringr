@@ -35,7 +35,7 @@
     self.tableView.allowsSelection = NO;
     
     
-    self.images = @[ @{ @"description": @"Section A",
+    self.images = @[ @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
                                             @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
                                             @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
@@ -43,7 +43,7 @@
                                             @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
                                             ]
                             },
-                         @{ @"description": @"Section B",
+                         @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article B1", @"image":@"sample_1.jpeg" },
                                             @{ @"title": @"Article B2", @"image":@"sample_2.jpeg" },
                                             @{ @"title": @"Article B3", @"image":@"sample_3.jpeg" },
@@ -51,7 +51,7 @@
                                             @{ @"title": @"Article B5", @"image":@"sample_5.jpeg" }
                                             ]
                             },
-                         @{ @"description": @"Section C",
+                         @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article C1", @"image":@"sample_1.jpeg" },
                                             @{ @"title": @"Article C2", @"image":@"sample_2.jpeg" },
                                             @{ @"title": @"Article C3", @"image":@"sample_3.jpeg" },
@@ -59,7 +59,7 @@
                                             @{ @"title": @"Article C5", @"image":@"sample_5.jpeg" }
                                             ]
                             },
-                         @{ @"description": @"Section D",
+                         @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article D1", @"image":@"sample_1.jpeg" },
                                             @{ @"title": @"Article D2", @"image":@"sample_2.jpeg" },
                                             @{ @"title": @"Article D3", @"image":@"sample_3.jpeg" },
@@ -67,7 +67,7 @@
                                             @{ @"title": @"Article D5", @"image":@"sample_5.jpeg" }
                                             ]
                             },
-                         @{ @"description": @"Section E",
+                         @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article E1", @"image":@"sample_1.jpeg"},
                                             @{ @"title": @"Article E2", @"image":@"sample_2.jpeg" },
                                             @{ @"title": @"Article E3", @"image":@"sample_3.jpeg" },
@@ -75,7 +75,7 @@
                                             @{ @"title": @"Article E5", @"image":@"sample_5.jpeg" }
                                             ]
                             },
-                         @{ @"description": @"Section F",
+                         @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article F1", @"image":@"sample_1.jpeg" },
                                             @{ @"title": @"Article F2", @"image":@"sample_2.jpeg" },
                                             @{ @"title": @"Article F3", @"image":@"sample_3.jpeg" },
@@ -189,13 +189,12 @@
 - (void) didSelectItemFromCollectionView:(NSNotification *)notification
 {
     NSDictionary *cellData = [notification object];
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     if (cellData)
     {
         StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
         
-        [navigationController pushViewController:photoVC animated:YES];
+        [self.navigationController pushViewController:photoVC animated:YES];
     }
 }
 
