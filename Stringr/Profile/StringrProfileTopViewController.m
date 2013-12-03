@@ -43,6 +43,8 @@
     [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
     self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     
+    // Sets the title of the button to follow or unfollow depending upon what the users
+    // relationship is with the current profile.
     if (!self.isFollowingUser) {
         [self.followUserButton setTitle:@"Follow" forState:UIControlStateNormal];
     } else {
