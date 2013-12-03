@@ -7,8 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GBPathImageView.h"
+#import "ACPButton.h"
 
 @interface StringrProfileTopViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet GBPathImageView *profileImage;
+
+@property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
+@property (weak, nonatomic) IBOutlet UITextView *profileDescriptionTextView;
+
+@property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *profileUniversityLabel;
+
+
+@property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
 
 - (void)willChangeHeightFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight;
 

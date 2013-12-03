@@ -73,6 +73,7 @@
 		BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A531829CAD900D15963 /* StringrLogo.jpg */; };
 		BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A551829CBA500D15963 /* orca-stock-photo.jpg */; };
 		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
+		BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BF94E8BB184E4388003B5D8F /* ACPButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +196,8 @@
 		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = StringrLogo.jpg; path = Resources/StringrLogo.jpg; sourceTree = "<group>"; };
 		BF834A551829CBA500D15963 /* orca-stock-photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "orca-stock-photo.jpg"; path = "Resources/orca-stock-photo.jpg"; sourceTree = "<group>"; };
 		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
+		BF94E8BA184E4388003B5D8F /* ACPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPButton.h; sourceTree = "<group>"; };
+		BF94E8BB184E4388003B5D8F /* ACPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,6 +512,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BF94E8B9184E4388003B5D8F /* Buttons */,
 				BF3EDE441847BBAF0071E047 /* Image Path */,
 				BF3EDE3C184530E80071E047 /* ParallaxController */,
 				BF3EDDDA183D8F880071E047 /* REFrostedViewController */,
@@ -534,6 +538,15 @@
 				BF8349E618297FD600D15963 /* Images.xcassets */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		BF94E8B9184E4388003B5D8F /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				BF94E8BA184E4388003B5D8F /* ACPButton.h */,
+				BF94E8BB184E4388003B5D8F /* ACPButton.m */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -668,6 +681,7 @@
 				BF3EDE2D184459620071E047 /* StringrFollowingFollowersTabBarViewController.m in Sources */,
 				BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */,
 				BF3EDE41184530E80071E047 /* M6ParallaxController.m in Sources */,
+				BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				BF3EDE22183EA7D90071E047 /* StringrPhotoViewerViewController.m in Sources */,

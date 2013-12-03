@@ -9,30 +9,14 @@
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileViewController.h"
 
-#import "GBPathImageView.h"
 
 @interface StringrProfileTopViewController ()
 
-@property (weak, nonatomic) IBOutlet GBPathImageView *profileImage;
-
-@property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
-@property (weak, nonatomic) IBOutlet UITextView *profileDescriptionTextView;
-
-@property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *profileUniversityLabel;
 
 @end
 
 @implementation StringrProfileTopViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -46,14 +30,33 @@
     [self.profileImage setBorderColor:[UIColor darkGrayColor]];
     [self.profileImage draw];
     
+    
+    UIColor *veryLightGrayColor = [UIColor colorWithWhite:.90 alpha:1.0];
+    
+    // Adds custom design to follow user button
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:veryLightGrayColor];
+    [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+    [self.followUserButton setCornerRadius:15];
+    [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+    
+    
 }
 
-- (void)didReceiveMemoryWarning
+
+
+- (IBAction)followUserButton:(UIButton *)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Followed"
+                                                    message:@"You are now following Alonso Holmes!"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles: nil];
+    
+    [alert show];
+     
 }
-
 
 
 
@@ -78,7 +81,7 @@
         [self.profileDescriptionTextView setAlpha:1];
         [self.profileNumberOfStringsLabel setAlpha:1];
         [self.profileUniversityLabel setAlpha:1];
-        
+        [self.followUserButton setAlpha:1];
         
         //float r = (parallaxController.topViewControllerStandartHeight * 1.25f) / newHeight;
         
@@ -93,6 +96,7 @@
         [self.profileDescriptionTextView setAlpha:r];
         [self.profileNumberOfStringsLabel setAlpha:r*r];
         [self.profileUniversityLabel setAlpha:r*r*r*r];
+        [self.followUserButton setAlpha:r*r*r*r];
         //[self.gradientImageView setAlpha:r*r*r*r];
         
         
