@@ -8,15 +8,18 @@
 
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileViewController.h"
+#import "StringrEditProfileViewController.h"
 
 
 @interface StringrProfileTopViewController ()
+
 
 
 @end
 
 @implementation StringrProfileTopViewController
 
+#pragma mark - Initialization
 
 - (void)viewDidLoad
 {
@@ -40,26 +43,53 @@
     [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
     self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     
-    
+    if (!self.isFollowingUser) {
+        [self.followUserButton setTitle:@"Follow" forState:UIControlStateNormal];
+    } else {
+        [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+    }
 }
 
 
 
+
+
+#pragma mark - UIControls
+
+
 - (IBAction)followUserButton:(UIButton *)sender
 {
+    //NSString *buttonText = sender.titleLabel.text;
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Followed"
-                                                    message:@"You are now following Alonso Holmes!"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles: nil];
+    if (!self.isFollowingUser) {
+        UIAlertView *followAlert = [[UIAlertView alloc] initWithTitle:@"Followed"
+                                                        message:[NSString stringWithFormat:@"You are now following %@!", self.profileNameLabel.text]
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        
+        [followAlert show];
+        [sender setTitle:@"Unfollow" forState:UIControlStateNormal];
+    } else {
+        UIAlertView *unfollowAlert = [[UIAlertView alloc] initWithTitle:@"Unfollowed"
+                                                        message:[NSString stringWithFormat:@"You are no longer following %@.", self.profileNameLabel.text]
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        
+        [unfollowAlert show];
+        [sender setTitle:@"Follow" forState:UIControlStateNormal];
+    }
     
-    [alert show];
+    self.isFollowingUser = !self.isFollowingUser;
      
 }
 
 
 
+
+
+#pragma mark - Parallax Controller Method
 
 /** Allows you to change the values of objects in the top view controller when a user begins to 
  * scroll. It calculates changes based on the old height and new height of the top view controller
@@ -78,13 +108,12 @@
         
         [self.profileImage setAlpha:1];
         [self.profileNameLabel setAlpha:1];
-        [self.profileDescriptionTextView setAlpha:1];
+        [self.profileDescriptionLabel setAlpha:1];
         [self.profileNumberOfStringsLabel setAlpha:1];
         [self.profileUniversityLabel setAlpha:1];
         [self.followUserButton setAlpha:1];
         
         //float r = (parallaxController.topViewControllerStandartHeight * 1.25f) / newHeight;
-        
        // [self.gradientImageView setAlpha:r*r];
         
     } else {
@@ -93,13 +122,10 @@
         
         [self.profileImage setAlpha:r];
         [self.profileNameLabel setAlpha:r];
-        [self.profileDescriptionTextView setAlpha:r];
+        [self.profileDescriptionLabel setAlpha:r];
         [self.profileNumberOfStringsLabel setAlpha:r*r];
         [self.profileUniversityLabel setAlpha:r*r*r*r];
         [self.followUserButton setAlpha:r*r*r*r];
-        //[self.gradientImageView setAlpha:r*r*r*r];
-        
-        
     }
     
 }

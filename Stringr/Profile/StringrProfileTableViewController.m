@@ -16,7 +16,11 @@
 @implementation StringrProfileTableViewController
 
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+#pragma mark - Parallax Controller Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     [self.parallaxController tableViewControllerDidScroll:self];
 }
 

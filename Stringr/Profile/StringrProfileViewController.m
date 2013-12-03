@@ -12,13 +12,14 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileTopViewController.h"
 
-@interface StringrProfileViewController ()
+@interface StringrProfileViewController () <StringrEditProfileDelegate>
 
-@property (strong, nonatomic) NSTimer *tapTimer;
 
 @end
 
 @implementation StringrProfileViewController
+
+#pragma mark - Initialization
 
 - (void)viewDidLoad
 {
@@ -38,27 +39,30 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                                   style:UIBarButtonItemStyleBordered
                                                                                  target:self
-                                                                                 action:@selector(beginEditingProfile)];
+                                                                                 action:@selector(pushToEditProfile)];
     }
     
     
     // Instantiates the parallax VC with a top and bottom VC.
     UIViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     UITableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    
     [self setupWithTopViewController:topProfileVC height:265 tableViewController:tableProfileVC];
-    
     
     
     // Adds tap gesture to the view for use with tapping controls in the topVC
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGestureRecognizer.delegate = self;
-    
     [self.view addGestureRecognizer:tapGestureRecognizer];
 
     
+    // Dynamically sets the number of strings label to how many strings are in the table view
+    NSString *numberOfStrings = [NSString stringWithFormat:@"%d Strings", self.tableViewController.tableView.numberOfSections];
+    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
+    topVC.profileNumberOfStringsLabel.text = numberOfStrings;
     
 }
+
+#pragma mark - Utility
 
 - (void)showMenu
 {
@@ -170,17 +174,52 @@
 
 
 
-#pragma mark - Edit Profile
-- (void)beginEditingProfile
+#pragma mark - Push new page onto Navigation
+- (void)pushToEditProfile
 {
-    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
-    UILabel *nameLabel = topVC.profileNameLabel;
-    [nameLabel setText:@"New Name"];
-    
-    /*
     StringrEditProfileViewController *editProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"EditProfileVC"];
+    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
+    
+    [editProfileVC setFillerProfileImage:topVC.profileImage];
+    [editProfileVC setFillerProfileName:topVC.profileNameLabel.text];
+    [editProfileVC setFillerDescription:topVC.profileDescriptionLabel.text];
+    
+    [editProfileVC setDelegate:self];
+    
     [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:editProfileVC animated:YES];
-     */
+}
+
+
+
+#pragma mark - StringrEditProfile Delegate
+
+- (void)setProfileImage:(GBPathImageView *)profileImage
+{
+    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
+    
+    topViewController.profileImage = profileImage;
+}
+
+- (void)setProfileName:(NSString *)name
+{
+    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
+    
+    topViewController.profileNameLabel.text = name;
+}
+
+- (void)setProfileDescription:(NSString *)description
+{
+    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
+    
+    //UIFont *currentTextViewFont = topViewController.profileDescriptionTextView.font;
+    //UITextAlignment *currentTextViewAlignment = topViewController.profileDescriptionTextView.textAlignment;
+    //UIColor *currentTextViewColor = topViewController.profileDescriptionTextView.textColor;
+    
+    topViewController.profileDescriptionLabel.text = description;
+    
+    //[topViewController.profileDescriptionTextView setFont:currentTextViewFont];
+    //[topViewController.profileDescriptionTextView setTextAlignment:currentTextViewAlignment];
+    //[topViewController.profileDescriptionTextView setTextColor:currentTextViewColor];
 }
 
 
