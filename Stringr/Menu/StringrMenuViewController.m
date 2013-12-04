@@ -209,6 +209,7 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
         profileVC.canEditProfile = YES;
+        profileVC.title = @"My Profile";
         navigationController.viewControllers = @[profileVC];
     } else if (indexPath.section == 0 && indexPath.row == 1) {
         StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyStringsVC"];
