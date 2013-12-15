@@ -74,6 +74,9 @@
 		BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A551829CBA500D15963 /* orca-stock-photo.jpg */; };
 		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
 		BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BF94E8BB184E4388003B5D8F /* ACPButton.m */; };
+		BFEE00EF185004EF00BFF5B2 /* StringrStringDetailTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */; };
+		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
+		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +201,9 @@
 		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
 		BF94E8BA184E4388003B5D8F /* ACPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPButton.h; sourceTree = "<group>"; };
 		BF94E8BB184E4388003B5D8F /* ACPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPButton.m; sourceTree = "<group>"; };
+		BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringrStringDetailTab.xib; path = "String/Detail Tab/StringrStringDetailTab.xib"; sourceTree = "<group>"; };
+		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
+		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +233,7 @@
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
+				BFEE00ED185004B600BFF5B2 /* Detail Tab */,
 				BF170EC1184BEB100056ECE7 /* StringTableCellViewCell.h */,
 				BF170EC2184BEB100056ECE7 /* StringTableCellViewCell.m */,
 				BF170EC7184BEB700056ECE7 /* StringCellView.h */,
@@ -523,6 +530,8 @@
 		BF834A491829978300D15963 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BFEE00F01853C93100BFF5B2 /* comment-bubble.png */,
+				BFEE00F11853C93100BFF5B2 /* like-bubble.png */,
 				BF170EBB184A7B910056ECE7 /* cameraIcon.png */,
 				BF170EAA18492ADA0056ECE7 /* sample_1.jpeg */,
 				BF170EAB18492ADA0056ECE7 /* sample_2.jpeg */,
@@ -547,6 +556,14 @@
 				BF94E8BB184E4388003B5D8F /* ACPButton.m */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		BFEE00ED185004B600BFF5B2 /* Detail Tab */ = {
+			isa = PBXGroup;
+			children = (
+				BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */,
+			);
+			name = "Detail Tab";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -636,12 +653,15 @@
 				BF170EB618492ADA0056ECE7 /* sample_6.jpeg in Resources */,
 				BF170EB718492ADA0056ECE7 /* sample_7.jpeg in Resources */,
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
+				BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */,
 				BF170EB218492ADA0056ECE7 /* sample_2.jpeg in Resources */,
+				BFEE00EF185004EF00BFF5B2 /* StringrStringDetailTab.xib in Resources */,
 				BF170EB118492ADA0056ECE7 /* sample_1.jpeg in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
 				BF834A581829D39E00D15963 /* following.png in Resources */,
 				BF170ECF184BEC5D0056ECE7 /* StringCellView.xib in Resources */,
+				BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */,
 				BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 				BF170EB318492ADA0056ECE7 /* sample_3.jpeg in Resources */,

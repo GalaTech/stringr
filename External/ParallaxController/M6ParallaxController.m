@@ -88,6 +88,7 @@
         }
 
         //uncomment if you want to support section headers - doesnt work 100%
+        
         if (y >= self.topViewControllerStandartHeight) {
     
             tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -97,6 +98,7 @@
             tableView.contentInset = UIEdgeInsetsMake(self.topViewControllerStandartHeight - y, 0, 0, 0);
         
         }
+         
         
     } else {
         

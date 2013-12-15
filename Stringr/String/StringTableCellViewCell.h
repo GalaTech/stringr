@@ -9,6 +9,7 @@
 #import "StringCellView.h"
 @interface StringTableCellViewCell : UITableViewCell
 
+@property (strong, nonatomic) UIView *detailTabView;
 
 - (void)setCollectionData:(NSArray *)collectionData;
 
