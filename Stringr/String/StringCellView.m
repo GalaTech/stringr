@@ -33,6 +33,10 @@
     
     // Register the colleciton cell
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
+    
+    // disables the embedded scroll views scroll to top so that when inside of
+    // a table view it will allow you to truly scroll to top.
+    self.stringCollectionView.scrollsToTop = NO;
 }
 
 

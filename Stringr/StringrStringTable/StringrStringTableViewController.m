@@ -13,6 +13,7 @@
 #import "StringrPhotoViewerViewController.h"
 
 #import "StringTableCellViewCell.h"
+#import "StringFooterTableViewCell.h"
 
 @interface StringrStringTableViewController ()
 
@@ -93,6 +94,22 @@
     [self.tableView setBackgroundColor:veryLightGrayColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
+
+    
+    /* Creates a header view for the entire table view. This could be an alternate
+     * method for setting up user profile's
+     *
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
+    [tableHeaderView setBackgroundColor:[UIColor purpleColor]];
+    
+    UIButton *headerButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 50, 100, 20)];
+    [headerButton setTitle:@"Test Button" forState:UIControlStateNormal];
+    [headerButton setTitle:@"Pressed Button" forState:UIControlStateHighlighted | UIControlStateSelected];
+    
+    [tableHeaderView addSubview:headerButton];
+    
+    self.tableView.tableHeaderView = tableHeaderView;
+    */
 }
 
 - (void)showMenu
@@ -136,25 +153,50 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"StringTableViewCell";
+    static NSString *footerIdentifier = @"StringTableViewFooter";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell *cell;
     
-    NSDictionary *stringData = [self.images objectAtIndex:[indexPath section]];
-    NSArray *imageData = [stringData objectForKey:@"articles"];
-    
-    
-    if ([cell isKindOfClass:[StringTableCellViewCell class]]) {
-        StringTableCellViewCell *stringCell = (StringTableCellViewCell *)cell;
+    // Sets up the table view cell accordingly based around whether it is the
+    // string row or the footer
+    if (indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        [stringCell setCollectionData:imageData];
+        // Gets the dictionary of photo data for this specific string/row
+        NSDictionary *stringData = [self.images objectAtIndex:[indexPath section]];
+        // Gets the photos for this specific string
+        NSArray *imageData = [stringData objectForKey:@"articles"];
+        
+        
+        if ([cell isKindOfClass:[StringTableCellViewCell class]]) {
+            StringTableCellViewCell *stringCell = (StringTableCellViewCell *)cell;
+            // Sets the photos to the array of photo data for the collection view
+            [stringCell setCollectionData:imageData];
+            
+            return  stringCell;
+        }
+        
+    } else if (indexPath.row == 1) {
+        // Sets background to same tableview bg color
+       // UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+        
+        /*
+        cell = [tableView dequeueReusableCellWithIdentifier:footerIdentifier];
+        [cell.contentView setBackgroundColor:veryLightGrayColor];
+        */
+        
+        
+        // Sets the table view cell to be the custom footer view
+        StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] init];
+        return footerCell;
+        
     }
-    
     
     return cell;
 }
@@ -182,10 +224,17 @@
     return 20;
 }
 
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    // last section in table will not have the extra footer view margin
+    if (section == [self.images count] - 1) {
+        return 35;
+    }
+    
     return 48;
 }
+ */
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -200,32 +249,36 @@
     [headerView addSubview:contentHeaderView];
     
     
-    NSMutableAttributedString *stringHeaderTitle = [[NSMutableAttributedString alloc] initWithString:@"An eternity in Burges - Alonso Holmes"];
+    //NSMutableAttributedString *stringHeaderTitle = [[NSMutableAttributedString alloc] initWithString:@"An awesome trip from coast to coast!"];
     
-    [stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:12] range:NSMakeRange(0, 21)];
-    [stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, 21)];
+    //[stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:12] range:NSMakeRange(0, 21)];
+    //[stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, 21)];
+    
+    CGRect labelWidth = CGRectMake(0, 1.5, contentHeaderView.frame.size.width, 16);
+    UILabel *stringHeaderTitle = [[UILabel alloc] initWithFrame:labelWidth];
+    [stringHeaderTitle setText:@"An awesome trip from coast to coast!"];
+    [stringHeaderTitle setFont:[UIFont fontWithName:@"HelveticaNeue" size:12]];
+    [stringHeaderTitle setTextColor:[UIColor darkGrayColor]];
+    [stringHeaderTitle setTextAlignment:NSTextAlignmentCenter];
     
     
+    //[stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:11] range:NSMakeRange(21, 16)];
+    //[stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(21, 16)];
     
-    [stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:11] range:NSMakeRange(21, 16)];
-    [stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(21, 16)];
+    //UILabel *stringTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 3, tableView.frame.size.width, 16)];
     
-    UILabel *stringTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 3, tableView.frame.size.width, 16)];
-    
-    [stringTitleLabel setAttributedText:stringHeaderTitle];
-    [contentHeaderView addSubview:stringTitleLabel];
+    //[stringTitleLabel setAttributedText:stringHeaderTitle];
+    [contentHeaderView addSubview:stringHeaderTitle];
     
     
     
     return headerView;
 }
 
-
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 45)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 48)];
     [footerView setBackgroundColor:[UIColor clearColor]];
     
     UIView *contentFooterView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, footerView.frame.size.width * .875, 35)];
@@ -239,11 +292,17 @@
     
     return footerView;
 }
-
+*/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 135;
+    if (indexPath.row == 0) {
+        return 135;
+    } else if (indexPath.row == 1) {
+        return 48;
+    }
+    
+    return 0;
 }
 
 

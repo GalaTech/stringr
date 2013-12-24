@@ -77,6 +77,8 @@
 		BFEE00EF185004EF00BFF5B2 /* StringrStringDetailTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */; };
 		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
 		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
+		BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */; };
+		BFFA599B186A2225001C377D /* StringrFooterContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599A186A2225001C377D /* StringrFooterContentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +206,10 @@
 		BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringrStringDetailTab.xib; path = "String/Detail Tab/StringrStringDetailTab.xib"; sourceTree = "<group>"; };
 		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
 		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
+		BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringFooterTableViewCell.h; path = StringrStringTable/StringFooterTableViewCell.h; sourceTree = "<group>"; };
+		BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringFooterTableViewCell.m; path = StringrStringTable/StringFooterTableViewCell.m; sourceTree = "<group>"; };
+		BFFA5999186A2225001C377D /* StringrFooterContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFooterContentView.h; path = StringrStringTable/StringrFooterContentView.h; sourceTree = "<group>"; };
+		BFFA599A186A2225001C377D /* StringrFooterContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterContentView.m; path = StringrStringTable/StringrFooterContentView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +337,7 @@
 		BF3EDE07183E98910071E047 /* String Table */ = {
 			isa = PBXGroup;
 			children = (
+				BFFA599C186A2229001C377D /* Footer */,
 				BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */,
 				BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */,
@@ -566,6 +573,17 @@
 			name = "Detail Tab";
 			sourceTree = "<group>";
 		};
+		BFFA599C186A2229001C377D /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */,
+				BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */,
+				BFFA5999186A2225001C377D /* StringrFooterContentView.h */,
+				BFFA599A186A2225001C377D /* StringrFooterContentView.m */,
+			);
+			name = Footer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -685,6 +703,7 @@
 			files = (
 				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
+				BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */,
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrStringDiscoveryTabBarViewController.m in Sources */,
 				BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */,
@@ -725,6 +744,7 @@
 				BF3EDE471847BBAF0071E047 /* GBPathImageView.m in Sources */,
 				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
+				BFFA599B186A2225001C377D /* StringrFooterContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

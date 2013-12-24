@@ -46,8 +46,14 @@
     // Instantiates the parallax VC with a top and bottom VC.
     UIViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     UITableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    [self setupWithTopViewController:topProfileVC height:265 tableViewController:tableProfileVC];
     
+    
+    
+    [self setupWithTopViewController:topProfileVC height:265 tableViewController:tableProfileVC];
+   
+    // Sets the background color of the table view correctly, but overlaps the topVC
+//    UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+//    [tableProfileVC.tableView setBackgroundColor:veryLightGrayColor];
     
     // Adds tap gesture to the view for use with tapping controls in the topVC
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -59,7 +65,6 @@
     NSString *numberOfStrings = [NSString stringWithFormat:@"%d Strings", self.tableViewController.tableView.numberOfSections];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
     topVC.profileNumberOfStringsLabel.text = numberOfStrings;
-    
 }
 
 #pragma mark - Utility
