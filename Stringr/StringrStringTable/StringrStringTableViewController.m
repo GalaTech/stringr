@@ -11,6 +11,8 @@
 
 #import "StringrDetailViewController.h"
 #import "StringrPhotoViewerViewController.h"
+#import "StringrProfileViewController.h"
+#import "StringrStringCommentsViewController.h"
 
 #import "StringTableCellViewCell.h"
 #import "StringFooterTableViewCell.h"
@@ -94,6 +96,9 @@
     [self.tableView setBackgroundColor:veryLightGrayColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectProfileImage:) name:@"didSelectProfileImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectCommentsButton:) name:@"didSelectCommentsButton" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectLikesButton:) name:@"didSelectLikesButton" object:nil];
 
     
     /* Creates a header view for the entire table view. This could be an alternate
@@ -139,6 +144,9 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
 }
 
 
@@ -159,7 +167,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"StringTableViewCell";
-    static NSString *footerIdentifier = @"StringTableViewFooter";
     
     UITableViewCell *cell;
     
@@ -183,17 +190,13 @@
         }
         
     } else if (indexPath.row == 1) {
-        // Sets background to same tableview bg color
-       // UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-        
-        /*
-        cell = [tableView dequeueReusableCellWithIdentifier:footerIdentifier];
-        [cell.contentView setBackgroundColor:veryLightGrayColor];
-        */
-        
-        
         // Sets the table view cell to be the custom footer view
         StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] init];
+        
+        [footerCell setStringUploaderName:@"Alonso Holmes"];
+        [footerCell setStringUploadDate:@"10 minutes ago"];
+        [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
+        
         return footerCell;
         
     }
@@ -275,25 +278,6 @@
     return headerView;
 }
 
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 48)];
-    [footerView setBackgroundColor:[UIColor clearColor]];
-    
-    UIView *contentFooterView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, footerView.frame.size.width * .875, 35)];
-    [contentFooterView setBackgroundColor:[UIColor whiteColor]];
-    [contentFooterView setAlpha:1];
-    [footerView addSubview:contentFooterView];
-    
-    UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
-    [footerLabel setText:@"Test footer label"];
-    [contentFooterView addSubview:footerLabel];
-    
-    return footerView;
-}
-*/
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
@@ -318,6 +302,33 @@
         
         [self.navigationController pushViewController:photoVC animated:YES];
     }
+}
+
+- (void)didSelectProfileImage:(NSNotification *)notification
+{
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
+    [profileVC setCanGoBack:YES];
+    [profileVC setCanEditProfile:NO];
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+- (void)didSelectCommentsButton:(NSNotification *)notification
+{
+    StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+    
+    [self.navigationController pushViewController:commentsVC animated:YES];
+}
+
+- (void)didSelectLikesButton:(NSNotification *)notification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
+                                                    message:@"You have liked this String!"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles: nil];
+    
+    [alert show];
 }
 
 

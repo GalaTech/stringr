@@ -14,15 +14,28 @@
 
 @interface StringFooterTableViewCell ()
 
-@property (strong, nonatomic) UILabel *testLabel;
-@property (strong, nonatomic) UIImageView *testImageView;
+@property (strong, nonatomic) UIView *contentFooterView;
 
-@property (strong, nonatomic) UIButton *testButton;
+@property (strong, nonatomic) GBPathImageView *profileImageView;
+
+@property (strong, nonatomic) UILabel *profileNameLabel;
+
+@property (strong, nonatomic) UILabel *uploadDateLabel;
+
+@property (strong, nonatomic) UILabel *commentsTextLabel;
+@property (strong, nonatomic) UIImageView *commentsImageView;
+@property (strong, nonatomic) UIButton *commentsButton;
+
+@property (strong, nonatomic) UILabel *likesTextLabel;
+@property (strong, nonatomic) UIImageView *likesImageView;
+@property (strong, nonatomic) UIButton *likesButton;
 
 @end
 
 @implementation StringFooterTableViewCell
 
+// Standard color used for table view BG
+#define veryLightGrayColor [UIColor colorWithWhite:0.9 alpha:1.0]
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -30,60 +43,78 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        
-        
-        // Sets background to same tableview bg color
-        UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
         [self.contentView setBackgroundColor:veryLightGrayColor];
 
         // Creates the custom footer content view
-        UIView *contentFooterView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, self.contentView.frame.size.width * .875, 35)];
-        [contentFooterView setBackgroundColor:[UIColor whiteColor]];
-        [contentFooterView setAlpha:1];
+        self.contentFooterView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, self.contentView.frame.size.width * .875, 35)];
+        [self.contentFooterView setBackgroundColor:[UIColor whiteColor]];
+        [self.contentFooterView setAlpha:1];
+        
+        [self addProfileImageViewAtLocation:CGPointMake(7, 2)];
+        
+        // Adds profile label with provided profile name
+        [self addProfileNameLabelAtLocation:CGPointMake(38, 5)];
+        
+        // Adds upload date label with the date the current string was uploaded
+        [self addUploadDateLabelAtLocation:CGPointMake(38, 18)];
+        
+        // Adds comments button to the table cell content view at location
+        [self addCommentsButtonAtLocation:CGPointMake(135, 8)];
+    
+        // Adds likes button to the table cell content view at location
+        [self addLikesButtonAtLocation:CGPointMake(200, 8)];
         
         
-        UIButton *commentsButton = [self commentsButtonWithTitle];
-        [contentFooterView addSubview:commentsButton];
-        
-        UIButton *likesButton = [self likesButtonWithTitle];
-        [contentFooterView addSubview:likesButton];
-        
-        
-        self.testLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 18)];
-        [self.testLabel setText:@"55.7k"];
-        [self.testLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
-        [self.testLabel setTextColor:[UIColor grayColor]];
-        [self.testLabel setTextAlignment:NSTextAlignmentRight];
-        //[self.testLabel setBackgroundColor:[UIColor yellowColor]];
-        [contentFooterView addSubview:self.testLabel];
-        
-        self.testImageView = [[UIImageView alloc] initWithFrame:CGRectMake(45, 1.5, 17, 15)];
-        [self.testImageView setImage:[UIImage imageNamed:@"comment-bubble.png"]];
-        [contentFooterView addSubview:self.testImageView];
-        
-        self.testButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 18)];
-        [self.testButton addTarget:self action:@selector(pushDownButton) forControlEvents:UIControlEventTouchDown];
-        [self.testButton addTarget:self action:@selector(pushButton) forControlEvents:UIControlEventTouchUpInside];
-        //[self.testButton setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:.5]];
-        [contentFooterView addSubview:self.testButton];
-        
-        [self.contentView addSubview:contentFooterView];
-        
-        
+        [self.contentView addSubview:self.contentFooterView];
     }
     
     return self;
 }
 
-- (void)pushButton
+
+/*
+- (UIImage *)stringUploaderProfileImage
 {
-    self.testLabel.textColor = [UIColor grayColor];
-    
+    return [UIImage imageNamed:@"alonsoAvatar.jpg"];
 }
 
-- (void)pushDownButton
+- (NSString *)stringUploaderName
 {
-    self.testLabel.textColor = [UIColor darkGrayColor];
+    return @"Alonso Holmes";
+}
+
+- (NSString *)stringUploadDate
+{
+    return @"10 minutes ago";
+}
+ */
+
+/*
+- (void)setStringUploaderProfileImage:(UIImage *)stringUploaderProfileImage
+{
+    _stringUploaderProfileImage = stringUploaderProfileImage;
+
+    if (_stringUploaderProfileImage) {
+        self.profileImageView = [[GBPathImageView alloc] initWithFrame:CGRectMake(7, 2, 30, 30)
+                                                                 image:_stringUploaderProfileImage
+                                                              pathType:GBPathImageViewTypeCircle
+                                                             pathColor:[UIColor darkGrayColor]
+                                                           borderColor:[UIColor darkGrayColor]
+                                                             pathWidth:1.0];
+    }
+}
+ */
+
+- (void)setStringUploaderName:(NSString *)stringUploaderName
+{
+    _stringUploaderName = stringUploaderName;
+    self.profileNameLabel.text = _stringUploaderName;
+}
+
+- (void)setStringUploadDate:(NSString *)stringUploadDate
+{
+    _stringUploadDate = stringUploadDate;
+    self.uploadDateLabel.text = _stringUploadDate;
 }
 
 - (NSString *)commentButtonTitle
@@ -93,90 +124,131 @@
 
 - (NSString *)likeButtonTitle
 {
-    return @"97";
+    return @"9.7k";
 }
 
-
-
-- (UIButton *)likesButtonWithTitle
+- (void)addProfileImageViewAtLocation:(CGPoint)location
 {
-    CGRect buttonFrame = CGRectMake(280 * .72, 7.3, 45, 18);
-    UIButton *likesButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    //[likesButton setBackgroundColor:[UIColor yellowColor]];
+    self.profileImageView = [[GBPathImageView alloc] initWithFrame:CGRectMake(location.x, location.y, 30, 30)
+                                                             image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+                                                          pathType:GBPathImageViewTypeCircle
+                                                         pathColor:[UIColor darkGrayColor]
+                                                       borderColor:[UIColor darkGrayColor]
+                                                         pathWidth:1.0];
+
     
-    UIImage *likeImage = [UIImage imageNamed:@"like-bubble.png"];
-    
-    [likesButton setImage:[UIImage imageNamed:@"like-bubble.png"] forState:UIControlStateNormal];
-    [likesButton setImageEdgeInsets:UIEdgeInsetsMake(0, 29, 2, 0)];
-    
-    
-    int titleInsetSpacing;
-    switch ([self.likeButtonTitle length]) {
-        case 1:
-            titleInsetSpacing = -44;
-            break;
-        case 2:
-            titleInsetSpacing = -49;
-            break;
-        case 3:
-            titleInsetSpacing = -52;
-            break;
-        case 4:
-            titleInsetSpacing = -54;
-            break;
-        default:
-            titleInsetSpacing = -49;
-            break;
-    }
-    
-    [likesButton setTitleEdgeInsets:UIEdgeInsetsMake(3, titleInsetSpacing, 0, 0)];
-    [likesButton setTitle:self.likeButtonTitle forState:UIControlStateNormal];
-    likesButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12];
-    [likesButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [likesButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-    
-    return likesButton;
+    [self.profileImageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushProfilePicture:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [self.profileImageView addGestureRecognizer:singleTap];
+
+    [self.contentFooterView addSubview:self.profileImageView];
 }
 
-- (UIButton *)commentsButtonWithTitle
+- (void)pushProfilePicture:(UIGestureRecognizer *)gesture
 {
-    CGRect buttonFrame = CGRectMake(280 * .52, 8.5, 45, 18);
-    UIButton *commentsButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    //[testButton setBackgroundColor:[UIColor purpleColor]];
-    [commentsButton setImage:[UIImage imageNamed:@"comment-bubble.png"] forState:UIControlStateNormal];
-    [commentsButton setImageEdgeInsets:UIEdgeInsetsMake(1, 28, 2, 0)];
-    
-    
-    int titleInsetSpacing;
-    switch ([self.commentButtonTitle length]) {
-        case 1:
-            titleInsetSpacing = -45;
-            break;
-        case 2:
-            titleInsetSpacing = -50;
-            break;
-        case 3:
-            titleInsetSpacing = -53;
-            break;
-        case 4:
-            titleInsetSpacing = -55;
-            break;
-        default:
-            titleInsetSpacing = -50;
-            break;
-    }
-    
-    [commentsButton setTitleEdgeInsets:UIEdgeInsetsMake(0, titleInsetSpacing, 0, 0)];
-    [commentsButton setTitle:self.commentButtonTitle forState:UIControlStateNormal];
-    commentsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12];
-    [commentsButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [commentsButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-    
-    return commentsButton;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectProfileImage" object:nil];
+    NSLog(@"Pushed Picture");
 }
 
 
 
- 
+- (void)addProfileNameLabelAtLocation:(CGPoint)location
+{
+    self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, 100, 12)];
+
+    
+    //[self.profileNameLabel setText:self.stringUploaderName];
+    [self.profileNameLabel setTextColor:[UIColor grayColor]];
+    [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.profileNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:8]];
+    //[self.profileNameLabel setBackgroundColor:[UIColor purpleColor]];
+    [self.contentFooterView addSubview:self.profileNameLabel];
+}
+
+- (void)addUploadDateLabelAtLocation:(CGPoint)location
+{
+    self.uploadDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, 100, 10)];
+
+    
+    //[self.uploadDateLabel setText:self.stringUploadDate];
+    [self.uploadDateLabel setTextColor:[UIColor grayColor]];
+    [self.uploadDateLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.uploadDateLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:7]];
+    [self.contentFooterView addSubview:self.uploadDateLabel];
+}
+
+- (void)addCommentsButtonAtLocation:(CGPoint)location
+{
+    self.commentsTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, 40, 18)];
+    [self.commentsTextLabel setText:self.commentButtonTitle];
+    [self.commentsTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
+    [self.commentsTextLabel setTextColor:[UIColor grayColor]];
+    [self.commentsTextLabel setTextAlignment:NSTextAlignmentRight];
+    [self.contentFooterView addSubview:self.commentsTextLabel];
+    
+    self.commentsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(location.x + 45, location.y + 1.5, 17, 15)];
+    [self.commentsImageView setImage:[UIImage imageNamed:@"comment-bubble.png"]];
+    [self.contentFooterView addSubview:self.commentsImageView];
+    
+    self.commentsButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, 65, 18)];
+    [self.commentsButton addTarget:self action:@selector(pushDownCommentsButton) forControlEvents:UIControlEventTouchDown];
+    [self.commentsButton addTarget:self action:@selector(pushCommentsButton) forControlEvents:UIControlEventTouchUpInside];
+    //[self.commentsButton setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:.5]];
+    [self.contentFooterView addSubview:self.commentsButton];
+}
+
+// Sends user to current strings comments section and changes text color
+- (void)pushCommentsButton
+{
+    self.commentsTextLabel.textColor = [UIColor grayColor];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectCommentsButton" object:nil];
+}
+
+// alters text color in a way that makes it look like the button was presed
+- (void)pushDownCommentsButton
+{
+    self.commentsTextLabel.textColor = [UIColor darkGrayColor];
+}
+
+
+
+- (void)addLikesButtonAtLocation:(CGPoint)location
+{
+    self.likesTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, 40, 18)];
+    [self.likesTextLabel setText:self.likeButtonTitle];
+    [self.likesTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
+    [self.likesTextLabel setTextColor:[UIColor grayColor]];
+    [self.likesTextLabel setTextAlignment:NSTextAlignmentRight];
+    [self.contentFooterView addSubview:self.likesTextLabel];
+    
+    self.likesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(location.x + 45, location.y, 17, 15)];
+    [self.likesImageView setImage:[UIImage imageNamed:@"like-bubble.png"]];
+    [self.contentFooterView addSubview:self.likesImageView];
+    
+    self.likesButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, 65, 18)];
+    [self.likesButton addTarget:self action:@selector(pushDownLikesButton) forControlEvents:UIControlEventTouchDown];
+    [self.likesButton addTarget:self action:@selector(pushLikesButton) forControlEvents:UIControlEventTouchUpInside];
+    //[self.likesButton setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:.5]];
+    [self.contentFooterView addSubview:self.likesButton];
+    
+}
+
+// increments the number of likes for the current string
+// and changes text color
+- (void)pushLikesButton
+{
+    self.likesTextLabel.textColor = [UIColor grayColor];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectLikesButton" object:nil];
+}
+
+// alters text color in a way that makes it look like the button was presed
+- (void)pushDownLikesButton
+{
+    self.likesTextLabel.textColor = [UIColor darkGrayColor];
+}
+
+
+
 
 @end

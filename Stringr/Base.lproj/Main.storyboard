@@ -611,10 +611,10 @@
             </objects>
             <point key="canvasLocation" x="1138" y="-5254"/>
         </scene>
-        <!--View Controller - String Comments-->
+        <!--Stringr String Comments View Controller - String Comments-->
         <scene sceneID="yvq-QI-32Z">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="LFF-qi-Rln" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StringCommentsVC" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LFF-qi-Rln" customClass="StringrStringCommentsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KRt-nw-VU3"/>
                         <viewControllerLayoutGuide type="bottom" id="UUb-Ck-2RA"/>
@@ -718,7 +718,7 @@
             <objects>
                 <navigationController storyboardIdentifier="StringrNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="n3z-2W-mTN" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3NZ-OA-Il2">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="3NZ-OA-Il2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
