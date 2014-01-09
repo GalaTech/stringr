@@ -24,12 +24,15 @@
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.itemSize = CGSizeMake(135.0, 135.0);
+    flowLayout.itemSize = CGSizeMake(157, 157);
     flowLayout.minimumLineSpacing = 0.0;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     
     [self.stringCollectionView setCollectionViewLayout:flowLayout];
+    
+    
+    
     
     // Register the colleciton cell
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];

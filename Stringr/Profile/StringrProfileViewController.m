@@ -28,9 +28,9 @@
     
     // If the user is not supposed to be able to go back then we init with the menu item
     if (!self.canGoBack) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                                 style:UIBarButtonItemStyleBordered
-                                                                                target:self
+        // Creates the navigation item to access the menu
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                 style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
     }
     
@@ -62,7 +62,7 @@
 
     
     // Dynamically sets the number of strings label to how many strings are in the table view
-    NSString *numberOfStrings = [NSString stringWithFormat:@"%d Strings", self.tableViewController.tableView.numberOfSections];
+    NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)self.tableViewController.tableView.numberOfSections];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
     topVC.profileNumberOfStringsLabel.text = numberOfStrings;
 }

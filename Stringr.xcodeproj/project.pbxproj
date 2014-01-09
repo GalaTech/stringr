@@ -93,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
@@ -121,7 +122,6 @@
 		BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTopViewController.m; path = Profile/StringrProfileTopViewController.m; sourceTree = "<group>"; };
 		BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTableViewController.h; path = Profile/StringrProfileTableViewController.h; sourceTree = "<group>"; };
 		BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTableViewController.m; path = Profile/StringrProfileTableViewController.m; sourceTree = "<group>"; };
-		BF3EDDD4183AADCB0071E047 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = "/Users/JonnyBillings/Documents/Programming/Xcode Workspace/Stringr/Stringr/Utility/StringrConstants.h"; sourceTree = "<absolute>"; };
 		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConstants.m; path = Utility/StringrConstants.m; sourceTree = "<group>"; };
 		BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrRootViewController.h; path = Menu/StringrRootViewController.h; sourceTree = "<group>"; };
 		BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrRootViewController.m; path = Menu/StringrRootViewController.m; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 		BF8349D218297FD600D15963 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BF8349D618297FD600D15963 /* Stringr-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stringr-Info.plist"; sourceTree = "<group>"; };
 		BF8349D818297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "/Users/JonnyBillings/Documents/Programming/Xcode Workspace/Stringr/Stringr/main.m"; sourceTree = "<absolute>"; };
+		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "/Users/Jonathan/Documents/Programming/Xcode Workspace/Stringr/Stringr/main.m"; sourceTree = "<absolute>"; };
 		BF8349DC18297FD600D15963 /* Stringr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stringr-Prefix.pch"; sourceTree = "<group>"; };
 		BF8349DD18297FD600D15963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF8349DE18297FD600D15963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 				BF8349DE18297FD600D15963 /* AppDelegate.m */,
 				BF3EDDFD183E89A60071E047 /* StringrUtility.h */,
 				BF3EDDFE183E89A60071E047 /* StringrUtility.m */,
-				BF3EDDD4183AADCB0071E047 /* StringrConstants.h */,
+				AB4614F9187CC63D00956FF3 /* StringrConstants.h */,
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
 				BF8349E018297FD600D15963 /* Main.storyboard */,
 				BF834A491829978300D15963 /* Resources */,
@@ -885,7 +885,7 @@
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4795B012-7A30-4C8B-B4C3-D15615D3BDC3";
+				PROVISIONING_PROFILE = "4AF75F85-657A-4705-801E-5A875228C751";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -901,7 +901,7 @@
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4795B012-7A30-4C8B-B4C3-D15615D3BDC3";
+				PROVISIONING_PROFILE = "4AF75F85-657A-4705-801E-5A875228C751";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

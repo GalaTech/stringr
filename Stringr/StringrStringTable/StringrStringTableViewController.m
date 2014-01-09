@@ -31,8 +31,8 @@
 	
     
     // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                             style:UIBarButtonItemStyleBordered target:self
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                             style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
     
     self.tableView.allowsSelection = NO;
@@ -123,7 +123,7 @@
 }
 
 
-- (IBAction)pushToStringDetailView:(UIButton *)sender
+- (void)pushToStringDetailView
 {
     UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
@@ -224,7 +224,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 23.5;
 }
 
 /*
@@ -239,23 +239,57 @@
 }
  */
 
+#define contentViewWidthPercentage .93
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // Section header view, which is used for embedding the content view of the section header
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
     [headerView setBackgroundColor:[UIColor clearColor]];
     [headerView setAlpha:1];
+    
+    float xpoint = (headerView.frame.size.width - (headerView.frame.size.width * contentViewWidthPercentage)) / 2;
+    CGRect contentHeaderRect = CGRectMake(xpoint, 0, headerView.frame.size.width * contentViewWidthPercentage, 23.5);
+    
+    UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
+    [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
+    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView) forControlEvents:UIControlEventTouchUpInside];
+    [contentHeaderViewButton setAlpha:0.92];
+    [contentHeaderViewButton setTitle:@"An awesome trip from coast to coast!" forState:UIControlStateNormal];
+    [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
+    
+    /*
+    
+    NSMutableAttributedString *stringHeaderTitle = [[NSMutableAttributedString alloc] initWithString:@"An awesome trip from coast to coast!"];
+    
+    [stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:12] range:NSMakeRange(0, [stringHeaderTitle length])];
+    [stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, [stringHeaderTitle length])];
+    
+    
+    [contentHeaderViewButton setAttributedTitle:stringHeaderTitle forState:UIControlStateNormal];
+     
+     */
+    
+    
+    [headerView addSubview:contentHeaderViewButton];
 
+    /*
     // The content view for the section header, which contains the title for a string
     UIView *contentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width * .875, 20)];
     [contentHeaderView setBackgroundColor:[UIColor whiteColor]];
     [headerView addSubview:contentHeaderView];
     
+    UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 12)];
+    [testButton setTitle:@"Test" forState:UIControlStateNormal];
+    [testButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [testButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     
-    //NSMutableAttributedString *stringHeaderTitle = [[NSMutableAttributedString alloc] initWithString:@"An awesome trip from coast to coast!"];
+    [contentHeaderView addSubview:testButton];
     
-    //[stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:12] range:NSMakeRange(0, 21)];
-    //[stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, 21)];
+    
+    
     
     CGRect labelWidth = CGRectMake(0, 1.5, contentHeaderView.frame.size.width, 16);
     UILabel *stringHeaderTitle = [[UILabel alloc] initWithFrame:labelWidth];
@@ -272,7 +306,7 @@
     
     //[stringTitleLabel setAttributedText:stringHeaderTitle];
     [contentHeaderView addSubview:stringHeaderTitle];
-    
+    */
     
     
     return headerView;
@@ -281,9 +315,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 135;
+        return 157;
     } else if (indexPath.row == 1) {
-        return 48;
+        return 52;
     }
     
     return 0;
