@@ -28,9 +28,9 @@
     
     // If the user is not supposed to be able to go back then we init with the menu item
     if (!self.canGoBack) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                                 style:UIBarButtonItemStyleBordered
-                                                                                target:self
+        // Creates the navigation item to access the menu
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                 style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
     }
     
@@ -46,8 +46,14 @@
     // Instantiates the parallax VC with a top and bottom VC.
     UIViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     UITableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    [self setupWithTopViewController:topProfileVC height:265 tableViewController:tableProfileVC];
     
+    
+    
+    [self setupWithTopViewController:topProfileVC height:265 tableViewController:tableProfileVC];
+   
+    // Sets the background color of the table view correctly, but overlaps the topVC
+//    UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+//    [tableProfileVC.tableView setBackgroundColor:veryLightGrayColor];
     
     // Adds tap gesture to the view for use with tapping controls in the topVC
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -56,10 +62,9 @@
 
     
     // Dynamically sets the number of strings label to how many strings are in the table view
-    NSString *numberOfStrings = [NSString stringWithFormat:@"%d Strings", self.tableViewController.tableView.numberOfSections];
+    NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)self.tableViewController.tableView.numberOfSections];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
     topVC.profileNumberOfStringsLabel.text = numberOfStrings;
-    
 }
 
 #pragma mark - Utility

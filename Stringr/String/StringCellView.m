@@ -24,15 +24,22 @@
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.itemSize = CGSizeMake(170.0, 170.0);
+    flowLayout.itemSize = CGSizeMake(157, 157);
     flowLayout.minimumLineSpacing = 0.0;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     
     [self.stringCollectionView setCollectionViewLayout:flowLayout];
     
+    
+    
+    
     // Register the colleciton cell
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
+    
+    // disables the embedded scroll views scroll to top so that when inside of
+    // a table view it will allow you to truly scroll to top.
+    self.stringCollectionView.scrollsToTop = NO;
 }
 
 

@@ -58,13 +58,13 @@
     [self.editProfileDescriptionTextView setText:self.fillerDescription];
     [self.editProfileImage setImage:self.fillerProfileImage.image];
     
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%d", 60 - self.editProfileDescriptionTextView.text.length];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%u", 60 - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
     
 }
 
 
-#pragma mark - UIControls 
+#pragma mark - UIControls
 
 // Sets the delegate profile name to the edited text of the UITextField
 - (IBAction)editProfileNameTextField:(UITextField *)sender

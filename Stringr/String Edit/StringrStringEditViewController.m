@@ -7,6 +7,7 @@
 //
 
 #import "StringrStringEditViewController.h"
+#import "StringrStringDiscoveryTabBarViewController.h"
 
 @interface StringrStringEditViewController ()
 
@@ -40,6 +41,9 @@
 - (void)saveAndPublishString
 {
     UINavigationController *navController = (UINavigationController *)self.frostedViewController.contentViewController;
+    
+    //StringrStringDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
+    
     
     [navController popToRootViewControllerAnimated:YES];
 }

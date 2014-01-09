@@ -22,9 +22,11 @@
     self.title = @"University Popular";
     
     // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                             style:UIBarButtonItemStyleBordered target:self
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                             style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
+    
+    self.tabBar.tintColor = [UIColor purpleColor];
 }
 
 - (void)showMenu

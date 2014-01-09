@@ -24,7 +24,7 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "GBPathImageView.h"
 
-@interface StringrMenuViewController ()
+@interface StringrMenuViewController () <UIActionSheetDelegate>
 
 @property (strong,nonatomic) UIButton *cameraButton;
 
@@ -137,14 +137,23 @@
     StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
     
     
+    //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
+    
+    
+    
+//    UIView *view = [[]
+    
+    //[actionSheet showInView:self.view];
+    
     
     [navigationController pushViewController:stringEditVC animated:NO];
     
     
-    
     // Closes the menu after we move to a new VC
     [self.frostedViewController hideMenuViewController];
+    
 }
+
 
 
 #pragma mark -

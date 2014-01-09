@@ -8,10 +8,18 @@
 
 #import "StringTableCellViewCell.h"
 #import "StringCellView.h"
+#import "StringrDetailViewController.h"
 
+#import "GBPathImageView.h"
 
 @interface StringTableCellViewCell ()
+
 @property (strong, nonatomic) StringCellView *stringCollectionView;
+
+@property (strong, nonatomic) GBPathImageView *detailTabProfileImage;
+@property (strong, nonatomic) UILabel *detailTabNumberOfCommentsLabel;
+@property (strong, nonatomic) UILabel *detailTabNumberOfLikesLabel;
+
 @end
 
 
@@ -29,11 +37,12 @@
          _stringCollectionView= [[NSBundle mainBundle] loadNibNamed:@"StringCellView" owner:self options:nil][0];
         _stringCollectionView.frame = self.bounds;
         [self.contentView addSubview:_stringCollectionView];
-        
-    }
+     }
     
     return self;
 }
+
+
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
