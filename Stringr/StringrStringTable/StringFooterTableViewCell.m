@@ -7,16 +7,15 @@
 //
 
 #import "StringFooterTableViewCell.h"
-#import "StringrFooterContentView.h"
 
-#import "GBPathImageView.h"
+#import "StringrPathImageView.h"
 
 
 @interface StringFooterTableViewCell ()
 
 @property (strong, nonatomic) UIView *contentFooterView;
 
-@property (strong, nonatomic) GBPathImageView *profileImageView;
+@property (strong, nonatomic) StringrPathImageView *profileImageView;
 
 @property (strong, nonatomic) UILabel *profileNameLabel;
 
@@ -59,7 +58,7 @@
         
         [self addProfileImageViewAtLocation:CGPointMake(self.contentView.frame.size.width * profileImageXLocationPercentage, 2) withSize:CGSizeMake(contentViewWidth * .115, contentViewWidth * .115)];
         
-        // Adds profile label with provided profile name
+        // Adds profile label with provided profile name at location with size
         [self addProfileNameLabelAtLocation:CGPointMake(42, 6) withSize:CGSizeMake(130, 13)];
         
         // Adds upload date label with the date the current string was uploaded
@@ -136,13 +135,12 @@
 
 - (void)addProfileImageViewAtLocation:(CGPoint)location withSize:(CGSize)size
 {
-    self.profileImageView = [[GBPathImageView alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)
-                                                             image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
-                                                          pathType:GBPathImageViewTypeCircle
-                                                         pathColor:[UIColor darkGrayColor]
-                                                       borderColor:[UIColor darkGrayColor]
-                                                         pathWidth:1.0];
-
+    
+    self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)
+                                                                  image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+                                                              pathColor:[UIColor darkGrayColor]
+                                                              pathWidth:1.0];
+    
     
     [self.profileImageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushProfilePicture:)];
@@ -155,11 +153,10 @@
 - (void)pushProfilePicture:(UIGestureRecognizer *)gesture
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectProfileImage" object:nil];
-    NSLog(@"Pushed Picture");
 }
 
 
-
+// Adds the given profile name at the preset location and size
 - (void)addProfileNameLabelAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
@@ -173,6 +170,7 @@
     [self.contentFooterView addSubview:self.profileNameLabel];
 }
 
+// Adds the given upload date at the preset location and size
 - (void)addUploadDateLabelAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.uploadDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
@@ -185,6 +183,11 @@
     [self.contentFooterView addSubview:self.uploadDateLabel];
 }
 
+
+
+
+
+// Adds a compounded NSString, UIImage, and UIButton with the given number of comment's at the preset location and size
 - (void)addCommentsButtonAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.commentsTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
@@ -225,6 +228,10 @@
 }
 
 
+
+
+
+// Adds a compounded NSString, UIImage, and UIButton with the given number of like's at the preset location and size
 - (void)addLikesButtonAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.likesTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
@@ -248,8 +255,7 @@
     
 }
 
-// increments the number of likes for the current string
-// and changes text color
+// increments the number of likes for the current string and changes text color
 - (void)pushLikesButton
 {
     self.likesTextLabel.textColor = [UIColor grayColor];

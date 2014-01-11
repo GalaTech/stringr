@@ -8,6 +8,7 @@
 
 #import "StringrLoginViewController.h"
 #import "StringrStringDiscoveryTabBarViewController.h"
+#import "StringrRootViewController.h"
 
 #import "StringrProfileViewController.h"
 
@@ -26,7 +27,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.tabBarController.tabBar setHidden:YES];
+    
     
 }
 
@@ -93,13 +96,17 @@
                     } completion:nil];
 }
 
+
 - (IBAction)pushToNewView:(UIButton *)sender
 {
     UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     StringrStringDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
     
-    [navigationController pushViewController:stringDiscoveryVC animated:YES];
+    StringrRootViewController *stringRootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrRootNavigation"];
+    
+    [self presentViewController:stringRootVC animated:YES completion:nil];
+//    [self.navigationController pushViewController:stringDiscoveryVC animated:YES];
     
 }
 

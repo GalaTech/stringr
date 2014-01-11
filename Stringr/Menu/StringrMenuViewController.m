@@ -7,6 +7,7 @@
 //
 
 #import "StringrMenuViewController.h"
+#import "StringrNavigationController.h"
 
 #import "StringrProfileViewController.h"
 #import "StringrMyStringsTableViewController.h"
@@ -22,7 +23,8 @@
 #import "StringrLoginViewController.h"
 
 #import "UIViewController+REFrostedViewController.h"
-#import "GBPathImageView.h"
+#import "StringrPathImageView.h"
+
 
 @interface StringrMenuViewController () <UIActionSheetDelegate>
 
@@ -45,59 +47,43 @@
     self.tableView.opaque = NO; // Allows transparency
     self.tableView.backgroundColor = [UIColor clearColor];
     
-    self.tableView.tableHeaderView = ({
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        
-        
-        self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 20, 25, 25)];
-        [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
-        
-        [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIImageView *cameraImage = [[UIImageView alloc] initWithFrame:CGRectMake(120, 15, 30, 30)];
-        [cameraImage setImage:[UIImage imageNamed:@"following.png"]];
-        
-        //cameraImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        // Creates the circular profile image in the slide out menu
-        GBPathImageView *imageView = [[GBPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
-                                                                      image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
-                                                                   pathType:GBPathImageViewTypeCircle
-                                                                  pathColor:[UIColor whiteColor]
-                                                                borderColor:[UIColor whiteColor]
-                                                                  pathWidth:3.0];
-        
-        // Sets the auto resizing for both the left and right margins.
-        // This will automatically add the center to the center of the view.
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        
-        /* Original version of adding the profile image to the view
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        imageView.image = [UIImage imageNamed:@"orca-stock-photo.jpg"];
-        imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerRadius = 50.0;
-        imageView.layer.borderColor = [UIColor whiteColor].CGColor;
-        imageView.layer.borderWidth = 3.0f;
-        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        imageView.layer.shouldRasterize = YES;
-        imageView.clipsToBounds = YES;
-        */
-         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        label.text = @"Jed Erbar";
-        label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-        [label sizeToFit];
-        label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        [view addSubview:imageView];
-        [view addSubview:self.cameraButton];
-        [view addSubview:label];
-        view;
-    });
+    
+    
+    
+    // Creates the header of the menu that contains profile image and other graphics
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+    
+    self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 20, 25, 25)];
+    [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
+    
+    [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImageView *cameraImage = [[UIImageView alloc] initWithFrame:CGRectMake(120, 15, 30, 30)];
+    [cameraImage setImage:[UIImage imageNamed:@"following.png"]];
+    
+    //cameraImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    StringrPathImageView *imageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
+                                                                            image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+                                                                        pathColor:[UIColor darkGrayColor]
+                                                                        pathWidth:1.0];
+    [imageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+    label.text = @"Alonso Holmes";
+    label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    [label sizeToFit];
+    label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    [view addSubview:imageView];
+    [view addSubview:self.cameraButton];
+    [view addSubview:label];
+    
+    self.tableView.tableHeaderView = view;
+    
+    
     
     /*
      * Adds a footer to the table view, which I will probably use for a settings and logout button
@@ -132,9 +118,12 @@
 
 - (IBAction)cameraButtonPushed:(UIButton *)sender
 {
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+   // UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+    
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:stringEditVC];
+    [self.frostedViewController setContentViewController:navVC];
     
     
     //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
@@ -146,7 +135,7 @@
     //[actionSheet showInView:self.view];
     
     
-    [navigationController pushViewController:stringEditVC animated:NO];
+    //[navigationController pushViewController:stringEditVC animated:NO];
     
     
     // Closes the menu after we move to a new VC
@@ -211,7 +200,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     // Instance of our navigation controller, which is the frostedVC
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     
     // Table section 0 menu items actions
@@ -219,34 +208,51 @@
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
         profileVC.canEditProfile = YES;
         profileVC.title = @"My Profile";
-        navigationController.viewControllers = @[profileVC];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+        
+        [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 0 && indexPath.row == 1) {
         StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyStringsVC"];
-        navigationController.viewControllers = @[myStringsVC];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:myStringsVC];
+        
+        [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 0 && indexPath.row == 2) {
         StringrLikedStringsTableViewController *likedStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LikedStringsVC"];
-        navigationController.viewControllers = @[likedStringsVC];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:likedStringsVC];
+        
+        [self.frostedViewController setContentViewController:navVC];
     }
     
     // Table section 1 menu items actions
     if (indexPath.section == 1 && indexPath.row == 0) {
         StringrStringDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
-        navigationController.viewControllers = @[stringDiscoveryVC];
+        
+        [self.frostedViewController setContentViewController:stringDiscoveryVC];
     } else if (indexPath.section == 1 && indexPath.row == 1) {
         StringrMySchoolViewController *mySchoolVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MySchoolTabBar"];
-        navigationController.viewControllers = @[mySchoolVC];
+        
+        [self.frostedViewController setContentViewController:mySchoolVC];
     } else if (indexPath.section == 1 && indexPath.row == 2) {
         StringrSearchViewController *searchVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchTabBar"];
-        navigationController.viewControllers = @[searchVC];
+        
+        [self.frostedViewController setContentViewController:searchVC];
     }
     
     //Table section 2 menu items actions
     if (indexPath.section == 2 && indexPath.row == 0) {
         StringrSettingsViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsVC"];
-        navigationController.viewControllers = @[settingsVC];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
+        
+        [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
-        StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        navigationController.viewControllers = @[loginVC];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        // Makes it so that when you dismiss the main VC it won't also perform the close menu animation
+        return;
     }
     
     

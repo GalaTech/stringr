@@ -10,13 +10,13 @@
 #import "StringCellView.h"
 #import "StringrDetailViewController.h"
 
-#import "GBPathImageView.h"
+#import "StringrPathImageView.h"
 
 @interface StringTableCellViewCell ()
 
 @property (strong, nonatomic) StringCellView *stringCollectionView;
 
-@property (strong, nonatomic) GBPathImageView *detailTabProfileImage;
+@property (strong, nonatomic) StringrPathImageView *detailTabProfileImage;
 @property (strong, nonatomic) UILabel *detailTabNumberOfCommentsLabel;
 @property (strong, nonatomic) UILabel *detailTabNumberOfLikesLabel;
 

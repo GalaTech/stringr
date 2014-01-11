@@ -9,6 +9,7 @@
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrEditProfileViewController.h"
+#import "StringrFollowingFollowersTabBarViewController.h"
 
 
 @interface StringrProfileTopViewController ()
@@ -26,12 +27,11 @@
     [super viewDidLoad];
     
 	
-    // Adds the circular path to the profile image
-    [self.profileImage setPathType:GBPathImageViewTypeCircle];
-    [self.profileImage setPathWidth:1.1];
+    // Sets the circle image path properties
+    [self.profileImage setImageToCirclePath];
+    //[self.profileImage setImage:self.profileImage.image];
+    [self.profileImage setPathWidth:1.0];
     [self.profileImage setPathColor:[UIColor darkGrayColor]];
-    [self.profileImage setBorderColor:[UIColor darkGrayColor]];
-    [self.profileImage draw];
     
     
     UIColor *veryLightGrayColor = [UIColor colorWithWhite:.90 alpha:1.0];
@@ -61,8 +61,6 @@
 
 - (IBAction)followUserButton:(UIButton *)sender
 {
-    //NSString *buttonText = sender.titleLabel.text;
-    
     if (!self.isFollowingUser) {
         UIAlertView *followAlert = [[UIAlertView alloc] initWithTitle:@"Followed"
                                                         message:[NSString stringWithFormat:@"You are now following %@!", self.profileNameLabel.text]
@@ -85,6 +83,18 @@
     
     self.isFollowingUser = !self.isFollowingUser;
      
+}
+
+- (IBAction)accessFollowingAndFollowers:(UIButton *)sender
+{
+    StringrFollowingFollowersTabBarViewController *followingFollowersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrFollowingFollowersTab"];
+
+     
+    
+//    [self.navigationController pushViewController:followingFollowersVC animated:YES];
+    
+    [self presentViewController:followingFollowersVC animated:YES completion:nil];
+    
 }
 
 

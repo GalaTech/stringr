@@ -71,6 +71,7 @@
 #pragma clang diagnostic pop
     _panGestureEnabled = YES;
     _animationDuration = 0.35f;
+    _backgroundFadeAmount = 0.3f;
     _blurTintColor = REUIKitIsFlatMode() ? nil : [UIColor colorWithWhite:1 alpha:0.75f];
     _blurSaturationDeltaFactor = 1.8f;
     _blurRadius = 10.0f;
@@ -133,7 +134,22 @@
 
 - (void)setContentViewController:(UIViewController *)contentViewController
 {
+    if (!_contentViewController) {
+        _contentViewController = contentViewController;
+        return;
+    }
+    
+    [_contentViewController removeFromParentViewController];
+    [_contentViewController.view removeFromSuperview];
+    
+    if (contentViewController) {
+        [self addChildViewController:contentViewController];
+        contentViewController.view.frame = self.containerViewController.view.frame;
+        [self.view insertSubview:contentViewController.view atIndex:0];
+        [contentViewController didMoveToParentViewController:self];
+    }
     _contentViewController = contentViewController;
+    
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     }
@@ -148,7 +164,7 @@
     CGRect frame = _menuViewController.view.frame;
     [_menuViewController willMoveToParentViewController:nil];
     [_menuViewController removeFromParentViewController];
-     [_menuViewController.view removeFromSuperview];
+    [_menuViewController.view removeFromSuperview];
     _menuViewController = menuViewController;
     if (!_menuViewController)
         return;
@@ -201,13 +217,27 @@
     self.visible = YES;
 }
 
-- (void)hideMenuViewController
+- (void)hideMenuViewControllerWithCompletionHandler:(void(^)(void))completionHandler
 {
     if (!self.liveBlur) {
         self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
         [self.containerViewController refreshBackgroundImage];
     }
-    [self.containerViewController hide];
+    [self.containerViewController hideWithCompletionHandler:completionHandler];
+}
+
+- (void)resizeMenuViewControllerToSize:(CGSize)size
+{
+    if (!self.liveBlur) {
+        self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
+        [self.containerViewController refreshBackgroundImage];
+    }
+    [self.containerViewController resizeToSize:size];
+}
+
+- (void)hideMenuViewController
+{
+	[self hideMenuViewControllerWithCompletionHandler:nil];
 }
 
 - (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer

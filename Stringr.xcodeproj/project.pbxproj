@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
@@ -79,7 +80,6 @@
 		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
 		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
 		BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */; };
-		BFFA599B186A2225001C377D /* StringrFooterContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599A186A2225001C377D /* StringrFooterContentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +94,8 @@
 
 /* Begin PBXFileReference section */
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
+		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
+		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
@@ -211,8 +213,6 @@
 		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
 		BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringFooterTableViewCell.h; path = StringrStringTable/StringFooterTableViewCell.h; sourceTree = "<group>"; };
 		BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringFooterTableViewCell.m; path = StringrStringTable/StringFooterTableViewCell.m; sourceTree = "<group>"; };
-		BFFA5999186A2225001C377D /* StringrFooterContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFooterContentView.h; path = StringrStringTable/StringrFooterContentView.h; sourceTree = "<group>"; };
-		BFFA599A186A2225001C377D /* StringrFooterContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterContentView.m; path = StringrStringTable/StringrFooterContentView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +239,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB757A89187F173F00D32917 /* Image Path  */ = {
+			isa = PBXGroup;
+			children = (
+				AB757A86187F173A00D32917 /* StringrPathImageView.h */,
+				AB757A87187F173A00D32917 /* StringrPathImageView.m */,
+			);
+			name = "Image Path ";
+			sourceTree = "<group>";
+		};
+		AB757A8A1880654000D32917 /* Root Navigation Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */,
+				BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */,
+			);
+			name = "Root Navigation Controller";
+			sourceTree = "<group>";
+		};
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +276,7 @@
 		BF3EDDC9183AAC630071E047 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB757A89187F173F00D32917 /* Image Path  */,
 				BF170EBD184BEA9D0056ECE7 /* String */,
 				BF3EDE4D1847C0670071E047 /* User Table View Cell */,
 			);
@@ -284,8 +303,7 @@
 		BF3EDDCB183AAC900071E047 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */,
-				BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */,
+				AB757A8A1880654000D32917 /* Root Navigation Controller */,
 				BF3EDDF0183D92330071E047 /* StringrNavigationController.h */,
 				BF3EDDF1183D92330071E047 /* StringrNavigationController.m */,
 				BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */,
@@ -583,8 +601,6 @@
 			children = (
 				BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */,
 				BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */,
-				BFFA5999186A2225001C377D /* StringrFooterContentView.h */,
-				BFFA599A186A2225001C377D /* StringrFooterContentView.m */,
 			);
 			name = Footer;
 			sourceTree = "<group>";
@@ -717,6 +733,7 @@
 				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
 				BF3EDE42184530E80071E047 /* UIViewController+M6ParallaxController.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrStringSearchTableViewController.m in Sources */,
+				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				BF170EC9184BEB700056ECE7 /* StringCellView.m in Sources */,
 				BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */,
 				BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */,
@@ -750,7 +767,6 @@
 				BF3EDE471847BBAF0071E047 /* GBPathImageView.m in Sources */,
 				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
-				BFFA599B186A2225001C377D /* StringrFooterContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

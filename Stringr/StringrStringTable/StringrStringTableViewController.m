@@ -7,6 +7,7 @@
 //
 
 #import "StringrStringTableViewController.h"
+#import "StringrNavigationController.h"
 #import "StringrUtility.h"
 
 #import "StringrDetailViewController.h"
@@ -25,10 +26,21 @@
 
 @implementation StringrStringTableViewController
 
+//- (void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+//}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
+    self.title = self.tabBarController.tabBarItem.title;
     
     // Creates the navigation item to access the menu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -38,6 +50,7 @@
     self.tableView.allowsSelection = NO;
     
     
+    // Test string array/dictionaries
     self.images = @[ @{ @"description": @"An eternity in Bruges",
                             @"articles": @[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
                                             @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
@@ -92,56 +105,22 @@
     [self.tableView registerClass:[StringTableCellViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     
     UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    
     [self.tableView setBackgroundColor:veryLightGrayColor];
     
+
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectProfileImage:) name:@"didSelectProfileImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectCommentsButton:) name:@"didSelectCommentsButton" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectLikesButton:) name:@"didSelectLikesButton" object:nil];
-
-    
-    /* Creates a header view for the entire table view. This could be an alternate
-     * method for setting up user profile's
-     *
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-    [tableHeaderView setBackgroundColor:[UIColor purpleColor]];
-    
-    UIButton *headerButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 50, 100, 20)];
-    [headerButton setTitle:@"Test Button" forState:UIControlStateNormal];
-    [headerButton setTitle:@"Pressed Button" forState:UIControlStateHighlighted | UIControlStateSelected];
-    
-    [tableHeaderView addSubview:headerButton];
-    
-    self.tableView.tableHeaderView = tableHeaderView;
-    */
 }
 
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
-
-
-- (void)pushToStringDetailView
-{
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
-    
-    
-    detailVC.modalPresentationStyle = UIModalPresentationCustom;
-    detailVC.modalTransitionStyle = UIModalPresentationNone;
-    
-    // default present is modal animation
-    //[navigationController presentViewController:detailVC animated:YES completion:NULL];
-    
-    
-    [navigationController pushViewController:detailVC animated:YES];
-}
-
-
-- (void)dealloc
+- (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
@@ -151,16 +130,17 @@
 
 
 
-
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    // This will be set to the amount of strings that are loaded from parse
     return [self.images count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    // One of the rows is for the footer view
     return 2;
 }
 
@@ -211,33 +191,28 @@
 }
 
 
+
+
+
+
+
+
+
 #pragma mark - Table View Delegate
 
-/*
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSDictionary *sectionData = [self.images objectAtIndex:section];
-    NSString *header = [sectionData objectForKey:@"description"];
-    return header;
-}
- */
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 23.5;
 }
 
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    // last section in table will not have the extra footer view margin
-    if (section == [self.images count] - 1) {
-        return 35;
-    }
-    
-    return 48;
-}
- */
+
+
+
+
+
+
+
 
 #define contentViewWidthPercentage .93
 
@@ -251,6 +226,8 @@
     float xpoint = (headerView.frame.size.width - (headerView.frame.size.width * contentViewWidthPercentage)) / 2;
     CGRect contentHeaderRect = CGRectMake(xpoint, 0, headerView.frame.size.width * contentViewWidthPercentage, 23.5);
     
+    // This is the content view, which is a button that will provide user interaction that can take them to
+    // the detail view of a string
     UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
     [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
     [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView) forControlEvents:UIControlEventTouchUpInside];
@@ -260,54 +237,7 @@
     [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
     
-    /*
-    
-    NSMutableAttributedString *stringHeaderTitle = [[NSMutableAttributedString alloc] initWithString:@"An awesome trip from coast to coast!"];
-    
-    [stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:12] range:NSMakeRange(0, [stringHeaderTitle length])];
-    [stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, [stringHeaderTitle length])];
-    
-    
-    [contentHeaderViewButton setAttributedTitle:stringHeaderTitle forState:UIControlStateNormal];
-     
-     */
-    
-    
     [headerView addSubview:contentHeaderViewButton];
-
-    /*
-    // The content view for the section header, which contains the title for a string
-    UIView *contentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width * .875, 20)];
-    [contentHeaderView setBackgroundColor:[UIColor whiteColor]];
-    [headerView addSubview:contentHeaderView];
-    
-    UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 12)];
-    [testButton setTitle:@"Test" forState:UIControlStateNormal];
-    [testButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [testButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    
-    [contentHeaderView addSubview:testButton];
-    
-    
-    
-    
-    CGRect labelWidth = CGRectMake(0, 1.5, contentHeaderView.frame.size.width, 16);
-    UILabel *stringHeaderTitle = [[UILabel alloc] initWithFrame:labelWidth];
-    [stringHeaderTitle setText:@"An awesome trip from coast to coast!"];
-    [stringHeaderTitle setFont:[UIFont fontWithName:@"HelveticaNeue" size:12]];
-    [stringHeaderTitle setTextColor:[UIColor darkGrayColor]];
-    [stringHeaderTitle setTextAlignment:NSTextAlignmentCenter];
-    
-    
-    //[stringHeaderTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:11] range:NSMakeRange(21, 16)];
-    //[stringHeaderTitle addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(21, 16)];
-    
-    //UILabel *stringTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 3, tableView.frame.size.width, 16)];
-    
-    //[stringTitleLabel setAttributedText:stringHeaderTitle];
-    [contentHeaderView addSubview:stringHeaderTitle];
-    */
-    
     
     return headerView;
 }
@@ -315,8 +245,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
+        // string view
         return 157;
     } else if (indexPath.row == 1) {
+        // footer view
         return 52;
     }
     
@@ -324,8 +256,16 @@
 }
 
 
-#pragma mark - NSNotification to select table cell
 
+
+
+
+
+
+#pragma mark - NSNotification/Action handlers
+
+
+// Handles the action when a cell from a string is selected this will push to the appropriate VC
 - (void) didSelectItemFromCollectionView:(NSNotification *)notification
 {
     NSDictionary *cellData = [notification object];
@@ -338,15 +278,26 @@
     }
 }
 
+// Handles the action of pushing to a selected user's profile
 - (void)didSelectProfileImage:(NSNotification *)notification
 {
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
     [profileVC setCanGoBack:YES];
     [profileVC setCanEditProfile:NO];
+    [profileVC setTitle:@"User Profile"];
+    //[profileVC setCanCloseModal:YES];
+    
     
     [self.navigationController pushViewController:profileVC animated:YES];
+    
+    // Implements modal transition to profile view
+//    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+//    [self presentViewController:navVC animated:YES completion:nil];
 }
 
+
+
+// Handles the action of pushing to the comment's of a selected string
 - (void)didSelectCommentsButton:(NSNotification *)notification
 {
     StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
@@ -354,6 +305,7 @@
     [self.navigationController pushViewController:commentsVC animated:YES];
 }
 
+// Handles the action of liking the selected string
 - (void)didSelectLikesButton:(NSNotification *)notification
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
@@ -361,10 +313,31 @@
                                                    delegate:self
                                           cancelButtonTitle:@"Ok"
                                           otherButtonTitles: nil];
-    
     [alert show];
 }
 
+// Handles the action of pushing to to the detail view of a selected string
+- (void)pushToStringDetailView
+{
+  //  UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    
+    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    
+    
+   // detailVC.modalPresentationStyle = UIModalPresentationCustom;
+    //detailVC.modalTransitionStyle = UIModalPresentationNone;
+    
+    // default present is modal animation
+    //[navigationController presentViewController:detailVC animated:YES completion:NULL];
+    
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
+// Handles the action of displaying the menu when the menu nav item is pressed
+- (void)showMenu
+{
+    [StringrUtility showMenu:self.frostedViewController];
+} 
 
 @end

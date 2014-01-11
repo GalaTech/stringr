@@ -26,7 +26,7 @@
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
     
-    self.tabBar.tintColor = [UIColor purpleColor];
+    
 }
 
 - (void)showMenu

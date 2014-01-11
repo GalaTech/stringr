@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TYo-jH-Mhx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UvT-5J-tYG">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
+        <!--Stringr Navigation Controller - Following-->
+        <scene sceneID="Okh-Lf-WZu">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sHt-5S-gDp" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Following" id="lUy-Dp-r2a"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qxc-Jd-cAB">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ad9-Kw-uiV" kind="relationship" relationship="rootViewController" id="0Ag-HL-usD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TIh-Up-zqD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-40" y="-2032"/>
+        </scene>
         <!--Stringr String Table View Controller - Following-->
         <scene sceneID="S8w-cJ-uAO">
             <objects>
                 <tableViewController id="Ad9-Kw-uiV" customClass="StringrStringTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gh9-25-Iet">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="7t5-2d-6Gg" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7t5-2d-6Gg" id="bqP-44-iLd">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -22,7 +38,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" rowHeight="48" id="mRJ-oQ-P2k" customClass="StringFooterTableViewCell">
-                                <rect key="frame" x="0.0" y="66" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mRJ-oQ-P2k" id="tLy-Gk-JG1">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
@@ -43,13 +59,12 @@
                             <outlet property="delegate" destination="Ad9-Kw-uiV" id="T1a-kI-g56"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Following" image="rabbit_icon" id="QMh-sF-MF6"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationItem key="navigationItem" id="d0Y-05-HIA"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LWQ-xo-UE1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-44" y="-1548"/>
+            <point key="canvasLocation" x="-40" y="-1356"/>
         </scene>
         <!--Stringr Photo Viewer View Controller - Full Screen Photo-->
         <scene sceneID="6v8-B8-vLq">
@@ -180,6 +195,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.71520465353260865" blue="5.8657161879228546e-05" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Detail View" id="Lih-7I-tfi"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
@@ -193,21 +209,21 @@
                 <tabBarController storyboardIdentifier="StringDiscoveryTabBar" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KCK-X7-T46" customClass="StringrStringDiscoveryTabBarViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Stringr Discovery" id="MqY-UB-YoZ"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="I0R-t3-eLv">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="I0R-t3-eLv">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Ad9-Kw-uiV" kind="relationship" relationship="viewControllers" id="ujP-fb-QQw"/>
-                        <segue destination="XU8-AD-fVL" kind="relationship" relationship="viewControllers" id="2bW-Tn-Etg"/>
-                        <segue destination="Acq-Dv-Oc1" kind="relationship" relationship="viewControllers" id="JL4-Zn-Awq"/>
-                        <segue destination="Myt-vJ-oPv" kind="relationship" relationship="viewControllers" id="boZ-wS-N82"/>
+                        <segue destination="sHt-5S-gDp" kind="relationship" relationship="viewControllers" id="E4W-Lr-7eL"/>
+                        <segue destination="OuU-gq-kqb" kind="relationship" relationship="viewControllers" id="FCx-Pf-ZAy"/>
+                        <segue destination="xbJ-Ss-au0" kind="relationship" relationship="viewControllers" id="gvl-Q6-Rdk"/>
+                        <segue destination="lpO-Jo-ugj" kind="relationship" relationship="viewControllers" id="3Cj-mQ-RgN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im3-yc-3pC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="632" y="-2260"/>
+            <point key="canvasLocation" x="604" y="-2730"/>
         </scene>
         <!--Stringr String Edit View Controller - Publish String-->
         <scene sceneID="FO7-FO-h5f">
@@ -294,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksu-yk-85k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2435" y="-5431"/>
+            <point key="canvasLocation" x="-2319" y="-5385"/>
         </scene>
         <!--Stringr Search View Controller - Search-->
         <scene sceneID="AAh-7c-c7o">
@@ -302,24 +318,24 @@
                 <tabBarController storyboardIdentifier="SearchTabBar" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1xn-9U-OGj" customClass="StringrSearchViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Search" id="ejd-K4-3qy"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="T1n-yF-Vfm">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="T1n-yF-Vfm">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="75q-Er-pmp" kind="relationship" relationship="viewControllers" id="hAa-oN-H3w"/>
-                        <segue destination="Fxr-yd-WV2" kind="relationship" relationship="viewControllers" id="ExM-In-M68"/>
+                        <segue destination="H8J-tN-jnB" kind="relationship" relationship="viewControllers" id="bAe-3i-rH5"/>
+                        <segue destination="PCD-r7-yjR" kind="relationship" relationship="viewControllers" id="Sxn-yF-5Ra"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sqf-kZ-hQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3157" y="-4496"/>
+            <point key="canvasLocation" x="-3089" y="-4980"/>
         </scene>
-        <!--Stringr Root View Controller-->
+        <!--Stringr Root View Controller - Liked Strings-->
         <scene sceneID="VVi-cb-kts">
             <objects>
-                <viewController id="TYo-jH-Mhx" customClass="StringrRootViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StringrRootNavigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TYo-jH-Mhx" customClass="StringrRootViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hc2-fc-1Yi"/>
                         <viewControllerLayoutGuide type="bottom" id="l2m-x1-msu"/>
@@ -329,10 +345,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Liked Strings" id="J70-Ya-mcb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFM-kg-gef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1893" y="-4523"/>
+            <point key="canvasLocation" x="-1335" y="-4535"/>
         </scene>
         <!--Stringr Login View Controller-->
         <scene sceneID="UKv-xe-oft">
@@ -380,13 +397,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="Keb-zp-Y1J"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="7Yi-tG-hD8" id="fii-96-Vgd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5i-vk-Lix" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-975" y="-4523"/>
+            <point key="canvasLocation" x="-1828" y="-4535"/>
         </scene>
         <!--Stringr My School View Controller - My School-->
         <scene sceneID="QRR-Iq-sgM">
@@ -394,21 +412,21 @@
                 <tabBarController storyboardIdentifier="MySchoolTabBar" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IIV-30-TEd" customClass="StringrMySchoolViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="My School" id="DDH-5F-B1V"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="qDa-kP-VeB">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="qDa-kP-VeB">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="nNg-dB-4nC" kind="relationship" relationship="viewControllers" id="d8B-wQ-fgh"/>
-                        <segue destination="LYZ-T6-FUG" kind="relationship" relationship="viewControllers" id="u17-tE-xRI"/>
-                        <segue destination="0Ju-67-NHz" kind="relationship" relationship="viewControllers" id="KJk-oH-bsj"/>
-                        <segue destination="0ma-vr-3Jo" kind="relationship" relationship="viewControllers" id="b94-ym-2Lj"/>
+                        <segue destination="hg5-an-Yld" kind="relationship" relationship="viewControllers" id="qhO-gB-XcP"/>
+                        <segue destination="MFx-n2-NX0" kind="relationship" relationship="viewControllers" id="FCS-mb-L0H"/>
+                        <segue destination="cI7-eH-dIA" kind="relationship" relationship="viewControllers" id="Y35-eH-Mom"/>
+                        <segue destination="v7K-lu-vgw" kind="relationship" relationship="viewControllers" id="JWO-ya-F51"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8o0-4K-cdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2050" y="-3156"/>
+            <point key="canvasLocation" x="-1958" y="-3644"/>
         </scene>
         <!--Stringr Profile View Controller - My Profile-->
         <scene sceneID="QA3-wO-aZ3">
@@ -428,9 +446,6 @@
                                 <state key="normal" title="Following/Followers">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="pah-ba-ILi" kind="push" id="4WS-Yb-IgC"/>
-                                </connections>
                             </button>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uJ-4K-xzT">
                                 <rect key="frame" x="40" y="20" width="240" height="150"/>
@@ -454,7 +469,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Myt-gq-PuF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="287" y="-4599"/>
+            <point key="canvasLocation" x="349" y="-4437"/>
         </scene>
         <!--Stringr Profile Top View Controller-->
         <scene sceneID="5Uo-WX-cQK">
@@ -468,7 +483,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="265"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="dqR-Ql-Wmx" customClass="GBPathImageView">
+                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="dqR-Ql-Wmx" customClass="StringrPathImageView">
                                 <rect key="frame" x="115" y="11" width="90" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             </imageView>
@@ -508,13 +523,25 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kN4-5Z-HPR">
+                                <rect key="frame" x="249" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="accessFollowingAndFollowers:" destination="HoE-zV-2aL" eventType="touchUpInside" id="oeE-xi-bAU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="followUserButton" destination="Dw2-ml-PNp" id="akx-bd-i2l"/>
+                        <outlet property="followingFollowersButton" destination="kN4-5Z-HPR" id="It3-a1-JRp"/>
                         <outlet property="profileDescriptionLabel" destination="4ks-8O-S4A" id="kCP-sf-qde"/>
                         <outlet property="profileImage" destination="dqR-Ql-Wmx" id="oAb-va-qzC"/>
                         <outlet property="profileNameLabel" destination="yXu-b8-gyS" id="YAJ-2I-4qb"/>
@@ -542,7 +569,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOj-eS-1gt" customClass="GBPathImageView">
+                                    <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOj-eS-1gt" customClass="StringrPathImageView">
                                         <rect key="frame" x="20" y="20" width="90" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     </imageView>
@@ -637,6 +664,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.21925951086956519" blue="1.7982462165355826e-05" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="String Comments" id="bc8-Br-0M6"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
@@ -647,40 +675,40 @@
         <!--Stringr Following Followers Tab Bar View Controller - Following/Followers-->
         <scene sceneID="e2o-nH-UZp">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="pah-ba-ILi" customClass="StringrFollowingFollowersTabBarViewController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="StringrFollowingFollowersTab" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pah-ba-ILi" customClass="StringrFollowingFollowersTabBarViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Following/Followers" id="yOY-kh-OQy"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="bwJ-XU-RmU">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="bwJ-XU-RmU">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="gg4-Bj-SCG" kind="relationship" relationship="viewControllers" id="E07-NR-3gu"/>
-                        <segue destination="npL-RY-hdL" kind="relationship" relationship="viewControllers" id="NEI-5u-8c7"/>
+                        <segue destination="BFP-vM-oxK" kind="relationship" relationship="viewControllers" id="Vr5-hz-nIE"/>
+                        <segue destination="Vdy-Qg-dLU" kind="relationship" relationship="viewControllers" id="Gnm-T7-vek"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="elQ-LB-rJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820" y="-4599"/>
+            <point key="canvasLocation" x="1728" y="-5243"/>
         </scene>
         <!--Stringr User University People Table View Controller - University People-->
         <scene sceneID="bfX-Ol-Orw">
             <objects>
                 <tableViewController storyboardIdentifier="UniversityFindPeopleVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0Ju-67-NHz" customClass="StringrUserUniversityPeopleTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bhf-0n-9SO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="7B5-MI-Nel" customClass="StringrUserTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7B5-MI-Nel" id="D4i-s4-KU5">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="aFf-MO-YOs" customClass="GBPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="aFf-MO-YOs" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -721,22 +749,23 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="University People" id="nP0-rf-UVF"/>
+                    <navigationItem key="navigationItem" id="iq8-ke-qRT"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YY-Ns-naw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1630" y="-2417"/>
+            <point key="canvasLocation" x="-1757" y="-2235"/>
         </scene>
-        <!--Table View Controller - University Chat-->
+        <!--Table View Controller - University Talk-->
         <scene sceneID="icy-GC-dzb">
             <objects>
                 <tableViewController id="0ma-vr-3Jo" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="hd6-4z-Xhz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0E1-0M-GeQ">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0E1-0M-GeQ" id="fG1-ep-SDT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -749,30 +778,12 @@
                             <outlet property="delegate" destination="0ma-vr-3Jo" id="bNm-XE-BUL"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="University Chat" id="itN-Lh-3wJ"/>
+                    <tabBarItem key="tabBarItem" title="University Talk" id="itN-Lh-3wJ"/>
+                    <navigationItem key="navigationItem" id="agR-ir-oat"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ixa-KH-lbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1215" y="-2417"/>
-        </scene>
-        <!--Stringr Navigation Controller-->
-        <scene sceneID="3ht-SX-3Be">
-            <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="n3z-2W-mTN" customClass="StringrNavigationController" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="3NZ-OA-Il2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.45575070850223631" green="0.46300500080691631" blue="0.5001395089285714" alpha="1" colorSpace="calibratedRGB"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="UvT-5J-tYG" kind="relationship" relationship="rootViewController" id="b7M-0q-jjd"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="STO-cG-LSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1441" y="-4523"/>
+            <point key="canvasLocation" x="-1366" y="-2235"/>
         </scene>
         <!--Stringr Menu View Controller-->
         <scene sceneID="Jfe-ib-NFI">
@@ -801,18 +812,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDu-Qv-KMP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1441" y="-3818"/>
+            <point key="canvasLocation" x="-956" y="-4535"/>
         </scene>
         <!--Stringr User Search View Controller - Find People-->
         <scene sceneID="2jQ-IL-q75">
             <objects>
                 <tableViewController storyboardIdentifier="SearchFindPeopleVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Fxr-yd-WV2" customClass="StringrUserSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ud3-LV-inT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search Users" id="nKb-f9-qLf">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
@@ -826,13 +837,13 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="ewR-Pa-Cga" customClass="StringrUserTableViewCell">
-                                <rect key="frame" x="0.0" y="66" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ewR-Pa-Cga" id="Baw-gf-hoc">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="blz-5Z-J29" customClass="GBPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="blz-5Z-J29" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -873,6 +884,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Find People" id="S5s-Gw-nbo"/>
+                    <navigationItem key="navigationItem" id="7yH-ec-VI9"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="Jjl-gE-5jr" id="g0Q-t8-bPs"/>
                     </connections>
@@ -895,25 +907,25 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-2872" y="-3698"/>
+            <point key="canvasLocation" x="-2859" y="-3638"/>
         </scene>
         <!--Stringr User Connections Table View Controller - Following-->
         <scene sceneID="eAI-vz-yqI">
             <objects>
                 <tableViewController storyboardIdentifier="FollowingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gg4-Bj-SCG" customClass="StringrUserConnectionsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="8gJ-dQ-api">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="pXy-39-5SJ" customClass="StringrUserTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pXy-39-5SJ" id="EWA-pc-D6l">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="l7y-9n-Vwz" customClass="GBPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="l7y-9n-Vwz" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -954,6 +966,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Following" id="v8J-b2-url"/>
+                    <navigationItem key="navigationItem" id="C7E-Nm-7ol"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="r8m-Ap-wI8" id="16t-wf-c2R"/>
                     </connections>
@@ -968,25 +981,25 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="540" y="-3803"/>
+            <point key="canvasLocation" x="1502" y="-3691"/>
         </scene>
         <!--Stringr User Connections Table View Controller - Followers-->
         <scene sceneID="kBm-sR-LbV">
             <objects>
                 <tableViewController storyboardIdentifier="FollowersVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="npL-RY-hdL" customClass="StringrUserConnectionsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="zRx-Ob-zJR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileCell" id="N2D-cJ-CCB" customClass="StringrUserTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N2D-cJ-CCB" id="bnA-B2-i6x">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Pes-m8-9mV" customClass="GBPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alonsoAvatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Pes-m8-9mV" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -1027,6 +1040,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Followers" id="SSy-5p-Yr0"/>
+                    <navigationItem key="navigationItem" id="AeY-L2-Kmz"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="r8m-Ap-wI8" id="0uP-HC-dTp"/>
                     </connections>
@@ -1041,19 +1055,19 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="994" y="-3803"/>
+            <point key="canvasLocation" x="1956" y="-3691"/>
         </scene>
         <!--Stringr String Table View Controller - Popular-->
         <scene sceneID="zev-TN-k8p">
             <objects>
                 <tableViewController id="XU8-AD-fVL" customClass="StringrStringTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="AKe-1b-oef">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="GbJ-T4-Xu0" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GbJ-T4-Xu0" id="VZo-qd-WHi">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1061,7 +1075,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" id="fnd-Fh-1ZN" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="152" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="216" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fnd-Fh-1ZN" id="QJW-Tc-rsw">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1074,25 +1088,24 @@
                             <outlet property="delegate" destination="XU8-AD-fVL" id="kmG-Cy-UjC"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Popular" image="crown_icon" id="Tco-e8-vd4"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationItem key="navigationItem" id="TX9-bB-cb1"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DdF-sC-sdz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="392" y="-1548"/>
+            <point key="canvasLocation" x="396" y="-1356"/>
         </scene>
         <!--Stringr String Table View Controller - Discover-->
         <scene sceneID="8VS-fz-CGW">
             <objects>
                 <tableViewController id="Acq-Dv-Oc1" customClass="StringrStringTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="c7E-ny-MUU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="UOz-Pa-kOu" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UOz-Pa-kOu" id="K9s-e9-dn6">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1100,7 +1113,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" id="dqT-V9-E6t" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="152" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="216" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dqT-V9-E6t" id="djm-pe-YmO">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1114,22 +1127,23 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Discover" image="sailboat_icon" id="JRq-Z1-vA2"/>
+                    <navigationItem key="navigationItem" id="HCd-uW-rMk"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5h-BF-J7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="784" y="-1548"/>
+            <point key="canvasLocation" x="788" y="-1356"/>
         </scene>
         <!--Stringr String Table View Controller - Near You-->
         <scene sceneID="pvW-mO-lKc">
             <objects>
                 <tableViewController id="Myt-vJ-oPv" customClass="StringrStringTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="XYC-GU-M0u">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="6Ae-Uf-M54" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Ae-Uf-M54" id="T9Q-5D-fkK">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1137,7 +1151,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" id="cuo-dO-Nxi" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="152" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="216" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cuo-dO-Nxi" id="jf5-Ag-6xy">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1151,22 +1165,23 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Near You" image="solarSystem_icon" id="8ZN-P5-7gl"/>
+                    <navigationItem key="navigationItem" id="tfV-8Y-V0k"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFp-ia-1eO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1175" y="-1548"/>
+            <point key="canvasLocation" x="1179" y="-1356"/>
         </scene>
         <!--Stringr String Table View Controller - University Popular-->
         <scene sceneID="py2-Yj-AOM">
             <objects>
                 <tableViewController id="nNg-dB-4nC" customClass="StringrStringTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ozx-7X-kAU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="rfy-v1-KcE" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rfy-v1-KcE" id="cT9-Nh-67F">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1174,7 +1189,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" id="CV1-uL-p9N" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="152" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="216" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CV1-uL-p9N" id="Imt-5U-oBf">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1188,22 +1203,23 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="University Popular" image="crown_icon" id="QFh-b4-d4F"/>
+                    <navigationItem key="navigationItem" id="k1u-qT-N2H"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="teU-L7-bLM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2472" y="-2417"/>
+            <point key="canvasLocation" x="-2540" y="-2235"/>
         </scene>
         <!--Stringr String Table View Controller - University Discover-->
         <scene sceneID="AIc-6K-0qL">
             <objects>
                 <tableViewController id="LYZ-T6-FUG" customClass="StringrStringTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="aFk-Ru-BRT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="2ab-Tz-UEn" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2ab-Tz-UEn" id="Vne-4C-epH">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1211,7 +1227,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" id="2AY-Rr-7CS" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="152" width="320" height="130"/>
+                                <rect key="frame" x="0.0" y="216" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2AY-Rr-7CS" id="VJ4-eD-7Wh">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1225,10 +1241,11 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="University Discover" image="sailboat_icon" id="1cW-Qw-57T"/>
+                    <navigationItem key="navigationItem" id="S9c-Ch-Pa0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wU7-HN-JoI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2050" y="-2417"/>
+            <point key="canvasLocation" x="-2149" y="-2235"/>
         </scene>
         <!--Stringr Liked Strings Table View Controller - University Discover-->
         <scene sceneID="6Vh-YO-Smu">
@@ -1254,10 +1271,11 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="University Discover" id="Efn-gb-lR5"/>
+                    <navigationItem key="navigationItem" id="Z9Z-Q7-P7U"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oIg-fK-4DE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-728" y="-2754"/>
+            <point key="canvasLocation" x="-394" y="-3704"/>
         </scene>
         <!--Stringr My Strings Table View Controller - University Discover-->
         <scene sceneID="QjL-Yr-oDl">
@@ -1286,18 +1304,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gMk-TY-M3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-728" y="-3766"/>
+            <point key="canvasLocation" x="-804" y="-3704"/>
         </scene>
         <!--Stringr String Search Table View Controller - Search Strings-->
         <scene sceneID="wLE-gj-SHl">
             <objects>
                 <tableViewController id="75q-Er-pmp" customClass="StringrStringSearchTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="165" sectionHeaderHeight="22" sectionFooterHeight="22" id="bJc-VR-ref">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Strings" id="ub8-bH-WUq">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
@@ -1310,7 +1328,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewFooter" id="3Rt-0G-KB0" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="66" width="320" height="165"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="165"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Rt-0G-KB0" id="6Eb-tQ-lne">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
@@ -1318,7 +1336,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" id="fuO-DD-A9R" customClass="StringTableCellViewCell">
-                                <rect key="frame" x="0.0" y="231" width="320" height="165"/>
+                                <rect key="frame" x="0.0" y="295" width="320" height="165"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fuO-DD-A9R" id="2vV-0E-9PY">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
@@ -1332,10 +1350,11 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Search Strings" id="6eg-92-6VH"/>
+                    <navigationItem key="navigationItem" id="8uV-YR-6y9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iza-zn-vpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3324" y="-3698"/>
+            <point key="canvasLocation" x="-3284" y="-3638"/>
         </scene>
         <!--Stringr Profile Table View Controller - University Discover-->
         <scene sceneID="nev-jH-dcx">
@@ -1365,6 +1384,182 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u6u-t4-43S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="739" y="-5254"/>
+        </scene>
+        <!--Stringr Navigation Controller - Popular-->
+        <scene sceneID="7JO-u3-riK">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OuU-gq-kqb" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Popular" id="fcW-vj-AeV"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WhG-QQ-48Y">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="XU8-AD-fVL" kind="relationship" relationship="rootViewController" id="b5o-K1-xdl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n6B-gu-kY1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="396" y="-2032"/>
+        </scene>
+        <!--Stringr Navigation Controller - Discover-->
+        <scene sceneID="s9i-lF-OyC">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xbJ-Ss-au0" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Discover" id="jv9-bi-nQq"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="J6x-Ej-Ibi">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Acq-Dv-Oc1" kind="relationship" relationship="rootViewController" id="nCP-5v-nD7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u1H-9J-biK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="788" y="-2032"/>
+        </scene>
+        <!--Stringr Navigation Controller - Near You-->
+        <scene sceneID="LcH-eL-4Wa">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lpO-Jo-ugj" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Near You" id="RH2-RU-6d0"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7QB-MC-YkK">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Myt-vJ-oPv" kind="relationship" relationship="rootViewController" id="cH5-I7-WeI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fxn-gB-cD0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1179" y="-2032"/>
+        </scene>
+        <!--Stringr Navigation Controller - University Popular-->
+        <scene sceneID="VW1-V2-Lrj">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hg5-an-Yld" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="University Popular" id="LH7-Pd-g2o"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RPM-MZ-C50">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nNg-dB-4nC" kind="relationship" relationship="rootViewController" id="xrX-J4-0hH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7L8-2d-wuI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2540" y="-2934"/>
+        </scene>
+        <!--Stringr Navigation Controller - University Discover-->
+        <scene sceneID="8xm-Qt-83S">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MFx-n2-NX0" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="University Discover" id="XCe-XF-4GQ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SPz-vE-Iu2">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="LYZ-T6-FUG" kind="relationship" relationship="rootViewController" id="eDM-VB-zkG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zEL-Ad-xo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2149" y="-2934"/>
+        </scene>
+        <!--Stringr Navigation Controller - University People-->
+        <scene sceneID="vmH-GH-aFa">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cI7-eH-dIA" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="University People" id="iuN-nC-tnq"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8xv-cf-nel">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="0Ju-67-NHz" kind="relationship" relationship="rootViewController" id="HMK-fA-E79"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yic-wX-Z5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1757" y="-2934"/>
+        </scene>
+        <!--Stringr Navigation Controller - University Talk-->
+        <scene sceneID="EDk-S6-QRP">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="v7K-lu-vgw" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="University Talk" id="xtt-vd-Nb7"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kes-hX-d0H">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="0ma-vr-3Jo" kind="relationship" relationship="rootViewController" id="BVL-Lo-xTl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GpJ-sB-JD9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1366" y="-2934"/>
+        </scene>
+        <!--Stringr Navigation Controller - Following-->
+        <scene sceneID="XNC-tG-gtW">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H8J-tN-jnB" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Following" id="M5p-lo-HP0"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cZ3-b1-fVM">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="75q-Er-pmp" kind="relationship" relationship="rootViewController" id="8V6-J5-lFx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n04-hM-Hdo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3284" y="-4306"/>
+        </scene>
+        <!--Stringr Navigation Controller - Find People-->
+        <scene sceneID="nid-o6-hcc">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PCD-r7-yjR" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Find People" id="R95-6M-MMn"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KU1-M1-lhD">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Fxr-yd-WV2" kind="relationship" relationship="rootViewController" id="KbW-UU-6NB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bFs-N5-Qff" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2859" y="-4306"/>
+        </scene>
+        <!--Stringr Navigation Controller - Following-->
+        <scene sceneID="Pzm-Po-ZVZ">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BFP-vM-oxK" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Following" id="jZK-fu-uQl"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v7j-2d-yks">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="gg4-Bj-SCG" kind="relationship" relationship="rootViewController" id="1VP-bv-U4S"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3rt-Zs-XwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1502" y="-4356"/>
+        </scene>
+        <!--Stringr Navigation Controller - Followers-->
+        <scene sceneID="ytR-DC-HPo">
+            <objects>
+                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vdy-Qg-dLU" customClass="StringrNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Followers" id="Jtr-m2-szZ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rie-Ek-Nvl">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="npL-RY-hdL" kind="relationship" relationship="rootViewController" id="gHa-lE-Ept"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="no5-JR-6I4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1938" y="-4356"/>
         </scene>
     </scenes>
     <resources>

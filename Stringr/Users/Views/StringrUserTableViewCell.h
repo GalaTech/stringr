@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GBPathImageView.h"
+#import "StringrPathImageView.h"
 
 @interface StringrUserTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet GBPathImageView *ProfileThumbnailImageView;
+@property (weak, nonatomic) IBOutlet StringrPathImageView *ProfileThumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *profileDisplayNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileUniversityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;

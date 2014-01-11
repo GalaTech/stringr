@@ -25,14 +25,18 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
+    
+    
+    self.tabBar.tintColor = [UIColor redColor];
 }
 
+// Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
 {
     [StringrUtility showMenu:self.frostedViewController];
 }
 
-
+// Sets the title for the navigation controller to be that of the tab bar item we are one
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
     self.title = item.title;

@@ -9,13 +9,11 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileViewController.h"
 
-#import "GBPathImageView.h"
-
 @interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (weak, nonatomic) IBOutlet GBPathImageView *editProfileImage;
+@property (weak, nonatomic) IBOutlet StringrPathImageView *editProfileImage;
 @property (weak, nonatomic) IBOutlet UITextField *editProfileNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *editProfileDescriptionTextView;
 
@@ -39,11 +37,10 @@
     [super viewDidLoad];
     
     // Adds a custom path to the profile image
-    [self.editProfileImage setPathType:GBPathImageViewTypeCircle];
+    [self.editProfileImage setImageToCirclePath];
     [self.editProfileImage setPathWidth:1.0];
     [self.editProfileImage setPathColor:[UIColor darkGrayColor]];
-    [self.editProfileImage setBorderColor:[UIColor darkGrayColor]];
-    [self.editProfileImage draw];
+
     
     // Adds notifications to know when the keyboard is shown and hidden
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];

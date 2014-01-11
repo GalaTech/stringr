@@ -27,19 +27,29 @@
 
     
     // If the user is not supposed to be able to go back then we init with the menu item
-    if (!self.canGoBack) {
-        // Creates the navigation item to access the menu
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                                 style:UIBarButtonItemStyleDone target:self
-                                                                                action:@selector(showMenu)];
+    if (self.canGoBack) {
+        
     }
+    
+    
+    
+    if (self.canCloseModal) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(closeProfileVC)];
+    }
+    
+    
     
     // Displays the ability to edit profile in the nav bar if available
     if (self.canEditProfile) {
+        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                                   style:UIBarButtonItemStyleBordered
                                                                                  target:self
                                                                                  action:@selector(pushToEditProfile)];
+        // Creates the navigation item to access the menu
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                 style:UIBarButtonItemStyleDone target:self
+                                                                                action:@selector(showMenu)];
     }
     
     
@@ -47,13 +57,14 @@
     UIViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     UITableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
     
-    
-    
     [self setupWithTopViewController:topProfileVC height:265 tableViewController:tableProfileVC];
    
+    
     // Sets the background color of the table view correctly, but overlaps the topVC
 //    UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
 //    [tableProfileVC.tableView setBackgroundColor:veryLightGrayColor];
+    
+    
     
     // Adds tap gesture to the view for use with tapping controls in the topVC
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -74,6 +85,11 @@
     [StringrUtility showMenu:self.frostedViewController];
 }
 
+
+- (void)closeProfileVC
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 
@@ -99,9 +115,17 @@
     if ([topVC.view hitTest:tapPoint withEvent:nil]) {
         tapPoint = [touch locationInView:topVC.followUserButton];
         
+        
         if ([topVC.followUserButton hitTest:tapPoint withEvent:nil ]) {
             
             [topVC.followUserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            return YES;
+        }
+        
+        tapPoint = [touch locationInView:topVC.followingFollowersButton];
+        if ([topVC.followingFollowersButton hitTest:tapPoint withEvent:nil]) {
+            
+            [topVC.followingFollowersButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             return YES;
         }
     }
@@ -198,7 +222,7 @@
 
 #pragma mark - StringrEditProfile Delegate
 
-- (void)setProfileImage:(GBPathImageView *)profileImage
+- (void)setProfileImage:(StringrPathImageView *)profileImage
 {
     StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
     

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GBPathImageView.h"
+#import "StringrPathImageView.h"
 
 
 @protocol StringrEditProfileDelegate <NSObject>
@@ -23,7 +23,7 @@
 
 @interface StringrEditProfileViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
-@property (strong, nonatomic) GBPathImageView *fillerProfileImage;
+@property (strong, nonatomic) StringrPathImageView *fillerProfileImage;
 @property (strong, nonatomic) NSString *fillerProfileName;
 @property (strong, nonatomic) NSString *fillerDescription;
 

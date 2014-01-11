@@ -8,6 +8,7 @@
 
 #import "StringrDetailViewController.h"
 #import "StringrProfileViewController.h"
+#import "StringrNavigationController.h"
 
 @interface StringrDetailViewController ()
 
@@ -21,24 +22,24 @@
     [super viewDidLoad];
     
     self.title = @"Detail View";
-    
-    // Disables the menu from being able to be pulled out via gesture
-    self.frostedViewController.panGestureEnabled = NO;
 }
 
-
+// Opens the profile for the uploader of the string, which this detail view is based around
 - (IBAction)openUserProfile:(UIButton *)sender
 {
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
-    
+ 
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+
     profileVC.title = @"User Profile";
     
     profileVC.canGoBack = YES;
     profileVC.canEditProfile = NO;
+    profileVC.canCloseModal = YES;
 
-    profileVC.view.backgroundColor = [UIColor blackColor];
+    profileVC.view.backgroundColor = [UIColor whiteColor];
     
-    [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:profileVC animated:YES];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 

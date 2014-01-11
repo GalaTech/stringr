@@ -28,7 +28,7 @@
     self.title = @"Photo Viewer";
     
     // Disables the menu from being able to be pulled out via gesture
-    self.frostedViewController.panGestureEnabled = NO;
+    //self.frostedViewController.panGestureEnabled = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                            target:self
@@ -38,11 +38,11 @@
 
 - (void)pushDetailView
 {
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     
-    [navigationController pushViewController:detailVC animated:YES];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

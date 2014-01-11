@@ -13,6 +13,7 @@
 @interface StringrProfileViewController : M6ParallaxController<UIGestureRecognizerDelegate>
 
 @property (nonatomic) BOOL canGoBack;
+@property (nonatomic) BOOL canCloseModal;
 @property (nonatomic) BOOL canEditProfile;
 
 @end

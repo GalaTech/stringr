@@ -16,7 +16,7 @@
 
 - (void)awakeFromNib
 {
-    self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrNavigationController"];
+    self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
     
     self.liveBlur = YES;

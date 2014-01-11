@@ -8,8 +8,9 @@
 
 #import "StringrUserTableViewController.h"
 #import "StringrProfileViewController.h"
-#import "GBPathImageView.h"
+#import "StringrPathImageView.h"
 #import "StringrUserTableViewCell.h"
+#import "StringrUtility.h"
 
 @interface StringrUserTableViewController ()
 
@@ -17,6 +18,21 @@
 
 @implementation StringrUserTableViewController
 
+
+- (void)viewDidLoad
+{
+    // Creates the navigation item to access the menu
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                             style:UIBarButtonItemStyleDone target:self
+                                                                            action:@selector(showMenu)];
+}
+
+
+// Handles the action of displaying the menu when the menu nav item is pressed
+- (void)showMenu
+{
+    [StringrUtility showMenu:self.frostedViewController];
+}
 
 #pragma mark - Table View Data Source
 
@@ -27,6 +43,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    // test number. This will eventually be pulled via the number of object's returned from parse
     return 10;
 }
 
@@ -42,14 +59,14 @@
         StringrUserTableViewCell * userProfileCell = (StringrUserTableViewCell *)cell;
     
         // Creates the path and image for a profile thumbnail
-        GBPathImageView *image1 = (GBPathImageView *)[self.view viewWithTag:1];
-        [image1 setPathColor:[UIColor whiteColor]];
-        [image1 setBorderColor:[UIColor darkGrayColor]];
-        [image1 setPathWidth:2.0];
-        [image1 setPathType:GBPathImageViewTypeCircle];
-        [image1 draw];
+        StringrPathImageView *cellProfileImage = (StringrPathImageView *)[self.view viewWithTag:1];
+        [cellProfileImage setImageToCirclePath];
+        [cellProfileImage setPathColor:[UIColor darkGrayColor]];
+        [cellProfileImage setPathWidth:1.0];
         
-        userProfileCell.ProfileThumbnailImageView = image1;
+        // Sets the profile image on the current cell
+        // TODO: This will eventually be the profile image pulled from parse
+        userProfileCell.ProfileThumbnailImageView = cellProfileImage;
         
         // Sets all of the information to the user results for this cell
         userProfileCell.profileDisplayNameLabel.text = @"Alonso Holmes";
@@ -68,6 +85,7 @@
 
 #pragma mark - Table View Delegate
 
+// Takes the user to the profile of the selected user cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Creates a new instance of a user profile
@@ -86,7 +104,7 @@
         
        // profileVC.view.backgroundColor = [UIColor whiteColor];
         
-        [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:profileVC animated:YES];
+        [self.navigationController pushViewController:profileVC animated:YES];
     }
 }
 

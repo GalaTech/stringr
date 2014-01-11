@@ -27,14 +27,20 @@
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(pushToStringEdit)];
+    
+    
+    
+    //self.tabBarController.tabBar.hidden = YES;
 }
 
-
+// Handles the action of moving a user to edit the selected string.
+// This will eventually incorporate the selection of a specific string and then taking the user
+// to edit that string individually
 - (void)pushToStringEdit
 {
     StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
     
-    [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:stringEditVC animated:YES];
+    [self.navigationController pushViewController:stringEditVC animated:YES];
 }
 
 @end

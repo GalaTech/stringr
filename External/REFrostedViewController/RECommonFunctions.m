@@ -24,8 +24,9 @@
 //
 
 #import "RECommonFunctions.h"
+#import <UIKit/UIKit.h>
 
-BOOL REUIKitIsFlatMode()
+BOOL REFrostedViewControllerUIKitIsFlatMode()
 {
     static BOOL isUIKitFlatMode = NO;
     static dispatch_once_t onceToken;
