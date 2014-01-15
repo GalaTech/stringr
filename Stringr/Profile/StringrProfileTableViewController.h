@@ -7,7 +7,8 @@
 //
 
 #import "StringrStringTableViewController.h"
+#import "QMBParallaxScrollViewController.h"
 
-@interface StringrProfileTableViewController : StringrStringTableViewController
+@interface StringrProfileTableViewController : StringrStringTableViewController<QMBParallaxScrollViewHolder>
 
 @end

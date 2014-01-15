@@ -28,6 +28,19 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
+
+
+    NSLog(@"Tab bar loaded");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"Tab bar will appear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"Tab bar will disappear");
 }
 
 
@@ -42,5 +55,7 @@
     self.title = item.title;
     
 }
+
+
 
 @end

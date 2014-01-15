@@ -135,7 +135,6 @@
 
 - (void)addProfileImageViewAtLocation:(CGPoint)location withSize:(CGSize)size
 {
-    
     self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)
                                                                   image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
                                                               pathColor:[UIColor darkGrayColor]

@@ -11,6 +11,8 @@
 
 @interface StringrPhotoViewerViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *photoViewImageView;
+
 @end
 
 @implementation StringrPhotoViewerViewController
@@ -33,6 +35,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                            target:self
                                                                                            action:@selector(pushDetailView)];
+    
+    [self.photoViewImageView setImage:self.photoViewerImage];
 }
 
 

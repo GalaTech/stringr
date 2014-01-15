@@ -15,10 +15,15 @@
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
+#import "StringrMyStringsTableViewController.h"
+#import "StringrUserTableViewController.h"
+
 #import "StringTableCellViewCell.h"
 #import "StringFooterTableViewCell.h"
 
-@interface StringrStringTableViewController ()
+#import "StringrStringEditViewController.h"
+
+@interface StringrStringTableViewController () <UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSArray *images;
 
@@ -113,19 +118,29 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
+    NSLog(@"Added observers from viewWillAppear");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectProfileImage:) name:@"didSelectProfileImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectCommentsButton:) name:@"didSelectCommentsButton" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectLikesButton:) name:@"didSelectLikesButton" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
+    NSLog(@"Removed observers from view disappear");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
 }
 
 
@@ -274,6 +289,9 @@
     {
         StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
         
+        // Sets the initial photo to the selected cell
+        [photoVC setPhotoViewerImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        
         [self.navigationController pushViewController:photoVC animated:YES];
     }
 }
@@ -281,19 +299,32 @@
 // Handles the action of pushing to a selected user's profile
 - (void)didSelectProfileImage:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+    NSLog(@"Removed observers from selecting profile");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+    
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
     [profileVC setCanGoBack:YES];
     [profileVC setCanEditProfile:NO];
     [profileVC setTitle:@"User Profile"];
     //[profileVC setCanCloseModal:YES];
     
-    
+    [profileVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:profileVC animated:YES];
     
-    // Implements modal transition to profile view
-//    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-//    [self presentViewController:navVC animated:YES completion:nil];
+    
+
+    
+    //Implements modal transition to profile view
+    //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+    
+    
+    
+    //[self presentViewController:navVC animated:YES completion:nil];
 }
+
 
 
 
@@ -339,5 +370,65 @@
 {
     [StringrUtility showMenu:self.frostedViewController];
 } 
+
+
+- (void)addNewString
+{
+    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
+                                                                      delegate:self
+                                                             cancelButtonTitle:@"cancel"
+                                                        destructiveButtonTitle:nil
+                                                             otherButtonTitles:@"Take Photo", @"Choose From Existing", nil];
+    
+    [newStringActionSheet showFromTabBar:self.tabBarController.tabBar];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSLog(@"Removed Observers from selecting action sheet");
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+        
+        
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+
+        
+        // Modal
+        /*
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+        
+        [self presentViewController:navVC animated:YES completion:nil];
+         */
+    } else if (buttonIndex == 1) {
+        NSLog(@"Removed Observers from selecting action sheet");
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+        
+        
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+        
+        
+        // Modal
+        /*
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+        
+        [self presentViewController:navVC animated:YES completion:nil];
+         */
+    }
+}
 
 @end

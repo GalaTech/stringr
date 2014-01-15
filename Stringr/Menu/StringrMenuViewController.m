@@ -116,32 +116,57 @@
     
 }
 
-- (IBAction)cameraButtonPushed:(UIButton *)sender
+- (void)cameraButtonPushed:(UIButton *)sender
 {
-   // UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    // Closes the menu after we move to a new VC
+    [self.frostedViewController hideMenuViewController];
     
-    StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UploadNewString" object:nil];
     
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:stringEditVC];
-    [self.frostedViewController setContentViewController:navVC];
+    
+    //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    
+    //StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+    
+    //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:stringEditVC];
+    //[self.frostedViewController setContentViewController:navVC];
     
     
     //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
     
     
-    
-//    UIView *view = [[]
-    
-    //[actionSheet showInView:self.view];
-    
-    
-    //[navigationController pushViewController:stringEditVC animated:NO];
-    
-    
-    // Closes the menu after we move to a new VC
-    [self.frostedViewController hideMenuViewController];
-    
+    //[actionSheet showInView:self.parentViewController.view];
 }
+
+
+
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == 0) {
+//        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+//        [newStringVC setHidesBottomBarWhenPushed:YES];
+//        [self.navigationController pushViewController:newStringVC animated:YES];
+//        
+//        // Modal
+//        /*
+//         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+//         
+//         [self presentViewController:navVC animated:YES completion:nil];
+//        */
+//    } else if (buttonIndex == 1) {
+//        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+//        [newStringVC setHidesBottomBarWhenPushed:YES];
+//        [self.navigationController pushViewController:newStringVC animated:YES];
+//        
+//        
+//        // Modal
+//        /*
+//         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+//         
+//         [self presentViewController:navVC animated:YES completion:nil];
+//         */
+//    }
+//}
 
 
 

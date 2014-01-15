@@ -27,10 +27,6 @@
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(pushToStringEdit)];
-    
-    
-    
-    //self.tabBarController.tabBar.hidden = YES;
 }
 
 // Handles the action of moving a user to edit the selected string.

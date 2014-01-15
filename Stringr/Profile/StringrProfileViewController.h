@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
+#import "QMBParallaxScrollViewController.h"
 #import "M6ParallaxController.h"
 
-@interface StringrProfileViewController : M6ParallaxController<UIGestureRecognizerDelegate>
+@interface StringrProfileViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
 
 @property (nonatomic) BOOL canGoBack;
 @property (nonatomic) BOOL canCloseModal;

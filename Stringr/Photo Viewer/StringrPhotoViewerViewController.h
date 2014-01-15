@@ -11,4 +11,6 @@
 
 @interface StringrPhotoViewerViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImage *photoViewerImage;
+
 @end

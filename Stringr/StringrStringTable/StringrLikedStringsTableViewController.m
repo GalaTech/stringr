@@ -19,7 +19,6 @@
     [super viewDidLoad];
     
     self.title = @"Liked Strings";
-    self.tabBarController.tabBar.hidden = YES;
 }
 
 

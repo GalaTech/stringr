@@ -10,11 +10,10 @@
 #import "StringrProfileViewController.h"
 #import "StringrEditProfileViewController.h"
 #import "StringrFollowingFollowersTabBarViewController.h"
+#import "StringrUserTableViewController.h"
 
 
 @interface StringrProfileTopViewController ()
-
-
 
 @end
 
@@ -26,6 +25,7 @@
 {
     [super viewDidLoad];
     
+    self.title = self.profileNameLabel.text;
 	
     // Sets the circle image path properties
     [self.profileImage setImageToCirclePath];
@@ -42,6 +42,9 @@
     [self.followUserButton setCornerRadius:15];
     [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
     self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+    
+    
+    
     
     // Sets the title of the button to follow or unfollow depending upon what the users
     // relationship is with the current profile.
@@ -85,19 +88,24 @@
      
 }
 
-- (IBAction)accessFollowingAndFollowers:(UIButton *)sender
+- (IBAction)accessFollowers:(UIButton *)sender
 {
-    StringrFollowingFollowersTabBarViewController *followingFollowersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrFollowingFollowersTab"];
-
-     
+    StringrUserTableViewController *followersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowersVC"];
+    [followersVC setTitle:@"Followers"];
     
-//    [self.navigationController pushViewController:followingFollowersVC animated:YES];
     
-    [self presentViewController:followingFollowersVC animated:YES completion:nil];
-    
+    [self.navigationController pushViewController:followersVC animated:YES];
 }
 
 
+- (IBAction)accessFollowing:(UIButton *)sender
+{
+    StringrUserTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowingVC"];
+    [followingVC setTitle:@"Following"];
+    
+    
+    [self.navigationController pushViewController:followingVC animated:YES];
+}
 
 
 
@@ -134,6 +142,10 @@
         
         [self.profileImage setAlpha:r];
         [self.profileNameLabel setAlpha:r];
+        [self.followingButton setAlpha:r];
+        [self.followingLabel setAlpha:r];
+        [self.followersButton setAlpha:r];
+        [self.followersLabel setAlpha:r];
         [self.profileDescriptionLabel setAlpha:r];
         [self.profileNumberOfStringsLabel setAlpha:r*r];
         [self.profileUniversityLabel setAlpha:r*r*r*r];

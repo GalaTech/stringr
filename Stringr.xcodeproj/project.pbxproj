@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
+		AB757A911884B71B00D32917 /* StringrStringCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A901884B71B00D32917 /* StringrStringCollectionViewController.m */; };
+		AB757A971885F2B200D32917 /* QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A941885F2B200D32917 /* QMBParallaxScrollViewController.m */; };
+		AB757A981885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A961885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.m */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
@@ -76,7 +79,6 @@
 		BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A551829CBA500D15963 /* orca-stock-photo.jpg */; };
 		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
 		BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BF94E8BB184E4388003B5D8F /* ACPButton.m */; };
-		BFEE00EF185004EF00BFF5B2 /* StringrStringDetailTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */; };
 		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
 		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
 		BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */; };
@@ -96,6 +98,12 @@
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
+		AB757A8F1884B71B00D32917 /* StringrStringCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringCollectionViewController.h; path = String/StringrStringCollectionViewController.h; sourceTree = "<group>"; };
+		AB757A901884B71B00D32917 /* StringrStringCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCollectionViewController.m; path = String/StringrStringCollectionViewController.m; sourceTree = "<group>"; };
+		AB757A931885F2B200D32917 /* QMBParallaxScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMBParallaxScrollViewController.h; sourceTree = "<group>"; };
+		AB757A941885F2B200D32917 /* QMBParallaxScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMBParallaxScrollViewController.m; sourceTree = "<group>"; };
+		AB757A951885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+QMBParallaxScrollViewController.h"; sourceTree = "<group>"; };
+		AB757A961885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+QMBParallaxScrollViewController.m"; sourceTree = "<group>"; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
@@ -208,7 +216,6 @@
 		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
 		BF94E8BA184E4388003B5D8F /* ACPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPButton.h; sourceTree = "<group>"; };
 		BF94E8BB184E4388003B5D8F /* ACPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPButton.m; sourceTree = "<group>"; };
-		BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringrStringDetailTab.xib; path = "String/Detail Tab/StringrStringDetailTab.xib"; sourceTree = "<group>"; };
 		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
 		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
 		BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringFooterTableViewCell.h; path = StringrStringTable/StringFooterTableViewCell.h; sourceTree = "<group>"; };
@@ -248,19 +255,31 @@
 			name = "Image Path ";
 			sourceTree = "<group>";
 		};
-		AB757A8A1880654000D32917 /* Root Navigation Controller */ = {
+		AB757A8B1884B4D600D32917 /* String */ = {
 			isa = PBXGroup;
 			children = (
-				BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */,
-				BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */,
+				AB757A8F1884B71B00D32917 /* StringrStringCollectionViewController.h */,
+				AB757A901884B71B00D32917 /* StringrStringCollectionViewController.m */,
+				BF3EDE2E18445AF10071E047 /* StringrStringEditViewController.h */,
+				BF3EDE2F18445AF10071E047 /* StringrStringEditViewController.m */,
 			);
-			name = "Root Navigation Controller";
+			name = String;
+			sourceTree = "<group>";
+		};
+		AB757A921885F2B200D32917 /* ParallaxScrollViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AB757A931885F2B200D32917 /* QMBParallaxScrollViewController.h */,
+				AB757A941885F2B200D32917 /* QMBParallaxScrollViewController.m */,
+				AB757A951885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.h */,
+				AB757A961885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.m */,
+			);
+			path = ParallaxScrollViewController;
 			sourceTree = "<group>";
 		};
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
-				BFEE00ED185004B600BFF5B2 /* Detail Tab */,
 				BF170EC1184BEB100056ECE7 /* StringTableCellViewCell.h */,
 				BF170EC2184BEB100056ECE7 /* StringTableCellViewCell.m */,
 				BF170EC7184BEB700056ECE7 /* StringCellView.h */,
@@ -290,7 +309,7 @@
 				BF3EDDCB183AAC900071E047 /* Menu */,
 				BF3EDE03183E92380071E047 /* Profile */,
 				BF3EDE07183E98910071E047 /* String Table */,
-				BF3EDE3118445AF50071E047 /* String Edit */,
+				AB757A8B1884B4D600D32917 /* String */,
 				BF3EDE2A184449CE0071E047 /* User Table */,
 				BF3EDE1C183EA26C0071E047 /* Detail */,
 				BF3EDE23183EA7DC0071E047 /* Photo Viewer */,
@@ -303,7 +322,8 @@
 		BF3EDDCB183AAC900071E047 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				AB757A8A1880654000D32917 /* Root Navigation Controller */,
+				BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */,
+				BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */,
 				BF3EDDF0183D92330071E047 /* StringrNavigationController.h */,
 				BF3EDDF1183D92330071E047 /* StringrNavigationController.m */,
 				BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */,
@@ -430,15 +450,6 @@
 			name = "User Table";
 			sourceTree = "<group>";
 		};
-		BF3EDE3118445AF50071E047 /* String Edit */ = {
-			isa = PBXGroup;
-			children = (
-				BF3EDE2E18445AF10071E047 /* StringrStringEditViewController.h */,
-				BF3EDE2F18445AF10071E047 /* StringrStringEditViewController.m */,
-			);
-			name = "String Edit";
-			sourceTree = "<group>";
-		};
 		BF3EDE3C184530E80071E047 /* ParallaxController */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +560,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AB757A921885F2B200D32917 /* ParallaxScrollViewController */,
 				BF94E8B9184E4388003B5D8F /* Buttons */,
 				BF3EDE441847BBAF0071E047 /* Image Path */,
 				BF3EDE3C184530E80071E047 /* ParallaxController */,
@@ -586,14 +598,6 @@
 				BF94E8BB184E4388003B5D8F /* ACPButton.m */,
 			);
 			path = Buttons;
-			sourceTree = "<group>";
-		};
-		BFEE00ED185004B600BFF5B2 /* Detail Tab */ = {
-			isa = PBXGroup;
-			children = (
-				BFEE00EE185004EF00BFF5B2 /* StringrStringDetailTab.xib */,
-			);
-			name = "Detail Tab";
 			sourceTree = "<group>";
 		};
 		BFFA599C186A2229001C377D /* Footer */ = {
@@ -694,7 +698,6 @@
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
 				BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */,
 				BF170EB218492ADA0056ECE7 /* sample_2.jpeg in Resources */,
-				BFEE00EF185004EF00BFF5B2 /* StringrStringDetailTab.xib in Resources */,
 				BF170EB118492ADA0056ECE7 /* sample_1.jpeg in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
@@ -733,6 +736,7 @@
 				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
 				BF3EDE42184530E80071E047 /* UIViewController+M6ParallaxController.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrStringSearchTableViewController.m in Sources */,
+				AB757A911884B71B00D32917 /* StringrStringCollectionViewController.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				BF170EC9184BEB700056ECE7 /* StringCellView.m in Sources */,
 				BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */,
@@ -745,6 +749,7 @@
 				BF3EDE41184530E80071E047 /* M6ParallaxController.m in Sources */,
 				BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchViewController.m in Sources */,
+				AB757A981885F2B200D32917 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				BF3EDE22183EA7D90071E047 /* StringrPhotoViewerViewController.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
@@ -763,6 +768,7 @@
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolViewController.m in Sources */,
 				BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */,
 				BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */,
+				AB757A971885F2B200D32917 /* QMBParallaxScrollViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
 				BF3EDE471847BBAF0071E047 /* GBPathImageView.m in Sources */,
 				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,

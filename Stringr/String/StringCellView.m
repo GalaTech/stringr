@@ -20,7 +20,9 @@
 
 - (void)awakeFromNib
 {
-    self.stringCollectionView.backgroundColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1.0];
+    UIColor *collectionViewBGColor = [UIColor colorWithWhite:0.85 alpha:1.0];
+    
+    self.stringCollectionView.backgroundColor = collectionViewBGColor;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

@@ -29,6 +29,21 @@
     
 }
 
+/*
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"Tab bar will appear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"Tab bar will disappear");
+}
+*/
+
+
 - (void)showMenu
 {
     [StringrUtility showMenu:self.frostedViewController];

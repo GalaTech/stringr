@@ -18,10 +18,25 @@
 
 #pragma mark - Parallax Controller Methods
 
+/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.parallaxController tableViewControllerDidScroll:self];
 }
+ */
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.tableView reloadData];
+
+}
+
+
+- (UIScrollView *)scrollViewForParallexController
+{
+    return self.tableView;
+}
 
 @end
