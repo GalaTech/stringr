@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 #import "QMBParallaxScrollViewController.h"
-#import "M6ParallaxController.h"
 
 @interface StringrProfileViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
 

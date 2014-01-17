@@ -7,7 +7,7 @@
 //
 
 #import "StringrLoginViewController.h"
-#import "StringrStringDiscoveryTabBarViewController.h"
+#import "StringrDiscoveryTabBarViewController.h"
 #import "StringrRootViewController.h"
 
 #import "StringrProfileViewController.h"
@@ -18,41 +18,66 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property int imageNumber;
-
+@property (strong, nonatomic) NSTimer *backgroundRotationTimer;
 
 @end
 
 @implementation StringrLoginViewController
 
+#pragma mark - Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.tabBarController.tabBar setHidden:YES];
     
+    self.imageNumber = 2;
     
+    NSTimeInterval time = 10.0;
+    self.backgroundRotationTimer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(changeBackgroundImage) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [self.backgroundRotationTimer invalidate];
+    
     self.frostedViewController.panGestureEnabled = YES;
 }
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.imageNumber = 2;
     
-    NSTimeInterval time = 10.0;
-    [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(changeBackgroundImage) userInfo:nil repeats:YES];
     
     
     // Disables the menu from being able to be pulled out via gesture
     self.frostedViewController.panGestureEnabled = NO;
 }
 
+
+
+
+#pragma mark - IBActions
+
+- (IBAction)pushToNewView:(UIButton *)sender
+{
+    //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    
+    //StringrDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
+    
+    StringrRootViewController *stringRootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrRootNavigation"];
+    
+    [self presentViewController:stringRootVC animated:YES completion:nil];
+    //    [self.navigationController pushViewController:stringDiscoveryVC animated:YES];
+    
+}
+
+
+
+
+#pragma mark - Action Handlers
 
 - (void)changeBackgroundImage
 {
@@ -97,28 +122,7 @@
 }
 
 
-- (IBAction)pushToNewView:(UIButton *)sender
-{
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    StringrStringDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
-    
-    StringrRootViewController *stringRootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrRootNavigation"];
-    
-    [self presentViewController:stringRootVC animated:YES completion:nil];
-//    [self.navigationController pushViewController:stringDiscoveryVC animated:YES];
-    
-}
 
-
-- (IBAction)pushToPreLoggedInDiscover:(UIButton *)sender
-{
-    UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    StringrStringDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
-    
-    [navigationController pushViewController:stringDiscoveryVC animated:YES];
-}
 
 
 @end

@@ -15,6 +15,8 @@
 
 @implementation StringrMyStringsTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -28,6 +30,11 @@
                                                                              target:self
                                                                              action:@selector(pushToStringEdit)];
 }
+
+
+
+
+#pragma mark - Actions
 
 // Handles the action of moving a user to edit the selected string.
 // This will eventually incorporate the selection of a specific string and then taking the user

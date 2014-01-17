@@ -7,13 +7,16 @@
 //
 
 #import "StringrStringEditViewController.h"
-#import "StringrStringDiscoveryTabBarViewController.h"
+#import "StringrDiscoveryTabBarViewController.h"
+#import "StringrUtility.h"
 
 @interface StringrStringEditViewController () <UIAlertViewDelegate>
 
 @end
 
 @implementation StringrStringEditViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -27,18 +30,18 @@
                                                                              target:self
                                                                              action:@selector(saveAndPublishString)];
     
-
-    
-    
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
                                                                                 action:@selector(returnToPreviousScreen)];
-    UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [self.view setBackgroundColor:veryLightGrayColor];
+
+    [self.view setBackgroundColor:[StringrUtility kStringrVeryLightGrayColor]];
 }
 
+
+
+
+#pragma mark - Actions
 
 - (void)saveAndPublishString
 {
@@ -54,15 +57,23 @@
 
 - (void)returnToPreviousScreen
 {
-    UIAlertView *cancelStringAlert = [[UIAlertView alloc] initWithTitle:@"Cancel String" message:@"Are you sure that you want to cancel?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", @"Save for later", nil];
-    
+    UIAlertView *cancelStringAlert = [[UIAlertView alloc] initWithTitle:@"Cancel String"
+                                                                message:@"Are you sure that you want to cancel?"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"No"
+                                                      otherButtonTitles:@"Yes", @"Save for later", nil];
     [cancelStringAlert show];
 }
 
+
+
+
+#pragma mark - UIAlertView Delegate
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
     if (buttonIndex == 1) {
+        
         [self.navigationController popViewControllerAnimated:YES];
         
         //[self dismissViewControllerAnimated:YES completion:nil];

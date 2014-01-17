@@ -16,6 +16,7 @@
 
 @implementation StringrDetailViewController
 
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -23,6 +24,11 @@
     
     self.title = @"Detail View";
 }
+
+
+
+
+#pragma mark - IBActions
 
 // Opens the profile for the uploader of the string, which this detail view is based around
 - (IBAction)openUserProfile:(UIButton *)sender

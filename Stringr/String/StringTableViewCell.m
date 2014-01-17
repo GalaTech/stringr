@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringTableCellViewCell.h"
+#import "StringTableViewCell.h"
 #import "StringCellView.h"
 #import "StringrDetailViewController.h"
 
 #import "StringrPathImageView.h"
 
-@interface StringTableCellViewCell ()
+@interface StringTableViewCell ()
 
 @property (strong, nonatomic) StringCellView *stringCollectionView;
 
@@ -23,10 +23,9 @@
 @end
 
 
-@implementation StringTableCellViewCell
+@implementation StringTableViewCell
 
-
-
+#pragma mark - Lifecycle
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -45,14 +44,21 @@
 
 
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-}
+#pragma mark - Public
 
 - (void)setCollectionData:(NSArray *)collectionData
 {
     [_stringCollectionView setCollectionData:collectionData];
+}
+
+
+
+
+#pragma mark - Private
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
 }
 
 

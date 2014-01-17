@@ -9,6 +9,7 @@
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrUtility.h"
+#import "StringrConstants.h"
 
 #import "StringrDetailViewController.h"
 #import "StringrPhotoViewerViewController.h"
@@ -18,7 +19,7 @@
 #import "StringrMyStringsTableViewController.h"
 #import "StringrUserTableViewController.h"
 
-#import "StringTableCellViewCell.h"
+#import "StringTableViewCell.h"
 #import "StringFooterTableViewCell.h"
 
 #import "StringrStringEditViewController.h"
@@ -31,6 +32,8 @@
 
 @implementation StringrStringTableViewController
 
+#pragma mark - Life Cycle
+
 //- (void)dealloc
 //{
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
@@ -39,14 +42,10 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
 //}
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
-    self.title = self.tabBarController.tabBarItem.title;
-    
     // Creates the navigation item to access the menu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
@@ -54,67 +53,11 @@
     
     self.tableView.allowsSelection = NO;
     
-    
-    // Test string array/dictionaries
-    self.images = @[ @{ @"description": @"An eternity in Bruges",
-                            @"articles": @[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
-                                            @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
-                                            @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
-                                            @{ @"title": @"Article A4", @"image":@"sample_4.jpeg" },
-                                            @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
-                                            ]
-                            },
-                         @{ @"description": @"An eternity in Bruges",
-                            @"articles": @[ @{ @"title": @"Article B1", @"image":@"sample_1.jpeg" },
-                                            @{ @"title": @"Article B2", @"image":@"sample_2.jpeg" },
-                                            @{ @"title": @"Article B3", @"image":@"sample_3.jpeg" },
-                                            @{ @"title": @"Article B4", @"image":@"sample_4.jpeg" },
-                                            @{ @"title": @"Article B5", @"image":@"sample_5.jpeg" }
-                                            ]
-                            },
-                         @{ @"description": @"An eternity in Bruges",
-                            @"articles": @[ @{ @"title": @"Article C1", @"image":@"sample_1.jpeg" },
-                                            @{ @"title": @"Article C2", @"image":@"sample_2.jpeg" },
-                                            @{ @"title": @"Article C3", @"image":@"sample_3.jpeg" },
-                                            @{ @"title": @"Article C4", @"image":@"sample_4.jpeg" },
-                                            @{ @"title": @"Article C5", @"image":@"sample_5.jpeg" }
-                                            ]
-                            },
-                         @{ @"description": @"An eternity in Bruges",
-                            @"articles": @[ @{ @"title": @"Article D1", @"image":@"sample_1.jpeg" },
-                                            @{ @"title": @"Article D2", @"image":@"sample_2.jpeg" },
-                                            @{ @"title": @"Article D3", @"image":@"sample_3.jpeg" },
-                                            @{ @"title": @"Article D4", @"image":@"sample_4.jpeg" },
-                                            @{ @"title": @"Article D5", @"image":@"sample_5.jpeg" }
-                                            ]
-                            },
-                         @{ @"description": @"An eternity in Bruges",
-                            @"articles": @[ @{ @"title": @"Article E1", @"image":@"sample_1.jpeg"},
-                                            @{ @"title": @"Article E2", @"image":@"sample_2.jpeg" },
-                                            @{ @"title": @"Article E3", @"image":@"sample_3.jpeg" },
-                                            @{ @"title": @"Article E4", @"image":@"sample_4.jpeg" },
-                                            @{ @"title": @"Article E5", @"image":@"sample_5.jpeg" }
-                                            ]
-                            },
-                         @{ @"description": @"An eternity in Bruges",
-                            @"articles": @[ @{ @"title": @"Article F1", @"image":@"sample_1.jpeg" },
-                                            @{ @"title": @"Article F2", @"image":@"sample_2.jpeg" },
-                                            @{ @"title": @"Article F3", @"image":@"sample_3.jpeg" },
-                                            @{ @"title": @"Article F4", @"image":@"sample_4.jpeg" },
-                                            @{ @"title": @"Article F5", @"image":@"sample_5.jpeg" }
-                                            ]
-                            },
-                         ];
+    [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     
     
-    [self.tableView registerClass:[StringTableCellViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
-    
-    UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [self.tableView setBackgroundColor:veryLightGrayColor];
-    
-
+    [self.tableView setBackgroundColor:[StringrUtility kStringrVeryLightGrayColor]];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -145,140 +88,78 @@
 
 
 
-#pragma mark - Table View Data Source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // This will be set to the amount of strings that are loaded from parse
-    return [self.images count];
-}
+#pragma mark - Custom Accessors
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+// Getter for test data images property
+- (NSArray *)images
 {
-    // One of the rows is for the footer view
-    return 2;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"StringTableViewCell";
-    
-    UITableViewCell *cell;
-    
-    // Sets up the table view cell accordingly based around whether it is the
-    // string row or the footer
-    if (indexPath.row == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        // Gets the dictionary of photo data for this specific string/row
-        NSDictionary *stringData = [self.images objectAtIndex:[indexPath section]];
-        // Gets the photos for this specific string
-        NSArray *imageData = [stringData objectForKey:@"articles"];
-        
-        
-        if ([cell isKindOfClass:[StringTableCellViewCell class]]) {
-            StringTableCellViewCell *stringCell = (StringTableCellViewCell *)cell;
-            // Sets the photos to the array of photo data for the collection view
-            [stringCell setCollectionData:imageData];
-            
-            return  stringCell;
-        }
-        
-    } else if (indexPath.row == 1) {
-        // Sets the table view cell to be the custom footer view
-        StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] init];
-        
-        [footerCell setStringUploaderName:@"Alonso Holmes"];
-        [footerCell setStringUploadDate:@"10 minutes ago"];
-        [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-        
-        return footerCell;
-        
-    }
-    
-    return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return NO;
+    return @[ @{ @"description": @"An eternity in Bruges",
+                        @"articles": @[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
+                                        @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
+                                        @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
+                                        @{ @"title": @"Article A4", @"image":@"sample_4.jpeg" },
+                                        @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
+                                        ]
+                        },
+                     @{ @"description": @"An eternity in Bruges",
+                        @"articles": @[ @{ @"title": @"Article B1", @"image":@"sample_1.jpeg" },
+                                        @{ @"title": @"Article B2", @"image":@"sample_2.jpeg" },
+                                        @{ @"title": @"Article B3", @"image":@"sample_3.jpeg" },
+                                        @{ @"title": @"Article B4", @"image":@"sample_4.jpeg" },
+                                        @{ @"title": @"Article B5", @"image":@"sample_5.jpeg" }
+                                        ]
+                        },
+                     @{ @"description": @"An eternity in Bruges",
+                        @"articles": @[ @{ @"title": @"Article C1", @"image":@"sample_1.jpeg" },
+                                        @{ @"title": @"Article C2", @"image":@"sample_2.jpeg" },
+                                        @{ @"title": @"Article C3", @"image":@"sample_3.jpeg" },
+                                        @{ @"title": @"Article C4", @"image":@"sample_4.jpeg" },
+                                        @{ @"title": @"Article C5", @"image":@"sample_5.jpeg" }
+                                        ]
+                        },
+                     @{ @"description": @"An eternity in Bruges",
+                        @"articles": @[ @{ @"title": @"Article D1", @"image":@"sample_1.jpeg" },
+                                        @{ @"title": @"Article D2", @"image":@"sample_2.jpeg" },
+                                        @{ @"title": @"Article D3", @"image":@"sample_3.jpeg" },
+                                        @{ @"title": @"Article D4", @"image":@"sample_4.jpeg" },
+                                        @{ @"title": @"Article D5", @"image":@"sample_5.jpeg" }
+                                        ]
+                        },
+                     @{ @"description": @"An eternity in Bruges",
+                        @"articles": @[ @{ @"title": @"Article E1", @"image":@"sample_1.jpeg"},
+                                        @{ @"title": @"Article E2", @"image":@"sample_2.jpeg" },
+                                        @{ @"title": @"Article E3", @"image":@"sample_3.jpeg" },
+                                        @{ @"title": @"Article E4", @"image":@"sample_4.jpeg" },
+                                        @{ @"title": @"Article E5", @"image":@"sample_5.jpeg" }
+                                        ]
+                        },
+                     @{ @"description": @"An eternity in Bruges",
+                        @"articles": @[ @{ @"title": @"Article F1", @"image":@"sample_1.jpeg" },
+                                        @{ @"title": @"Article F2", @"image":@"sample_2.jpeg" },
+                                        @{ @"title": @"Article F3", @"image":@"sample_3.jpeg" },
+                                        @{ @"title": @"Article F4", @"image":@"sample_4.jpeg" },
+                                        @{ @"title": @"Article F5", @"image":@"sample_5.jpeg" }
+                                        ]
+                        },
+                     ];
 }
 
 
 
 
+#pragma mark - Private
 
-
-
-
-
-#pragma mark - Table View Delegate
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+// Handles the action of displaying the menu when the menu nav item is pressed
+- (void)showMenu
 {
-    return 23.5;
+    [StringrUtility showMenu:self.frostedViewController];
 }
 
 
 
 
-
-
-
-
-
-#define contentViewWidthPercentage .93
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    // Section header view, which is used for embedding the content view of the section header
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    [headerView setAlpha:1];
-    
-    float xpoint = (headerView.frame.size.width - (headerView.frame.size.width * contentViewWidthPercentage)) / 2;
-    CGRect contentHeaderRect = CGRectMake(xpoint, 0, headerView.frame.size.width * contentViewWidthPercentage, 23.5);
-    
-    // This is the content view, which is a button that will provide user interaction that can take them to
-    // the detail view of a string
-    UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
-    [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
-    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView) forControlEvents:UIControlEventTouchUpInside];
-    [contentHeaderViewButton setAlpha:0.92];
-    [contentHeaderViewButton setTitle:@"An awesome trip from coast to coast!" forState:UIControlStateNormal];
-    [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
-    
-    [headerView addSubview:contentHeaderViewButton];
-    
-    return headerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 0) {
-        // string view
-        return 157;
-    } else if (indexPath.row == 1) {
-        // footer view
-        return 52;
-    }
-    
-    return 0;
-}
-
-
-
-
-
-
-
-
-#pragma mark - NSNotification/Action handlers
-
+#pragma mark - NSNotificationCenter Oberserver Action Handlers
 
 // Handles the action when a cell from a string is selected this will push to the appropriate VC
 - (void) didSelectItemFromCollectionView:(NSNotification *)notification
@@ -314,19 +195,11 @@
     [profileVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:profileVC animated:YES];
     
-    
-
-    
     //Implements modal transition to profile view
     //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
-    
-    
     //[self presentViewController:navVC animated:YES completion:nil];
 }
-
-
-
 
 // Handles the action of pushing to the comment's of a selected string
 - (void)didSelectCommentsButton:(NSNotification *)notification
@@ -350,12 +223,12 @@
 // Handles the action of pushing to to the detail view of a selected string
 - (void)pushToStringDetailView
 {
-  //  UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
+    //  UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     
     
-   // detailVC.modalPresentationStyle = UIModalPresentationCustom;
+    // detailVC.modalPresentationStyle = UIModalPresentationCustom;
     //detailVC.modalTransitionStyle = UIModalPresentationNone;
     
     // default present is modal animation
@@ -365,13 +238,6 @@
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
-// Handles the action of displaying the menu when the menu nav item is pressed
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-} 
-
-
 - (void)addNewString
 {
     UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
@@ -380,9 +246,131 @@
                                                         destructiveButtonTitle:nil
                                                              otherButtonTitles:@"Take Photo", @"Choose From Existing", nil];
     
-    [newStringActionSheet showFromTabBar:self.tabBarController.tabBar];
+    [newStringActionSheet showInView:self.view];
     
 }
+
+
+
+
+#pragma mark - Table View Data Source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // This will be set to the amount of strings that are loaded from parse
+    return [self.images count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // One of the rows is for the footer view
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"StringTableViewCell";
+    
+    UITableViewCell *cell;
+    
+    // Sets up the table view cell accordingly based around whether it is the
+    // string row or the footer
+    if (indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        // Gets the dictionary of photo data for this specific string/row
+        NSDictionary *stringData = [self.images objectAtIndex:[indexPath section]];
+        // Gets the photos for this specific string
+        NSArray *imageData = [stringData objectForKey:@"articles"];
+        
+        
+        if ([cell isKindOfClass:[StringTableViewCell class]]) {
+            StringTableViewCell *stringCell = (StringTableViewCell *)cell;
+            // Sets the photos to the array of photo data for the collection view
+            [stringCell setCollectionData:imageData];
+            
+            return  stringCell;
+        }
+        
+    } else if (indexPath.row == 1) {
+        // Sets the table view cell to be the custom footer view
+        StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] init];
+        
+        // Init's the footer with live data from here
+        [footerCell setStringUploaderName:@"Alonso Holmes"];
+        [footerCell setStringUploadDate:@"1s0 minutes ago"];
+        [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
+        
+        return footerCell;
+        
+    }
+    
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return NO;
+}
+
+
+
+
+#pragma mark - Table View Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 23.5;
+}
+
+// Percentage for the width of the content header view
+static float const contentViewWidthPercentage = .93;
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // Section header view, which is used for embedding the content view of the section header
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    [headerView setAlpha:1];
+    
+    float xpoint = (headerView.frame.size.width - (headerView.frame.size.width * contentViewWidthPercentage)) / 2;
+    CGRect contentHeaderRect = CGRectMake(xpoint, 0, headerView.frame.size.width * contentViewWidthPercentage, 23.5);
+    
+    
+    // This is the content view, which is a button that will provide user interaction that can take them to
+    // the detail view of a string
+    UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
+    [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
+    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView) forControlEvents:UIControlEventTouchUpInside];
+    [contentHeaderViewButton setAlpha:0.92];
+    [contentHeaderViewButton setTitle:@"An awesome trip from coast to coast!" forState:UIControlStateNormal];
+    [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
+    
+    [headerView addSubview:contentHeaderViewButton];
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        // string view
+        return 157;
+    } else if (indexPath.row == 1) {
+        // footer view
+        return 52;
+    }
+    
+    return 0;
+}
+
+
+
+
+#pragma mark - UIActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {

@@ -8,6 +8,6 @@
 
 #import "StringrStringTableViewController.h"
 
-@interface StringrStringSearchTableViewController : StringrStringTableViewController
+@interface StringrSearchTableViewController : StringrStringTableViewController
 
 @end

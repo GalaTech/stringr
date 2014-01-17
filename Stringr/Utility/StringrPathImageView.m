@@ -15,6 +15,7 @@
 
 @implementation StringrPathImageView
 
+#pragma mark - Lifecycle
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -53,6 +54,26 @@
     return self;
 }
 
+
+
+
+#pragma mark - Public
+
+- (void)setImageToCirclePath
+{
+    float cornerRadius = self.frame.size.width / 2;
+    
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = cornerRadius;
+    //self.layer.shouldRasterize = YES;
+    self.clipsToBounds = YES;
+}
+
+
+
+
+#pragma mark - Private
+
 - (void)setPathColor:(UIColor *)pathColor
 {
     self.layer.borderColor = pathColor.CGColor;
@@ -68,15 +89,7 @@
     [self setImage:image];
 }
 
-- (void)setImageToCirclePath
-{
-    float cornerRadius = self.frame.size.width / 2;
-    
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = cornerRadius;
-    //self.layer.shouldRasterize = YES;
-    self.clipsToBounds = YES;
-}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

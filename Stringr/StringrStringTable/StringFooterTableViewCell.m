@@ -7,6 +7,7 @@
 //
 
 #import "StringFooterTableViewCell.h"
+#import "StringrUtility.h"
 
 #import "StringrPathImageView.h"
 
@@ -33,23 +34,20 @@
 
 @implementation StringFooterTableViewCell
 
-// Standard color used for table view BG
-#define veryLightGrayColor [UIColor colorWithWhite:0.9 alpha:1.0]
+#pragma mark - Lifecycle
 
 #define contentViewWidth self.contentView.frame.size.width
-#define contentViewHeight 41.5
-#define contentViewWidthPercentage .93
-
-#define profileImageXLocationPercentage .02
+static float const contentViewHeight = 41.5;
+static float const contentViewWidthPercentage = .93;
+static float const profileImageXLocationPercentage = .02;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        [self.contentView setBackgroundColor:veryLightGrayColor];
+        [self.contentView setBackgroundColor:[StringrUtility kStringrVeryLightGrayColor]];
 
-        
         // Creates the custom footer content view
         float xpoint = (self.contentView.frame.size.width - (self.contentView.frame.size.width * contentViewWidthPercentage)) / 2;
         self.contentFooterView = [[UIView alloc] initWithFrame:CGRectMake(xpoint, 0, contentViewWidth * contentViewWidthPercentage, contentViewHeight)];
@@ -78,6 +76,10 @@
 }
 
 
+
+
+#pragma mark - Custom Accessors
+
 /*
 - (UIImage *)stringUploaderProfileImage
 {
@@ -95,21 +97,14 @@
 }
  */
 
-/*
 - (void)setStringUploaderProfileImage:(UIImage *)stringUploaderProfileImage
 {
     _stringUploaderProfileImage = stringUploaderProfileImage;
 
     if (_stringUploaderProfileImage) {
-        self.profileImageView = [[GBPathImageView alloc] initWithFrame:CGRectMake(7, 2, 30, 30)
-                                                                 image:_stringUploaderProfileImage
-                                                              pathType:GBPathImageViewTypeCircle
-                                                             pathColor:[UIColor darkGrayColor]
-                                                           borderColor:[UIColor darkGrayColor]
-                                                             pathWidth:1.0];
+        self.profileImageView.image = _stringUploaderProfileImage;
     }
 }
- */
 
 - (void)setStringUploaderName:(NSString *)stringUploaderName
 {
@@ -133,13 +128,17 @@
     return @"9.7k";
 }
 
+
+
+
+#pragma mark - Private
+
 - (void)addProfileImageViewAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)
                                                                   image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
                                                               pathColor:[UIColor darkGrayColor]
                                                               pathWidth:1.0];
-    
     
     [self.profileImageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushProfilePicture:)];
@@ -183,9 +182,6 @@
 }
 
 
-
-
-
 // Adds a compounded NSString, UIImage, and UIButton with the given number of comment's at the preset location and size
 - (void)addCommentsButtonAtLocation:(CGPoint)location withSize:(CGSize)size
 {
@@ -225,9 +221,6 @@
 {
     self.commentsTextLabel.textColor = [UIColor grayColor];
 }
-
-
-
 
 
 // Adds a compounded NSString, UIImage, and UIButton with the given number of like's at the preset location and size

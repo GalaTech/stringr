@@ -14,6 +14,8 @@
 
 @implementation StringrRootViewController
 
+#pragma mark - Lifecycle
+
 - (void)awakeFromNib
 {
     self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];

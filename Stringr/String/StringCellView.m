@@ -18,6 +18,8 @@
 @end
 @implementation StringCellView
 
+#pragma mark - Lifecycle
+
 - (void)awakeFromNib
 {
     UIColor *collectionViewBGColor = [UIColor colorWithWhite:0.85 alpha:1.0];
@@ -55,7 +57,7 @@
 */
 
 
-#pragma mark - Getter/Setter overrides
+#pragma mark - Custom Accessors
 - (void)setCollectionData:(NSArray *)collectionData {
     _collectionData = collectionData;
     
@@ -66,7 +68,7 @@
 
 
 
-#pragma mark - UICollectionViewDataSource methods
+#pragma mark - UICollectionView DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -91,6 +93,10 @@
     return stringCell;
 }
 
+
+
+
+#pragma mark - UICollectionView Delegate
 
 // Posts an NSNotificationCenter notification for selecting a specific cell in the collection view.
 // When one is tapped it posts a notification, which will be caught and handled appropriately

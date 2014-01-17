@@ -17,7 +17,7 @@
 
 @implementation StringrPhotoViewerViewController
 
-
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -39,6 +39,10 @@
     [self.photoViewImageView setImage:self.photoViewerImage];
 }
 
+
+
+
+#pragma mark - Actions
 
 - (void)pushDetailView
 {

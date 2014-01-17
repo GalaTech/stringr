@@ -19,6 +19,8 @@
 
 @implementation StringrStringCollectionViewController
 
+#pragma mark - Lifecycle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,13 +43,7 @@
                   ];
     UIColor *collectionViewBGColor = [UIColor colorWithWhite:0.85 alpha:1.0];
     [self.collectionView setBackgroundColor:collectionViewBGColor];
-    
 }
-
-
-
-#pragma mark - UICollectionView Delegate
-
 
 
 
@@ -84,17 +80,19 @@
     return cell;
 }
 
+
+
+
+#pragma mark - UICollectionView Delegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
-    
     
     NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
     [photoVC setPhotoViewerImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
     
     [self.navigationController pushViewController:photoVC animated:YES];
-    
-    
 }
 
 @end

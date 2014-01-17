@@ -6,22 +6,27 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringSearchTableViewController.h"
+#import "StringrSearchTableViewController.h"
 
-@interface StringrStringSearchTableViewController () <UISearchBarDelegate>
+@interface StringrSearchTableViewController () <UISearchBarDelegate>
 
 @end
 
-@implementation StringrStringSearchTableViewController
+@implementation StringrSearchTableViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
     self.title = @"Search Strings";
 }
 
+
+
+
+#pragma mark - UISearchBar Delegate
 
 // Presents/Hides the scope bar and cancel button whenever the user goes to search
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
@@ -37,7 +42,6 @@
     
     return YES;
 }
-
 
 // Hides the keyboard whenever a user has canceled a search or has pressed the search button
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar

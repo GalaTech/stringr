@@ -14,13 +14,21 @@
 
 @implementation StringrNavigationController
 
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	//[self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)]];
+    
+    self.navigationBar.tintColor = [UIColor grayColor];
 }
 
+
+
+
+#pragma mark - Action Handlers
 
 /*
 - (void)panGestureRecognized:(UIPanGestureRecognizer *)sender

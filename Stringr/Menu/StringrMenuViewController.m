@@ -13,9 +13,9 @@
 #import "StringrMyStringsTableViewController.h"
 #import "StringrLikedStringsTableViewController.h"
 
-#import "StringrStringDiscoveryTabBarViewController.h"
-#import "StringrMySchoolViewController.h"
-#import "StringrSearchViewController.h"
+#import "StringrDiscoveryTabBarViewController.h"
+#import "StringrMySchoolTabBarViewController.h"
+#import "StringrSearchTabBarViewController.h"
 
 #import "StringrStringEditViewController.h"
 
@@ -25,6 +25,8 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "StringrPathImageView.h"
 
+#import "AppDelegate.h"
+
 
 @interface StringrMenuViewController () <UIActionSheetDelegate>
 
@@ -33,6 +35,8 @@
 @end
 
 @implementation StringrMenuViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -47,15 +51,11 @@
     self.tableView.opaque = NO; // Allows transparency
     self.tableView.backgroundColor = [UIColor clearColor];
     
-    
-    
-    
     // Creates the header of the menu that contains profile image and other graphics
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
     
     self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 20, 25, 25)];
     [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
-    
     [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *cameraImage = [[UIImageView alloc] initWithFrame:CGRectMake(120, 15, 30, 30)];
@@ -82,7 +82,6 @@
     [view addSubview:label];
     
     self.tableView.tableHeaderView = view;
-    
     
     
     /*
@@ -116,61 +115,63 @@
     
 }
 
+
+
+
+#pragma mark - Action Handlers
+
 - (void)cameraButtonPushed:(UIButton *)sender
 {
     // Closes the menu after we move to a new VC
     [self.frostedViewController hideMenuViewController];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UploadNewString" object:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"UploadNewString" object:nil];
     
     
-    //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    //StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
-    
-    //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:stringEditVC];
-    //[self.frostedViewController setContentViewController:navVC];
-    
-    
-    //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
-    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     //[actionSheet showInView:self.parentViewController.view];
 }
 
 
 
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    if (buttonIndex == 0) {
-//        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
-//        [newStringVC setHidesBottomBarWhenPushed:YES];
-//        [self.navigationController pushViewController:newStringVC animated:YES];
-//        
-//        // Modal
-//        /*
-//         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-//         
-//         [self presentViewController:navVC animated:YES completion:nil];
-//        */
-//    } else if (buttonIndex == 1) {
-//        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
-//        [newStringVC setHidesBottomBarWhenPushed:YES];
-//        [self.navigationController pushViewController:newStringVC animated:YES];
-//        
-//        
-//        // Modal
-//        /*
-//         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-//         
-//         [self presentViewController:navVC animated:YES completion:nil];
-//         */
-//    }
-//}
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        
+        
+        [self.navigationController pushViewController:newStringVC animated:YES];
+        
+        // Modal
+        /*
+         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+         
+         [self presentViewController:navVC animated:YES completion:nil];
+        */
+    } else if (buttonIndex == 1) {
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+        
+        
+        // Modal
+        /*
+         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+         
+         [self presentViewController:navVC animated:YES completion:nil];
+         */
+    }
+}
 
 
 
-#pragma mark -
+
 #pragma mark UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -253,15 +254,15 @@
     
     // Table section 1 menu items actions
     if (indexPath.section == 1 && indexPath.row == 0) {
-        StringrStringDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
+        StringrDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
         
         [self.frostedViewController setContentViewController:stringDiscoveryVC];
     } else if (indexPath.section == 1 && indexPath.row == 1) {
-        StringrMySchoolViewController *mySchoolVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MySchoolTabBar"];
+        StringrMySchoolTabBarViewController *mySchoolVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MySchoolTabBar"];
         
         [self.frostedViewController setContentViewController:mySchoolVC];
     } else if (indexPath.section == 1 && indexPath.row == 2) {
-        StringrSearchViewController *searchVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchTabBar"];
+        StringrSearchTabBarViewController *searchVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchTabBar"];
         
         [self.frostedViewController setContentViewController:searchVC];
     }
@@ -280,12 +281,13 @@
         return;
     }
     
-    
     // Closes the menu after we move to a new VC
     [self.frostedViewController hideMenuViewController];
 }
 
-#pragma mark -
+
+
+
 #pragma mark UITableView Datasource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

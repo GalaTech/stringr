@@ -25,12 +25,13 @@
 
 @implementation StringrEditProfileViewController
 
+#pragma mark - Lifecycle
+
 - (void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
-
 
 - (void)viewDidLoad
 {
@@ -61,7 +62,24 @@
 }
 
 
-#pragma mark - UIControls
+
+
+#pragma mark - Actions
+
+- (void)changeProfileImage
+{
+    UIActionSheet *changeImage = [[UIActionSheet alloc] initWithTitle:@"Change Profile Image"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Choose From Library", @"Take Photo", nil];
+    [changeImage showInView:self.view];
+}
+
+
+
+
+#pragma mark - IBActions
 
 // Sets the delegate profile name to the edited text of the UITextField
 - (IBAction)editProfileNameTextField:(UITextField *)sender
@@ -72,19 +90,39 @@
 
 
 
+#pragma mark - NSNotificationCenter Action Handlers
 
-#pragma mark - UIGestureRecognizerDelegate
-
-- (void)changeProfileImage
-{
-    UIActionSheet *changeImage = [[UIActionSheet alloc] initWithTitle:@"Change Profile Image"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Choose From Library", @"Take Photo", nil];
+- (void)keyboardWillShow:(NSNotification *)note {
+    // Gets the rect of the keyboard
+    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    [changeImage showInView:self.view];
+    // Gets the size of the scroll view
+    CGSize scrollViewContentSize = self.scrollView.bounds.size;
+    
+    // Sets the height of our CG size to add the height of the keyboard
+    scrollViewContentSize.height += keyboardFrameEnd.size.height;
+    
+    // Sets the content size of the scroll view to our newly created CGSize
+    [self.scrollView setContentSize:scrollViewContentSize];
+    
+    // Creates a point to move the scroll view to adjust for the keyboard.
+    CGPoint scrollViewContentOffset = self.scrollView.contentOffset;
+    scrollViewContentOffset.y += keyboardFrameEnd.size.height;
+    scrollViewContentOffset.y -= 80.0f;
+    
+    // Moves the scroll view to the new content offset in an animated fashion.
+    [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
 }
+
+- (void)keyboardWillHide:(NSNotification *)note {
+    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGSize scrollViewContentSize = self.scrollView.bounds.size;
+    scrollViewContentSize.height -= keyboardFrameEnd.size.height;
+    [UIView animateWithDuration:0.200f animations:^{
+        [self.scrollView setContentSize:scrollViewContentSize];
+    }];
+}
+
 
 
 
@@ -98,20 +136,13 @@
 
 #pragma mark - UITextViewDelegate
 
-#define kNUMBER_OF_CHARACTERS_ALLOWED 60
-/* Removes all text from the view upon tapping the textview
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    textView.text = @"";
-}
-*/
+static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
 
 // Sets the filler description to the text of the view whenever you exit
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     textView.text = self.fillerDescription;
 }
-
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
@@ -151,10 +182,10 @@
     NSString *charactersRemaining = [NSString stringWithFormat:@"%d", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
     self.charactersRemaining.text = charactersRemaining;
     
-    
-    
     return YES;
 }
+
+
 
 
 #pragma mark - UIScrollViewDelegate
@@ -164,43 +195,6 @@
     [self.editProfileNameTextField resignFirstResponder];
     [self.editProfileDescriptionTextView resignFirstResponder];
 }
-
-
-
-#pragma mark - Keyboard Notification
-
-- (void)keyboardWillShow:(NSNotification *)note {
-    // Gets the rect of the keyboard
-    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    // Gets the size of the scroll view
-    CGSize scrollViewContentSize = self.scrollView.bounds.size;
-    
-    // Sets the height of our CG size to add the height of the keyboard
-    scrollViewContentSize.height += keyboardFrameEnd.size.height;
-    
-    // Sets the content size of the scroll view to our newly created CGSize
-    [self.scrollView setContentSize:scrollViewContentSize];
-    
-    // Creates a point to move the scroll view to adjust for the keyboard.
-    CGPoint scrollViewContentOffset = self.scrollView.contentOffset;
-    scrollViewContentOffset.y += keyboardFrameEnd.size.height;
-    scrollViewContentOffset.y -= 80.0f;
-    
-    // Moves the scroll view to the new content offset in an animated fashion.
-    [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
-}
-
-- (void)keyboardWillHide:(NSNotification *)note {
-    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGSize scrollViewContentSize = self.scrollView.bounds.size;
-    scrollViewContentSize.height -= keyboardFrameEnd.size.height;
-    [UIView animateWithDuration:0.200f animations:^{
-        [self.scrollView setContentSize:scrollViewContentSize];
-    }];
-}
-
-
 
 
 

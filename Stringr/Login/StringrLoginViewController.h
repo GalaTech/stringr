@@ -15,6 +15,5 @@
 
 - (IBAction)pushToNewView:(UIButton *)sender;
 
-- (IBAction)pushToPreLoggedInDiscover:(UIButton *)sender;
 
 @end

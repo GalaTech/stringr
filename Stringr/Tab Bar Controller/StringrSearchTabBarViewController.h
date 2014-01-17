@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrTabBarViewController.h"
 
-@interface StringrSearchViewController : UITabBarController
+@interface StringrSearchTabBarViewController : StringrTabBarViewController
 
 @end

@@ -15,6 +15,7 @@
 
 @implementation StringrSettingsViewController
 
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -25,6 +26,11 @@
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
 }
+
+
+
+
+#pragma mark - Private
 
 - (void)showMenu
 {

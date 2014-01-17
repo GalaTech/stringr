@@ -18,23 +18,16 @@
 
 @implementation StringrUserTableViewController
 
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
-    /*
-    // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                             style:UIBarButtonItemStyleDone target:self
-                                                                            action:@selector(showMenu)];
-     */
+    [super viewDidLoad];
+    
 }
 
 
-// Handles the action of displaying the menu when the menu nav item is pressed
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
+
 
 #pragma mark - Table View Data Source
 

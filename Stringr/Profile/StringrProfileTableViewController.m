@@ -7,7 +7,6 @@
 //
 
 #import "StringrProfileTableViewController.h"
-#import "M6ParallaxController.h"
 
 @interface StringrProfileTableViewController ()
 
@@ -15,28 +14,37 @@
 
 @implementation StringrProfileTableViewController
 
-
-#pragma mark - Parallax Controller Methods
-
-/*
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.parallaxController tableViewControllerDidScroll:self];
-}
- */
+#pragma mark - LifeCycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     
     [self.tableView reloadData];
 
 }
 
 
-- (UIScrollView *)scrollViewForParallexController
+
+
+#pragma mark - ParallaxScrollViewController Delegate
+
+- (UIScrollView *)scrollViewForParallaxController
 {
     return self.tableView;
 }
+
+
+
+#pragma mark - Old ParallaxController Delegate
+
+/*
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView
+ {
+ [self.parallaxController tableViewControllerDidScroll:self];
+ }
+ */
+
 
 @end

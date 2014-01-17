@@ -9,8 +9,8 @@
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrEditProfileViewController.h"
-#import "StringrFollowingFollowersTabBarViewController.h"
 #import "StringrUserTableViewController.h"
+#import "StringrUtility.h"
 
 
 @interface StringrProfileTopViewController ()
@@ -19,7 +19,7 @@
 
 @implementation StringrProfileTopViewController
 
-#pragma mark - Initialization
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -34,10 +34,8 @@
     [self.profileImage setPathColor:[UIColor darkGrayColor]];
     
     
-    UIColor *veryLightGrayColor = [UIColor colorWithWhite:.90 alpha:1.0];
-    
     // Adds custom design to follow user button
-    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:veryLightGrayColor];
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrUtility kStringrVeryLightGrayColor]];
     [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followUserButton setCornerRadius:15];
     [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
@@ -58,9 +56,55 @@
 
 
 
+#pragma mark - Public
 
-#pragma mark - UIControls
+/** Allows you to change the values of objects in the top view controller when a user begins to
+ * scroll. It calculates changes based on the old height and new height of the top view controller
+ * I utilize this for changing the alpha value when a user scrolls up on the parallax view. That way
+ * it will decrease objects alpha value until they are transparent.
+ *
+ * @param oldHeight The old/previous height of the top view controller
+ * @param newHeight The new height of the top view controller.
+ */
+- (void)willChangeHeightFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight {
+    
+    /*
+     if (newHeight >= parallaxController.topViewControllerStandartHeight) {
+     
+     
+     [self.profileImage setAlpha:1];
+     [self.profileNameLabel setAlpha:1];
+     [self.profileDescriptionLabel setAlpha:1];
+     [self.profileNumberOfStringsLabel setAlpha:1];
+     [self.profileUniversityLabel setAlpha:1];
+     [self.followUserButton setAlpha:1];
+     
+     //float r = (parallaxController.topViewControllerStandartHeight * 1.25f) / newHeight;
+     // [self.gradientImageView setAlpha:r*r];
+     
+     } else {
+     
+     float r = newHeight / parallaxController.topViewControllerStandartHeight;
+     
+     [self.profileImage setAlpha:r];
+     [self.profileNameLabel setAlpha:r];
+     [self.followingButton setAlpha:r];
+     [self.followingLabel setAlpha:r];
+     [self.followersButton setAlpha:r];
+     [self.followersLabel setAlpha:r];
+     [self.profileDescriptionLabel setAlpha:r];
+     [self.profileNumberOfStringsLabel setAlpha:r*r];
+     [self.profileUniversityLabel setAlpha:r*r*r*r];
+     [self.followUserButton setAlpha:r*r*r*r];
+     }
+     */
+    
+}
 
+
+
+
+#pragma mark - IBActions
 
 - (IBAction)followUserButton:(UIButton *)sender
 {
@@ -109,49 +153,7 @@
 
 
 
-#pragma mark - Parallax Controller Method
 
-/** Allows you to change the values of objects in the top view controller when a user begins to 
- * scroll. It calculates changes based on the old height and new height of the top view controller
- * I utilize this for changing the alpha value when a user scrolls up on the parallax view. That way
- * it will decrease objects alpha value until they are transparent.
- *
- * @param oldHeight The old/previous height of the top view controller
- * @param newHeight The new height of the top view controller.
- */
-- (void)willChangeHeightFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight {
-    
-    M6ParallaxController * parallaxController = [self parallaxController];
-    
-    if (newHeight >= parallaxController.topViewControllerStandartHeight) {
-        
-        
-        [self.profileImage setAlpha:1];
-        [self.profileNameLabel setAlpha:1];
-        [self.profileDescriptionLabel setAlpha:1];
-        [self.profileNumberOfStringsLabel setAlpha:1];
-        [self.profileUniversityLabel setAlpha:1];
-        [self.followUserButton setAlpha:1];
-        
-        //float r = (parallaxController.topViewControllerStandartHeight * 1.25f) / newHeight;
-       // [self.gradientImageView setAlpha:r*r];
-        
-    } else {
-        
-        float r = newHeight / parallaxController.topViewControllerStandartHeight;
-        
-        [self.profileImage setAlpha:r];
-        [self.profileNameLabel setAlpha:r];
-        [self.followingButton setAlpha:r];
-        [self.followingLabel setAlpha:r];
-        [self.followersButton setAlpha:r];
-        [self.followersLabel setAlpha:r];
-        [self.profileDescriptionLabel setAlpha:r];
-        [self.profileNumberOfStringsLabel setAlpha:r*r];
-        [self.profileUniversityLabel setAlpha:r*r*r*r];
-        [self.followUserButton setAlpha:r*r*r*r];
-    }
-    
-}
+ 
 
 @end

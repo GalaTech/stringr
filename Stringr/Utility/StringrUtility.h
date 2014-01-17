@@ -13,4 +13,6 @@
 
 + (void)showMenu:(REFrostedViewController *)menuViewController;
 
++ (UIColor *)kStringrVeryLightGrayColor;
+
 @end

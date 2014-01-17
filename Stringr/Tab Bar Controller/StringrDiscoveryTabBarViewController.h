@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrTabBarViewController.h"
 
-@interface StringrStringDiscoveryTabBarViewController : UITabBarController
+@interface StringrDiscoveryTabBarViewController : StringrTabBarViewController
 
 @end

@@ -14,12 +14,12 @@
 
 @implementation StringrUserConnectionsTableViewController
 
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
-    
     // Sets the title of the view based on what content it displays
     if ([self.view.restorationIdentifier isEqualToString:@"FollowingVC"]) {
         self.title = @"Following";

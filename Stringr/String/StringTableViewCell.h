@@ -7,7 +7,7 @@
 //
 
 #import "StringCellView.h"
-@interface StringTableCellViewCell : UITableViewCell
+@interface StringTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) UIView *detailTabView;
 
