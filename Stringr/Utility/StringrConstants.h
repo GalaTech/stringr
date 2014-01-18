@@ -6,6 +6,13 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+@interface StringrConstants : NSObject
+
++ (UIColor *)kStringrVeryLightGrayColor;
+
+@end
+
 
 #pragma mark - PFObject Activity Class
 // Class Key

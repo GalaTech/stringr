@@ -56,7 +56,7 @@
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     
     
-    [self.tableView setBackgroundColor:[StringrUtility kStringrVeryLightGrayColor]];
+    [self.tableView setBackgroundColor:[StringrConstants kStringrVeryLightGrayColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -253,7 +253,7 @@
 
 
 
-#pragma mark - Table View Data Source
+#pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -317,7 +317,7 @@
 
 
 
-#pragma mark - Table View Delegate
+#pragma mark - UITableView Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -331,6 +331,7 @@ static float const contentViewWidthPercentage = .93;
 {
     // Section header view, which is used for embedding the content view of the section header
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    
     [headerView setBackgroundColor:[UIColor clearColor]];
     [headerView setAlpha:1];
     

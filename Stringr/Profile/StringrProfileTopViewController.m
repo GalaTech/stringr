@@ -10,7 +10,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrEditProfileViewController.h"
 #import "StringrUserTableViewController.h"
-#import "StringrUtility.h"
+#import "StringrConstants.h"
 
 
 @interface StringrProfileTopViewController ()
@@ -35,7 +35,7 @@
     
     
     // Adds custom design to follow user button
-    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrUtility kStringrVeryLightGrayColor]];
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringrVeryLightGrayColor]];
     [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followUserButton setCornerRadius:15];
     [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];

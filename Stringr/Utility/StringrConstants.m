@@ -6,6 +6,17 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
+#import "StringrConstants.h"
+
+@implementation StringrConstants
+
++ (UIColor *)kStringrVeryLightGrayColor
+{
+    return [UIColor colorWithWhite:0.9 alpha:1.0];
+}
+
+@end
+
 
 #pragma mark - PFObject Activity Class
 // Class Key

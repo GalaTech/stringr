@@ -10,16 +10,9 @@
 
 @implementation StringrUtility
 
-
 + (void)showMenu:(REFrostedViewController *)menuViewController
 {
     [menuViewController presentMenuViewController];
-}
-
-
-+ (UIColor *)kStringrVeryLightGrayColor
-{
-    return [UIColor colorWithWhite:0.9 alpha:1.0];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "StringrStringEditViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
-#import "StringrUtility.h"
+#import "StringrConstants.h"
 
 @interface StringrStringEditViewController () <UIAlertViewDelegate>
 
@@ -35,7 +35,7 @@
                                                                                 target:self
                                                                                 action:@selector(returnToPreviousScreen)];
 
-    [self.view setBackgroundColor:[StringrUtility kStringrVeryLightGrayColor]];
+    [self.view setBackgroundColor:[StringrConstants kStringrVeryLightGrayColor]];
 }
 
 

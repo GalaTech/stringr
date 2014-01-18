@@ -27,7 +27,19 @@
                                                                             action:@selector(showMenu)];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"tab bar did appear");
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    NSLog(@"tab bar did disappear");
+}
 
 
 #pragma mark - Private

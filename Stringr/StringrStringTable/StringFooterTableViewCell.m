@@ -7,7 +7,7 @@
 //
 
 #import "StringFooterTableViewCell.h"
-#import "StringrUtility.h"
+#import "StringrConstants.h"
 
 #import "StringrPathImageView.h"
 
@@ -46,7 +46,7 @@ static float const profileImageXLocationPercentage = .02;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        [self.contentView setBackgroundColor:[StringrUtility kStringrVeryLightGrayColor]];
+        [self.contentView setBackgroundColor:[StringrConstants kStringrVeryLightGrayColor]];
 
         // Creates the custom footer content view
         float xpoint = (self.contentView.frame.size.width - (self.contentView.frame.size.width * contentViewWidthPercentage)) / 2;
