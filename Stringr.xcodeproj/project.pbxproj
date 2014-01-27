@@ -47,6 +47,11 @@
 		AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76D189094D3006B32AB /* TestViewController.m */; };
+		ABDD30D21896EF1F0043CC28 /* NHLinearPartition.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30CA1896EF1F0043CC28 /* NHLinearPartition.m */; };
+		ABDD30D31896EF1F0043CC28 /* StringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30CC1896EF1F0043CC28 /* StringCollectionViewFlowLayout.m */; };
+		ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30CF1896EF1F0043CC28 /* QMBParallaxScrollViewController.m */; };
+		ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30D11896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m */; };
+		ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
@@ -177,6 +182,16 @@
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
 		ABB7F76C189094D3006B32AB /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		ABB7F76D189094D3006B32AB /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		ABDD30C91896EF1F0043CC28 /* NHLinearPartition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHLinearPartition.h; sourceTree = "<group>"; };
+		ABDD30CA1896EF1F0043CC28 /* NHLinearPartition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHLinearPartition.m; sourceTree = "<group>"; };
+		ABDD30CB1896EF1F0043CC28 /* StringCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		ABDD30CC1896EF1F0043CC28 /* StringCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		ABDD30CE1896EF1F0043CC28 /* QMBParallaxScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMBParallaxScrollViewController.h; sourceTree = "<group>"; };
+		ABDD30CF1896EF1F0043CC28 /* QMBParallaxScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMBParallaxScrollViewController.m; sourceTree = "<group>"; };
+		ABDD30D01896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+QMBParallaxScrollViewController.h"; sourceTree = "<group>"; };
+		ABDD30D11896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+QMBParallaxScrollViewController.m"; sourceTree = "<group>"; };
+		ABDD30D61896EF300043CC28 /* StringrStringCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringCollectionViewController.h; path = String/StringrStringCollectionViewController.h; sourceTree = "<group>"; };
+		ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCollectionViewController.m; path = String/StringrStringCollectionViewController.m; sourceTree = "<group>"; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
@@ -377,6 +392,8 @@
 			children = (
 				ABB7F76918908BA0006B32AB /* StringCollectionView.h */,
 				ABB7F76A18908BA0006B32AB /* StringCollectionView.m */,
+				ABDD30D61896EF300043CC28 /* StringrStringCollectionViewController.h */,
+				ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */,
 			);
 			name = String;
 			sourceTree = "<group>";
@@ -401,6 +418,28 @@
 				AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */,
 			);
 			name = Photo;
+			sourceTree = "<group>";
+		};
+		ABDD30C81896EF1F0043CC28 /* Balanced CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				ABDD30C91896EF1F0043CC28 /* NHLinearPartition.h */,
+				ABDD30CA1896EF1F0043CC28 /* NHLinearPartition.m */,
+				ABDD30CB1896EF1F0043CC28 /* StringCollectionViewFlowLayout.h */,
+				ABDD30CC1896EF1F0043CC28 /* StringCollectionViewFlowLayout.m */,
+			);
+			path = "Balanced CollectionView";
+			sourceTree = "<group>";
+		};
+		ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ABDD30CE1896EF1F0043CC28 /* QMBParallaxScrollViewController.h */,
+				ABDD30CF1896EF1F0043CC28 /* QMBParallaxScrollViewController.m */,
+				ABDD30D01896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.h */,
+				ABDD30D11896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m */,
+			);
+			path = ParallaxScrollViewController;
 			sourceTree = "<group>";
 		};
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
@@ -683,6 +722,8 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				ABDD30C81896EF1F0043CC28 /* Balanced CollectionView */,
+				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
 				AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */,
 				AB1B0CA0188F59490063EAC5 /* Reorder CollectionView */,
 				BF94E8B9184E4388003B5D8F /* Buttons */,
@@ -866,9 +907,11 @@
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */,
 				BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */,
+				ABDD30D21896EF1F0043CC28 /* NHLinearPartition.m in Sources */,
 				BF3EDE1F183EA4F10071E047 /* StringrStringTableViewController.m in Sources */,
 				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
+				ABDD30D31896EF1F0043CC28 /* StringCollectionViewFlowLayout.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
@@ -880,6 +923,7 @@
 				AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */,
 				BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */,
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
+				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
 				BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */,
@@ -904,12 +948,14 @@
 				BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
+				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
 				BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */,
 				BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
+				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringTopEditViewController.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
 				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
