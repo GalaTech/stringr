@@ -10,9 +10,9 @@
 #import "StringrProfileViewController.h"
 #import "StringrPathImageView.h"
 #import "StringrUserTableViewCell.h"
-#import "StringrUtility.h"
+#import "StringrStringEditViewController.h"
 
-@interface StringrUserTableViewController ()
+@interface StringrUserTableViewController () <UIActionSheetDelegate>
 
 @end
 
@@ -23,6 +23,42 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+}
+
+
+
+
+#pragma mark - NSNotificationCenter Action Handlers
+
+- (void)addNewString
+{
+    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
+                                                                      delegate:self
+                                                             cancelButtonTitle:@"cancel"
+                                                        destructiveButtonTitle:nil
+                                                             otherButtonTitles:@"Take Photo", @"Choose From Existing", nil];
+    
+    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
+    if ([window.subviews containsObject:self.view]) {
+        [newStringActionSheet showInView:self.view];
+    } else {
+        [newStringActionSheet showInView:window];
+    }
     
 }
 
@@ -97,9 +133,63 @@
         profileVC.canGoBack = YES;
         profileVC.canEditProfile = NO;
         
+        [profileVC setHidesBottomBarWhenPushed:YES];
+        
        // profileVC.view.backgroundColor = [UIColor whiteColor];
         
         [self.navigationController pushViewController:profileVC animated:YES];
+    }
+}
+
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSLog(@"Removed Observers from selecting action sheet");
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+        
+        
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+        
+        
+        // Modal
+        /*
+         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+         
+         [self presentViewController:navVC animated:YES completion:nil];
+         */
+    } else if (buttonIndex == 1) {
+        NSLog(@"Removed Observers from selecting action sheet");
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+        
+        
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+        
+        
+        // Modal
+        /*
+         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
+         
+         [self presentViewController:navVC animated:YES completion:nil];
+         */
     }
 }
 

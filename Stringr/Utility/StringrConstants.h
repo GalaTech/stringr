@@ -9,9 +9,15 @@
 #import <Foundation/Foundation.h>
 @interface StringrConstants : NSObject
 
-+ (UIColor *)kStringrVeryLightGrayColor;
++ (UIColor *)kStringTableViewBackgroundColor;
++ (UIColor *)kStringCollectionViewBackgroundColor;
 
 @end
+
+#pragma mark - NSUserDefaults Keys
+
+extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;
+
 
 
 #pragma mark - PFObject Activity Class

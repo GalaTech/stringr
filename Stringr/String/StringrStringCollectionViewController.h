@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringCollectionViewFlowLayout.h"
+#import "StringReorderableCollectionViewFlowLayout.h"
 
-@interface StringrStringCollectionViewController : UICollectionViewController
+
+@interface StringrStringCollectionViewController : UICollectionViewController<StringReorderableCollectionViewFlowLayoutDataSource, StringReorderableCollectionViewFlowLayoutDelegate>
 
 @end

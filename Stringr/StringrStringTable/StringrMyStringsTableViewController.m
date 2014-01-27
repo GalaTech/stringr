@@ -9,7 +9,7 @@
 #import "StringrMyStringsTableViewController.h"
 #import "StringrStringEditViewController.h"
 
-@interface StringrMyStringsTableViewController ()
+@interface StringrMyStringsTableViewController () <UIActionSheetDelegate>
 
 @end
 
@@ -20,6 +20,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
     
     self.title = @"My Strings";
     

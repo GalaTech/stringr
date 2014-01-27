@@ -8,8 +8,6 @@
 
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
-#import "StringrUtility.h"
-#import "StringrConstants.h"
 
 #import "StringrDetailViewController.h"
 #import "StringrPhotoViewerViewController.h"
@@ -27,6 +25,7 @@
 @interface StringrStringTableViewController () <UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSArray *images;
+@property (strong, nonatomic) NSArray *images2;
 
 @end
 
@@ -56,7 +55,7 @@
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     
     
-    [self.tableView setBackgroundColor:[StringrConstants kStringrVeryLightGrayColor]];
+    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,60 +90,39 @@
 
 #pragma mark - Custom Accessors
 
+static int const NUMBER_OF_IMAGES = 24;
+
 // Getter for test data images property
 - (NSArray *)images
 {
-    return @[ @{ @"description": @"An eternity in Bruges",
-                        @"articles": @[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
-                                        @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
-                                        @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
-                                        @{ @"title": @"Article A4", @"image":@"sample_4.jpeg" },
-                                        @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
-                                        ]
-                        },
-                     @{ @"description": @"An eternity in Bruges",
-                        @"articles": @[ @{ @"title": @"Article B1", @"image":@"sample_1.jpeg" },
-                                        @{ @"title": @"Article B2", @"image":@"sample_2.jpeg" },
-                                        @{ @"title": @"Article B3", @"image":@"sample_3.jpeg" },
-                                        @{ @"title": @"Article B4", @"image":@"sample_4.jpeg" },
-                                        @{ @"title": @"Article B5", @"image":@"sample_5.jpeg" }
-                                        ]
-                        },
-                     @{ @"description": @"An eternity in Bruges",
-                        @"articles": @[ @{ @"title": @"Article C1", @"image":@"sample_1.jpeg" },
-                                        @{ @"title": @"Article C2", @"image":@"sample_2.jpeg" },
-                                        @{ @"title": @"Article C3", @"image":@"sample_3.jpeg" },
-                                        @{ @"title": @"Article C4", @"image":@"sample_4.jpeg" },
-                                        @{ @"title": @"Article C5", @"image":@"sample_5.jpeg" }
-                                        ]
-                        },
-                     @{ @"description": @"An eternity in Bruges",
-                        @"articles": @[ @{ @"title": @"Article D1", @"image":@"sample_1.jpeg" },
-                                        @{ @"title": @"Article D2", @"image":@"sample_2.jpeg" },
-                                        @{ @"title": @"Article D3", @"image":@"sample_3.jpeg" },
-                                        @{ @"title": @"Article D4", @"image":@"sample_4.jpeg" },
-                                        @{ @"title": @"Article D5", @"image":@"sample_5.jpeg" }
-                                        ]
-                        },
-                     @{ @"description": @"An eternity in Bruges",
-                        @"articles": @[ @{ @"title": @"Article E1", @"image":@"sample_1.jpeg"},
-                                        @{ @"title": @"Article E2", @"image":@"sample_2.jpeg" },
-                                        @{ @"title": @"Article E3", @"image":@"sample_3.jpeg" },
-                                        @{ @"title": @"Article E4", @"image":@"sample_4.jpeg" },
-                                        @{ @"title": @"Article E5", @"image":@"sample_5.jpeg" }
-                                        ]
-                        },
-                     @{ @"description": @"An eternity in Bruges",
-                        @"articles": @[ @{ @"title": @"Article F1", @"image":@"sample_1.jpeg" },
-                                        @{ @"title": @"Article F2", @"image":@"sample_2.jpeg" },
-                                        @{ @"title": @"Article F3", @"image":@"sample_3.jpeg" },
-                                        @{ @"title": @"Article F4", @"image":@"sample_4.jpeg" },
-                                        @{ @"title": @"Article F5", @"image":@"sample_5.jpeg" }
-                                        ]
-                        },
-                     ];
+    
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+        
+        NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
+        
+        [images addObject:photo];
+    }
+    _images = [images copy];
+    
+    return _images;
 }
 
+- (NSArray *)images2
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (int i = 24; i >= 1; i--) {
+        NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+        
+        NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
+        
+        [images addObject:photo];
+    }
+    _images2 = [images copy];
+    
+    return _images2;
+}
 
 
 
@@ -242,11 +220,32 @@
 {
     UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
                                                                       delegate:self
-                                                             cancelButtonTitle:@"cancel"
+                                                             cancelButtonTitle:nil
                                                         destructiveButtonTitle:nil
-                                                             otherButtonTitles:@"Take Photo", @"Choose From Existing", nil];
+                                                             otherButtonTitles:nil];
     
-    [newStringActionSheet showInView:self.view];
+    [newStringActionSheet addButtonWithTitle:@"Take Photo"];
+    [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+
+    if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
+        [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
+        [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
+    }
+    
+    [newStringActionSheet addButtonWithTitle:@"Cancel"];
+    [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
+    
+    
+    
+    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
+    if ([window.subviews containsObject:self.view]) {
+        [newStringActionSheet showInView:self.view];
+    } else {
+        [newStringActionSheet showInView:window];
+    }
     
 }
 
@@ -258,7 +257,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // This will be set to the amount of strings that are loaded from parse
-    return [self.images count];
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -269,43 +268,76 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"StringTableViewCell";
-    
-    UITableViewCell *cell;
-    
-    // Sets up the table view cell accordingly based around whether it is the
-    // string row or the footer
     if (indexPath.row == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        // Gets the dictionary of photo data for this specific string/row
-        NSDictionary *stringData = [self.images objectAtIndex:[indexPath section]];
-        // Gets the photos for this specific string
-        NSArray *imageData = [stringData objectForKey:@"articles"];
-        
-        
-        if ([cell isKindOfClass:[StringTableViewCell class]]) {
-            StringTableViewCell *stringCell = (StringTableViewCell *)cell;
-            // Sets the photos to the array of photo data for the collection view
-            [stringCell setCollectionData:imageData];
-            
-            return  stringCell;
+        static NSString *cellIdentifier = @"StringTableViewCell";
+        StringTableViewCell *stringCell = (StringTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!stringCell) {
+            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
         
+        if (indexPath.section % 2 == 0) {
+            [stringCell setCollectionData:self.images];
+        } else {
+            [stringCell setCollectionData:self.images2];
+        }
+        
+        return stringCell;
     } else if (indexPath.row == 1) {
-        // Sets the table view cell to be the custom footer view
-        StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] init];
+        static NSString *cellIdentifier = @"StringTableViewFooter";
+        StringFooterTableViewCell *footerCell = (StringFooterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (footerCell) {
+            footerCell = [[StringFooterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
         
         // Init's the footer with live data from here
         [footerCell setStringUploaderName:@"Alonso Holmes"];
-        [footerCell setStringUploadDate:@"1s0 minutes ago"];
+        [footerCell setStringUploadDate:@"10 minutes ago"];
         [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
+        [footerCell setCommentButtonTitle:@"4.7k"];
+        [footerCell setLikeButtonTitle:@"11.3k"];
         
         return footerCell;
-        
+    } else {
+        return nil; // this shouldn't happen but makes the compiler happy
+    }
+    
+    /*
+    
+    
+    static NSString *cellIdentifier = @"StringTableViewCell";
+    
+    if (indexPath.row == 0) {
+        cellIdentifier = @"StringTableViewCell";
+    } else if (indexPath.row == 1) {
+        cellIdentifier = @"StringTableViewFooter";
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    // Sets up the table view cell accordingly based around whether it is the
+    // string row or the footer
+    if (cell) {
+        if ([cell isKindOfClass:[StringTableViewCell class]]) {
+            StringTableViewCell *stringCell = (StringTableViewCell *)cell;
+            // Sets the photos to the array of photo data for the collection view
+            [stringCell setCollectionData:self.images];
+        } else if ([cell isKindOfClass:[StringFooterTableViewCell class]]) {
+            // Sets the table view cell to be the custom footer view
+            StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StringTableViewCellFooter"];
+            
+            // Init's the footer with live data from here
+            [footerCell setStringUploaderName:@"Alonso Holmes"];
+            [footerCell setStringUploadDate:@"10 minutes ago"];
+            [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
+            [footerCell setCommentButtonTitle:@"4.7k"];
+            [footerCell setLikeButtonTitle:@"11.3k"];
+            
+            return footerCell;
+        }
     }
     
     return cell;
+     */
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -375,7 +407,12 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    
+    
+    
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        [actionSheet resignFirstResponder];
+    } else if (buttonIndex == 0) {
         NSLog(@"Removed Observers from selecting action sheet");
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
@@ -417,7 +454,13 @@ static float const contentViewWidthPercentage = .93;
         
         [self presentViewController:navVC animated:YES completion:nil];
          */
+    } else if (buttonIndex == 2) {
+        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
     }
+    
+    
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "StringrDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrNavigationController.h"
+#import "StringrStringCommentsViewController.h"
 
 @interface StringrDetailViewController ()
 
@@ -47,6 +48,8 @@
     
     [self presentViewController:navVC animated:YES completion:nil];
 }
+
+
 
 
 

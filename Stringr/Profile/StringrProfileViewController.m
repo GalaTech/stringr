@@ -23,16 +23,18 @@
 
 #pragma mark - Lifecycle
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
 }
 
 - (void)viewDidLoad
@@ -48,7 +50,7 @@
     
     
     
-    self.maxHeightBorder = self.view.frame.size.height;
+    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
     
     
@@ -96,7 +98,6 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 - (void)addNewString
 {
@@ -202,7 +203,7 @@
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {
     
-    NSLog(@"didChangeState %d",state);
+    //NSLog(@"didChangeState %d",state);
     //[self.navigationController setNavigationBarHidden:self.state == QMBParallaxStateFullSize animated:YES];
     
 }

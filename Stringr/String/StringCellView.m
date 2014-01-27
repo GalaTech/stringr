@@ -8,11 +8,15 @@
 
 #import "StringCellView.h"
 #import "StringCollectionViewCell.h"
+#import "StringCollectionViewFlowLayout.h"
+#import "StringCollectionView.h"
+#import "UIImage+Decompression.h"
+
 #import <QuartzCore/QuartzCore.h>
 
-@interface StringCellView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface StringCellView () <UICollectionViewDataSource, UICollectionViewDelegate, StringCollectionViewFlowLayoutDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *stringCollectionView;
+@property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (strong, nonatomic) NSArray *collectionData;
 
 @end
@@ -22,10 +26,10 @@
 
 - (void)awakeFromNib
 {
-    UIColor *collectionViewBGColor = [UIColor colorWithWhite:0.85 alpha:1.0];
+    //self.stringCollectionView = [[StringCollectionView alloc] initWithStringImages:_collectionData];
+    //self.stringCollectionView.backgroundColor = [StringrConstants kStringCollectionViewBackgroundColor];
     
-    self.stringCollectionView.backgroundColor = collectionViewBGColor;
-    
+    /*
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.itemSize = CGSizeMake(157, 157);
@@ -33,17 +37,31 @@
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     
-    [self.stringCollectionView setCollectionViewLayout:flowLayout];
+    //StringCollectionViewFlowLayout *layout = (StringCollectionViewFlowLayout *)self.stringCollectionView.collectionViewLayout;
+
+    
+    StringCollectionViewFlowLayout *layout = [[StringCollectionViewFlowLayout alloc] init];
+    
+    layout.headerReferenceSize = CGSizeMake(0, 0);
+    layout.footerReferenceSize = CGSizeMake(0, 0);
+    
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.preferredRowSize = 320;
+    layout.headerReferenceSize = CGSizeMake(0, 0);
+    layout.footerReferenceSize = CGSizeMake(0, 0);
+    
+    
+    [self.stringCollectionView setCollectionViewLayout:layout];
     
     
     
+    */
     
     // Register the colleciton cell
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
-    
-    // disables the embedded scroll views scroll to top so that when inside of
-    // a table view it will allow you to truly scroll to top.
-    self.stringCollectionView.scrollsToTop = NO;
 }
 
 
@@ -57,13 +75,17 @@
 */
 
 
+
+
 #pragma mark - Custom Accessors
+
 - (void)setCollectionData:(NSArray *)collectionData {
     _collectionData = collectionData;
     
-    [_stringCollectionView setContentOffset:CGPointZero animated:NO];
-    [_stringCollectionView reloadData];
+    //[_stringCollectionView setContentOffset:CGPointZero animated:NO];
+    //[_stringCollectionView reloadData];
 }
+
 
 
 
@@ -79,18 +101,51 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Creates a new cell for the collection view using the reusable cell identifier
-    StringCollectionViewCell *stringCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
-    
     // Gets the cell at indexPath from our collection data, which will be images.
     NSDictionary *cellData = [self.collectionData objectAtIndex:[indexPath row]];
+    
+    // Creates a new cell for the collection view using the reusable cell identifier
+    StringCollectionViewCell *stringCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
+    [stringCell.cellImage setImage:nil];
+    
+    NSInteger rowIndex = indexPath.row;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *cellImage = [UIImage decodedImageWithImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *currentIndexPathForCell = [collectionView indexPathForCell:stringCell];
+            if (currentIndexPathForCell.row == rowIndex) {
+                [stringCell.cellImage setImage:cellImage];
+            }
+        });
+        
+        
+    });
+    
+    
+    
+    //UIImage *cellImage = [UIImage imageNamed:[cellData objectForKey:@"image"]];
+    //stringCell.cellImage.image = cellImage;
+    
+    
+   
     // Sets the title for the cell
     stringCell.cellTitle.text = [cellData objectForKey:@"title"];
     
-    UIImage *cellImage = [UIImage imageNamed:[cellData objectForKey:@"image"]];
-    stringCell.cellImage.image = cellImage;
-    
     return stringCell;
+}
+
+
+
+
+#pragma mark - StringCollectionViewFlowLayout Delegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(StringCollectionViewFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *photoDictionary = [self.collectionData objectAtIndex:indexPath.item];
+    UIImage *image = [UIImage imageNamed:[photoDictionary objectForKey:@"image"]];
+    
+    return [image size];
 }
 
 

@@ -1,4 +1,3 @@
-//
 //  StringrStringCollectionViewController.m
 //  Stringr
 //
@@ -7,13 +6,12 @@
 //
 
 #import "StringrStringCollectionViewController.h"
-
 #import "StringCollectionViewCell.h"
 #import "StringrPhotoViewerViewController.h"
 
 @interface StringrStringCollectionViewController ()
 
-@property (strong, nonatomic) NSArray *images;
+@property (strong, nonatomic) NSMutableArray *images;
 
 @end
 
@@ -30,20 +28,55 @@
     return self;
 }
 
+static int const NUMBER_OF_IMAGES = 24;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    // Test string array/dictionaries
-    self.images = @[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
-                     @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
-                     @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
-                     @{ @"title": @"Article A4", @"image":@"sample_4.jpeg" },
-                     @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
-                  ];
-    UIColor *collectionViewBGColor = [UIColor colorWithWhite:0.85 alpha:1.0];
-    [self.collectionView setBackgroundColor:collectionViewBGColor];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
+        NSArray *tempDefaultsImagesArray = [defaults arrayForKey:kUserDefaultsWorkingStringSavedImagesKey];
+        self.images = [[NSMutableArray alloc] initWithArray:tempDefaultsImagesArray];
+        
+    } else {
+        
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
+            NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+            
+            NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
+            
+            [images addObject:photo];
+        }
+        self.images = [images mutableCopy];
+        
+        /*
+        self.images = [[NSMutableArray alloc] initWithArray:@[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
+                                                           @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
+                                                           @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
+                                                           @{ @"title": @"Article A4", @"image":@"sample_4.jpeg" },
+                                                           @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
+                                                           ]];
+         */
+        
+        [defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
+        [defaults synchronize];
+    }
+    
+    
+    [self.collectionView setBackgroundColor:[StringrConstants kStringCollectionViewBackgroundColor]];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:kUserDefaultsWorkingStringSavedImagesKey];
+}
+
 
 
 
@@ -94,5 +127,58 @@
     
     [self.navigationController pushViewController:photoVC animated:YES];
 }
+
+
+
+
+#pragma mark - StringReorderableCollectionView DataSource
+
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSDictionary *stringImage = [self.images objectAtIndex:fromIndexPath.item];
+    
+    [self.images removeObjectAtIndex:fromIndexPath.item];
+    [self.images insertObject:stringImage atIndex:toIndexPath.item];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    return YES;
+}
+
+
+
+
+#pragma mark - StringReorderableCollectionView Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
+    [defaults synchronize];
+}
+
+
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "StringrTabBarViewController.h"
-#import "StringrUtility.h"
 
 @interface StringrTabBarViewController ()
 

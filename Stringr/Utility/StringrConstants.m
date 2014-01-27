@@ -10,12 +10,22 @@
 
 @implementation StringrConstants
 
-+ (UIColor *)kStringrVeryLightGrayColor
++ (UIColor *)kStringTableViewBackgroundColor
 {
     return [UIColor colorWithWhite:0.9 alpha:1.0];
 }
 
++ (UIColor *)kStringCollectionViewBackgroundColor
+{
+    return [UIColor colorWithWhite:0.85 alpha:1.0];
+}
+
 @end
+
+
+#pragma mark - NSUserDefaults Keys
+
+NSString * const kUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";
 
 
 #pragma mark - PFObject Activity Class

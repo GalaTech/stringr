@@ -83,36 +83,7 @@
     
     self.tableView.tableHeaderView = view;
     
-    
-    /*
-     * Adds a footer to the table view, which I will probably use for a settings and logout button
-    self.tableView.tableFooterView = ({
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        imageView.image = [UIImage imageNamed:@"orca-stock-photo.jpg"];
-        imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerRadius = 50.0;
-        imageView.layer.borderColor = [UIColor whiteColor].CGColor;
-        imageView.layer.borderWidth = 3.0f;
-        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        imageView.layer.shouldRasterize = YES;
-        imageView.clipsToBounds = YES;
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        label.text = @"Jed Erbar";
-        label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-        [label sizeToFit];
-        label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        [view addSubview:imageView];
-        [view addSubview:label];
-        view;
-    });
-     */
-    
+    [self.tableView setShowsVerticalScrollIndicator:NO];
 }
 
 
@@ -125,11 +96,11 @@
     // Closes the menu after we move to a new VC
     [self.frostedViewController hideMenuViewController];
     
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"UploadNewString" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UploadNewString" object:nil];
     
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
-    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
+    //[actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     //[actionSheet showInView:self.parentViewController.view];
 }
