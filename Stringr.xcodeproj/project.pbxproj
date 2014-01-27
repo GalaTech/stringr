@@ -37,9 +37,7 @@
 		AB1B0CD2188F9D5B0063EAC5 /* photo-22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBA188F9D5B0063EAC5 /* photo-22.jpg */; };
 		AB1B0CD3188F9D5B0063EAC5 /* photo-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBB188F9D5B0063EAC5 /* photo-23.jpg */; };
 		AB1B0CD4188F9D5B0063EAC5 /* photo-24.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */; };
-		AB1B0CDB189038D80063EAC5 /* NHLinearPartition.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0CD9189038D80063EAC5 /* NHLinearPartition.m */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
-		AB757A911884B71B00D32917 /* StringrStringCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A901884B71B00D32917 /* StringrStringCollectionViewController.m */; };
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
 		AB757AAB1887532100D32917 /* StringrMySchoolTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AAA1887532100D32917 /* StringrMySchoolTableViewController.m */; };
@@ -49,7 +47,6 @@
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
 		AB9D742B1892DA92003BB2B8 /* StringrPhotoTopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742A1892DA92003BB2B8 /* StringrPhotoTopDetailViewController.m */; };
 		AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */; };
-		AB9D74311896D8E6003BB2B8 /* StringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74301896D8E6003BB2B8 /* StringCollectionViewFlowLayout.m */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76D189094D3006B32AB /* TestViewController.m */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
@@ -161,13 +158,9 @@
 		AB1B0CBA188F9D5B0063EAC5 /* photo-22.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-22.jpg"; sourceTree = "<group>"; };
 		AB1B0CBB188F9D5B0063EAC5 /* photo-23.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-23.jpg"; sourceTree = "<group>"; };
 		AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-24.jpg"; sourceTree = "<group>"; };
-		AB1B0CD8189038D80063EAC5 /* NHLinearPartition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHLinearPartition.h; sourceTree = "<group>"; };
-		AB1B0CD9189038D80063EAC5 /* NHLinearPartition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHLinearPartition.m; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
-		AB757A8F1884B71B00D32917 /* StringrStringCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringCollectionViewController.h; path = String/StringrStringCollectionViewController.h; sourceTree = "<group>"; };
-		AB757A901884B71B00D32917 /* StringrStringCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCollectionViewController.m; path = String/StringrStringCollectionViewController.m; sourceTree = "<group>"; };
 		AB757AA318874CF300D32917 /* StringrTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTabBarViewController.h; path = "Tab Bar Controller/StringrTabBarViewController.h"; sourceTree = "<group>"; };
 		AB757AA418874CF300D32917 /* StringrTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrTabBarViewController.m; path = "Tab Bar Controller/StringrTabBarViewController.m"; sourceTree = "<group>"; };
 		AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDiscoveryTableViewController.h; path = StringrStringTable/StringrDiscoveryTableViewController.h; sourceTree = "<group>"; };
@@ -186,8 +179,6 @@
 		AB9D742A1892DA92003BB2B8 /* StringrPhotoTopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoTopDetailViewController.m; path = "Photo Detail:Edit/StringrPhotoTopDetailViewController.m"; sourceTree = "<group>"; };
 		AB9D742C1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoDetailTableViewController.h; path = "Photo Detail:Edit/StringrPhotoDetailTableViewController.h"; sourceTree = "<group>"; };
 		AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoDetailTableViewController.m; path = "Photo Detail:Edit/StringrPhotoDetailTableViewController.m"; sourceTree = "<group>"; };
-		AB9D742F1896D8E6003BB2B8 /* StringCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		AB9D74301896D8E6003BB2B8 /* StringCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
 		ABB7F76C189094D3006B32AB /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
@@ -378,17 +369,6 @@
 			path = "External/Images/Stock String Images";
 			sourceTree = SOURCE_ROOT;
 		};
-		AB1B0CD5189038D80063EAC5 /* Balanced CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				AB9D742F1896D8E6003BB2B8 /* StringCollectionViewFlowLayout.h */,
-				AB9D74301896D8E6003BB2B8 /* StringCollectionViewFlowLayout.m */,
-				AB1B0CD8189038D80063EAC5 /* NHLinearPartition.h */,
-				AB1B0CD9189038D80063EAC5 /* NHLinearPartition.m */,
-			);
-			path = "Balanced CollectionView";
-			sourceTree = "<group>";
-		};
 		AB757A89187F173F00D32917 /* Image Path  */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,8 +383,6 @@
 			children = (
 				ABB7F76918908BA0006B32AB /* StringCollectionView.h */,
 				ABB7F76A18908BA0006B32AB /* StringCollectionView.m */,
-				AB757A8F1884B71B00D32917 /* StringrStringCollectionViewController.h */,
-				AB757A901884B71B00D32917 /* StringrStringCollectionViewController.m */,
 			);
 			name = String;
 			sourceTree = "<group>";
@@ -723,7 +701,6 @@
 			isa = PBXGroup;
 			children = (
 				AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */,
-				AB1B0CD5189038D80063EAC5 /* Balanced CollectionView */,
 				AB1B0CA0188F59490063EAC5 /* Reorder CollectionView */,
 				AB757A921885F2B200D32917 /* ParallaxScrollViewController */,
 				BF94E8B9184E4388003B5D8F /* Buttons */,
@@ -912,7 +889,6 @@
 				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
-				AB757A911884B71B00D32917 /* StringrStringCollectionViewController.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
 				BF170EC9184BEB700056ECE7 /* StringCellView.m in Sources */,
@@ -951,11 +927,9 @@
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
-				AB1B0CDB189038D80063EAC5 /* NHLinearPartition.m in Sources */,
 				BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */,
 				BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
-				AB9D74311896D8E6003BB2B8 /* StringCollectionViewFlowLayout.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringTopEditViewController.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
 				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
