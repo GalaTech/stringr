@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93E97CAB3589478280C0B11E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 792BDC5C21374F12A2D410CC /* libPods.a */; };
 		AB1B0C87188DAE5D0063EAC5 /* StringrStringEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C86188DAE5D0063EAC5 /* StringrStringEditTableViewController.m */; };
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringTopEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringTopEditViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
@@ -66,12 +67,6 @@
 		BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */; };
 		BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD5183AADCB0071E047 /* StringrConstants.m */; };
 		BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */; };
-		BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */; };
-		BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDDE183D8F880071E047 /* REFrostedContainerViewController.m */; };
-		BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE0183D8F880071E047 /* REFrostedViewController.m */; };
-		BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE2183D8F880071E047 /* UIImage+REFrostedViewController.m */; };
-		BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE4183D8F880071E047 /* UIView+REFrostedViewController.m */; };
-		BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDE6183D8F880071E047 /* UIViewController+REFrostedViewController.m */; };
 		BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF1183D92330071E047 /* StringrNavigationController.m */; };
 		BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */; };
 		BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */; };
@@ -108,7 +103,6 @@
 		BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A531829CAD900D15963 /* StringrLogo.jpg */; };
 		BF834A561829CBA600D15963 /* orca-stock-photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A551829CBA500D15963 /* orca-stock-photo.jpg */; };
 		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
-		BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BF94E8BB184E4388003B5D8F /* ACPButton.m */; };
 		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
 		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
 		BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */; };
@@ -125,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2202500216664CDF90947ED9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		792BDC5C21374F12A2D410CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB1B0C85188DAE5D0063EAC5 /* StringrStringEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringEditTableViewController.h; path = "String Edit/StringrStringEditTableViewController.h"; sourceTree = "<group>"; };
 		AB1B0C86188DAE5D0063EAC5 /* StringrStringEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringEditTableViewController.m; path = "String Edit/StringrStringEditTableViewController.m"; sourceTree = "<group>"; };
 		AB1B0C88188DB7DA0063EAC5 /* StringrStringTopEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringTopEditViewController.h; path = "String Edit/StringrStringTopEditViewController.h"; sourceTree = "<group>"; };
@@ -216,18 +212,6 @@
 		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConstants.m; path = Utility/StringrConstants.m; sourceTree = "<group>"; };
 		BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrRootViewController.h; path = Menu/StringrRootViewController.h; sourceTree = "<group>"; };
 		BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrRootViewController.m; path = Menu/StringrRootViewController.m; sourceTree = "<group>"; };
-		BF3EDDDB183D8F880071E047 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
-		BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
-		BF3EDDDD183D8F880071E047 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
-		BF3EDDDE183D8F880071E047 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
-		BF3EDDDF183D8F880071E047 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
-		BF3EDDE0183D8F880071E047 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
-		BF3EDDE1183D8F880071E047 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
-		BF3EDDE2183D8F880071E047 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
-		BF3EDDE3183D8F880071E047 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
-		BF3EDDE4183D8F880071E047 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
-		BF3EDDE5183D8F880071E047 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
-		BF3EDDE6183D8F880071E047 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
 		BF3EDDF0183D92330071E047 /* StringrNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigationController.h; path = Menu/StringrNavigationController.h; sourceTree = "<group>"; };
 		BF3EDDF1183D92330071E047 /* StringrNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigationController.m; path = Menu/StringrNavigationController.m; sourceTree = "<group>"; };
 		BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMenuViewController.h; path = Menu/StringrMenuViewController.h; sourceTree = "<group>"; };
@@ -287,8 +271,6 @@
 		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = StringrLogo.jpg; path = Resources/StringrLogo.jpg; sourceTree = "<group>"; };
 		BF834A551829CBA500D15963 /* orca-stock-photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "orca-stock-photo.jpg"; path = "Resources/orca-stock-photo.jpg"; sourceTree = "<group>"; };
 		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
-		BF94E8BA184E4388003B5D8F /* ACPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPButton.h; sourceTree = "<group>"; };
-		BF94E8BB184E4388003B5D8F /* ACPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPButton.m; sourceTree = "<group>"; };
 		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
 		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
 		BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringFooterTableViewCell.h; path = StringrStringTable/StringFooterTableViewCell.h; sourceTree = "<group>"; };
@@ -303,6 +285,7 @@
 				BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */,
 				BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */,
 				BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */,
+				93E97CAB3589478280C0B11E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,25 +480,6 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
-		BF3EDDDA183D8F880071E047 /* REFrostedViewController */ = {
-			isa = PBXGroup;
-			children = (
-				BF3EDDDB183D8F880071E047 /* RECommonFunctions.h */,
-				BF3EDDDC183D8F880071E047 /* RECommonFunctions.m */,
-				BF3EDDDD183D8F880071E047 /* REFrostedContainerViewController.h */,
-				BF3EDDDE183D8F880071E047 /* REFrostedContainerViewController.m */,
-				BF3EDDDF183D8F880071E047 /* REFrostedViewController.h */,
-				BF3EDDE0183D8F880071E047 /* REFrostedViewController.m */,
-				BF3EDDE1183D8F880071E047 /* UIImage+REFrostedViewController.h */,
-				BF3EDDE2183D8F880071E047 /* UIImage+REFrostedViewController.m */,
-				BF3EDDE3183D8F880071E047 /* UIView+REFrostedViewController.h */,
-				BF3EDDE4183D8F880071E047 /* UIView+REFrostedViewController.m */,
-				BF3EDDE5183D8F880071E047 /* UIViewController+REFrostedViewController.h */,
-				BF3EDDE6183D8F880071E047 /* UIViewController+REFrostedViewController.m */,
-			);
-			path = REFrostedViewController;
-			sourceTree = "<group>";
-		};
 		BF3EDDFC183E842F0071E047 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +607,7 @@
 				BF8349F318297FD600D15963 /* StringrTests */,
 				BF8349CD18297FD600D15963 /* Frameworks */,
 				BF8349CC18297FD600D15963 /* Products */,
+				2202500216664CDF90947ED9 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -662,6 +627,7 @@
 				BF8349D018297FD600D15963 /* CoreGraphics.framework */,
 				BF8349D218297FD600D15963 /* UIKit.framework */,
 				BF8349ED18297FD600D15963 /* XCTest.framework */,
+				792BDC5C21374F12A2D410CC /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -671,13 +637,13 @@
 			children = (
 				BF3EDDC9183AAC630071E047 /* Views */,
 				BF3EDDCA183AAC6A0071E047 /* Controllers */,
+				BF8349E018297FD600D15963 /* Main.storyboard */,
 				BF8349DD18297FD600D15963 /* AppDelegate.h */,
 				BF8349DE18297FD600D15963 /* AppDelegate.m */,
 				BF3EDDFD183E89A60071E047 /* StringrUtility.h */,
 				BF3EDDFE183E89A60071E047 /* StringrUtility.m */,
 				AB4614F9187CC63D00956FF3 /* StringrConstants.h */,
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
-				BF8349E018297FD600D15963 /* Main.storyboard */,
 				AB85DD6818904208007217DC /* TestTableViewViewController.h */,
 				AB85DD6918904208007217DC /* TestTableViewViewController.m */,
 				AB85DD6B18904345007217DC /* TestTableViewCell.h */,
@@ -726,8 +692,6 @@
 				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
 				AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */,
 				AB1B0CA0188F59490063EAC5 /* Reorder CollectionView */,
-				BF94E8B9184E4388003B5D8F /* Buttons */,
-				BF3EDDDA183D8F880071E047 /* REFrostedViewController */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -748,15 +712,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		BF94E8B9184E4388003B5D8F /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				BF94E8BA184E4388003B5D8F /* ACPButton.h */,
-				BF94E8BB184E4388003B5D8F /* ACPButton.m */,
-			);
-			path = Buttons;
-			sourceTree = "<group>";
-		};
 		BFFA599C186A2229001C377D /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,9 +728,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF8349FD18297FD600D15963 /* Build configuration list for PBXNativeTarget "Stringr" */;
 			buildPhases = (
+				03B6E7B8DE9448FC92F7CBF2 /* Check Pods Manifest.lock */,
 				BF8349C718297FD600D15963 /* Sources */,
 				BF8349C818297FD600D15963 /* Frameworks */,
 				BF8349C918297FD600D15963 /* Resources */,
+				0445D68947A8471B872052C9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -894,6 +851,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		03B6E7B8DE9448FC92F7CBF2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		0445D68947A8471B872052C9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BF8349C718297FD600D15963 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -909,7 +899,6 @@
 				BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */,
 				ABDD30D21896EF1F0043CC28 /* NHLinearPartition.m in Sources */,
 				BF3EDE1F183EA4F10071E047 /* StringrStringTableViewController.m in Sources */,
-				BF3EDDE9183D8F880071E047 /* REFrostedViewController.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
 				ABDD30D31896EF1F0043CC28 /* StringCollectionViewFlowLayout.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
@@ -919,15 +908,11 @@
 				AB85DD6D18904345007217DC /* TestTableViewCell.m in Sources */,
 				AB1B0C87188DAE5D0063EAC5 /* StringrStringEditTableViewController.m in Sources */,
 				AB757AAB1887532100D32917 /* StringrMySchoolTableViewController.m in Sources */,
-				BF3EDDEB183D8F880071E047 /* UIView+REFrostedViewController.m in Sources */,
 				AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */,
-				BF3EDDE7183D8F880071E047 /* RECommonFunctions.m in Sources */,
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
-				BF3EDDEA183D8F880071E047 /* UIImage+REFrostedViewController.m in Sources */,
-				BF94E8BC184E4388003B5D8F /* ACPButton.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				BF3EDE22183EA7D90071E047 /* StringrPhotoViewerViewController.m in Sources */,
@@ -952,13 +937,11 @@
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
-				BF3EDDEC183D8F880071E047 /* UIViewController+REFrostedViewController.m in Sources */,
 				BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringTopEditViewController.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
-				BF3EDDE8183D8F880071E047 /* REFrostedContainerViewController.m in Sources */,
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1085,6 +1068,7 @@
 		};
 		BF8349FE18297FD600D15963 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2202500216664CDF90947ED9 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1101,6 +1085,7 @@
 		};
 		BF8349FF18297FD600D15963 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2202500216664CDF90947ED9 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
