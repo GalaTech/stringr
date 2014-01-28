@@ -8,13 +8,13 @@
 
 #import "StringCellView.h"
 #import "StringCollectionViewCell.h"
-#import "StringCollectionViewFlowLayout.h"
+#import "NHBalancedFlowLayout.h"
 #import "StringCollectionView.h"
 #import "UIImage+Decompression.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface StringCellView () <UICollectionViewDataSource, UICollectionViewDelegate, StringCollectionViewFlowLayoutDelegate>
+@interface StringCellView () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (strong, nonatomic) NSArray *collectionData;
@@ -140,7 +140,7 @@
 
 #pragma mark - StringCollectionViewFlowLayout Delegate
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(StringCollectionViewFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *photoDictionary = [self.collectionData objectAtIndex:indexPath.item];
     UIImage *image = [UIImage imageNamed:[photoDictionary objectForKey:@"image"]];

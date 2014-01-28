@@ -131,7 +131,7 @@ static int const NUMBER_OF_IMAGES = 24;
 
 
 
-#pragma mark - StringReorderableCollectionView DataSource
+#pragma mark - ReorderableCollectionView DataSource
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
@@ -154,7 +154,7 @@ static int const NUMBER_OF_IMAGES = 24;
 
 
 
-#pragma mark - StringReorderableCollectionView Delegate
+#pragma mark - ReorderableCollectionView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath
 {
