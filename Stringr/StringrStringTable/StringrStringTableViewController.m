@@ -31,7 +31,7 @@
 
 @implementation StringrStringTableViewController
 
-#pragma mark - Life Cycle
+#pragma mark - Lifecycle
 
 //- (void)dealloc
 //{
