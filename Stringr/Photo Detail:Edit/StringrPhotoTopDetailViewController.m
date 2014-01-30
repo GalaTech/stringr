@@ -8,7 +8,9 @@
 
 #import "StringrPhotoTopDetailViewController.h"
 
-@interface StringrPhotoTopDetailViewController ()
+@interface StringrPhotoTopDetailViewController () <UIScrollViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
 
 @end
 
@@ -18,7 +20,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -26,13 +28,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
+    
+    //[self.photoImage setFrame:self.photoScrollView.bounds];
+    [self.photoImage setContentMode:UIViewContentModeScaleAspectFill];
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    /*
+    [self.photoScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.photoImage.frame) + 100, CGRectGetHeight(self.photoImage.frame) + 100)];
+    [self.photoScrollView setMaximumZoomScale:10.0];
+    [self.photoScrollView setMinimumZoomScale:1.0];
+    
+    [self.photoScrollView setDelegate:self];
+     */
 }
 
 @end

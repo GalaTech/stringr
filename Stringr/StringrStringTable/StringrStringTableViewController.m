@@ -9,8 +9,9 @@
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
 
-#import "StringrDetailViewController.h"
+#import "StringrTempDetailViewController.h"
 #import "StringrPhotoViewerViewController.h"
+#import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
@@ -146,12 +147,15 @@ static int const NUMBER_OF_IMAGES = 24;
     
     if (cellData)
     {
-        StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
+        [photoDetailVC setIsPhotoEditable:NO];
         // Sets the initial photo to the selected cell
-        [photoVC setPhotoViewerImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        [photoDetailVC setCurrentImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
         
-        [self.navigationController pushViewController:photoVC animated:YES];
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
 }
 
@@ -203,7 +207,7 @@ static int const NUMBER_OF_IMAGES = 24;
 {
     //  UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
-    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    StringrTempDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     
     
     // detailVC.modalPresentationStyle = UIModalPresentationCustom;
@@ -229,11 +233,12 @@ static int const NUMBER_OF_IMAGES = 24;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-
+    /*
     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
         [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
         [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
     }
+     */
     
     [newStringActionSheet addButtonWithTitle:@"Cancel"];
     [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];

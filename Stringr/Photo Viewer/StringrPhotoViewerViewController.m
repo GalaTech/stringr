@@ -7,9 +7,9 @@
 //
 
 #import "StringrPhotoViewerViewController.h"
-#import "StringrDetailViewController.h"
+#import "StringrTempDetailViewController.h"
 
-@interface StringrPhotoViewerViewController ()
+@interface StringrPhotoViewerViewController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoViewImageView;
 
@@ -26,7 +26,6 @@
     // This is what should be in the top right, but you can't assign a UIButton to a bar button item
     // It's no problem because I will most likely use custom graphics for the button
     // UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    
     self.title = @"Photo Viewer";
     
     // Disables the menu from being able to be pulled out via gesture
@@ -37,6 +36,11 @@
                                                                                            action:@selector(pushDetailView)];
     
     [self.photoViewImageView setImage:self.photoViewerImage];
+    [self.photoViewImageView setContentMode:UIViewContentModeScaleAspectFit];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showNavBar)];
+    [tapGesture setNumberOfTapsRequired:1];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 
@@ -48,10 +52,15 @@
 {
     //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
-    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    StringrTempDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
+- (void)showNavBar
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:![[UIApplication sharedApplication] isStatusBarHidden] withAnimation:UIStatusBarAnimationSlide];
+    [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:YES];
+}
 
 @end

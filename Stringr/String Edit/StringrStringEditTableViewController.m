@@ -101,7 +101,7 @@
     switch (indexPath.section) {
         case 0:
             if (indexPath.row == 0) {
-                static NSString *cellIdentifier = @"string_mainDetails";
+                cellIdentifier = @"string_mainDetails";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
                 //if (footerCell) {
@@ -332,7 +332,7 @@
 
 #pragma mark - Parallax ScrollView Delegate
 
-- (UIScrollView *)scrollViewForParallaxController
+- (UIScrollView *)scrollViewForParallexController
 {
     return self.tableView;
 }

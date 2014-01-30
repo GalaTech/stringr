@@ -27,6 +27,12 @@
 {
     [super viewWillAppear:animated];
     
+    // Dynamically sets the number of strings label to how many strings are in the table view
+    StringrProfileTableViewController *testTableVC = (StringrProfileTableViewController *)self.bottomViewController;
+    NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)testTableVC.tableView.numberOfSections];
+    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
+    topVC.profileNumberOfStringsLabel.text = numberOfStrings;
+    
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
 
@@ -71,12 +77,6 @@
                                                                                  style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
     }
-
-    // Dynamically sets the number of strings label to how many strings are in the table view
-    StringrProfileTableViewController *testTableVC = (StringrProfileTableViewController *)self.bottomViewController;
-    NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)testTableVC.tableView.numberOfSections];
-    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
-    topVC.profileNumberOfStringsLabel.text = numberOfStrings;
 }
 
 

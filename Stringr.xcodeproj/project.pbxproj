@@ -35,6 +35,7 @@
 		AB1B0CD2188F9D5B0063EAC5 /* photo-22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBA188F9D5B0063EAC5 /* photo-22.jpg */; };
 		AB1B0CD3188F9D5B0063EAC5 /* photo-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBB188F9D5B0063EAC5 /* photo-23.jpg */; };
 		AB1B0CD4188F9D5B0063EAC5 /* photo-24.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */; };
+		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
@@ -73,7 +74,7 @@
 		BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE10183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m */; };
 		BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE13183E9EFF0071E047 /* StringrSearchTabBarViewController.m */; };
 		BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */; };
-		BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE1A183EA2660071E047 /* StringrDetailViewController.m */; };
+		BF3EDE1B183EA2660071E047 /* StringrTempDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE1A183EA2660071E047 /* StringrTempDetailViewController.m */; };
 		BF3EDE1F183EA4F10071E047 /* StringrStringTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */; };
 		BF3EDE22183EA7D90071E047 /* StringrPhotoViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE21183EA7D90071E047 /* StringrPhotoViewerViewController.m */; };
 		BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE25183EDF700071E047 /* StringrEditProfileViewController.m */; };
@@ -149,6 +150,8 @@
 		AB1B0CBB188F9D5B0063EAC5 /* photo-23.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-23.jpg"; sourceTree = "<group>"; };
 		AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-24.jpg"; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
+		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
+		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
 		AB757AA318874CF300D32917 /* StringrTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTabBarViewController.h; path = "Tab Bar Controller/StringrTabBarViewController.h"; sourceTree = "<group>"; };
@@ -221,8 +224,8 @@
 		BF3EDE13183E9EFF0071E047 /* StringrSearchTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSearchTabBarViewController.m; path = "Tab Bar Controller/StringrSearchTabBarViewController.m"; sourceTree = "<group>"; };
 		BF3EDE15183E9FD40071E047 /* StringrSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSettingsViewController.h; path = Settings/StringrSettingsViewController.h; sourceTree = "<group>"; };
 		BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSettingsViewController.m; path = Settings/StringrSettingsViewController.m; sourceTree = "<group>"; };
-		BF3EDE19183EA2660071E047 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
-		BF3EDE1A183EA2660071E047 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
+		BF3EDE19183EA2660071E047 /* StringrTempDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTempDetailViewController.h; path = Detail/StringrTempDetailViewController.h; sourceTree = "<group>"; };
+		BF3EDE1A183EA2660071E047 /* StringrTempDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrTempDetailViewController.m; path = Detail/StringrTempDetailViewController.m; sourceTree = "<group>"; };
 		BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringTableViewController.h; path = StringrStringTable/StringrStringTableViewController.h; sourceTree = "<group>"; };
 		BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringTableViewController.m; path = StringrStringTable/StringrStringTableViewController.m; sourceTree = "<group>"; };
 		BF3EDE20183EA7D90071E047 /* StringrPhotoViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoViewerViewController.h; path = "Photo Viewer/StringrPhotoViewerViewController.h"; sourceTree = "<group>"; };
@@ -522,9 +525,11 @@
 		BF3EDE1C183EA26C0071E047 /* Add/Edit/Detail */ = {
 			isa = PBXGroup;
 			children = (
+				AB5B593E1899DCD500790510 /* StringrDetailViewController.h */,
+				AB5B593F1899DCD500790510 /* StringrDetailViewController.m */,
 				AB9D74281892D660003BB2B8 /* Photo */,
-				BF3EDE19183EA2660071E047 /* StringrDetailViewController.h */,
-				BF3EDE1A183EA2660071E047 /* StringrDetailViewController.m */,
+				BF3EDE19183EA2660071E047 /* StringrTempDetailViewController.h */,
+				BF3EDE1A183EA2660071E047 /* StringrTempDetailViewController.m */,
 				BF3EDE2E18445AF10071E047 /* StringrStringEditViewController.h */,
 				BF3EDE2F18445AF10071E047 /* StringrStringEditViewController.m */,
 				AB1B0C88188DB7DA0063EAC5 /* StringrStringTopEditViewController.h */,
@@ -877,6 +882,7 @@
 				AB757AAB1887532100D32917 /* StringrMySchoolTableViewController.m in Sources */,
 				AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */,
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
+				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
@@ -903,7 +909,7 @@
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
-				BF3EDE1B183EA2660071E047 /* StringrDetailViewController.m in Sources */,
+				BF3EDE1B183EA2660071E047 /* StringrTempDetailViewController.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringTopEditViewController.m in Sources */,

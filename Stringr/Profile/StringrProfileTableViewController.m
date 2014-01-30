@@ -20,9 +20,7 @@
 {
     [super viewDidLoad];
     
-    
     [self.tableView reloadData];
-
 }
 
 
@@ -30,7 +28,7 @@
 
 #pragma mark - ParallaxScrollViewController Delegate
 
-- (UIScrollView *)scrollViewForParallaxController
+- (UIScrollView *)scrollViewForParallexController
 {
     return self.tableView;
 }
@@ -45,6 +43,7 @@
  [self.parallaxController tableViewControllerDidScroll:self];
  }
  */
+
 
 
 @end

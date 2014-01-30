@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "QMBParallaxScrollViewController.h"
 
-@interface StringrPhotoDetailViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
+@interface StringrPhotoDetailViewController : QMBParallaxScrollViewController
+
+@property (strong, nonatomic) NSArray *stringImages;
+@property (strong, nonatomic) UIImage *currentImage;
+
+@property (nonatomic) BOOL isPhotoEditable;
 
 @end

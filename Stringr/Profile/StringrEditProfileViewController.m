@@ -43,9 +43,10 @@
     [self.editProfileImage setPathColor:[UIColor darkGrayColor]];
 
     
+#warning removed keyboard placement actions because I added full scrollview
     // Adds notifications to know when the keyboard is shown and hidden
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     // Adds a tap gesture for the ability to tap the profile image UIImageView
     UITapGestureRecognizer *tapImageGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeProfileImage)];
@@ -58,6 +59,8 @@
     
     NSString *charactersRemaining = [NSString stringWithFormat:@"%u", 60 - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
+    
+    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) + 200)];
     
 }
 
@@ -92,6 +95,7 @@
 
 #pragma mark - NSNotificationCenter Action Handlers
 
+/*
 - (void)keyboardWillShow:(NSNotification *)note {
     // Gets the rect of the keyboard
     CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -123,7 +127,7 @@
     }];
 }
 
-
+*/
 
 
 #pragma mark - UITextFieldDelegate

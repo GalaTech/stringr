@@ -8,6 +8,8 @@
 #import "StringrStringCollectionViewController.h"
 #import "StringCollectionViewCell.h"
 #import "StringrPhotoViewerViewController.h"
+#import "StringrPhotoDetailViewController.h"
+#import "StringrNavigationController.h"
 
 @interface StringrStringCollectionViewController ()
 
@@ -102,10 +104,15 @@ static int const NUMBER_OF_IMAGES = 24;
         
         NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
         
-        [imageCell.cellTitle setText:@""];
+        [imageCell.cellTitle setText:nil];
         
         UIImage *cellImage = [UIImage imageNamed:[stringData objectForKey:@"image"]];
+        
         [imageCell.cellImage setImage:cellImage];
+        
+        // Sets the cells image to aspect fill the cell so the image is not stretched/compressed
+        [imageCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+        
         
         return imageCell;
     }
@@ -120,12 +127,18 @@ static int const NUMBER_OF_IMAGES = 24;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
     
+    StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+    
+    [photoDetailVC setIsPhotoEditable:YES];
     NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
-    [photoVC setPhotoViewerImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
+    [photoDetailVC setCurrentImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
     
-    [self.navigationController pushViewController:photoVC animated:YES];
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+    
+    
+    [self presentViewController:navVC animated:YES completion:nil];
+//    [self.navigationController pushViewController:photoDetailVC animated:YES];
 }
 
 

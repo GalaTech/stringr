@@ -2,14 +2,14 @@
 //  StringrDetailViewController.h
 //  Stringr
 //
-//  Created by Jonathan Howard on 11/21/13.
-//  Copyright (c) 2013 GalaTech LLC. All rights reserved.
+//  Created by Jonathan Howard on 1/29/14.
+//  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "QMBParallaxScrollViewController.h"
 
-@interface StringrDetailViewController : UIViewController
+@interface StringrDetailViewController : QMBParallaxScrollViewController
 
-- (IBAction)openUserProfile:(UIButton *)sender;
+@property (nonatomic) BOOL detailsEditable;
 
 @end

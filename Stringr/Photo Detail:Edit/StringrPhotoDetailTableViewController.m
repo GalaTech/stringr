@@ -7,12 +7,15 @@
 //
 
 #import "StringrPhotoDetailTableViewController.h"
+#import "StringrFooterView.h"
 
 @interface StringrPhotoDetailTableViewController ()
 
 @end
 
 @implementation StringrPhotoDetailTableViewController
+
+#pragma mark - Lifecycle
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,96 +30,143 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    
+    [self.tableView setScrollEnabled:NO];
+   
+    // Hides the row separators on blank cells
+    self.tableView.tableFooterView = [UIView new];
+    
+    [self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    if (section == 0) {
+        return 3;
+    } else if (section == 1) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NSString *cellIdentifier;
+    UITableViewCell *cell;
     
-    // Configure the cell...
+    switch (indexPath.section) {
+        case 0:
+            if (indexPath.row == 0) {
+                cellIdentifier = @"photo_mainDetails";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                
+                StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
+                
+                // Init's the footer with live data from here
+                [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
+                [mainDetailView.uploadDateLabel setText:@"10 minutes ago"];
+                [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
+                [mainDetailView.commentsTextLabel setText:@"0"];
+                [mainDetailView.likesTextLabel setText:@"0"];
+                
+                [cell addSubview:mainDetailView];
+            } else if (indexPath.row == 1) {
+                cellIdentifier = @"photo_titleCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+            } else if (indexPath.row == 2) {
+                cellIdentifier = @"photo_descriptionCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+            }
+            break;
+        case 1:
+            if (indexPath.row == 0) {
+                cellIdentifier = @"photo_deleteCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+            }
+            break;
+        default:
+            break;
+    }
+    
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+#pragma mark - TableView Delegate
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20)];
+    [headerView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    
+    UILabel *headerText = [[UILabel alloc] initWithFrame:CGRectMake(10, 2.5, 50, 15)];
+    
+    switch (section) {
+        case 0:
+            [headerText setText:@"Info"];
+            break;
+        case 1:
+            [headerText setText:@"Delete"];
+            break;
+        default:
+            break;
+    }
+    
+    [headerText setTextColor:[UIColor darkGrayColor]];
+    [headerText setTextAlignment:NSTextAlignmentLeft];
+    [headerText setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    
+    [headerView addSubview:headerText];
+    
+    
+    return headerView;
 }
 
- */
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row == 2) {
+        return 110;
+    }
+    
+    return 44;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 1:
+            if (indexPath.row == 0) {
+                UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo" message:@"Are you sure that you want to delete this photo? This action cannot be undone." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+                
+                [deletePhotoAlert show];
+            }
+        default:
+            break;
+    }
+    
+    [tableView reloadData];
+}
 
 
-- (UIScrollView *)scrollViewForParallaxController
+#pragma mark - ParallaxView Delegate
+
+- (UIScrollView *)scrollViewForParallexController
 {
     return self.tableView;
 }
