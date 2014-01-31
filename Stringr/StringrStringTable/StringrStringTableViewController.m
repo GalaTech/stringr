@@ -21,7 +21,7 @@
 #import "StringTableViewCell.h"
 #import "StringFooterTableViewCell.h"
 
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate>
 
@@ -149,7 +149,7 @@ static int const NUMBER_OF_IMAGES = 24;
     {
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
-        [photoDetailVC setIsPhotoEditable:NO];
+        [photoDetailVC setDetailsEditable:NO];
         // Sets the initial photo to the selected cell
         [photoDetailVC setCurrentImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
         
@@ -205,17 +205,8 @@ static int const NUMBER_OF_IMAGES = 24;
 // Handles the action of pushing to to the detail view of a selected string
 - (void)pushToStringDetailView
 {
-    //  UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    StringrTempDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
-    
-    
-    // detailVC.modalPresentationStyle = UIModalPresentationCustom;
-    //detailVC.modalTransitionStyle = UIModalPresentationNone;
-    
-    // default present is modal animation
-    //[navigationController presentViewController:detailVC animated:YES completion:NULL];
-    
+    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    [detailVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
@@ -231,9 +222,10 @@ static int const NUMBER_OF_IMAGES = 24;
     [newStringActionSheet addButtonWithTitle:@"Take Photo"];
     [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
     
+    /* Implement return to saved string
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    /*
+    
     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
         [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
         [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
@@ -305,44 +297,6 @@ static int const NUMBER_OF_IMAGES = 24;
     } else {
         return nil; // this shouldn't happen but makes the compiler happy
     }
-    
-    /*
-    
-    
-    static NSString *cellIdentifier = @"StringTableViewCell";
-    
-    if (indexPath.row == 0) {
-        cellIdentifier = @"StringTableViewCell";
-    } else if (indexPath.row == 1) {
-        cellIdentifier = @"StringTableViewFooter";
-    }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    // Sets up the table view cell accordingly based around whether it is the
-    // string row or the footer
-    if (cell) {
-        if ([cell isKindOfClass:[StringTableViewCell class]]) {
-            StringTableViewCell *stringCell = (StringTableViewCell *)cell;
-            // Sets the photos to the array of photo data for the collection view
-            [stringCell setCollectionData:self.images];
-        } else if ([cell isKindOfClass:[StringFooterTableViewCell class]]) {
-            // Sets the table view cell to be the custom footer view
-            StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StringTableViewCellFooter"];
-            
-            // Init's the footer with live data from here
-            [footerCell setStringUploaderName:@"Alonso Holmes"];
-            [footerCell setStringUploadDate:@"10 minutes ago"];
-            [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-            [footerCell setCommentButtonTitle:@"4.7k"];
-            [footerCell setLikeButtonTitle:@"11.3k"];
-            
-            return footerCell;
-        }
-    }
-    
-    return cell;
-     */
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -412,9 +366,6 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
-    
-    
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];
     } else if (buttonIndex == 0) {
@@ -427,7 +378,8 @@ static float const contentViewWidthPercentage = .93;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setDetailsEditable:YES];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
 
@@ -448,7 +400,8 @@ static float const contentViewWidthPercentage = .93;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setDetailsEditable:YES];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         
@@ -460,7 +413,7 @@ static float const contentViewWidthPercentage = .93;
         [self presentViewController:navVC animated:YES completion:nil];
          */
     } else if (buttonIndex == 2) {
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }

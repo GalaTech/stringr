@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrDetailTableViewController.h"
 #import "QMBParallaxScrollViewController.h"
 
-@interface StringrStringEditTableViewController : UITableViewController<QMBParallaxScrollViewHolder>
+@interface StringrStringDetailTableViewController : StringrDetailTableViewController
 
 @property (strong, nonatomic) NSString *stringTitle;
 @property (weak, nonatomic) UITextField *stringTitleTextField;

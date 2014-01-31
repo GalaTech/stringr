@@ -12,7 +12,7 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileTableViewController.h"
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
@@ -167,7 +167,7 @@
 {
     if (buttonIndex == 0) {
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         
@@ -181,7 +181,7 @@
     } else if (buttonIndex == 1) {
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrDetailTopViewController.h"
 
-@interface StringrPhotoTopDetailViewController : UIViewController
+@interface StringrPhotoDetailTopViewController : StringrDetailTopViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoImage;
 

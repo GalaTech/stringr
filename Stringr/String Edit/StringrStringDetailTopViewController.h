@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrDetailTopViewController.h"
 
-@interface StringrStringTopEditViewController : UIViewController
+@interface StringrStringDetailTopViewController : StringrDetailTopViewController
+
+@property (strong, nonatomic) NSArray *stringPhotoData;
 
 @end

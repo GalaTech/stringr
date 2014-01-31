@@ -6,15 +6,17 @@
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrPhotoTopDetailViewController.h"
+#import "StringrPhotoDetailTopViewController.h"
 
-@interface StringrPhotoTopDetailViewController () <UIScrollViewDelegate>
+@interface StringrPhotoDetailTopViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
 
 @end
 
-@implementation StringrPhotoTopDetailViewController
+@implementation StringrPhotoDetailTopViewController
+
+#pragma mark - Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view setBackgroundColor:[UIColor blackColor]];
     
     //[self.photoImage setFrame:self.photoScrollView.bounds];
     [self.photoImage setContentMode:UIViewContentModeScaleAspectFill];

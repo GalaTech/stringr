@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringCellView.h"
+#import "StringView.h"
 @interface StringTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) UIView *detailTabView;

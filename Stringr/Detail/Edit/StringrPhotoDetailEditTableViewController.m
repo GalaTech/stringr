@@ -1,38 +1,33 @@
 //
-//  StringrPhotoDetailTableViewController.m
+//  StringrPhotoDetailEditTableViewController.m
 //  Stringr
 //
-//  Created by Jonathan Howard on 1/24/14.
+//  Created by Jonathan Howard on 1/30/14.
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrPhotoDetailTableViewController.h"
+#import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrFooterView.h"
 
-@interface StringrPhotoDetailTableViewController ()
-
-@property (weak, nonatomic) IBOutlet UITextView *photoCaptionTextView;
+@interface StringrPhotoDetailEditTableViewController ()
 
 @end
 
-@implementation StringrPhotoDetailTableViewController
+@implementation StringrPhotoDetailEditTableViewController
 
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+	// Do any additional setup after loading the view.
 }
-
-
-
 
 #pragma mark - Custom Accessors
 
 - (NSArray *)sectionHeaderTitles
 {
-    return @[@"Info"];
+    return @[@"Info", @"Delete"];
 }
 
 
@@ -41,7 +36,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -71,10 +66,10 @@
                 
                 // Init's the footer with live data from here
                 [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
-                [mainDetailView.uploadDateLabel setText:@"10 minutes ago"];
+                [mainDetailView.uploadDateLabel setText:@"0 minutes ago"];
                 [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-                [mainDetailView.commentsTextLabel setText:@"4.7k"];
-                [mainDetailView.likesTextLabel setText:@"11.9k"];
+                [mainDetailView.commentsTextLabel setText:@"0"];
+                [mainDetailView.likesTextLabel setText:@"0"];
                 
                 [cell addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
@@ -83,7 +78,12 @@
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                [self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
+            }
+            break;
+        case 1:
+            if (indexPath.row == 0) {
+                cellIdentifier = @"photo_deleteCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
             }
             break;
         default:
@@ -108,6 +108,21 @@
     return 44;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 1:
+            if (indexPath.row == 0) {
+                UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo" message:@"Are you sure that you want to delete this photo? This action cannot be undone." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+                
+                [deletePhotoAlert show];
+            }
+        default:
+            break;
+    }
+    
+    [tableView reloadData];
+}
 
 
 @end

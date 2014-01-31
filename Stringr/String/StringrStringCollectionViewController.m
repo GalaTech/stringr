@@ -130,7 +130,7 @@ static int const NUMBER_OF_IMAGES = 24;
     
     StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
     
-    [photoDetailVC setIsPhotoEditable:YES];
+    [photoDetailVC setDetailsEditable:YES];
     NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
     [photoDetailVC setCurrentImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
     
@@ -138,7 +138,7 @@ static int const NUMBER_OF_IMAGES = 24;
     
     
     [self presentViewController:navVC animated:YES completion:nil];
-//    [self.navigationController pushViewController:photoDetailVC animated:YES];
+    //[self.navigationController pushViewController:photoDetailVC animated:YES];
 }
 
 

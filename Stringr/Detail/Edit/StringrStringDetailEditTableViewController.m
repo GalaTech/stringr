@@ -1,40 +1,32 @@
 //
-//  StringrStringDetailTableViewController.m
+//  StringrStringDetailEditTableViewController.m
 //  Stringr
 //
-//  Created by Jonathan Howard on 1/20/14.
+//  Created by Jonathan Howard on 1/30/14.
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringEditTableViewController.h"
+#import "StringrStringDetailEditTableViewController.h"
 #import "StringrFooterView.h"
-#import "StringFooterTableViewCell.h"
 
-@interface StringrStringEditTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
+@interface StringrStringDetailEditTableViewController () <UIAlertViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) NSInteger selectedRow;
 
 @property (weak, nonatomic) UITextView *stringDescriptionTextView;
 @property (weak, nonatomic) UITextField *stringTagsTextField;
-
 @property (weak, nonatomic) UIButton *addPhotoToStringButton;
 
 @end
 
-@implementation StringrStringEditTableViewController
+@implementation StringrStringDetailEditTableViewController
 
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    
-    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    
-    [self.tableView setScrollEnabled:NO];
-    
-    [self.tableView reloadData];
+	
 }
 
 
@@ -42,15 +34,10 @@
 
 #pragma mark - Custom Accessors
 
-/*
-- (void)setStringTitle:(NSString *)stringTitle
+- (NSArray *)sectionHeaderTitles
 {
-    _stringTitle = stringTitle;
-    
-    [self.tableView reloadData];
+    return @[@"Info", @"Privacy", @"Delete"];
 }
- */
-
 
 
 
@@ -104,14 +91,6 @@
                 cellIdentifier = @"string_mainDetails";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
-                //if (footerCell) {
-                    //StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(footerCell.frame), 48)];
-                    //[mainDetailView setIsFullWidthCell:YES];
-                    
-                    //[footerCell addSubview:mainDetailView];
-                    //footerCell = [[StringFooterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-               // }
-                
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
                 
                 // Init's the footer with live data from here
@@ -120,7 +99,7 @@
                 [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
                 [mainDetailView.commentsTextLabel setText:@"0"];
                 [mainDetailView.likesTextLabel setText:@"0"];
-        
+                
                 [cell addSubview:mainDetailView];
                 
                 //return footerCell;
@@ -132,7 +111,7 @@
                 [self.addPhotoToStringButton addTarget:self action:@selector(addPhotoToString) forControlEvents:UIControlEventTouchUpInside];
                 
                 //self.stringTitleTextField = (UITextField *)[cell.contentView viewWithTag:1];
-                //[self.stringTitleTextField setPlaceholder:self.stringTitle];
+                [self.stringTitleTextField setPlaceholder:self.stringTitle];
                 
                 //self.stringTitleTextField.delegate = self;
                 
@@ -192,48 +171,10 @@
     return cell;
 }
 
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return NO;
-}
-
 
 
 
 #pragma mark - TableView Delegate
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20)];
-    [headerView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    
-    UILabel *headerText = [[UILabel alloc] initWithFrame:CGRectMake(10, 2.5, 50, 15)];
-    
-    switch (section) {
-        case 0:
-            [headerText setText:@"Info"];
-            break;
-        case 1:
-            [headerText setText:@"Privacy"];
-            break;
-        case 2:
-            [headerText setText:@"Delete"];
-            break;
-        default:
-            break;
-    }
-    
-    [headerText setTextColor:[UIColor darkGrayColor]];
-    [headerText setTextAlignment:NSTextAlignmentLeft];
-    [headerText setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
-    
-    [headerView addSubview:headerText];
-    
-    
-    return headerView;
-}
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -269,21 +210,12 @@
             break;
     }
     
-    [tableView reloadData];
+    
+    NSArray *indexPaths = @[indexPath];
+    [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    
 }
 
-
-
-
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        NSLog(@"You have deleted the string");
-    }
-}
 
 
 
@@ -305,36 +237,28 @@
 
 
 /*
-#pragma mark - UITextField Delegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self.view endEditing:YES];
-    return YES;
-}
-
-
-
-#pragma mark - UIScrollViewDelegate
-
-
-// Hides the keyboard if you begin to move the scroll view
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.stringTitleTextField resignFirstResponder];
-    [self.stringDescriptionTextView resignFirstResponder];
-    [self.stringTagsTextField resignFirstResponder];
-}
+ #pragma mark - UITextField Delegate
+ 
+ - (BOOL)textFieldShouldReturn:(UITextField *)textField
+ {
+ [self.view endEditing:YES];
+ return YES;
+ }
+ 
+ 
+ 
+ #pragma mark - UIScrollViewDelegate
+ 
+ 
+ // Hides the keyboard if you begin to move the scroll view
+ - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+ [self.stringTitleTextField resignFirstResponder];
+ [self.stringDescriptionTextView resignFirstResponder];
+ [self.stringTagsTextField resignFirstResponder];
+ }
  */
 
 
 
-
-
-#pragma mark - Parallax ScrollView Delegate
-
-- (UIScrollView *)scrollViewForParallexController
-{
-    return self.tableView;
-}
 
 @end

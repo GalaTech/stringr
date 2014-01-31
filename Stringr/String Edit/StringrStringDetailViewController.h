@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "REFrostedViewController.h"
+#import "StringrDetailViewController.h"
 #import "QMBParallaxScrollViewController.h"
 
-@interface StringrStringEditViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
-
-@property (nonatomic) BOOL isNewString;
+@interface StringrStringDetailViewController : StringrDetailViewController
 
 @end

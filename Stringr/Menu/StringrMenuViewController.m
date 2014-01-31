@@ -17,7 +17,7 @@
 #import "StringrMySchoolTabBarViewController.h"
 #import "StringrSearchTabBarViewController.h"
 
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 #import "StringrSettingsViewController.h"
 #import "StringrLoginViewController.h"
@@ -113,7 +113,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         
         
@@ -126,7 +126,7 @@
          [self presentViewController:navVC animated:YES completion:nil];
         */
     } else if (buttonIndex == 1) {
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         
