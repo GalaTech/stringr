@@ -10,7 +10,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrPathImageView.h"
 #import "StringrUserTableViewCell.h"
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 @interface StringrUserTableViewController () <UIActionSheetDelegate>
 
@@ -128,7 +128,7 @@
     
     if (currentCell) {
         // Sets the title of the profile vc being pushed to that of the username on the cell being tapped
-        profileVC.title = currentCell.profileDisplayNameLabel.text;
+        profileVC.title = @"Profile";
         
         profileVC.canGoBack = YES;
         profileVC.canEditProfile = NO;
@@ -158,7 +158,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         
@@ -179,7 +179,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         

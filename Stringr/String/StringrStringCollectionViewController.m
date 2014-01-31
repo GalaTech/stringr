@@ -7,7 +7,9 @@
 
 #import "StringrStringCollectionViewController.h"
 #import "StringCollectionViewCell.h"
-#import "StringrPhotoViewerViewController.h"
+#import "StringrPhotoDetailViewController.h"
+#import "StringrNavigationController.h"
+#import "UIImage+Decompression.h"
 
 @interface StringrStringCollectionViewController ()
 
@@ -97,15 +99,41 @@ static int const NUMBER_OF_IMAGES = 24;
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
     
+    /*
+    // Uses a secondary thread for loading the images into the collectionView for lag free experience
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *cellImage = [UIImage decodedImageWithImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *currentIndexPathForCell = [collectionView indexPathForCell:stringCell];
+            if (currentIndexPathForCell.row == rowIndex) {
+                [stringCell.cellImage setImage:cellImage];
+            }
+        });
+        
+        
+    });
+    
+    */
+    
     if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
         StringCollectionViewCell *imageCell = (StringCollectionViewCell *)cell;
         
-        NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
+            NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
+            UIImage *cellImage = [UIImage imageNamed:[stringData objectForKey:@"image"]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^ {
+                //[imageCell.cellTitle setText:nil];
+                
+                [imageCell.cellImage setImage:cellImage];
+                
+                // Sets the cells image to aspect fill the cell so the image is not stretched/compressed
+                [imageCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+            });
+        });
         
-        [imageCell.cellTitle setText:@""];
         
-        UIImage *cellImage = [UIImage imageNamed:[stringData objectForKey:@"image"]];
-        [imageCell.cellImage setImage:cellImage];
         
         return imageCell;
     }
@@ -120,12 +148,18 @@ static int const NUMBER_OF_IMAGES = 24;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
     
+    StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+    
+    [photoDetailVC setDetailsEditable:YES];
     NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
-    [photoVC setPhotoViewerImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
+    [photoDetailVC setCurrentImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
     
-    [self.navigationController pushViewController:photoVC animated:YES];
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+    
+    
+    [self presentViewController:navVC animated:YES completion:nil];
+    //[self.navigationController pushViewController:photoDetailVC animated:YES];
 }
 
 

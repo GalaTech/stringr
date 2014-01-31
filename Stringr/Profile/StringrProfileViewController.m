@@ -12,7 +12,7 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileTableViewController.h"
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
@@ -23,37 +23,9 @@
 
 #pragma mark - Lifecycle
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Instantiates the parallax VC with a top and bottom VC.
-    StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
-    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    
-    [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
-    self.delegate = self;
-    
-    
-    
-    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
-    [self enableTapGestureTopView:NO];
-    
-    
     
     if (self.canCloseModal) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(closeProfileVC)];
@@ -71,14 +43,39 @@
                                                                                  style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
     }
+    
+    // Instantiates the parallax VC with a top and bottom VC.
+    StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
+    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
+    
+    [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
+    self.delegate = self;
+    
+    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
+    [self enableTapGestureTopView:NO];
+    
+    [self.view setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     // Dynamically sets the number of strings label to how many strings are in the table view
     StringrProfileTableViewController *testTableVC = (StringrProfileTableViewController *)self.bottomViewController;
     NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)testTableVC.tableView.numberOfSections];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
     topVC.profileNumberOfStringsLabel.text = numberOfStrings;
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+}
 
 
 
@@ -167,7 +164,7 @@
 {
     if (buttonIndex == 0) {
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         
@@ -181,7 +178,7 @@
     } else if (buttonIndex == 1) {
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         

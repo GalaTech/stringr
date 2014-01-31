@@ -7,7 +7,7 @@
 //
 
 #import "StringrMyStringsTableViewController.h"
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 @interface StringrMyStringsTableViewController () <UIActionSheetDelegate>
 
@@ -44,7 +44,7 @@
 // to edit that string individually
 - (void)pushToStringEdit
 {
-    StringrStringEditViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     
     [self.navigationController pushViewController:stringEditVC animated:YES];
 }

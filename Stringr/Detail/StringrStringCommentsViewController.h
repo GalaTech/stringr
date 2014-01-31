@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StringrStringCommentsViewController : UIViewController
+@interface StringrStringCommentsViewController : UITableViewController
 
 @end

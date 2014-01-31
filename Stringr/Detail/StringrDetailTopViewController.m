@@ -1,18 +1,20 @@
 //
-//  StringrPhotoTopDetailViewController.m
+//  StringrDetailTopViewController.m
 //  Stringr
 //
-//  Created by Jonathan Howard on 1/24/14.
+//  Created by Jonathan Howard on 1/30/14.
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrPhotoTopDetailViewController.h"
+#import "StringrDetailTopViewController.h"
 
-@interface StringrPhotoTopDetailViewController ()
+@interface StringrDetailTopViewController ()
 
 @end
 
-@implementation StringrPhotoTopDetailViewController
+@implementation StringrDetailTopViewController
+
+#pragma mark - Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +34,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
 }
 
 @end

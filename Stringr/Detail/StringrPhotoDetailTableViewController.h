@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrDetailTableViewController.h"
 #import "QMBParallaxScrollViewController.h"
 
-@interface StringrPhotoDetailTableViewController : UITableViewController <QMBParallaxScrollViewHolder>
+@interface StringrPhotoDetailTableViewController : StringrDetailTableViewController <QMBParallaxScrollViewHolder>
 
 @end

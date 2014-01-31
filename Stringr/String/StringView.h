@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StringCellView : UIView
+@interface StringView : UIView
 
 - (void)setCollectionData:(NSArray *)collectionData;
 
