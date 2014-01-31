@@ -128,7 +128,7 @@
     
     if (currentCell) {
         // Sets the title of the profile vc being pushed to that of the username on the cell being tapped
-        profileVC.title = currentCell.profileDisplayNameLabel.text;
+        profileVC.title = @"Profile";
         
         profileVC.canGoBack = YES;
         profileVC.canEditProfile = NO;

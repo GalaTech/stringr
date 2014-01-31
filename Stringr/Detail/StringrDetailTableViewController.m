@@ -37,7 +37,7 @@
     // Hides the row separators on blank cells
     self.tableView.tableFooterView = [UIView new];
     
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
 }
 
 

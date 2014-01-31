@@ -23,6 +23,40 @@
 
 #pragma mark - Lifecycle
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (self.canCloseModal) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(closeProfileVC)];
+    }
+    
+    // Displays the ability to edit profile in the nav bar if available
+    if (self.canEditProfile) {
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                                  style:UIBarButtonItemStyleBordered
+                                                                                 target:self
+                                                                                 action:@selector(pushToEditProfile)];
+        // Creates the navigation item to access the menu
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                 style:UIBarButtonItemStyleDone target:self
+                                                                                action:@selector(showMenu)];
+    }
+    
+    // Instantiates the parallax VC with a top and bottom VC.
+    StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
+    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
+    
+    [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
+    self.delegate = self;
+    
+    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
+    [self enableTapGestureTopView:NO];
+    
+    [self.view setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -42,43 +76,6 @@
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // Instantiates the parallax VC with a top and bottom VC.
-    StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
-    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    
-    [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
-    self.delegate = self;
-    
-    
-    
-    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
-    [self enableTapGestureTopView:NO];
-    
-    
-    
-    if (self.canCloseModal) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(closeProfileVC)];
-    }
-    
-    // Displays the ability to edit profile in the nav bar if available
-    if (self.canEditProfile) {
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                                  style:UIBarButtonItemStyleBordered
-                                                                                 target:self
-                                                                                 action:@selector(pushToEditProfile)];
-        // Creates the navigation item to access the menu
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                                 style:UIBarButtonItemStyleDone target:self
-                                                                                action:@selector(showMenu)];
-    }
-}
-
 
 
 

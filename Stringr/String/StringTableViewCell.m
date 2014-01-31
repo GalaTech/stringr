@@ -8,7 +8,6 @@
 
 #import "StringTableViewCell.h"
 #import "StringView.h"
-#import "StringrTempDetailViewController.h"
 
 #import "StringrPathImageView.h"
 

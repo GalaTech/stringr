@@ -9,6 +9,7 @@
 #import "StringrDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
+#import "StringrNavigationController.h"
 
 @interface StringrDetailViewController () <QMBParallaxScrollViewControllerDelegate>
 
@@ -62,16 +63,16 @@
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
     [profileVC setCanGoBack:YES];
     [profileVC setCanEditProfile:NO];
-    [profileVC setTitle:@"User Profile"];
-    //[profileVC setCanCloseModal:YES];
+    [profileVC setTitle:@"Profile"];
+    [profileVC setCanCloseModal:YES];
     
-    [profileVC setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:profileVC animated:YES];
+    //[profileVC setHidesBottomBarWhenPushed:YES];
+    //[self.navigationController pushViewController:profileVC animated:YES];
     
     //Implements modal transition to profile view
-    //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
-    //[self presentViewController:navVC animated:YES completion:nil];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 // Handles the action of pushing to the comment's of a selected string

@@ -20,6 +20,10 @@
 {
     [super viewDidLoad];
     
+    [self.tableView setScrollEnabled:NO];
+    // Enables scroll to top for the parallax view
+    [self.tableView setScrollsToTop:NO];
+    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     [self.tableView reloadData];
 }
 

@@ -190,6 +190,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Stores previously selected (radio) row
+    NSIndexPath *previousCellIndexPath = [NSIndexPath indexPathForRow:self.selectedRow inSection:1];
+    
     switch (indexPath.section) {
         case 1:
             if (indexPath.row == 0) {
@@ -210,8 +213,7 @@
             break;
     }
     
-    
-    NSArray *indexPaths = @[indexPath];
+    NSArray *indexPaths = @[indexPath, previousCellIndexPath];
     [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     
 }
@@ -235,6 +237,17 @@
     }
 }
 
+
+
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 /*
  #pragma mark - UITextField Delegate

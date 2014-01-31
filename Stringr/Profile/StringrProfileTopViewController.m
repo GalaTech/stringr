@@ -50,6 +50,8 @@
     } else {
         [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
     }
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 

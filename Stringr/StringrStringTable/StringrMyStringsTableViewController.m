@@ -44,7 +44,7 @@
 // to edit that string individually
 - (void)pushToStringEdit
 {
-    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     
     [self.navigationController pushViewController:stringEditVC animated:YES];
 }

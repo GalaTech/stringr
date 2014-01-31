@@ -9,8 +9,6 @@
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
 
-#import "StringrTempDetailViewController.h"
-#import "StringrPhotoViewerViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
@@ -171,22 +169,24 @@ static int const NUMBER_OF_IMAGES = 24;
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
     [profileVC setCanGoBack:YES];
     [profileVC setCanEditProfile:NO];
-    [profileVC setTitle:@"User Profile"];
-    //[profileVC setCanCloseModal:YES];
+    [profileVC setTitle:@"Profile"];
+    [profileVC setCanCloseModal:YES];
     
-    [profileVC setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:profileVC animated:YES];
+    //[profileVC setHidesBottomBarWhenPushed:YES];
+    //[self.navigationController pushViewController:profileVC animated:YES];
     
     //Implements modal transition to profile view
-    //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
-    //[self presentViewController:navVC animated:YES completion:nil];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 // Handles the action of pushing to the comment's of a selected string
 - (void)didSelectCommentsButton:(NSNotification *)notification
 {
     StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+    
+    [commentsVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:commentsVC animated:YES];
 }
@@ -268,6 +268,7 @@ static int const NUMBER_OF_IMAGES = 24;
     if (indexPath.row == 0) {
         static NSString *cellIdentifier = @"StringTableViewCell";
         StringTableViewCell *stringCell = (StringTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
         if (!stringCell) {
             stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }

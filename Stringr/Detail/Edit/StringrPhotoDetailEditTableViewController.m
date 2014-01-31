@@ -9,7 +9,7 @@
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrFooterView.h"
 
-@interface StringrPhotoDetailEditTableViewController ()
+@interface StringrPhotoDetailEditTableViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -120,9 +120,18 @@
         default:
             break;
     }
-    
-    [tableView reloadData];
 }
 
+
+
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 @end
