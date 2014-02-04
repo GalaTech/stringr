@@ -12,4 +12,6 @@
 
 @interface StringrStringDetailViewController : StringrDetailViewController
 
+@property (strong, nonatomic) UIImage *userSelectedPhoto;
+
 @end

@@ -19,6 +19,7 @@
 
 @implementation StringrStringCollectionViewController
 
+/*
 #pragma mark - Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,24 +48,19 @@ static int const NUMBER_OF_IMAGES = 24;
         NSMutableArray *images = [[NSMutableArray alloc] init];
         for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
             NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+            UIImage *image = [UIImage imageNamed:imageName];
             
-            NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
+            NSDictionary *photo = @{@"title": @"Awesome Photo", @"image": image};
             
             [images addObject:photo];
         }
+        
+        
+        
         self.images = [images mutableCopy];
         
-        /*
-        self.images = [[NSMutableArray alloc] initWithArray:@[ @{ @"title": @"Article A1", @"image":@"sample_1.jpeg" },
-                                                           @{ @"title": @"Article A2", @"image":@"sample_2.jpeg" },
-                                                           @{ @"title": @"Article A3", @"image":@"sample_3.jpeg" },
-                                                           @{ @"title": @"Article A4", @"image":@"sample_4.jpeg" },
-                                                           @{ @"title": @"Article A5", @"image":@"sample_5.jpeg" }
-                                                           ]];
-         */
-        
-        [defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
-        [defaults synchronize];
+        //[defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
+        //[defaults synchronize];
     }
     
     
@@ -99,7 +95,7 @@ static int const NUMBER_OF_IMAGES = 24;
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
     
-    /*
+    
     // Uses a secondary thread for loading the images into the collectionView for lag free experience
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *cellImage = [UIImage decodedImageWithImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
@@ -114,14 +110,14 @@ static int const NUMBER_OF_IMAGES = 24;
         
     });
     
-    */
+ 
     
     if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
         StringCollectionViewCell *imageCell = (StringCollectionViewCell *)cell;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
             NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
-            UIImage *cellImage = [UIImage imageNamed:[stringData objectForKey:@"image"]];
+            UIImage *cellImage = [stringData objectForKey:@"image"];
             
             dispatch_async(dispatch_get_main_queue(), ^ {
                 //[imageCell.cellTitle setText:nil];
@@ -153,7 +149,7 @@ static int const NUMBER_OF_IMAGES = 24;
     
     [photoDetailVC setDetailsEditable:YES];
     NSDictionary *stringData = [self.images objectAtIndex:indexPath.item];
-    [photoDetailVC setCurrentImage:[UIImage imageNamed:[stringData objectForKey:@"image"]]];
+    [photoDetailVC setCurrentImage:[stringData objectForKey:@"image"]];
     
     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
     
@@ -207,12 +203,12 @@ static int const NUMBER_OF_IMAGES = 24;
 
 - (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
-    [defaults synchronize];
+    //[defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
+    //[defaults synchronize];
 }
 
-
+*/
 
 @end

@@ -47,7 +47,7 @@
 
 - (void)setCollectionData:(NSArray *)collectionData
 {
-    [_stringCollectionView setCollectionData:collectionData];
+    [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
 }
 
 

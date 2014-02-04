@@ -10,6 +10,7 @@
 //#import "StringrDiscoveryTabBarViewController.h"
 #import "StringrStringDetailTableViewController.h"
 #import "StringrStringDetailTopViewController.h"
+#import "StringrStringDetailEditTopViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
@@ -41,7 +42,9 @@
                                                                                     action:@selector(returnToPreviousScreen)];
         
         
-        StringrStringDetailTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
+        StringrStringDetailEditTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
+        [stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+        
         StringrStringDetailTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
         
         [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
@@ -53,8 +56,6 @@
         
         [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
     }
-
-    
     
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];

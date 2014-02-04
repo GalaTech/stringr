@@ -10,4 +10,6 @@
 
 @interface StringrStringCommentsViewController : UITableViewController
 
+@property (nonatomic) BOOL commentsEditable;
+
 @end

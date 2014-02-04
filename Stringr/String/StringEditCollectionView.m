@@ -17,7 +17,7 @@
 {
     self.scrollsToTop = NO;
     [self setShowsHorizontalScrollIndicator:NO];
-    
+    [self setBackgroundColor:[StringrConstants kStringCollectionViewBackgroundColor]];
     
     LXReorderableCollectionViewFlowLayout *reorderableFlowLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
     [reorderableFlowLayout setSectionInset:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -26,7 +26,6 @@
     [reorderableFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [reorderableFlowLayout setItemSize:CGSizeMake(219, 219)];
     [self setCollectionViewLayout:reorderableFlowLayout];
-    
 }
 
 - (id)initWithFrame:(CGRect)frame

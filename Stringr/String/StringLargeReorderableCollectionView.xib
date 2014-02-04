@@ -6,14 +6,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="AfS-Yd-aML" customClass="StringView">
+        <view contentMode="scaleToFill" id="b1u-96-rCJ" customClass="StringViewReorderable">
             <rect key="frame" x="0.0" y="0.0" width="320" height="219"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="xvI-nf-lxH" customClass="StringCollectionView">
+                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ny1-3J-NAS" customClass="StringEditCollectionView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="219"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gAu-U8-kjJ">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="iUL-xv-IWR">
                         <size key="itemSize" width="170" height="219"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -21,15 +21,16 @@
                     </collectionViewFlowLayout>
                     <cells/>
                     <connections>
-                        <outlet property="dataSource" destination="AfS-Yd-aML" id="mSi-w6-yzj"/>
-                        <outlet property="delegate" destination="AfS-Yd-aML" id="cG8-Qj-due"/>
+                        <outlet property="dataSource" destination="b1u-96-rCJ" id="Re2-HJ-Jmn"/>
+                        <outlet property="delegate" destination="b1u-96-rCJ" id="O1D-nC-EIm"/>
                     </connections>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="stringLargeCollectionView" destination="xvI-nf-lxH" id="L9k-9Y-KZa"/>
+                <outlet property="stringLargeCollectionView" destination="ny1-3J-NAS" id="lfU-WH-dnI"/>
+                <outlet property="stringLargeReorderableCollectionView" destination="ny1-3J-NAS" id="U5Y-Ft-aRo"/>
             </connections>
         </view>
     </objects>

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StringView : UIView
+@interface StringView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
 
-- (void)setCollectionData:(NSArray *)collectionData;
+- (void)setCollectionData:(NSMutableArray *)collectionData;
+- (NSMutableArray *)getCollectionData;
 
 @end

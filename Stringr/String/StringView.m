@@ -14,12 +14,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface StringView () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate>
+@interface StringView () <NHBalancedFlowLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringLargeCollectionView;
 
-@property (strong, nonatomic) NSArray *collectionData;
+@property (strong, nonatomic) NSMutableArray *collectionData;
 
 @end
 @implementation StringView
@@ -28,7 +28,8 @@
 
 - (void)awakeFromNib
 {
-    // Register the colleciton cell
+    // Register the colleciton cell for both large and normal string sizes
+    // Large is only utilized on the detail string pages
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
     [_stringLargeCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
 }
@@ -38,11 +39,16 @@
 
 #pragma mark - Custom Accessors
 
-- (void)setCollectionData:(NSArray *)collectionData {
+- (void)setCollectionData:(NSMutableArray *)collectionData {
     _collectionData = collectionData;
     
     //[_stringCollectionView setContentOffset:CGPointZero animated:NO];
     //[_stringCollectionView reloadData];
+}
+
+- (NSMutableArray *)getCollectionData
+{
+    return _collectionData;
 }
 
 
@@ -72,27 +78,26 @@
     
     // Uses a secondary thread for loading the images into the collectionView for lag free experience
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *cellImage = [UIImage decodedImageWithImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        
+        
+        UIImage *cellImage = [UIImage decodedImageWithImage:[cellData objectForKey:@"image"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSIndexPath *currentIndexPathForCell = [collectionView indexPathForCell:stringCell];
             if (currentIndexPathForCell.row == rowIndex) {
                 [stringCell.cellImage setImage:cellImage];
+                [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
             }
         });
         
         
     });
     
-    
-    
     //UIImage *cellImage = [UIImage imageNamed:[cellData objectForKey:@"image"]];
     //stringCell.cellImage.image = cellImage;
-    
-    
    
     // Sets the title for the cell
-    stringCell.cellTitle.text = [cellData objectForKey:@"title"];
+    //stringCell.cellTitle.text = [cellData objectForKey:@"title"];
     
     return stringCell;
 }
@@ -108,7 +113,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *cellData = [self.collectionData objectAtIndex:[indexPath row]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectItemFromCollectionView" object:cellData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedStringItemKey object:cellData];
 }
 
 
@@ -119,10 +124,11 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *photoDictionary = [self.collectionData objectAtIndex:indexPath.item];
-    UIImage *image = [UIImage imageNamed:[photoDictionary objectForKey:@"image"]];
+    UIImage *image = [photoDictionary objectForKey:@"image"];
     
     return [image size];
 }
+
 
 
 @end

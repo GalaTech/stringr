@@ -31,17 +31,14 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     _stringCollectionView = [[NSBundle mainBundle] loadNibNamed:@"StringLargeCollectionView" owner:self options:nil][0];
     _stringCollectionView.frame = self.stringView.bounds;
-    [_stringCollectionView setCollectionData:self.stringPhotoData];
+    [_stringCollectionView setCollectionData:[self.stringPhotoData mutableCopy]];
     [self.stringView addSubview:_stringCollectionView];
-    
-    
     
     self.view.backgroundColor = [StringrConstants kStringCollectionViewBackgroundColor];
 }
@@ -50,14 +47,14 @@
 {
     [super viewWillAppear:animated];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:kNSNotificationCenterSelectedStringItemKey object:nil];
 }
  
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedStringItemKey object:nil];
 }
  
 
@@ -70,15 +67,21 @@ static int const NUMBER_OF_IMAGES = 24;
 
 - (NSArray *)stringPhotoData
 {
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+    if (!_stringPhotoData) {
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
+            @autoreleasepool {
+                NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+                UIImage *image = [UIImage imageNamed:imageName];
+                
+                NSDictionary *photo = @{@"title": @"Article A1", @"image": image};
+                
+                [images addObject:photo];
+            }
+        }
         
-        NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
-        
-        [images addObject:photo];
+        _stringPhotoData = [images copy];
     }
-    _stringPhotoData = [images copy];
     
     return _stringPhotoData;
 }
@@ -97,8 +100,10 @@ static int const NUMBER_OF_IMAGES = 24;
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
      
         [photoDetailVC setDetailsEditable:NO];
+        
         // Sets the initial photo to the selected cell
-        [photoDetailVC setCurrentImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        [photoDetailVC setCurrentImage:[cellData objectForKey:@"image"]];
+        
      
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
      

@@ -7,6 +7,7 @@
 //
 
 #import "StringrNavigationController.h"
+#import "StringrLoginViewController.h"
 
 @interface StringrNavigationController ()
 
@@ -23,9 +24,15 @@
 	//[self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)]];
     
     self.navigationBar.tintColor = [UIColor grayColor];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+    
 }
 
-
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
 
 
 #pragma mark - Action Handlers

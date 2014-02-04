@@ -20,6 +20,11 @@
 
 #pragma mark - Lifecycle
 
+- (void)dealloc
+{
+    self.view = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,6 +59,11 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
 
 
 

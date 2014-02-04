@@ -16,6 +16,11 @@
 
 #pragma mark - LifeCycle
 
+- (void)dealloc
+{
+    self.tableView = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -25,6 +30,12 @@
     [self.tableView setScrollsToTop:NO];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     [self.tableView reloadData];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
 }
 
 

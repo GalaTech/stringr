@@ -75,18 +75,18 @@ static float const contentFooterViewWidthPercentage = .93;
                                                                   image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
                                                               pathColor:[UIColor darkGrayColor]
                                                               pathWidth:1.0];
-    [self.profileImageView setUserInteractionEnabled:YES];
+    //[self.profileImageView setUserInteractionEnabled:YES];
     
     UIButton *profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
-    [profileImageButton addTarget:self action:@selector(pushProfilePicture:) forControlEvents:UIControlEventTouchUpInside];
+    [profileImageButton addTarget:self action:@selector(pushProfilePicture) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.profileImageView];
     [self addSubview:profileImageButton];
 }
 
-- (void)pushProfilePicture:(UIGestureRecognizer *)gesture
+- (void)pushProfilePicture
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectProfileImage" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedProfileImageKey object:nil];
 }
 
 - (void)addProfileNameLabelAtLocation:(CGPoint)location withSize:(CGSize)size
@@ -138,7 +138,7 @@ static float const contentFooterViewWidthPercentage = .93;
 - (void)pushCommentsButton
 {
     self.commentsTextLabel.textColor = [UIColor grayColor];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectCommentsButton" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedCommentsButtonKey object:nil];
 }
 
 // alters text color in a way that makes it look like the button was presed
@@ -179,7 +179,7 @@ static float const contentFooterViewWidthPercentage = .93;
 - (void)pushLikesButton
 {
     self.likesTextLabel.textColor = [UIColor grayColor];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectLikesButton" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedLikesButtonKey object:nil];
 }
 
 // alters text color in a way that makes it look like the button was presed

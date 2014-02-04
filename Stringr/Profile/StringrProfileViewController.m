@@ -23,6 +23,11 @@
 
 #pragma mark - Lifecycle
 
+- (void)dealloc
+{
+    self.view = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -76,6 +81,13 @@
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
+
 
 
 

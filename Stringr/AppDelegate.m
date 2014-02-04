@@ -7,12 +7,43 @@
 //
 
 #import "AppDelegate.h"
+#import "StringrRootViewController.h"
+#import "StringrDiscoveryTabBarViewController.h"
+#import "StringrNavigationController.h"
+#import "StringrLoginViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    
+    StringrRootViewController *rootVC = (StringrRootViewController *)[[self window] rootViewController];
+    
+    /*
+    StringrDiscoveryTabBarViewController *rootTabBarVC = (StringrDiscoveryTabBarViewController *)rootVC.contentViewController;
+    StringrNavigationController *rootNavVC = rootTabBarVC.viewControllers[0];
+    UIViewController *rootContentVC = rootNavVC.topViewController;
+    */
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    
+    [self.window makeKeyAndVisible];
+    
+    
+    // Slightly delays the presentation of the loginVC so that it doesn't mess up the navigation
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [rootVC presentViewController:loginVC animated:YES completion:nil];
+    });
+    
+    
+    
+     
     return YES;
 }
 							
