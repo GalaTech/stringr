@@ -26,7 +26,10 @@
     self.title = @"Write Comment";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelComment)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleBordered target:self action:@selector(postComment)];
-
+    
+    // prevents a post from being made. This is enabled to yes if a user types a character.
+    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    
     if (!self.comment) {
         self.comment = [[NSMutableDictionary alloc] init];
     }
@@ -43,14 +46,31 @@
 
 
 
+
+#pragma mark - Custom Accessors
+
+- (void)setComment:(NSMutableDictionary *)comment
+{
+    _comment = comment;
+    
+    if ([_comment objectForKey:@"commentText"]) {
+        [self.navigationItem.rightBarButtonItem setEnabled:!self.navigationItem.rightBarButtonItem.enabled];
+    }
+    
+}
+
+
 #pragma mark - Actions
 
 - (void)postComment
 {
-    [self dismissViewControllerAnimated:YES completion:^ {
-        [self.delegate pushSavedComment:self.comment];
-    }];
+    NSString *commentText = [[self.comment objectForKey:@"commentText"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
+    if (commentText) {
+        [self dismissViewControllerAnimated:YES completion:^ {
+            [self.delegate pushSavedComment:self.comment];
+        }];
+    }
 }
 
 - (void)cancelComment
@@ -74,6 +94,18 @@
     }
 }
 
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if (![[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+        [self.comment setObject:textView.text forKey:@"commentText"];
+        [self.comment setObject:@"Stringr Image" forKey:@"profileImage"];
+        [self.comment setObject:@"Alonso Holmes" forKey:@"profileDisplayName"];
+        [self.comment setObject:@"Now" forKey:@"uploadDate"];
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
+}
 
 
 

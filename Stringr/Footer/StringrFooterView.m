@@ -126,7 +126,7 @@ static float const contentFooterViewWidthPercentage = .93;
     [self.commentsImageView setImage:[UIImage imageNamed:@"comment-bubble.png"]];
     [self addSubview:self.commentsImageView];
     
-    self.commentsButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, 65, 18)];
+    self.commentsButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x + 5, location.y - 5, 65, 27)];
     [self.commentsButton addTarget:self action:@selector(pushDownCommentsButton) forControlEvents:UIControlEventTouchDown];
     [self.commentsButton addTarget:self action:@selector(pushCommentsButton) forControlEvents:UIControlEventTouchUpInside];
     [self.commentsButton addTarget:self action:@selector(pushCommentsOutside) forControlEvents:UIControlEventTouchUpOutside];
@@ -165,7 +165,7 @@ static float const contentFooterViewWidthPercentage = .93;
     [self.likesImageView setImage:[UIImage imageNamed:@"like-bubble.png"]];
     [self addSubview:self.likesImageView];
     
-    self.likesButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, 65, 18)];
+    self.likesButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x + 5, location.y - 5, 65, 27)];
     [self.likesButton addTarget:self action:@selector(pushDownLikesButton) forControlEvents:UIControlEventTouchDown];
     [self.likesButton addTarget:self action:@selector(pushLikesButton) forControlEvents:UIControlEventTouchUpInside];
     [self.likesButton addTarget:self action:@selector(pushLikesOutside) forControlEvents:UIControlEventTouchUpOutside];

@@ -21,7 +21,7 @@
     
     
 
-    [self addSubview:[self commentSeperatorView]];
+    //[self addSubview:[self commentSeperatorView]];
     [self addSubview:[self profileImageButton]];
     
 }
