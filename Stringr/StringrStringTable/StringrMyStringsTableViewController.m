@@ -44,9 +44,35 @@
 // to edit that string individually
 - (void)pushToStringEdit
 {
-    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     
+    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    [stringEditVC setDetailsEditable:YES];
+
     [self.navigationController pushViewController:stringEditVC animated:YES];
+     
+    
+    //[self.tableView setEditing:!self.tableView.editing animated:YES];
+}
+
+
+
+
+#pragma mark - UITableView Delegate
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2 == 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleInsert) {
+        NSLog(@"swiped");
+    }
 }
 
 @end

@@ -472,6 +472,10 @@ static float const contentViewWidthPercentage = .93;
 }
 
 
+
+
+#pragma mark - UIImagePicker Delegate
+
 //delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {

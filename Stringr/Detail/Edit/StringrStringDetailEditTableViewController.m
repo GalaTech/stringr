@@ -9,7 +9,7 @@
 #import "StringrStringDetailEditTableViewController.h"
 #import "StringrFooterView.h"
 
-@interface StringrStringDetailEditTableViewController () <UIAlertViewDelegate, UIActionSheetDelegate>
+@interface StringrStringDetailEditTableViewController () <UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic) NSInteger selectedRow;
 
@@ -248,6 +248,60 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
+        NSLog(@"take");
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
+        NSLog(@"choose");
+        
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    }
+}
+
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [self.delegate addedNewImageToString:image];
+    }];
+}
+
 
 /*
  #pragma mark - UITextField Delegate

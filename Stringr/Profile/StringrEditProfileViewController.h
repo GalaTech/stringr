@@ -14,7 +14,7 @@
 
 @optional
 - (void)setProfileName:(NSString *)name;
-- (void)setProfilePicture:(UIImageView *)profilePicture;
+- (void)setProfilePhoto:(UIImage *)profilePhoto;
 - (void)setProfileDescription:(NSString *)description;
 
 

@@ -9,7 +9,7 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileViewController.h"
 
-@interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate>
+@interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -29,8 +29,7 @@
 
 - (void) dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
 }
 
 - (void)viewDidLoad
@@ -42,11 +41,6 @@
     [self.editProfileImage setPathWidth:1.0];
     [self.editProfileImage setPathColor:[UIColor darkGrayColor]];
 
-    
-#warning removed keyboard placement actions because I added full scrollview
-    // Adds notifications to know when the keyboard is shown and hidden
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     // Adds a tap gesture for the ability to tap the profile image UIImageView
     UITapGestureRecognizer *tapImageGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeProfileImage)];
@@ -64,7 +58,35 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //#warning removed keyboard placement actions because I added full scrollview
+    // Adds notifications to know when the keyboard is shown and hidden
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+
+#pragma mark - Custom Accessors
+
+/*
+- (void)setEditProfileImage:(StringrPathImageView *)editProfileImage
+{
+    _editProfileImage = editProfileImage;
+    
+    [self.delegate setProfilePhoto:_editProfileImage.image];
+}
+*/
 
 
 #pragma mark - Actions
@@ -75,7 +97,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Choose From Library", @"Take Photo", nil];
+                                                    otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
     [changeImage showInView:self.view];
 }
 
@@ -90,6 +112,8 @@
     NSString *editedName = sender.text;
     [self.delegate setProfileName:editedName];
 }
+
+
 
 
 
@@ -194,12 +218,58 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
 
 #pragma mark - UIScrollViewDelegate
 
+/*
 // Hides the keyboard if you begin to move the scroll view
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.editProfileNameTextField resignFirstResponder];
     [self.editProfileDescriptionTextView resignFirstResponder];
 }
+*/
 
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+}
+
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [self.editProfileImage setImage:image];
+        [self.delegate setProfilePhoto:image];
+    }];
+}
 
 
 @end

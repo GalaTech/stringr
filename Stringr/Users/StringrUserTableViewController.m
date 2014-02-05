@@ -12,7 +12,7 @@
 #import "StringrUserTableViewCell.h"
 #import "StringrStringDetailViewController.h"
 
-@interface StringrUserTableViewController () <UIActionSheetDelegate>
+@interface StringrUserTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -154,6 +154,22 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+        
+        /*
         //NSLog(@"Removed Observers from selecting action sheet");
         //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
         //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
@@ -169,12 +185,24 @@
         
         
         // Modal
-        /*
+        
          StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
          
          [self presentViewController:navVC animated:YES completion:nil];
          */
     } else if (buttonIndex == 1) {
+        
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+        
+        /*
         //NSLog(@"Removed Observers from selecting action sheet");
         //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
         //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
@@ -190,12 +218,30 @@
         
         
         // Modal
-        /*
+        
          StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
          
          [self presentViewController:navVC animated:YES completion:nil];
          */
     }
+}
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setDetailsEditable:YES];
+        [newStringVC setUserSelectedPhoto:image];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
 }
 
 

@@ -138,11 +138,11 @@
 
 #pragma mark - StringrEditProfile Delegate
 
-- (void)setProfileImage:(StringrPathImageView *)profileImage
+- (void)setProfilePhoto:(UIImage *)profilePhoto
 {
     StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
     
-    topViewController.profileImage = profileImage;
+    [topViewController.profileImage setImage:profilePhoto];
 }
 
 - (void)setProfileName:(NSString *)name
@@ -175,32 +175,15 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
+        
         [self.navigationController pushViewController:newStringVC animated:YES];
-        
-        
-        // Modal
-        /*
-         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-         
-         [self presentViewController:navVC animated:YES completion:nil];
-         */
     } else if (buttonIndex == 1) {
-        
-        
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
+        
         [self.navigationController pushViewController:newStringVC animated:YES];
-        
-        
-        // Modal
-        /*
-         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-         
-         [self presentViewController:navVC animated:YES completion:nil];
-         */
     }
 }
 

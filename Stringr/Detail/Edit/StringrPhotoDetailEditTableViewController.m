@@ -130,7 +130,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^ {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterDeletePhotoFromStringKey object:@{@"image": @"image"}];
+        }];
     }
 }
 

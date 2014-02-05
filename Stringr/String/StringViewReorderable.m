@@ -13,6 +13,7 @@
 @interface StringViewReorderable () <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet StringEditCollectionView *stringLargeReorderableCollectionView;
+@property (strong, nonatomic) NSMutableArray *collectionData;
 
 @end
 
@@ -23,7 +24,42 @@
 - (void)awakeFromNib
 {
     [_stringLargeReorderableCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
+    _collectionData = [self getCollectionData];
+}
 
+
+
+
+#pragma mark - Public
+
+- (void)addPhotoToString:(NSDictionary *)photo
+{
+    if (photo) {
+        [self.collectionData addObject:photo];
+        
+        // Index path for the end of the String data
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.collectionData count] - 1 inSection:0];
+        
+        [self.stringLargeReorderableCollectionView insertItemsAtIndexPaths:@[indexPath]];
+    }
+}
+
+- (void)removePhotoFromString:(NSDictionary *)photo
+{
+    if (photo) {
+        NSUInteger indexOfPhoto = [self.collectionData indexOfObject:photo];
+        if (indexOfPhoto < 100) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
+            [self.collectionData removeObjectAtIndex:indexOfPhoto];
+            
+            [self.stringLargeReorderableCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+        }
+    }
+}
+
+- (void)removePhotoFromStringAtIndex:(NSInteger)index
+{
+    
 }
 
 
@@ -31,11 +67,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSDictionary *stringImage = [[self getCollectionData] objectAtIndex:fromIndexPath.item];
-    NSMutableArray *collectionData = [self getCollectionData];
+    NSDictionary *stringImage = [self.collectionData objectAtIndex:fromIndexPath.item];
+    //NSMutableArray *collectionData = [self getCollectionData];
     
-    [collectionData removeObjectAtIndex:fromIndexPath.item];
-    [collectionData insertObject:stringImage atIndex:toIndexPath.item];
+    [self.collectionData removeObjectAtIndex:fromIndexPath.item];
+    [self.collectionData insertObject:stringImage atIndex:toIndexPath.item];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath

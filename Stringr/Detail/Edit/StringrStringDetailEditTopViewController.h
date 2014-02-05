@@ -8,7 +8,9 @@
 
 #import "StringrDetailTopViewController.h"
 #import "StringrStringDetailTopViewController.h"
-@interface StringrStringDetailEditTopViewController : StringrStringDetailTopViewController
+#import "StringrStringDetailEditTableViewController.h"
+
+@interface StringrStringDetailEditTopViewController : StringrStringDetailTopViewController <StringrStringDetailEditViewControllerDelegate>
 
 @property (strong, nonatomic) UIImage *userSelectedPhoto;
 

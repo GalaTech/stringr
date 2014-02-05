@@ -22,15 +22,6 @@
 
 #pragma mark - Lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     // commented out because I need to load an editable string view
@@ -51,6 +42,22 @@
     [self.stringView addSubview:_stringReorderableCollectionView];
     
     [self.view setBackgroundColor:[StringrConstants kStringCollectionViewBackgroundColor]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:kNSNotificationCenterSelectedStringItemKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePhotoFromString:) name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedStringItemKey object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,19 +109,6 @@ static int const NUMBER_OF_IMAGES = 24;
 }
 */
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-}
 
 
 
@@ -137,6 +131,29 @@ static int const NUMBER_OF_IMAGES = 24;
         [self presentViewController:navVC animated:YES completion:nil];
         //[self.navigationController pushViewController:photoDetailVC animated:YES];
     }
+}
+
+
+
+
+#pragma mark - StringrStringDetailEditViewController Delegate
+
+- (void)addedNewImageToString:(UIImage *)image
+{
+    NSLog(@"made it");
+    
+    NSDictionary *photo = @{@"image" : image};
+    
+    [self.stringReorderableCollectionView addPhotoToString:photo];
+    // create public method to insert new image into collection view
+}
+
+- (void)deletePhotoFromString:(NSNotification *)notification
+{
+    NSLog(@"Made it to delete");
+    NSDictionary *photo = [notification object];
+    
+    [self.stringReorderableCollectionView removePhotoFromString:photo];
 }
 
 @end

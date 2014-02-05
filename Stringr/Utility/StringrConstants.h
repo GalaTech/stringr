@@ -26,6 +26,7 @@ extern NSString * const kNSNotificationCenterSelectedProfileImageKey;
 extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
 extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
 extern NSString * const kNSNotificationCenterUploadNewStringKey;
+extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
 
 
 

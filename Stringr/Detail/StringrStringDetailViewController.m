@@ -45,7 +45,8 @@
         StringrStringDetailEditTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
         [stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
         
-        StringrStringDetailTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
+        StringrStringDetailEditTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
+        [stringTableVC setDelegate:stringTopVC];
         
         [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
     } else {
