@@ -12,7 +12,6 @@
 
 @interface StringrProfileViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
 
-@property (nonatomic) BOOL canGoBack;
 @property (nonatomic) BOOL canCloseModal;
 @property (nonatomic) BOOL canEditProfile;
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StringrStringCommentsViewController : UIViewController
+@interface StringrStringCommentsViewController : UITableViewController
+
+@property (nonatomic) BOOL commentsEditable;
 
 @end

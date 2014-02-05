@@ -63,14 +63,8 @@
 
 - (IBAction)pushToNewView:(UIButton *)sender
 {
-    //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    //StringrDiscoveryTabBarViewController *stringDiscoveryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
-    
-    StringrRootViewController *stringRootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrRootNavigation"];
-    
-    [self presentViewController:stringRootVC animated:YES completion:nil];
-    //    [self.navigationController pushViewController:stringDiscoveryVC animated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
     
 }
 

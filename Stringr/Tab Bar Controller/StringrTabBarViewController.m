@@ -8,6 +8,7 @@
 
 #import "StringrTabBarViewController.h"
 
+
 @interface StringrTabBarViewController ()
 
 @end
@@ -39,6 +40,14 @@
     
     NSLog(@"tab bar did disappear");
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
+
+
 
 
 #pragma mark - Private

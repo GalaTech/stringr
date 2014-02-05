@@ -9,9 +9,9 @@
 #import "TestViewController.h"
 #import "StringCollectionView.h"
 #import "StringCollectionViewCell.h"
-#import "StringCollectionViewFlowLayout.h"
+#import "NHBalancedFlowLayout.h"
 
-@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, StringCollectionViewFlowLayoutDelegate>
+@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet StringCollectionView *collectionView;
 
@@ -109,7 +109,7 @@
 
 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(StringCollectionViewFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
   //  NSDictionary *photoDictionary = [self.collectionData objectAtIndex:indexPath.item];
     //UIImage *image = [UIImage imageNamed:[photoDictionary objectForKey:@"image"]];

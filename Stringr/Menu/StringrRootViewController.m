@@ -7,6 +7,7 @@
 //
 
 #import "StringrRootViewController.h"
+#import "StringrLoginViewController.h"
 
 @interface StringrRootViewController ()
 
@@ -18,11 +19,15 @@
 
 - (void)awakeFromNib
 {
+    //StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    //[self presentViewController:loginVC animated:YES completion:nil];
+    
     self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringDiscoveryTabBar"];
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
     
     self.liveBlur = YES;
 }
+
 
 
 @end

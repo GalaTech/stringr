@@ -8,7 +8,7 @@
 
 #import "StringCollectionView.h"
 #import "StringCollectionViewCell.h"
-#import "StringCollectionViewFlowLayout.h"
+#import "NHBalancedFlowLayout.h"
 
 @interface StringCollectionView ()
 
@@ -28,17 +28,17 @@
     
     [self setShowsHorizontalScrollIndicator:NO];
     
-    StringCollectionViewFlowLayout *layout = [[StringCollectionViewFlowLayout alloc] init];
+    NHBalancedFlowLayout *layout = [[NHBalancedFlowLayout alloc] init];
     
-    layout.headerReferenceSize = CGSizeMake(0, 0);
-    layout.footerReferenceSize = CGSizeMake(0, 0);
+    //layout.headerReferenceSize = CGSizeMake(0, 0);
+    //layout.footerReferenceSize = CGSizeMake(0, 0);
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.preferredRowSize = 320;
-    layout.headerReferenceSize = CGSizeMake(0, 0);
-    layout.footerReferenceSize = CGSizeMake(0, 0);
+    //layout.headerReferenceSize = CGSizeMake(0, 0);
+    //layout.footerReferenceSize = CGSizeMake(0, 0);
     
     [self setCollectionViewLayout:layout];
 }

@@ -20,6 +20,11 @@
 
 #pragma mark - Lifecycle
 
+- (void)dealloc
+{
+    self.view = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,8 +55,15 @@
     } else {
         [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
     }
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
 
 
 

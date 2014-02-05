@@ -17,7 +17,7 @@
 #import "StringrMySchoolTabBarViewController.h"
 #import "StringrSearchTabBarViewController.h"
 
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
 #import "StringrSettingsViewController.h"
 #import "StringrLoginViewController.h"
@@ -86,7 +86,11 @@
     [self.tableView setShowsVerticalScrollIndicator:NO];
 }
 
-
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
 
 
 #pragma mark - Action Handlers
@@ -96,7 +100,7 @@
     // Closes the menu after we move to a new VC
     [self.frostedViewController hideMenuViewController];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UploadNewString" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUploadNewStringKey object:nil];
     
     
     //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Create String" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
@@ -113,7 +117,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         
         
@@ -126,7 +130,7 @@
          [self presentViewController:navVC animated:YES completion:nil];
         */
     } else if (buttonIndex == 1) {
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         
@@ -202,7 +206,7 @@
     
     // Table section 0 menu items actions
     if (indexPath.section == 0 && indexPath.row == 0) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
         profileVC.canEditProfile = YES;
         profileVC.title = @"My Profile";
         
@@ -246,10 +250,8 @@
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-        // Makes it so that when you dismiss the main VC it won't also perform the close menu animation
-        return;
+        StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self presentViewController:loginVC animated:YES completion:nil];
     }
     
     // Closes the menu after we move to a new VC

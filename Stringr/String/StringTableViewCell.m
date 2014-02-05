@@ -7,14 +7,13 @@
 //
 
 #import "StringTableViewCell.h"
-#import "StringCellView.h"
-#import "StringrDetailViewController.h"
+#import "StringView.h"
 
 #import "StringrPathImageView.h"
 
 @interface StringTableViewCell ()
 
-@property (strong, nonatomic) StringCellView *stringCollectionView;
+@property (strong, nonatomic) StringView *stringCollectionView;
 
 @property (strong, nonatomic) StringrPathImageView *detailTabProfileImage;
 @property (strong, nonatomic) UILabel *detailTabNumberOfCommentsLabel;
@@ -33,7 +32,7 @@
     
     if (self) {
         // Initialization code
-         _stringCollectionView= [[NSBundle mainBundle] loadNibNamed:@"StringCellView" owner:self options:nil][0];
+         _stringCollectionView= [[NSBundle mainBundle] loadNibNamed:@"StringView" owner:self options:nil][0];
         _stringCollectionView.frame = self.bounds;
         [self.contentView addSubview:_stringCollectionView];
      }
@@ -48,7 +47,7 @@
 
 - (void)setCollectionData:(NSArray *)collectionData
 {
-    [_stringCollectionView setCollectionData:collectionData];
+    [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
 }
 
 

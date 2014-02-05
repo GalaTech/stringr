@@ -19,6 +19,16 @@
 extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;
 
 
+#pragma mark - NSNotificationCenter Keys
+
+extern NSString * const kNSNotificationCenterSelectedStringItemKey;
+extern NSString * const kNSNotificationCenterSelectedProfileImageKey;
+extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
+extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
+extern NSString * const kNSNotificationCenterUploadNewStringKey;
+extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
+
+
 
 #pragma mark - PFObject Activity Class
 // Class Key

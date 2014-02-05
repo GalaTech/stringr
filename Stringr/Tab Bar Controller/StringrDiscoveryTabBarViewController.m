@@ -7,6 +7,8 @@
 //
 
 #import "StringrDiscoveryTabBarViewController.h"
+#import "StringrLoginViewController.h"
+#import "StringrNavigationController.h"
 #import "StringrUtility.h"
 
 @interface StringrDiscoveryTabBarViewController ()
@@ -23,7 +25,23 @@
     
     // sets the title of the controller to the initial selected tab bar item
     self.title = @"Following";
+    
+
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    /*
+    StringrNavigationController *navVC = self.viewControllers[0];
+    UIViewController *visibleVC = navVC.topViewController;
+    
+    StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    [visibleVC presentViewController:loginVC animated:YES completion:nil];
+     */
+}
+
 
 
 

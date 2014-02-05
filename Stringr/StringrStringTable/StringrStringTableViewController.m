@@ -9,8 +9,7 @@
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
 
-#import "StringrDetailViewController.h"
-#import "StringrPhotoViewerViewController.h"
+#import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
@@ -20,9 +19,9 @@
 #import "StringTableViewCell.h"
 #import "StringFooterTableViewCell.h"
 
-#import "StringrStringEditViewController.h"
+#import "StringrStringDetailViewController.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSArray *images;
 @property (strong, nonatomic) NSArray *images2;
@@ -31,15 +30,16 @@
 
 @implementation StringrStringTableViewController
 
-#pragma mark - Life Cycle
+#pragma mark - Lifecycle
 
-//- (void)dealloc
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
-//}
+
+- (void)dealloc
+{
+    _images = nil;
+    _images2 = nil;
+    self.tableView = nil;
+}
+
 
 - (void)viewDidLoad
 {
@@ -63,26 +63,28 @@
     [super viewWillAppear:animated];
     
     // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
-    NSLog(@"Added observers from viewWillAppear");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:@"didSelectItemFromCollectionView" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectProfileImage:) name:@"didSelectProfileImage" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectCommentsButton:) name:@"didSelectCommentsButton" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectLikesButton:) name:@"didSelectLikesButton" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:kNSNotificationCenterSelectedStringItemKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectProfileImage:) name:kNSNotificationCenterSelectedProfileImageKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectCommentsButton:) name:kNSNotificationCenterSelectedCommentsButtonKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectLikesButton:) name:kNSNotificationCenterSelectedLikesButtonKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    NSLog(@"Removed observers from view disappear");
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedStringItemKey object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedProfileImageKey object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedCommentsButtonKey object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedLikesButtonKey object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
 }
 
 
@@ -95,34 +97,44 @@ static int const NUMBER_OF_IMAGES = 24;
 // Getter for test data images property
 - (NSArray *)images
 {
-    
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
-        
-        NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
-        
-        [images addObject:photo];
+    if (!_images) {
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
+            @autoreleasepool {
+                NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+                UIImage *image = [UIImage imageNamed:imageName];
+                
+                NSDictionary *photo = @{@"title": @"This is an awesome photo!", @"image": image};
+                
+                [images addObject:photo];
+            }
+        }
+        _images = [images copy];
     }
-    _images = [images copy];
     
     return _images;
 }
 
 - (NSArray *)images2
 {
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (int i = 24; i >= 1; i--) {
-        NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
-        
-        NSDictionary *photo = @{@"title": @"Article A1", @"image": imageName};
-        
-        [images addObject:photo];
+    if (!_images2) {
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (int i = 24; i >= 1; i--) {
+            @autoreleasepool {
+                NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
+                UIImage *image = [UIImage imageNamed:imageName];
+                
+                NSDictionary *photo = @{@"title": @"Article A1", @"image": image};
+                
+                [images addObject:photo];
+            }
+        }
+        _images2 = [images copy];
     }
-    _images2 = [images copy];
     
     return _images2;
 }
+ 
 
 
 
@@ -146,43 +158,46 @@ static int const NUMBER_OF_IMAGES = 24;
     
     if (cellData)
     {
-        StringrPhotoViewerViewController *photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewerVC"];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
+        [photoDetailVC setDetailsEditable:NO];
         // Sets the initial photo to the selected cell
-        [photoVC setPhotoViewerImage:[UIImage imageNamed:[cellData objectForKey:@"image"]]];
+        [photoDetailVC setCurrentImage:[cellData objectForKey:@"image"]];
         
-        [self.navigationController pushViewController:photoVC animated:YES];
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
 }
 
 // Handles the action of pushing to a selected user's profile
 - (void)didSelectProfileImage:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-    NSLog(@"Removed observers from selecting profile");
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
     
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileVC"];
-    [profileVC setCanGoBack:YES];
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
     [profileVC setCanEditProfile:NO];
-    [profileVC setTitle:@"User Profile"];
-    //[profileVC setCanCloseModal:YES];
+    [profileVC setTitle:@"Profile"];
+    [profileVC setCanCloseModal:YES];
     
     [profileVC setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:profileVC animated:YES];
+    //[self.navigationController pushViewController:profileVC animated:YES];
     
     //Implements modal transition to profile view
-    //StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
-    //[self presentViewController:navVC animated:YES completion:nil];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 // Handles the action of pushing to the comment's of a selected string
 - (void)didSelectCommentsButton:(NSNotification *)notification
 {
     StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+    
+    [commentsVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:commentsVC animated:YES];
 }
@@ -201,17 +216,8 @@ static int const NUMBER_OF_IMAGES = 24;
 // Handles the action of pushing to to the detail view of a selected string
 - (void)pushToStringDetailView
 {
-    //  UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
-    
-    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
-    
-    
-    // detailVC.modalPresentationStyle = UIModalPresentationCustom;
-    //detailVC.modalTransitionStyle = UIModalPresentationNone;
-    
-    // default present is modal animation
-    //[navigationController presentViewController:detailVC animated:YES completion:NULL];
-    
+    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    [detailVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
@@ -227,13 +233,15 @@ static int const NUMBER_OF_IMAGES = 24;
     [newStringActionSheet addButtonWithTitle:@"Take Photo"];
     [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
     
+    /* Implement return to saved string
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-
+    
     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
         [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
         [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
     }
+     */
     
     [newStringActionSheet addButtonWithTitle:@"Cancel"];
     [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
@@ -271,6 +279,7 @@ static int const NUMBER_OF_IMAGES = 24;
     if (indexPath.row == 0) {
         static NSString *cellIdentifier = @"StringTableViewCell";
         StringTableViewCell *stringCell = (StringTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
         if (!stringCell) {
             stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
@@ -300,44 +309,6 @@ static int const NUMBER_OF_IMAGES = 24;
     } else {
         return nil; // this shouldn't happen but makes the compiler happy
     }
-    
-    /*
-    
-    
-    static NSString *cellIdentifier = @"StringTableViewCell";
-    
-    if (indexPath.row == 0) {
-        cellIdentifier = @"StringTableViewCell";
-    } else if (indexPath.row == 1) {
-        cellIdentifier = @"StringTableViewFooter";
-    }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    // Sets up the table view cell accordingly based around whether it is the
-    // string row or the footer
-    if (cell) {
-        if ([cell isKindOfClass:[StringTableViewCell class]]) {
-            StringTableViewCell *stringCell = (StringTableViewCell *)cell;
-            // Sets the photos to the array of photo data for the collection view
-            [stringCell setCollectionData:self.images];
-        } else if ([cell isKindOfClass:[StringFooterTableViewCell class]]) {
-            // Sets the table view cell to be the custom footer view
-            StringFooterTableViewCell *footerCell = [[StringFooterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StringTableViewCellFooter"];
-            
-            // Init's the footer with live data from here
-            [footerCell setStringUploaderName:@"Alonso Holmes"];
-            [footerCell setStringUploadDate:@"10 minutes ago"];
-            [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-            [footerCell setCommentButtonTitle:@"4.7k"];
-            [footerCell setLikeButtonTitle:@"11.3k"];
-            
-            return footerCell;
-        }
-    }
-    
-    return cell;
-     */
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -354,6 +325,11 @@ static int const NUMBER_OF_IMAGES = 24;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 23.5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0;
 }
 
 // Percentage for the width of the content header view
@@ -407,12 +383,25 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
-    
-    
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];
     } else if (buttonIndex == 0) {
+        
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+        /*
         NSLog(@"Removed Observers from selecting action sheet");
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
@@ -422,10 +411,16 @@ static float const contentViewWidthPercentage = .93;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setDetailsEditable:YES];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
 
+        
+        */
+        
+        
+        
         
         // Modal
         /*
@@ -434,6 +429,18 @@ static float const contentViewWidthPercentage = .93;
         [self presentViewController:navVC animated:YES completion:nil];
          */
     } else if (buttonIndex == 1) {
+        
+        
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+        /*
         NSLog(@"Removed Observers from selecting action sheet");
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
@@ -443,10 +450,11 @@ static float const contentViewWidthPercentage = .93;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
         
         
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setDetailsEditable:YES];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
-        
+        */
         
         // Modal
         /*
@@ -455,12 +463,31 @@ static float const contentViewWidthPercentage = .93;
         [self presentViewController:navVC animated:YES completion:nil];
          */
     } else if (buttonIndex == 2) {
-        StringrStringEditViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }
     
     
+}
+
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setDetailsEditable:YES];
+        [newStringVC setUserSelectedPhoto:image];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
 }
 
 @end
