@@ -213,9 +213,16 @@
             break;
     }
     
-    NSArray *indexPaths = @[indexPath, previousCellIndexPath];
-    [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    NSArray *indexPaths = @[indexPath];
     
+    // If the two indexes are not the same I add them both to be reloaded.
+    if (previousCellIndexPath.row != indexPath.row) {
+        indexPaths = @[previousCellIndexPath, indexPaths[0]];
+    }
+
+    // If I attempted to load both the array without a conditional check it could crash if
+    // the user happened to press the same row twice.
+    [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 }
 
 
