@@ -34,7 +34,7 @@
     [self.view setBackgroundColor:[UIColor blackColor]];
     
     //[self.photoImage setFrame:self.photoScrollView.bounds];
-    [self.photoImage setContentMode:UIViewContentModeScaleAspectFill];
+    [self.photoImage setContentMode:UIViewContentModeScaleAspectFit];
 
     /*
     [self.photoScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.photoImage.frame) + 100, CGRectGetHeight(self.photoImage.frame) + 100)];

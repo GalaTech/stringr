@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 #import "StringrRootViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 #import "StringrNavigationController.h"
@@ -16,23 +17,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // Initialize app for Parse and Facebook
+    [Parse setApplicationId:@"m0bUE5DhNMVo4IWlcCr5G2089J1doTDj3jGgXlzu" clientKey:@"8bfs0C7Z9kySt6uWNMYcZZIN4c6GzUZUh2pdFlxK"];
+    [PFFacebookUtils initializeFacebook];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
     StringrRootViewController *rootVC = (StringrRootViewController *)[[self window] rootViewController];
-    
-    /*
-    StringrDiscoveryTabBarViewController *rootTabBarVC = (StringrDiscoveryTabBarViewController *)rootVC.contentViewController;
-    StringrNavigationController *rootNavVC = rootTabBarVC.viewControllers[0];
-    UIViewController *rootContentVC = rootNavVC.topViewController;
-    */
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginVC"];
     
-    [self.window makeKeyAndVisible];
-    
+    //[self.window makeKeyAndVisible];
     
     // Slightly delays the presentation of the loginVC so that it doesn't mess up the navigation
     double delayInSeconds = 0.1;
@@ -41,9 +39,6 @@
         [rootVC presentViewController:loginVC animated:YES completion:nil];
     });
     
-    
-    
-     
     return YES;
 }
 							
@@ -64,8 +59,16 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
+}
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
