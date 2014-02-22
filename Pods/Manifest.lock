@@ -1,0 +1,19 @@
+PODS:
+  - ACPButton (1.0.0)
+  - LXReorderableCollectionViewFlowLayout (0.1.1)
+  - NHBalancedFlowLayout (0.2)
+  - REFrostedViewController (2.4.3)
+
+DEPENDENCIES:
+  - ACPButton
+  - LXReorderableCollectionViewFlowLayout (~> 0.1.1)
+  - NHBalancedFlowLayout (~> 0.2)
+  - REFrostedViewController (~> 2.4.2)
+
+SPEC CHECKSUMS:
+  ACPButton: 187740a84eb54740075178a3125403164c6473df
+  LXReorderableCollectionViewFlowLayout: 7476503803af6badf13fb6164953880396726cb3
+  NHBalancedFlowLayout: 3be7c4a41f4dd918445e4823de25bc3cb7a18b4a
+  REFrostedViewController: 544180cdfb02dc5a0fb73fba0d484b01d87faaf7
+
+COCOAPODS: 0.29.0
