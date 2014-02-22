@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.title = self.profileNameLabel.text;
+    
 	
     // Sets the circle image path properties
     [self.profileImage setImageToCirclePath];
