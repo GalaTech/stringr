@@ -444,13 +444,17 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" image="loginWithFacebook"/>
                                 <connections>
-                                    <action selector="pushToNewView:" destination="UvT-5J-tYG" eventType="touchUpInside" id="Hp3-fV-pY3"/>
+                                    <action selector="loginWithFacebookButtonTouchHandler:" destination="UvT-5J-tYG" eventType="touchUpInside" id="fWi-Kj-4BA"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Logo" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-fS-EJk">
                                 <rect key="frame" x="40" y="20" width="241" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="36E-gq-hoW">
+                                <rect key="frame" x="142" y="265" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -463,6 +467,8 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="7Yi-tG-hD8" id="fii-96-Vgd"/>
+                        <outlet property="facebookLoginActivityIndicator" destination="36E-gq-hoW" id="kaf-ws-hOS"/>
+                        <outlet property="facebookLoginButton" destination="ecA-DM-Xgk" id="hz8-VQ-zsB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5i-vk-Lix" userLabel="First Responder" sceneMemberID="firstResponder"/>

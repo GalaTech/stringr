@@ -63,19 +63,28 @@
     
     //cameraImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
+    
+
     StringrPathImageView *imageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
-                                                                            image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+                                                                            image:[UIImage imageWithData:[[PFUser currentUser] objectForKey:@"userProfileImageData"]] // parse user profile image
                                                                         pathColor:[UIColor darkGrayColor]
                                                                         pathWidth:1.0];
     [imageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-    label.text = @"Alonso Holmes";
-    label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+
+    label.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
+    
+    // parse user profile name
+    label.text = [[PFUser currentUser] objectForKey:@"displayName"];
+    
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
     [label sizeToFit];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+
+    
     
     [view addSubview:imageView];
     [view addSubview:self.cameraButton];
@@ -108,6 +117,12 @@
     
     //[actionSheet showInView:self.parentViewController.view];
 }
+
+
+
+#pragma mark - Private
+
+
 
 
 
@@ -250,6 +265,8 @@
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
+        [PFUser logOut];
+        
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self presentViewController:loginVC animated:YES completion:nil];
     }

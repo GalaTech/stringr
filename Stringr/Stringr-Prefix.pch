@@ -15,4 +15,5 @@
     #import <Foundation/Foundation.h>
     #import "StringrConstants.h"
     #import "StringrUtility.h"
+    #import <Parse/Parse.h>
 #endif
