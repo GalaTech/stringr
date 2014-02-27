@@ -58,6 +58,7 @@
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
 		AB757AAB1887532100D32917 /* StringrMySchoolTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AAA1887532100D32917 /* StringrMySchoolTableViewController.m */; };
+		AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */; };
 		AB85DD6A18904208007217DC /* TestTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB85DD6918904208007217DC /* TestTableViewViewController.m */; };
 		AB85DD6D18904345007217DC /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB85DD6C18904345007217DC /* TestTableViewCell.m */; };
 		AB919C4A189EF23A00D40FD5 /* StringViewReorderable.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C49189EF23A00D40FD5 /* StringViewReorderable.m */; };
@@ -204,6 +205,8 @@
 		AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDiscoveryTableViewController.m; path = StringrStringTable/StringrDiscoveryTableViewController.m; sourceTree = "<group>"; };
 		AB757AA91887532100D32917 /* StringrMySchoolTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMySchoolTableViewController.h; path = StringrStringTable/StringrMySchoolTableViewController.h; sourceTree = "<group>"; };
 		AB757AAA1887532100D32917 /* StringrMySchoolTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrMySchoolTableViewController.m; path = StringrStringTable/StringrMySchoolTableViewController.m; sourceTree = "<group>"; };
+		AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSelectProfileImageTableViewCell.h; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.h; sourceTree = "<group>"; };
+		AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectProfileImageTableViewCell.m; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.m; sourceTree = "<group>"; };
 		AB85DD6818904208007217DC /* TestTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewViewController.h; sourceTree = "<group>"; };
 		AB85DD6918904208007217DC /* TestTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewViewController.m; sourceTree = "<group>"; };
 		AB85DD6B18904345007217DC /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
@@ -449,6 +452,15 @@
 			name = "Image Path ";
 			sourceTree = "<group>";
 		};
+		AB7D345518BE900E0009CFC5 /* Edit Profile TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */,
+				AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */,
+			);
+			name = "Edit Profile TableViewCell";
+			sourceTree = "<group>";
+		};
 		AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +591,7 @@
 		BF3EDE03183E92380071E047 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				AB7D345518BE900E0009CFC5 /* Edit Profile TableViewCell */,
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
 				BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */,
@@ -1022,6 +1035,7 @@
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
 				BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
+				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,

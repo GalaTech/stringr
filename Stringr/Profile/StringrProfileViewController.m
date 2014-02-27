@@ -47,10 +47,16 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                                  style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
+        
+        // if we can edit the profile that means it's the current user who is accessing the profile
+        self.userForProfile = [PFUser currentUser];
     }
     
     // Instantiates the parallax VC with a top and bottom VC.
     StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
+    // Sets the user for the currently accessed profile
+    [topProfileVC setUserForProfile:self.userForProfile];
+    
     StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
     
     [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
@@ -127,6 +133,7 @@
     [editProfileVC setFillerProfileImage:topVC.profileImage];
     [editProfileVC setFillerProfileName:topVC.profileNameLabel.text];
     [editProfileVC setFillerDescription:topVC.profileDescriptionLabel.text];
+    [editProfileVC setFillerUniversityName:topVC.profileUniversityLabel.text];
     
     [editProfileVC setDelegate:self];
     
@@ -167,6 +174,12 @@
     //[topViewController.profileDescriptionTextView setTextColor:currentTextViewColor];
 }
 
+- (void)setProfileUniversityName:(NSString *)universityName
+{
+    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
+    
+    topViewController.profileUniversityLabel.text = universityName;
+}
 
 
 

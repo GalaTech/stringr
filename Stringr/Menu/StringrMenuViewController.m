@@ -31,6 +31,8 @@
 @interface StringrMenuViewController () <UIActionSheetDelegate>
 
 @property (strong,nonatomic) UIButton *cameraButton;
+@property (strong, nonatomic) UILabel *profileNameLabel;
+@property (strong, nonatomic) StringrPathImageView *profileImageView;
 
 @end
 
@@ -65,34 +67,51 @@
     
     
 
-    StringrPathImageView *imageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
-                                                                            image:[UIImage imageWithData:[[PFUser currentUser] objectForKey:@"userProfileImageData"]] // parse user profile image
+    self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
+                                                                            image:[UIImage imageNamed:@"Stringr Image"]
                                                                         pathColor:[UIColor darkGrayColor]
                                                                         pathWidth:1.0];
-    [imageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-    [imageView setContentMode:UIViewContentModeScaleAspectFill];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+    
+    // loads the users profile image in the background
+    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:@"userProfileImage"];
+    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            UIImage *profileImage = [UIImage imageWithData:imageData];
+            [self.profileImageView setImage:profileImage];
+        }
+    }];
+    
+    
+    [self.profileImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
+    
+    self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
 
-    label.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
+    self.profileNameLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
     
     // parse user profile name
-    label.text = [[PFUser currentUser] objectForKey:@"displayName"];
+    self.profileNameLabel.text = [[PFUser currentUser] objectForKey:@"displayName"];
     
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-    [label sizeToFit];
-    label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    self.profileNameLabel.backgroundColor = [UIColor clearColor];
+    self.profileNameLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.profileNameLabel sizeToFit];
+    self.profileNameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 
     
     
-    [view addSubview:imageView];
+    [view addSubview:self.profileImageView];
     [view addSubview:self.cameraButton];
-    [view addSubview:label];
+    [view addSubview:self.profileNameLabel];
     
     self.tableView.tableHeaderView = view;
     
     [self.tableView setShowsVerticalScrollIndicator:NO];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,6 +135,22 @@
     //[actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     //[actionSheet showInView:self.parentViewController.view];
+}
+
+- (void)updateUserProfileImage
+{
+    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:@"userProfileImage"];
+    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            UIImage *profileImage = [UIImage imageWithData:imageData];
+            [self.profileImageView setImage:profileImage];
+        }
+    }];
+}
+
+- (void)updateUserProfileName
+{
+    [self.profileNameLabel setText:[[PFUser currentUser] objectForKey:@"displayName"]];
 }
 
 

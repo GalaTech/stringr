@@ -188,33 +188,37 @@
             
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
-            //NSMutableDictionary *userProfile = [NSMutableDictionary dictionaryWithCapacity:7];
+            // If it's a new user we go through the setup of loading all their facebook info
+            if ([[PFUser currentUser] isNew]) {
+                if (facebookID) {
+                    [[PFUser currentUser] setObject:facebookID forKey:@"facebookProfileID"];
+                    //userProfile[@"facebookId"] = facebookID;
+                }
             
-            if (facebookID) {
-                [[PFUser currentUser] setObject:facebookID forKey:@"facebookProfileID"];
-                //userProfile[@"facebookId"] = facebookID;
-            }
-            
-            if (userData[@"name"]) {
-                [[PFUser currentUser] setObject:userData[@"name"] forKey:@"displayName"];
-                //userProfile[@"name"] = userData[@"name"];
-            }
-            
-            if (userData[@"location"][@"name"]) {
-                [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:@"userLocation"];
-                //userProfile[@"location"] = userData[@"location"][@"name"];
-            }
-            
-            if ([pictureURL absoluteString]) {
-                [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"facebookProfilePictureURL"];
-                [self downloadFacebookProfileImage];
-                //userProfile[@"pictureURL"] = [pictureURL absoluteString];
+                if (userData[@"name"]) {
+                    [[PFUser currentUser] setObject:userData[@"name"] forKey:@"displayName"];
+                    //userProfile[@"name"] = userData[@"name"];
+                }
+                
+                if (userData[@"location"][@"name"]) {
+                    [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:@"userLocation"];
+                    //userProfile[@"location"] = userData[@"location"][@"name"];
+                }
+                
+                if ([pictureURL absoluteString]) {
+                    [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"facebookProfilePictureURL"];
+                    [self downloadFacebookProfileImage];
+                    //userProfile[@"pictureURL"] = [pictureURL absoluteString];
+                }
+                
+                [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:@"userProfileDescription"];
             }
             
             if ([self didAttendCollege:userData]) {
                 NSLog(@"YES! They are a college student!");
                 
                 [[PFUser currentUser] setObject:@(YES) forKey:@"isCollegeStudent"];
+                [[PFUser currentUser] setObject:self.universityNames[0] forKey:@"selectedUserUniversityName"];
                 [[PFUser currentUser] setObject:self.universityNames forKey:@"userUniversityNames"];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
@@ -274,7 +278,7 @@
     // Download the user's facebook profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:@"profile"][@"pictureURL"]) {
+    if ([[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]) {
         NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
@@ -305,8 +309,15 @@
 #pragma mark - NSURLConnectionDataDelegate
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    [[PFUser currentUser] setObject:self.profileImageData forKey:@"userProfileImageData"];
+    // Saves the users Facebook profile image as a parse file once the data has been loaded
+    PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
+    [[PFUser currentUser] setObject:profileImageFile forKey:@"userProfileImage"];
+    // Save with block so that the menu profile image is not called until the new image has finished uploading
     [[PFUser currentUser] saveInBackground];
+    
+    
+    //[[PFUser currentUser] setObject:self.profileImageData forKey:@"userProfileImageData"];
+    //[[PFUser currentUser] saveInBackground];
 }
 
 

@@ -12,6 +12,8 @@
 
 @interface StringrProfileTopViewController : UIViewController
 
+@property (strong, nonatomic) PFUser *userForProfile;
+
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
 

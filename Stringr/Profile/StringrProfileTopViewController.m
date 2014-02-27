@@ -30,13 +30,31 @@
     [super viewDidLoad];
     
     
-	
+    
+    [self.profileNameLabel setText:[self.userForProfile objectForKey:@"displayName"]];
+    [self.profileUniversityLabel setText:[self.userForProfile objectForKey:@"selectedUserUniversityName"]];
+    [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:@"userProfileDescription"]];
+    
+    
+    
+    
     // Sets the circle image path properties
     [self.profileImage setImageToCirclePath];
-    //[self.profileImage setImage:self.profileImage.image];
     [self.profileImage setPathWidth:1.0];
     [self.profileImage setPathColor:[UIColor darkGrayColor]];
+    [self.profileImage setContentMode:UIViewContentModeScaleAspectFill];
     
+    PFFile *userProfileImageFile = [self.userForProfile objectForKey:@"userProfileImage"];
+    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            UIImage *profileImage = [UIImage imageWithData:imageData];
+            [self.profileImage setImage:profileImage];
+        }
+    }];
+    
+    
+	
+
     
     // Adds custom design to follow user button
     [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
