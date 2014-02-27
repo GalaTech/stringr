@@ -27,7 +27,8 @@ extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
 extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
 extern NSString * const kNSNotificationCenterUploadNewStringKey;
 extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
-
+extern NSString * const kNSNotificationCenterUpdateMenuProfileImage;
+extern NSString * const kNSNotificationCenterUpdateMenuProfileName;
 
 
 #pragma mark - PFObject Activity Class

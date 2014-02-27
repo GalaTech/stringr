@@ -8,8 +8,9 @@
 
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileViewController.h"
+#import "StringrSelectProfileImageTableViewCell.h"
 
-@interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -20,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *charactersRemaining;
 @property (weak, nonatomic) IBOutlet UITextField *underlyingProfileDescriptionTextField;
 
+@property (weak, nonatomic) IBOutlet UIButton *selectUniversityButton;
+
+@property (strong, nonatomic) NSMutableData *profileImageData;
 
 @end
 
@@ -36,6 +40,8 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Edit Profile";
+    
     // Adds a custom path to the profile image
     [self.editProfileImage setImageToCirclePath];
     [self.editProfileImage setPathWidth:1.0];
@@ -51,11 +57,14 @@
     [self.editProfileDescriptionTextView setText:self.fillerDescription];
     [self.editProfileImage setImage:self.fillerProfileImage.image];
     
+    [self.selectUniversityButton setTitle:self.fillerUniversityName forState:UIControlStateNormal];
+    
     NSString *charactersRemaining = [NSString stringWithFormat:@"%u", 60 - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
     
-    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) + 200)];
-    
+    [self.scrollView setUserInteractionEnabled:YES];
+    [self.scrollView setScrollEnabled:YES];
+    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) + 300)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,16 +73,16 @@
     
     //#warning removed keyboard placement actions because I added full scrollview
     // Adds notifications to know when the keyboard is shown and hidden
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -97,7 +106,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
+                                                    otherButtonTitles:@"Take Photo", @"Choose from Library", @"Reload from Facebook", nil];
     [changeImage showInView:self.view];
 }
 
@@ -111,15 +120,40 @@
 {
     NSString *editedName = sender.text;
     [self.delegate setProfileName:editedName];
+    [[PFUser currentUser] setObject:editedName forKey:@"displayName"];
+    // saves with block so that the menu will only reload once the data has been successfully uploaded
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileName object:nil];
+        }
+    }];
+    
+    
 }
 
+- (IBAction)selectUniversityButtonAction:(UIButton *)sender
+{
+    NSArray *array = [[PFUser currentUser] objectForKey:@"userUniversityNames"];
+    
+    UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    for (NSString *title in array) {
+        [universitySelectActionSheet addButtonWithTitle:title];
+    }
+    
+    [universitySelectActionSheet addButtonWithTitle:@"Cancel"];
+    [universitySelectActionSheet setCancelButtonIndex:[array count]];
+    
+    
+    [universitySelectActionSheet showInView:self.view];
+}
 
 
 
 
 #pragma mark - NSNotificationCenter Action Handlers
 
-/*
+
 - (void)keyboardWillShow:(NSNotification *)note {
     // Gets the rect of the keyboard
     CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -151,7 +185,176 @@
     }];
 }
 
-*/
+
+
+
+#pragma mark - Private
+
+- (void)downloadFacebookProfileImage
+{
+    // Download the user's facebook profile picture
+    self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
+    
+    if ([[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]];
+        
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
+                                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                              timeoutInterval:2.0f];
+        // Run network request asynchronously
+        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+        if (!urlConnection) {
+            NSLog(@"Failed to download picture");
+        }
+    }
+}
+
+/*
+- (void)setupAndDisplayUniversitySelectView
+{
+
+}
+ */
+
+
+
+#pragma mark - UITableViewController DataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 4;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    
+    if (indexPath.section == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileImage" forIndexPath:indexPath];
+        
+        StringrSelectProfileImageTableViewCell *imageCell = (StringrSelectProfileImageTableViewCell *)cell;
+        
+        
+        
+        [imageCell.userProfileImage setImage:self.fillerProfileImage.image];
+        [imageCell.userProfileImage setImageToCirclePath];
+        [imageCell.userProfileImage setPathColor:[UIColor darkGrayColor]];
+        [imageCell.userProfileImage setPathWidth:1.0];
+    }
+    
+    switch (indexPath.section) {
+        case 1:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileName" forIndexPath:indexPath];
+            break;
+        case 2:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileDescription" forIndexPath:indexPath];
+            break;
+        case 3:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_SelectUniversity" forIndexPath:indexPath];
+            break;
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
+
+#pragma mark - UITableViewController Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            //[self setupAndDisplayUniversitySelectView];
+            break;
+        default:
+            break;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    // The section for changing profile image does not have a section header
+    if (section == 0) {
+        return 0;
+    } else {
+        return 20;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView;
+    
+    // The section for changing profile image does not have a section header
+    if (section > 0) {
+         headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20)];
+        [headerView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        
+        UILabel *headerText = [[UILabel alloc] initWithFrame:CGRectMake(10, 2.5, 200, 15)];
+        
+        // SectionHeaderTitles is pulled from photo/string subclasses getter
+        switch (section) {
+            case 0:
+                [headerText setText:nil];
+                break;
+            case 1:
+                [headerText setText:@"Profile Name"];
+                break;
+            case 2:
+                [headerText setText:@"Profile Description"];
+                break;
+            case 3:
+                [headerText setText:@"University"];
+                break;
+            default:
+                break;
+        }
+        
+        [headerText setTextColor:[UIColor darkGrayColor]];
+        [headerText setTextAlignment:NSTextAlignmentLeft];
+        [headerText setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+        
+        [headerView addSubview:headerText];
+    }
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+            return 128;
+            break;
+        case 1:
+            return 44;
+            break;
+        case 2:
+            return 125;
+            break;
+        case 3:
+            return 55;
+            break;
+        default:
+            break;
+    }
+    
+    return 500;
+}
+
 
 
 #pragma mark - UITextFieldDelegate
@@ -164,7 +367,7 @@
 
 #pragma mark - UITextViewDelegate
 
-static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
+static int const kNUMBER_OF_CHARACTERS_ALLOWED = 80;
 
 // Sets the filler description to the text of the view whenever you exit
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -197,6 +400,8 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
             // Sets the delegates description to the text views text. This will change the description that
             // is displayed on the main profile page.
             [self.delegate setProfileDescription:textView.text];
+            [[PFUser currentUser] setObject:textView.text forKey:@"userProfileDescription"];
+            [[PFUser currentUser] saveInBackground];
         
             self.fillerDescription = textView.text;
         }
@@ -216,21 +421,25 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
 
 
 
+
 #pragma mark - UIScrollViewDelegate
 
-/*
+
 // Hides the keyboard if you begin to move the scroll view
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.editProfileNameTextField resignFirstResponder];
     [self.editProfileDescriptionTextView resignFirstResponder];
+
 }
-*/
+
+
 
 
 #pragma mark - UIActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         
@@ -253,6 +462,24 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Reload from Facebook"]) {
+        
+        [self downloadFacebookProfileImage];
+        
+    } else {
+        if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+            NSString *selectedUniversityName = [actionSheet buttonTitleAtIndex:buttonIndex];
+            
+            // if not equal to the currently selected university name
+            if (![selectedUniversityName isEqualToString:self.selectUniversityButton.titleLabel.text]) {
+                [self.selectUniversityButton setTitle:selectedUniversityName forState:UIControlStateNormal];
+                
+                [self.delegate setProfileUniversityName:selectedUniversityName];
+                
+                [[PFUser currentUser] setObject:selectedUniversityName forKey:@"selectedUserUniversityName"];
+                [[PFUser currentUser] saveInBackground];
+            }
+        }
     }
 }
 
@@ -268,8 +495,52 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
         
         [self.editProfileImage setImage:image];
         [self.delegate setProfilePhoto:image];
+        
+        // Creates a data representation of the newly selected profile image
+        // Saves that image to the current users parse user profile
+        NSData *profileImageData = UIImagePNGRepresentation(image);
+        
+        PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:profileImageData];
+        [[PFUser currentUser] setObject:profileImageFile forKey:@"userProfileImage"];
+        // Saves profile image in block so that notification to reload menu image will occur upon completion
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // Posted notification that the user profile has been updated
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+            }
+        }];
     }];
 }
 
+
+
+
+#pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // As chuncks of the image are received, we build our data file
+    [self.profileImageData appendData:data];
+}
+
+
+#pragma mark - NSURLConnectionDataDelegate
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    UIImage *facebookProfileImage = [UIImage imageWithData:self.profileImageData];
+    [self.editProfileImage setImage:facebookProfileImage];
+    [self.delegate setProfilePhoto:facebookProfileImage];
+    
+    // Saves the users Facebook profile image as a parse file once the data has been loaded
+    PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
+    [[PFUser currentUser] setObject:profileImageFile forKey:@"userProfileImage"];
+    // Saves profile image in block so that notification to reload menu image will occur upon completion
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // Posted notification that the user profile has been updated
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+        }
+    }];
+    
+}
 
 @end

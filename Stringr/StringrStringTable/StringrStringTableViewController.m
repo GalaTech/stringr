@@ -92,23 +92,37 @@
 
 #pragma mark - Custom Accessors
 
-static int const NUMBER_OF_IMAGES = 24;
+static int const NUMBER_OF_IMAGES = 5;
 
 // Getter for test data images property
 - (NSArray *)images
 {
     if (!_images) {
+        
+        //PFObject *testString = [PFObject objectWithClassName:@"String"];
+        
         NSMutableArray *images = [[NSMutableArray alloc] init];
         for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
             @autoreleasepool {
                 NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
                 UIImage *image = [UIImage imageNamed:imageName];
                 
+                //NSData *imageData = UIImagePNGRepresentation(image);
+                
+                //PFObject *testPhoto = [PFObject objectWithClassName:@"Photo"];
+                
+                //PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:imageData];
+                //[testPhoto setObject:profileImageFile forKey:@"Photo"];
+                //[testPhoto saveInBackground];
+                
                 NSDictionary *photo = @{@"title": @"This is an awesome photo!", @"image": image};
                 
                 [images addObject:photo];
             }
         }
+        
+       // testString[@"stringImages"] = images;
+        //[testString saveInBackground];
         _images = [images copy];
     }
     
@@ -119,7 +133,7 @@ static int const NUMBER_OF_IMAGES = 24;
 {
     if (!_images2) {
         NSMutableArray *images = [[NSMutableArray alloc] init];
-        for (int i = 24; i >= 1; i--) {
+        for (int i = NUMBER_OF_IMAGES; i >= 1; i--) {
             @autoreleasepool {
                 NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
                 UIImage *image = [UIImage imageNamed:imageName];
