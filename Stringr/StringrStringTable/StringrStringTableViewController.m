@@ -313,11 +313,14 @@ static int const NUMBER_OF_IMAGES = 5;
         }
         
         // Init's the footer with live data from here
-        [footerCell setStringUploaderName:@"Alonso Holmes"];
+        //[footerCell setStringUploaderName:@"Alonso Holmes"];
         [footerCell setStringUploadDate:@"10 minutes ago"];
-        [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-        [footerCell setCommentButtonTitle:@"4.7k"];
-        [footerCell setLikeButtonTitle:@"11.3k"];
+        [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"Stringr Image"]];
+        [footerCell setCommentButtonTitle:@"0"];
+        [footerCell setLikeButtonTitle:@"0"];
+        
+        // Dynamic
+        [footerCell setStringUploaderName:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
         
         return footerCell;
     } else {

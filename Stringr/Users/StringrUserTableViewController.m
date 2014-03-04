@@ -101,6 +101,14 @@
         [cellProfileImage setPathColor:[UIColor darkGrayColor]];
         [cellProfileImage setPathWidth:1.0];
         
+        /*
+        PFImageView *profileImageView = [[PFImageView alloc] init];
+        profileImageView.image = [UIImage imageNamed:@"Stringr Image"];
+        profileImageView.file = (PFFile *)[[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
+        cellProfileImage.image = profileImageView.image;
+        [profileImageView loadInBackground];
+        */
+         
         // Sets the profile image on the current cell
         // TODO: This will eventually be the profile image pulled from parse
         userProfileCell.ProfileThumbnailImageView = cellProfileImage;

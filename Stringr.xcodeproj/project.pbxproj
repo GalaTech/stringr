@@ -36,6 +36,7 @@
 		AB1B0CD3188F9D5B0063EAC5 /* photo-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBB188F9D5B0063EAC5 /* photo-23.jpg */; };
 		AB1B0CD4188F9D5B0063EAC5 /* photo-24.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
+		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
 		AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810818B2967800DE933D /* AudioToolbox.framework */; };
 		AB50810B18B2967F00DE933D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810A18B2967F00DE933D /* CFNetwork.framework */; };
 		AB50810D18B2968F00DE933D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810C18B2968F00DE933D /* CoreLocation.framework */; };
@@ -172,6 +173,8 @@
 		AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-24.jpg"; sourceTree = "<group>"; };
 		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
+		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		AB4FF07D18C0019E000F550F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		AB50810818B2967800DE933D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AB50810A18B2967F00DE933D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AB50810C18B2968F00DE933D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -407,6 +410,15 @@
 			name = "Stock String Images";
 			path = "External/Images/Stock String Images";
 			sourceTree = SOURCE_ROOT;
+		};
+		AB4FF07B18C0019E000F550F /* UIImage+Resize */ = {
+			isa = PBXGroup;
+			children = (
+				AB4FF07C18C0019E000F550F /* UIImage+Resize.h */,
+				AB4FF07D18C0019E000F550F /* UIImage+Resize.m */,
+			);
+			path = "UIImage+Resize";
+			sourceTree = "<group>";
 		};
 		AB5B5947189AC9BD00790510 /* String Detail */ = {
 			isa = PBXGroup;
@@ -787,6 +799,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AB4FF07B18C0019E000F550F /* UIImage+Resize */,
 				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
 				AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */,
 			);
@@ -1042,6 +1055,7 @@
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
+				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,

@@ -191,35 +191,34 @@
             // If it's a new user we go through the setup of loading all their facebook info
             if ([[PFUser currentUser] isNew]) {
                 if (facebookID) {
-                    [[PFUser currentUser] setObject:facebookID forKey:@"facebookProfileID"];
+                    [[PFUser currentUser] setObject:facebookID forKey:kStringrFacebookIDKey];
                     //userProfile[@"facebookId"] = facebookID;
                 }
             
                 if (userData[@"name"]) {
-                    [[PFUser currentUser] setObject:userData[@"name"] forKey:@"displayName"];
+                    [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
                     //userProfile[@"name"] = userData[@"name"];
                 }
                 
                 if (userData[@"location"][@"name"]) {
-                    [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:@"userLocation"];
+                    [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:kStringrUserLocationKey];
                     //userProfile[@"location"] = userData[@"location"][@"name"];
                 }
                 
                 if ([pictureURL absoluteString]) {
-                    [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"facebookProfilePictureURL"];
+                    [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:kStringrFacebookProfilePictureURLKey];
                     [self downloadFacebookProfileImage];
                     //userProfile[@"pictureURL"] = [pictureURL absoluteString];
                 }
                 
-                [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:@"userProfileDescription"];
+                [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
             }
             
             if ([self didAttendCollege:userData]) {
                 NSLog(@"YES! They are a college student!");
                 
-                [[PFUser currentUser] setObject:@(YES) forKey:@"isCollegeStudent"];
-                [[PFUser currentUser] setObject:self.universityNames[0] forKey:@"selectedUserUniversityName"];
-                [[PFUser currentUser] setObject:self.universityNames forKey:@"userUniversityNames"];
+                [[PFUser currentUser] setObject:self.universityNames[0] forKey:kStringrUserSelectedUniversityKey];
+                [[PFUser currentUser] setObject:self.universityNames forKey:kStringrUserUniversitiesKey];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 NSLog(@"not a college student...");
@@ -236,10 +235,21 @@
                 return;
             }
             
-            //[[PFUser currentUser] setObject:userProfile forKey:@"profile"];
+            // I might just add the addition of geo location when a user attempts to select a location based page
+            /*
+            [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+                if (!error) {
+                    [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
+                    
+                    // Saves the user after we have ensured they are a valid college student
+                    [[PFUser currentUser] saveInBackground];
+                }
+            }];
+             */
+             
+             // Saves the user after we have ensured they are a valid college student
+             [[PFUser currentUser] saveInBackground];
             
-            // Saves the user after we have ensured they are a valid college student
-            [[PFUser currentUser] saveInBackground];
             
             
         } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"]) {
@@ -278,8 +288,8 @@
     // Download the user's facebook profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]) {
-        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]];
+    if ([[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -311,7 +321,7 @@
 {
     // Saves the users Facebook profile image as a parse file once the data has been loaded
     PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
-    [[PFUser currentUser] setObject:profileImageFile forKey:@"userProfileImage"];
+    [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
     // Save with block so that the menu profile image is not called until the new image has finished uploading
     [[PFUser currentUser] saveInBackground];
     

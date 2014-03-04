@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestTableViewCell : UITableViewCell
+@interface TestTableViewCell : PFTableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subTextLabel;
+@property (weak, nonatomic) IBOutlet PFImageView *profileImage;
+
 
 @end

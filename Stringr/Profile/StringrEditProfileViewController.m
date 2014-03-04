@@ -9,6 +9,8 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrSelectProfileImageTableViewCell.h"
+#import "UIImage+Resize.h"
+
 
 @interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
@@ -120,20 +122,17 @@
 {
     NSString *editedName = sender.text;
     [self.delegate setProfileName:editedName];
-    [[PFUser currentUser] setObject:editedName forKey:@"displayName"];
+    [[PFUser currentUser] setObject:editedName forKey:kStringrUserDisplayNameKey];
     // saves with block so that the menu will only reload once the data has been successfully uploaded
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileName object:nil];
-        }
-    }];
-    
+    [[PFUser currentUser] saveInBackground];
+        
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileName object:editedName];
     
 }
 
 - (IBAction)selectUniversityButtonAction:(UIButton *)sender
 {
-    NSArray *array = [[PFUser currentUser] objectForKey:@"userUniversityNames"];
+    NSArray *array = [[PFUser currentUser] objectForKey:kStringrUserUniversitiesKey];
     
     UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
@@ -195,8 +194,8 @@
     // Download the user's facebook profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]) {
-        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:@"facebookProfilePictureURL"]];
+    if ([[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -367,7 +366,7 @@
 
 #pragma mark - UITextViewDelegate
 
-static int const kNUMBER_OF_CHARACTERS_ALLOWED = 80;
+static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
 
 // Sets the filler description to the text of the view whenever you exit
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -400,7 +399,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 80;
             // Sets the delegates description to the text views text. This will change the description that
             // is displayed on the main profile page.
             [self.delegate setProfileDescription:textView.text];
-            [[PFUser currentUser] setObject:textView.text forKey:@"userProfileDescription"];
+            [[PFUser currentUser] setObject:textView.text forKey:kStringrUserDescriptionKey];
             [[PFUser currentUser] saveInBackground];
         
             self.fillerDescription = textView.text;
@@ -476,7 +475,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 80;
                 
                 [self.delegate setProfileUniversityName:selectedUniversityName];
                 
-                [[PFUser currentUser] setObject:selectedUniversityName forKey:@"selectedUserUniversityName"];
+                [[PFUser currentUser] setObject:selectedUniversityName forKey:kStringrUserSelectedUniversityKey];
                 [[PFUser currentUser] saveInBackground];
             }
         }
@@ -493,22 +492,31 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 80;
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        [self.editProfileImage setImage:image];
-        [self.delegate setProfilePhoto:image];
+        //image = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationUp];
+
+        // resizes the image into a normal and thumbnail sized photo for uploading
+        UIImage *resizedProfileImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
+        UIImage *thumbnailProfileImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+        
+        // sets new image to the edit page and the profile page
+        [self.editProfileImage setImage:resizedProfileImage];
+        [self.delegate setProfilePhoto:resizedProfileImage];
         
         // Creates a data representation of the newly selected profile image
         // Saves that image to the current users parse user profile
-        NSData *profileImageData = UIImagePNGRepresentation(image);
+        NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
+        NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
         
-        PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:profileImageData];
-        [[PFUser currentUser] setObject:profileImageFile forKey:@"userProfileImage"];
-        // Saves profile image in block so that notification to reload menu image will occur upon completion
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // Posted notification that the user profile has been updated
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileImage object:nil];
-            }
-        }];
+        PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.jpg" data:profileImageData];
+        PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+        
+        [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
+        [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
+
+        [[PFUser currentUser] saveInBackground];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileImage object:resizedProfileImage];
+        
     }];
 }
 
@@ -527,20 +535,24 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 80;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     UIImage *facebookProfileImage = [UIImage imageWithData:self.profileImageData];
+    
     [self.editProfileImage setImage:facebookProfileImage];
     [self.delegate setProfilePhoto:facebookProfileImage];
     
-    // Saves the users Facebook profile image as a parse file once the data has been loaded
-    PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
-    [[PFUser currentUser] setObject:profileImageFile forKey:@"userProfileImage"];
-    // Saves profile image in block so that notification to reload menu image will occur upon completion
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            // Posted notification that the user profile has been updated
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileImage object:nil];
-        }
-    }];
+    //UIImage *resizedProfileImage = [facebookProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
+    UIImage *thumbnailProfileImage = [facebookProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
     
+    NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
+    
+    // Saves the users Facebook profile image as a parse file once the data has been loaded
+    PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.png" data:self.profileImageData];
+    PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+    [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
+    [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
+    
+    [[PFUser currentUser] saveInBackground];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileImage object:facebookProfileImage];
 }
 
 @end

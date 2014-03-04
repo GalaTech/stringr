@@ -20,7 +20,6 @@
     return [UIColor colorWithWhite:0.85 alpha:1.0];
 }
 
-
 @end
 
 
@@ -44,54 +43,70 @@ NSString * const kNSNotificationCenterUpdateMenuProfileName = @"co.galatech.Stri
 
 #pragma mark - PFObject Activity Class
 // Class Key
-NSString * const kStringrActivityClassKey;
+NSString * const kStringrActivityClassKey = @"Activity";
 
 // Field Keys
-NSString * const kStringrActivityTypeKey;
-NSString * const kStringrFromUserKey;
-NSString * const kStringrToUserKey;
-NSString * const kStringrContentKey;
-NSString * const kStringrPhotoKey;
+NSString * const kStringrActivityTypeKey = @"type";
+NSString * const kStringrFromUserKey = @"fromUser";
+NSString * const kStringrToUserKey = @"toUser";
+
+NSString * const kStringrContentKey = @"content";
+NSString * const kStringrStringKey = @"string";
+NSString * const kStringrPhotoKey = @"photo";
 
 
 // Type values
-NSString * const kStringrActivityTypeStringLike;
-NSString * const kStringrActivityTypeStringComment;
-
-NSString * const kStringrActivityTypePhotoLike;
-NSString * const kStringrActivityTypePhotoComment;
-
-NSString * const kStringrActivityTypeFollow;
-NSString * const kStringrActivityTypeJoin;
+NSString * const kStringrActivityTypeLike = @"like";
+NSString * const kStringrActivityTypeComment = @"comment";
+NSString * const kStringrActivityTypeFollow = @"follow";
+NSString * const kStringrActivityTypeJoin = @"join";
+//NSString * const kStringrActivityTypePhotoLike = @"photoLike";
+//NSString * const kStringrActivityTypePhotoComment = @"photoComment";
 
 
 #pragma mark - PFObject User Class
 // Field Keys
-NSString * const kStringrUserDisplayNameKey;
-NSString * const kStringrFacebookIDKey;
+NSString * const kStringrUserDisplayNameKey = @"displayName";
+NSString * const kStringrFacebookIDKey = @"facebookID";
+NSString * const kStringrFacebookProfilePictureURLKey = @"facebookProfilePictureURL";
 
-NSString * const kStringrUserProfilePicThumbnailKey;
-NSString * const kStringrUserProfilePicKey;
+NSString * const kStringrUserProfilePictureKey = @"profileImage";
+NSString * const kStringrUserProfilePictureThumbnailKey = @"profileImageThumbnail";
 
-NSString * const kStringrUserAboutDescriptionKey;
-NSString * const kStringrUserUniversityKey;
+NSString * const kStringrUserDescriptionKey = @"description";
+NSString * const kStringrUserLocationKey = @"location";
+NSString * const kStringrUserSelectedUniversityKey = @"selectedUniversityName";
+NSString * const kStringrUserUniversitiesKey = @"universityNames";
 
-NSString * const kStringrUserPrivateChannelKey;
+NSString * const kStringrUserPrivateChannelKey = @"channel";
 
 
 
 
 #pragma mark - PFObject StringrString class
 // Class Key
-NSString * const kStringrStringClassKey;
+NSString * const kStringrStringClassKey = @"String";
 
 // Field Keys
-
+NSString * const kStringrStringPhotosKey = @"photos";
+NSString * const kStringrStringUserKey = @"user";
+NSString * const kStringrStringTitleKey = @"title";
+NSString * const kStringrStringDescriptionKey = @"description";
 
 
 
 #pragma mark - PFObject Photo Class
 // Class Key
-NSString * const kStringrPhotoClassKey;
+NSString * const kStringrPhotoClassKey = @"Photo";
 
 // Field Keys
+NSString * const kStringrPhotoPictureKey = @"image";
+NSString * const kStringrPhotoThumbnailKey = @"thumbnail";
+NSString * const kStringrPhotoUserKey = @"user";
+NSString * const kStringrPhotoStringKey = @"string";
+NSString * const kStringrPhotoCaptionKey = @"caption";
+NSString * const kStringrPhotoPictureWidth = @"imageWidth";
+NSString * const kStringrPhotoPictureHeight = @"imageHeight";
+NSString * const kStringrPhotoThumbnailWidth = @"thumbnailWidth";
+NSString * const kStringrPhotoThumbnailHeight = @"thumbnailHeight";
+
