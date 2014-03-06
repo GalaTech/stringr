@@ -37,6 +37,9 @@
 		AB1B0CD4188F9D5B0063EAC5 /* photo-24.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
+		AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */; };
+		AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */; };
+		AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */; };
 		AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810818B2967800DE933D /* AudioToolbox.framework */; };
 		AB50810B18B2967F00DE933D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810A18B2967F00DE933D /* CFNetwork.framework */; };
 		AB50810D18B2968F00DE933D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810C18B2968F00DE933D /* CoreLocation.framework */; };
@@ -175,6 +178,12 @@
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		AB4FF07D18C0019E000F550F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		AB4FF07F18C6B53E000F550F /* StringrSelectUniversityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSelectUniversityTableViewCell.h; path = Profile/TableViewCell/StringrSelectUniversityTableViewCell.h; sourceTree = "<group>"; };
+		AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectUniversityTableViewCell.m; path = Profile/TableViewCell/StringrSelectUniversityTableViewCell.m; sourceTree = "<group>"; };
+		AB4FF08218C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSetProfileDisplayNameTableViewCell.h; path = Profile/TableViewCell/StringrSetProfileDisplayNameTableViewCell.h; sourceTree = "<group>"; };
+		AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSetProfileDisplayNameTableViewCell.m; path = Profile/TableViewCell/StringrSetProfileDisplayNameTableViewCell.m; sourceTree = "<group>"; };
+		AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSetProfileDescriptionTableViewCell.h; path = Profile/TableViewCell/StringrSetProfileDescriptionTableViewCell.h; sourceTree = "<group>"; };
+		AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSetProfileDescriptionTableViewCell.m; path = Profile/TableViewCell/StringrSetProfileDescriptionTableViewCell.m; sourceTree = "<group>"; };
 		AB50810818B2967800DE933D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AB50810A18B2967F00DE933D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AB50810C18B2968F00DE933D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -469,6 +478,12 @@
 			children = (
 				AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */,
 				AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */,
+				AB4FF07F18C6B53E000F550F /* StringrSelectUniversityTableViewCell.h */,
+				AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */,
+				AB4FF08218C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.h */,
+				AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */,
+				AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */,
+				AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */,
 			);
 			name = "Edit Profile TableViewCell";
 			sourceTree = "<group>";
@@ -1032,9 +1047,11 @@
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */,
+				AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */,
 				AB85DD6A18904208007217DC /* TestTableViewViewController.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
+				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
 				AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */,
@@ -1050,6 +1067,7 @@
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
+				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,

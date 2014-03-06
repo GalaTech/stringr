@@ -9,6 +9,9 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrSelectProfileImageTableViewCell.h"
+#import "StringrSetProfileDisplayNameTableViewCell.h"
+#import "StringrSetProfileDescriptionTableViewCell.h"
+#import "StringrSelectUniversityTableViewCell.h"
 #import "UIImage+Resize.h"
 
 
@@ -61,43 +64,25 @@
     
     [self.selectUniversityButton setTitle:self.fillerUniversityName forState:UIControlStateNormal];
     
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%u", 60 - self.editProfileDescriptionTextView.text.length];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
-    
-    [self.scrollView setUserInteractionEnabled:YES];
-    [self.scrollView setScrollEnabled:YES];
-    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) + 300)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    //#warning removed keyboard placement actions because I added full scrollview
-    // Adds notifications to know when the keyboard is shown and hidden
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
-#pragma mark - Custom Accessors
 
-/*
-- (void)setEditProfileImage:(StringrPathImageView *)editProfileImage
-{
-    _editProfileImage = editProfileImage;
-    
-    [self.delegate setProfilePhoto:_editProfileImage.image];
-}
-*/
 
 
 #pragma mark - Actions
@@ -110,78 +95,6 @@
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:@"Take Photo", @"Choose from Library", @"Reload from Facebook", nil];
     [changeImage showInView:self.view];
-}
-
-
-
-
-#pragma mark - IBActions
-
-// Sets the delegate profile name to the edited text of the UITextField
-- (IBAction)editProfileNameTextField:(UITextField *)sender
-{
-    NSString *editedName = sender.text;
-    [self.delegate setProfileName:editedName];
-    [[PFUser currentUser] setObject:editedName forKey:kStringrUserDisplayNameKey];
-    // saves with block so that the menu will only reload once the data has been successfully uploaded
-    [[PFUser currentUser] saveInBackground];
-        
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileName object:editedName];
-    
-}
-
-- (IBAction)selectUniversityButtonAction:(UIButton *)sender
-{
-    NSArray *array = [[PFUser currentUser] objectForKey:kStringrUserUniversitiesKey];
-    
-    UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    
-    for (NSString *title in array) {
-        [universitySelectActionSheet addButtonWithTitle:title];
-    }
-    
-    [universitySelectActionSheet addButtonWithTitle:@"Cancel"];
-    [universitySelectActionSheet setCancelButtonIndex:[array count]];
-    
-    
-    [universitySelectActionSheet showInView:self.view];
-}
-
-
-
-
-#pragma mark - NSNotificationCenter Action Handlers
-
-
-- (void)keyboardWillShow:(NSNotification *)note {
-    // Gets the rect of the keyboard
-    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    // Gets the size of the scroll view
-    CGSize scrollViewContentSize = self.scrollView.bounds.size;
-    
-    // Sets the height of our CG size to add the height of the keyboard
-    scrollViewContentSize.height += keyboardFrameEnd.size.height;
-    
-    // Sets the content size of the scroll view to our newly created CGSize
-    [self.scrollView setContentSize:scrollViewContentSize];
-    
-    // Creates a point to move the scroll view to adjust for the keyboard.
-    CGPoint scrollViewContentOffset = self.scrollView.contentOffset;
-    scrollViewContentOffset.y += keyboardFrameEnd.size.height;
-    scrollViewContentOffset.y -= 80.0f;
-    
-    // Moves the scroll view to the new content offset in an animated fashion.
-    [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
-}
-
-- (void)keyboardWillHide:(NSNotification *)note {
-    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGSize scrollViewContentSize = self.scrollView.bounds.size;
-    scrollViewContentSize.height -= keyboardFrameEnd.size.height;
-    [UIView animateWithDuration:0.200f animations:^{
-        [self.scrollView setContentSize:scrollViewContentSize];
-    }];
 }
 
 
@@ -208,12 +121,23 @@
     }
 }
 
-/*
 - (void)setupAndDisplayUniversitySelectView
 {
-
+    NSArray *array = [[PFUser currentUser] objectForKey:kStringrUserUniversitiesKey];
+    
+    UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    for (NSString *title in array) {
+        [universitySelectActionSheet addButtonWithTitle:title];
+    }
+    
+    [universitySelectActionSheet addButtonWithTitle:@"Cancel"];
+    [universitySelectActionSheet setCancelButtonIndex:[array count]];
+    
+    
+    [universitySelectActionSheet showInView:self.view];
 }
- */
+
 
 
 
@@ -238,27 +162,41 @@
         
         StringrSelectProfileImageTableViewCell *imageCell = (StringrSelectProfileImageTableViewCell *)cell;
         
-        
-        
         [imageCell.userProfileImage setImage:self.fillerProfileImage.image];
         [imageCell.userProfileImage setImageToCirclePath];
         [imageCell.userProfileImage setPathColor:[UIColor darkGrayColor]];
         [imageCell.userProfileImage setPathWidth:1.0];
+    } else if (indexPath.section == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileName" forIndexPath:indexPath];
+        
+        StringrSetProfileDisplayNameTableViewCell *setDisplayName = (StringrSetProfileDisplayNameTableViewCell *)cell;
+        
+        [setDisplayName.setProfileDisplayNameTextField setPlaceholder:self.fillerProfileName];
+        
+        
+    } else if (indexPath.section == 2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileDescription" forIndexPath:indexPath];
+        
+        StringrSetProfileDescriptionTableViewCell *setDescriptionText = (StringrSetProfileDescriptionTableViewCell *)cell;
+        
+        [setDescriptionText.setProfileDescriptionTextView setText:self.fillerDescription];
+        
+        // Sets the number of characters remaining based around the length of text
+        NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
+        [setDescriptionText.numberOfCharactersRemainingLabel setText:charactersRemaining];
+        
+    } else if (indexPath.section == 3) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_SelectUniversity" forIndexPath:indexPath];
+        
+        StringrSelectUniversityTableViewCell *selectUniversityCell = (StringrSelectUniversityTableViewCell *)cell;
+        
+        NSString *selectedUniversityName = [[PFUser currentUser] objectForKey:kStringrUserSelectedUniversityKey];
+        
+        if (selectedUniversityName) {
+            [selectUniversityCell.selectedUniversityLabel setText:selectedUniversityName];
+        }
     }
-    
-    switch (indexPath.section) {
-        case 1:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileName" forIndexPath:indexPath];
-            break;
-        case 2:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_ProfileDescription" forIndexPath:indexPath];
-            break;
-        case 3:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_SelectUniversity" forIndexPath:indexPath];
-            break;
-        default:
-            break;
-    }
+
     
     return cell;
 }
@@ -268,18 +206,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 0:
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            //[self setupAndDisplayUniversitySelectView];
-            break;
-        default:
-            break;
+    if (indexPath.section == 0) {
+        [self changeProfileImage];
+        
+        //StringrSelectProfileImageTableViewCell *profileImageCell = (StringrSelectProfileImageTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        //[profileImageCell.userProfileImage setImage:self.editProfileImage.image];
+        
+    } else if (indexPath.section == 3) {
+        [self setupAndDisplayUniversitySelectView];
     }
 }
 
@@ -356,22 +290,78 @@
 
 
 
+
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
+    
+    NSArray *textWords = [textField.text componentsSeparatedByCharactersInSet:noCharacters];
+    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
+    
+    if (textWithoutWhiteSpace.length > 0) {
+        NSString *editedName = textField.text;
+        self.fillerProfileName = editedName;
+        [self.delegate setProfileName:editedName];
+        [[PFUser currentUser] setObject:editedName forKey:kStringrUserDisplayNameKey];
+        // saves with block so that the menu will only reload once the data has been successfully uploaded
+        [[PFUser currentUser] saveInBackground];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUpdateMenuProfileName object:editedName];
+        //NSLog(@"test");
+    }
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
+    
+    NSArray *textWords = [textField.text componentsSeparatedByCharactersInSet:noCharacters];
+    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
+    
+    if (textWithoutWhiteSpace.length == 0) {
+        textField.placeholder = self.fillerProfileName;
+        textField.text = @"";
+    }
+    
     [textField resignFirstResponder];
     return YES;
 }
 
 
+
+
 #pragma mark - UITextViewDelegate
 
-static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
+static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
 // Sets the filler description to the text of the view whenever you exit
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    textView.text = self.fillerDescription;
+    
+    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
+    
+    NSArray *textWords = [textView.text componentsSeparatedByCharactersInSet:noCharacters];
+    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
+
+    // Accounts for the correct filler text and character remaining count
+    if (textWithoutWhiteSpace.length == 0) {
+        textView.text = self.fillerDescription;
+        
+        // calculates the accurate number of characters remaining
+        NSInteger numberRemainging = kNUMBER_OF_CHARACTERS_ALLOWED - textView.text.length;
+        NSString *charactersRemaining = [NSString stringWithFormat:@"%d", numberRemainging];
+        
+        NSIndexPath *profileDescriptionIndexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+        StringrSetProfileDescriptionTableViewCell *descriptionCell = (StringrSetProfileDescriptionTableViewCell *)[self.tableView cellForRowAtIndexPath:profileDescriptionIndexPath];
+        
+        [descriptionCell.numberOfCharactersRemainingLabel setText:charactersRemaining];
+    }
+     
+    
+    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -393,30 +383,41 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
             return NO;
         }
         
+        NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
+        
+        NSArray *textWords = [textView.text componentsSeparatedByCharactersInSet:noCharacters];
+        NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
         
         // ensures that the description is not empty
-        if (textView.text.length > 0) {
+        if (textWithoutWhiteSpace.length > 0) {
             // Sets the delegates description to the text views text. This will change the description that
             // is displayed on the main profile page.
             [self.delegate setProfileDescription:textView.text];
+            self.fillerDescription = textView.text;
+            // Saves description to parse user object
             [[PFUser currentUser] setObject:textView.text forKey:kStringrUserDescriptionKey];
             [[PFUser currentUser] saveInBackground];
         
-            self.fillerDescription = textView.text;
+            
         }
         
         [textView resignFirstResponder];
         return NO;
     }
-    
+
     // Creates a string with the number of characters remaining and sets it to the
     // characters remaining label on the view
     NSString *charactersRemaining = [NSString stringWithFormat:@"%d", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
-    self.charactersRemaining.text = charactersRemaining;
+    
+    NSIndexPath *profileDescriptionIndexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+    StringrSetProfileDescriptionTableViewCell *descriptionCell = (StringrSetProfileDescriptionTableViewCell *)[self.tableView cellForRowAtIndexPath:profileDescriptionIndexPath];
+    
+    [descriptionCell.numberOfCharactersRemainingLabel setText:charactersRemaining];
+    
+    //self.charactersRemaining.text = charactersRemaining;
     
     return YES;
 }
-
 
 
 
@@ -425,9 +426,10 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
 
 
 // Hides the keyboard if you begin to move the scroll view
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.editProfileNameTextField resignFirstResponder];
-    [self.editProfileDescriptionTextView resignFirstResponder];
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    // resigns first responder for all
+    [self.view endEditing:YES];
 
 }
 
@@ -466,6 +468,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
         [self downloadFacebookProfileImage];
         
     } else {
+        // button is not equal to cancel
         if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
             NSString *selectedUniversityName = [actionSheet buttonTitleAtIndex:buttonIndex];
             
@@ -501,6 +504,10 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
         // sets new image to the edit page and the profile page
         [self.editProfileImage setImage:resizedProfileImage];
         [self.delegate setProfilePhoto:resizedProfileImage];
+        
+        // Sets the cells image to the newly selected image
+        NSIndexPath *profileImageIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[profileImageIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         // Creates a data representation of the newly selected profile image
         // Saves that image to the current users parse user profile
@@ -538,6 +545,10 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 60;
     
     [self.editProfileImage setImage:facebookProfileImage];
     [self.delegate setProfilePhoto:facebookProfileImage];
+    
+    // Sets the cells image to the newly selected image
+    NSIndexPath *profileImageIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[profileImageIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     //UIImage *resizedProfileImage = [facebookProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
     UIImage *thumbnailProfileImage = [facebookProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];

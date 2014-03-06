@@ -390,6 +390,14 @@
                                     <outlet property="subTextLabel" destination="kCZ-Ez-GiP" id="qih-EB-8AV"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StringTableViewCell" rowHeight="180" id="a5a-0w-R72" customClass="StringTableViewCell">
+                                <rect key="frame" x="0.0" y="202" width="320" height="180"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a5a-0w-R72" id="muQ-zG-lTL">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="dIb-ZL-thS" id="dbC-aB-DfG"/>
@@ -674,7 +682,7 @@
         <!--Stringr Edit Profile View Controller - Edit Profile-->
         <scene sceneID="yX3-1Y-ZKU">
             <objects>
-                <viewController storyboardIdentifier="EditProfileVC" id="Vb9-ZS-kGf" customClass="StringrEditProfileViewController" sceneMemberID="viewController">
+                <viewController id="Vb9-ZS-kGf" customClass="StringrEditProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Lq-IU-PCe"/>
                         <viewControllerLayoutGuide type="bottom" id="UlQ-Q7-6np"/>
@@ -1009,7 +1017,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDu-Qv-KMP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1015" y="-4631"/>
+            <point key="canvasLocation" x="-963" y="-4631"/>
         </scene>
         <!--Stringr User Search View Controller - Find People-->
         <scene sceneID="2jQ-IL-q75">
@@ -2191,7 +2199,7 @@
         <!--Stringr Edit Profile View Controller-->
         <scene sceneID="Kky-f0-pf4">
             <objects>
-                <tableViewController id="aCM-Rt-UG6" customClass="StringrEditProfileViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="EditProfileVC" id="aCM-Rt-UG6" customClass="StringrEditProfileViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5Kw-pT-7ec">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2208,7 +2216,7 @@
                                             <rect key="frame" x="20" y="19" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Click to change your profile photo." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="132" translatesAutoresizingMaskIntoConstraints="NO" id="7ir-5d-qUl">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap to change your profile photo." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="132" translatesAutoresizingMaskIntoConstraints="NO" id="7ir-5d-qUl">
                                             <rect key="frame" x="148" y="46" width="132" height="36"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2221,28 +2229,30 @@
                                     <outlet property="userProfileImage" destination="Nur-El-636" id="0eB-BE-TNS"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_ProfileName" rowHeight="44" id="QU1-TI-lcT">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_ProfileName" rowHeight="44" id="QU1-TI-lcT" customClass="StringrSetProfileDisplayNameTableViewCell">
                                 <rect key="frame" x="0.0" y="150" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QU1-TI-lcT" id="Oqo-GZ-hWZ">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name..." clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ere-yI-E1S">
+                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ere-yI-E1S">
                                             <rect key="frame" x="20" y="7" width="280" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.79105548469999998" green="0.79105548469999998" blue="0.79105548469999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
-                                                <action selector="editProfileNameTextField:" destination="aCM-Rt-UG6" eventType="editingDidEnd" id="7x4-6R-BUA"/>
                                                 <outlet property="delegate" destination="aCM-Rt-UG6" id="93k-23-vob"/>
                                             </connections>
                                         </textField>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="setProfileDisplayNameTextField" destination="ere-yI-E1S" id="mOb-fY-d5O"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_ProfileDescription" rowHeight="125" id="ZfC-gZ-UBb">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_ProfileDescription" rowHeight="125" id="ZfC-gZ-UBb" customClass="StringrSetProfileDescriptionTableViewCell">
                                 <rect key="frame" x="0.0" y="194" width="320" height="125"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZfC-gZ-UBb" id="Y7i-EG-efn">
@@ -2269,16 +2279,20 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="numberOfCharactersRemainingLabel" destination="bbN-19-gGI" id="Plg-LJ-Wjm"/>
+                                    <outlet property="setProfileDescriptionTextView" destination="0bc-Xc-I6H" id="h2Y-F5-dbN"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_SelectUniversity" rowHeight="55" id="krP-5J-jgf">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_SelectUniversity" rowHeight="55" id="krP-5J-jgf" customClass="StringrSelectUniversityTableViewCell">
                                 <rect key="frame" x="0.0" y="319" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="krP-5J-jgf" id="y3C-XK-RZx">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select your University..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66Y-Pg-aME">
-                                            <rect key="frame" x="20" y="16" width="146" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select your University..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="66Y-Pg-aME">
+                                            <rect key="frame" x="20" y="16" width="280" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.79105548469999998" green="0.79105548469999998" blue="0.79105548469999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -2286,6 +2300,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="selectedUniversityLabel" destination="66Y-Pg-aME" id="DI7-WU-uNB"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
