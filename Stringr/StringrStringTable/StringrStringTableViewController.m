@@ -314,7 +314,9 @@ static int const NUMBER_OF_IMAGES = 5;
         
         // Init's the footer with live data from here
         //[footerCell setStringUploaderName:@"Alonso Holmes"];
-        [footerCell setStringUploadDate:@"10 minutes ago"];
+        NSString *uploadTime = [StringrUtility timeAgoFromDate:[PFUser currentUser].createdAt];
+        
+        [footerCell setStringUploadDate:uploadTime];
         [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"Stringr Image"]];
         [footerCell setCommentButtonTitle:@"0"];
         [footerCell setLikeButtonTitle:@"0"];

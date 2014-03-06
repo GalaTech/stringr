@@ -22,6 +22,13 @@
  */
 - (void)setCollectionData:(NSMutableArray *)collectionData;
 
+/** Sets the string parse object for the collection view. 
+ * This is the string object whose photo data will be loaded.
+ *
+ * @param string The string object whose photos will be loaded into the collection view.
+ */
+- (void)setStringObject:(PFObject *)string;
+
 /// Returns a mutable copy of the current String data.
 - (NSMutableArray *)getCollectionData;
 

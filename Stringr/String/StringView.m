@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringLargeCollectionView;
 
 @property (strong, nonatomic) NSMutableArray *collectionData;
+@property (strong, nonatomic) NSArray *collectionViewImages;
+@property (strong, nonatomic) PFObject *stringToLoad;
 
 @end
 @implementation StringView
@@ -32,6 +34,8 @@
     // Large is only utilized on the detail string pages
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
     [_stringLargeCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
+    
+    
 }
 
 
@@ -46,6 +50,14 @@
     //[_stringCollectionView reloadData];
 }
 
+- (void)setStringObject:(PFObject *)string
+{
+    _stringToLoad = string;
+    
+    // queries parse after a string object has been set to load
+    [self queryFromParse];
+}
+
 - (NSMutableArray *)getCollectionData
 {
     return _collectionData;
@@ -53,6 +65,19 @@
 
 
 
+#pragma mark - Parse
+
+- (void)queryFromParse
+{
+    PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+    [stringPhotoQuery orderByAscending:@"createdAt"];
+    [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:self.stringToLoad];
+    
+    [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+        self.collectionViewImages = [[NSArray alloc] initWithArray:photos];
+        [self.stringCollectionView reloadData];
+    }];
+}
 
 
 
@@ -67,11 +92,30 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.collectionData count];
+    //return [self.collectionData count];
+    return [self.collectionViewImages count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    StringCollectionViewCell *stringCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
+    [stringCell.loadingImageIndicator setHidden:NO];
+    [stringCell.loadingImageIndicator startAnimating];
+    
+    PFObject *photoObject = [self.collectionViewImages objectAtIndex:indexPath.item];
+    
+    PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+    
+    [stringCell.cellImage setFile:imageFile];
+    
+    [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+        [stringCell.loadingImageIndicator stopAnimating];
+        [stringCell.loadingImageIndicator setHidden:YES];
+    }];
+    
+    return stringCell;
+    
+    /*
     // Gets the cell at indexPath from our collection data, which will be images.
     NSDictionary *cellData = [self.collectionData objectAtIndex:[indexPath row]];
     
@@ -105,6 +149,7 @@
     //stringCell.cellTitle.text = [cellData objectForKey:@"title"];
     
     return stringCell;
+     */
 }
 
 
@@ -128,10 +173,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    return CGSizeMake(157, 157);
+    /*
     NSDictionary *photoDictionary = [self.collectionData objectAtIndex:indexPath.item];
     UIImage *image = [photoDictionary objectForKey:@"image"];
     
     return [image size];
+     */
 }
 
 

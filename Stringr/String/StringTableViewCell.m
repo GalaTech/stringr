@@ -50,6 +50,10 @@
     [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
 }
 
+- (void)setStringObject:(PFObject *)string
+{
+    [_stringCollectionView setStringObject:string];
+}
 
 
 

@@ -13,4 +13,6 @@
 
 - (void)setCollectionData:(NSArray *)collectionData;
 
+- (void)setStringObject:(PFObject *)string;
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TestTableViewViewController.h"
+#import "StringTableViewCell.h"
 #import "TestTableViewCell.h"
 #import "UIImage+Resize.h"
 
@@ -16,15 +17,15 @@
 
 @implementation TestTableViewViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithCoder:(NSCoder *)aCoder
 {
-    self = [super initWithStyle:style];
+    self = [super initWithCoder:aCoder];
     if (self) {
         // This table displays items in the Todo class
-        self.parseClassName = kStringrPhotoClassKey;
+        self.parseClassName = kStringrStringClassKey;
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = YES;
-        self.objectsPerPage = 4;
+        self.objectsPerPage = 1;
     }
     
     return self;
@@ -35,6 +36,8 @@ static int const PHOTO_HEIGHT = 157;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -111,9 +114,59 @@ static int const PHOTO_HEIGHT = 157;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+
+#pragma mark - Parse
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    // Hides the load more cell if there are no more objects
+    if (self.objects == 0) {
+        self.paginationEnabled = NO;
+    } else {
+        self.paginationEnabled = YES;
+    }
+}
+
+- (void)objectsWillLoad
+{
+    [super objectsWillLoad];
+    
+    // This method is called before a PFQuery is fired to get more objects
+}
+
+
 
 - (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
     // If no objects are loaded in memory, we look to the cache first to fill the table
     // and then subsequently do a query against the network.
@@ -126,6 +179,12 @@ static int const PHOTO_HEIGHT = 157;
     return query;
 }
 
+- (PFTableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
+{
+    PFTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
+    
+    return loadMoreCell;
+}
 
 #pragma mark - Table view data source
 
@@ -146,29 +205,27 @@ static int const PHOTO_HEIGHT = 157;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    static NSString *cellIdentifier = @"Cell";
+    //static NSString *cellIdentifier = @"Cell";
     
+    StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:@"StringTableViewCell"];
+    [stringCell setStringObject:object];
+    
+    return stringCell;
+    
+    /*
+    TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    [cell.nameLabel setText:object[kStringrStringTitleKey]];
+    [cell.subTextLabel setText:object[kStringrStringDescriptionKey]];
+    */
+     
+    /*
     TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     
     if (!cell) {
         cell = [[TestTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    
-    // Configure the cell to show todo item with a priority at the bottom
-    //cell.textLabel.text = object[kStringrUserDisplayNameKey];
-    //cell.detailTextLabel.text = object[kStringrUserLocationKey];
-    
-    /*
-    [cell.nameLabel setText:object[kStringrUserDisplayNameKey]];
-    [cell.subTextLabel setText:object[kStringrUserLocationKey]];
-    
-    PFFile *image = object[kStringrUserProfilePictureKey];
-    [cell.profileImage setImage:[UIImage imageNamed:@"Stringr Image"]];
-    [cell.profileImage setFile:image];
-    [cell.profileImage setContentMode:UIViewContentModeScaleAspectFill];
-    [cell.profileImage loadInBackground];
-    */
     
     PFFile *photo = object[kStringrPhotoPictureKey];
     [cell.profileImage setImage:[UIImage imageNamed:@"Stringr Image"]];
@@ -183,9 +240,9 @@ static int const PHOTO_HEIGHT = 157;
     NSString *uploadedTime = [StringrUtility timeAgoFromDate:date];
 
     [cell.subTextLabel setText:[NSString stringWithFormat:@"Uploaded %@", uploadedTime]];
+    */
     
-    
-    return cell;
+    //return cell;
 }
 
 /*
@@ -212,6 +269,22 @@ static int const PHOTO_HEIGHT = 157;
     return cell;
 }
 */
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.row == self.objects.count) {
+        return 40;
+    }
+    
+    return 157;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
 
 
 /*
