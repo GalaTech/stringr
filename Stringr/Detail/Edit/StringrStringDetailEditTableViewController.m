@@ -92,13 +92,17 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
+                [mainDetailView setupFooterViewWithObject:self.stringDetailsToLoad];
+                [mainDetailView setDelegate:self];
                 
+                /*
                 // Init's the footer with live data from here
                 [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
                 [mainDetailView.uploadDateLabel setText:@"10 minutes ago"];
                 [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
                 [mainDetailView.commentsTextLabel setText:@"0"];
                 [mainDetailView.likesTextLabel setText:@"0"];
+                 */
                 
                 [cell addSubview:mainDetailView];
                 
@@ -305,7 +309,7 @@
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        [self.delegate addedNewImageToString:image];
+        [self.delegate addNewImageToString:image];
     }];
 }
 

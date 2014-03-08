@@ -91,7 +91,7 @@
     
     
     PFQuery *stringQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    
+
     [stringQuery getObjectInBackgroundWithId:@"bW7gX8Zqni" block:^(PFObject *string, NSError *error) {
         
         PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];

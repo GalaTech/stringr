@@ -29,7 +29,7 @@
     
     _stringReorderableCollectionView = [[NSBundle mainBundle] loadNibNamed:@"StringLargeReorderableCollectionView" owner:self options:nil][0];
     _stringReorderableCollectionView.frame = self.stringView.bounds;
-    
+    /*
     if (self.userSelectedPhoto) {
         NSMutableArray *images = [[NSMutableArray alloc] initWithArray:self.stringPhotoData];
         UIImage *imageCopy = [self.userSelectedPhoto copy];
@@ -39,6 +39,12 @@
     }
     
     [_stringReorderableCollectionView setCollectionData:[self.stringPhotoData mutableCopy]];
+     */
+    
+    [_stringReorderableCollectionView setStringObject:self.stringToLoad];
+    // sets self to subclass delegate for passing object information upon successful load completion
+    [_stringReorderableCollectionView setSubclassDelegate:_stringReorderableCollectionView];
+    
     [self.stringView addSubview:_stringReorderableCollectionView];
     
     [self.view setBackgroundColor:[StringrConstants kStringCollectionViewBackgroundColor]];
@@ -138,7 +144,7 @@ static int const NUMBER_OF_IMAGES = 24;
 
 #pragma mark - StringrStringDetailEditViewController Delegate
 
-- (void)addedNewImageToString:(UIImage *)image
+- (void)addNewImageToString:(UIImage *)image
 {
     NSLog(@"made it");
     

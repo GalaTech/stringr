@@ -31,6 +31,8 @@
         
         StringrPhotoDetailTopViewController *topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTopVC"];
         StringrPhotoDetailTableViewController *tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
+        [tablePhotoVC setPhotoDetailsToLoad:self.photoToLoad];
+        
         
         [self setupWithTopViewController:topPhotoVC andTopHeight:300 andBottomViewController:tablePhotoVC];
     } else {
@@ -40,10 +42,12 @@
         
         StringrPhotoDetailTopViewController *topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTopVC"];
         StringrPhotoDetailTableViewController *tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
+        [tablePhotoVC setPhotoDetailsToLoad:self.photoToLoad];
+        
         
         [self setupWithTopViewController:topPhotoVC andTopHeight:300 andBottomViewController:tablePhotoVC];
     }
-
+    
     [self enableTapGestureTopView:YES];
     [self setMaxHeight:CGRectGetHeight(self.view.frame)];
 }
@@ -53,7 +57,10 @@
     [super viewWillAppear:animated];
     
     StringrPhotoDetailTopViewController *topPhotoVC = (StringrPhotoDetailTopViewController *)self.topViewController;
-    [topPhotoVC.photoImage setImage:self.currentImage];
+
+    PFFile *photoFile = [self.photoToLoad objectForKey:kStringrPhotoPictureKey];
+    [topPhotoVC.photoImage setFile:photoFile];
+    [topPhotoVC.photoImage loadInBackground];
 }
 
 

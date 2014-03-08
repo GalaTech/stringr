@@ -11,6 +11,7 @@
 
 @interface StringrPhotoDetailTopViewController : StringrDetailTopViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *photoImage;
+@property (weak, nonatomic) IBOutlet PFImageView *photoImage;
+@property (strong, nonatomic) PFObject *photoToLoad;
 
 @end

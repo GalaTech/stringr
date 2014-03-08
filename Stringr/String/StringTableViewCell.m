@@ -55,6 +55,10 @@
     [_stringCollectionView setStringObject:string];
 }
 
+- (void)setStringViewDelegate:(id<StringViewDelegate>)delegate
+{
+    [_stringCollectionView setDelegate:delegate];
+}
 
 
 #pragma mark - Private

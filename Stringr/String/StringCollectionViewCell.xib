@@ -18,14 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.79105548469999998" green="0.79105548469999998" blue="0.79105548469999998" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
-                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EW4-kb-Cjv">
-                        <rect key="frame" x="13" y="129" width="130" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nsH-58-wi6">
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nsH-58-wi6">
                         <rect key="frame" x="81" y="82" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
@@ -36,11 +29,12 @@
                 <constraint firstAttribute="trailing" secondItem="HNM-F5-oaE" secondAttribute="trailing" id="HCe-bw-cOB"/>
                 <constraint firstAttribute="bottom" secondItem="HNM-F5-oaE" secondAttribute="bottom" id="HZO-db-crY"/>
                 <constraint firstItem="HNM-F5-oaE" firstAttribute="top" secondItem="TAP-FA-ePc" secondAttribute="top" id="fc7-jU-Sqc"/>
+                <constraint firstItem="nsH-58-wi6" firstAttribute="top" secondItem="TAP-FA-ePc" secondAttribute="top" constant="82" id="jwa-hN-ZSC"/>
                 <constraint firstItem="HNM-F5-oaE" firstAttribute="leading" secondItem="TAP-FA-ePc" secondAttribute="leading" id="oqA-pX-WWb"/>
+                <constraint firstItem="nsH-58-wi6" firstAttribute="centerX" secondItem="HNM-F5-oaE" secondAttribute="centerX" id="oqz-si-Ovf"/>
             </constraints>
             <connections>
                 <outlet property="cellImage" destination="HNM-F5-oaE" id="eUt-w9-uF9"/>
-                <outlet property="cellTitle" destination="EW4-kb-Cjv" id="mM8-TB-6Hz"/>
                 <outlet property="loadingImageIndicator" destination="nsH-58-wi6" id="9Pa-Fe-YHR"/>
             </connections>
         </collectionViewCell>

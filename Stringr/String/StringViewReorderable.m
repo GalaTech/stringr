@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet StringEditCollectionView *stringLargeReorderableCollectionView;
 @property (strong, nonatomic) NSMutableArray *collectionData;
+@property (strong, nonatomic) NSMutableArray *collectionViewPhotosData; // of Photo PFObject's
 
 @end
 
@@ -24,10 +25,25 @@
 - (void)awakeFromNib
 {
     [_stringLargeReorderableCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
-    _collectionData = [self getCollectionData];
+    //_collectionData = [self getCollectionData];
+    
+    
 }
 
 
+
+
+#pragma mark - Custom Accessors
+/*
+- (NSMutableArray *)collectionViewPhotosData
+{
+    if (!_collectionViewPhotosData) {
+        _collectionViewPhotosData = [[NSMutableArray alloc] init];
+    }
+    
+    return _collectionViewPhotosData;
+}
+*/
 
 
 #pragma mark - Public
@@ -63,15 +79,24 @@
 }
 
 
+
+#pragma mark - StringrViewSubclass Delegate
+
+- (void)getCollectionViewPhotoData:(NSMutableArray *)photoData
+{
+    _collectionViewPhotosData = [[NSMutableArray alloc] initWithArray:photoData];
+}
+
+
+
 #pragma mark - ReorderableCollectionView DataSource
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSDictionary *stringImage = [self.collectionData objectAtIndex:fromIndexPath.item];
-    //NSMutableArray *collectionData = [self getCollectionData];
+    PFObject *photo = [self.collectionViewPhotosData objectAtIndex:fromIndexPath.item];
     
-    [self.collectionData removeObjectAtIndex:fromIndexPath.item];
-    [self.collectionData insertObject:stringImage atIndex:toIndexPath.item];
+    [self.collectionViewPhotosData removeObjectAtIndex:fromIndexPath.item];
+    [self.collectionViewPhotosData insertObject:photo atIndex:toIndexPath.item];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath

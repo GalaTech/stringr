@@ -25,7 +25,7 @@
         self.parseClassName = kStringrStringClassKey;
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = YES;
-        self.objectsPerPage = 1;
+        self.objectsPerPage = 2;
     }
     
     return self;
@@ -148,6 +148,7 @@ static int const PHOTO_HEIGHT = 157;
 {
     [super objectsDidLoad:error];
     
+    
     // Hides the load more cell if there are no more objects
     if (self.objects == 0) {
         self.paginationEnabled = NO;
@@ -182,35 +183,69 @@ static int const PHOTO_HEIGHT = 157;
 - (PFTableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
     PFTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
+    [loadMoreCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     
     return loadMoreCell;
 }
 
 #pragma mark - Table view data source
 
-/*
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return [self.objects count];
 }
+ 
+ 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 10;
+    return 1;
+}
+ 
+/*
+- (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return [super objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
+    } else {
+        return nil;
+    }
+//    
+//    if (indexPath.row % 2 != 0) {
+//        return nil;
+//    } else {
+//        return [super objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
+//    }
 }
  */
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     //static NSString *cellIdentifier = @"Cell";
     
-    StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:@"StringTableViewCell"];
-    [stringCell setStringObject:object];
+    if (indexPath.row == 0) {
+        StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:@"StringTableViewCell"];
+        [stringCell setStringObject:object];
+        
+        return stringCell;
+    }
+    /*
+    else if (indexPath.row == 1) {
+        static NSString *cellIdentifier = @"Cell";
+        TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        [cell.nameLabel setText:object[kStringrStringTitleKey]];
+        [cell.subTextLabel setText:object[kStringrStringDescriptionKey]];
+        
+        return cell;
+    } 
+     */
+     else {
+        return nil;
+    }
     
-    return stringCell;
     
     /*
     TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

@@ -128,7 +128,6 @@
 		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
 		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
 		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
-		BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,8 +328,6 @@
 		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
 		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
 		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
-		BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringFooterTableViewCell.h; path = StringrStringTable/StringFooterTableViewCell.h; sourceTree = "<group>"; };
-		BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringFooterTableViewCell.m; path = StringrStringTable/StringFooterTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -634,7 +631,6 @@
 		BF3EDE07183E98910071E047 /* String Table */ = {
 			isa = PBXGroup;
 			children = (
-				BFFA599C186A2229001C377D /* Footer */,
 				BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */,
 				AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */,
@@ -837,15 +833,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		BFFA599C186A2229001C377D /* Footer */ = {
-			isa = PBXGroup;
-			children = (
-				BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */,
-				BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */,
-			);
-			name = Footer;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1021,7 +1008,6 @@
 				AB5B594A189ADAA100790510 /* StringrPhotoDetailEditTableViewController.m in Sources */,
 				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
-				BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */,
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
 				AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */,
