@@ -421,7 +421,9 @@ static float const contentViewWidthPercentage = .93;
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    [profileVC setCanEditProfile:NO];
+    
+    BOOL isCurrentUsersProfile = [PFUser currentUser] == uploader;
+    [profileVC setCanEditProfile:isCurrentUsersProfile];
     [profileVC setTitle:@"Profile"];
     [profileVC setCanCloseModal:YES];
     
