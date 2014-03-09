@@ -36,6 +36,10 @@
 		AB1B0CD3188F9D5B0063EAC5 /* photo-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBB188F9D5B0063EAC5 /* photo-23.jpg */; };
 		AB1B0CD4188F9D5B0063EAC5 /* photo-24.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
+		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
+		AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */; };
+		AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */; };
+		AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */; };
 		AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810818B2967800DE933D /* AudioToolbox.framework */; };
 		AB50810B18B2967F00DE933D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810A18B2967F00DE933D /* CFNetwork.framework */; };
 		AB50810D18B2968F00DE933D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810C18B2968F00DE933D /* CoreLocation.framework */; };
@@ -124,7 +128,6 @@
 		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
 		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
 		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
-		BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +175,14 @@
 		AB1B0CBC188F9D5B0063EAC5 /* photo-24.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "photo-24.jpg"; sourceTree = "<group>"; };
 		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
+		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		AB4FF07D18C0019E000F550F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		AB4FF07F18C6B53E000F550F /* StringrSelectUniversityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSelectUniversityTableViewCell.h; path = Profile/TableViewCell/StringrSelectUniversityTableViewCell.h; sourceTree = "<group>"; };
+		AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectUniversityTableViewCell.m; path = Profile/TableViewCell/StringrSelectUniversityTableViewCell.m; sourceTree = "<group>"; };
+		AB4FF08218C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSetProfileDisplayNameTableViewCell.h; path = Profile/TableViewCell/StringrSetProfileDisplayNameTableViewCell.h; sourceTree = "<group>"; };
+		AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSetProfileDisplayNameTableViewCell.m; path = Profile/TableViewCell/StringrSetProfileDisplayNameTableViewCell.m; sourceTree = "<group>"; };
+		AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSetProfileDescriptionTableViewCell.h; path = Profile/TableViewCell/StringrSetProfileDescriptionTableViewCell.h; sourceTree = "<group>"; };
+		AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSetProfileDescriptionTableViewCell.m; path = Profile/TableViewCell/StringrSetProfileDescriptionTableViewCell.m; sourceTree = "<group>"; };
 		AB50810818B2967800DE933D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AB50810A18B2967F00DE933D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AB50810C18B2968F00DE933D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -317,8 +328,6 @@
 		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
 		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
 		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
-		BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringFooterTableViewCell.h; path = StringrStringTable/StringFooterTableViewCell.h; sourceTree = "<group>"; };
-		BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringFooterTableViewCell.m; path = StringrStringTable/StringFooterTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +417,15 @@
 			path = "External/Images/Stock String Images";
 			sourceTree = SOURCE_ROOT;
 		};
+		AB4FF07B18C0019E000F550F /* UIImage+Resize */ = {
+			isa = PBXGroup;
+			children = (
+				AB4FF07C18C0019E000F550F /* UIImage+Resize.h */,
+				AB4FF07D18C0019E000F550F /* UIImage+Resize.m */,
+			);
+			path = "UIImage+Resize";
+			sourceTree = "<group>";
+		};
 		AB5B5947189AC9BD00790510 /* String Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +475,12 @@
 			children = (
 				AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */,
 				AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */,
+				AB4FF07F18C6B53E000F550F /* StringrSelectUniversityTableViewCell.h */,
+				AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */,
+				AB4FF08218C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.h */,
+				AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */,
+				AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */,
+				AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */,
 			);
 			name = "Edit Profile TableViewCell";
 			sourceTree = "<group>";
@@ -607,7 +631,6 @@
 		BF3EDE07183E98910071E047 /* String Table */ = {
 			isa = PBXGroup;
 			children = (
-				BFFA599C186A2229001C377D /* Footer */,
 				BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */,
 				AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */,
@@ -787,6 +810,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AB4FF07B18C0019E000F550F /* UIImage+Resize */,
 				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
 				AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */,
 			);
@@ -807,15 +831,6 @@
 				BF8349E618297FD600D15963 /* Images.xcassets */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		BFFA599C186A2229001C377D /* Footer */ = {
-			isa = PBXGroup;
-			children = (
-				BFFA599618691C8F001C377D /* StringFooterTableViewCell.h */,
-				BFFA599718691C8F001C377D /* StringFooterTableViewCell.m */,
-			);
-			name = Footer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -993,7 +1008,6 @@
 				AB5B594A189ADAA100790510 /* StringrPhotoDetailEditTableViewController.m in Sources */,
 				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
-				BFFA599818691C8F001C377D /* StringFooterTableViewCell.m in Sources */,
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
 				AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */,
@@ -1019,9 +1033,11 @@
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */,
+				AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */,
 				AB85DD6A18904208007217DC /* TestTableViewViewController.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
+				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
 				AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */,
@@ -1037,11 +1053,13 @@
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
+				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
+				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,
 				BF8349DB18297FD600D15963 /* main.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,

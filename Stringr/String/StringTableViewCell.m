@@ -50,7 +50,15 @@
     [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
 }
 
+- (void)setStringObject:(PFObject *)string
+{
+    [_stringCollectionView setStringObject:string];
+}
 
+- (void)setStringViewDelegate:(id<StringViewDelegate>)delegate
+{
+    [_stringCollectionView setDelegate:delegate];
+}
 
 
 #pragma mark - Private

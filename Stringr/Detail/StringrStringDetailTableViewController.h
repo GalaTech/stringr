@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) NSString *stringTitle;
 @property (weak, nonatomic) UITextField *stringTitleTextField;
+@property (strong, nonatomic) PFObject *stringDetailsToLoad;
 
 @end

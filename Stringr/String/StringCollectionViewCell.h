@@ -10,7 +10,8 @@
 
 @interface StringCollectionViewCell : UICollectionViewCell
 
-@property (weak) IBOutlet UIImageView *cellImage;
+@property (weak) IBOutlet PFImageView *cellImage;
 @property (weak) IBOutlet UILabel *cellTitle;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingImageIndicator;
 
 @end

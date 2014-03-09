@@ -22,7 +22,7 @@
 @end
 
 
-@interface StringrEditProfileViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
+@interface StringrEditProfileViewController : UITableViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) StringrPathImageView *fillerProfileImage;
 @property (strong, nonatomic) NSString *fillerProfileName;

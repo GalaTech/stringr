@@ -64,13 +64,15 @@
                 
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
                 
+                /*
                 // Init's the footer with live data from here
                 [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
                 [mainDetailView.uploadDateLabel setText:@"0 minutes ago"];
                 [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
                 [mainDetailView.commentsTextLabel setText:@"0"];
                 [mainDetailView.likesTextLabel setText:@"0"];
-                
+                */
+                 
                 [cell addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
                 cellIdentifier = @"photo_titleCell";

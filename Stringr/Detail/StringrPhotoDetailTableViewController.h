@@ -12,4 +12,6 @@
 
 @interface StringrPhotoDetailTableViewController : StringrDetailTableViewController <QMBParallaxScrollViewHolder>
 
+@property (strong, nonatomic) PFObject *photoDetailsToLoad;
+
 @end

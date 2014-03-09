@@ -10,6 +10,17 @@
 
 @interface StringrFooterView ()
 
+@property (strong, nonatomic) PFObject *objectForFooterView; // The string or photo object associated with this view
+@property (strong, nonatomic) PFUser *userForObject;
+
+@property (strong, nonatomic) StringrPathImageView *profileImageView;
+@property (strong, nonatomic) UILabel *profileNameLabel;
+@property (strong, nonatomic) UIButton *profileImageButton;
+
+@property (strong, nonatomic) UILabel *uploadDateLabel;
+@property (strong, nonatomic) UILabel *commentsTextLabel;
+@property (strong, nonatomic) UILabel *likesTextLabel;
+
 @property (strong, nonatomic) UIImageView *commentsImageView;
 @property (strong, nonatomic) UIButton *commentsButton;
 
@@ -67,33 +78,106 @@ static float const contentFooterViewWidthPercentage = .93;
 
 
 
+#pragma mark - Public
+
+- (void)setupFooterViewWithObject:(PFObject *)object
+{
+    self.objectForFooterView = object;
+    [self setUploaderProfileInformation];
+    [self setUploadDate];
+    [self setComments];
+    [self setLikes];
+}
+
+
+
+
 #pragma mark - Private
+
+- (void)setUploaderProfileInformation
+{
+    if (self.objectForFooterView) {
+        [self loadingProfileImageIndicatorEnabled:YES];
+        
+        PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
+        [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+            self.userForObject = (PFUser *)user;
+            PFFile *uploaderProfileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
+            
+            [self.profileImageView setFile:uploaderProfileImageFile];
+            [self.profileImageView loadInBackground];
+            [self loadingProfileImageIndicatorEnabled:NO];
+            
+            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
+        }];
+    }
+}
+
+- (void)setUploadDate
+{
+    if (self.objectForFooterView) {
+        NSString *uploadTime = [StringrUtility timeAgoFromDate:self.objectForFooterView.createdAt];
+        [self.uploadDateLabel setText:uploadTime];
+    }
+}
+
+- (void)setComments
+{
+    if (self.objectForFooterView) {
+        [self.commentsTextLabel setText:@"0"];
+    }
+}
+
+- (void)setLikes
+{
+    if (self.objectForFooterView) {
+        [self.likesTextLabel setText:@"0"];
+    }
+}
+
+- (void)loadingProfileImageIndicatorEnabled:(BOOL)enabled
+{
+    if (enabled) {
+        [self.loadingProfileImageIndicator startAnimating];
+        [self.loadingProfileImageIndicator setHidden:NO];
+    } else {
+        [self.loadingProfileImageIndicator stopAnimating];
+        [self.loadingProfileImageIndicator setHidden:YES];
+    }
+}
+
 
 - (void)addProfileImageViewAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)
-                                                                  image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+                                                                  image:nil
                                                               pathColor:[UIColor darkGrayColor]
                                                               pathWidth:1.0];
+    [self.profileImageView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     //[self.profileImageView setUserInteractionEnabled:YES];
     
-    UIButton *profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
-    [profileImageButton addTarget:self action:@selector(pushProfilePicture) forControlEvents:UIControlEventTouchUpInside];
+    self.loadingProfileImageIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(location.x + ((size.width - (size.width / 2)) / 2), location.y + ((size.height - (size.height / 2)) / 2), size.width / 2, size.height / 2)];
+    [self.loadingProfileImageIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+    
+    self.profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
+    [self.profileImageButton addTarget:self action:@selector(pushProfilePicture) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.profileImageView];
-    [self addSubview:profileImageButton];
+    [self addSubview:self.loadingProfileImageIndicator];
+    [self addSubview:self.profileImageButton];
 }
 
 - (void)pushProfilePicture
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedProfileImageKey object:nil];
+    [self.delegate stringrFooterView:self didTapUploaderProfileImageButton:self.profileImageButton uploader:self.userForObject];
 }
 
 - (void)addProfileNameLabelAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
     
-    [self.profileNameLabel setText:@"Stringr User"];
+    [self.profileNameLabel setText:@""];
     [self.profileNameLabel setTextColor:[UIColor grayColor]];
     [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
     [self.profileNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
@@ -138,7 +222,7 @@ static float const contentFooterViewWidthPercentage = .93;
 - (void)pushCommentsButton
 {
     self.commentsTextLabel.textColor = [UIColor grayColor];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedCommentsButtonKey object:nil];
+    [self.delegate stringrFooterView:self didTapCommentButton:self.commentsButton objectToCommentOn:self.objectForFooterView];
 }
 
 // alters text color in a way that makes it look like the button was presed
@@ -179,7 +263,7 @@ static float const contentFooterViewWidthPercentage = .93;
 - (void)pushLikesButton
 {
     self.likesTextLabel.textColor = [UIColor grayColor];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedLikesButtonKey object:nil];
+    [self.delegate stringrFooterView:self didTapLikeButton:self.likesButton objectToLike:self.objectForFooterView];
 }
 
 // alters text color in a way that makes it look like the button was presed
@@ -192,6 +276,10 @@ static float const contentFooterViewWidthPercentage = .93;
 {
     self.likesTextLabel.textColor = [UIColor grayColor];
 }
+
+
+
+
 
 
 @end

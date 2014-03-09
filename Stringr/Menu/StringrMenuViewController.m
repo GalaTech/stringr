@@ -71,17 +71,10 @@
                                                                             image:[UIImage imageNamed:@"Stringr Image"]
                                                                         pathColor:[UIColor darkGrayColor]
                                                                         pathWidth:1.0];
-    
-    
-    // loads the users profile image in the background
-    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:@"userProfileImage"];
-    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-        if (!error) {
-            UIImage *profileImage = [UIImage imageWithData:imageData];
-            [self.profileImageView setImage:profileImage];
-        }
-    }];
-    
+
+    // loads user profile image in background
+    [self.profileImageView setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
+    [self.profileImageView loadInBackground];
     
     [self.profileImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -91,7 +84,7 @@
     self.profileNameLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
     
     // parse user profile name
-    self.profileNameLabel.text = [[PFUser currentUser] objectForKey:@"displayName"];
+    self.profileNameLabel.text = [[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey];
     
     
     self.profileNameLabel.backgroundColor = [UIColor clearColor];
@@ -110,8 +103,8 @@
     
     [self.tableView setShowsVerticalScrollIndicator:NO];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName:) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,20 +130,30 @@
     //[actionSheet showInView:self.parentViewController.view];
 }
 
-- (void)updateUserProfileImage
+- (void)updateUserProfileImage:(NSNotification *)notification
 {
-    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:@"userProfileImage"];
+    UIImage *newProfileImage = notification.object;
+    
+    [self.profileImageView setImage:newProfileImage];
+    
+    /*
+    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey];
     [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
         if (!error) {
             UIImage *profileImage = [UIImage imageWithData:imageData];
             [self.profileImageView setImage:profileImage];
         }
     }];
+     */
 }
 
-- (void)updateUserProfileName
+- (void)updateUserProfileName:(NSNotification *)notification
 {
-    [self.profileNameLabel setText:[[PFUser currentUser] objectForKey:@"displayName"]];
+    NSString *newProfileName = notification.object;
+    
+    [self.profileNameLabel setText:newProfileName];
+    
+    //[self.profileNameLabel setText:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
 }
 
 

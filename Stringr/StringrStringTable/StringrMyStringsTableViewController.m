@@ -47,7 +47,8 @@
     
     StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     [stringEditVC setDetailsEditable:YES];
-
+    [stringEditVC setStringToLoad:self.objects[0]];
+    
     [self.navigationController pushViewController:stringEditVC animated:YES];
      
     
@@ -70,6 +71,12 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // When a cell is selected it will push to that Strings edit page.
+    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    [stringEditVC setDetailsEditable:YES];
+    
+    [self.navigationController pushViewController:stringEditVC animated:YES];
+    
     if (editingStyle == UITableViewCellEditingStyleInsert) {
         NSLog(@"swiped");
     }

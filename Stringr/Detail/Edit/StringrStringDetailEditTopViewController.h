@@ -12,6 +12,6 @@
 
 @interface StringrStringDetailEditTopViewController : StringrStringDetailTopViewController <StringrStringDetailEditViewControllerDelegate>
 
-@property (strong, nonatomic) UIImage *userSelectedPhoto;
+@property (strong, nonatomic) UIImage *userSelectedPhoto; // from UIImagePickerView
 
 @end

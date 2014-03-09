@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "QMBParallaxScrollViewController.h"
+#import "StringrFooterView.h"
 
-@interface StringrDetailTableViewController : UITableViewController<QMBParallaxScrollViewHolder>
+@interface StringrDetailTableViewController : UITableViewController<QMBParallaxScrollViewHolder, StringrFooterViewDelegate>
 
 @property (strong, nonatomic) NSArray *sectionHeaderTitles;
 

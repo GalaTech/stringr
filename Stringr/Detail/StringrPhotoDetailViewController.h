@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSArray *stringImages;
 @property (strong, nonatomic) UIImage *currentImage;
 
+@property (strong, nonatomic) PFObject *photoToLoad;
 
 @end
