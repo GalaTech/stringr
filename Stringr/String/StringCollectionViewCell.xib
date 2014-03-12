@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
@@ -13,18 +13,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HNM-F5-oaE">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HNM-F5-oaE" customClass="PFImageView">
                         <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.79105548469999998" green="0.79105548469999998" blue="0.79105548469999998" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
-                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EW4-kb-Cjv">
-                        <rect key="frame" x="13" y="129" width="130" height="21"/>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nsH-58-wi6">
+                        <rect key="frame" x="81" y="82" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </activityIndicatorView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -32,11 +29,13 @@
                 <constraint firstAttribute="trailing" secondItem="HNM-F5-oaE" secondAttribute="trailing" id="HCe-bw-cOB"/>
                 <constraint firstAttribute="bottom" secondItem="HNM-F5-oaE" secondAttribute="bottom" id="HZO-db-crY"/>
                 <constraint firstItem="HNM-F5-oaE" firstAttribute="top" secondItem="TAP-FA-ePc" secondAttribute="top" id="fc7-jU-Sqc"/>
+                <constraint firstItem="nsH-58-wi6" firstAttribute="top" secondItem="TAP-FA-ePc" secondAttribute="top" constant="82" id="jwa-hN-ZSC"/>
                 <constraint firstItem="HNM-F5-oaE" firstAttribute="leading" secondItem="TAP-FA-ePc" secondAttribute="leading" id="oqA-pX-WWb"/>
+                <constraint firstItem="nsH-58-wi6" firstAttribute="centerX" secondItem="HNM-F5-oaE" secondAttribute="centerX" id="oqz-si-Ovf"/>
             </constraints>
             <connections>
                 <outlet property="cellImage" destination="HNM-F5-oaE" id="eUt-w9-uF9"/>
-                <outlet property="cellTitle" destination="EW4-kb-Cjv" id="mM8-TB-6Hz"/>
+                <outlet property="loadingImageIndicator" destination="nsH-58-wi6" id="9Pa-Fe-YHR"/>
             </connections>
         </collectionViewCell>
     </objects>

@@ -11,6 +11,7 @@
 
 @interface StringrStringDetailTopViewController : StringrDetailTopViewController
 
-@property (strong, nonatomic) NSArray *stringPhotoData;
+//@property (strong, nonatomic) NSArray *stringPhotoData;
+@property (strong, nonatomic) PFObject *stringToLoad;
 
 @end

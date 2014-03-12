@@ -8,9 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "StringrDetailTopViewController.h"
+#import "ParseImagePager.h"
+#import "ParseImagePager.h"
+
+@protocol StringrPhotoDetailTopViewControllerImagePagerDelegate;
 
 @interface StringrPhotoDetailTopViewController : StringrDetailTopViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *photoImage;
+@property (strong, nonatomic) NSArray *photosToLoad;
+@property (strong, nonatomic) id<StringrPhotoDetailTopViewControllerImagePagerDelegate> delegate;
+
+@end
+
+
+@protocol StringrPhotoDetailTopViewControllerImagePagerDelegate <NSObject>
+
+- (void)photoViewer:(ParseImagePager *)photoViewer didScrollToIndex:(NSUInteger)index;
+- (void)photoViewer:(ParseImagePager *)photoViewer didTapPhotoAtIndex:(NSUInteger)index;
 
 @end

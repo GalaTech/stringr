@@ -16,16 +16,18 @@
 - (void)setProfileName:(NSString *)name;
 - (void)setProfilePhoto:(UIImage *)profilePhoto;
 - (void)setProfileDescription:(NSString *)description;
+- (void)setProfileUniversityName:(NSString *)universityName;
 
 
 @end
 
 
-@interface StringrEditProfileViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
+@interface StringrEditProfileViewController : UITableViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) StringrPathImageView *fillerProfileImage;
 @property (strong, nonatomic) NSString *fillerProfileName;
 @property (strong, nonatomic) NSString *fillerDescription;
+@property (strong, nonatomic) NSString *fillerUniversityName;
 
 @property (strong, nonatomic) id<StringrEditProfileDelegate> delegate;
 

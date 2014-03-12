@@ -28,7 +28,7 @@
     
     
     
-    if (self.detailsEditable) {
+    if (self.editDetailsEnabled) {
         self.title = @"Publish String";
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish"
@@ -44,8 +44,10 @@
         
         StringrStringDetailEditTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
         [stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+        [stringTopVC setStringToLoad:self.stringToLoad];
         
         StringrStringDetailEditTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
+        [stringTableVC setStringDetailsToLoad:self.stringToLoad];
         [stringTableVC setDelegate:stringTopVC];
         
         [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
@@ -53,7 +55,9 @@
         self.title = @"String Details";
         
         StringrStringDetailTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTopVC"];
+        [stringTopVC setStringToLoad:self.stringToLoad];
         StringrStringDetailTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTableVC"];
+        [stringTableVC setStringDetailsToLoad:self.stringToLoad];
         
         [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
     }
@@ -77,8 +81,6 @@
     [super viewWillDisappear:animated];
 
 }
-
-
 
 
 

@@ -11,6 +11,9 @@
 
 @property (strong, nonatomic) UIView *detailTabView;
 
+/// Required for using this class. View StringViewDelegate for more info
+- (void)setStringViewDelegate:(id<StringViewDelegate>)delegate;
 - (void)setCollectionData:(NSArray *)collectionData;
+- (void)setStringObject:(PFObject *)string;
 
 @end

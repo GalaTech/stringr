@@ -30,10 +30,6 @@
 }
 
 
-- (void)setLabel:(UILabel *)label
-{
-    [self.label setText:@"Test"];
-}
 
 
 

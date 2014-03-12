@@ -27,7 +27,7 @@
     self.title = @"My Strings";
     
     //TODO: The action for this button is to edit a selected string. The selected string should be pushed in
-    // with this method so that it can easil be transferred to the edit controller.
+    // with this method so that it can easily be transferred to the edit controller.
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
@@ -46,8 +46,9 @@
 {
     
     StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-    [stringEditVC setDetailsEditable:YES];
-
+    [stringEditVC setEditDetailsEnabled:YES];
+    [stringEditVC setStringToLoad:self.objects[0]];
+    
     [self.navigationController pushViewController:stringEditVC animated:YES];
      
     
@@ -70,6 +71,12 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // When a cell is selected it will push to that Strings edit page.
+    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    [stringEditVC setEditDetailsEnabled:YES];
+    
+    [self.navigationController pushViewController:stringEditVC animated:YES];
+    
     if (editingStyle == UITableViewCellEditingStyleInsert) {
         NSLog(@"swiped");
     }

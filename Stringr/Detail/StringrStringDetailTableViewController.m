@@ -86,14 +86,9 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
-                
-                // Init's the footer with live data from here
-                [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
-                [mainDetailView.uploadDateLabel setText:@"10 minutes ago"];
-                [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-                [mainDetailView.commentsTextLabel setText:@"2.1k"];
-                [mainDetailView.likesTextLabel setText:@"7.4k"];
-        
+                [mainDetailView setupFooterViewWithObject:self.stringDetailsToLoad];
+                [mainDetailView setDelegate:self];
+                 
                 [cell addSubview:mainDetailView];
                 
                 //return footerCell;

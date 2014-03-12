@@ -101,6 +101,14 @@
         [cellProfileImage setPathColor:[UIColor darkGrayColor]];
         [cellProfileImage setPathWidth:1.0];
         
+        /*
+        PFImageView *profileImageView = [[PFImageView alloc] init];
+        profileImageView.image = [UIImage imageNamed:@"Stringr Image"];
+        profileImageView.file = (PFFile *)[[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
+        cellProfileImage.image = profileImageView.image;
+        [profileImageView loadInBackground];
+        */
+         
         // Sets the profile image on the current cell
         // TODO: This will eventually be the profile image pulled from parse
         userProfileCell.ProfileThumbnailImageView = cellProfileImage;
@@ -134,9 +142,12 @@
     
     if (currentCell) {
         // Sets the title of the profile vc being pushed to that of the username on the cell being tapped
-        profileVC.title = @"Profile";
+        //profileVC.title = @"Profile";
         
-        profileVC.canEditProfile = NO;
+        [profileVC setUserForProfile:[PFUser currentUser]];
+        [profileVC setProfileReturnState:ProfileBackReturnState];
+        
+        //profileVC.canEditProfile = NO;
         
         [profileVC setHidesBottomBarWhenPushed:YES];
         
@@ -237,7 +248,7 @@
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setDetailsEditable:YES];
+        [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];

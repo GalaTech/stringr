@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
 @optional
 
 /**
- * Callback when the user tapped the top-view 
+ * Callback when the user tapped the top-view
  * sender is usually the UITapGestureRecognizer instance
  */
 - (void) parallaxScrollViewController:(QMBParallaxScrollViewController *) controller didChangeGesture:(QMBParallaxGesture)newGesture oldGesture:(QMBParallaxGesture)oldGesture;
@@ -57,14 +57,14 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
 @property (nonatomic, strong) id<QMBParallaxScrollViewControllerDelegate> delegate;
 
 @property (nonatomic, strong, readonly) UIViewController * topViewController;
-@property (nonatomic, strong, readonly) UIViewController<QMBParallaxScrollViewHolder> * bottomViewController;
+@property (nonatomic, strong, readonly) UIViewController * bottomViewController;
 
 @property (nonatomic, assign, readonly) CGFloat topHeight;
 @property (nonatomic, assign, setter = setMaxHeight:) CGFloat maxHeight;
 
 /**
  * Set the height of the border (margin from top) that has to be scrolled over to expand the background view.
- * Default: 1.3 * topHeight
+ * Default: MAX(1.5f * _topHeight, 300.0f)
  */
 @property (nonatomic, assign, setter = setMaxHeightBorder:) CGFloat maxHeightBorder;
 
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
 @property (nonatomic, weak) id<UIScrollViewDelegate> scrollViewDelegate;
 
 // inits
--(void) setupWithTopViewController:(UIViewController *)topViewController andTopHeight:(CGFloat)height andBottomViewController:(UIViewController<QMBParallaxScrollViewHolder> *)bottomViewController;
+-(void) setupWithTopViewController:(UIViewController *)topViewController andTopHeight:(CGFloat)height andBottomViewController:(UIViewController *)bottomViewController;
 
 
 // configs
@@ -103,5 +103,8 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
  * Call will be responsed by QMBParallaxScrollViewControllerDelegate instance
  */
 - (void) enableTapGestureTopView:(BOOL) enable;
+
+
+- (void)handleTap:(id)sender;
 
 @end

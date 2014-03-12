@@ -13,7 +13,4 @@
 @interface StringrLoginViewController : UIViewController
 
 
-- (IBAction)pushToNewView:(UIButton *)sender;
-
-
 @end

@@ -11,11 +11,10 @@
 @protocol StringrStringDetailEditViewControllerDelegate <NSObject>
 
 /**
- * Inserts the user selected photo into a currently displayed string.
- *
+ * Inserts the user selected photo into the currently displayed string.
  * @param image The photo that the user selected to add to the string.
  */
-- (void)addedNewImageToString:(UIImage *)image;
+- (void)addNewImageToString:(UIImage *)image;
 
 @end
 

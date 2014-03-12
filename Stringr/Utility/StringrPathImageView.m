@@ -29,26 +29,30 @@
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image pathColor:(UIColor *)color pathWidth:(float)width
 {
     self = [super init];
-    
+//    
     if (self) {
         
         _pathColor = color;
         _pathWidth = width;
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
-        [imageView setImage:image];
+        self.frame = frame;
+        self.image = image;
+        
+        
+       // UIImageView *self = [[UIImageView alloc] initWithFrame:frame];
+        //[self setImage:image];
         
         float cornerRadius = frame.size.width / 2;
         
-        imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerRadius = cornerRadius;
-        imageView.layer.borderColor = color.CGColor;
-        imageView.layer.borderWidth = width;
-        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = cornerRadius;
+        self.layer.borderColor = color.CGColor;
+        self.layer.borderWidth = width;
+        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
         //imageView.layer.shouldRasterize = YES;
-        imageView.clipsToBounds = YES;
+        self.clipsToBounds = YES;
         
-        self = (StringrPathImageView *)imageView;
+        //self = (StringrPathImageView *)self;
     }
     
     return self;

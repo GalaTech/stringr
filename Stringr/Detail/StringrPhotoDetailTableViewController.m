@@ -37,6 +37,29 @@
 }
 
 
+
+
+#pragma mark - Public
+
+- (void)reloadPhotoDetailsWithScrollDirection:(ScrollDirection)direction
+{
+    UITableViewRowAnimation rowAnimation;
+    
+    if (direction == ScrolledLeft) {
+        rowAnimation = UITableViewRowAnimationLeft;
+    } else {
+        rowAnimation = UITableViewRowAnimationRight;
+    }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3] withRowAnimation:rowAnimation];
+}
+
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -69,14 +92,9 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
-                
-                // Init's the footer with live data from here
-                [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
-                [mainDetailView.uploadDateLabel setText:@"10 minutes ago"];
-                [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-                [mainDetailView.commentsTextLabel setText:@"4.7k"];
-                [mainDetailView.likesTextLabel setText:@"11.9k"];
-                
+                [mainDetailView setupFooterViewWithObject:self.photoDetailsToLoad];
+                [mainDetailView setDelegate:self];
+                 
                 [cell addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
                 cellIdentifier = @"photo_titleCell";
@@ -84,7 +102,8 @@
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                [self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
+                [self.photoCaptionTextView setText:[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey]];
+                //[self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
             }
             break;
         case 1:
@@ -115,12 +134,22 @@
     return 44;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0;
+    }
+    
+    return 20;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
         case 1:
             if (indexPath.row == 0) {
                 StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+                [stringDetailVC setStringToLoad:self.stringOwner];
                 [self.navigationController pushViewController:stringDetailVC animated:YES];
             }
             break;
@@ -129,6 +158,10 @@
             break;
     }
 }
+
+
+
+
 
 
 

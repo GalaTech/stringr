@@ -7,9 +7,11 @@
 //
 
 #import "StringrDetailTableViewController.h"
-#import "StringrFooterView.h"
+#import "StringrNavigationController.h"
+#import "StringrProfileViewController.h"
+#import "StringrStringCommentsViewController.h"
 
-@interface StringrDetailTableViewController ()
+@interface StringrDetailTableViewController () 
 
 @end
 
@@ -116,6 +118,47 @@
 -(UIScrollView *)scrollViewForParallexController
 {
     return self.tableView;
+}
+
+
+
+
+#pragma mark - StringrFooterView Delegate
+
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
+{
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    [profileVC setUserForProfile:uploader];
+    [profileVC setProfileReturnState:ProfileModalReturnState];
+    
+    
+    //[profileVC setCanEditProfile:NO];
+    //[profileVC setTitle:@"Profile"];
+    //[profileVC setCanCloseModal:YES];
+    
+    [profileVC setHidesBottomBarWhenPushed:YES];
+    
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+    [self presentViewController:navVC animated:YES completion:nil];
+}
+
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
+                                                    message:@"You have liked this String!"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
+{
+    StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+    
+    [commentsVC setHidesBottomBarWhenPushed:YES];
+    
+    [self.navigationController pushViewController:commentsVC animated:YES];
 }
 
 @end

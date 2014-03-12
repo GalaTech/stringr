@@ -28,6 +28,10 @@
 @property (nonatomic, strong, readwrite) UIViewController<QMBParallaxScrollViewHolder> * bottomViewController;
 
 @property (nonatomic, assign, readwrite) CGFloat topHeight;
+
+@property (nonatomic, assign, readwrite) CGFloat initialMaxHeightBorder;
+@property (nonatomic, assign, readwrite) CGFloat initialMinHeightBorder;
+
 @property (nonatomic, readwrite) QMBParallaxState state;
 @property (nonatomic, readwrite) QMBParallaxGesture lastGesture;
 
@@ -47,22 +51,32 @@
     if ([[_backgroundView gestureRecognizers] containsObject:self.topViewGestureRecognizer]){
         [_backgroundView removeGestureRecognizer:self.topViewGestureRecognizer];
     }
+    
+    // Remove Observer
+    if ([_foregroundView isKindOfClass:[UIScrollView class]]){
+        UIScrollView *foregroundScrollView = (UIScrollView *)_foregroundView;
+        [foregroundScrollView removeObserver:self forKeyPath:@"contentSize"];
+    }
+    
+    [self.view removeObserver:self forKeyPath:@"frame"];
+    
 }
 
 #pragma mark - QMBParallaxScrollViewController Methods
 
-- (void)setupWithTopViewController:(UIViewController *)topViewController andTopHeight:(CGFloat)height andBottomViewController:(UIViewController<QMBParallaxScrollViewHolder> *)bottomViewController{
+- (void)setupWithTopViewController:(UIViewController *)topViewController andTopHeight:(CGFloat)height andBottomViewController:(UIViewController *)bottomViewController{
     
     self.topViewController = topViewController;
     self.bottomViewController = bottomViewController;
     _topHeight = height;
     _startTopHeight = _topHeight;
     _maxHeight = self.view.frame.size.height-50.0f;
-    [self setMaxHeightBorder:1.5f*_topHeight];
+    [self setMaxHeightBorder:MAX(1.5f*_topHeight, 300.0f)];
     [self setMinHeightBorder:_maxHeight-20.0f];
     
     [self addChildViewController:self.topViewController];
     _backgroundView = topViewController.view;
+    [_backgroundScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [_backgroundView setClipsToBounds:YES];
     
     [self addChildViewController:self.bottomViewController];
@@ -84,14 +98,28 @@
     [self.view addSubview:_backgroundView];
     [self.topViewController didMoveToParentViewController:self];
     
-    
     [self addGestureReconizer];
     
     [self updateForegroundFrame];
     [self updateContentOffset];
     
+    
+    // If forground subview is UIScrollView set KV-Observer for any Content Size Changes
+    if ([_foregroundView isKindOfClass:[UIScrollView class]]){
+        UIScrollView *foregroundScrollView = (UIScrollView *)_foregroundView;
+        [foregroundScrollView addObserver:self forKeyPath:@"contentSize" options:0 context:NULL];
+    }
+    
+    [self.view addObserver:self forKeyPath:@"frame" options:0 context:NULL];
+    
+}
 
+#pragma mark - Obersver
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                       change:(NSDictionary *)change context:(void*)context {
+    [self updateForegroundFrame];
+    [self updateContentOffset];
 }
 
 #pragma mark - Gestures
@@ -163,7 +191,7 @@
 
 - (void)setBackgroundHeight:(CGFloat)backgroundHeight {
     _topHeight = backgroundHeight;
-
+    
     [self updateForegroundFrame];
     [self updateContentOffset];
 }
@@ -187,6 +215,7 @@
     if ([_foregroundView isKindOfClass:[UIScrollView class]]){
         _foregroundView.frame = CGRectMake(0.0f, _topHeight, self.view.frame.size.width, MAX(((UIScrollView *)_foregroundView).contentSize.height,_foregroundView.frame.size.height));
         CGSize size = CGSizeMake(self.view.frame.size.width,MAX(((UIScrollView *)_foregroundView).contentSize.height,_foregroundView.frame.size.height) + _topHeight);
+        
         self.foregroundScrollView.contentSize = size;
     }else {
         self.foregroundView.frame = CGRectMake(0.0f,
@@ -201,7 +230,7 @@
 }
 
 - (void)updateContentOffset {
-
+    
     if (2*self.foregroundScrollView.contentOffset.y>_foregroundView.frame.origin.y){
         [self.foregroundScrollView setShowsVerticalScrollIndicator:YES];
     }else {
@@ -219,6 +248,9 @@
     self.backgroundView.frame =
     CGRectMake(0.0f,0.0f,self.view.frame.size.width,_topHeight+(-1)*self.foregroundScrollView.contentOffset.y);
     
+    [self.backgroundView layoutIfNeeded];
+
+    
     if (_isAnimating){
         return;
     }
@@ -233,7 +265,7 @@
         return;
     }
     
-
+    
 }
 
 - (void) showFullTopView:(BOOL)show {
@@ -243,7 +275,7 @@
     
     [UIView animateWithDuration:.3
                           delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
+                        options:UIViewAnimationOptionCurveEaseInOut|UIViewKeyframeAnimationOptionBeginFromCurrentState
                      animations:^{
                          
                          [self changeTopHeight:show ?  _maxHeight : _startTopHeight];
@@ -255,17 +287,18 @@
                          
                          if (self.state == QMBParallaxStateFullSize){
                              self.state = QMBParallaxStateVisible;
-                         }else {
+                             self.maxHeightBorder = self.initialMaxHeightBorder;
+                         } else {
                              self.state = QMBParallaxStateFullSize;
+                             self.minHeightBorder = self.initialMinHeightBorder;
                          }
                          
                          if ([self.delegate respondsToSelector:@selector(parallaxScrollViewController:didChangeState:)]){
                              [self.delegate parallaxScrollViewController:self didChangeState:self.state];
                          }
                      }];
-    
-    
 }
+
 
 - (void) changeTopHeight:(CGFloat) height{
     
@@ -282,15 +315,13 @@
 #pragma mark - Borders
 
 - (void)setMaxHeightBorder:(CGFloat)maxHeightBorder{
-    
     _maxHeightBorder = MAX(_topHeight,maxHeightBorder);
-    
+    self.initialMaxHeightBorder = maxHeightBorder;
 }
 
 - (void)setMinHeightBorder:(CGFloat)minHeightBorder{
-    
     _minHeightBorder = MIN(_maxHeight,minHeightBorder);
-    
+    self.initialMinHeightBorder = minHeightBorder;
 }
 
 @end

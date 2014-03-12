@@ -14,6 +14,7 @@
 #import "StringrProfileTableViewController.h"
 #import "StringrStringDetailViewController.h"
 
+
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
 
@@ -32,27 +33,37 @@
 {
     [super viewDidLoad];
     
-    if (self.canCloseModal) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(closeProfileVC)];
-    }
+    self.title = @"Profile";
     
-    // Displays the ability to edit profile in the nav bar if available
-    if (self.canEditProfile) {
-        
+    // Guarantee's that if the passed in user is the current user we provide the ability to edit that profile
+    if ([self.userForProfile.username isEqualToString:[[PFUser currentUser] username]]) {
+        self.title = @"My Profile";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                                   style:UIBarButtonItemStyleBordered
                                                                                  target:self
                                                                                  action:@selector(pushToEditProfile)];
+    }
+    
+    // Sets the 'return' button based off of what state the profile is in. Modal, Menu, or Back.
+    if (self.profileReturnState == ProfileModalReturnState) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  X" style:UIBarButtonItemStyleBordered target:self action:@selector(closeProfileVC)];
+    } else if (self.profileReturnState == ProfileMenuReturnState) {
         // Creates the navigation item to access the menu
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                                  style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
+    } else if (self.profileReturnState == ProfileBackReturnState) {
+        
     }
+    
+    
     
     // Instantiates the parallax VC with a top and bottom VC.
     StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
-    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
+    // Sets the user for the currently accessed profile
+    [topProfileVC setUserForProfile:self.userForProfile];
     
+    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
     [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
     self.delegate = self;
     
@@ -127,10 +138,13 @@
     [editProfileVC setFillerProfileImage:topVC.profileImage];
     [editProfileVC setFillerProfileName:topVC.profileNameLabel.text];
     [editProfileVC setFillerDescription:topVC.profileDescriptionLabel.text];
+    [editProfileVC setFillerUniversityName:topVC.profileUniversityLabel.text];
     
     [editProfileVC setDelegate:self];
     
-    [(UINavigationController *)self.frostedViewController.contentViewController pushViewController:editProfileVC animated:YES];
+    [self.navigationController pushViewController:editProfileVC animated:YES];
+    
+    //[(UINavigationController *)self.frostedViewController.contentViewController pushViewController:editProfileVC animated:YES];
 }
 
 
@@ -167,6 +181,12 @@
     //[topViewController.profileDescriptionTextView setTextColor:currentTextViewColor];
 }
 
+- (void)setProfileUniversityName:(NSString *)universityName
+{
+    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
+    
+    topViewController.profileUniversityLabel.text = universityName;
+}
 
 
 

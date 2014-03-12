@@ -13,4 +13,6 @@
 
 + (void)showMenu:(REFrostedViewController *)menuViewController;
 
++ (NSString *)timeAgoFromDate:(NSDate *)date;
+
 @end

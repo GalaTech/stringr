@@ -31,6 +31,8 @@
 @interface StringrMenuViewController () <UIActionSheetDelegate>
 
 @property (strong,nonatomic) UIButton *cameraButton;
+@property (strong, nonatomic) UILabel *profileNameLabel;
+@property (strong, nonatomic) StringrPathImageView *profileImageView;
 
 @end
 
@@ -63,27 +65,46 @@
     
     //cameraImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
-    StringrPathImageView *imageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
-                                                                            image:[UIImage imageNamed:@"alonsoAvatar.jpg"]
+    
+
+    self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
+                                                                            image:[UIImage imageNamed:@"Stringr Image"]
                                                                         pathColor:[UIColor darkGrayColor]
                                                                         pathWidth:1.0];
-    [imageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+
+    // loads user profile image in background
+    [self.profileImageView setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
+    [self.profileImageView loadInBackground];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-    label.text = @"Alonso Holmes";
-    label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-    [label sizeToFit];
-    label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.profileImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     
-    [view addSubview:imageView];
+    self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+
+    self.profileNameLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
+    
+    // parse user profile name
+    self.profileNameLabel.text = [[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey];
+    
+    
+    self.profileNameLabel.backgroundColor = [UIColor clearColor];
+    self.profileNameLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.profileNameLabel sizeToFit];
+    self.profileNameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+
+    
+    
+    [view addSubview:self.profileImageView];
     [view addSubview:self.cameraButton];
-    [view addSubview:label];
+    [view addSubview:self.profileNameLabel];
     
     self.tableView.tableHeaderView = view;
     
     [self.tableView setShowsVerticalScrollIndicator:NO];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName:) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,6 +129,38 @@
     
     //[actionSheet showInView:self.parentViewController.view];
 }
+
+- (void)updateUserProfileImage:(NSNotification *)notification
+{
+    UIImage *newProfileImage = notification.object;
+    
+    [self.profileImageView setImage:newProfileImage];
+    
+    /*
+    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey];
+    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            UIImage *profileImage = [UIImage imageWithData:imageData];
+            [self.profileImageView setImage:profileImage];
+        }
+    }];
+     */
+}
+
+- (void)updateUserProfileName:(NSNotification *)notification
+{
+    NSString *newProfileName = notification.object;
+    
+    [self.profileNameLabel setText:newProfileName];
+    
+    //[self.profileNameLabel setText:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
+}
+
+
+
+#pragma mark - Private
+
+
 
 
 
@@ -207,8 +260,8 @@
     // Table section 0 menu items actions
     if (indexPath.section == 0 && indexPath.row == 0) {
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-        profileVC.canEditProfile = YES;
-        profileVC.title = @"My Profile";
+        [profileVC setUserForProfile:[PFUser currentUser]];
+        [profileVC setProfileReturnState:ProfileMenuReturnState];
         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
         
@@ -250,6 +303,9 @@
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
+        [PFQuery clearAllCachedResults];
+        [PFUser logOut];
+        
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self presentViewController:loginVC animated:YES completion:nil];
     }
@@ -292,7 +348,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (cell == nil) {
+    if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     

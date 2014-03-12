@@ -17,14 +17,14 @@
 #import "StringrUserTableViewController.h"
 
 #import "StringTableViewCell.h"
-#import "StringFooterTableViewCell.h"
+#import "StringView.h"
+#import "StringrFooterView.h"
 
 #import "StringrStringDetailViewController.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import "TestViewController.h"
 
-@property (strong, nonatomic) NSArray *images;
-@property (strong, nonatomic) NSArray *images2;
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringViewDelegate, StringrFooterViewDelegate>
 
 @end
 
@@ -32,11 +32,21 @@
 
 #pragma mark - Lifecycle
 
+- (id)initWithCoder:(NSCoder *)aCoder
+{
+    self = [super initWithCoder:aCoder];
+    if (self) {
+        self.parseClassName = kStringrStringClassKey;
+        self.pullToRefreshEnabled = YES;
+        self.paginationEnabled = NO;
+        self.objectsPerPage = 1;
+    }
+    
+    return self;
+}
 
 - (void)dealloc
 {
-    _images = nil;
-    _images2 = nil;
     self.tableView = nil;
 }
 
@@ -44,17 +54,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	
     // Creates the navigation item to access the menu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
     
-    self.tableView.allowsSelection = NO;
-    
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
-    
-    
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
 }
 
@@ -63,10 +70,6 @@
     [super viewWillAppear:animated];
     
     // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:kNSNotificationCenterSelectedStringItemKey object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectProfileImage:) name:kNSNotificationCenterSelectedProfileImageKey object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectCommentsButton:) name:kNSNotificationCenterSelectedCommentsButtonKey object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectLikesButton:) name:kNSNotificationCenterSelectedLikesButtonKey object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
@@ -74,10 +77,6 @@
 {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedStringItemKey object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedProfileImageKey object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedCommentsButtonKey object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedLikesButtonKey object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
@@ -90,54 +89,6 @@
 
 
 
-#pragma mark - Custom Accessors
-
-static int const NUMBER_OF_IMAGES = 24;
-
-// Getter for test data images property
-- (NSArray *)images
-{
-    if (!_images) {
-        NSMutableArray *images = [[NSMutableArray alloc] init];
-        for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
-            @autoreleasepool {
-                NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
-                UIImage *image = [UIImage imageNamed:imageName];
-                
-                NSDictionary *photo = @{@"title": @"This is an awesome photo!", @"image": image};
-                
-                [images addObject:photo];
-            }
-        }
-        _images = [images copy];
-    }
-    
-    return _images;
-}
-
-- (NSArray *)images2
-{
-    if (!_images2) {
-        NSMutableArray *images = [[NSMutableArray alloc] init];
-        for (int i = 24; i >= 1; i--) {
-            @autoreleasepool {
-                NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
-                UIImage *image = [UIImage imageNamed:imageName];
-                
-                NSDictionary *photo = @{@"title": @"Article A1", @"image": image};
-                
-                [images addObject:photo];
-            }
-        }
-        _images2 = [images copy];
-    }
-    
-    return _images2;
-}
- 
-
-
-
 #pragma mark - Private
 
 // Handles the action of displaying the menu when the menu nav item is pressed
@@ -146,77 +97,32 @@ static int const NUMBER_OF_IMAGES = 24;
     [StringrUtility showMenu:self.frostedViewController];
 }
 
+- (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object
+{
+    static float const contentViewWidth = 320.0;
+    static float const contentViewHeight = 41.5;
+    static float const contentFooterViewWidthPercentage = .93;
+    
+    float footerXLocation = (contentViewWidth - (contentViewWidth * contentFooterViewWidthPercentage)) / 2;
+    CGRect footerRect = CGRectMake(footerXLocation, 0, contentViewWidth * contentFooterViewWidthPercentage, contentViewHeight);
+    StringrFooterView *footerView = [[StringrFooterView alloc] initWithFrame:footerRect withFullWidthCell:NO];
+    [footerView setupFooterViewWithObject:object];
+    [footerView setDelegate:self];
+    
+    return footerView;
+}
+
 
 
 
 #pragma mark - NSNotificationCenter Oberserver Action Handlers
 
-// Handles the action when a cell from a string is selected this will push to the appropriate VC
-- (void) didSelectItemFromCollectionView:(NSNotification *)notification
-{
-    NSDictionary *cellData = [notification object];
-    
-    if (cellData)
-    {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
-        
-        [photoDetailVC setDetailsEditable:NO];
-        // Sets the initial photo to the selected cell
-        [photoDetailVC setCurrentImage:[cellData objectForKey:@"image"]];
-        
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:photoDetailVC animated:YES];
-    }
-}
-
-// Handles the action of pushing to a selected user's profile
-- (void)didSelectProfileImage:(NSNotification *)notification
-{
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
-    
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    [profileVC setCanEditProfile:NO];
-    [profileVC setTitle:@"Profile"];
-    [profileVC setCanCloseModal:YES];
-    
-    [profileVC setHidesBottomBarWhenPushed:YES];
-    //[self.navigationController pushViewController:profileVC animated:YES];
-    
-    //Implements modal transition to profile view
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-    
-    [self presentViewController:navVC animated:YES completion:nil];
-}
-
-// Handles the action of pushing to the comment's of a selected string
-- (void)didSelectCommentsButton:(NSNotification *)notification
-{
-    StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
-    
-    [commentsVC setHidesBottomBarWhenPushed:YES];
-    
-    [self.navigationController pushViewController:commentsVC animated:YES];
-}
-
-// Handles the action of liking the selected string
-- (void)didSelectLikesButton:(NSNotification *)notification
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
-                                                    message:@"You have liked this String!"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles: nil];
-    [alert show];
-}
-
 // Handles the action of pushing to to the detail view of a selected string
-- (void)pushToStringDetailView
+- (void)pushToStringDetailView:(UIButton *)sender
 {
-    StringrDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    
+    [detailVC setStringToLoad:[self.objects objectAtIndex:sender.tag]];
     [detailVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:detailVC animated:YES];
@@ -264,8 +170,7 @@ static int const NUMBER_OF_IMAGES = 24;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // This will be set to the amount of strings that are loaded from parse
-    return 4;
+    return [self.objects count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -273,47 +178,9 @@ static int const NUMBER_OF_IMAGES = 24;
     // One of the rows is for the footer view
     return 2;
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 0) {
-        static NSString *cellIdentifier = @"StringTableViewCell";
-        StringTableViewCell *stringCell = (StringTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if (!stringCell) {
-            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        }
-        
-        if (indexPath.section % 2 == 0) {
-            [stringCell setCollectionData:self.images];
-        } else {
-            [stringCell setCollectionData:self.images2];
-        }
-        
-        return stringCell;
-    } else if (indexPath.row == 1) {
-        static NSString *cellIdentifier = @"StringTableViewFooter";
-        StringFooterTableViewCell *footerCell = (StringFooterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (footerCell) {
-            footerCell = [[StringFooterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        }
-        
-        // Init's the footer with live data from here
-        [footerCell setStringUploaderName:@"Alonso Holmes"];
-        [footerCell setStringUploadDate:@"10 minutes ago"];
-        [footerCell setStringUploaderProfileImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-        [footerCell setCommentButtonTitle:@"4.7k"];
-        [footerCell setLikeButtonTitle:@"11.3k"];
-        
-        return footerCell;
-    } else {
-        return nil; // this shouldn't happen but makes the compiler happy
-    }
-}
-
+ 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return NO;
 }
 
@@ -324,6 +191,7 @@ static int const NUMBER_OF_IMAGES = 24;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    //
     return 23.5;
 }
 
@@ -351,9 +219,14 @@ static float const contentViewWidthPercentage = .93;
     // the detail view of a string
     UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
     [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
-    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView) forControlEvents:UIControlEventTouchUpInside];
+    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView:) forControlEvents:UIControlEventTouchUpInside];
     [contentHeaderViewButton setAlpha:0.92];
-    [contentHeaderViewButton setTitle:@"An awesome trip from coast to coast!" forState:UIControlStateNormal];
+    // Sets tag so we can easily access the correct string when a user taps the detail view for a string
+    [contentHeaderViewButton setTag:section];
+    
+    
+    NSString *titleText = [[self.objects objectAtIndex:section] objectForKey:kStringrStringTitleKey];
+    [contentHeaderViewButton setTitle:titleText forState:UIControlStateNormal];
     [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
@@ -374,6 +247,89 @@ static float const contentViewWidthPercentage = .93;
     }
     
     return 0;
+}
+
+
+
+
+#pragma mark - PFQueryTableViewController
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
+{
+    //static NSString *cellIdentifier = @"Cell";
+    if (indexPath.section == self.objects.count) {
+        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+        UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+        return cell;
+    } else if (indexPath.row == 0) {
+        static NSString *cellIdentifier = @"StringTableViewCell";
+        StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        [stringCell setStringViewDelegate:self];
+        [stringCell setStringObject:object];
+        
+        return stringCell;
+    } else if (indexPath.row == 1) {
+        static NSString *cellIdentifier = @"StringTableViewFooter";
+        
+        UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        
+        StringrFooterView *footerView = [self addFooterViewToCellWithObject:object];
+        
+        [footerCell.contentView addSubview:footerView];
+        
+        return footerCell;
+    } else {
+        return nil;
+    }
+}
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    
+}
+
+- (void)objectsWillLoad
+{
+    [super objectsWillLoad];
+    
+    // This method is called before a PFQuery is fired to get more objects
+}
+
+- (PFQuery *)queryForTable {
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    
+    // If no objects are loaded in memory, we look to the cache first to fill the table
+    // and then subsequently do a query against the network.
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query orderByAscending:@"createdAt"];
+    
+    return query;
+}
+
+- (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
+{
+    // returns the object for every collection string and footer cell
+    if (indexPath.section < self.objects.count) {
+        return [self.objects objectAtIndex:indexPath.section];
+    } else {
+        return nil;
+    }
+    
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
+{
+    PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
+    [loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    
+    return loadCell;
 }
 
 
@@ -400,34 +356,6 @@ static float const contentViewWidthPercentage = .93;
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-        /*
-        NSLog(@"Removed Observers from selecting action sheet");
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
-        
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setDetailsEditable:YES];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-
-        
-        */
-        
-        
-        
-        
-        // Modal
-        /*
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-        
-        [self presentViewController:navVC animated:YES completion:nil];
-         */
     } else if (buttonIndex == 1) {
         
         
@@ -439,29 +367,6 @@ static float const contentViewWidthPercentage = .93;
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-        /*
-        NSLog(@"Removed Observers from selecting action sheet");
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
-        
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setDetailsEditable:YES];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-        */
-        
-        // Modal
-        /*
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-        
-        [self presentViewController:navVC animated:YES completion:nil];
-         */
     } else if (buttonIndex == 2) {
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
@@ -482,12 +387,82 @@ static float const contentViewWidthPercentage = .93;
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
+        // TODO: Not sure why this is just a detail view and not edit 
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setDetailsEditable:YES];
+        [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
 }
+
+
+
+
+#pragma mark - StringView Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
+{
+    if (photos)
+    {
+        /*
+        TestViewController *testVC = [self.storyboard instantiateViewControllerWithIdentifier:@"testVC"];
+        [testVC setPhotos:photos];
+        [testVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:testVC animated:YES];
+        */
+        
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        
+        [photoDetailVC setEditDetailsEnabled:NO];
+        
+        // Sets the photos to be displayed in the photo pager
+        [photoDetailVC setPhotosToLoad:photos];
+        [photoDetailVC setSelectedPhotoIndex:index];
+        [photoDetailVC setStringOwner:string];
+        
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:photoDetailVC animated:YES];
+        
+    }
+}
+
+
+#pragma mark - StringrFooterView Delegate
+
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
+{
+    if (uploader) {
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        
+        [profileVC setUserForProfile:uploader];
+        [profileVC setProfileReturnState:ProfileModalReturnState];
+        [profileVC setHidesBottomBarWhenPushed:YES];
+
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+        [self presentViewController:navVC animated:YES completion:nil];
+    }
+}
+
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
+                                                    message:@"You have liked this String!"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
+{
+    StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+    
+    [commentsVC setHidesBottomBarWhenPushed:YES];
+    
+    [self.navigationController pushViewController:commentsVC animated:YES];
+}
+
 
 @end
