@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@class KIImagePager;
+@class ParseImagePager;
 
-@protocol KIImagePagerDataSource
+@protocol ParseImagePagerDataSource
 
 @required
 - (NSArray *)arrayWithPhotoPFObjects;
@@ -23,18 +23,18 @@
 
 @end
 
-@protocol KIImagePagerDelegate <NSObject>
+@protocol ParseImagePagerDelegate <NSObject>
 
 @optional
-- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index;
-- (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index;
+- (void) imagePager:(ParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index;
+- (void) imagePager:(ParseImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index;
 
 @end
 
-@interface KIImagePager : UIView
+@interface ParseImagePager : UIView
 
-@property (weak) IBOutlet id <KIImagePagerDataSource> dataSource;
-@property (weak) IBOutlet id <KIImagePagerDelegate> delegate;
+@property (weak) IBOutlet id <ParseImagePagerDataSource> dataSource;
+@property (weak) IBOutlet id <ParseImagePagerDelegate> delegate;
 
 @property (assign) UIViewContentMode contentMode;
 @property (nonatomic, retain) UIPageControl *pageControl;

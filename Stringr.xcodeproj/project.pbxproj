@@ -77,11 +77,9 @@
 		ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30CF1896EF1F0043CC28 /* QMBParallaxScrollViewController.m */; };
 		ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30D11896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m */; };
 		ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */; };
-		ABDFDE5918CF8BE500682EDD /* OldParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE5618CF8BE500682EDD /* OldParseImagePager.m */; };
-		ABDFDE6318CFA40000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6018CFA40000682EDD /* ParseImagePager.m */; };
 		ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6518CFC1E000682EDD /* KICamera.png */; };
 		ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */; };
-		ABDFDE6B18CFC1E000682EDD /* KIImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* KIImagePager.m */; };
+		ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */; };
 		ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
@@ -250,14 +248,10 @@
 		ABDD30D11896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+QMBParallaxScrollViewController.m"; sourceTree = "<group>"; };
 		ABDD30D61896EF300043CC28 /* StringrStringCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringCollectionViewController.h; path = String/StringrStringCollectionViewController.h; sourceTree = "<group>"; };
 		ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCollectionViewController.m; path = String/StringrStringCollectionViewController.m; sourceTree = "<group>"; };
-		ABDFDE5518CF8BE500682EDD /* OldParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldParseImagePager.h; sourceTree = "<group>"; };
-		ABDFDE5618CF8BE500682EDD /* OldParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldParseImagePager.m; sourceTree = "<group>"; };
-		ABDFDE5F18CFA40000682EDD /* ParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseImagePager.h; sourceTree = "<group>"; };
-		ABDFDE6018CFA40000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
 		ABDFDE6518CFC1E000682EDD /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
 		ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
-		ABDFDE6718CFC1E000682EDD /* KIImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIImagePager.h; sourceTree = "<group>"; };
-		ABDFDE6818CFC1E000682EDD /* KIImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIImagePager.m; sourceTree = "<group>"; };
+		ABDFDE6718CFC1E000682EDD /* ParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseImagePager.h; sourceTree = "<group>"; };
+		ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
 		ABF121EF189C14810029177A /* StringrCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCommentsTableViewCell.h; path = Comments/StringrCommentsTableViewCell.h; sourceTree = "<group>"; };
 		ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCommentsTableViewCell.m; path = Comments/StringrCommentsTableViewCell.m; sourceTree = "<group>"; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
@@ -542,33 +536,15 @@
 			name = "Edit Profile TableView Cell's";
 			sourceTree = "<group>";
 		};
-		ABDFDE5418CF8BE500682EDD /* OldParseImagePager */ = {
-			isa = PBXGroup;
-			children = (
-				ABDFDE5518CF8BE500682EDD /* OldParseImagePager.h */,
-				ABDFDE5618CF8BE500682EDD /* OldParseImagePager.m */,
-			);
-			name = OldParseImagePager;
-			path = AFImagePager;
-			sourceTree = "<group>";
-		};
-		ABDFDE5C18CFA40000682EDD /* ParseImagePager */ = {
-			isa = PBXGroup;
-			children = (
-				ABDFDE5F18CFA40000682EDD /* ParseImagePager.h */,
-				ABDFDE6018CFA40000682EDD /* ParseImagePager.m */,
-			);
-			path = ParseImagePager;
-			sourceTree = "<group>";
-		};
-		ABDFDE6418CFC1E000682EDD /* KIImagePager */ = {
+		ABDFDE6418CFC1E000682EDD /* ParseImagePager */ = {
 			isa = PBXGroup;
 			children = (
 				ABDFDE6518CFC1E000682EDD /* KICamera.png */,
 				ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */,
-				ABDFDE6718CFC1E000682EDD /* KIImagePager.h */,
-				ABDFDE6818CFC1E000682EDD /* KIImagePager.m */,
+				ABDFDE6718CFC1E000682EDD /* ParseImagePager.h */,
+				ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */,
 			);
+			name = ParseImagePager;
 			path = KIImagePager;
 			sourceTree = "<group>";
 		};
@@ -861,9 +837,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				ABDFDE6418CFC1E000682EDD /* KIImagePager */,
-				ABDFDE5C18CFA40000682EDD /* ParseImagePager */,
-				ABDFDE5418CF8BE500682EDD /* OldParseImagePager */,
+				ABDFDE6418CFC1E000682EDD /* ParseImagePager */,
 				AB4FF07B18C0019E000F550F /* UIImage+Resize */,
 				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
 				AB9D73FF1891A7CA003BB2B8 /* Photo Decompression */,
@@ -1061,7 +1035,6 @@
 			files = (
 				BF46518A186F748800EB464F /* StringrStringCommentsViewController.m in Sources */,
 				AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */,
-				ABDFDE5918CF8BE500682EDD /* OldParseImagePager.m in Sources */,
 				AB5B594A189ADAA100790510 /* StringrPhotoDetailEditTableViewController.m in Sources */,
 				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
@@ -1112,10 +1085,9 @@
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
 				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
-				ABDFDE6B18CFC1E000682EDD /* KIImagePager.m in Sources */,
+				ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
-				ABDFDE6318CFA40000682EDD /* ParseImagePager.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
 				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,

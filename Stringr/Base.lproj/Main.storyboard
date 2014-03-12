@@ -104,7 +104,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t6P-Kb-nG6" customClass="KIImagePager">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t6P-Kb-nG6" customClass="ParseImagePager">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1670,7 +1670,7 @@
                         <viewControllerLayoutGuide type="top" id="7G2-0T-kMm"/>
                         <viewControllerLayoutGuide type="bottom" id="0TP-91-qBB"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bce-nh-aX0" customClass="KIImagePager">
+                    <view key="view" contentMode="scaleToFill" id="bce-nh-aX0" customClass="ParseImagePager">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

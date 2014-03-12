@@ -9,7 +9,7 @@
 #import "StringrPhotoDetailTopViewController.h"
 
 
-@interface StringrPhotoDetailTopViewController () <ParseImagePagerDataSource, ParseImagePagerDelegate, KIImagePagerDataSource, KIImagePagerDelegate>
+@interface StringrPhotoDetailTopViewController () <ParseImagePagerDataSource, ParseImagePagerDelegate, ParseImagePagerDataSource, ParseImagePagerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *photos;
 
@@ -65,7 +65,7 @@
 #pragma mark - ParseImagePager Delegate
 
 
-- (void)imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+- (void)imagePager:(ParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index
 {
     if (index <= [self.photosToLoad count]) {
         if ([self.delegate respondsToSelector:@selector(photoViewer:didScrollToIndex:)]) {
@@ -74,7 +74,7 @@
     }
 }
 
-- (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+- (void)imagePager:(ParseImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     if ([self.delegate respondsToSelector:@selector(photoViewer:didTapPhotoAtIndex:)]) {
         [self.delegate photoViewer:imagePager didTapPhotoAtIndex:index];
