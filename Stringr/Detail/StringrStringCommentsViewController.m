@@ -81,7 +81,7 @@
             NSString *commentText = @"A block quotation (also known as a long quotation or extract) is a quotation in a written document, that is set off from the main text as a paragraph, or block of text, and typically distinguished visually using indentation and a different typeface or smaller size quotation. (This is in contrast to a setting it off with quotation marks in a run-in quote.) Block quotations are used for the long quotation. The Chicago Manual of Style recommends using a block quotation when extracted text is 100 words or more, or at least eight lines.";
             */
              
-            NSDictionary *comment = @{@"profileImage" : @"alonsoAvatar.jpg", @"profileDisplayName" : @"Alonso Holmes", @"uploadDate" : @"3 min ago", @"commentText" : @"It looks like you had an amazing trip!"};
+            NSDictionary *comment = @{@"profileImage" : @"Stringr Image", @"profileDisplayName" : @"Alonso Holmes", @"uploadDate" : @"3 min ago", @"commentText" : @"It looks like you had an amazing trip!"};
             
             [_commentsThread addObject:comment];
         }
