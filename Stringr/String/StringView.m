@@ -133,8 +133,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *cellData = [self.collectionViewPhotos objectAtIndex:indexPath.row]; // PFObject(Photo)
-    [self.delegate collectionView:collectionView tappedItemAtIndexPath:indexPath withObject:cellData];
+    //PFObject *cellData = [self.collectionViewPhotos objectAtIndex:indexPath.row]; // PFObject(Photo)
+    [self.delegate collectionView:collectionView tappedPhotoAtIndex:indexPath.row inPhotos:self.collectionViewPhotos fromString:self.stringToLoad];
 }
 
 

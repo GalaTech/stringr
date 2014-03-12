@@ -79,7 +79,8 @@
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                [self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
+                [self.photoCaptionTextView setText:[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey]];
+                //[self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
             }
             break;
         case 1:
@@ -110,12 +111,22 @@
     return 44;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0;
+    }
+    
+    return 20;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
         case 1:
             if (indexPath.row == 0) {
                 StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+                [stringDetailVC setStringToLoad:self.stringOwner];
                 [self.navigationController pushViewController:stringDetailVC animated:YES];
             }
             break;

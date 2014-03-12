@@ -30,8 +30,6 @@ static float const secondsRemovedFromDate = 240;
                                                                          toDate:[NSDate date]
                                                                         options:0];
         
-        
-        
         if (components.year >= 1) {
             NSString *yearLabel = @"Years";
             
@@ -53,11 +51,11 @@ static float const secondsRemovedFromDate = 240;
         } else if (components.weekOfYear >= 1) {
             NSString *weekLabel = @"Weeks";
             
-            if (components.week == 1) {
+            if (components.weekOfYear == 1) {
                 weekLabel = @"Week";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.week, weekLabel];
+            return [NSString stringWithFormat:@"%d %@ Ago", components.weekOfYear, weekLabel];
             //NSLog(@"%@", weeksAgoText);
         } else if (components.day >= 1) {
             NSString *dayLabel = @"Days";

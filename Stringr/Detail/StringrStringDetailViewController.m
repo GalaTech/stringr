@@ -28,7 +28,7 @@
     
     
     
-    if (self.detailsEditable) {
+    if (self.editDetailsEnabled) {
         self.title = @"Publish String";
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish"

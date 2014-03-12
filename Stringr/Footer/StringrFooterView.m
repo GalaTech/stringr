@@ -102,13 +102,13 @@ static float const contentFooterViewWidthPercentage = .93;
         PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
         [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
             self.userForObject = (PFUser *)user;
+            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
+            
             PFFile *uploaderProfileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             
             [self.profileImageView setFile:uploaderProfileImageFile];
             [self.profileImageView loadInBackground];
             [self loadingProfileImageIndicatorEnabled:NO];
-            
-            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
         }];
     }
 }

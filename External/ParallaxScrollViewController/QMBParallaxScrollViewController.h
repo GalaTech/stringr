@@ -104,4 +104,7 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
  */
 - (void) enableTapGestureTopView:(BOOL) enable;
 
+
+- (void)handleTap:(id)sender;
+
 @end

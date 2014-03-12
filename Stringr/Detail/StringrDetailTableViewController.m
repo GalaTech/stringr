@@ -128,9 +128,13 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    [profileVC setCanEditProfile:NO];
-    [profileVC setTitle:@"Profile"];
-    [profileVC setCanCloseModal:YES];
+    [profileVC setUserForProfile:uploader];
+    [profileVC setProfileReturnState:ProfileModalReturnState];
+    
+    
+    //[profileVC setCanEditProfile:NO];
+    //[profileVC setTitle:@"Profile"];
+    //[profileVC setCanCloseModal:YES];
     
     [profileVC setHidesBottomBarWhenPushed:YES];
     

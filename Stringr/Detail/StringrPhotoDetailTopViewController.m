@@ -8,9 +8,10 @@
 
 #import "StringrPhotoDetailTopViewController.h"
 
-@interface StringrPhotoDetailTopViewController () <UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
+@interface StringrPhotoDetailTopViewController () <ParseImagePagerDataSource, ParseImagePagerDelegate, KIImagePagerDataSource, KIImagePagerDelegate>
+
+@property (strong, nonatomic) NSMutableArray *photos;
 
 @end
 
@@ -33,16 +34,75 @@
     
     [self.view setBackgroundColor:[UIColor blackColor]];
     
-    //[self.photoImage setFrame:self.photoScrollView.bounds];
-    [self.photoImage setContentMode:UIViewContentModeScaleAspectFit];
-
-    /*
-    [self.photoScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.photoImage.frame) + 100, CGRectGetHeight(self.photoImage.frame) + 100)];
-    [self.photoScrollView setMaximumZoomScale:10.0];
-    [self.photoScrollView setMinimumZoomScale:1.0];
+    self.photos = [[NSMutableArray alloc] init];
+    [self.photos addObject:[UIImage imageNamed:@"photo-01.jpg"]];
+    [self.photos addObject:[UIImage imageNamed:@"photo-02.jpg"]];
+    [self.photos addObject:[UIImage imageNamed:@"photo-03.jpg"]];
+    [self.photos addObject:[UIImage imageNamed:@"photo-04.jpg"]];
+    [self.photos addObject:[UIImage imageNamed:@"photo-05.jpg"]];
     
-    [self.photoScrollView setDelegate:self];
-     */
+    //[self.photoImage setFrame:self.photoScrollView.bounds];
+    //[self.photoImage setContentMode:UIViewContentModeScaleAspectFit];
+    
 }
+
+
+
+
+#pragma mark - ParseImagePager DataSource
+
+- (NSArray *)arrayWithImages
+{
+    return nil;
+    //return self.photos;
+}
+
+- (NSArray *)arrayWithPhotoPFObjects
+{
+    //return nil;
+    return self.photosToLoad;
+}
+
+- (UIViewContentMode)contentModeForImage:(NSUInteger)image
+{
+    return UIViewContentModeScaleAspectFit;
+}
+
+
+#pragma mark - ParseImagePager Delegate
+
+
+- (void)imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+{
+    if (index <= [self.photosToLoad count]) {
+        if ([self.delegate respondsToSelector:@selector(photoViewer:didScrollToIndex:)]) {
+            [self.delegate photoViewer:imagePager didScrollToIndex:index];
+        }
+    }
+    
+    NSLog(@"did scroll %d", index);
+}
+
+- (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
+    if ([self.delegate respondsToSelector:@selector(photoViewer:didTapPhotoAtIndex:)]) {
+        [self.delegate photoViewer:imagePager didTapPhotoAtIndex:index];
+    }
+    
+    NSLog(@"did tap %d", index);
+}
+
+/*
+- (void)imagePager:(ParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+{
+    NSLog(@"did scroll %d", index);
+}
+
+- (void)imagePager:(ParseImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
+    NSLog(@"did tap %d", index);
+}
+*/
+
 
 @end

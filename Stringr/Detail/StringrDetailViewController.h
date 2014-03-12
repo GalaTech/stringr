@@ -10,6 +10,6 @@
 
 @interface StringrDetailViewController : QMBParallaxScrollViewController
 
-@property (nonatomic) BOOL detailsEditable;
+@property (nonatomic) BOOL editDetailsEnabled;
 
 @end

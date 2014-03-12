@@ -10,4 +10,6 @@
 
 @interface TestViewController : UIViewController
 
+@property (strong, nonatomic) NSArray *photos;
+
 @end

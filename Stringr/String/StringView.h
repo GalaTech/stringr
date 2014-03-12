@@ -53,7 +53,7 @@
 @protocol StringViewDelegate <NSObject>
 
 @required
-- (void)collectionView:(UICollectionView *)collectionView tappedItemAtIndexPath:(NSIndexPath *)indexPath withObject:(PFObject *)photo;
+- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string;
 
 
 

@@ -260,8 +260,8 @@
     // Table section 0 menu items actions
     if (indexPath.section == 0 && indexPath.row == 0) {
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-        profileVC.canEditProfile = YES;
-        profileVC.title = @"My Profile";
+        [profileVC setUserForProfile:[PFUser currentUser]];
+        [profileVC setProfileReturnState:ProfileMenuReturnState];
         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
         
@@ -303,6 +303,7 @@
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
+        [PFQuery clearAllCachedResults];
         [PFUser logOut];
         
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
@@ -347,7 +348,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (cell == nil) {
+    if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     

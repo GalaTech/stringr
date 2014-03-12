@@ -11,13 +11,17 @@
 #import "StringCollectionViewCell.h"
 #import "NHBalancedFlowLayout.h"
 #import "StringrPathImageView.h"
+#import "OldParseImagePager.h"
+#import "KIImagePager.h"
 
-@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate>
+@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate, OldParseImagePagerDataSource, OldParseImagePagerDelegate, KIImagePagerDataSource, KIImagePagerDelegate>
 
 @property (strong, nonatomic) NSArray *collectionViewImages;
 
 @property (weak, nonatomic) IBOutlet StringrPathImageView *testProfileImage;
 @property (weak, nonatomic) IBOutlet StringCollectionView *imagesCollectionView;
+
+@property (weak, nonatomic) IBOutlet KIImagePager *imagePager;
 
 @end
 
@@ -40,7 +44,6 @@
     [self.testProfileImage setImageToCirclePath];
     [self.testProfileImage setPathColor:[UIColor darkGrayColor]];
     [self.testProfileImage setPathWidth:1.0];
-    
 
     
     /*
@@ -66,6 +69,12 @@
     [self.imagesCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+   // [self.imagePager setIndicatorDisabled:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -87,7 +96,19 @@
             [self.imagesCollectionView reloadData];
         }
     }];
-     */
+     
+    
+    if (self.stringToLoad) {
+        PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+        [stringPhotoQuery orderByAscending:@"createdAt"];
+        [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:self.stringToLoad];
+        
+        [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+            if (!error) {
+                self.collectionViewPhotos = [[NSArray alloc] initWithArray:photos];
+            }
+        }
+         */
     
     
     PFQuery *stringQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
@@ -100,10 +121,13 @@
         
         [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
             self.collectionViewImages = [[NSArray alloc] initWithArray:photos];
+            [self arrayWithPhotoPFObjects];
+            
             [self.imagesCollectionView reloadData];
         }];
         
     }];
+    
     
     
     
@@ -124,6 +148,27 @@
      */
 }
 
+
+
+- (NSArray *)arrayWithPhotoPFObjects
+{
+    return self.photos;
+}
+
+- (UIViewContentMode)contentModeForImage:(NSUInteger)image
+{
+    return UIViewContentModeScaleAspectFit;
+}
+
+- (void)imagePager:(OldParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+{
+    NSLog(@"did scroll %d", index);
+}
+
+- (void)imagePager:(OldParseImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
+    NSLog(@"did tap %d", index);
+}
 
 
 
