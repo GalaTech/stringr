@@ -31,7 +31,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        StringrPathImageView *profileImage = [[StringrPathImageView alloc] initWithFrame:CGRectMake(5, 5, 38, 38) image:[UIImage imageNamed:@"alonsoAvatar.jpg"] pathColor:[UIColor darkGrayColor] pathWidth:1.0];
+        StringrPathImageView *profileImage = [[StringrPathImageView alloc] initWithFrame:CGRectMake(5, 5, 38, 38) image:[UIImage imageNamed:@"Stringr Image"] pathColor:[UIColor darkGrayColor] pathWidth:1.0];
         
         UIButton *profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 38, 38)];
         [profileImageButton addTarget:self action:@selector(pushToUserProfile) forControlEvents:UIControlEventTouchUpInside];
