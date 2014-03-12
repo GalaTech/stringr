@@ -129,7 +129,7 @@ static int const NUMBER_OF_IMAGES = 24;
     {
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
-        [photoDetailVC setDetailsEditable:YES];
+        [photoDetailVC setEditDetailsEnabled:YES];
         // Sets the initial photo to the selected cell
         [photoDetailVC setCurrentImage:[cellData objectForKey:@"image"]];
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];

@@ -57,24 +57,22 @@
 
 #pragma mark - StringView Delegate
 
-- (void)collectionView:(UICollectionView *)collectionView tappedItemAtIndexPath:(NSIndexPath *)indexPath withObject:(PFObject *)photo
+- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
 {
-    if (photo)
+    if (photos)
     {
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
-        [photoDetailVC setDetailsEditable:NO];
+        [photoDetailVC setEditDetailsEnabled:NO];
         
         // Sets the initial photo to the selected cell's PFObject photo data
-        [photoDetailVC setPhotoToLoad:photo];
+        [photoDetailVC setPhotosToLoad:photos];
+        [photoDetailVC setStringOwner:string];
         
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
 }
-
-
-
 
 @end

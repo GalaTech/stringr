@@ -50,15 +50,4 @@
 
 
 
-#pragma mark - Old ParallaxController Delegate
-
-/*
- - (void)scrollViewDidScroll:(UIScrollView *)scrollView
- {
- [self.parallaxController tableViewControllerDidScroll:self];
- }
- */
-
-
-
 @end

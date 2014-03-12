@@ -135,8 +135,12 @@
      */
     
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    [profileVC setCanCloseModal:YES];
-    [profileVC setCanEditProfile:NO];
+    [profileVC setUserForProfile:[PFUser currentUser]];
+    [profileVC setProfileReturnState:ProfileModalReturnState];
+    
+    
+    //[profileVC setCanCloseModal:YES];
+    //[profileVC setCanEditProfile:NO];
     
     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     

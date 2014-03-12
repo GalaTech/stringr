@@ -22,6 +22,8 @@
 
 #import "StringrStringDetailViewController.h"
 
+#import "TestViewController.h"
+
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringViewDelegate, StringrFooterViewDelegate>
 
 @end
@@ -34,7 +36,6 @@
 {
     self = [super initWithCoder:aCoder];
     if (self) {
-        // This table displays items in the Todo class
         self.parseClassName = kStringrStringClassKey;
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = NO;
@@ -53,6 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	
     // Creates the navigation item to access the menu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -189,6 +191,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    //
     return 23.5;
 }
 
@@ -386,7 +389,7 @@ static float const contentViewWidthPercentage = .93;
         
         // TODO: Not sure why this is just a detail view and not edit 
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setDetailsEditable:YES];
+        [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
@@ -398,20 +401,30 @@ static float const contentViewWidthPercentage = .93;
 
 #pragma mark - StringView Delegate
 
-- (void)collectionView:(UICollectionView *)collectionView tappedItemAtIndexPath:(NSIndexPath *)indexPath withObject:(PFObject *)photo
+- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
 {
-    if (photo)
+    if (photos)
     {
+        /*
+        TestViewController *testVC = [self.storyboard instantiateViewControllerWithIdentifier:@"testVC"];
+        [testVC setPhotos:photos];
+        [testVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:testVC animated:YES];
+        */
+        
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
-        [photoDetailVC setDetailsEditable:NO];
+        [photoDetailVC setEditDetailsEnabled:NO];
         
-        // Sets the initial photo to the selected cell's PFObject photo data
-        [photoDetailVC setPhotoToLoad:photo];
+        // Sets the photos to be displayed in the photo pager
+        [photoDetailVC setPhotosToLoad:photos];
+        [photoDetailVC setSelectedPhotoIndex:index];
+        [photoDetailVC setStringOwner:string];
         
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:photoDetailVC animated:YES];
+        
     }
 }
 
@@ -420,17 +433,16 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    
-    BOOL isCurrentUsersProfile = [PFUser currentUser] == uploader;
-    [profileVC setCanEditProfile:isCurrentUsersProfile];
-    [profileVC setTitle:@"Profile"];
-    [profileVC setCanCloseModal:YES];
-    
-    [profileVC setHidesBottomBarWhenPushed:YES];
+    if (uploader) {
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        
+        [profileVC setUserForProfile:uploader];
+        [profileVC setProfileReturnState:ProfileModalReturnState];
+        [profileVC setHidesBottomBarWhenPushed:YES];
 
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-    [self presentViewController:navVC animated:YES completion:nil];
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+        [self presentViewController:navVC animated:YES completion:nil];
+    }
 }
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object

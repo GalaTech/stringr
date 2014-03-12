@@ -9,6 +9,7 @@
 #import "StringrLoginViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 #import "StringrRootViewController.h"
+#import "UIImage+Resize.h"
 
 #import "StringrProfileViewController.h"
 
@@ -319,15 +320,18 @@
 #pragma mark - NSURLConnectionDataDelegate
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    UIImage *facebookProfileImage = [UIImage imageWithData:self.profileImageData];
+    UIImage *thumbnailProfileImage = [facebookProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+    
+    NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
+    
     // Saves the users Facebook profile image as a parse file once the data has been loaded
     PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
+    PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
     [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
+    [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
     // Save with block so that the menu profile image is not called until the new image has finished uploading
     [[PFUser currentUser] saveInBackground];
-    
-    
-    //[[PFUser currentUser] setObject:self.profileImageData forKey:@"userProfileImageData"];
-    //[[PFUser currentUser] saveInBackground];
 }
 
 

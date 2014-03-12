@@ -37,6 +37,29 @@
 }
 
 
+
+
+#pragma mark - Public
+
+- (void)reloadPhotoDetailsWithScrollDirection:(ScrollDirection)direction
+{
+    UITableViewRowAnimation rowAnimation;
+    
+    if (direction == ScrolledLeft) {
+        rowAnimation = UITableViewRowAnimationLeft;
+    } else {
+        rowAnimation = UITableViewRowAnimationRight;
+    }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3] withRowAnimation:rowAnimation];
+}
+
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -79,7 +102,8 @@
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                [self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
+                [self.photoCaptionTextView setText:[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey]];
+                //[self.photoCaptionTextView setText:@"Amazing trip from around the world!"];
             }
             break;
         case 1:
@@ -110,12 +134,22 @@
     return 44;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0;
+    }
+    
+    return 20;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
         case 1:
             if (indexPath.row == 0) {
                 StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+                [stringDetailVC setStringToLoad:self.stringOwner];
                 [self.navigationController pushViewController:stringDetailVC animated:YES];
             }
             break;

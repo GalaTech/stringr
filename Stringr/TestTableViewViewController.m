@@ -31,7 +31,7 @@
     return self;
 }
 
-static int const PHOTO_HEIGHT = 157;
+//static int const PHOTO_HEIGHT = 157;
 
 - (void)viewDidLoad
 {

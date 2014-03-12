@@ -35,8 +35,8 @@
 #pragma mark - Lifecycle
 
 static float const contentViewWidth = 320.0;
-static float const contentViewHeight = 41.5;
-static float const contentFooterViewWidthPercentage = .93;
+//static float const contentViewHeight = 41.5;
+//static float const contentFooterViewWidthPercentage = .93;
 
 - (UIView *)initWithFrame:(CGRect)frame withFullWidthCell:(BOOL)isFullWidthCell
 {
@@ -102,13 +102,13 @@ static float const contentFooterViewWidthPercentage = .93;
         PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
         [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
             self.userForObject = (PFUser *)user;
+            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
+            
             PFFile *uploaderProfileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             
             [self.profileImageView setFile:uploaderProfileImageFile];
             [self.profileImageView loadInBackground];
             [self loadingProfileImageIndicatorEnabled:NO];
-            
-            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
         }];
     }
 }
