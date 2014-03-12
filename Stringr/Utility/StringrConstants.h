@@ -16,6 +16,10 @@
 
 @end
 
+#pragma mark - Constant Numerical Values
+
+extern float const kStringrPFObjectDetailTableViewCellHeight;
+
 #pragma mark - NSUserDefaults Keys
 
 extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;

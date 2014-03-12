@@ -35,8 +35,8 @@
 #pragma mark - Lifecycle
 
 static float const contentViewWidth = 320.0;
-static float const contentViewHeight = 41.5;
-static float const contentFooterViewWidthPercentage = .93;
+//static float const contentViewHeight = 41.5;
+//static float const contentFooterViewWidthPercentage = .93;
 
 - (UIView *)initWithFrame:(CGRect)frame withFullWidthCell:(BOOL)isFullWidthCell
 {

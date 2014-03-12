@@ -37,6 +37,29 @@
 }
 
 
+
+
+#pragma mark - Public
+
+- (void)reloadPhotoDetailsWithScrollDirection:(ScrollDirection)direction
+{
+    UITableViewRowAnimation rowAnimation;
+    
+    if (direction == ScrolledLeft) {
+        rowAnimation = UITableViewRowAnimationLeft;
+    } else {
+        rowAnimation = UITableViewRowAnimationRight;
+    }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3] withRowAnimation:rowAnimation];
+}
+
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -46,7 +46,7 @@
     
     // Sets the 'return' button based off of what state the profile is in. Modal, Menu, or Back.
     if (self.profileReturnState == ProfileModalReturnState) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  X" style:UIBarButtonSystemItemCancel target:self action:@selector(closeProfileVC)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  X" style:UIBarButtonItemStyleBordered target:self action:@selector(closeProfileVC)];
     } else if (self.profileReturnState == ProfileMenuReturnState) {
         // Creates the navigation item to access the menu
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]

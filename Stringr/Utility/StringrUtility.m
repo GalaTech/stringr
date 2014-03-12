@@ -21,12 +21,12 @@ static float const secondsRemovedFromDate = 240;
 {
     if (date) {
         // I add 4 mintues to the time so that it compensates for the off-time from parse
-        NSDate *newDate = [date dateByAddingTimeInterval:secondsRemovedFromDate];
+        //NSDate *newDate = [date dateByAddingTimeInterval:secondsRemovedFromDate];
         
         NSCalendarUnit units =  NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit | NSWeekOfYearCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
         
         NSDateComponents *components = [[NSCalendar currentCalendar] components:units
-                                                                       fromDate:newDate
+                                                                       fromDate:date
                                                                          toDate:[NSDate date]
                                                                         options:0];
         

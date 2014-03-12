@@ -78,8 +78,6 @@
 		ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30D11896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m */; };
 		ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */; };
 		ABDFDE5918CF8BE500682EDD /* OldParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE5618CF8BE500682EDD /* OldParseImagePager.m */; };
-		ABDFDE6118CFA40000682EDD /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE5D18CFA40000682EDD /* KICamera.png */; };
-		ABDFDE6218CFA40000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE5E18CFA40000682EDD /* KICamera@2x.png */; };
 		ABDFDE6318CFA40000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6018CFA40000682EDD /* ParseImagePager.m */; };
 		ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6518CFC1E000682EDD /* KICamera.png */; };
 		ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */; };
@@ -254,8 +252,6 @@
 		ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCollectionViewController.m; path = String/StringrStringCollectionViewController.m; sourceTree = "<group>"; };
 		ABDFDE5518CF8BE500682EDD /* OldParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldParseImagePager.h; sourceTree = "<group>"; };
 		ABDFDE5618CF8BE500682EDD /* OldParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldParseImagePager.m; sourceTree = "<group>"; };
-		ABDFDE5D18CFA40000682EDD /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
-		ABDFDE5E18CFA40000682EDD /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		ABDFDE5F18CFA40000682EDD /* ParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseImagePager.h; sourceTree = "<group>"; };
 		ABDFDE6018CFA40000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
 		ABDFDE6518CFC1E000682EDD /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
@@ -559,8 +555,6 @@
 		ABDFDE5C18CFA40000682EDD /* ParseImagePager */ = {
 			isa = PBXGroup;
 			children = (
-				ABDFDE5D18CFA40000682EDD /* KICamera.png */,
-				ABDFDE5E18CFA40000682EDD /* KICamera@2x.png */,
 				ABDFDE5F18CFA40000682EDD /* ParseImagePager.h */,
 				ABDFDE6018CFA40000682EDD /* ParseImagePager.m */,
 			);
@@ -939,7 +933,7 @@
 		BF8349C318297FD600D15963 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "GalaTech LLC";
 				TargetAttributes = {
 					BF8349CA18297FD600D15963 = {
@@ -990,11 +984,9 @@
 				AB1B0CBF188F9D5B0063EAC5 /* photo-03.jpg in Resources */,
 				AB1B0CCC188F9D5B0063EAC5 /* photo-16.jpg in Resources */,
 				ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */,
-				ABDFDE6218CFA40000682EDD /* KICamera@2x.png in Resources */,
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
 				ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */,
 				AB1B0CD3188F9D5B0063EAC5 /* photo-23.jpg in Resources */,
-				ABDFDE6118CFA40000682EDD /* KICamera.png in Resources */,
 				BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */,
 				AB1B0CC4188F9D5B0063EAC5 /* photo-08.jpg in Resources */,
 				AB1B0CC3188F9D5B0063EAC5 /* photo-07.jpg in Resources */,
@@ -1186,7 +1178,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1226,7 +1217,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1303,7 +1293,6 @@
 		BF834A0118297FD600D15963 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Stringr.app/Stringr";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1326,7 +1315,6 @@
 		BF834A0218297FD600D15963 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Stringr.app/Stringr";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

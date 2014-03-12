@@ -34,15 +34,7 @@
     
     [self.view setBackgroundColor:[UIColor blackColor]];
     
-    self.photos = [[NSMutableArray alloc] init];
-    [self.photos addObject:[UIImage imageNamed:@"photo-01.jpg"]];
-    [self.photos addObject:[UIImage imageNamed:@"photo-02.jpg"]];
-    [self.photos addObject:[UIImage imageNamed:@"photo-03.jpg"]];
-    [self.photos addObject:[UIImage imageNamed:@"photo-04.jpg"]];
-    [self.photos addObject:[UIImage imageNamed:@"photo-05.jpg"]];
     
-    //[self.photoImage setFrame:self.photoScrollView.bounds];
-    //[self.photoImage setContentMode:UIViewContentModeScaleAspectFit];
     
 }
 
@@ -69,6 +61,7 @@
 }
 
 
+
 #pragma mark - ParseImagePager Delegate
 
 
@@ -79,8 +72,6 @@
             [self.delegate photoViewer:imagePager didScrollToIndex:index];
         }
     }
-    
-    NSLog(@"did scroll %d", index);
 }
 
 - (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
@@ -88,8 +79,6 @@
     if ([self.delegate respondsToSelector:@selector(photoViewer:didTapPhotoAtIndex:)]) {
         [self.delegate photoViewer:imagePager didTapPhotoAtIndex:index];
     }
-    
-    NSLog(@"did tap %d", index);
 }
 
 /*

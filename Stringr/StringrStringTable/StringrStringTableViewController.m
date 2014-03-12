@@ -418,6 +418,7 @@ static float const contentViewWidthPercentage = .93;
         
         // Sets the photos to be displayed in the photo pager
         [photoDetailVC setPhotosToLoad:photos];
+        [photoDetailVC setSelectedPhotoIndex:index];
         [photoDetailVC setStringOwner:string];
         
         [photoDetailVC setHidesBottomBarWhenPushed:YES];

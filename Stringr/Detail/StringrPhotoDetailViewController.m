@@ -16,6 +16,8 @@
 @interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate>
 
 @property (strong, nonatomic) StringrPhotoDetailTopViewController *topPhotoVC;
+@property (strong, nonatomic) StringrPhotoDetailTableViewController *tablePhotoVC;
+@property (nonatomic) BOOL navigationBarIsHidden;
 
 @end
 
@@ -27,13 +29,15 @@
 {
     [super viewDidLoad];
     
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    
     self.topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTopVC"];
     [self.topPhotoVC setPhotosToLoad:self.photosToLoad];
     [self.topPhotoVC setDelegate:self];
     
-    StringrPhotoDetailTableViewController *tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
-    [tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[0]];
-    [tablePhotoVC setStringOwner:self.stringOwner];
+    self.tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
+    [self.tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[self.selectedPhotoIndex]];
+    [self.tablePhotoVC setStringOwner:self.stringOwner];
     
     
     if (self.editDetailsEnabled) {
@@ -42,36 +46,38 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(savePhoto)];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPhotoEdit)];
         
-        tablePhotoVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
+        self.tablePhotoVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
     } else {
         self.title = @"Photo Details";
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(pushToStringDetailPage)];
     }
     
-    [self setupWithTopViewController:self.topPhotoVC andTopHeight:250 andBottomViewController:tablePhotoVC];
+    [self setupWithTopViewController:self.topPhotoVC andTopHeight:250 andBottomViewController:self.tablePhotoVC];
+    
 
     ((KIImagePager *)self.topPhotoVC.view).indicatorDisabled = YES;
+    // sets the photo viewer to be viewing the photo selected by the user
+    [((KIImagePager *) self.topPhotoVC.view) setCurrentPage:self.selectedPhotoIndex];
     
     
     [self enableTapGestureTopView:YES];
     
     // accounts for main info view so that it 'sticks' to the bottom of the view when you go full screen
-    [self setMaxHeight:CGRectGetHeight(self.view.frame) - 41.5];
+    [self setMaxHeight:CGRectGetHeight(self.view.frame) - kStringrPFObjectDetailTableViewCellHeight];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:self.state == QMBParallaxStateFullSize animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    
+    // accounts for when a user taps on the comments button when in full screen
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -113,7 +119,11 @@
 
 - (void) parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {
-    [self.navigationController setNavigationBarHidden:self.state == QMBParallaxStateFullSize animated:YES];
+    // If we are in the normal parallax state we make sure that the nav bar isn't hidden
+    if (state == QMBParallaxStateVisible) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        self.navigationBarIsHidden = NO;
+    }
 }
 
 
@@ -123,11 +133,26 @@
 
 - (void)photoViewer:(KIImagePager *)photoViewer didScrollToIndex:(NSUInteger)index
 {
+    ScrollDirection direction;
     
+    if (index < self.selectedPhotoIndex) {
+        direction = ScrolledRight;
+    } else {
+        direction = ScrolledLeft;
+    }
+    
+    
+    [self.tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[index]];
+    [self.tablePhotoVC reloadPhotoDetailsWithScrollDirection:direction];
+    
+    self.selectedPhotoIndex = index;
 }
 
 - (void)photoViewer:(KIImagePager *)photoViewer didTapPhotoAtIndex:(NSUInteger)index
 {
+    // hides/shows the nav bar when the photo is tapped.
+    [self.navigationController setNavigationBarHidden:!self.navigationBarIsHidden animated:YES];
+    self.navigationBarIsHidden = !self.navigationBarIsHidden;
     [self handleTap:nil];
 }
 

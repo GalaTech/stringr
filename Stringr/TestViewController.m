@@ -14,7 +14,7 @@
 #import "OldParseImagePager.h"
 #import "KIImagePager.h"
 
-@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate, OldParseImagePagerDataSource, OldParseImagePagerDelegate, KIImagePagerDataSource, KIImagePagerDelegate>
+@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate, KIImagePagerDataSource, KIImagePagerDelegate>
 
 @property (strong, nonatomic) NSArray *collectionViewImages;
 
@@ -148,7 +148,10 @@
      */
 }
 
-
+- (NSArray *)arrayWithImages
+{
+    return nil;
+}
 
 - (NSArray *)arrayWithPhotoPFObjects
 {

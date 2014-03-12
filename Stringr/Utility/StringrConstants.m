@@ -23,6 +23,12 @@
 @end
 
 
+#pragma mark - Constant Numerical Values
+
+float const kStringrPFObjectDetailTableViewCellHeight = 41.5;
+
+
+
 #pragma mark - NSUserDefaults Keys
 
 NSString * const kUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TYo-jH-Mhx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TYo-jH-Mhx">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Stringr Navigation Controller - Following-->
         <scene sceneID="Okh-Lf-WZu">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sHt-5S-gDp" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="sHt-5S-gDp" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Following" id="lUy-Dp-r2a"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qxc-Jd-cAB">
                         <autoresizingMask key="autoresizingMask"/>
@@ -692,6 +692,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="325"/>
                     <connections>
                         <outlet property="followUserButton" destination="Dw2-ml-PNp" id="akx-bd-i2l"/>
                         <outlet property="followersButton" destination="kN4-5Z-HPR" id="bNB-BD-cku"/>
@@ -708,129 +709,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wao-yF-aS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="260" y="-5049"/>
-        </scene>
-        <!--Stringr Edit Profile View Controller - Edit Profile-->
-        <scene sceneID="yX3-1Y-ZKU">
-            <objects>
-                <viewController id="Vb9-ZS-kGf" customClass="StringrEditProfileViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0Lq-IU-PCe"/>
-                        <viewControllerLayoutGuide type="bottom" id="UlQ-Q7-6np"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8CF-zQ-fl3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nt-gC-Fry">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="BOj-eS-1gt" customClass="StringrPathImageView">
-                                        <rect key="frame" x="20" y="20" width="90" height="90"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="55n-nP-n7Y">
-                                        <rect key="frame" x="20" y="176" width="280" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                        <connections>
-                                            <action selector="editProfileNameTextField:" destination="Vb9-ZS-kGf" eventType="editingDidEnd" id="Xdw-8q-nSx"/>
-                                            <outlet property="delegate" destination="Vb9-ZS-kGf" id="G1Z-U4-5T5"/>
-                                        </connections>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kp2-gK-l4f">
-                                        <rect key="frame" x="20" y="248" width="280" height="101"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your display name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqL-QF-XTW">
-                                        <rect key="frame" x="20" y="147" width="146" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Click to change your profile photo." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="132" translatesAutoresizingMaskIntoConstraints="NO" id="gHm-bc-R1s">
-                                        <rect key="frame" x="143" y="47" width="132" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A bit about yourself:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkO-Va-tya">
-                                        <rect key="frame" x="20" y="219" width="146" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your University:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te6-9b-zfh">
-                                        <rect key="frame" x="20" y="364" width="146" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RJP-hQ-oVB">
-                                        <rect key="frame" x="20" y="248" width="280" height="101"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="Vb9-ZS-kGf" id="Kwj-an-MhR"/>
-                                        </connections>
-                                    </textView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYJ-PC-OmC">
-                                        <rect key="frame" x="256" y="320" width="37" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSG-1y-9Fb">
-                                        <rect key="frame" x="20" y="393" width="280" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Select your University...">
-                                            <color key="titleColor" red="0.79105548469999998" green="0.79105548469999998" blue="0.79105548469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="selectUniversityButtonAction:" destination="Vb9-ZS-kGf" eventType="touchUpInside" id="3jw-Fo-8X0"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <connections>
-                                    <outlet property="delegate" destination="Vb9-ZS-kGf" id="gxg-47-ha3"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="8nt-gC-Fry" secondAttribute="trailing" id="1gB-Nf-aIS"/>
-                            <constraint firstItem="8nt-gC-Fry" firstAttribute="leading" secondItem="8CF-zQ-fl3" secondAttribute="leading" id="3a5-cJ-cE0"/>
-                            <constraint firstAttribute="bottom" secondItem="8nt-gC-Fry" secondAttribute="bottom" id="4Nj-oW-9qg"/>
-                            <constraint firstItem="8nt-gC-Fry" firstAttribute="top" secondItem="8CF-zQ-fl3" secondAttribute="top" id="swT-2n-6RW"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Edit Profile" id="sRx-qd-SRT"/>
-                    <connections>
-                        <outlet property="charactersRemaining" destination="KYJ-PC-OmC" id="2bO-Gw-ggF"/>
-                        <outlet property="editProfileDescriptionTextView" destination="RJP-hQ-oVB" id="c9T-jb-2h5"/>
-                        <outlet property="editProfileImage" destination="BOj-eS-1gt" id="bLY-Ox-BIl"/>
-                        <outlet property="editProfileNameTextField" destination="55n-nP-n7Y" id="pWm-X8-z6A"/>
-                        <outlet property="scrollView" destination="8nt-gC-Fry" id="Ejx-EB-gGB"/>
-                        <outlet property="selectUniversityButton" destination="KSG-1y-9Fb" id="F6V-gp-0N5"/>
-                        <outlet property="underlyingProfileDescriptionTextField" destination="kp2-gK-l4f" id="76k-tc-Xh4"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vGM-5M-gVc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="667" y="-4631"/>
         </scene>
         <!--Stringr String Comments View Controller-->
         <scene sceneID="YEM-zs-tD1">
@@ -999,7 +877,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0E1-0M-GeQ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="chatCell" id="0E1-0M-GeQ">
                                 <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0E1-0M-GeQ" id="fG1-ep-SDT">
@@ -1029,7 +907,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="yi2-NV-cTe">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuCell" id="yi2-NV-cTe">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yi2-NV-cTe" id="3Nk-eL-d7j">
@@ -1498,7 +1376,7 @@
         <!--Stringr Navigation Controller - Popular-->
         <scene sceneID="7JO-u3-riK">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OuU-gq-kqb" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="OuU-gq-kqb" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Popular" id="fcW-vj-AeV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WhG-QQ-48Y">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1514,7 +1392,7 @@
         <!--Stringr Navigation Controller - Discover-->
         <scene sceneID="s9i-lF-OyC">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xbJ-Ss-au0" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="xbJ-Ss-au0" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Discover" id="jv9-bi-nQq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="J6x-Ej-Ibi">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1530,7 +1408,7 @@
         <!--Stringr Navigation Controller - Near You-->
         <scene sceneID="LcH-eL-4Wa">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lpO-Jo-ugj" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="lpO-Jo-ugj" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Near You" id="RH2-RU-6d0"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7QB-MC-YkK">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1546,7 +1424,7 @@
         <!--Stringr Navigation Controller - University Popular-->
         <scene sceneID="VW1-V2-Lrj">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hg5-an-Yld" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="hg5-an-Yld" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="University Popular" id="LH7-Pd-g2o"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RPM-MZ-C50">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1562,7 +1440,7 @@
         <!--Stringr Navigation Controller - University Discover-->
         <scene sceneID="8xm-Qt-83S">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MFx-n2-NX0" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="MFx-n2-NX0" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="University Discover" id="XCe-XF-4GQ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SPz-vE-Iu2">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1578,7 +1456,7 @@
         <!--Stringr Navigation Controller - University People-->
         <scene sceneID="vmH-GH-aFa">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cI7-eH-dIA" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="cI7-eH-dIA" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="University People" id="iuN-nC-tnq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8xv-cf-nel">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1594,7 +1472,7 @@
         <!--Stringr Navigation Controller - University Talk-->
         <scene sceneID="EDk-S6-QRP">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="v7K-lu-vgw" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="v7K-lu-vgw" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="University Talk" id="xtt-vd-Nb7"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kes-hX-d0H">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1610,7 +1488,7 @@
         <!--Stringr Navigation Controller - Following-->
         <scene sceneID="XNC-tG-gtW">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H8J-tN-jnB" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="H8J-tN-jnB" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Following" id="M5p-lo-HP0"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cZ3-b1-fVM">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1626,7 +1504,7 @@
         <!--Stringr Navigation Controller - Find People-->
         <scene sceneID="nid-o6-hcc">
             <objects>
-                <navigationController storyboardIdentifier="StringrNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PCD-r7-yjR" customClass="StringrNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="PCD-r7-yjR" customClass="StringrNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Find People" id="R95-6M-MMn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KU1-M1-lhD">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1778,6 +1656,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6y2-Td-CLf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1802,6 +1681,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="300"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvg-Dm-fjc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2173,6 +2053,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="283"/>
                     <connections>
                         <outlet property="stringView" destination="62j-gG-Iwh" id="ZLl-6R-1Fo"/>
                     </connections>
@@ -2203,6 +2084,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="283"/>
                     <connections>
                         <outlet property="stringView" destination="poq-IT-vBa" id="ilA-UW-0Il"/>
                     </connections>
@@ -2329,7 +2211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7H-tq-FGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1017" y="-4631"/>
+            <point key="canvasLocation" x="672" y="-4631"/>
         </scene>
     </scenes>
     <resources>

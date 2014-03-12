@@ -10,9 +10,16 @@
 #import "StringrDetailTableViewController.h"
 #import "QMBParallaxScrollViewController.h"
 
+typedef enum : NSUInteger {
+    ScrolledLeft = 0,
+    ScrolledRight = 1
+} ScrollDirection;
+
 @interface StringrPhotoDetailTableViewController : StringrDetailTableViewController <QMBParallaxScrollViewHolder>
 
 @property (strong, nonatomic) PFObject *photoDetailsToLoad;
 @property (strong, nonatomic) PFObject *stringOwner;
+
+- (void)reloadPhotoDetailsWithScrollDirection:(ScrollDirection)direction;
 
 @end
