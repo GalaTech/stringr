@@ -11,17 +11,16 @@
 #import "StringCollectionViewCell.h"
 #import "NHBalancedFlowLayout.h"
 #import "StringrPathImageView.h"
-#import "OldParseImagePager.h"
-#import "KIImagePager.h"
+#import "ParseImagePager.h"
 
-@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate, KIImagePagerDataSource, KIImagePagerDelegate>
+@interface TestViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NHBalancedFlowLayoutDelegate, ParseImagePagerDataSource, ParseImagePagerDelegate>
 
 @property (strong, nonatomic) NSArray *collectionViewImages;
 
 @property (weak, nonatomic) IBOutlet StringrPathImageView *testProfileImage;
 @property (weak, nonatomic) IBOutlet StringCollectionView *imagesCollectionView;
 
-@property (weak, nonatomic) IBOutlet KIImagePager *imagePager;
+@property (weak, nonatomic) IBOutlet ParseImagePager *imagePager;
 
 @end
 
@@ -162,18 +161,6 @@
 {
     return UIViewContentModeScaleAspectFit;
 }
-
-- (void)imagePager:(OldParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index
-{
-    NSLog(@"did scroll %d", index);
-}
-
-- (void)imagePager:(OldParseImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
-{
-    NSLog(@"did tap %d", index);
-}
-
-
 
 
 #pragma mark - UICollectionView Data Source

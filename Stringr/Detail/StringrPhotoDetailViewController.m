@@ -11,7 +11,6 @@
 #import "StringrPhotoDetailTableViewController.h"
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrStringDetailViewController.h"
-#import "OldParseImagePager.h"
 
 @interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate>
 
@@ -56,9 +55,9 @@
     [self setupWithTopViewController:self.topPhotoVC andTopHeight:250 andBottomViewController:self.tablePhotoVC];
     
 
-    ((KIImagePager *)self.topPhotoVC.view).indicatorDisabled = YES;
+    ((ParseImagePager *)self.topPhotoVC.view).indicatorDisabled = YES;
     // sets the photo viewer to be viewing the photo selected by the user
-    [((KIImagePager *) self.topPhotoVC.view) setCurrentPage:self.selectedPhotoIndex];
+    [((ParseImagePager *) self.topPhotoVC.view) setCurrentPage:self.selectedPhotoIndex];
     
     
     [self enableTapGestureTopView:YES];
@@ -131,7 +130,7 @@
 
 #pragma mark - StringrPhotoDetailTopViewControllerImagePager Delegate
 
-- (void)photoViewer:(KIImagePager *)photoViewer didScrollToIndex:(NSUInteger)index
+- (void)photoViewer:(ParseImagePager *)photoViewer didScrollToIndex:(NSUInteger)index
 {
     ScrollDirection direction;
     
@@ -148,7 +147,7 @@
     self.selectedPhotoIndex = index;
 }
 
-- (void)photoViewer:(KIImagePager *)photoViewer didTapPhotoAtIndex:(NSUInteger)index
+- (void)photoViewer:(ParseImagePager *)photoViewer didTapPhotoAtIndex:(NSUInteger)index
 {
     // hides/shows the nav bar when the photo is tapped.
     [self.navigationController setNavigationBarHidden:!self.navigationBarIsHidden animated:YES];

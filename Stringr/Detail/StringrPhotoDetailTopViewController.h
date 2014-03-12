@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StringrDetailTopViewController.h"
-#import "KIImagePager.h"
+#import "ParseImagePager.h"
 #import "ParseImagePager.h"
 
 @protocol StringrPhotoDetailTopViewControllerImagePagerDelegate;
@@ -23,7 +23,7 @@
 
 @protocol StringrPhotoDetailTopViewControllerImagePagerDelegate <NSObject>
 
-- (void)photoViewer:(KIImagePager *)photoViewer didScrollToIndex:(NSUInteger)index;
-- (void)photoViewer:(KIImagePager *)photoViewer didTapPhotoAtIndex:(NSUInteger)index;
+- (void)photoViewer:(ParseImagePager *)photoViewer didScrollToIndex:(NSUInteger)index;
+- (void)photoViewer:(ParseImagePager *)photoViewer didTapPhotoAtIndex:(NSUInteger)index;
 
 @end

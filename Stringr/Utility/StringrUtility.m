@@ -15,7 +15,7 @@
     [menuViewController presentMenuViewController];
 }
 
-static float const secondsRemovedFromDate = 240;
+//static float const secondsRemovedFromDate = 240;
 
 + (NSString *)timeAgoFromDate:(NSDate *)date
 {
@@ -37,7 +37,7 @@ static float const secondsRemovedFromDate = 240;
                 yearLabel = @"Year";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.year, yearLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.year, yearLabel];
             //NSLog(@"%@", yearsAgoText);
         } else if (components.month >= 1) {
             NSString *monthLabel = @"Months";
@@ -46,7 +46,7 @@ static float const secondsRemovedFromDate = 240;
                 monthLabel = @"Month";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.month, monthLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.month, monthLabel];
             //NSLog(@"%@", monthsAgoText);
         } else if (components.weekOfYear >= 1) {
             NSString *weekLabel = @"Weeks";
@@ -55,7 +55,7 @@ static float const secondsRemovedFromDate = 240;
                 weekLabel = @"Week";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.weekOfYear, weekLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.weekOfYear, weekLabel];
             //NSLog(@"%@", weeksAgoText);
         } else if (components.day >= 1) {
             NSString *dayLabel = @"Days";
@@ -64,7 +64,7 @@ static float const secondsRemovedFromDate = 240;
                 dayLabel = @"Day";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.day, dayLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.day, dayLabel];
             //NSLog(@"%@", daysAgoText);
         } else if (components.hour >= 1) {
             NSString *hourLabel = @"Hours";
@@ -73,7 +73,7 @@ static float const secondsRemovedFromDate = 240;
                 hourLabel = @"Hour";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.hour, hourLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.hour, hourLabel];
             //NSLog(@"%@", hoursAgoText);
         } else if (components.minute >= 1) {
             NSString *minuteLabel = @"Minutes";
@@ -82,7 +82,7 @@ static float const secondsRemovedFromDate = 240;
                 minuteLabel = @"Minute";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.minute, minuteLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.minute, minuteLabel];
             //NSLog(@"%@", minutesAgoText);
         } else if (components.second <= 60) {
             NSString *secondLabel = @"Seconds";
@@ -91,7 +91,7 @@ static float const secondsRemovedFromDate = 240;
                 secondLabel = @"Second";
             }
             
-            return [NSString stringWithFormat:@"%d %@ Ago", components.second, secondLabel];
+            return [NSString stringWithFormat:@"%ld %@ Ago", (long)components.second, secondLabel];
             //NSLog(@"%@", secondsAgoText);
         } else {
             return @"Uploaded in the Past!";

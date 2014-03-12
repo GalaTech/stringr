@@ -10,12 +10,12 @@
 #define kOverlayWidth       50
 #define kOverlayHeight      15
 
-#import "KIImagePager.h"
+#import "ParseImagePager.h"
 
-@interface KIImagePager () <UIScrollViewDelegate>
+@interface ParseImagePager () <UIScrollViewDelegate>
 {
-    __weak id <KIImagePagerDataSource> _dataSource;
-    __weak id <KIImagePagerDelegate> _delegate;
+    __weak id <ParseImagePagerDataSource> _dataSource;
+    __weak id <ParseImagePagerDelegate> _delegate;
     
     UIScrollView *_scrollView;
     UIPageControl *_pageControl;
@@ -28,7 +28,7 @@
 }
 @end
 
-@implementation KIImagePager
+@implementation ParseImagePager
 
 @synthesize dataSource = _dataSource;
 @synthesize delegate = _delegate;
@@ -182,7 +182,7 @@
             [_scrollView addSubview:imageView];
         }
         
-        [_countLabel setText:[NSString stringWithFormat:@"%d", [[_dataSource arrayWithPhotoPFObjects] count]]];
+        [_countLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[_dataSource arrayWithPhotoPFObjects] count]]];
         _pageControl.numberOfPages = [(NSArray *)[_dataSource arrayWithPhotoPFObjects] count];
         _pageControl.hidden = ([(NSArray *)[_dataSource arrayWithPhotoPFObjects] count] > 0 ? NO : YES);
         [_pageControl setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
