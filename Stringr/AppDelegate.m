@@ -24,7 +24,7 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
-    StringrRootViewController *rootVC = (StringrRootViewController *)[[self window] rootViewController];
+    StringrRootViewController *rootVC = (StringrRootViewController *)[self.window rootViewController];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
@@ -32,12 +32,15 @@
     
     //[self.window makeKeyAndVisible];
     
-    // Slightly delays the presentation of the loginVC so that it doesn't mess up the navigation
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [rootVC presentViewController:loginVC animated:YES completion:nil];
-    });
+    // makes it so that the login screen only appears if you need to login, but results in double check to see if user is authenticated
+    //if (![PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        // Slightly delays the presentation of the loginVC so that it doesn't mess up the navigation
+        double delayInSeconds = 0.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [rootVC presentViewController:loginVC animated:YES completion:nil];
+        });
+    //}
     
     return YES;
 }

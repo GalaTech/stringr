@@ -9,12 +9,18 @@
 #import <Foundation/Foundation.h>
 @interface StringrConstants : NSObject
 
-+ (UIColor *)kStringTableViewBackgroundColor;
 
+#pragma mark - Colors
 
-// Colors
-+ (UIColor *)kStringCollectionViewBackgroundColor;
++ (UIColor *)kStringrRedColor;
++ (UIColor *)kStringrOrangeColor;
++ (UIColor *)kStringrYellowColor;
 + (UIColor *)kStringrGreenColor;
++ (UIColor *)kStringrTurquoiseColor;
++ (UIColor *)kStringrBlueColor;
++ (UIColor *)kStringrPurpleColor;
++ (UIColor *)kStringTableViewBackgroundColor;
++ (UIColor *)kStringCollectionViewBackgroundColor;
 
 
 @end
@@ -30,10 +36,10 @@ extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;
 
 #pragma mark - NSNotificationCenter Keys
 
-extern NSString * const kNSNotificationCenterSelectedStringItemKey;
-extern NSString * const kNSNotificationCenterSelectedProfileImageKey;
-extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
-extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
+//extern NSString * const kNSNotificationCenterSelectedStringItemKey;
+//extern NSString * const kNSNotificationCenterSelectedProfileImageKey;
+//extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
+//extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
 extern NSString * const kNSNotificationCenterUploadNewStringKey;
 extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileImage;

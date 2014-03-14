@@ -13,7 +13,7 @@
 #import "StringrWriteCommentViewController.h"
 #import "StringrPathImageView.h"
 
-@interface StringrStringCommentsViewController () <UINavigationControllerDelegate, StringrWriteCommentDelegate>
+@interface StringrStringCommentsViewController () <UINavigationControllerDelegate, StringrCommentsTableViewCellDelegate, StringrWriteCommentDelegate>
 
 @property (strong, nonatomic) NSMutableArray *commentsThread;
 
@@ -51,14 +51,13 @@
 {
     [super viewDidAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToUserProfile) name:kNSNotificationCenterSelectedProfileImageKey object:nil];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:kNSNotificationCenterSelectedProfileImageKey];
 }
 
 - (void)didReceiveMemoryWarning
@@ -112,46 +111,9 @@
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
-- (void)pushToUserProfile
-{
-    /*
-    if (!self.profileVC) {
-        self.profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-        [self.profileVC setCanEditProfile:NO];
-        [self.profileVC setTitle:@"Profile"];
-        [self.profileVC setCanCloseModal:YES];
-        
-        //[profileVC setHidesBottomBarWhenPushed:YES];
-        //[self.navigationController pushViewController:profileVC animated:YES];
-        
-        //Implements modal transition to profile view
-    }
-    
-    //self.navigationVC = [[StringrNavigationController alloc] initWithRootViewController:self.profileVC];
-    //[self.navigationVC setViewControllers:@[self.profileVC]];
-    //[self.navigationVC setDelegate:self];
-        
-    [self presentViewController:self.navigationVC animated:YES completion:nil];
-     */
-    
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    [profileVC setUserForProfile:[PFUser currentUser]];
-    [profileVC setProfileReturnState:ProfileModalReturnState];
-    
-    
-    //[profileVC setCanCloseModal:YES];
-    //[profileVC setCanEditProfile:NO];
-    
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-    
-    [self presentViewController:navVC animated:YES completion:nil];
-
-}
-
 
 
 #pragma mark - TableView DataSource
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -165,6 +127,7 @@
     
     if ([cell isKindOfClass:[StringrCommentsTableViewCell class]]) {
         StringrCommentsTableViewCell *commentsCell = (StringrCommentsTableViewCell *)cell;
+        [commentsCell setDelegate:self];
         
         NSDictionary *comment = [self.commentsThread objectAtIndex:indexPath.row];
         
@@ -176,6 +139,9 @@
     
     return cell;
 }
+
+
+
 
 #pragma mark - TableView Delegate
 
@@ -224,6 +190,24 @@
 {
     return 100;
 }
+
+
+
+#pragma mark - StringrCommentsTableViewCell Delegate
+
+- (void)tappedCommentorProfileImage
+{
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    [profileVC setUserForProfile:[PFUser currentUser]];
+    [profileVC setProfileReturnState:ProfileModalReturnState];
+    
+    //[self.navigationController pushViewController:profileVC animated:YES];
+    
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+    
+    [self presentViewController:navVC animated:YES completion:nil];
+}
+
 
 
 

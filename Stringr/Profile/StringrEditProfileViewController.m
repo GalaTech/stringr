@@ -64,7 +64,7 @@
     
     [self.selectUniversityButton setTitle:self.fillerUniversityName forState:UIControlStateNormal];
     
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%lu", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
 }
 
@@ -182,7 +182,7 @@
         [setDescriptionText.setProfileDescriptionTextView setText:self.fillerDescription];
         
         // Sets the number of characters remaining based around the length of text
-        NSString *charactersRemaining = [NSString stringWithFormat:@"%lu", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
+        NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
         [setDescriptionText.numberOfCharactersRemainingLabel setText:charactersRemaining];
         
     } else if (indexPath.section == 3) {
@@ -407,7 +407,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
     // Creates a string with the number of characters remaining and sets it to the
     // characters remaining label on the view
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%ld", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%d", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
     
     NSIndexPath *profileDescriptionIndexPath = [NSIndexPath indexPathForRow:0 inSection:2];
     StringrSetProfileDescriptionTableViewCell *descriptionCell = (StringrSetProfileDescriptionTableViewCell *)[self.tableView cellForRowAtIndexPath:profileDescriptionIndexPath];

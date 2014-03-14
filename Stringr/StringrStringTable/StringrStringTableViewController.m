@@ -278,6 +278,8 @@ static float const contentViewWidthPercentage = .93;
     } else if (indexPath.row == 0) {
         static NSString *cellIdentifier = @"StringTableViewCell";
         StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         [stringCell setStringViewDelegate:self];
         [stringCell setStringObject:object];
         
@@ -287,6 +289,7 @@ static float const contentViewWidthPercentage = .93;
         
         UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         StringrFooterView *footerView = [self addFooterViewToCellWithObject:object];
         

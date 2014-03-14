@@ -22,7 +22,7 @@
     [super viewDidLoad];
 
     
-    self.tabBar.tintColor = [StringrConstants kStringrGreenColor];
+    self.tabBar.tintColor = [StringrConstants kStringrTurquoiseColor];
 }
 
 

@@ -36,6 +36,29 @@
 {
     [super viewDidLoad];
     
+    /*
+    [FBRequestConnection startWithGraphPath:@"/me/groups" parameters:nil HTTPMethod:@"GET" completionHandler:^( FBRequestConnection *connection, id result, NSError *error) {
+        NSDictionary *groupData = (NSDictionary *)result;
+        
+        NSLog(@"%@", groupData);
+    }];
+    
+    
+    // 204405769669326 Stanford
+    // 409193842437042 UNC
+    [FBRequestConnection startWithGraphPath:@"/409193842437042"
+                                 parameters:nil
+                                 HTTPMethod:@"GET"
+                          completionHandler:^(
+                                              FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error
+                                              ) {
+                              NSDictionary *groupData = (NSDictionary *)result;
+                              NSLog(@"%@", groupData);
+                          }];
+    */
+    
     [self.facebookLoginActivityIndicator startAnimating];
     
     // prevents a user from tapping the login button before it checks to see if you're already connected
@@ -90,6 +113,10 @@
 {
     // Set permissions required from the facebook user account
     NSArray *permissionsArray = @[@"user_location", @"user_education_history", @"user_groups"];
+    
+    
+
+    
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
