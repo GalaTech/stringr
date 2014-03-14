@@ -56,7 +56,7 @@
     // Creates the header of the menu that contains profile image and other graphics
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
     
-    self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 20, 25, 25)];
+    self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(227, 24, 30, 30)];
     [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
     [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
     

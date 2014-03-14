@@ -254,6 +254,20 @@ static float const contentViewWidthPercentage = .93;
 
 #pragma mark - PFQueryTableViewController
 
+- (PFQuery *)queryForTable {
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    
+    // If no objects are loaded in memory, we look to the cache first to fill the table
+    // and then subsequently do a query against the network.
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query orderByAscending:@"createdAt"];
+    
+    return query;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     //static NSString *cellIdentifier = @"Cell";
@@ -296,20 +310,6 @@ static float const contentViewWidthPercentage = .93;
     [super objectsWillLoad];
     
     // This method is called before a PFQuery is fired to get more objects
-}
-
-- (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
-    [query orderByAscending:@"createdAt"];
-    
-    return query;
 }
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -367,7 +367,8 @@ static float const contentViewWidthPercentage = .93;
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 2) {
+    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
+        
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
@@ -387,8 +388,8 @@ static float const contentViewWidthPercentage = .93;
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        // TODO: Not sure why this is just a detail view and not edit 
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setStringToLoad:self.objects[0]];
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];
@@ -405,13 +406,6 @@ static float const contentViewWidthPercentage = .93;
 {
     if (photos)
     {
-        /*
-        TestViewController *testVC = [self.storyboard instantiateViewControllerWithIdentifier:@"testVC"];
-        [testVC setPhotos:photos];
-        [testVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:testVC animated:YES];
-        */
-        
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
         [photoDetailVC setEditDetailsEnabled:NO];
@@ -447,21 +441,25 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
-                                                    message:@"You have liked this String!"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles: nil];
-    [alert show];
+    if (object) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
+                                                        message:@"You have liked this String!"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
 {
-    StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
-    
-    [commentsVC setHidesBottomBarWhenPushed:YES];
-    
-    [self.navigationController pushViewController:commentsVC animated:YES];
+    if (object) {
+        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+        
+        [commentsVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:commentsVC animated:YES];
+    }
 }
 
 

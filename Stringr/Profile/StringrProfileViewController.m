@@ -15,8 +15,10 @@
 #import "StringrStringDetailViewController.h"
 
 
-@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
+@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, StringrProfileTableViewControllerDelegate>
 
+@property (strong, nonatomic) StringrProfileTopViewController *topProfileVC;
+@property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
 
 @end
 
@@ -59,14 +61,15 @@
     
     
     // Instantiates the parallax VC with a top and bottom VC.
-    StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
+    self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     // Sets the user for the currently accessed profile
-    [topProfileVC setUserForProfile:self.userForProfile];
+    [self.topProfileVC setUserForProfile:self.userForProfile];
     
-    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
+    self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
+    [self.tableProfileVC setDelegate:self];
+    [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
+    
     self.delegate = self;
-    
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
     
@@ -76,12 +79,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    // Dynamically sets the number of strings label to how many strings are in the table view
-    StringrProfileTableViewController *testTableVC = (StringrProfileTableViewController *)self.bottomViewController;
-    NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)testTableVC.tableView.numberOfSections];
-    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
-    topVC.profileNumberOfStringsLabel.text = numberOfStrings;
     
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
@@ -143,8 +140,6 @@
     [editProfileVC setDelegate:self];
     
     [self.navigationController pushViewController:editProfileVC animated:YES];
-    
-    //[(UINavigationController *)self.frostedViewController.contentViewController pushViewController:editProfileVC animated:YES];
 }
 
 
@@ -154,38 +149,22 @@
 
 - (void)setProfilePhoto:(UIImage *)profilePhoto
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    [topViewController.profileImage setImage:profilePhoto];
+    [self.topProfileVC.profileImage setImage:profilePhoto];
 }
 
 - (void)setProfileName:(NSString *)name
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    topViewController.profileNameLabel.text = name;
+    self.topProfileVC.profileNameLabel.text = name;
 }
 
 - (void)setProfileDescription:(NSString *)description
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    //UIFont *currentTextViewFont = topViewController.profileDescriptionTextView.font;
-    //UITextAlignment *currentTextViewAlignment = topViewController.profileDescriptionTextView.textAlignment;
-    //UIColor *currentTextViewColor = topViewController.profileDescriptionTextView.textColor;
-    
-    topViewController.profileDescriptionLabel.text = description;
-    
-    //[topViewController.profileDescriptionTextView setFont:currentTextViewFont];
-    //[topViewController.profileDescriptionTextView setTextAlignment:currentTextViewAlignment];
-    //[topViewController.profileDescriptionTextView setTextColor:currentTextViewColor];
+    self.topProfileVC.profileDescriptionLabel.text = description;
 }
 
 - (void)setProfileUniversityName:(NSString *)universityName
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    topViewController.profileUniversityLabel.text = universityName;
+    self.topProfileVC.profileUniversityLabel.text = universityName;
 }
 
 
@@ -215,9 +194,6 @@
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {
     
-    //NSLog(@"didChangeState %d",state);
-    //[self.navigationController setNavigationBarHidden:self.state == QMBParallaxStateFullSize animated:YES];
-    
 }
 
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeTopHeight:(CGFloat)height
@@ -231,16 +207,17 @@
 }
 
 
-/*
-- (void)willChangeHeightOfTopViewControllerFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight {
+
+
+#pragma mark - StringrProfileTableViewController Delegate
+
+// sets the number of strings label on the top view
+- (void)bottomTableView:(UITableView *)tableView didFinishLoadingWithData:(NSArray *)data
+{
+    NSUInteger numberOfObjectsInTable = [data count];
     
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    [topViewController willChangeHeightFromHeight:oldHeight toHeight:newHeight];
-    
-    float r = (self.topViewControllerStandartHeight * 1.5f) / newHeight;
-    [self.tableViewController.view setAlpha:r*r*r*r*r*r];
+    [self.topProfileVC.profileNumberOfStringsLabel setText:[NSString stringWithFormat:@"%d Strings", numberOfObjectsInTable]];
 }
- */
 
 
 @end

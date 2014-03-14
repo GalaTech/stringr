@@ -8,10 +8,9 @@
 
 #import "StringrStringDetailTopViewController.h"
 #import "StringrPhotoDetailViewController.h"
-#import "StringView.h"
 #import "StringrFooterView.h"
 
-@interface StringrStringDetailTopViewController () <StringViewDelegate>
+@interface StringrStringDetailTopViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *stringView;
 @property (strong, nonatomic) StringView *stringCollectionView;
@@ -67,6 +66,7 @@
         
         // Sets the initial photo to the selected cell's PFObject photo data
         [photoDetailVC setPhotosToLoad:photos];
+        [photoDetailVC setSelectedPhotoIndex:index];
         [photoDetailVC setStringOwner:string];
         
         [photoDetailVC setHidesBottomBarWhenPushed:YES];

@@ -32,7 +32,7 @@
     
     
     [self.profileNameLabel setText:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
-    [self.profileUniversityLabel setText:[self.userForProfile objectForKey:kStringrUserSelectedUniversityKey]];
+    [self.profileUniversityLabel setText:[NSString stringWithFormat:@"@%@", [self.userForProfile objectForKey:kStringrUserSelectedUniversityKey]]];
     [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
     
     

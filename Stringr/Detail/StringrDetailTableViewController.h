@@ -13,5 +13,6 @@
 @interface StringrDetailTableViewController : UITableViewController<QMBParallaxScrollViewHolder, StringrFooterViewDelegate>
 
 @property (strong, nonatomic) NSArray *sectionHeaderTitles;
+@property (nonatomic) BOOL editDetailsEnabled;
 
 @end

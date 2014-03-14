@@ -31,14 +31,14 @@
 {
     [super viewWillAppear:animated];
     
-    NSLog(@"tab bar did appear");
+   // NSLog(@"tab bar did appear");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    NSLog(@"tab bar did disappear");
+    //NSLog(@"tab bar did disappear");
 }
 
 - (void)didReceiveMemoryWarning

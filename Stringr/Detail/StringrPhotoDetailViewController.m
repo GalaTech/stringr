@@ -35,9 +35,6 @@
     [self.topPhotoVC setDelegate:self];
     
     self.tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
-    [self.tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[self.selectedPhotoIndex]];
-    [self.tablePhotoVC setStringOwner:self.stringOwner];
-    
     
     if (self.editDetailsEnabled) {
         self.title = @"Edit Photo";
@@ -46,11 +43,15 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPhotoEdit)];
         
         self.tablePhotoVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
+        [self.tablePhotoVC setEditDetailsEnabled:YES];
     } else {
         self.title = @"Photo Details";
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(pushToStringDetailPage)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePhoto)];
     }
+    
+    [self.tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[self.selectedPhotoIndex]];
+    [self.tablePhotoVC setStringOwner:self.stringOwner];
     
     [self setupWithTopViewController:self.topPhotoVC andTopHeight:250 andBottomViewController:self.tablePhotoVC];
     
@@ -69,6 +70,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    // ensures that the navigation bar is properly displayed. Without this the bar will have
+    // improper function after leaving and returning.
+    [self.navigationController setNavigationBarHidden:self.navigationBarIsHidden animated:YES];
     
 }
 
@@ -83,24 +88,26 @@
 
 #pragma mark - Actions
                                               
-- (void)pushToStringDetailPage
+- (void)sharePhoto
 {
     //TODO: Update the ability to share a photo
-    /*
-    StringrPhotoDetailTopViewController *topPhotoVC = (StringrPhotoDetailTopViewController *)self.topViewController;
+    //StringrPhotoDetailTopViewController *topPhotoVC = (StringrPhotoDetailTopViewController *)self.topViewController;
     
-    NSArray *photoToShare = @[[topPhotoVC.photoImage image]];
-    UIActivityViewController *sharePhoto = [[UIActivityViewController alloc] initWithActivityItems:photoToShare applicationActivities:nil];
+    NSArray *photoToShare = @[[self.topPhotoVC photoAtIndex:self.selectedPhotoIndex]];
     
-    [self presentViewController:sharePhoto animated:YES completion:nil];
-    */
+    if (photoToShare) {
+        UIActivityViewController *sharePhoto = [[UIActivityViewController alloc] initWithActivityItems:photoToShare applicationActivities:nil];
+    
+        [self presentViewController:sharePhoto animated:YES completion:nil];
+    }
+    
      
      
     //StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     //[self.navigationController pushViewController:stringDetailVC animated:YES];
 }
 
-
+// only used on edit photo views
 - (void)savePhoto
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -121,7 +128,6 @@
     // If we are in the normal parallax state we make sure that the nav bar isn't hidden
     if (state == QMBParallaxStateVisible) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
-        self.navigationBarIsHidden = NO;
     }
 }
 

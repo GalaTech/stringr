@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "StringrDetailTopViewController.h"
+#import "StringView.h"
 
-@interface StringrStringDetailTopViewController : StringrDetailTopViewController
+@interface StringrStringDetailTopViewController : StringrDetailTopViewController <StringViewDelegate>
 
 //@property (strong, nonatomic) NSArray *stringPhotoData;
 @property (strong, nonatomic) PFObject *stringToLoad;

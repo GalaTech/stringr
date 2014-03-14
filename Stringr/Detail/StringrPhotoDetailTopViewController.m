@@ -40,18 +40,54 @@
 
 
 
+#pragma mark - Custom Acessors
+
+- (NSMutableArray *)photos
+{
+    if (!_photos) {
+        _photos = [[NSMutableArray alloc] initWithCapacity:[self.photosToLoad count]];
+    }
+    
+    return _photos;
+}
+
+
+
+
+#pragma mark - Public
+
+- (UIImage *)photoAtIndex:(NSUInteger)index
+{
+    if (index > self.photos.count) {
+        return nil;
+    }
+    
+    UIImage *photo;
+    
+    if (self.photos) {
+        NSDictionary *photoDictionary = [[NSDictionary alloc] init];
+        
+        for (photoDictionary in self.photos) {
+            
+            NSUInteger photoIndex = [[photoDictionary objectForKey:@"index"] unsignedIntegerValue];
+            
+            if (photoIndex == index) {
+                photo = [photoDictionary objectForKey:@"photo"];
+                return photo;
+            }
+        }
+    }
+    
+    return photo;
+}
+
+
+
 
 #pragma mark - ParseImagePager DataSource
 
-- (NSArray *)arrayWithImages
-{
-    return nil;
-    //return self.photos;
-}
-
 - (NSArray *)arrayWithPhotoPFObjects
 {
-    //return nil;
     return self.photosToLoad;
 }
 
@@ -64,6 +100,11 @@
 
 #pragma mark - ParseImagePager Delegate
 
+- (void)imagePager:(ParseImagePager *)imagePager didLoadImage:(UIImage *)image atIndex:(NSUInteger)index
+{
+    NSDictionary *photo = [[NSDictionary alloc] initWithObjectsAndKeys:image, @"photo", @(index), @"index", nil];
+    [self.photos addObject:photo];
+}
 
 - (void)imagePager:(ParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index
 {

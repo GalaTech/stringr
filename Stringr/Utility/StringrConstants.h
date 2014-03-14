@@ -10,8 +10,11 @@
 @interface StringrConstants : NSObject
 
 + (UIColor *)kStringTableViewBackgroundColor;
-+ (UIColor *)kStringCollectionViewBackgroundColor;
 
+
+// Colors
++ (UIColor *)kStringCollectionViewBackgroundColor;
++ (UIColor *)kStringrGreenColor;
 
 
 @end

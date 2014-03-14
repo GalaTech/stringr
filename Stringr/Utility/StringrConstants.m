@@ -20,6 +20,11 @@
     return [UIColor colorWithWhite:0.85 alpha:1.0];
 }
 
++ (UIColor *)kStringrGreenColor
+{
+    return [UIColor colorWithRed:66.0f / 255.0f green:186.0f / 255.0f blue:60.0f / 255.0f alpha:1.0f];
+}
+
 @end
 
 

@@ -167,6 +167,7 @@
             [imageView setFile:imageFile];
             [imageView loadInBackground:^(UIImage *image, NSError *error) {
                 if (!error) {
+                    [self.delegate imagePager:self didLoadImage:image atIndex:i];
                     [loadingPhotoIndicator stopAnimating];
                 }
             }];
@@ -252,9 +253,8 @@
 
 - (void) imageTapped:(UITapGestureRecognizer *)sender
 {
-    if(_delegate)
-        if([_delegate respondsToSelector:@selector(imagePager:didSelectImageAtIndex:)])
-            [_delegate imagePager:self didSelectImageAtIndex:[(UIGestureRecognizer *)sender view].tag];
+    if([_delegate respondsToSelector:@selector(imagePager:didSelectImageAtIndex:)])
+        [_delegate imagePager:self didSelectImageAtIndex:[(UIGestureRecognizer *)sender view].tag];
 }
 
 - (void) setIndicatorDisabled:(BOOL)indicatorDisabled
@@ -291,9 +291,8 @@
     // Makes sure that you don't reload unless you go to a different page
     if (currentPage != _pageControl.currentPage) {
         _pageControl.currentPage = currentPage;
-        if(_delegate)
-            if([_delegate respondsToSelector:@selector(imagePager:didScrollToIndex:)])
-                [_delegate imagePager:self didScrollToIndex:currentPage];
+        if([_delegate respondsToSelector:@selector(imagePager:didScrollToIndex:)])
+            [_delegate imagePager:self didScrollToIndex:currentPage];
     }
 }
 
