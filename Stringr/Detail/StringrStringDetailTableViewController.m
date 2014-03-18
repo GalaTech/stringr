@@ -8,6 +8,7 @@
 
 #import "StringrStringDetailTableViewController.h"
 #import "StringrFooterView.h"
+#import "StringrDetailTagsTableViewCell.h"
 
 @interface StringrStringDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 
@@ -96,6 +97,14 @@
                 cellIdentifier = @"string_titleCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
+                if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
+                    StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
+                    NSString *stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+                    [titleCell setTitleForCell:stringTitle];
+                    
+                    return titleCell;
+                }
+                
                 //self.stringTitleTextField = (UITextField *)[cell.contentView viewWithTag:1];
                 //[self.stringTitleTextField setPlaceholder:self.stringTitle];
                 
@@ -104,12 +113,27 @@
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"string_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+                
+                if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
+                    StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
+                    NSString *stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+                    [descriptionCell setDescriptionForCell:stringDescription];
+                    
+                    return descriptionCell;
+                }
                 //self.stringDescriptionTextView = (UITextView *)[cell.contentView viewWithTag:2];
                 
                 //self.stringDescriptionTextView.delegate = self;
             } else if (indexPath.row == 3) {
                 cellIdentifier = @"string_tagsCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+                
+                if ([cell isKindOfClass:[StringrDetailTagsTableViewCell class]]) {
+                    StringrDetailTagsTableViewCell *tagsCell = (StringrDetailTagsTableViewCell *)cell;
+                    [tagsCell setTagsForCell:@"vacation, photography, wildlife, coast2Coast"];
+                    
+                    return tagsCell;
+                }
                 //self.stringTagsTextField = (UITextField *)[cell.contentView viewWithTag:3];
                 
                 //self.stringTagsTextField.delegate = self;
@@ -162,13 +186,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 2) {
-        return 110;
+        return 110.0f;
     } else if (indexPath.section == 1) {
-        return 55;
+        return 55.0f;
     }
     
     
-    return 44;
+    return 44.0f;
 }
 
 

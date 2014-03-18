@@ -40,23 +40,6 @@
 
 
 
-#pragma mark - UITableView Delegate
-
-
-
-
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (!error) {
-        [self.delegate bottomTableView:self.tableView didFinishLoadingWithData:self.objects];
-    }
-}
-
-
-
-
 
 #pragma mark - ParallaxScrollViewController Delegate
 

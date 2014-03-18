@@ -15,7 +15,7 @@
 #import "StringrStringDetailViewController.h"
 
 
-@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, StringrProfileTableViewControllerDelegate>
+@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) StringrProfileTopViewController *topProfileVC;
 @property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
@@ -29,6 +29,8 @@
 - (void)dealloc
 {
     self.view = nil;
+    //self.tableProfileVC = nil;
+    //self.topProfileVC = nil;
 }
 
 - (void)viewDidLoad
@@ -57,16 +59,19 @@
     } else if (self.profileReturnState == ProfileBackReturnState) {
         
     }
-    
-    
-    
     // Instantiates the parallax VC with a top and bottom VC.
     self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     // Sets the user for the currently accessed profile
     [self.topProfileVC setUserForProfile:self.userForProfile];
     
     self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    [self.tableProfileVC setDelegate:self];
+    
+    // Querries all strings that are owned by the user for the specified profile
+    PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
+    [profileStringsQuery orderByAscending:@"createdAt"];
+    [self.tableProfileVC setQueryForTable:profileStringsQuery];
+    
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     
     self.delegate = self;
@@ -80,6 +85,10 @@
 {
     [super viewWillAppear:animated];
     
+    // Sets the back button to have no text, just the <
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    [self.navigationItem setBackBarButtonItem:backButton];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
 
@@ -204,19 +213,6 @@
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeGesture:(QMBParallaxGesture)newGesture oldGesture:(QMBParallaxGesture)oldGesture
 {
     
-}
-
-
-
-
-#pragma mark - StringrProfileTableViewController Delegate
-
-// sets the number of strings label on the top view
-- (void)bottomTableView:(UITableView *)tableView didFinishLoadingWithData:(NSArray *)data
-{
-    NSUInteger numberOfObjectsInTable = [data count];
-    
-    [self.topProfileVC.profileNumberOfStringsLabel setText:[NSString stringWithFormat:@"%d Strings", numberOfObjectsInTable]];
 }
 
 

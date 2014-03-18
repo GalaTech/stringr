@@ -123,6 +123,7 @@
 
 - (void)setupAndDisplayUniversitySelectView
 {
+    /*
     NSArray *array = [[PFUser currentUser] objectForKey:kStringrUserUniversitiesKey];
     
     UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -136,6 +137,7 @@
     
     
     [universitySelectActionSheet showInView:self.view];
+     */
 }
 
 
@@ -145,7 +147,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -185,7 +187,9 @@
         NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
         [setDescriptionText.numberOfCharactersRemainingLabel setText:charactersRemaining];
         
-    } else if (indexPath.section == 3) {
+    }
+    /*
+    else if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_SelectUniversity" forIndexPath:indexPath];
         
         StringrSelectUniversityTableViewCell *selectUniversityCell = (StringrSelectUniversityTableViewCell *)cell;
@@ -196,6 +200,7 @@
             [selectUniversityCell.selectedUniversityLabel setText:selectedUniversityName];
         }
     }
+     */
 
     
     return cell;
@@ -221,9 +226,9 @@
 {
     // The section for changing profile image does not have a section header
     if (section == 0) {
-        return 0;
+        return 0.0f;
     } else {
-        return 20;
+        return 20.0f;
     }
 }
 
@@ -270,22 +275,22 @@
 {
     switch (indexPath.section) {
         case 0:
-            return 128;
+            return 128.0f;
             break;
         case 1:
-            return 44;
+            return 44.0f;
             break;
         case 2:
-            return 125;
+            return 125.0f;
             break;
         case 3:
-            return 55;
+            return 55.0f;
             break;
         default:
             break;
     }
     
-    return 500;
+    return 500.0f;
 }
 
 
@@ -478,7 +483,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
                 
                 [self.delegate setProfileUniversityName:selectedUniversityName];
                 
-                [[PFUser currentUser] setObject:selectedUniversityName forKey:kStringrUserSelectedUniversityKey];
+                //[[PFUser currentUser] setObject:selectedUniversityName forKey:kStringrUserSelectedUniversityKey];
                 [[PFUser currentUser] saveInBackground];
             }
         }

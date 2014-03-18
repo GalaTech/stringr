@@ -56,10 +56,7 @@
     [super viewDidLoad];
     
 	
-    // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                             style:UIBarButtonItemStyleDone target:self
-                                                                            action:@selector(showMenu)];
+
     
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
@@ -91,12 +88,6 @@
 
 #pragma mark - Private
 
-// Handles the action of displaying the menu when the menu nav item is pressed
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
-
 - (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object
 {
     static float const contentViewWidth = 320.0;
@@ -122,6 +113,7 @@
 {
     StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     
+    // tag is set to the section number of each string
     [detailVC setStringToLoad:[self.objects objectAtIndex:sender.tag]];
     [detailVC setHidesBottomBarWhenPushed:YES];
     
@@ -192,12 +184,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     //
-    return 23.5;
+    return 23.5f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0;
+    return 0.0f;
 }
 
 // Percentage for the width of the content header view
@@ -240,13 +232,13 @@ static float const contentViewWidthPercentage = .93;
 {
     if (indexPath.row == 0) {
         // string view
-        return 157;
+        return 157.0f;
     } else if (indexPath.row == 1) {
         // footer view
-        return 52;
+        return 52.0f;
     }
     
-    return 0;
+    return 0.0f;
 }
 
 
@@ -254,7 +246,18 @@ static float const contentViewWidthPercentage = .93;
 
 #pragma mark - PFQueryTableViewController
 
-- (PFQuery *)queryForTable {
+- (PFQuery *)queryForTable
+{
+    
+    PFQuery *query = [self getQueryForTable];
+    
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    return query;
+    
+    /*
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
     // If no objects are loaded in memory, we look to the cache first to fill the table
@@ -266,6 +269,7 @@ static float const contentViewWidthPercentage = .93;
     [query orderByAscending:@"createdAt"];
     
     return query;
+     */
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
@@ -278,6 +282,11 @@ static float const contentViewWidthPercentage = .93;
     } else if (indexPath.row == 0) {
         static NSString *cellIdentifier = @"StringTableViewCell";
         StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (!stringCell) {
+            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        
         [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         [stringCell setStringViewDelegate:self];
@@ -288,6 +297,11 @@ static float const contentViewWidthPercentage = .93;
         static NSString *cellIdentifier = @"StringTableViewFooter";
         
         UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (!footerCell) {
+            footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        
         [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         

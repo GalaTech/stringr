@@ -66,6 +66,10 @@ extern NSString * const kStringrActivityTypeJoin;
 
 
 #pragma mark - PFObject User Class
+
+// Class Key
+extern NSString * const kStringrUserClassKey;
+
 // Field Keys
 extern NSString * const kStringrUserDisplayNameKey;
 extern NSString * const kStringrFacebookIDKey;
@@ -76,8 +80,9 @@ extern NSString * const kStringrUserProfilePictureKey;
 
 extern NSString * const kStringrUserDescriptionKey;
 extern NSString * const kStringrUserLocationKey;
-extern NSString * const kStringrUserSelectedUniversityKey;
-extern NSString * const kStringrUserUniversitiesKey;
+//extern NSString * const kStringrUserSelectedUniversityKey;
+//extern NSString * const kStringrUserUniversitiesKey;
+extern NSString * const kStringrUserNumberOfStringsKey;
 
 extern NSString * const kStringrUserPrivateChannelKey;
 

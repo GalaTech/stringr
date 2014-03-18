@@ -9,16 +9,19 @@
 #import "StringrLoginViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 #import "StringrRootViewController.h"
+#import "TestViewController.h"
 #import "UIImage+Resize.h"
+#import "StringrSignUpWithEmailTableViewController.h"
+#import "StringrLoginWithEmailTableViewController.h"
 
-#import "StringrProfileViewController.h"
+//#import "StringrProfileViewController.h"
 
 
 
 @interface StringrLoginViewController () <UIAlertViewDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
-@property int imageNumber;
+@property (nonatomic) int imageNumber;
 @property (strong, nonatomic) NSTimer *backgroundRotationTimer;
 @property (strong, nonatomic) NSMutableArray *universityNames;
 @property (strong, nonatomic) NSMutableData *profileImageData;
@@ -36,31 +39,9 @@
 {
     [super viewDidLoad];
     
-    /*
-    [FBRequestConnection startWithGraphPath:@"/me/groups" parameters:nil HTTPMethod:@"GET" completionHandler:^( FBRequestConnection *connection, id result, NSError *error) {
-        NSDictionary *groupData = (NSDictionary *)result;
-        
-        NSLog(@"%@", groupData);
-    }];
-    
-    
-    // 204405769669326 Stanford
-    // 409193842437042 UNC
-    [FBRequestConnection startWithGraphPath:@"/409193842437042"
-                                 parameters:nil
-                                 HTTPMethod:@"GET"
-                          completionHandler:^(
-                                              FBRequestConnection *connection,
-                                              id result,
-                                              NSError *error
-                                              ) {
-                              NSDictionary *groupData = (NSDictionary *)result;
-                              NSLog(@"%@", groupData);
-                          }];
-    */
+    //[self.navigationController.navigationBar setHidden:YES];
     
     [self.facebookLoginActivityIndicator startAnimating];
-    
     // prevents a user from tapping the login button before it checks to see if you're already connected
     [self.facebookLoginButton setUserInteractionEnabled:NO];
     
@@ -75,6 +56,8 @@
         // Check if user is cached and linked to Facebook, if so, bypass login
         if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
             //[self userLoginData];
+            // changes the modal transition from a cross-fade
+            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     });
@@ -86,11 +69,19 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self.tabBarController.tabBar setHidden:YES];
+
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor grayColor],
+                                                            NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
+                                                            }];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    [self.navigationItem setBackBarButtonItem:backButton];
     
     self.imageNumber = 2;
     
-    NSTimeInterval time = 10.0;
+    NSTimeInterval time = 9.0;
     self.backgroundRotationTimer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(changeBackgroundImage) userInfo:nil repeats:YES];
 }
 
@@ -106,17 +97,12 @@
 
 
 
-
 #pragma mark - IBActions
 
 - (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
 {
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[@"user_location", @"user_education_history", @"user_groups"];
-    
-    
-
-    
+    NSArray *permissionsArray = @[@"basic_info"];
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
@@ -140,10 +126,16 @@
             NSLog(@"User with facebook signed up and logged in!");
             
             [self userLoginData];
+            // changes the modal transition from a cross-fade
+            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             NSLog(@"User with facebook logged in!");
             
-            [self userLoginData];
+            //[self userLoginData];
+            // changes the modal transition from a cross-fade
+            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
     
@@ -152,7 +144,19 @@
 }
 
 
+- (IBAction)signUpWithEmailButtonTouchHandler:(UIButton *)sender
+{
+    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithEmailVC"];
+    
+    [self.navigationController pushViewController:signupWithEmailVC animated:YES];
+}
 
+- (IBAction)loginWithEmailButtonTouchHandler:(UIButton *)sender
+{
+    StringrLoginWithEmailTableViewController *loginWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"loginWithEmailVC"];
+    
+    [self.navigationController pushViewController:loginWithEmailVC animated:YES];
+}
 
 #pragma mark - Action Handlers
 
@@ -217,7 +221,7 @@
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
             // If it's a new user we go through the setup of loading all their facebook info
-            if ([[PFUser currentUser] isNew]) {
+            //if ([[PFUser currentUser] isNew]) {
                 if (facebookID) {
                     [[PFUser currentUser] setObject:facebookID forKey:kStringrFacebookIDKey];
                     //userProfile[@"facebookId"] = facebookID;
@@ -225,28 +229,29 @@
             
                 if (userData[@"name"]) {
                     [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
-                    //userProfile[@"name"] = userData[@"name"];
                 }
                 
                 if (userData[@"location"][@"name"]) {
                     [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:kStringrUserLocationKey];
-                    //userProfile[@"location"] = userData[@"location"][@"name"];
                 }
                 
                 if ([pictureURL absoluteString]) {
                     [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:kStringrFacebookProfilePictureURLKey];
                     [self downloadFacebookProfileImage];
-                    //userProfile[@"pictureURL"] = [pictureURL absoluteString];
                 }
                 
                 [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
-            }
+            //}
             
+            /*
             if ([self didAttendCollege:userData]) {
                 NSLog(@"YES! They are a college student!");
                 
                 [[PFUser currentUser] setObject:self.universityNames[0] forKey:kStringrUserSelectedUniversityKey];
                 [[PFUser currentUser] setObject:self.universityNames forKey:kStringrUserUniversitiesKey];
+                
+                // changes the modal transition from a cross-fade
+                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 NSLog(@"not a college student...");
@@ -262,6 +267,7 @@
                 [PFUser logOut];
                 return;
             }
+             */
             
             // I might just add the addition of geo location when a user attempts to select a location based page
             /*

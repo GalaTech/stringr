@@ -33,6 +33,8 @@
     [super viewDidLoad];
     [self queryStringFromParse];
     
+    self.title = @"Sign Up";
+    
     
     
     [self.testProfileImage setImage:[UIImage imageNamed:@"Stringr Image"]];
@@ -71,13 +73,31 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
    // [self.imagePager setIndicatorDisabled:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+#pragma mark - IBAction's
+
+- (IBAction)returnToHomeButton:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

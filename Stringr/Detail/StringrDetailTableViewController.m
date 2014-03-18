@@ -132,11 +132,6 @@
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
         
-        
-        //[profileVC setCanEditProfile:NO];
-        //[profileVC setTitle:@"Profile"];
-        //[profileVC setCanCloseModal:YES];
-        
         [profileVC setHidesBottomBarWhenPushed:YES];
         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];

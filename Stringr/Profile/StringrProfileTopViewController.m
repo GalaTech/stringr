@@ -32,9 +32,17 @@
     
     
     [self.profileNameLabel setText:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
-    [self.profileUniversityLabel setText:[NSString stringWithFormat:@"@%@", [self.userForProfile objectForKey:kStringrUserSelectedUniversityKey]]];
+    //[self.profileUniversityLabel setText:[NSString stringWithFormat:@"@%@", [self.userForProfile objectForKey:kStringrUserSelectedUniversityKey]]];
     [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
     
+    int numberOfStrings = [[self.userForProfile objectForKey:kStringrUserNumberOfStringsKey] intValue];
+    
+    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
+    if (numberOfStrings == 1) {
+        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
+    }
+    
+    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
     
     
     
@@ -152,7 +160,14 @@
                                               otherButtonTitles: nil];
         
         [followAlert show];
+        
         [sender setTitle:@"Unfollow" forState:UIControlStateNormal];
+        [self.followUserButton setStyle:[StringrConstants kStringTableViewBackgroundColor] andBottomColor:[StringrConstants kStringCollectionViewBackgroundColor]];
+        [self.followUserButton setLabelTextColor:[UIColor whiteColor] highlightedColor:[UIColor lightTextColor] disableColor:nil];
+        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+        [self.followUserButton setCornerRadius:15];
+        [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+        self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     } else {
         UIAlertView *unfollowAlert = [[UIAlertView alloc] initWithTitle:@"Unfollowed"
                                                         message:[NSString stringWithFormat:@"You are no longer following %@.", self.profileNameLabel.text]
@@ -162,6 +177,12 @@
         
         [unfollowAlert show];
         [sender setTitle:@"Follow" forState:UIControlStateNormal];
+        [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+        [self.followUserButton setCornerRadius:15];
+        [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+        self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     }
     
     self.isFollowingUser = !self.isFollowingUser;
@@ -171,6 +192,13 @@
 - (IBAction)accessFollowers:(UIButton *)sender
 {
     StringrUserTableViewController *followersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowersVC"];
+    
+    
+    PFQuery *followersQuery = [PFUser query];
+    [followersQuery orderByAscending:@"displayName"];
+    [followersQuery whereKey:kStringrUserDisplayNameKey notEqualTo:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
+    [followersVC setQueryForTable:followersQuery];
+    
     [followersVC setTitle:@"Followers"];
     
     
@@ -181,6 +209,12 @@
 - (IBAction)accessFollowing:(UIButton *)sender
 {
     StringrUserTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowingVC"];
+    
+    PFQuery *followingQuery = [PFUser query];
+    [followingQuery orderByAscending:@"displayName"];
+    [followingQuery whereKey:kStringrUserDisplayNameKey notEqualTo:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
+    [followingVC setQueryForTable:followingQuery];
+    
     [followingVC setTitle:@"Following"];
     
     

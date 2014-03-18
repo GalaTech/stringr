@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C148724ED714ADFB8EC9CE1"
+               BlueprintIdentifier = "AB96660ADE8B4AD2ABA8349E"
                BuildableName = "libPods-NHBalancedFlowLayout.a"
                BlueprintName = "Pods-NHBalancedFlowLayout"
                ReferencedContainer = "container:Pods.xcodeproj">

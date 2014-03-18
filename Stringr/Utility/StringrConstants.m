@@ -106,6 +106,9 @@ NSString * const kStringrActivityTypeJoin = @"join";
 
 
 #pragma mark - PFObject User Class
+// Class Key
+NSString * const kStringrUserClassKey = @"User";
+
 // Field Keys
 NSString * const kStringrUserDisplayNameKey = @"displayName";
 NSString * const kStringrFacebookIDKey = @"facebookID";
@@ -118,6 +121,7 @@ NSString * const kStringrUserDescriptionKey = @"description";
 NSString * const kStringrUserLocationKey = @"location";
 NSString * const kStringrUserSelectedUniversityKey = @"selectedUniversityName";
 NSString * const kStringrUserUniversitiesKey = @"universityNames";
+NSString * const kStringrUserNumberOfStringsKey = @"numberOfStrings";
 
 NSString * const kStringrUserPrivateChannelKey = @"channel";
 

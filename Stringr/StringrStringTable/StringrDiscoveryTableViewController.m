@@ -21,6 +21,13 @@
     [super viewDidLoad];
 	
     self.title = self.tabBarController.tabBarItem.title;
+    
+    /*
+    PFQuery *discoveryQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [discoveryQuery orderByAscending:@"createdAt"];
+    
+    [self setQueryForTable:discoveryQuery];
+     */
 }
 
 

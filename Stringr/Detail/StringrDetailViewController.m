@@ -31,6 +31,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // Sets the back button to have no text, just the <
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

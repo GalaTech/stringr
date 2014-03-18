@@ -29,6 +29,9 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    [loginVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    
+    UINavigationController *loginNavVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
     
     //[self.window makeKeyAndVisible];
     
@@ -38,7 +41,7 @@
         double delayInSeconds = 0.5;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [rootVC presentViewController:loginVC animated:YES completion:nil];
+            [rootVC presentViewController:loginNavVC animated:YES completion:nil];
         });
     //}
     
@@ -67,6 +70,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [PFQuery clearAllCachedResults];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -82,5 +86,9 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
+
 
 @end
