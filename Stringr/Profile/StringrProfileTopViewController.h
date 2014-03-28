@@ -29,9 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileUniversityLabel;
 
-@property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
 @property (nonatomic) BOOL isFollowingUser;
 
-- (void)willChangeHeightFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight;
 
 @end

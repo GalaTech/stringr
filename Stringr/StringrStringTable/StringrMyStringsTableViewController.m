@@ -60,6 +60,19 @@
 
 
 
+#pragma mark - Parse
+
+
+- (PFQuery *)queryForTable
+{
+    PFQuery *myStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [myStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
+    [myStringsQuery orderByDescending:@"createdAt"];
+    
+    return myStringsQuery;
+}
+
+
 
 #pragma mark - UITableView Delegate
 

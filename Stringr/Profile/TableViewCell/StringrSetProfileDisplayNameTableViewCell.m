@@ -26,4 +26,13 @@
     // Configure the view for the selected state
 }
 
+
+
+#pragma mark - IBAction's
+- (IBAction)fieldErrorButtonTouchHandler:(UIButton *)sender
+{
+    UIAlertView *invalidUsernameAlertView = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:@"Your username must consist of letters, numbers, periods, hypehns, or underscores and be less than 15 characters in length." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [invalidUsernameAlertView show];
+}
+
 @end

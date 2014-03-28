@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		93E97CAB3589478280C0B11E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 792BDC5C21374F12A2D410CC /* libPods.a */; };
+		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
 		AB1B0C87188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */; };
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
@@ -34,6 +35,8 @@
 		AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B594C189ADEA700790510 /* StringrStringDetailEditTableViewController.m */; };
 		AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B594F189AE30300790510 /* StringrStringDetailEditTopViewController.m */; };
 		AB5B5959189B182F00790510 /* StringEditCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5958189B182F00790510 /* StringEditCollectionView.m */; };
+		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
+		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
@@ -66,6 +69,9 @@
 		ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */; };
 		ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */; };
 		ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */; };
+		ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */; };
+		ABFBE61218D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */; };
+		ABFBE61318D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
@@ -129,6 +135,8 @@
 /* Begin PBXFileReference section */
 		2202500216664CDF90947ED9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		792BDC5C21374F12A2D410CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
+		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
 		AB1B0C85188DAE5D0063EAC5 /* StringrStringDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrStringDetailTableViewController.h; sourceTree = "<group>"; };
 		AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTableViewController.m; sourceTree = "<group>"; };
 		AB1B0C88188DB7DA0063EAC5 /* StringrStringDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrStringDetailTopViewController.h; sourceTree = "<group>"; };
@@ -170,6 +178,10 @@
 		AB5B594F189AE30300790510 /* StringrStringDetailEditTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringDetailEditTopViewController.m; path = Edit/StringrStringDetailEditTopViewController.m; sourceTree = "<group>"; };
 		AB5B5957189B182F00790510 /* StringEditCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringEditCollectionView.h; path = String/StringEditCollectionView.h; sourceTree = "<group>"; };
 		AB5B5958189B182F00790510 /* StringEditCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringEditCollectionView.m; path = String/StringEditCollectionView.m; sourceTree = "<group>"; };
+		AB5F56B718E0B98F00D27372 /* StringrEmailVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrEmailVerificationViewController.h; path = Login/StringrEmailVerificationViewController.h; sourceTree = "<group>"; };
+		AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrEmailVerificationViewController.m; path = Login/StringrEmailVerificationViewController.m; sourceTree = "<group>"; };
+		AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSignUpWithSocialNetworkViewController.h; path = Login/StringrSignUpWithSocialNetworkViewController.h; sourceTree = "<group>"; };
+		AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSignUpWithSocialNetworkViewController.m; path = Login/StringrSignUpWithSocialNetworkViewController.m; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
 		AB757AA318874CF300D32917 /* StringrTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTabBarViewController.h; path = "Tab Bar Controller/StringrTabBarViewController.h"; sourceTree = "<group>"; };
@@ -231,6 +243,10 @@
 		ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrHomeTabBarViewController.m; path = "Tab Bar Controller/StringrHomeTabBarViewController.m"; sourceTree = "<group>"; };
 		ABFBE60218D8C7CA0026BCC1 /* StringrActivityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActivityTableViewController.h; path = StringrStringTable/StringrActivityTableViewController.h; sourceTree = "<group>"; };
 		ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityTableViewController.m; path = StringrStringTable/StringrActivityTableViewController.m; sourceTree = "<group>"; };
+		ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPrivacyPolicyTermsOfServiceViewController.h; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.h; sourceTree = "<group>"; };
+		ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPrivacyPolicyTermsOfServiceViewController.m; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.m; sourceTree = "<group>"; };
+		ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "3-8-14 Updated Privacy Policy for Stringr.txt"; path = "External/3-8-14 Updated Privacy Policy for Stringr.txt"; sourceTree = SOURCE_ROOT; };
+		ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "3-8-14 Updated Terms of Service for Stringr.txt"; path = "External/3-8-14 Updated Terms of Service for Stringr.txt"; sourceTree = SOURCE_ROOT; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
@@ -607,10 +623,14 @@
 			children = (
 				BF3EDDF9183E842A0071E047 /* StringrLoginViewController.h */,
 				BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */,
+				AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */,
+				AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */,
 				ABDB7E5018D7EAB30047691B /* StringrSignUpWithEmailTableViewController.h */,
 				ABDB7E5118D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m */,
 				ABDB7E5418D7ED330047691B /* StringrLoginWithEmailTableViewController.h */,
 				ABDB7E5518D7ED330047691B /* StringrLoginWithEmailTableViewController.m */,
+				AB5F56B718E0B98F00D27372 /* StringrEmailVerificationViewController.h */,
+				AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -668,6 +688,8 @@
 		BF3EDE18183E9FD80071E047 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */,
+				ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */,
 				BF3EDE15183E9FD40071E047 /* StringrSettingsViewController.h */,
 				BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */,
 			);
@@ -770,6 +792,8 @@
 				BF3EDDFE183E89A60071E047 /* StringrUtility.m */,
 				AB4614F9187CC63D00956FF3 /* StringrConstants.h */,
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
+				AB0BDFD418E4929A006FAB57 /* StringrCache.h */,
+				AB0BDFD518E4929A006FAB57 /* StringrCache.m */,
 				AB85DD6818904208007217DC /* TestTableViewViewController.h */,
 				AB85DD6918904208007217DC /* TestTableViewViewController.m */,
 				AB85DD6B18904345007217DC /* TestTableViewCell.h */,
@@ -825,6 +849,8 @@
 		BF834A491829978300D15963 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */,
+				ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */,
 				BFEE00F01853C93100BFF5B2 /* comment-bubble.png */,
 				BFEE00F11853C93100BFF5B2 /* like-bubble.png */,
 				BF170EBB184A7B910056ECE7 /* cameraIcon.png */,
@@ -917,6 +943,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF170EBC184A7B910056ECE7 /* cameraIcon.png in Resources */,
+				ABFBE61218D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt in Resources */,
 				BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */,
 				AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */,
 				ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */,
@@ -930,6 +957,7 @@
 				BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */,
 				BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
+				ABFBE61318D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,7 +1009,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF8349DB18297FD600D15963 /* main.m in Sources */,
+				BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */,
 				BF46518A186F748800EB464F /* StringrStringCommentsViewController.m in Sources */,
+				AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */,
 				AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */,
 				ABDB7E5618D7ED330047691B /* StringrLoginWithEmailTableViewController.m in Sources */,
 				AB5B594A189ADAA100790510 /* StringrPhotoDetailEditTableViewController.m in Sources */,
@@ -1012,6 +1043,7 @@
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
+				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
 				ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */,
 				AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */,
@@ -1029,9 +1061,9 @@
 				BF7321951849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m in Sources */,
 				BF3EDE3018445AF10071E047 /* StringrStringDetailViewController.m in Sources */,
 				ABDB7CB118D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m in Sources */,
+				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
-				BF8349DF18297FD600D15963 /* AppDelegate.m in Sources */,
 				ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
@@ -1042,10 +1074,8 @@
 				ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
-				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
 				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,
-				BF8349DB18297FD600D15963 /* main.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				ABDB7E4F18D63C620047691B /* StringrTableViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,
@@ -1053,7 +1083,9 @@
 				AB919C4A189EF23A00D40FD5 /* StringViewReorderable.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
 				ABDB7E5218D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m in Sources */,
+				ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */,
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
+				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

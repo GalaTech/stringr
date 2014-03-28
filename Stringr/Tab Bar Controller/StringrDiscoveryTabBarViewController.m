@@ -26,7 +26,7 @@
     // sets the title of the controller to the initial selected tab bar item
     self.title = @"Following";
     
-    [self.tabBar setTintColor:[StringrConstants kStringrBlueColor]];
+    [self.tabBar setTintColor:[StringrConstants kStringrGreenColor]];
 
 }
 

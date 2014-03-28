@@ -88,12 +88,12 @@ NSString * const kStringrActivityClassKey = @"Activity";
 
 // Field Keys
 NSString * const kStringrActivityTypeKey = @"type";
-NSString * const kStringrFromUserKey = @"fromUser";
-NSString * const kStringrToUserKey = @"toUser";
+NSString * const kStringrActivityFromUserKey = @"fromUser";
+NSString * const kStringrActivityToUserKey = @"toUser";
 
-NSString * const kStringrContentKey = @"content";
-NSString * const kStringrStringKey = @"string";
-NSString * const kStringrPhotoKey = @"photo";
+NSString * const kStringrActivityContentKey = @"content";
+NSString * const kStringrActivityStringKey = @"string";
+NSString * const kStringrActivityPhotoKey = @"photo";
 
 
 // Type values
@@ -101,8 +101,8 @@ NSString * const kStringrActivityTypeLike = @"like";
 NSString * const kStringrActivityTypeComment = @"comment";
 NSString * const kStringrActivityTypeFollow = @"follow";
 NSString * const kStringrActivityTypeJoin = @"join";
-//NSString * const kStringrActivityTypePhotoLike = @"photoLike";
-//NSString * const kStringrActivityTypePhotoComment = @"photoComment";
+
+
 
 
 #pragma mark - PFObject User Class
@@ -110,9 +110,14 @@ NSString * const kStringrActivityTypeJoin = @"join";
 NSString * const kStringrUserClassKey = @"User";
 
 // Field Keys
+NSString * const kStringrUserUsernameKey = @"username";
+NSString * const kStringrUserUsernameCaseSensitive = @"usernameCaseSensitive";
 NSString * const kStringrUserDisplayNameKey = @"displayName";
-NSString * const kStringrFacebookIDKey = @"facebookID";
-NSString * const kStringrFacebookProfilePictureURLKey = @"facebookProfilePictureURL";
+NSString * const kStringrUserFacebookIDKey = @"facebookID";
+NSString * const kStringrUserTwitterIDKey = @"twitterID";
+NSString * const kStringrUserProfilePictureURLKey = @"profilePictureURL";
+NSString * const kStringrUserEmailVerifiedKey = @"emailVerified";
+NSString * const kStringrUserSocialNetworkSignupCompleteKey = @"socialNetworkSignupComplete";
 
 NSString * const kStringrUserProfilePictureKey = @"profileImage";
 NSString * const kStringrUserProfilePictureThumbnailKey = @"profileImageThumbnail";
@@ -125,18 +130,6 @@ NSString * const kStringrUserNumberOfStringsKey = @"numberOfStrings";
 
 NSString * const kStringrUserPrivateChannelKey = @"channel";
 
-
-
-
-#pragma mark - PFObject StringrString class
-// Class Key
-NSString * const kStringrStringClassKey = @"String";
-
-// Field Keys
-NSString * const kStringrStringPhotosKey = @"photos";
-NSString * const kStringrStringUserKey = @"user";
-NSString * const kStringrStringTitleKey = @"title";
-NSString * const kStringrStringDescriptionKey = @"description";
 
 
 
@@ -154,4 +147,44 @@ NSString * const kStringrPhotoPictureWidth = @"imageWidth";
 NSString * const kStringrPhotoPictureHeight = @"imageHeight";
 NSString * const kStringrPhotoThumbnailWidth = @"thumbnailWidth";
 NSString * const kStringrPhotoThumbnailHeight = @"thumbnailHeight";
+
+
+
+
+#pragma mark - PFObject StringrString class
+// Class Key
+NSString * const kStringrStringClassKey = @"String";
+
+// Field Keys
+NSString * const kStringrStringPhotosKey = @"photos";
+NSString * const kStringrStringUserKey = @"user";
+NSString * const kStringrStringTitleKey = @"title";
+NSString * const kStringrStringDescriptionKey = @"description";
+
+
+
+
+
+#pragma mark - Cached User Attributes
+
+NSString * const kStringrUserAttributesIsFollowedByCurrentUserKey = @"isFollowedByCurrentUser";
+NSString * const kStringrUserAttributesStringCountKey = @"stringCount";
+
+
+
+#pragma mark - Cached Photo Attributes
+
+NSString * const kStringrPhotoAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
+NSString * const kStringrPhotoAttributesLikeCountKey = @"likeCount";
+NSString * const kStringrPhotoAttributesCommentCountKey = @"commentCount";
+
+
+
+#pragma mark - Cached String Attributes
+
+NSString * const kStringrStringAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
+NSString * const kStringrStringAttributesLikeCountKey = @"likeCount";
+NSString * const kStringrStringAttributesCommentCountKey = @"commentCount";
+
+
 

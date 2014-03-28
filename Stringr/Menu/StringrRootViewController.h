@@ -10,4 +10,6 @@
 
 @interface StringrRootViewController : REFrostedViewController
 
+- (instancetype)initWithContentViewController:(UIViewController *)contentViewController;
+
 @end

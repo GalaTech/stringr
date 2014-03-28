@@ -59,18 +59,21 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     
     
-    // Creates the header of the menu that contains profile image and other graphics
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+    [self.tableView setShowsVerticalScrollIndicator:NO];
     
-    self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(202, 24, 30, 30)];
-    [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
-    [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName:) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
+}
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
-                                                                            image:[UIImage imageNamed:@"Stringr Image"]
-                                                                        pathColor:[UIColor darkGrayColor]
-                                                                        pathWidth:1.0];
-
+                                                                  image:[UIImage imageNamed:@"Stringr Image"]
+                                                              pathColor:[UIColor darkGrayColor]
+                                                              pathWidth:1.0];
+    
     // loads user profile image in background
     [self.profileImageView setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
     [self.profileImageView loadInBackground];
@@ -79,7 +82,7 @@
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     
     self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-
+    
     self.profileNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     self.profileNameLabel.adjustsFontSizeToFitWidth = YES;
     self.profileNameLabel.minimumScaleFactor = 0.5f;
@@ -93,18 +96,21 @@
     [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
     [self.profileNameLabel sizeToFit];
     self.profileNameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-
-    [view addSubview:self.profileImageView];
+    
+    // Creates the header of the menu that contains profile image and other graphics
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+    
+    self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(202, 24, 30, 30)];
+    [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
+    [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     [view addSubview:self.cameraButton];
+    [view addSubview:self.profileImageView];
     [view addSubview:self.profileNameLabel];
     
+    
     self.tableView.tableHeaderView = view;
-    
-    
-    [self.tableView setShowsVerticalScrollIndicator:NO];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName:) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -177,9 +183,19 @@
     StringrStringTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
     [followingVC setTitle:@"Following"];
     
-    PFQuery *followingQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [followingQuery orderByAscending:@"createdAt"];
-    [followingVC setQueryForTable:followingQuery];
+    PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+    [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [followingUsersQuery setLimit:1000];
+    
+    PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
+    
+    
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
+    [query orderByAscending:@"createdAt"];
+
+    [followingVC setQueryForTable:query];
     
     StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
@@ -384,11 +400,13 @@
         StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyStringsVC"];
         [myStringsVC setTitle:@"My Strings"];
         
+        /*
         PFQuery *myStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
         [myStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
         [myStringsQuery orderByDescending:@"createdAt"];
         [myStringsVC setQueryForTable:myStringsQuery];
-        
+        */
+         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:myStringsVC];
         
         [self.frostedViewController setContentViewController:navVC];
@@ -420,6 +438,8 @@
         [PFUser logOut];
         
         [self.navigationController popToRootViewControllerAnimated:NO];
+        UIViewController *blankVC = [[UIViewController alloc] init];
+        [self.frostedViewController setContentViewController:blankVC];
         
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];

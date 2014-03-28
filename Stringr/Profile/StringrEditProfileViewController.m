@@ -107,8 +107,8 @@
     // Download the user's facebook profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]) {
-        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]];
+    if ([[PFUser currentUser] objectForKey:kStringrUserFacebookIDKey] && [[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -300,12 +300,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
-    
-    NSArray *textWords = [textField.text componentsSeparatedByCharactersInSet:noCharacters];
-    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
-    
-    if (textWithoutWhiteSpace.length > 0) {
+    if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textField.text]) {
         NSString *editedName = textField.text;
         self.fillerProfileName = editedName;
         [self.delegate setProfileName:editedName];
@@ -321,12 +316,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
-    
-    NSArray *textWords = [textField.text componentsSeparatedByCharactersInSet:noCharacters];
-    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
-    
-    if (textWithoutWhiteSpace.length == 0) {
+    if (![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textField.text]) {
         textField.placeholder = self.fillerProfileName;
         textField.text = @"";
     }
@@ -345,14 +335,8 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 // Sets the filler description to the text of the view whenever you exit
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    
-    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
-    
-    NSArray *textWords = [textView.text componentsSeparatedByCharactersInSet:noCharacters];
-    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
-
     // Accounts for the correct filler text and character remaining count
-    if (textWithoutWhiteSpace.length == 0) {
+    if (![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textView.text]) {
         textView.text = self.fillerDescription;
         
         // calculates the accurate number of characters remaining

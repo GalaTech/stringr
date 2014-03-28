@@ -12,21 +12,42 @@
 #import "TestViewController.h"
 #import "UIImage+Resize.h"
 #import "StringrSignUpWithEmailTableViewController.h"
+#import "StringrSignUpWithSocialNetworkViewController.h"
 #import "StringrLoginWithEmailTableViewController.h"
+#import "ILTranslucentView.h"
+#import "StringrEmailVerificationViewController.h"
+#import "StringrNavigationController.h"
+#import "StringrHomeTabBarViewController.h"
+#import "StringrActivityTableViewController.h"
+#import "StringrStringTableViewController.h"
+#import "StringrMenuViewController.h"
+#import "AppDelegate.h"
 
 //#import "StringrProfileViewController.h"
 
 
 
-@interface StringrLoginViewController () <UIAlertViewDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface StringrLoginViewController () <UIAlertViewDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet ILTranslucentView *usernameBlurredView;
+@property (weak, nonatomic) IBOutlet ILTranslucentView *passwordBlurredView;
+
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *userPassword;
+@property (strong, nonatomic) UIImage *userProfileImage;
+
+@property (weak, nonatomic) IBOutlet UIButton *userNeedsToVerifyEmailButton;
+
+
 @property (nonatomic) int imageNumber;
 @property (strong, nonatomic) NSTimer *backgroundRotationTimer;
 @property (strong, nonatomic) NSMutableArray *universityNames;
 @property (strong, nonatomic) NSMutableData *profileImageData;
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *facebookLoginActivityIndicator;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loginActivityIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
 
 @end
@@ -39,124 +60,59 @@
 {
     [super viewDidLoad];
     
-    //[self.navigationController.navigationBar setHidden:YES];
-    
-    [self.facebookLoginActivityIndicator startAnimating];
+    //[self.loginActivityIndicator startAnimating];
     // prevents a user from tapping the login button before it checks to see if you're already connected
-    [self.facebookLoginButton setUserInteractionEnabled:NO];
+    //[self.facebookLoginButton setUserInteractionEnabled:NO];
+    //[self.userNeedsToVerifyEmailButton setUserInteractionEnabled:NO];
     
-    // delay time for check so that there is not a error with the navigation
-    double delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        [self.facebookLoginActivityIndicator stopAnimating];
-        [self.facebookLoginButton setUserInteractionEnabled:YES];
-        
-        // Check if user is cached and linked to Facebook, if so, bypass login
-        if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-            //[self userLoginData];
-            // changes the modal transition from a cross-fade
-            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    });
     
-    // Disables the menu from being able to be pulled out via gesture
-    //self.frostedViewController.panGestureEnabled = NO;
+
+    
+    
+    
+    [self setupBlurredUsernameAndPasswordBackgrounds];
+    [self setupTextFieldDesign];
+    
+    [[PFUser currentUser] refreshInBackgroundWithTarget:self selector:@selector(loginUserFromRefresh)];
+
+    // changes the modal transition from a cross-fade
+    [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 
+    // Sets the appearance of the navigation bar items
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                                             NSForegroundColorAttributeName: [UIColor grayColor],
                                                             NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
                                                             }];
     
+    // forces the back button to just be an <
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     [self.navigationItem setBackBarButtonItem:backButton];
     
-    self.imageNumber = 2;
+    self.imageNumber = 1;
     
-    NSTimeInterval time = 9.0;
+    NSTimeInterval time = 10.0;
     self.backgroundRotationTimer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(changeBackgroundImage) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
     [self.backgroundRotationTimer invalidate];
-    
-    //self.frostedViewController.panGestureEnabled = YES;
 }
 
-
-
-
-#pragma mark - IBActions
-
-- (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
-{
-    // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[@"basic_info"];
-    
-    // Login PFUser using facebook
-    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-        // Hide loading indicator
-        [self.facebookLoginActivityIndicator stopAnimating];
-        
-        if (!user) {
-            if (!error) {
-                NSLog(@"Uh oh. The user cancelled the Facebook login.");
-                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Uh oh. The user cancelled the Facebook login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-                //[alert show];
-            }
-            /*
-            else {
-                NSLog(@"Uh oh. An error occurred: %@", error);
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:[error description] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-                [alert show];
-            }
-             */
-        } else if (user.isNew) {
-            NSLog(@"User with facebook signed up and logged in!");
-            
-            [self userLoginData];
-            // changes the modal transition from a cross-fade
-            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            NSLog(@"User with facebook logged in!");
-            
-            //[self userLoginData];
-            // changes the modal transition from a cross-fade
-            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
-    
-    // Show loading indicator until login is finished
-    [self.facebookLoginActivityIndicator startAnimating];
-}
-
-
-- (IBAction)signUpWithEmailButtonTouchHandler:(UIButton *)sender
-{
-    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithEmailVC"];
-    
-    [self.navigationController pushViewController:signupWithEmailVC animated:YES];
-}
-
-- (IBAction)loginWithEmailButtonTouchHandler:(UIButton *)sender
-{
-    StringrLoginWithEmailTableViewController *loginWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"loginWithEmailVC"];
-    
-    [self.navigationController pushViewController:loginWithEmailVC animated:YES];
-}
 
 #pragma mark - Action Handlers
 
@@ -202,12 +158,165 @@
                     } completion:nil];
 }
 
+- (void)dismissKeyboard
+{
+    [self.usernameTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+}
+
+
+#pragma mark - IBActions
+
+- (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
+{
+    // Set permissions required from the facebook user account
+    NSArray *permissionsArray = @[@"basic_info"];
+    
+    // Show loading indicator until login is finished
+    [self.loginActivityIndicator startAnimating];
+    
+    // Login PFUser using facebook
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        // Hide loading indicator
+        [self.loginActivityIndicator stopAnimating];
+        
+        if (!user) {
+            if (!error) {
+                NSLog(@"The user cancelled the Facebook login.");
+                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Uh oh. The user cancelled the Facebook login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+                //[alert show];
+            }
+        } else if (user.isNew) {
+            [self userFacebookLoginData];
+            StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+            [facebookSignUpVC setNetworkType:FacebookNetworkType];
+            [self setDelegate:facebookSignUpVC];
+            [self.navigationController pushViewController:facebookSignUpVC animated:YES];
+            /*
+            // changes the modal transition from a cross-fade
+            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            [self dismissViewControllerAnimated:YES completion:nil];
+             */
+        } else {
+            NSLog(@"User with facebook logged in!");
+            
+            if ([StringrUtility facebookUserCanLogin:user]) {
+                
+                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                
+                // changes the modal transition from a cross-fade
+                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [self.userNeedsToVerifyEmailButton setHidden:YES];
+                StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+                [facebookSignUpVC setNetworkType:FacebookNetworkType];
+                [self setDelegate:facebookSignUpVC];
+                [self.navigationController pushViewController:facebookSignUpVC animated:YES];
+            }
+        }
+    }];
+    
+    
+}
+
+- (IBAction)loginWithTwitterButtonTouchHandler:(UIButton *)sender
+{
+    // Show loading indicator until login is finished
+    [self.loginActivityIndicator startAnimating];
+    
+    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+        [self.loginActivityIndicator stopAnimating];
+        
+        if (!user) {
+            NSLog(@"The user cancelled the Twitter login.");
+            return;
+        } else if (user.isNew) {
+            NSLog(@"User signed up and logged in with Twitter!");
+            [self userTwitterLoginData];
+            StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+            [twitterSignUpVC setNetworkType:TwitterNetworkType];
+            [self setDelegate:twitterSignUpVC];
+            [self.navigationController pushViewController:twitterSignUpVC animated:YES];
+        } else {
+            NSLog(@"User logged in with Twitter!");
+            
+            if ([StringrUtility twitterUserCanLogin:user]) {
+                
+                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                
+                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [self.userNeedsToVerifyEmailButton setHidden:YES];
+                StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+                [twitterSignUpVC setNetworkType:TwitterNetworkType];
+                [self setDelegate:twitterSignUpVC];
+                [self.navigationController pushViewController:twitterSignUpVC animated:YES];
+            }
+        }
+    }];
+}
+
+- (IBAction)signUpWithEmailButtonTouchHandler:(UIButton *)sender
+{
+    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithEmailVC"];
+    
+    [self.navigationController pushViewController:signupWithEmailVC animated:YES];
+}
+
+- (IBAction)loginWithEmailButtonTouchHandler:(UIButton *)sender
+{
+    [self.loginActivityIndicator startAnimating];
+    
+    [self.loginActivityIndicator startAnimating];
+    [PFUser logInWithUsernameInBackground:self.username
+                                 password:self.userPassword
+                                   target:self
+                                 selector:@selector(handleUserLogin:withError:)];
+}
+
+- (IBAction)userNeedsToVerifyEmailButtonTouchHandler:(UIButton *)sender
+{
+    StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+    [self.navigationController pushViewController:emailVerificationVC animated:YES];
+}
+
 
 
 
 #pragma mark - Private
 
-- (void)userLoginData
+// logs in the user after the refresh is complete on the current user
+- (void)loginUserFromRefresh
+{
+    // shows or hides the email icon based around whether or not the current user has verified their email
+    BOOL setHidden = ![StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]];
+    [self.userNeedsToVerifyEmailButton setHidden:setHidden];
+    
+    // delay time for check so that there is not a error with the navigation
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+     
+        //[self.loginActivityIndicator stopAnimating];
+        [self.facebookLoginButton setUserInteractionEnabled:YES];
+        [self.userNeedsToVerifyEmailButton setUserInteractionEnabled:YES];
+        
+        // Check if user is cached and linked to Facebook, twitter, or email, if so, bypass login
+        if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
+            [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
+            StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+            [self.navigationController pushViewController:emailVerificationVC animated:YES];
+        }
+    });
+}
+
+
+
+- (void)userFacebookLoginData
 {
     FBRequest *request = [FBRequest requestForMe];
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -223,7 +332,7 @@
             // If it's a new user we go through the setup of loading all their facebook info
             //if ([[PFUser currentUser] isNew]) {
                 if (facebookID) {
-                    [[PFUser currentUser] setObject:facebookID forKey:kStringrFacebookIDKey];
+                    [[PFUser currentUser] setObject:facebookID forKey:kStringrUserFacebookIDKey];
                     //userProfile[@"facebookId"] = facebookID;
                 }
             
@@ -231,16 +340,13 @@
                     [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
                 }
                 
-                if (userData[@"location"][@"name"]) {
-                    [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:kStringrUserLocationKey];
-                }
-                
                 if ([pictureURL absoluteString]) {
-                    [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:kStringrFacebookProfilePictureURLKey];
-                    [self downloadFacebookProfileImage];
+                    [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:kStringrUserProfilePictureURLKey];
+                    [self downloadProfileImage];
                 }
-                
+            
                 [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
+                [[PFUser currentUser] setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
             //}
             
             /*
@@ -297,6 +403,61 @@
     
 }
 
+- (void)userTwitterLoginData
+{
+    NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
+    [[PFTwitterUtils twitter] signRequest:request];
+    NSURLResponse *response = nil;
+    NSError *error;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+
+    NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+    
+    if (userData) {
+        
+        NSString *twitterID = [userData objectForKey:@"id"];
+        if (twitterID) {
+            [[PFUser currentUser] setObject:twitterID forKey:kStringrUserTwitterIDKey];
+        }
+        
+        NSString *displayName = [userData objectForKey:@"name"];
+        if (displayName) {
+            [[PFUser currentUser] setObject:displayName forKey:kStringrUserDisplayNameKey];
+        }
+        
+        //NSString *description = [userData objectForKey:@"description"];
+        NSString *profileImageURL = [userData objectForKey:@"profile_image_url"];
+        if (profileImageURL) {
+            profileImageURL = [profileImageURL stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+            [[PFUser currentUser] setObject:profileImageURL forKey:kStringrUserProfilePictureURLKey];
+            [self downloadProfileImage];
+        }
+        
+        NSString *screenName = [userData objectForKey:@"screen_name"];
+        if (screenName) {
+            // saves the case sensitive version of the username
+            [[PFUser currentUser] setObject:screenName forKey:kStringrUserUsernameCaseSensitive];
+            
+            // saves the case insensitive version of the username
+            screenName = [screenName lowercaseString];
+            [[PFUser currentUser] setObject:screenName forKey:kStringrUserUsernameKey];
+        }
+        
+        [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
+        [[PFUser currentUser] setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
+        
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self.delegate socialNetworkProfileImageDidFinishDownloading:self.userProfileImage];
+            }
+        }];
+    }
+    
+}
+
 // Fast enumerates through the data of the users Facebook info.
 // It checks all of their college info to see if they attended a
 // college.
@@ -317,13 +478,13 @@
     return self.universityNames.count > 0;
 }
 
-- (void)downloadFacebookProfileImage
+- (void)downloadProfileImage
 {
-    // Download the user's facebook profile picture
+    // Download the user's social network profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]) {
-        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]];
+    if ([[PFUser currentUser] objectForKey:kStringrUserFacebookIDKey] && [[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -333,9 +494,68 @@
         if (!urlConnection) {
             NSLog(@"Failed to download picture");
         }
+    } else if ([[PFUser currentUser] objectForKey:kStringrUserTwitterIDKey] && [[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]];
+        
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
+                                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                              timeoutInterval:2.0f];
+        // Run network request asynchronously
+        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+        if (!urlConnection) {
+            NSLog(@"Failed to download picture");
+        }
+
     }
 }
 
+- (void)setupBlurredUsernameAndPasswordBackgrounds
+{
+    self.usernameBlurredView.translucentAlpha = 0.9;
+    self.usernameBlurredView.translucentStyle = UIBarStyleDefault;
+    self.usernameBlurredView.translucentTintColor = [UIColor clearColor];
+    self.usernameBlurredView.backgroundColor = [UIColor clearColor];
+    
+    self.passwordBlurredView.translucentAlpha = 0.9;
+    self.passwordBlurredView.translucentStyle = UIBarStyleDefault;
+    self.passwordBlurredView.translucentTintColor = [UIColor clearColor];
+    self.passwordBlurredView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)setupTextFieldDesign
+{
+    NSAttributedString *attributedUsernameString = [[NSAttributedString alloc] initWithString:@"Username..." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    [self.usernameTextField setAttributedPlaceholder:attributedUsernameString];
+    
+    NSAttributedString *attributedPasswordString = [[NSAttributedString alloc] initWithString:@"Password..." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    [self.passwordTextField setAttributedPlaceholder:attributedPasswordString];
+}
+
+- (void)handleUserLogin:(PFUser *)user withError:(NSError *)error
+{
+    [self.loginActivityIndicator stopAnimating];
+    
+    
+    if (error.code == 101) { // 101 = invalid login credentials
+        // The login failed. Check error to see why.
+        UIAlertView *invalidLoginCredentials = [[UIAlertView alloc] initWithTitle:@"Unable to Login" message:@"We cannot log you in with that username and password combination!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [invalidLoginCredentials show];
+    } else if (error.code == 201) { // 201 = no password entered
+        UIAlertView *noPasswordEntered = [[UIAlertView alloc] initWithTitle:@"Invalid Password" message:@"Please enter your password!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [noPasswordEntered show];
+    } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
+        
+        // instantiates the main logged in content area
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+        
+        [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else if ([StringrUtility usernameUserNeedsToVerifyEmail:user]) {
+        [self.userNeedsToVerifyEmailButton setHidden:NO];
+        StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+        [self.navigationController pushViewController:emailVerificationVC animated:YES];
+    }
+}
 
 
 
@@ -353,8 +573,8 @@
 #pragma mark - NSURLConnectionDataDelegate
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    UIImage *facebookProfileImage = [UIImage imageWithData:self.profileImageData];
-    UIImage *thumbnailProfileImage = [facebookProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+    self.userProfileImage = [UIImage imageWithData:self.profileImageData];
+    UIImage *thumbnailProfileImage = [self.userProfileImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
     
     NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
     
@@ -364,10 +584,48 @@
     [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
     [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
     // Save with block so that the menu profile image is not called until the new image has finished uploading
-    [[PFUser currentUser] saveInBackground];
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self.delegate socialNetworkProfileImageDidFinishDownloading:self.userProfileImage];
+        }
+    }];
 }
 
 
+
+#pragma mark - UITextField Delegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.usernameTextField) {
+        if ([StringrUtility NSStringIsValidUsername:textField.text]) {
+            self.username = self.usernameTextField.text;
+            self.username = [self.username lowercaseString];
+        }
+    } else if (textField == self.passwordTextField) {
+        if (self.passwordTextField.text.length != 0) {
+            self.userPassword = self.passwordTextField.text;
+        }
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // Selects the password field if you return on the username
+    if (textField == self.usernameTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    } else {
+        [textField resignFirstResponder];
+        
+        [self.loginActivityIndicator startAnimating];
+        [PFUser logInWithUsernameInBackground:self.username
+                                     password:self.userPassword
+                                       target:self
+                                     selector:@selector(handleUserLogin:withError:)];
+    }
+    
+    return YES;
+}
 
 
 

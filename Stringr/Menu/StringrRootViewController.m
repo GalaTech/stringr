@@ -24,7 +24,10 @@
 
 - (void)awakeFromNib
 {
-    self.contentViewController = [self setupHomeTabBarController];
+    UIViewController *testVC = [[UIViewController alloc] init];
+    [testVC.view setBackgroundColor:[UIColor whiteColor]];
+    
+    self.contentViewController = testVC;
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
     
     self.liveBlur = YES;
@@ -38,6 +41,28 @@
                                                             }];
 }
 
+- (instancetype)initWithContentViewController:(UIViewController *)contentViewController
+{
+    self = [super init];
+    
+    if (self) {
+        self.contentViewController = contentViewController;
+        self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
+        
+        self.liveBlur = YES;
+        // makes the menu thinner than the default
+        self.menuViewSize = CGSizeMake(250, CGRectGetHeight(self.view.frame));
+        
+        // Sets the navigation bar title to a lighter font variant throughout the app.
+        [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                                NSForegroundColorAttributeName: [UIColor grayColor],
+                                                                NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
+                                                                }];
+    }
+    
+    return self;
+}
+
 - (StringrHomeTabBarViewController *)setupHomeTabBarController
 {
     StringrHomeTabBarViewController *homeTabBarVC = [[StringrHomeTabBarViewController alloc] init];
@@ -45,10 +70,22 @@
     StringrStringTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
     [followingVC setTitle:@"Following"];
     
-    PFQuery *followingQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [followingQuery orderByAscending:@"createdAt"];
-    [followingVC setQueryForTable:followingQuery];
+    /*
+    PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+    [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [followingUsersQuery setLimit:1000];
     
+    PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
+    
+    
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
+    [query orderByAscending:@"createdAt"];
+    
+    [followingVC setQueryForTable:query];
+    */
+     
     StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
     [followingNavVC setTabBarItem:followingTab];

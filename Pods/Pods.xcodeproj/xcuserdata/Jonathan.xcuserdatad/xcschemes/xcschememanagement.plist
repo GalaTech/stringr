@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-ILTranslucentView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-LXReorderableCollectionViewFlowLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2AF5B6551BCC49BFA85CD334</key>
+		<key>0DB1B15DC6F64A138A787C3F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2F974DC197424D9A96476069</key>
+		<key>174DD342521E40FA92137E9C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AB96660ADE8B4AD2ABA8349E</key>
+		<key>5838403CB1294EE8842C24B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8B696D9F17F4ECEAFEA0469</key>
+		<key>9DE07ADA158F452B998CE0EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C533D41211BD47DCB19B7CC9</key>
+		<key>B453C35211B54F3FB851CB4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C78366D703814F57A68AEFD2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

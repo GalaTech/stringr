@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StringrSignUpWithEmailTableViewController : UITableViewController
+@interface StringrSignUpWithEmailTableViewController : UITableViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+
+@property (strong, nonatomic) UIImage *userProfileImage;
+@property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *displayName;
+@property (strong, nonatomic) NSString *emailAddress;
+@property (strong, nonatomic) NSString *password;
 
 @end

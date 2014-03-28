@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_ACPButton 0
 #define COCOAPODS_VERSION_PATCH_ACPButton 0
 
+// ILTranslucentView
+#define COCOAPODS_POD_AVAILABLE_ILTranslucentView
+#define COCOAPODS_VERSION_MAJOR_ILTranslucentView 0
+#define COCOAPODS_VERSION_MINOR_ILTranslucentView 0
+#define COCOAPODS_VERSION_PATCH_ILTranslucentView 1
+
 // LXReorderableCollectionViewFlowLayout
 #define COCOAPODS_POD_AVAILABLE_LXReorderableCollectionViewFlowLayout
 #define COCOAPODS_VERSION_MAJOR_LXReorderableCollectionViewFlowLayout 0

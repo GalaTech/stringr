@@ -14,6 +14,9 @@
 
 @interface StringrProfileTopViewController ()
 
+@property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
+@property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
+
 @end
 
 @implementation StringrProfileTopViewController
@@ -68,25 +71,56 @@
         }
     }];
      */
-    
 
-    
-    // Adds custom design to follow user button
-    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
-    [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
-    [self.followUserButton setCornerRadius:15];
-    [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
-    self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-    
-    
-    
     
     // Sets the title of the button to follow or unfollow depending upon what the users
     // relationship is with the current profile.
+    // TODO: Set this via StringrCache
+    /*
     if (!self.isFollowingUser) {
-        [self.followUserButton setTitle:@"Follow" forState:UIControlStateNormal];
+        [self configureFollowButton];
     } else {
+        [self configureUnfollowButton];
+    }
+     */
+    
+    self.followUserButtonLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    CGFloat buttonHeight = CGRectGetHeight(self.followUserButton.frame);
+    CGFloat buttonWidth = CGRectGetWidth(self.followUserButton.frame);
+    [self.followUserButtonLoadingIndicator setCenter:CGPointMake(buttonWidth / 2, buttonHeight / 2)];
+    [self.followUserButton addSubview:self.followUserButtonLoadingIndicator];
+    
+    if (![[self.userForProfile objectId] isEqualToString:[[PFUser currentUser] objectId]] ) {
+    
+        [self.followUserButtonLoadingIndicator startAnimating];
+        
+        PFQuery *userIsFollowingUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [userIsFollowingUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+        [userIsFollowingUserQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
+        [userIsFollowingUserQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+        [userIsFollowingUserQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+        [userIsFollowingUserQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            if (error && error.code != kPFErrorCacheMiss) {
+                NSLog(@"Couldn't determine follow relationship: %@", error);
+            } else {
+                [self.followUserButtonLoadingIndicator stopAnimating];
+                if (number == 0) {
+                    [self configureFollowButton];
+                } else {
+                    [self configureUnfollowButton];
+                }
+            }
+        }];
+    } else {
+        // button setup for when it's the current users profile
+        [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
+        [self.followUserButton setLabelTextColor:[StringrConstants kStringTableViewBackgroundColor] highlightedColor:nil disableColor:nil];
+        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+        [self.followUserButton setCornerRadius:15];
+        [self.followUserButton setBorderStyle:[StringrConstants kStringTableViewBackgroundColor] andInnerColor:nil];
+        [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
         [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+        [self.followUserButton setEnabled:NO];
     }
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -100,49 +134,55 @@
 
 
 
-#pragma mark - Public
+#pragma mark - Private
 
-/** Allows you to change the values of objects in the top view controller when a user begins to
- * scroll. It calculates changes based on the old height and new height of the top view controller
- * I utilize this for changing the alpha value when a user scrolls up on the parallax view. That way
- * it will decrease objects alpha value until they are transparent.
- *
- * @param oldHeight The old/previous height of the top view controller
- * @param newHeight The new height of the top view controller.
- */
-- (void)willChangeHeightFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight {
+- (void)followButtonTouchHandler
+{
+    [self.followUserButtonLoadingIndicator startAnimating];
+    [self configureUnfollowButton];
     
-    /*
-     if (newHeight >= parallaxController.topViewControllerStandartHeight) {
-     
-     
-     [self.profileImage setAlpha:1];
-     [self.profileNameLabel setAlpha:1];
-     [self.profileDescriptionLabel setAlpha:1];
-     [self.profileNumberOfStringsLabel setAlpha:1];
-     [self.profileUniversityLabel setAlpha:1];
-     [self.followUserButton setAlpha:1];
-     
-     //float r = (parallaxController.topViewControllerStandartHeight * 1.25f) / newHeight;
-     // [self.gradientImageView setAlpha:r*r];
-     
-     } else {
-     
-     float r = newHeight / parallaxController.topViewControllerStandartHeight;
-     
-     [self.profileImage setAlpha:r];
-     [self.profileNameLabel setAlpha:r];
-     [self.followingButton setAlpha:r];
-     [self.followingLabel setAlpha:r];
-     [self.followersButton setAlpha:r];
-     [self.followersLabel setAlpha:r];
-     [self.profileDescriptionLabel setAlpha:r];
-     [self.profileNumberOfStringsLabel setAlpha:r*r];
-     [self.profileUniversityLabel setAlpha:r*r*r*r];
-     [self.followUserButton setAlpha:r*r*r*r];
-     }
-     */
+    [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
+        [self.followUserButtonLoadingIndicator stopAnimating];
+        if (error) {
+            [self configureFollowButton];
+        }
+    }];
+}
+
+- (void)unfollowButtonTouchHandler
+{
+    [self configureFollowButton];
     
+    [StringrUtility unfollowUserEventually:self.userForProfile];
+}
+
+- (void)configureFollowButton
+{
+    [self.followUserButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+    [self.followUserButton addTarget:self action:@selector(followButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Adds custom design to follow user button
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+    [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+    [self.followUserButton setCornerRadius:15];
+    [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    [self.followUserButton setTitle:@"Follow" forState:UIControlStateNormal];
+}
+
+- (void)configureUnfollowButton
+{
+    [self.followUserButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+    [self.followUserButton addTarget:self action:@selector(unfollowButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.followUserButton setStyle:[StringrConstants kStringTableViewBackgroundColor] andBottomColor:[UIColor whiteColor]];
+    [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+    [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+    [self.followUserButton setCornerRadius:15];
+    [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
 }
 
 
@@ -153,36 +193,9 @@
 - (IBAction)followUserButton:(UIButton *)sender
 {
     if (!self.isFollowingUser) {
-        UIAlertView *followAlert = [[UIAlertView alloc] initWithTitle:@"Followed"
-                                                        message:[NSString stringWithFormat:@"You are now following %@!", self.profileNameLabel.text]
-                                                       delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        
-        [followAlert show];
-        
-        [sender setTitle:@"Unfollow" forState:UIControlStateNormal];
-        [self.followUserButton setStyle:[StringrConstants kStringTableViewBackgroundColor] andBottomColor:[StringrConstants kStringCollectionViewBackgroundColor]];
-        [self.followUserButton setLabelTextColor:[UIColor whiteColor] highlightedColor:[UIColor lightTextColor] disableColor:nil];
-        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
-        [self.followUserButton setCornerRadius:15];
-        [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
-        self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        [self configureUnfollowButton];
     } else {
-        UIAlertView *unfollowAlert = [[UIAlertView alloc] initWithTitle:@"Unfollowed"
-                                                        message:[NSString stringWithFormat:@"You are no longer following %@.", self.profileNameLabel.text]
-                                                       delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        
-        [unfollowAlert show];
-        [sender setTitle:@"Follow" forState:UIControlStateNormal];
-        [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
-        [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
-        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
-        [self.followUserButton setCornerRadius:15];
-        [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
-        self.followUserButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        [self configureFollowButton];
     }
     
     self.isFollowingUser = !self.isFollowingUser;
