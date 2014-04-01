@@ -37,7 +37,7 @@
     
     
     
-    [self.testProfileImage setImage:[UIImage imageNamed:@"Stringr Image"]];
+    [self.testProfileImage setImage:[UIImage imageNamed:@"stringr_icon_filler"]];
     [self.testProfileImage setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
     [self.testProfileImage loadInBackground];
     

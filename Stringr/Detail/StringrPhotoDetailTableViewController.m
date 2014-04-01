@@ -90,8 +90,7 @@
                 cellIdentifier = @"photo_mainDetails";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
-                StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
-                [mainDetailView setupFooterViewWithObject:self.photoDetailsToLoad];
+                StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) fullWidthCell:YES withObject:self.photoDetailsToLoad];
                 [mainDetailView setDelegate:self];
                  
                 [cell addSubview:mainDetailView];

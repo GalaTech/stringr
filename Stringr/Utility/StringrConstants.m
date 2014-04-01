@@ -147,6 +147,8 @@ NSString * const kStringrPhotoPictureWidth = @"imageWidth";
 NSString * const kStringrPhotoPictureHeight = @"imageHeight";
 NSString * const kStringrPhotoThumbnailWidth = @"thumbnailWidth";
 NSString * const kStringrPhotoThumbnailHeight = @"thumbnailHeight";
+NSString * const kStringrPhotoNumberOfLikesKey = @"numberOfLikes";
+NSString * const kStringrPhotoNumberOfCommentsKey = @"numberOfComments";
 
 
 
@@ -160,6 +162,8 @@ NSString * const kStringrStringPhotosKey = @"photos";
 NSString * const kStringrStringUserKey = @"user";
 NSString * const kStringrStringTitleKey = @"title";
 NSString * const kStringrStringDescriptionKey = @"description";
+NSString * const kStringrStringNumberOfLikesKey = @"numberOfLikes";
+NSString * const kStringrStringNumberOfCommentsKey = @"numberOfComments";
 
 
 

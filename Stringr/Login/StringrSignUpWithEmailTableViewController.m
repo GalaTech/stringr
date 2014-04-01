@@ -48,7 +48,7 @@
     [self.agreementView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(signupWithUserInformation)];
     [self.navigationItem setRightBarButtonItem:signupNavigationItem];
-    self.userProfileImage = [UIImage imageNamed:@"Stringr Image"];
+    self.userProfileImage = [UIImage imageNamed:@"stringr_icon_filler"];
 }
 
 - (void)didReceiveMemoryWarning

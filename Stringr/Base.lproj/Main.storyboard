@@ -580,7 +580,7 @@
                                     <action selector="loginWithTwitterButtonTouchHandler:" destination="UvT-5J-tYG" eventType="touchUpInside" id="h7F-iT-Pe2"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Stringr Logo" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-fS-EJk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="stringr_logo" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-fS-EJk">
                                 <rect key="frame" x="40" y="20" width="241" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -798,7 +798,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="325"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="dqR-Ql-Wmx" customClass="StringrPathImageView">
+                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="dqR-Ql-Wmx" customClass="StringrPathImageView">
                                 <rect key="frame" x="115" y="71" width="90" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <inset key="insetFor6xAndEarlier" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -913,25 +913,33 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="SS2-hu-WgZ" customClass="StringrPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="SS2-hu-WgZ" customClass="StringrPathImageView">
                                             <rect key="frame" x="9" y="5" width="39" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="iCe-T9-C4a"/>
+                                                <constraint firstAttribute="width" constant="39" id="l2F-pX-CVj"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Alonso Homes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-dt-piY">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alonso Homes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-dt-piY">
                                             <rect key="frame" x="59" y="5" width="137" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="137" id="Der-Dc-qPc"/>
+                                                <constraint firstAttribute="height" constant="20" id="w9D-NB-Tn1"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2 min ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWo-c7-ZdQ">
-                                            <rect key="frame" x="240" y="5" width="60" height="20"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 min ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VWo-c7-ZdQ">
+                                            <rect key="frame" x="204" y="5" width="96" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="It looks like you had a great time on your trip! Awesome photo!" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-wT-1a2">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It looks like you had a great time on your trip! Awesome photo!" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-wT-1a2">
                                             <rect key="frame" x="59" y="28" width="239" height="60"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -939,6 +947,21 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Pu6-dt-piY" firstAttribute="leading" secondItem="SS2-hu-WgZ" secondAttribute="trailing" constant="11" id="7TY-gF-yWS"/>
+                                        <constraint firstItem="UBD-wT-1a2" firstAttribute="leading" secondItem="NQ0-do-QJO" secondAttribute="leading" constant="59" id="EI0-GK-pV2"/>
+                                        <constraint firstItem="UBD-wT-1a2" firstAttribute="top" secondItem="Pu6-dt-piY" secondAttribute="bottom" constant="3" id="JXJ-WT-SpZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="UBD-wT-1a2" secondAttribute="trailing" constant="22" id="KKg-zb-hCI"/>
+                                        <constraint firstItem="SS2-hu-WgZ" firstAttribute="leading" secondItem="NQ0-do-QJO" secondAttribute="leading" constant="9" id="L6W-Af-5Jt"/>
+                                        <constraint firstItem="Pu6-dt-piY" firstAttribute="baseline" secondItem="VWo-c7-ZdQ" secondAttribute="baseline" id="V5u-aT-4NT"/>
+                                        <constraint firstItem="VWo-c7-ZdQ" firstAttribute="leading" secondItem="Pu6-dt-piY" secondAttribute="trailing" constant="8" id="dA3-DK-4hq"/>
+                                        <constraint firstItem="Pu6-dt-piY" firstAttribute="top" secondItem="SS2-hu-WgZ" secondAttribute="top" id="gua-D7-Pze"/>
+                                        <constraint firstAttribute="trailing" secondItem="VWo-c7-ZdQ" secondAttribute="trailing" constant="20" id="mp9-TS-GTp"/>
+                                        <constraint firstItem="VWo-c7-ZdQ" firstAttribute="top" secondItem="Pu6-dt-piY" secondAttribute="top" id="oW9-dl-CDB"/>
+                                        <constraint firstAttribute="bottom" secondItem="UBD-wT-1a2" secondAttribute="bottom" constant="11" id="u7d-O6-F5E"/>
+                                        <constraint firstItem="SS2-hu-WgZ" firstAttribute="top" secondItem="NQ0-do-QJO" secondAttribute="top" constant="5" id="v2a-ZS-1wv"/>
+                                        <constraint firstItem="Pu6-dt-piY" firstAttribute="leading" secondItem="UBD-wT-1a2" secondAttribute="leading" id="xaa-Y1-Zmx"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="commentsProfileDisplayName" destination="Pu6-dt-piY" id="eqL-55-wk8"/>
@@ -946,6 +969,32 @@
                                     <outlet property="commentsTextComment" destination="UBD-wT-1a2" id="ayA-Dq-UaA"/>
                                     <outlet property="commentsUploadDateTime" destination="VWo-c7-ZdQ" id="ESK-Wu-yvA"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadMore" rowHeight="40" id="8P7-LX-BnL" customClass="PFTableViewCell">
+                                <rect key="frame" x="0.0" y="122" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8P7-LX-BnL" id="np1-wh-bmJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load More" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz6-Ln-OPY">
+                                            <rect key="frame" x="119" y="9" width="83" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="83" id="cuf-da-XAP"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="oz6-Ln-OPY" firstAttribute="top" secondItem="np1-wh-bmJ" secondAttribute="top" constant="9" id="QkD-3t-Nty"/>
+                                        <constraint firstItem="oz6-Ln-OPY" firstAttribute="centerX" secondItem="np1-wh-bmJ" secondAttribute="centerX" id="hhb-GA-6Lz"/>
+                                        <constraint firstAttribute="bottom" secondItem="oz6-Ln-OPY" secondAttribute="bottom" constant="10" id="vZE-CP-90c"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.89078443880000002" green="0.89078443880000002" blue="0.89078443880000002" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1008,7 +1057,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="aFf-MO-YOs" customClass="StringrPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="aFf-MO-YOs" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -1143,7 +1192,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="blz-5Z-J29" customClass="StringrPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="blz-5Z-J29" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -1705,7 +1754,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="d8g-RS-ahR" customClass="StringrPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="d8g-RS-ahR" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -1768,7 +1817,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="alP-Xh-OxM" customClass="StringrPathImageView">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="alP-Xh-OxM" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="10" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -2300,7 +2349,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="Nur-El-636" customClass="StringrPathImageView">
+                                        <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="Nur-El-636" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="19" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         </imageView>
@@ -2587,7 +2636,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="a4p-0m-P08" customClass="StringrPathImageView">
+                                        <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="a4p-0m-P08" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="18" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         </imageView>
@@ -2756,7 +2805,7 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="iDg-q4-lWd" customClass="StringrPathImageView">
+                            <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="iDg-q4-lWd" customClass="StringrPathImageView">
                                 <rect key="frame" x="130" y="157" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <constraints>
@@ -2922,7 +2971,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Stringr Image" translatesAutoresizingMaskIntoConstraints="NO" id="R8R-q9-1N2" customClass="StringrPathImageView">
+                                        <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="R8R-q9-1N2" customClass="StringrPathImageView">
                                             <rect key="frame" x="20" y="18" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         </imageView>
@@ -3057,16 +3106,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Stringr Image" width="256" height="256"/>
-        <image name="Stringr Logo" width="708" height="271"/>
         <image name="crown_icon" width="30" height="30"/>
         <image name="loginWithFacebook" width="200" height="40"/>
         <image name="loginWithTwitter" width="200" height="40"/>
-        <image name="mail_icon" width="100" height="70"/>
+        <image name="mail_icon" width="50" height="35"/>
         <image name="rabbit_icon" width="30" height="27"/>
         <image name="sailboat_icon" width="30" height="30"/>
         <image name="solarSystem_icon" width="30" height="30"/>
         <image name="stockImage5" width="320" height="568"/>
+        <image name="stringr_icon_filler" width="256" height="256"/>
+        <image name="stringr_logo" width="708" height="271"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -25,13 +25,15 @@
  * @param frame The frame used for containing the footer view objects
  * @param isFullWidth Determines whether or not the cell is a full width footer view.
  */
-- (UIView *)initWithFrame:(CGRect)frame withFullWidthCell:(BOOL)isFullWidthCell;
+- (UIView *)initWithFrame:(CGRect)frame fullWidthCell:(BOOL)isFullWidthCell withObject:(PFObject *)object;
 
 /**
  * Set's the uploader profile image and display name to that of the object's uploader.
  * @param object The object that contains information about the photo/string.
  */
 - (void)setupFooterViewWithObject:(PFObject *)object;
+
+- (void)refreshLikesAndComments;
 
 /** 
  * Starts animation and displays or stops animation and hides the loading indicator.
