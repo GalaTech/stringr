@@ -100,7 +100,6 @@
 // see if you can implement this method via app delegate rather than on every view that needs it
 - (void)setupLoggedInContent
 {
-    NSArray *rootWindows = [[UIApplication sharedApplication] windows];
     //StringrRootViewController *rootVC = (StringrRootViewController *)[self.window rootViewController];
     StringrMenuViewController *menuVC = (StringrMenuViewController *)self.rootVC.menuViewController;
     // Forces the menu table view controller to be scrolled to the top upon logging in

@@ -15,6 +15,8 @@
 
 + (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    [photo incrementKey:kStringrPhotoNumberOfLikesKey];
+    
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
@@ -27,36 +29,38 @@
                 [activity delete]; // maybe delete in background?
             }
         }
-        
-        PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-        [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
-        [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-        [likeActivity setObject:[photo objectForKey:kStringrPhotoUserKey] forKey:kStringrActivityToUserKey];
-        [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
-        
-        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [likeACL setPublicReadAccess:YES];
-        
-        [likeActivity setACL:likeACL];
-        
-        
-        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (completionBlock) {
-                completionBlock(succeeded, error);
-            }
-            
-            
-            if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                // send push notification to photo uploader
-            }
-            
-            // refresh sharedCache
-        }];
     }];
+    
+    PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+    [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
+    [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+    [likeActivity setObject:[photo objectForKey:kStringrPhotoUserKey] forKey:kStringrActivityToUserKey];
+    [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
+    
+    PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setPublicReadAccess:YES];
+    
+    [likeActivity setACL:likeACL];
+    
+    
+    [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (completionBlock) {
+            completionBlock(succeeded, error);
+        }
+        
+        if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            // send push notification to photo uploader
+        }
+        
+        // refresh sharedCache
+    }];
+    
 }
 
 + (void)unlikePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    [photo incrementKey:kStringrPhotoNumberOfLikesKey byAmount:@(-1)];
+    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
@@ -83,6 +87,10 @@
 
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    [string incrementKey:kStringrStringNumberOfLikesKey byAmount:@(1)];
+    [string saveInBackground];
+    
+    
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:string];
@@ -92,41 +100,44 @@
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             for (PFObject *activity in likes) {
-                [activity delete]; // maybe delete in background?
+                [activity deleteInBackground]; // maybe delete in background?
             }
         }
         
-        PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-        [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
-        [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-        [likeActivity setObject:[string objectForKey:kStringrStringUserKey] forKey:kStringrActivityToUserKey];
-        [likeActivity setObject:string forKey:kStringrActivityStringKey];
+    }]; // I moved this closing bracket up here instead of encapsulating all the code in this method.
+        // it was saving two likes every time if I had it the later.
+     
+    
+    PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+    [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
+    [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+    [likeActivity setObject:[string objectForKey:kStringrStringUserKey] forKey:kStringrActivityToUserKey];
+    [likeActivity setObject:string forKey:kStringrActivityStringKey];
+    
+    PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setPublicReadAccess:YES];
+    [likeActivity setACL:likeACL];
+    
+    [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (completionBlock) {
+            completionBlock(succeeded, error);
+        }
         
-        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [likeACL setPublicReadAccess:YES];
         
-        [likeActivity setACL:likeACL];
+        if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            // send push notification to photo uploader
+        }
         
         
-        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (completionBlock) {
-                completionBlock(succeeded, error);
-            }
-            
-            
-            if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                // send push notification to photo uploader
-            }
-            
-            
-            
-            // refresh sharedCache
-        }];
+        // refresh sharedCache
     }];
 }
 
 + (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    [string incrementKey:kStringrStringNumberOfLikesKey byAmount:@(-1)];
+    [string saveInBackground];
+    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityStringKey equalTo:string];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
@@ -135,7 +146,7 @@
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             for (PFObject *activity in likes) {
-                [activity delete];
+                [activity deleteInBackground];
             }
             
             if (completionBlock) {

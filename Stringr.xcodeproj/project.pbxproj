@@ -37,6 +37,7 @@
 		AB5B5959189B182F00790510 /* StringEditCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5958189B182F00790510 /* StringEditCollectionView.m */; };
 		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
 		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
+		AB6FDA3818EB7041003A6831 /* StringrNoContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
@@ -76,7 +77,6 @@
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
 		BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EB9184930930056ECE7 /* StringrSearchTableViewController.m */; };
-		BF170EBC184A7B910056ECE7 /* cameraIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF170EBB184A7B910056ECE7 /* cameraIcon.png */; };
 		BF170EC3184BEB100056ECE7 /* StringTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EC2184BEB100056ECE7 /* StringTableViewCell.m */; };
 		BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EC5184BEB310056ECE7 /* StringCollectionViewCell.m */; };
 		BF170EC9184BEB700056ECE7 /* StringView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EC8184BEB700056ECE7 /* StringView.m */; };
@@ -116,10 +116,6 @@
 		BF8349F018297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
 		BF8349F818297FD600D15963 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF8349F618297FD600D15963 /* InfoPlist.strings */; };
 		BF8349FA18297FD600D15963 /* StringrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8349F918297FD600D15963 /* StringrTests.m */; };
-		BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF834A531829CAD900D15963 /* StringrLogo.jpg */; };
-		BF834A581829D39E00D15963 /* following.png in Resources */ = {isa = PBXBuildFile; fileRef = BF834A571829D39E00D15963 /* following.png */; };
-		BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F01853C93100BFF5B2 /* comment-bubble.png */; };
-		BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE00F11853C93100BFF5B2 /* like-bubble.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +178,8 @@
 		AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrEmailVerificationViewController.m; path = Login/StringrEmailVerificationViewController.m; sourceTree = "<group>"; };
 		AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSignUpWithSocialNetworkViewController.h; path = Login/StringrSignUpWithSocialNetworkViewController.h; sourceTree = "<group>"; };
 		AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSignUpWithSocialNetworkViewController.m; path = Login/StringrSignUpWithSocialNetworkViewController.m; sourceTree = "<group>"; };
+		AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentTableViewCell.h; path = StringrStringTable/StringrNoContentTableViewCell.h; sourceTree = "<group>"; };
+		AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentTableViewCell.m; path = StringrStringTable/StringrNoContentTableViewCell.m; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
 		AB757AA318874CF300D32917 /* StringrTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTabBarViewController.h; path = "Tab Bar Controller/StringrTabBarViewController.h"; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 		BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLikedStringsTableViewController.m; path = StringrStringTable/StringrLikedStringsTableViewController.m; sourceTree = "<group>"; };
 		BF170EB8184930930056ECE7 /* StringrSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSearchTableViewController.h; path = StringrStringTable/StringrSearchTableViewController.h; sourceTree = "<group>"; };
 		BF170EB9184930930056ECE7 /* StringrSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSearchTableViewController.m; path = StringrStringTable/StringrSearchTableViewController.m; sourceTree = "<group>"; };
-		BF170EBB184A7B910056ECE7 /* cameraIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cameraIcon.png; path = Resources/cameraIcon.png; sourceTree = "<group>"; };
 		BF170EC1184BEB100056ECE7 /* StringTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTableViewCell.h; path = String/StringTableViewCell.h; sourceTree = "<group>"; };
 		BF170EC2184BEB100056ECE7 /* StringTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringTableViewCell.m; path = String/StringTableViewCell.m; sourceTree = "<group>"; };
 		BF170EC4184BEB310056ECE7 /* StringCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionViewCell.h; path = String/StringCollectionViewCell.h; sourceTree = "<group>"; };
@@ -322,10 +319,6 @@
 		BF8349F518297FD600D15963 /* StringrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StringrTests-Info.plist"; sourceTree = "<group>"; };
 		BF8349F718297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF8349F918297FD600D15963 /* StringrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringrTests.m; sourceTree = "<group>"; };
-		BF834A531829CAD900D15963 /* StringrLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = StringrLogo.jpg; path = Resources/StringrLogo.jpg; sourceTree = "<group>"; };
-		BF834A571829D39E00D15963 /* following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following.png; path = Resources/following.png; sourceTree = "<group>"; };
-		BFEE00F01853C93100BFF5B2 /* comment-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-bubble.png"; path = "Resources/comment-bubble.png"; sourceTree = "<group>"; };
-		BFEE00F11853C93100BFF5B2 /* like-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-bubble.png"; path = "Resources/like-bubble.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +421,15 @@
 				AB5B594C189ADEA700790510 /* StringrStringDetailEditTableViewController.m */,
 			);
 			name = Edit;
+			sourceTree = "<group>";
+		};
+		AB6FDA3918EB729D003A6831 /* Filler Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */,
+				AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */,
+			);
+			name = "Filler Table View Cell";
 			sourceTree = "<group>";
 		};
 		AB757A89187F173F00D32917 /* Image Path  */ = {
@@ -585,6 +587,7 @@
 				BF170EBD184BEA9D0056ECE7 /* String */,
 				BF3EDE4D1847C0670071E047 /* User Table View Cell */,
 				ABF121F2189C14850029177A /* Comments Table View Cell */,
+				AB6FDA3918EB729D003A6831 /* Filler Table View Cell */,
 				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
 				AB757A89187F173F00D32917 /* Image Path  */,
 			);
@@ -851,11 +854,6 @@
 			children = (
 				ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */,
 				ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */,
-				BFEE00F01853C93100BFF5B2 /* comment-bubble.png */,
-				BFEE00F11853C93100BFF5B2 /* like-bubble.png */,
-				BF170EBB184A7B910056ECE7 /* cameraIcon.png */,
-				BF834A571829D39E00D15963 /* following.png */,
-				BF834A531829CAD900D15963 /* StringrLogo.jpg */,
 				BF8349E618297FD600D15963 /* Images.xcassets */,
 			);
 			name = Resources;
@@ -942,20 +940,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF170EBC184A7B910056ECE7 /* cameraIcon.png in Resources */,
 				ABFBE61218D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt in Resources */,
-				BF834A541829CAD900D15963 /* StringrLogo.jpg in Resources */,
 				AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */,
 				ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */,
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
 				ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */,
-				BFEE00F31853C93100BFF5B2 /* like-bubble.png in Resources */,
 				AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
-				BF834A581829D39E00D15963 /* following.png in Resources */,
 				BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */,
-				BFEE00F21853C93100BFF5B2 /* comment-bubble.png in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 				ABFBE61318D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt in Resources */,
 			);
@@ -1019,6 +1012,7 @@
 				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
+				AB6FDA3818EB7041003A6831 /* StringrNoContentTableViewCell.m in Sources */,
 				AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */,
 				BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */,

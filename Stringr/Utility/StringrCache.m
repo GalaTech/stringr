@@ -217,6 +217,39 @@
     return [self.cache objectForKey:stringKey];
 }
 
+- (NSNumber *)likeCountForString:(PFObject *)string
+{
+    NSDictionary *stringAttributes = [self attributesForString:string];
+    
+    if (stringAttributes) {
+        return [stringAttributes objectForKey:kStringrStringAttributesLikeCountKey];
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
+
+- (NSNumber *)commentCountForString:(PFObject *)string
+{
+    NSDictionary *stringAttributes = [self attributesForString:string];
+    
+    if (stringAttributes) {
+        return [stringAttributes objectForKey:kStringrStringAttributesCommentCountKey];
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
+
+- (BOOL)isStringLikedByCurrentUser:(PFObject *)string
+{
+    NSDictionary *stringAttributes = [self attributesForString:string];
+    
+    if (stringAttributes) {
+        return [[stringAttributes objectForKey:kStringrStringAttributesIsLikedByCurrentUserKey] boolValue];
+    }
+    
+    return NO;
+}
+
 
 
 
@@ -237,7 +270,50 @@
     [self setAttributes:stringAttributes forString:string];
 }
 
+- (void)setStringIsLikedByCurrentUser:(PFObject *)string liked:(BOOL)liked
+{
+    NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForString:string]];
+    [stringAttributes setObject:[NSNumber numberWithBool:liked] forKey:kStringrStringAttributesIsLikedByCurrentUserKey];
+    [self setAttributes:stringAttributes forPhoto:string];
+}
 
+- (void)incrementLikeCountForString:(PFObject *)string
+{
+    NSNumber *likeCount = [NSNumber numberWithInt:[[self likeCountForString:string] intValue] + 1];
+    NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForString:string]];
+    [stringAttributes setObject:likeCount forKey:kStringrStringAttributesLikeCountKey];
+    [self setAttributes:stringAttributes forString:string];
+}
+
+- (void)decrementLikeCountForString:(PFObject *)string
+{
+    NSNumber *likeCount = [NSNumber numberWithInt:[[self likeCountForString:string] intValue] - 1];
+    if ([likeCount intValue] < 0) {
+        return;
+    }
+    NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForString:string]];
+    [stringAttributes setObject:likeCount forKey:kStringrStringAttributesLikeCountKey];
+    [self setAttributes:stringAttributes forString:string];
+}
+
+- (void)incrementCommentCountForString:(PFObject *)string
+{
+    NSNumber *commentCount = [NSNumber numberWithInt:[[self commentCountForString:string] intValue] + 1];
+    NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForString:string]];
+    [stringAttributes setObject:commentCount forKey:kStringrStringAttributesCommentCountKey];
+    [self setAttributes:stringAttributes forString:string];
+}
+
+- (void)decrementCommentCountForString:(PFObject *)string
+{
+    NSNumber *commentCount = [NSNumber numberWithInt:[[self commentCountForString:string] intValue] - 1];
+    if ([commentCount intValue] < 0) {
+        return;
+    }
+    NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForString:string]];
+    [stringAttributes setObject:commentCount forKey:kStringrStringAttributesCommentCountKey];
+    [self setAttributes:stringAttributes forString:string];
+}
 
 
 

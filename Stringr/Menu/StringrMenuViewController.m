@@ -70,7 +70,7 @@
     [super viewDidAppear:animated];
     
     self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
-                                                                  image:[UIImage imageNamed:@"Stringr Image"]
+                                                                  image:[UIImage imageNamed:@"stringr_icon_filler"]
                                                               pathColor:[UIColor darkGrayColor]
                                                               pathWidth:1.0];
     
@@ -101,7 +101,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
     
     self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(202, 24, 30, 30)];
-    [self.cameraButton setImage:[UIImage imageNamed:@"cameraIcon.png"] forState:UIControlStateNormal];
+    [self.cameraButton setImage:[UIImage imageNamed:@"camera_button"] forState:UIControlStateNormal];
     [self.cameraButton addTarget:self action:@selector(cameraButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
     
     

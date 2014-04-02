@@ -53,7 +53,7 @@
     
     // Sets the circle image path properties
     
-    [self.profileImage setImage:[UIImage imageNamed:@"Stringr Image"]];
+    [self.profileImage setImage:[UIImage imageNamed:@"stringr_icon_filler"]];
     [self.profileImage setFile:[self.userForProfile objectForKey:kStringrUserProfilePictureKey]];
     [self.profileImage loadInBackground];
     

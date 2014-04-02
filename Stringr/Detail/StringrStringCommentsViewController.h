@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrTableViewController.h"
 
-@interface StringrStringCommentsViewController : UITableViewController
+@interface StringrStringCommentsViewController : StringrTableViewController
 
 @property (nonatomic) BOOL commentsEditable;
+@property (strong, nonatomic) PFObject *objectForCommentThread;
 
 @end

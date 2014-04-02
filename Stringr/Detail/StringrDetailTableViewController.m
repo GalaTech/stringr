@@ -142,12 +142,19 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
     if (object) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
-                                                        message:@"You have liked this String!"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        [alert show];
+        if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
+            [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [footerView refreshLikesAndComments];
+                }
+            }];
+        } else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            [StringrUtility likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [footerView refreshLikesAndComments];
+                }
+            }];
+        }
     }
 }
 
@@ -155,6 +162,20 @@
 {
     if (object) {
         StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+        [commentsVC setObjectForCommentThread:object];
+        
+        NSString *forObjectKey = kStringrActivityStringKey;
+        
+        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            forObjectKey = kStringrActivityPhotoKey;
+        }
+        
+        PFQuery *query = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [query whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
+        [query whereKey:forObjectKey equalTo:object];
+        [query whereKeyExists:kStringrActivityFromUserKey];
+        [query orderByDescending:@"createdAt"];
+        [commentsVC setQueryForTable:query];
         
         if (self.editDetailsEnabled) {
             [commentsVC setCommentsEditable:YES];
