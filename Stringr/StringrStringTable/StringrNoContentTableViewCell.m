@@ -16,6 +16,7 @@
     if (self) {
         [self setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         
+        
     }
     return self;
 }
