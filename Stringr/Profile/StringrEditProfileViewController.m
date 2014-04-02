@@ -64,7 +64,7 @@
     
     [self.selectUniversityButton setTitle:self.fillerUniversityName forState:UIControlStateNormal];
     
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%lu", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
 }
 
@@ -107,8 +107,8 @@
     // Download the user's facebook profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]) {
-        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrFacebookProfilePictureURLKey]];
+    if ([[PFUser currentUser] objectForKey:kStringrUserFacebookIDKey] && [[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -123,6 +123,7 @@
 
 - (void)setupAndDisplayUniversitySelectView
 {
+    /*
     NSArray *array = [[PFUser currentUser] objectForKey:kStringrUserUniversitiesKey];
     
     UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -136,6 +137,7 @@
     
     
     [universitySelectActionSheet showInView:self.view];
+     */
 }
 
 
@@ -145,7 +147,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -182,10 +184,12 @@
         [setDescriptionText.setProfileDescriptionTextView setText:self.fillerDescription];
         
         // Sets the number of characters remaining based around the length of text
-        NSString *charactersRemaining = [NSString stringWithFormat:@"%lu", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
+        NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
         [setDescriptionText.numberOfCharactersRemainingLabel setText:charactersRemaining];
         
-    } else if (indexPath.section == 3) {
+    }
+    /*
+    else if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_SelectUniversity" forIndexPath:indexPath];
         
         StringrSelectUniversityTableViewCell *selectUniversityCell = (StringrSelectUniversityTableViewCell *)cell;
@@ -196,6 +200,7 @@
             [selectUniversityCell.selectedUniversityLabel setText:selectedUniversityName];
         }
     }
+     */
 
     
     return cell;
@@ -221,9 +226,9 @@
 {
     // The section for changing profile image does not have a section header
     if (section == 0) {
-        return 0;
+        return 0.0f;
     } else {
-        return 20;
+        return 20.0f;
     }
 }
 
@@ -270,22 +275,22 @@
 {
     switch (indexPath.section) {
         case 0:
-            return 128;
+            return 128.0f;
             break;
         case 1:
-            return 44;
+            return 44.0f;
             break;
         case 2:
-            return 125;
+            return 125.0f;
             break;
         case 3:
-            return 55;
+            return 55.0f;
             break;
         default:
             break;
     }
     
-    return 500;
+    return 500.0f;
 }
 
 
@@ -295,12 +300,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
-    
-    NSArray *textWords = [textField.text componentsSeparatedByCharactersInSet:noCharacters];
-    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
-    
-    if (textWithoutWhiteSpace.length > 0) {
+    if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textField.text]) {
         NSString *editedName = textField.text;
         self.fillerProfileName = editedName;
         [self.delegate setProfileName:editedName];
@@ -316,12 +316,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
-    
-    NSArray *textWords = [textField.text componentsSeparatedByCharactersInSet:noCharacters];
-    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
-    
-    if (textWithoutWhiteSpace.length == 0) {
+    if (![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textField.text]) {
         textField.placeholder = self.fillerProfileName;
         textField.text = @"";
     }
@@ -340,14 +335,8 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 // Sets the filler description to the text of the view whenever you exit
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    
-    NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
-    
-    NSArray *textWords = [textView.text componentsSeparatedByCharactersInSet:noCharacters];
-    NSString *textWithoutWhiteSpace = [textWords componentsJoinedByString:@""];
-
     // Accounts for the correct filler text and character remaining count
-    if (textWithoutWhiteSpace.length == 0) {
+    if (![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textView.text]) {
         textView.text = self.fillerDescription;
         
         // calculates the accurate number of characters remaining
@@ -407,7 +396,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
     // Creates a string with the number of characters remaining and sets it to the
     // characters remaining label on the view
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%ld", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%d", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
     
     NSIndexPath *profileDescriptionIndexPath = [NSIndexPath indexPathForRow:0 inSection:2];
     StringrSetProfileDescriptionTableViewCell *descriptionCell = (StringrSetProfileDescriptionTableViewCell *)[self.tableView cellForRowAtIndexPath:profileDescriptionIndexPath];
@@ -478,7 +467,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
                 
                 [self.delegate setProfileUniversityName:selectedUniversityName];
                 
-                [[PFUser currentUser] setObject:selectedUniversityName forKey:kStringrUserSelectedUniversityKey];
+                //[[PFUser currentUser] setObject:selectedUniversityName forKey:kStringrUserSelectedUniversityKey];
                 [[PFUser currentUser] saveInBackground];
             }
         }

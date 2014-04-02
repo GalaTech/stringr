@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 
+@protocol StringrLoginViewDownloadingSocialNetworkInfoDelegate;
 
 @interface StringrLoginViewController : UIViewController
 
+@property (strong, nonatomic) id<StringrLoginViewDownloadingSocialNetworkInfoDelegate>delegate;
+
+@end
+
+
+@protocol StringrLoginViewDownloadingSocialNetworkInfoDelegate <NSObject>
+
+- (void)socialNetworkProfileImageDidFinishDownloading:(UIImage *)profileImage;
 
 @end

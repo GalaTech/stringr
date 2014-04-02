@@ -62,16 +62,8 @@
                 cellIdentifier = @"photo_mainDetails";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
-                StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) withFullWidthCell:YES];
-                
-                /*
-                // Init's the footer with live data from here
-                [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
-                [mainDetailView.uploadDateLabel setText:@"0 minutes ago"];
-                [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-                [mainDetailView.commentsTextLabel setText:@"0"];
-                [mainDetailView.likesTextLabel setText:@"0"];
-                */
+                StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) fullWidthCell:YES withObject:self.photoDetailsToLoad];
+                [mainDetailView setDelegate:self];
                  
                 [cell addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
@@ -104,10 +96,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 2) {
-        return 110;
+        return 110.0f;
     }
     
-    return 44;
+    return 44.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

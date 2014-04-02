@@ -11,7 +11,8 @@
 @interface StringrWriteCommentViewController () <UITextViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
-@property (strong, nonatomic) NSMutableDictionary *comment;
+@property (strong, nonatomic) PFObject *comment;
+
 
 @end
 
@@ -30,8 +31,26 @@
     // prevents a post from being made. This is enabled to yes if a user types a character.
     [self.navigationItem.rightBarButtonItem setEnabled:NO];
     
+    
+    
+    
     if (!self.comment) {
-        self.comment = [[NSMutableDictionary alloc] init];
+        self.comment = [PFObject objectWithClassName:kStringrActivityClassKey];
+        [self.comment setObject:kStringrActivityTypeComment forKey:kStringrActivityTypeKey];
+        
+        NSString *forObjectKey = kStringrActivityStringKey;
+        NSString *forObjectUserKey = kStringrStringUserKey;
+        [self.objectToCommentOn incrementKey:kStringrStringNumberOfCommentsKey];
+        
+        if ([self.objectToCommentOn.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            [self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey];
+            forObjectKey = kStringrActivityPhotoKey;
+            forObjectUserKey = kStringrPhotoUserKey;
+        }
+        
+        [self.comment setObject:self.objectToCommentOn forKey:forObjectKey];
+        [self.comment setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+        [self.comment setObject:[self.objectToCommentOn objectForKey:forObjectUserKey] forKey:kStringrActivityToUserKey];
     }
     
     // Automatically displays the keyboard
@@ -49,14 +68,27 @@
 
 #pragma mark - Custom Accessors
 
-- (void)setComment:(NSMutableDictionary *)comment
+/*
+- (void)setComment:(PFObject *)comment
 {
     _comment = comment;
     
-    if ([_comment objectForKey:@"commentText"]) {
+    if ([_comment objectForKey:kStringrActivityContentKey]) {
         [self.navigationItem.rightBarButtonItem setEnabled:!self.navigationItem.rightBarButtonItem.enabled];
     }
     
+}
+ */
+
+- (PFObject *)comment
+{
+    if ([_comment objectForKey:kStringrActivityContentKey]) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
+    
+    return _comment;
 }
 
 
@@ -64,11 +96,14 @@
 
 - (void)postComment
 {
-    NSString *commentText = [[self.comment objectForKey:@"commentText"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if (commentText) {
+    if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:[self.comment objectForKey:kStringrActivityContentKey]]) {
         [self dismissViewControllerAnimated:YES completion:^ {
-            [self.delegate pushSavedComment:self.comment];
+            [self.comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [self.objectToCommentOn saveInBackground];
+                    [self.delegate reloadCommentTableView];
+                }
+            }];
         }];
     }
 }
@@ -86,22 +121,15 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    if (![[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
-        [self.comment setObject:textView.text forKey:@"commentText"];
-        [self.comment setObject:@"Stringr Image" forKey:@"profileImage"];
-        [self.comment setObject:@"Alonso Holmes" forKey:@"profileDisplayName"];
-        [self.comment setObject:@"Now" forKey:@"uploadDate"];
+    if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textView.text]) {
+        [self.comment setObject:textView.text forKey:kStringrActivityContentKey];
     }
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    if (![[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-        [self.comment setObject:textView.text forKey:@"commentText"];
-        [self.comment setObject:@"Stringr Image" forKey:@"profileImage"];
-        [self.comment setObject:@"Alonso Holmes" forKey:@"profileDisplayName"];
-        [self.comment setObject:@"Now" forKey:@"uploadDate"];
-        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:textView.text]) {
+        [self.comment setObject:textView.text forKey:kStringrActivityContentKey];
     } else {
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
     }

@@ -15,7 +15,7 @@
 
 @required
 - (NSArray *)arrayWithPhotoPFObjects;
-- (NSArray *)arrayWithImages;
+//- (NSArray *)arrayWithImages;
 - (UIViewContentMode) contentModeForImage:(NSUInteger)image;
 
 @optional
@@ -28,6 +28,7 @@
 @optional
 - (void) imagePager:(ParseImagePager *)imagePager didScrollToIndex:(NSUInteger)index;
 - (void) imagePager:(ParseImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index;
+- (void)imagePager:(ParseImagePager *)imagePager didLoadImage:(UIImage *)image atIndex:(NSUInteger)index;
 
 @end
 

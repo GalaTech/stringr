@@ -17,7 +17,7 @@
         [self.userProfileImage setImageToCirclePath];
         [self.userProfileImage setPathWidth:1.0];
         [self.userProfileImage setPathColor:[UIColor darkGrayColor]];
-        [self.userProfileImage setImage:[UIImage imageNamed:@"Stringr Image"]];
+        [self.userProfileImage setImage:[UIImage imageNamed:@"stringr_icon_filler"]];
     }
     return self;
 }

@@ -20,6 +20,20 @@
 
 #pragma mark - Lifecycle
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        self.parseClassName = kStringrUserClassKey;
+        self.pullToRefreshEnabled = YES;
+        self.paginationEnabled = NO;
+        self.objectsPerPage = 1;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -81,9 +95,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // test number. This will eventually be pulled via the number of object's returned from parse
-    return 10;
+    return self.objects.count;
 }
 
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -101,30 +116,37 @@
         [cellProfileImage setPathColor:[UIColor darkGrayColor]];
         [cellProfileImage setPathWidth:1.0];
         
-        /*
+ 
         PFImageView *profileImageView = [[PFImageView alloc] init];
         profileImageView.image = [UIImage imageNamed:@"Stringr Image"];
         profileImageView.file = (PFFile *)[[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
         cellProfileImage.image = profileImageView.image;
         [profileImageView loadInBackground];
-        */
+ 
          
         // Sets the profile image on the current cell
         // TODO: This will eventually be the profile image pulled from parse
         userProfileCell.ProfileThumbnailImageView = cellProfileImage;
         
-        // Sets all of the information to the user results for this cell
-        userProfileCell.profileDisplayNameLabel.text = @"Alonso Holmes";
-        //userProfileCell.profileDisplayName = @"Alonso Holmes";
-        //userProfileCell.profileUniversityName = @"Boston University";
-        userProfileCell.profileUniversityNameLabel.text = @"Boston University";
-        //userProfileCell.profileNumberOfStrings = 13;
-        userProfileCell.profileNumberOfStringsLabel.text = @"13";
+        
+        [userProfileCell.profileDisplayNameLabel setText:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
+        [userProfileCell.profileUniversityNameLabel setText:[[PFUser currentUser] objectForKey:kStringrUserSelectedUniversityKey]];
+
+        PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+        [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
+        
+        [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            if (!error) {
+                userProfileCell.profileNumberOfStringsLabel.text = [NSString stringWithFormat:@"%d", number];
+            }
+        }];
+        
+        
     }
 
     return cell;
 }
-
+*/
 
 
 
@@ -135,6 +157,7 @@
 {
     // Creates a new instance of a user profile
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+
     
     // Gets the cell that the user tapped on
     StringrUserTableViewCell *currentCell = (StringrUserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -144,7 +167,8 @@
         // Sets the title of the profile vc being pushed to that of the username on the cell being tapped
         //profileVC.title = @"Profile";
         
-        [profileVC setUserForProfile:[PFUser currentUser]];
+        //[profileVC setUserForProfile:[PFUser currentUser]];
+        [profileVC setUserForProfile:[self.objects objectAtIndex:indexPath.row]];
         [profileVC setProfileReturnState:ProfileBackReturnState];
         
         //profileVC.canEditProfile = NO;
@@ -157,6 +181,74 @@
     }
 }
 
+
+
+
+#pragma mark - PFQueryTableViewController
+
+- (PFQuery *)queryForTable
+{
+    PFQuery *query = [self getQueryForTable];
+    
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    return query;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
+{
+    static NSString *cellIdentifier = @"UserProfileCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[StringrUserTableViewCell class]]) {
+        
+        StringrUserTableViewCell * userProfileCell = (StringrUserTableViewCell *)cell;
+        
+        // Creates the path and image for a profile thumbnail
+        StringrPathImageView *cellProfileImage = (StringrPathImageView *)[self.view viewWithTag:1];
+        [cellProfileImage setImageToCirclePath];
+        [cellProfileImage setPathColor:[UIColor darkGrayColor]];
+        [cellProfileImage setPathWidth:1.0];
+
+        [userProfileCell.ProfileThumbnailImageView setFile:[object objectForKey:kStringrUserProfilePictureThumbnailKey]];
+        [userProfileCell.ProfileThumbnailImageView loadInBackground];
+
+        [userProfileCell.profileDisplayNameLabel setText:[object objectForKey:kStringrUserDisplayNameKey]];
+        //[userProfileCell.profileUniversityNameLabel setText:[object objectForKey:kStringrUserSelectedUniversityKey]];
+        
+        PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+        [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:object];
+        
+        int numberOfStrings = [[object objectForKey:kStringrUserNumberOfStringsKey] intValue];
+        
+        [userProfileCell.profileNumberOfStringsLabel setText:[NSString stringWithFormat:@"%d", numberOfStrings]];
+        
+        /*
+        [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            if (!error) {
+                userProfileCell.profileNumberOfStringsLabel.text = [NSString stringWithFormat:@"%d", number];
+            }
+        }];
+         */
+        
+        
+    }
+ 
+    return cell;
+}
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+}
+
+- (void)objectsWillLoad
+{
+    [super objectsWillLoad];
+}
 
 
 

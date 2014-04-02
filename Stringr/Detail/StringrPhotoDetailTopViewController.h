@@ -17,10 +17,20 @@
 
 @property (strong, nonatomic) NSArray *photosToLoad;
 @property (strong, nonatomic) id<StringrPhotoDetailTopViewControllerImagePagerDelegate> delegate;
+@property (strong, nonatomic) UIImage *currentlyPresentPhoto;
+
+/**
+ * Will return an image in the current viewer at a given index.
+ * @param index The index for the photo that you wish to have returned. The index must be in range of the number of photos.
+ */
+- (UIImage *)photoAtIndex:(NSUInteger)index;
 
 @end
 
 
+/**
+ * Methods to retrieve callbacks upon the operation of the photo viewer. 
+ */
 @protocol StringrPhotoDetailTopViewControllerImagePagerDelegate <NSObject>
 
 - (void)photoViewer:(ParseImagePager *)photoViewer didScrollToIndex:(NSUInteger)index;

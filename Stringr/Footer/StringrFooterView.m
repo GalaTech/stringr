@@ -38,7 +38,7 @@ static float const contentViewWidth = 320.0;
 //static float const contentViewHeight = 41.5;
 //static float const contentFooterViewWidthPercentage = .93;
 
-- (UIView *)initWithFrame:(CGRect)frame withFullWidthCell:(BOOL)isFullWidthCell
+- (UIView *)initWithFrame:(CGRect)frame fullWidthCell:(BOOL)isFullWidthCell withObject:(PFObject *)object
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -65,11 +65,15 @@ static float const contentViewWidth = 320.0;
             profileImageXLocationPercentage = .02;
         }
         
+        self.objectForFooterView = object;
+        
         [self addProfileImageViewAtLocation:CGPointMake(CGRectGetWidth(frame) * profileImageXLocationPercentage, 2) withSize:CGSizeMake(contentViewWidth * .115, contentViewWidth * .115)];
         [self addProfileNameLabelAtLocation:CGPointMake(nameAndUploadDateXLocation, 6) withSize:CGSizeMake(130, 13)];
         [self addUploadDateLabelAtLocation:CGPointMake(nameAndUploadDateXLocation, 22) withSize:CGSizeMake(130, 13)];
         [self addCommentsButtonAtLocation:CGPointMake(commentsButtonXLocation, 12) withSize:CGSizeMake(40, 18)];
         [self addLikesButtonAtLocation:CGPointMake(likesButtonXLocation, 12) withSize:CGSizeMake(40, 18)];
+        
+        [self setupFooterViewWithObject:object];
     }
     
     return self;
@@ -82,13 +86,17 @@ static float const contentViewWidth = 320.0;
 
 - (void)setupFooterViewWithObject:(PFObject *)object
 {
-    self.objectForFooterView = object;
     [self setUploaderProfileInformation];
     [self setUploadDate];
-    [self setComments];
-    [self setLikes];
+    [self setCommentsWithObject:object];
+    [self setLikesWithObject:object];
 }
 
+- (void)refreshLikesAndComments
+{
+    [self setCommentsWithObject:self.objectForFooterView];
+    [self setLikesWithObject:self.objectForFooterView];
+}
 
 
 
@@ -121,17 +129,32 @@ static float const contentViewWidth = 320.0;
     }
 }
 
-- (void)setComments
+- (void)setCommentsWithObject:(PFObject *)object
 {
-    if (self.objectForFooterView) {
-        [self.commentsTextLabel setText:@"0"];
+    if (object) {
+        // sets up the comments button/label with the number of comments the object has
+        NSString *commentKey = kStringrStringNumberOfCommentsKey;
+        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            commentKey = kStringrPhotoNumberOfCommentsKey;
+        }
+        
+        NSNumber *numberOfComments = [object objectForKey:commentKey];
+        
+        [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", [numberOfComments intValue]]];
     }
 }
 
-- (void)setLikes
+- (void)setLikesWithObject:(PFObject *)object
 {
-    if (self.objectForFooterView) {
-        [self.likesTextLabel setText:@"0"];
+    if (object) {
+        // sets up the like button/label with the number of likes the object has
+        NSString *likeKey = kStringrStringNumberOfLikesKey;
+        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            likeKey = kStringrPhotoNumberOfLikesKey;
+        }
+        
+        NSNumber *numberOfLikes = [object objectForKey:likeKey];
+        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", [numberOfLikes intValue]]];
     }
 }
 
@@ -202,18 +225,14 @@ static float const contentViewWidth = 320.0;
     self.commentsTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
     [self.commentsTextLabel setText:@"0"];
     [self.commentsTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
-    [self.commentsTextLabel setTextColor:[UIColor grayColor]];
+    [self.commentsTextLabel setTextColor:[UIColor lightGrayColor]];
     [self.commentsTextLabel setTextAlignment:NSTextAlignmentRight];
     [self addSubview:self.commentsTextLabel];
-    
-    self.commentsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(location.x + 45, location.y, 20, 17)];
-    [self.commentsImageView setImage:[UIImage imageNamed:@"comment-bubble.png"]];
-    [self addSubview:self.commentsImageView];
-    
+
     self.commentsButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x + 5, location.y - 5, 65, 27)];
-    [self.commentsButton addTarget:self action:@selector(pushDownCommentsButton) forControlEvents:UIControlEventTouchDown];
+    [self.commentsButton setImage:[UIImage imageNamed:@"comment_button"] forState:UIControlStateNormal];
+    [self.commentsButton setImageEdgeInsets:UIEdgeInsetsMake(4, 40, 4, 0)];
     [self.commentsButton addTarget:self action:@selector(pushCommentsButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.commentsButton addTarget:self action:@selector(pushCommentsOutside) forControlEvents:UIControlEventTouchUpOutside];
     //[self.commentsButton setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:.5]];
     [self addSubview:self.commentsButton];
 }
@@ -221,38 +240,23 @@ static float const contentViewWidth = 320.0;
 // Sends user to current strings comments section and changes text color
 - (void)pushCommentsButton
 {
-    self.commentsTextLabel.textColor = [UIColor grayColor];
     [self.delegate stringrFooterView:self didTapCommentButton:self.commentsButton objectToCommentOn:self.objectForFooterView];
-}
-
-// alters text color in a way that makes it look like the button was presed
-- (void)pushDownCommentsButton
-{
-    self.commentsTextLabel.textColor = [UIColor darkGrayColor];
-}
-
-- (void)pushCommentsOutside
-{
-    self.commentsTextLabel.textColor = [UIColor grayColor];
 }
 
 - (void)addLikesButtonAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.likesTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
-    [self.likesTextLabel setText:@"0"];
+    [self.likesTextLabel setText:@""];
     [self.likesTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
-    [self.likesTextLabel setTextColor:[UIColor grayColor]];
+    [self.likesTextLabel setTextColor:[UIColor lightGrayColor]];
     [self.likesTextLabel setTextAlignment:NSTextAlignmentRight];
     [self addSubview:self.likesTextLabel];
     
-    self.likesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(location.x + 45, location.y - 2, 20, 17)];
-    [self.likesImageView setImage:[UIImage imageNamed:@"like-bubble.png"]];
-    [self addSubview:self.likesImageView];
-    
     self.likesButton = [[UIButton alloc] initWithFrame:CGRectMake(location.x + 5, location.y - 5, 65, 27)];
-    [self.likesButton addTarget:self action:@selector(pushDownLikesButton) forControlEvents:UIControlEventTouchDown];
-    [self.likesButton addTarget:self action:@selector(pushLikesButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.likesButton addTarget:self action:@selector(pushLikesOutside) forControlEvents:UIControlEventTouchUpOutside];
+    [self.likesButton setImage:[UIImage imageNamed:@"like_button"] forState:UIControlStateNormal];
+    [self.likesButton setImage:[UIImage imageNamed:@"like_button_selected"] forState:UIControlStateSelected];
+    [self.likesButton setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 7, 5)];
+    [self.likesButton addTarget:self action:@selector(likesButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
     
     //[self.likesButton setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:.5]];
     [self addSubview:self.likesButton];
@@ -260,21 +264,45 @@ static float const contentViewWidth = 320.0;
 }
 
 // increments the number of likes for the current string and changes text color
-- (void)pushLikesButton
+- (void)likesButtonTouchHandler:(UIButton *)button
 {
-    self.likesTextLabel.textColor = [UIColor grayColor];
+    BOOL liked = !button.selected;
+    [self setLikesButtonState:liked];
+    
+    [[StringrCache sharedCache] setStringIsLikedByCurrentUser:self.objectForFooterView liked:liked];
+    
+    if (liked) {
+        [[StringrCache sharedCache] incrementLikeCountForString:self.objectForFooterView];
+        
+        [StringrUtility likeStringInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+            if (!succeeded) {
+                [self setLikesButtonState:NO];
+            } else {
+                [self refreshLikesAndComments];
+            }
+        }];
+    } else {
+        [[StringrCache sharedCache] decrementLikeCountForString:self.objectForFooterView];
+        
+        [StringrUtility unlikeStringInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+            if (!succeeded) {
+                [self setLikesButtonState:YES];
+            } else {
+                [self refreshLikesAndComments];
+            }
+        }];
+    }
+    
     [self.delegate stringrFooterView:self didTapLikeButton:self.likesButton objectToLike:self.objectForFooterView];
 }
 
-// alters text color in a way that makes it look like the button was presed
-- (void)pushDownLikesButton
+- (void)setLikesButtonState:(BOOL)selected
 {
-    self.likesTextLabel.textColor = [UIColor darkGrayColor];
-}
-
-- (void)pushLikesOutside
-{
-    self.likesTextLabel.textColor = [UIColor grayColor];
+    if (selected) {
+        [self.likesButton setSelected:YES];
+    } else {
+         [self.likesButton setSelected:NO];
+    }
 }
 
 

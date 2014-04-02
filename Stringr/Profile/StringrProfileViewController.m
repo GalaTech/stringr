@@ -17,6 +17,8 @@
 
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
+@property (strong, nonatomic) StringrProfileTopViewController *topProfileVC;
+@property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
 
 @end
 
@@ -27,6 +29,8 @@
 - (void)dealloc
 {
     self.view = nil;
+    //self.tableProfileVC = nil;
+    //self.topProfileVC = nil;
 }
 
 - (void)viewDidLoad
@@ -55,18 +59,22 @@
     } else if (self.profileReturnState == ProfileBackReturnState) {
         
     }
-    
-    
-    
     // Instantiates the parallax VC with a top and bottom VC.
-    StringrProfileTopViewController *topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
+    self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
     // Sets the user for the currently accessed profile
-    [topProfileVC setUserForProfile:self.userForProfile];
+    [self.topProfileVC setUserForProfile:self.userForProfile];
     
-    StringrProfileTableViewController *tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
-    [self setupWithTopViewController:topProfileVC andTopHeight:325 andBottomViewController:tableProfileVC];
+    self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
+    
+    // Querries all strings that are owned by the user for the specified profile
+    PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
+    [profileStringsQuery orderByAscending:@"createdAt"];
+    [self.tableProfileVC setQueryForTable:profileStringsQuery];
+    
+    [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
+    
     self.delegate = self;
-    
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
     
@@ -77,12 +85,10 @@
 {
     [super viewWillAppear:animated];
     
-    // Dynamically sets the number of strings label to how many strings are in the table view
-    StringrProfileTableViewController *testTableVC = (StringrProfileTableViewController *)self.bottomViewController;
-    NSString *numberOfStrings = [NSString stringWithFormat:@"%ld Strings", (long)testTableVC.tableView.numberOfSections];
-    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
-    topVC.profileNumberOfStringsLabel.text = numberOfStrings;
-    
+    // Sets the back button to have no text, just the <
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    [self.navigationItem setBackBarButtonItem:backButton];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
 
@@ -143,8 +149,6 @@
     [editProfileVC setDelegate:self];
     
     [self.navigationController pushViewController:editProfileVC animated:YES];
-    
-    //[(UINavigationController *)self.frostedViewController.contentViewController pushViewController:editProfileVC animated:YES];
 }
 
 
@@ -154,38 +158,22 @@
 
 - (void)setProfilePhoto:(UIImage *)profilePhoto
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    [topViewController.profileImage setImage:profilePhoto];
+    [self.topProfileVC.profileImage setImage:profilePhoto];
 }
 
 - (void)setProfileName:(NSString *)name
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    topViewController.profileNameLabel.text = name;
+    self.topProfileVC.profileNameLabel.text = name;
 }
 
 - (void)setProfileDescription:(NSString *)description
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    //UIFont *currentTextViewFont = topViewController.profileDescriptionTextView.font;
-    //UITextAlignment *currentTextViewAlignment = topViewController.profileDescriptionTextView.textAlignment;
-    //UIColor *currentTextViewColor = topViewController.profileDescriptionTextView.textColor;
-    
-    topViewController.profileDescriptionLabel.text = description;
-    
-    //[topViewController.profileDescriptionTextView setFont:currentTextViewFont];
-    //[topViewController.profileDescriptionTextView setTextAlignment:currentTextViewAlignment];
-    //[topViewController.profileDescriptionTextView setTextColor:currentTextViewColor];
+    self.topProfileVC.profileDescriptionLabel.text = description;
 }
 
 - (void)setProfileUniversityName:(NSString *)universityName
 {
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    
-    topViewController.profileUniversityLabel.text = universityName;
+    self.topProfileVC.profileUniversityLabel.text = universityName;
 }
 
 
@@ -215,9 +203,6 @@
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {
     
-    //NSLog(@"didChangeState %d",state);
-    //[self.navigationController setNavigationBarHidden:self.state == QMBParallaxStateFullSize animated:YES];
-    
 }
 
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeTopHeight:(CGFloat)height
@@ -229,18 +214,6 @@
 {
     
 }
-
-
-/*
-- (void)willChangeHeightOfTopViewControllerFromHeight:(CGFloat)oldHeight toHeight:(CGFloat)newHeight {
-    
-    StringrProfileTopViewController * topViewController = (StringrProfileTopViewController *)self.topViewController;
-    [topViewController willChangeHeightFromHeight:oldHeight toHeight:newHeight];
-    
-    float r = (self.topViewControllerStandartHeight * 1.5f) / newHeight;
-    [self.tableViewController.view setAlpha:r*r*r*r*r*r];
-}
- */
 
 
 @end

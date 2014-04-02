@@ -57,7 +57,9 @@
 
 - (void)pushToUserProfile
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedProfileImageKey object:nil];
+    [self.delegate tappedCommentorProfileImage];
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedProfileImageKey object:nil];
 }
 
 #pragma mark - Private

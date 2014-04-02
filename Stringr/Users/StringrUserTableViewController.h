@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrTableViewController.h"
 
 
 /** Generic UITableViewController that will be used for displaying a table of users.
@@ -16,7 +17,7 @@
  *
  * @implements UITableViewController
  */
-@interface StringrUserTableViewController : UITableViewController
+@interface StringrUserTableViewController : StringrTableViewController
 
 
 

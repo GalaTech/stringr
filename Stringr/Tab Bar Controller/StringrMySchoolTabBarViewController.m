@@ -22,7 +22,7 @@
     [super viewDidLoad];
 
     self.title = @"University Popular";
-    self.tabBar.tintColor = [UIColor purpleColor];
+    self.tabBar.tintColor = [StringrConstants kStringrPurpleColor];
 }
 
 

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrTableViewController.h"
 #import "REFrostedViewController.h"
 
-@interface StringrStringTableViewController : PFQueryTableViewController
+@interface StringrStringTableViewController : StringrTableViewController
 
 
 @end

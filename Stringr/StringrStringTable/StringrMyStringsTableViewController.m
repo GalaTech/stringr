@@ -26,12 +26,15 @@
     
     self.title = @"My Strings";
     
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(pushToStringEdit)];
+    
+        
     //TODO: The action for this button is to edit a selected string. The selected string should be pushed in
     // with this method so that it can easily be transferred to the edit controller.
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                              style:UIBarButtonItemStyleBordered
-                                                                             target:self
-                                                                             action:@selector(pushToStringEdit)];
+	self.navigationItem.rightBarButtonItem = editButton;
 }
 
 
@@ -55,6 +58,19 @@
     //[self.tableView setEditing:!self.tableView.editing animated:YES];
 }
 
+
+
+#pragma mark - Parse
+
+
+- (PFQuery *)queryForTable
+{
+    PFQuery *myStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [myStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
+    [myStringsQuery orderByDescending:@"createdAt"];
+    
+    return myStringsQuery;
+}
 
 
 

@@ -21,7 +21,8 @@
 {
     [super viewDidLoad];
 
-    self.tabBar.tintColor = [UIColor redColor];
+    
+    self.tabBar.tintColor = [StringrConstants kStringrTurquoiseColor];
 }
 
 

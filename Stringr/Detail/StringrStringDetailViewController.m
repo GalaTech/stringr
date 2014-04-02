@@ -16,6 +16,9 @@
 
 @interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
+@property (strong, nonatomic) StringrStringDetailTopViewController *stringTopVC;
+@property (strong, nonatomic) StringrStringDetailTableViewController *stringTableVC;
+
 @end
 
 @implementation StringrStringDetailViewController
@@ -26,6 +29,11 @@
 {
     [super viewDidLoad];
     
+    self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTopVC"];
+    [self.stringTopVC setStringToLoad:self.stringToLoad];
+    
+    self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTableVC"];
+    [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
     
     
     if (self.editDetailsEnabled) {
@@ -42,25 +50,21 @@
                                                                                     action:@selector(returnToPreviousScreen)];
         
         
-        StringrStringDetailEditTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
-        [stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
-        [stringTopVC setStringToLoad:self.stringToLoad];
+        // notice that there is explicit casting for these classes.
+        self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
+        [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+        [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
         
-        StringrStringDetailEditTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
-        [stringTableVC setStringDetailsToLoad:self.stringToLoad];
-        [stringTableVC setDelegate:stringTopVC];
-        
-        [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
+        self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
+        [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
+        [self.stringTableVC setEditDetailsEnabled:YES];
+        [(StringrStringDetailEditTableViewController *)self.stringTableVC setDelegate:(StringrStringDetailEditTopViewController *)self.stringTopVC];
     } else {
         self.title = @"String Details";
-        
-        StringrStringDetailTopViewController *stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTopVC"];
-        [stringTopVC setStringToLoad:self.stringToLoad];
-        StringrStringDetailTableViewController *stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTableVC"];
-        [stringTableVC setStringDetailsToLoad:self.stringToLoad];
-        
-        [self setupWithTopViewController:stringTopVC andTopHeight:283 andBottomViewController:stringTableVC];
     }
+    
+    
+    [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
     
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
@@ -70,9 +74,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.bottomViewController;
-    [tableVC setStringTitle:@"Hello!"];
+
 
 }
 

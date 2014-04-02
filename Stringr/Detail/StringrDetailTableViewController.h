@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "QMBParallaxScrollViewController.h"
 #import "StringrFooterView.h"
+#import "StringrDetailTitleTableViewCell.h"
+#import "StringrDetailDescriptionTableViewCell.h"
+#import "StringrDetailPhotoOwnerTableViewCell.h"
 
 @interface StringrDetailTableViewController : UITableViewController<QMBParallaxScrollViewHolder, StringrFooterViewDelegate>
 
 @property (strong, nonatomic) NSArray *sectionHeaderTitles;
+@property (nonatomic) BOOL editDetailsEnabled;
 
 @end

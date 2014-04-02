@@ -29,19 +29,9 @@
     
     _stringReorderableCollectionView = [[NSBundle mainBundle] loadNibNamed:@"StringLargeReorderableCollectionView" owner:self options:nil][0];
     _stringReorderableCollectionView.frame = self.stringView.bounds;
-    /*
-    if (self.userSelectedPhoto) {
-        NSMutableArray *images = [[NSMutableArray alloc] initWithArray:self.stringPhotoData];
-        UIImage *imageCopy = [self.userSelectedPhoto copy];
-        NSDictionary *image = @{@"title" : @"Image", @"image" : imageCopy};
-        [images addObject:image];
-        self.stringPhotoData = [images copy];
-    }
-    
-    [_stringReorderableCollectionView setCollectionData:[self.stringPhotoData mutableCopy]];
-     */
-    
+    [_stringReorderableCollectionView setDelegate:self];
     [_stringReorderableCollectionView setStringObject:self.stringToLoad];
+    
     // sets self to subclass delegate for passing object information upon successful load completion
     [_stringReorderableCollectionView setSubclassDelegate:_stringReorderableCollectionView];
     
@@ -54,7 +44,6 @@
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectItemFromCollectionView:) name:kNSNotificationCenterSelectedStringItemKey object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePhotoFromString:) name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
 }
 
@@ -62,7 +51,6 @@
 {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterSelectedStringItemKey object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
 }
 
@@ -76,32 +64,6 @@
 #pragma mark - Custom Accessors
 
 /*
-static int const NUMBER_OF_IMAGES = 24;
-
-- (NSArray *)stringPhotoData
-{
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (int i = 1; i <= NUMBER_OF_IMAGES; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"photo-%02d.jpg", i];
-        UIImage *image = [UIImage imageNamed:imageName];
-        
-        NSDictionary *photo = @{@"title": @"Article A1", @"image": image};
-        
-        [images addObject:photo];
-    }
-    
- 
-    if (_userSelectedPhoto) {
-        [images addObject:_userSelectedPhoto];
-    }
- 
-    
-    self.stringPhotoData = [images copy];
-    
-    return [images copy];
-}
-
-
 - (void)setUserSelectedPhoto:(UIImage *)userSelectedPhoto
 {
     _userSelectedPhoto = userSelectedPhoto;
@@ -115,29 +77,6 @@ static int const NUMBER_OF_IMAGES = 24;
 }
 */
 
-
-
-
-
-#pragma mark - NSNotificationCenter Actions
-
-- (void) didSelectItemFromCollectionView:(NSNotification *)notification
-{
-    NSDictionary *cellData = [notification object];
-    
-    if (cellData)
-    {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
-        
-        [photoDetailVC setEditDetailsEnabled:YES];
-        // Sets the initial photo to the selected cell
-        [photoDetailVC setCurrentImage:[cellData objectForKey:@"image"]];
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
-        
-        [self presentViewController:navVC animated:YES completion:nil];
-        //[self.navigationController pushViewController:photoDetailVC animated:YES];
-    }
-}
 
 
 
@@ -160,6 +99,29 @@ static int const NUMBER_OF_IMAGES = 24;
     NSDictionary *photo = [notification object];
     
     [self.stringReorderableCollectionView removePhotoFromString:photo];
+}
+
+
+
+#pragma mark - StringView Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
+{
+    if (photos)
+    {
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        
+        [photoDetailVC setEditDetailsEnabled:YES];
+        
+        // Sets the initial photo to the selected cell's PFObject photo data
+        [photoDetailVC setPhotosToLoad:photos];
+        [photoDetailVC setSelectedPhotoIndex:index];
+        [photoDetailVC setStringOwner:string];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+        
+        [self.navigationController presentViewController:navVC animated:YES completion:nil];
+    }
 }
 
 @end

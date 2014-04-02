@@ -21,6 +21,8 @@
 {
     [super viewDidLoad];
     
+    [self.view setNeedsDisplay];
+    
 	//[self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)]];
     
     self.navigationBar.tintColor = [UIColor grayColor];

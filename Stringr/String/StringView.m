@@ -34,9 +34,7 @@
     // Register the colleciton cell for both large and normal string sizes
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
     // Large is only utilized on the detail string pages
-    [_stringLargeCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
-    
-    
+    [_stringLargeCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];    
 }
 
 
@@ -61,6 +59,15 @@
 - (NSMutableArray *)getCollectionData
 {
     return [_collectionViewPhotos mutableCopy];
+}
+
+
+
+#pragma mark - Private
+
+- (void)refreshString
+{
+    [self queryPhotosFromString];
 }
 
 

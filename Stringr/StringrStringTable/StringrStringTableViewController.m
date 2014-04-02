@@ -55,12 +55,6 @@
 {
     [super viewDidLoad];
     
-	
-    // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                             style:UIBarButtonItemStyleDone target:self
-                                                                            action:@selector(showMenu)];
-    
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
 }
@@ -91,12 +85,6 @@
 
 #pragma mark - Private
 
-// Handles the action of displaying the menu when the menu nav item is pressed
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
-
 - (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object
 {
     static float const contentViewWidth = 320.0;
@@ -105,8 +93,7 @@
     
     float footerXLocation = (contentViewWidth - (contentViewWidth * contentFooterViewWidthPercentage)) / 2;
     CGRect footerRect = CGRectMake(footerXLocation, 0, contentViewWidth * contentFooterViewWidthPercentage, contentViewHeight);
-    StringrFooterView *footerView = [[StringrFooterView alloc] initWithFrame:footerRect withFullWidthCell:NO];
-    [footerView setupFooterViewWithObject:object];
+    StringrFooterView *footerView = [[StringrFooterView alloc] initWithFrame:footerRect fullWidthCell:NO withObject:object];
     [footerView setDelegate:self];
     
     return footerView;
@@ -122,6 +109,7 @@
 {
     StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
     
+    // tag is set to the section number of each string
     [detailVC setStringToLoad:[self.objects objectAtIndex:sender.tag]];
     [detailVC setHidesBottomBarWhenPushed:YES];
     
@@ -192,12 +180,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     //
-    return 23.5;
+    return 23.5f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0;
+    return 0.0f;
 }
 
 // Percentage for the width of the content header view
@@ -240,19 +228,45 @@ static float const contentViewWidthPercentage = .93;
 {
     if (indexPath.row == 0) {
         // string view
-        return 157;
+        return 157.0f;
     } else if (indexPath.row == 1) {
         // footer view
-        return 52;
+        return 52.0f;
     }
     
-    return 0;
+    return 0.0f;
 }
 
 
 
 
 #pragma mark - PFQueryTableViewController
+
+- (PFQuery *)queryForTable
+{
+    
+    PFQuery *query = [self getQueryForTable];
+    
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    return query;
+    
+    /*
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    
+    // If no objects are loaded in memory, we look to the cache first to fill the table
+    // and then subsequently do a query against the network.
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query orderByAscending:@"createdAt"];
+    
+    return query;
+     */
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
@@ -264,6 +278,13 @@ static float const contentViewWidthPercentage = .93;
     } else if (indexPath.row == 0) {
         static NSString *cellIdentifier = @"StringTableViewCell";
         StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (!stringCell) {
+            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        
+        [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         [stringCell setStringViewDelegate:self];
         [stringCell setStringObject:object];
         
@@ -272,7 +293,13 @@ static float const contentViewWidthPercentage = .93;
         static NSString *cellIdentifier = @"StringTableViewFooter";
         
         UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (!footerCell) {
+            footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        
         [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         StringrFooterView *footerView = [self addFooterViewToCellWithObject:object];
         
@@ -296,20 +323,6 @@ static float const contentViewWidthPercentage = .93;
     [super objectsWillLoad];
     
     // This method is called before a PFQuery is fired to get more objects
-}
-
-- (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
-    [query orderByAscending:@"createdAt"];
-    
-    return query;
 }
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -367,7 +380,8 @@ static float const contentViewWidthPercentage = .93;
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 2) {
+    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
+        
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
@@ -387,8 +401,8 @@ static float const contentViewWidthPercentage = .93;
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        // TODO: Not sure why this is just a detail view and not edit 
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setStringToLoad:self.objects[0]];
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];
@@ -405,13 +419,6 @@ static float const contentViewWidthPercentage = .93;
 {
     if (photos)
     {
-        /*
-        TestViewController *testVC = [self.storyboard instantiateViewControllerWithIdentifier:@"testVC"];
-        [testVC setPhotos:photos];
-        [testVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:testVC animated:YES];
-        */
-        
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
         
         [photoDetailVC setEditDetailsEnabled:NO];
@@ -447,21 +454,48 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked String"
-                                                    message:@"You have liked this String!"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles: nil];
-    [alert show];
+    /*
+    if (object) {
+        if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
+            [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [footerView refreshLikesAndComments];
+                }
+            }];
+        } else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            [StringrUtility likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [footerView refreshLikesAndComments];
+                }
+            }];
+        }
+    }
+     */
 }
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
 {
-    StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
-    
-    [commentsVC setHidesBottomBarWhenPushed:YES];
-    
-    [self.navigationController pushViewController:commentsVC animated:YES];
+    if (object) {
+        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+        [commentsVC setObjectForCommentThread:object];
+        
+        NSString *forObjectKey = kStringrActivityStringKey;
+        
+        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+            forObjectKey = kStringrActivityPhotoKey;
+        }
+        
+        PFQuery *query = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [query whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
+        [query whereKey:forObjectKey equalTo:object];
+        [query whereKeyExists:kStringrActivityFromUserKey];
+        [query orderByDescending:@"createdAt"];
+        [commentsVC setQueryForTable:query];
+        
+        [commentsVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:commentsVC animated:YES];
+    }
 }
 
 

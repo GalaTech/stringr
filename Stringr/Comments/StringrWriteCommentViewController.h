@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol StringrWriteCommentDelegate <NSObject>
 
-- (void)pushSavedComment:(NSDictionary *)comment;
-
-@end
+@protocol StringrWriteCommentDelegate;
 
 @interface StringrWriteCommentViewController : UIViewController
 
 @property (strong, nonatomic) id<StringrWriteCommentDelegate> delegate;
+@property (strong, nonatomic) PFObject *objectToCommentOn;
 
 @end
+
+@protocol StringrWriteCommentDelegate <NSObject>
+
+- (void)reloadCommentTableView;
+
+@end
+

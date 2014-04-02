@@ -309,10 +309,10 @@
 {
     
     if (indexPath.row == self.objects.count) {
-        return 40;
+        return 40.0f;
     }
     
-    return 157;
+    return 157.0f;
 }
 
 

@@ -9,11 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "StringrPathImageView.h"
 
+@protocol StringrCommentsTableViewCellDelegate;
+
 @interface StringrCommentsTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet StringrPathImageView *commentsProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *commentsProfileDisplayName;
 @property (weak, nonatomic) IBOutlet UILabel *commentsUploadDateTime;
 @property (weak, nonatomic) IBOutlet UILabel *commentsTextComment;
+
+@property (strong, nonatomic) id<StringrCommentsTableViewCellDelegate> delegate;
+
+@end
+
+
+@protocol StringrCommentsTableViewCellDelegate <NSObject>
+
+- (void)tappedCommentorProfileImage;
 
 @end

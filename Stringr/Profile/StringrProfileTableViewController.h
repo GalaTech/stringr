@@ -9,6 +9,17 @@
 #import "StringrStringTableViewController.h"
 #import "QMBParallaxScrollViewController.h"
 
+@protocol StringrProfileTableViewControllerDelegate;
+
 @interface StringrProfileTableViewController : StringrStringTableViewController<QMBParallaxScrollViewHolder>
+
+@property (strong, nonatomic) id<StringrProfileTableViewControllerDelegate> delegate;
+
+@end
+
+
+@protocol StringrProfileTableViewControllerDelegate <NSObject>
+
+- (void)bottomTableView:(UITableView *)tableView didFinishLoadingWithData:(NSArray *)data;
 
 @end
