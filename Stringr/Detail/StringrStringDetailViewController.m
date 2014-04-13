@@ -7,14 +7,13 @@
 //
 
 #import "StringrStringDetailViewController.h"
-//#import "StringrDiscoveryTabBarViewController.h"
 #import "StringrStringDetailTableViewController.h"
 #import "StringrStringDetailTopViewController.h"
 #import "StringrStringDetailEditTopViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
-@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate>
 
 @property (strong, nonatomic) StringrStringDetailTopViewController *stringTopVC;
 @property (strong, nonatomic) StringrStringDetailTableViewController *stringTableVC;
@@ -36,15 +35,20 @@
     [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
     
     
+
+    
     if (self.editDetailsEnabled) {
         self.title = @"Publish String";
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish"
-                                                                                  style:UIBarButtonItemStyleBordered
-                                                                                 target:self
-                                                                                 action:@selector(saveAndPublishString)];
+        UIBarButtonItem *publishStringButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload_button"]
+                                                                                style:UIBarButtonItemStyleBordered
+                                                                               target:self
+                                                                               action:@selector(saveAndPublishString)];
         
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+        UIBarButtonItem *addNewPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
+        [self.navigationItem setRightBarButtonItems:@[publishStringButton, addNewPhotoButton]  animated:NO];
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"]
                                                                                      style:UIBarButtonItemStyleBordered
                                                                                     target:self
                                                                                     action:@selector(returnToPreviousScreen)];
@@ -58,11 +62,19 @@
         self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
         [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
         [self.stringTableVC setEditDetailsEnabled:YES];
+        
+        StringrStringDetailEditTableViewController *tableVC = (StringrStringDetailEditTableViewController *)self.stringTableVC;
+        [tableVC setDelegate:self];
+        
         [(StringrStringDetailEditTableViewController *)self.stringTableVC setDelegate:(StringrStringDetailEditTopViewController *)self.stringTopVC];
     } else {
         self.title = @"String Details";
+        
+        if ([self.stringToLoad.ACL getPublicWriteAccess]) {
+            UIBarButtonItem *addNewPhotoToPublicString = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
+            self.navigationItem.rightBarButtonItem = addNewPhotoToPublicString;
+        }
     }
-    
     
     [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
     
@@ -91,11 +103,15 @@
 
 - (void)saveAndPublishString
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:kUserDefaultsWorkingStringSavedImagesKey];
-    [defaults synchronize];
+    StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+    [topVC saveString];
+}
+
+- (void)addNewPhoto
+{
+    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Photo to String" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [newStringActionSheet showInView:self.view];
 }
 
 - (void)returnToPreviousScreen
@@ -104,8 +120,11 @@
                                                                 message:@"Are you sure that you want to cancel?"
                                                                delegate:self
                                                       cancelButtonTitle:@"No"
-                                                      otherButtonTitles:@"Yes", @"Save for later", nil];
+                                                      otherButtonTitles:@"Yes", /*@"Save for Later",*/ nil];
     [cancelStringAlert show];
+    
+    StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+    [topVC cancelString];
 }
 
 
@@ -121,15 +140,83 @@
         [defaults synchronize];
         
         [self.navigationController popViewControllerAnimated:YES];
-    } else if (buttonIndex == 2) {
+    }
+    /*
+    else if (buttonIndex == 2) {
         // Set the delegate to parentViewController so that it will properly be handled after the navigation has moved back to that VC
         UIAlertView *stringSavedAlert = [[UIAlertView alloc] initWithTitle:@"String Saved!" message:@"Your string has been saved for future editing." delegate:self.parentViewController cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         
         [stringSavedAlert show];
         [self.navigationController popViewControllerAnimated:YES];
     }
+     */
 }
 
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    }
+}
+
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+        [topVC addNewImageToString:image];
+    }];
+}
+
+
+
+
+/**
+ * Callback when the top height changed
+ */
+- (void) parallaxScrollViewController:(QMBParallaxScrollViewController *) controller didChangeTopHeight:(CGFloat) height
+{
+    NSLog(@"%f", height);
+}
+
+
+- (void)changeTopHeightOfParallax
+{
+    [self changeTopHeight:0.0f];
+}
 
 
 

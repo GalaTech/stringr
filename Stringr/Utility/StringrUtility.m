@@ -7,6 +7,7 @@
 //
 
 #import "StringrUtility.h"
+#import "UIImage+Resize.h"
 
 @implementation StringrUtility
 
@@ -326,6 +327,62 @@
 
 
 
+#pragma mark - UIImage Formatting
+
++ (UIImage *)formatPhotoImageForUpload:(UIImage *)image
+{
+    // resizes the images for upload
+    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(314, 314) interpolationQuality:kCGInterpolationHigh];
+    
+    /*
+    // Creates a data representation of the newly selected profile image
+    // Saves that image to the current users parse user profile
+    NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
+    
+    
+    NSString *photoName = [NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]];
+    PFFile *imageFile = [PFFile fileWithName:photoName data:imageData];
+     */
+
+    return resizedImage;
+}
+
++ (UIImage *)formatProfileImageForUpload:(UIImage *)image
+{
+    // resizes the images for upload
+    UIImage *resizedProfileImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(500, 500) interpolationQuality:kCGInterpolationHigh];
+    
+    /*
+    // Creates a data representation of the newly selected profile image
+    // Saves that image to the current users parse user profile
+    NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
+    
+    
+    NSString *photoName = [NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]];
+    PFFile *profileImageFile = [PFFile fileWithName:photoName data:profileImageData];
+    */
+     
+    return resizedProfileImage;
+}
+
++ (UIImage *)formatProfileThumbnailImageForUpload:(UIImage *)image
+{
+    // resizes the images for upload
+    UIImage *resizedThumbnailImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+    
+    /*
+    // Creates a data representation of the newly selected profile image
+    // Saves that image to the current users parse user profile
+    NSData *thumbnailImageData = UIImagePNGRepresentation(resizedThumbnailImage);
+    
+    PFFile *thumbnailImageFile = [PFFile fileWithData:thumbnailImageData];
+    */
+     
+    return resizedThumbnailImage;
+}
+
+
+
 
 
 #pragma mark - Menu
@@ -462,6 +519,55 @@
     }
     
     return NO;
+}
+
++ (NSString *)usernameFormattedWithMentionSymbol:(NSString *)username
+{
+    return [NSString stringWithFormat:@"@%@", username];
+}
+
++ (NSString *)randomStringWithLength:(int)length
+{
+    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [[NSMutableString alloc] initWithCapacity:length];
+    
+    for (int i = 0; i < length; i++) {
+        [randomString appendFormat:@"%C", [letters characterAtIndex: arc4random() % letters.length]];
+    }
+    
+    return randomString;
+}
+
++ (CGFloat)heightForLabelWithNSString:(NSString *)text
+{
+    NSMutableParagraphStyle *textAlignment = [[NSMutableParagraphStyle alloc] init];
+    [textAlignment setAlignment:NSTextAlignmentLeft];
+    
+    NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: NSFontAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13],
+                                    NSParagraphStyleAttributeName, textAlignment,
+                                    NSForegroundColorAttributeName, [UIColor darkGrayColor], nil];
+    
+    CGSize maxLabelSize = CGSizeMake(280, FLT_MAX);
+    
+    CGRect rectForLabel = [text boundingRectWithSize:maxLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:textAttributes context:nil];
+    
+    CGFloat labelHeight = rectForLabel.size.height;
+    CGFloat marginSpace = ((labelHeight / 13) * 3) + 25;
+    CGFloat cellHeight = labelHeight + marginSpace;
+    
+    
+    return  cellHeight;
+}
+
++ (CGFloat)heightForLabelWithNSString:(NSString *)text labelSize:(CGSize)size andAttributes:(NSDictionary *)attributes
+{
+    CGSize maxLabelSize = size;
+    
+    CGRect rectForLabel = [text boundingRectWithSize:maxLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    
+    CGFloat cellHeight = rectForLabel.size.height;
+    
+    return  cellHeight;
 }
 
 

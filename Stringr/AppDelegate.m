@@ -140,7 +140,7 @@
     [activityVC setTitle:@"Activity"];
     
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
-    UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"solarSystem_icon"] tag:0];
+    UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
     

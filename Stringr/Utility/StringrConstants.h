@@ -44,6 +44,8 @@ extern NSString * const kNSNotificationCenterUploadNewStringKey;
 extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileImage;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileName;
+extern NSString * const kNSNotificationCenterStringPublishedSuccessfully;
+extern NSString * const kNSNotificationCenterStringDeletedSuccessfully;
 
 
 #pragma mark - PFObject Activity Class
@@ -118,8 +120,10 @@ extern NSString * const kStringrPhotoThumbnailKey;
 extern NSString * const kStringrPhotoUserKey;
 extern NSString * const kStringrPhotoStringKey;
 extern NSString * const kStringrPhotoCaptionKey;
+extern NSString * const kStringrPhotoDescriptionKey;
 extern NSString * const kStringrPhotoPictureWidth;
 extern NSString * const kStringrPhotoPictureHeight;
+extern NSString * const kStringrPhotoOrderNumber;
 extern NSString * const kStringrPhotoThumbnailWidth;
 extern NSString * const kStringrPhotoThumbnailHeight;
 extern NSString * const kStringrPhotoNumberOfLikesKey;

@@ -37,6 +37,32 @@
 	self.navigationItem.rightBarButtonItem = editButton;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editedStringSuccessfully) name:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editedStringSuccessfully) name:kNSNotificationCenterStringDeletedSuccessfully object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterStringDeletedSuccessfully object:nil];
+}
+
+
+
+#pragma mark - Private
+
+- (void)editedStringSuccessfully
+{
+    [self loadObjects];
+}
+
+
 
 
 

@@ -25,6 +25,6 @@
 
 @protocol StringrCommentsTableViewCellDelegate <NSObject>
 
-- (void)tappedCommentorProfileImage;
+- (void)tappedCommentorProfileImage:(NSInteger)index;
 
 @end

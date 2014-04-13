@@ -78,6 +78,9 @@ NSString * const kNSNotificationCenterUploadNewStringKey = @"co.galatech.Stringr
 NSString * const kNSNotificationCenterDeletePhotoFromStringKey = @"co.galatech.Stringr.NSNotificationCenter.deletePhotoFromString";
 NSString * const kNSNotificationCenterUpdateMenuProfileImage = @"co.galatech.Stringr.NSNotificationCenter.updateMenuProfileImage";
 NSString * const kNSNotificationCenterUpdateMenuProfileName = @"co.galatech.Stringr.NSNotificationCenter.updateMenuProfileName";
+NSString * const kNSNotificationCenterStringPublishedSuccessfully = @"co.galatech.String.NSNotificationCenter.stringPublishedSuccessfully";
+NSString * const kNSNotificationCenterStringDeletedSuccessfully = @"co.galatech.String.NSNotificationCenter.stringDeletedSuccessfully";
+
 
 
 
@@ -143,10 +146,12 @@ NSString * const kStringrPhotoThumbnailKey = @"thumbnail";
 NSString * const kStringrPhotoUserKey = @"user";
 NSString * const kStringrPhotoStringKey = @"string";
 NSString * const kStringrPhotoCaptionKey = @"caption";
+NSString * const kStringrPhotoDescriptionKey = @"description";
 NSString * const kStringrPhotoPictureWidth = @"imageWidth";
 NSString * const kStringrPhotoPictureHeight = @"imageHeight";
 NSString * const kStringrPhotoThumbnailWidth = @"thumbnailWidth";
 NSString * const kStringrPhotoThumbnailHeight = @"thumbnailHeight";
+NSString * const kStringrPhotoOrderNumber = @"photoOrder";
 NSString * const kStringrPhotoNumberOfLikesKey = @"numberOfLikes";
 NSString * const kStringrPhotoNumberOfCommentsKey = @"numberOfComments";
 

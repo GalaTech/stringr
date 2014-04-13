@@ -19,9 +19,15 @@
 
 @end
 */
-
+@protocol StringrPhotoDetailEditTableViewControllerDelegate;
 @interface StringrPhotoDetailEditTableViewController : StringrPhotoDetailTableViewController
 
-//@property (strong, nonatomic) id<StringrPhotoDetailViewControllerDelegate> delegate;
+@property (strong, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegate;
+
+@end
+
+@protocol StringrPhotoDetailEditTableViewControllerDelegate <NSObject>
+
+- (void)deletePhotoFromString:(PFObject *)photo;
 
 @end

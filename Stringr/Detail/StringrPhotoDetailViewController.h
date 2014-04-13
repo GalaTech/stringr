@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StringrDetailViewController.h"
 #import "QMBParallaxScrollViewController.h"
+#import "StringrPhotoDetailEditTableViewController.h"
 
 @interface StringrPhotoDetailViewController : StringrDetailViewController
 
@@ -18,5 +19,7 @@
 @property (strong, nonatomic) NSArray *photosToLoad;
 @property (nonatomic) NSUInteger selectedPhotoIndex;
 @property (strong, nonatomic) PFObject *stringOwner;
+
+@property (strong, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegateForPhotoController;
 
 @end

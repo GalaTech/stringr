@@ -13,8 +13,13 @@
 @interface StringViewReorderable () <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet StringEditCollectionView *stringLargeReorderableCollectionView;
-@property (strong, nonatomic) NSMutableArray *collectionData;
-@property (strong, nonatomic) NSMutableArray *collectionViewPhotosData; // of Photo PFObject's
+
+@property (strong, nonatomic) NSString *stringTitle;
+@property (strong, nonatomic) NSString *stringDescription;
+@property (nonatomic) BOOL stringWriteAccess;
+
+//@property (strong, nonatomic) NSMutableArray *collectionData;
+//@property (strong, nonatomic) NSMutableArray *collectionViewPhotosData; // of Photo PFObject's
 
 @end
 
@@ -25,78 +30,181 @@
 - (void)awakeFromNib
 {
     [_stringLargeReorderableCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
-    //_collectionData = [self getCollectionData];
-    
-    
 }
 
 
-
-
-#pragma mark - Custom Accessors
-/*
-- (NSMutableArray *)collectionViewPhotosData
-{
-    if (!_collectionViewPhotosData) {
-        _collectionViewPhotosData = [[NSMutableArray alloc] init];
-    }
-    
-    return _collectionViewPhotosData;
-}
-*/
 
 
 #pragma mark - Public
 
-- (void)addPhotoToString:(NSDictionary *)photo
+- (void)addImageToString:(UIImage *)image
 {
-    if (photo) {
-        [self.collectionData addObject:photo];
+    if (image) {
+        PFObject *photo = [PFObject objectWithClassName:kStringrPhotoClassKey];
         
-        // Index path for the end of the String data
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.collectionData count] - 1 inSection:0];
+        UIImage *resizedImage = [StringrUtility formatPhotoImageForUpload:image];
+        NSData *resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
         
-        [self.stringLargeReorderableCollectionView insertItemsAtIndexPaths:@[indexPath]];
+        PFFile *imageFileForUpload = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]] data:resizedImageData];
+
+        [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
+        [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
+        
+        NSNumber *width = [NSNumber numberWithInt:resizedImage.size.width];
+        NSNumber *height = [NSNumber numberWithInt:resizedImage.size.height];
+        
+        [photo setObject:width forKey:kStringrPhotoPictureWidth];
+        [photo setObject:height forKey:kStringrPhotoPictureHeight];
+        
+        [photo setObject:@(0) forKey:kStringrPhotoNumberOfCommentsKey];
+        [photo setObject:@(0) forKey:kStringrPhotoNumberOfLikesKey];
+        [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
+        
+        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                int indexOfImagePhoto = [self.collectionViewPhotos indexOfObject:resizedImage];
+                [self.collectionViewPhotos replaceObjectAtIndex:indexOfImagePhoto withObject:photo];
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
+                //[self.stringLargeReorderableCollectionView insertItemsAtIndexPaths:@[indexPath]];
+                [self.stringLargeReorderableCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }
+        }];
+        
+        [self.collectionViewPhotos addObject:resizedImage];
+        
+        // if the collectionViewPhotos count == 1 that means we just added the first object.
+        // That means this must be a brand new string.
+        // For every other situation it must mean that we are adding a new photo to a string.
+        if (self.collectionViewPhotos.count == 1) {
+            [self.stringLargeReorderableCollectionView reloadData];
+        } else {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.collectionViewPhotos.count - 1 inSection:0];
+            [self.stringLargeReorderableCollectionView insertItemsAtIndexPaths:@[indexPath]];
+        }
+        
     }
 }
 
-- (void)removePhotoFromString:(NSDictionary *)photo
+- (void)removePhotoFromString:(PFObject *)photo
 {
     if (photo) {
-        NSUInteger indexOfPhoto = [self.collectionData indexOfObject:photo];
-        if (indexOfPhoto < 100) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
-            [self.collectionData removeObjectAtIndex:indexOfPhoto];
+        NSUInteger indexOfPhoto = [self.collectionViewPhotos indexOfObject:photo];
+        
+        PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexOfPhoto];
+        [photo deleteEventually];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
+        [self.collectionViewPhotos removeObjectAtIndex:indexOfPhoto];
+        
+        [self.stringLargeReorderableCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+    }
+}
+
+- (void)setStringTitle:(NSString *)stringTitle
+{
+    _stringTitle = stringTitle;
+}
+
+- (void)setStringDescription:(NSString *)stringDescription
+{
+    _stringDescription = stringDescription;
+}
+
+- (void)setStringWriteAccess:(BOOL)isPublic;
+{
+    _stringWriteAccess = isPublic;
+}
+
+- (void)saveAndPublishInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))completionBlock
+{
+    if (self.collectionViewPhotos.count > 0) {
+        if (self.stringToLoad) {
+            for (int i = 0; i < self.collectionViewPhotos.count; i++) {
+                PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
+                [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
+                [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
+                [photo saveEventually];
+            }
             
-            [self.stringLargeReorderableCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+            PFACL *stringACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            [stringACL setPublicReadAccess:YES];
+            [stringACL setPublicWriteAccess:self.stringWriteAccess];
+            [self.stringToLoad setACL:stringACL];
+            
+            [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+                }
+            }];
+        } else {
+            PFObject *newString = [PFObject objectWithClassName:kStringrStringClassKey];
+            [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
+            [newString setObject:@(0) forKey:kStringrStringNumberOfCommentsKey];
+            [newString setObject:@(0) forKey:kStringrStringNumberOfLikesKey];
+            
+            self.stringToLoad = newString;
+            [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    for (int i = 0; i < self.collectionViewPhotos.count; i++) {
+                        PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
+                        [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
+                        [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
+                        [photo saveEventually];
+                    }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+                }
+            }];
+        }
+        
+        if (completionBlock) {
+            completionBlock(YES, nil);
+        }
+        
+        UIAlertView *publishingStringAlerView = [[UIAlertView alloc] initWithTitle:@"Saving String" message:@"Your string will be saved and published in the background." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [publishingStringAlerView show];
+    } else {
+        UIAlertView *noPhotosInStringAlert = [[UIAlertView alloc] initWithTitle:@"No Photo's in String" message:@"You must have at least one photo in your string before you can publish it!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [noPhotosInStringAlert show];
+    }
+}
+
+- (void)cancelString
+{
+    // remove all new photos that aren't associated with a string yet
+    for (PFObject *photo in self.collectionViewPhotos) {
+        if (![photo objectForKey:kStringrPhotoStringKey]) {
+            [photo deleteEventually];
         }
     }
 }
 
-- (void)removePhotoFromStringAtIndex:(NSInteger)index
+- (void)deleteString
 {
-    
+    // delete the string and all photos in the string
+    if (self.stringToLoad) {
+        [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringDeletedSuccessfully object:nil];
+            }
+        }];
+        
+        for (PFObject *photo in self.collectionViewPhotos) {
+            [photo deleteEventually];
+        }
+    }
 }
-
-
-
-#pragma mark - StringrViewSubclass Delegate
-
-- (void)getCollectionViewPhotoData:(NSMutableArray *)photoData
-{
-    _collectionViewPhotosData = [[NSMutableArray alloc] initWithArray:photoData];
-}
-
 
 
 #pragma mark - ReorderableCollectionView DataSource
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    PFObject *photo = [self.collectionViewPhotosData objectAtIndex:fromIndexPath.item];
+    PFObject *photo = [self.collectionViewPhotos objectAtIndex:fromIndexPath.item];
     
-    [self.collectionViewPhotosData removeObjectAtIndex:fromIndexPath.item];
-    [self.collectionViewPhotosData insertObject:photo atIndex:toIndexPath.item];
+    [self.collectionViewPhotos removeObjectAtIndex:fromIndexPath.item];
+    [self.collectionViewPhotos insertObject:photo atIndex:toIndexPath.item];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath

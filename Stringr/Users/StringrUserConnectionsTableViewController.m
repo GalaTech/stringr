@@ -27,6 +27,9 @@
         self.title = @"Followers";
     }
     
+    
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
 }
 
 

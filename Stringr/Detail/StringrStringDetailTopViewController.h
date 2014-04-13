@@ -15,4 +15,5 @@
 //@property (strong, nonatomic) NSArray *stringPhotoData;
 @property (strong, nonatomic) PFObject *stringToLoad;
 
+
 @end

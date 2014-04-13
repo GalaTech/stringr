@@ -11,9 +11,6 @@
 @interface StringrDetailTitleTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextField *editTitleTextField;
-@property (weak, nonatomic) IBOutlet UIButton *addNewPhotoToStringButton;
-
 
 @end
 
@@ -31,6 +28,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    [self.titleLabel setNumberOfLines:200];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -48,6 +46,9 @@
 - (void)setTitleForCell:(NSString *)title
 {
     [self.titleLabel setText:title];
+    [self.titleLabel setTextColor:[UIColor darkGrayColor]];
+    [self.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
 }
 
 @end

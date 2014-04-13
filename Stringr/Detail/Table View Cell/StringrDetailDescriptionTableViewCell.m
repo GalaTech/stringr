@@ -10,7 +10,8 @@
 
 @interface StringrDetailDescriptionTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) NSDictionary *textAttributes;
 
 @end
 
@@ -30,6 +31,9 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    [self.descriptionLabel setNumberOfLines:200];
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -41,11 +45,37 @@
 
 
 
+#pragma mark - Custom Accessor's
+
+- (NSDictionary *)textAttributes
+{
+    if (!_textAttributes) {
+        NSMutableParagraphStyle *textAlignment = [[NSMutableParagraphStyle alloc] init];
+        [textAlignment setAlignment:NSTextAlignmentLeft];
+        
+        _textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: NSFontAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13],
+                           NSParagraphStyleAttributeName, textAlignment,
+                           NSForegroundColorAttributeName, [UIColor darkGrayColor], nil];
+    }
+    
+    return _textAttributes;
+}
+
+
+
+
 #pragma mark - Public
 
 - (void)setDescriptionForCell:(NSString *)description
 {
-    [self.descriptionTextView setText:description];
+    NSAttributedString *attributedDescriptionText = [[NSAttributedString alloc] initWithString:description attributes:self.textAttributes];
+    
+    [self.descriptionLabel setAttributedText:attributedDescriptionText];    
+}
+
+- (NSDictionary *)getDescriptionTextAttributes
+{
+    return self.textAttributes;
 }
 
 @end

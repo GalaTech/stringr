@@ -12,6 +12,8 @@
 #import "StringrCommentsTableViewCell.h"
 #import "StringrWriteCommentViewController.h"
 #import "StringrPathImageView.h"
+#import "StringrLoadMoreTableViewCell.h"
+#import "StringrWriteAndEditTextViewController.h"
 
 @interface StringrStringCommentsViewController () <UINavigationControllerDelegate, StringrCommentsTableViewCellDelegate, StringrWriteCommentDelegate>
 
@@ -21,6 +23,7 @@
 @property (strong, nonatomic) StringrCommentsTableViewCell *commentsTableVC;
 @property (strong, nonatomic) StringrProfileViewController *profileVC;
 @property (strong, nonatomic) StringrNavigationController *navigationVC;
+@property (strong, nonatomic) NSMutableArray *commentUsers;
 
 @end
 
@@ -58,14 +61,7 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 0.1f)];
     [footerView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setTableFooterView:footerView];
-    
-    /*
-    // lazy loads the navigationVC for easy external VC presentation
-    if (!self.navigationVC) {
-        self.navigationVC = [[StringrNavigationController alloc] init];
-    }
-     */
-    
+    [self.tableView registerClass:[StringrLoadMoreTableViewCell class] forCellReuseIdentifier:@"loadMoreCell"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,29 +88,23 @@
 
 #pragma mark - Custom Accessors
 
-- (NSMutableArray *)commentsThread
+- (NSMutableArray *)commentUsers
 {
-    if (!_commentsThread) {
-        _commentsThread = [[NSMutableArray alloc] init];
-        for (int i = 0; i < 9; i++) {
-            /*
-            NSString *commentText = @"A block quotation (also known as a long quotation or extract) is a quotation in a written document, that is set off from the main text as a paragraph, or block of text, and typically distinguished visually using indentation and a different typeface or smaller size quotation. (This is in contrast to a setting it off with quotation marks in a run-in quote.) Block quotations are used for the long quotation. The Chicago Manual of Style recommends using a block quotation when extracted text is 100 words or more, or at least eight lines.";
-            */
-             
-            NSDictionary *comment = @{@"profileImage" : @"stringr_icon_filler", @"profileDisplayName" : @"Alonso Holmes", @"uploadDate" : @"3 min ago", @"commentText" : @"It looks like you had an amazing trip!"};
-            
-            [_commentsThread addObject:comment];
-        }
+    if (!_commentUsers) {
+        _commentUsers = [[NSMutableArray alloc] init];
     }
     
-    return _commentsThread;
+    return _commentUsers;
 }
+
+
 
 
 #pragma mark - Actions
 
 - (void)writeComment
 {
+    
     StringrWriteCommentViewController *writeCommentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"writeCommentVC"];
     [writeCommentVC setObjectToCommentOn:self.objectForCommentThread];
     [writeCommentVC setDelegate:self];
@@ -200,7 +190,12 @@
         return 45.0f;
     }
     
-    return 100.0f;
+    // dynamic comment cell height
+    PFObject *comment = [self.objects objectAtIndex:indexPath.row];
+    NSString *commentText = [comment objectForKey:kStringrActivityContentKey];
+    CGFloat cellHeight = [StringrUtility heightForLabelWithNSString:commentText] + 50;
+    
+    return cellHeight;
 }
 
 
@@ -244,10 +239,13 @@
     
     
     
-    if (indexPath.section == self.objects.count) {
+    if (indexPath.row == self.objects.count) {
         // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
-        UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
-        return cell;
+        UITableViewCell *loadMoreCell = (StringrLoadMoreTableViewCell *)[self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+        
+        
+        
+        return loadMoreCell;
     } else {
         StringrCommentsTableViewCell *commentsCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         //StringrCommentsTableViewCell *commentsCell = (StringrCommentsTableViewCell *)cell;
@@ -265,6 +263,9 @@
         [commentUser fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
             [commentsCell.commentsProfileDisplayName setText:[user objectForKey:kStringrUserDisplayNameKey]];
             
+            // allows easy access to this users profile when profile image is tapped
+            [self.commentUsers addObject:user];
+            
             UIActivityIndicatorView *loadingProfileImageActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             float width = CGRectGetWidth(commentsCell.commentsProfileImage.frame) / 2;
             float height = CGRectGetHeight(commentsCell.commentsProfileImage.frame) / 2;
@@ -274,6 +275,8 @@
             
             PFFile *profileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             [commentsCell.commentsProfileImage setFile:profileImageFile];
+            // set the tag to the row so that we can access the correct user when tapping on a profile image
+            [commentsCell.commentsProfileImage setTag:indexPath.row];
             [commentsCell.commentsProfileImage loadInBackground:^(UIImage *image, NSError *error) {
                 if (!error) {
                     [loadingProfileImageActivityIndicator stopAnimating];
@@ -287,23 +290,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
-    [loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
+    //[loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     
-    return loadCell;
+    StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
+    
+    if (!loadMoreCell) {
+        loadMoreCell = [[StringrLoadMoreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"loadMoreCell"];
+    }
+    
+    return loadMoreCell;
 }
 
 
 
 #pragma mark - StringrCommentsTableViewCell Delegate
 
-- (void)tappedCommentorProfileImage
+- (void)tappedCommentorProfileImage:(NSInteger)index
 {
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    [profileVC setUserForProfile:[PFUser currentUser]];
+    
+    PFUser *userForProfile = [self.commentUsers objectAtIndex:index];
+
+    [profileVC setUserForProfile:userForProfile];
     [profileVC setProfileReturnState:ProfileModalReturnState];
     
-    //[self.navigationController pushViewController:profileVC animated:YES];
     
     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     

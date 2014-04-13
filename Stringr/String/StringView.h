@@ -18,7 +18,9 @@
 @interface StringView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) id<StringViewDelegate> delegate;
-@property (strong, nonatomic) id<StringViewSubclassDelegate> subclassDelegate;
+
+@property (strong, nonatomic) PFObject *stringToLoad; // string PFObject
+@property (strong, nonatomic) NSMutableArray *collectionViewPhotos; // of Photo PFObject's
 
 
 /** 
@@ -37,8 +39,17 @@
  */
 - (void)setStringObject:(PFObject *)string;
 
+/**
+ * Querries all photos from a provided query. The photos loaded from this query will be
+ * displayed inside of the current string.
+ * @param query The query that will be used to find photos.
+ */
+- (void)queryPhotosFromQuery:(PFQuery *)query;
+
+
 /// Returns a mutable copy of the current String data.
 //- (NSArray *)getCollectionData;
+
 
 
 @end
@@ -55,13 +66,16 @@
 @required
 - (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string;
 
-
-
 @end
 
+
+/*
 @protocol StringViewSubclassDelegate <NSObject>
 
 @optional
 - (void)getCollectionViewPhotoData:(NSMutableArray *)photoData;
 
+- (void)getCollectionViewPhotos:(NSMutableArray *)photos;
+
 @end
+*/

@@ -52,8 +52,8 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
     NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
-    NSIndexPath *indexPath4 = [NSIndexPath indexPathForRow:0 inSection:1];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3, indexPath4] withRowAnimation:rowAnimation];
+    //NSIndexPath *indexPath4 = [NSIndexPath indexPathForRow:0 inSection:1];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3] withRowAnimation:rowAnimation];
 }
 
 
@@ -64,7 +64,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -72,9 +72,13 @@
     // Return the number of rows in the section.
     if (section == 0) {
         return 3;
-    } else if (section == 1) {
+    }
+    /*
+    else if (section == 1) {
         return 1;
-    } else {
+    } 
+     */
+     else {
         return 0;
     }
 }
@@ -112,12 +116,14 @@
                 
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    [descriptionCell setDescriptionForCell:@"What a description!"];
+                    [descriptionCell setDescriptionForCell:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
                     
                     return descriptionCell;
                 }
             }
             break;
+            
+            /*
         case 1:
             if (indexPath.row == 0) {
                 cellIdentifier = @"photo_stringOwnerCell";
@@ -133,6 +139,8 @@
                 }
 
             }
+             
+             */
         default:
             break;
     }
@@ -148,8 +156,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 2) {
-        return 110.0f;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            NSString *titleText = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
+
+            return [StringrUtility heightForLabelWithNSString:titleText]; // the 31 is for additional margin space
+        } else if (indexPath.row == 2) {
+            NSString *descriptionText = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
+            
+            return  [StringrUtility heightForLabelWithNSString:descriptionText]; // the 31 is for additional margin space
+        }
+    } else if (indexPath.section == 1) {
+        return 55.0f;
     }
     
     return 44.0f;

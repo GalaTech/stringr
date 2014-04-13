@@ -7,8 +7,9 @@
 //
 
 #import "StringrTableViewController.h"
+#import "StringrStringDetailViewController.h"
 
-@interface StringrTableViewController ()
+@interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PFQuery *providedQueryForTable;
 
@@ -31,17 +32,10 @@
 {
     [super viewDidLoad];
     
-    
     // Creates the navigation item to access the menu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,6 +46,16 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     [self.navigationItem setBackBarButtonItem:backButton];
+    
+    // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,7 +84,6 @@
 {
     _providedQueryForTable = queryForTable;
     
-    
 }
 
 - (PFQuery *)getQueryForTable
@@ -105,64 +108,103 @@
     return 0;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)addNewString
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
+                                                                      delegate:self
+                                                             cancelButtonTitle:nil
+                                                        destructiveButtonTitle:nil
+                                                             otherButtonTitles:nil];
     
-    // Configure the cell...
+    [newStringActionSheet addButtonWithTitle:@"Take Photo"];
+    [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
     
-    return cell;
+    /* Implement return to saved string
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     
+     
+     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
+     [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
+     [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
+     }
+     */
+    
+    [newStringActionSheet addButtonWithTitle:@"Cancel"];
+    [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
+    
+    
+    
+    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
+    if ([window.subviews containsObject:self.view]) {
+        [newStringActionSheet showInView:self.view];
+    } else {
+        [newStringActionSheet showInView:window];
+    }
+    
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        [actionSheet resignFirstResponder];
+    } else if (buttonIndex == 0) {
+        
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if (buttonIndex == 1) {
+        
+        
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
+        
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [newStringVC setStringToLoad:nil];
+        [newStringVC setEditDetailsEnabled:YES];
+        [newStringVC setUserSelectedPhoto:image];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -11,5 +11,6 @@
 @interface StringrDetailDescriptionTableViewCell : UITableViewCell
 
 - (void)setDescriptionForCell:(NSString *)description;
+- (NSDictionary *)getDescriptionTextAttributes;
 
 @end

@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		93E97CAB3589478280C0B11E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 792BDC5C21374F12A2D410CC /* libPods.a */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
+		AB11C4B718F7337300D406D8 /* StringrWriteAndEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */; };
 		AB1B0C87188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */; };
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
+		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
 		AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */; };
@@ -102,7 +104,6 @@
 		BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */; };
 		BF46518A186F748800EB464F /* StringrStringCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF465189186F748800EB464F /* StringrStringCommentsViewController.m */; };
 		BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF732191184914FB00A4D9AA /* StringrUserSearchViewController.m */; };
-		BF7321951849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7321941849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m */; };
 		BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349CE18297FD600D15963 /* Foundation.framework */; };
 		BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D018297FD600D15963 /* CoreGraphics.framework */; };
 		BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
@@ -133,12 +134,16 @@
 		792BDC5C21374F12A2D410CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
 		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
+		AB11C4B518F7337300D406D8 /* StringrWriteAndEditTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrWriteAndEditTextViewController.h; path = "Write and Edit Text/StringrWriteAndEditTextViewController.h"; sourceTree = "<group>"; };
+		AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrWriteAndEditTextViewController.m; path = "Write and Edit Text/StringrWriteAndEditTextViewController.m"; sourceTree = "<group>"; };
 		AB1B0C85188DAE5D0063EAC5 /* StringrStringDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrStringDetailTableViewController.h; sourceTree = "<group>"; };
 		AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTableViewController.m; sourceTree = "<group>"; };
 		AB1B0C88188DB7DA0063EAC5 /* StringrStringDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrStringDetailTopViewController.h; sourceTree = "<group>"; };
 		AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTopViewController.m; sourceTree = "<group>"; };
 		AB1B0C8B188DEE0C0063EAC5 /* StringrFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFooterView.h; path = Footer/StringrFooterView.h; sourceTree = "<group>"; };
 		AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterView.m; path = Footer/StringrFooterView.m; sourceTree = "<group>"; };
+		AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoadMoreTableViewCell.h; path = StringrStringTable/StringrLoadMoreTableViewCell.h; sourceTree = "<group>"; };
+		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
 		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -300,8 +305,6 @@
 		BF465189186F748800EB464F /* StringrStringCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCommentsViewController.m; path = Detail/StringrStringCommentsViewController.m; sourceTree = "<group>"; };
 		BF732190184914FB00A4D9AA /* StringrUserSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserSearchViewController.h; path = Users/StringrUserSearchViewController.h; sourceTree = "<group>"; };
 		BF732191184914FB00A4D9AA /* StringrUserSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserSearchViewController.m; path = Users/StringrUserSearchViewController.m; sourceTree = "<group>"; };
-		BF7321931849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserUniversityPeopleTableViewController.h; path = Users/StringrUserUniversityPeopleTableViewController.h; sourceTree = "<group>"; };
-		BF7321941849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserUniversityPeopleTableViewController.m; path = Users/StringrUserUniversityPeopleTableViewController.m; sourceTree = "<group>"; };
 		BF8349CB18297FD600D15963 /* Stringr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stringr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8349CE18297FD600D15963 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF8349D018297FD600D15963 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -377,6 +380,15 @@
 				AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */,
 			);
 			name = Footer;
+			sourceTree = "<group>";
+		};
+		AB2E0C5F18EF359A00B5681A /* Load More Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */,
+				AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */,
+			);
+			name = "Load More Cell";
 			sourceTree = "<group>";
 		};
 		AB4FF07B18C0019E000F550F /* UIImage+Resize */ = {
@@ -534,6 +546,8 @@
 				BF465189186F748800EB464F /* StringrStringCommentsViewController.m */,
 				AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */,
 				AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */,
+				AB11C4B518F7337300D406D8 /* StringrWriteAndEditTextViewController.h */,
+				AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */,
 			);
 			name = "Comments Table";
 			sourceTree = "<group>";
@@ -585,11 +599,12 @@
 			isa = PBXGroup;
 			children = (
 				BF170EBD184BEA9D0056ECE7 /* String */,
+				AB757A89187F173F00D32917 /* Image Path  */,
+				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
 				BF3EDE4D1847C0670071E047 /* User Table View Cell */,
 				ABF121F2189C14850029177A /* Comments Table View Cell */,
+				AB2E0C5F18EF359A00B5681A /* Load More Cell */,
 				AB6FDA3918EB729D003A6831 /* Filler Table View Cell */,
-				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
-				AB757A89187F173F00D32917 /* Image Path  */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -722,8 +737,6 @@
 				BF3EDE28184449C80071E047 /* StringrUserTableViewController.m */,
 				BF732190184914FB00A4D9AA /* StringrUserSearchViewController.h */,
 				BF732191184914FB00A4D9AA /* StringrUserSearchViewController.m */,
-				BF7321931849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.h */,
-				BF7321941849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m */,
 				BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */,
 				BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */,
 			);
@@ -1042,6 +1055,7 @@
 				ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */,
 				AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */,
 				AB85DD6A18904208007217DC /* TestTableViewViewController.m in Sources */,
+				AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
 				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
@@ -1052,7 +1066,6 @@
 				BF170EC3184BEB100056ECE7 /* StringTableViewCell.m in Sources */,
 				AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */,
 				BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */,
-				BF7321951849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m in Sources */,
 				BF3EDE3018445AF10071E047 /* StringrStringDetailViewController.m in Sources */,
 				ABDB7CB118D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m in Sources */,
 				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
@@ -1063,6 +1076,7 @@
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
 				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
+				AB11C4B718F7337300D406D8 /* StringrWriteAndEditTextViewController.m in Sources */,
 				ABDB7CB718D3D4360047691B /* StringrDetailTagsTableViewCell.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
 				ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */,

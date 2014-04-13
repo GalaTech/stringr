@@ -293,6 +293,7 @@
     // shows or hides the email icon based around whether or not the current user has verified their email
     BOOL setHidden = ![StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]];
     [self.userNeedsToVerifyEmailButton setHidden:setHidden];
+    [self.loginActivityIndicator startAnimating];
     
     // delay time for check so that there is not a error with the navigation
     double delayInSeconds = 1.0;
@@ -306,9 +307,11 @@
         // Check if user is cached and linked to Facebook, twitter, or email, if so, bypass login
         if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
             [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+            [self.loginActivityIndicator stopAnimating];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
             StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+            [self.loginActivityIndicator stopAnimating];
             [self.navigationController pushViewController:emailVerificationVC animated:YES];
         }
     });

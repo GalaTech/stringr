@@ -60,6 +60,11 @@
     [_stringCollectionView setDelegate:delegate];
 }
 
+- (void)queryPhotosFromQuery:(PFQuery *)query
+{
+    [_stringCollectionView queryPhotosFromQuery:query];
+}
+
 
 #pragma mark - Private
 

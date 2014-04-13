@@ -44,9 +44,30 @@
                                                             }];
 }
 
+/*
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publishedStringSuccessfully) name:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+}
 
 
 #pragma mark - Private
+
+- (void)publishedStringSuccessfully
+{
+    UIAlertView *publsihedStringSuccessfullyAlert = [[UIAlertView alloc] initWithTitle:@"String Published" message:@"Your string has been published successfully" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [publsihedStringSuccessfullyAlert show];
+}
+ */
 
 /*
 - (StringrHomeTabBarViewController *)setupHomeTabBarController

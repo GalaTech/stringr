@@ -50,6 +50,13 @@
 + (PFQuery *)queryForActivitiesOnString:(PFObject *)string cachePolicy:(PFCachePolicy)cachePolicy;
 
 
+// UIImage Formatting
++ (UIImage *)formatPhotoImageForUpload:(UIImage *)image;
++ (UIImage *)formatProfileImageForUpload:(UIImage *)image;
++ (UIImage *)formatProfileThumbnailImageForUpload:(UIImage *)image;
+
+
+
 
 
 // Menu
@@ -97,6 +104,13 @@
  * NO if it is not.
  */
 + (BOOL)NSStringIsValidUsername:(NSString *)checkString;
+
++ (NSString *)usernameFormattedWithMentionSymbol:(NSString *)username;
+
++ (NSString *)randomStringWithLength:(int)length;
+
++ (CGFloat)heightForLabelWithNSString:(NSString *)text;
++ (CGFloat)heightForLabelWithNSString:(NSString *)text labelSize:(CGSize)size andAttributes:(NSDictionary *)attributes;
 
 
 

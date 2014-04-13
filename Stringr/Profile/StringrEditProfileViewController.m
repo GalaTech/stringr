@@ -249,7 +249,7 @@
                 [headerText setText:nil];
                 break;
             case 1:
-                [headerText setText:@"Profile Name"];
+                [headerText setText:@"Display Name"];
                 break;
             case 2:
                 [headerText setText:@"Profile Description"];

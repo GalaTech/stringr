@@ -88,7 +88,7 @@
     self.profileNameLabel.minimumScaleFactor = 0.5f;
     
     // parse user profile name
-    self.profileNameLabel.text = [[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey];
+    self.profileNameLabel.text = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
     
     
     self.profileNameLabel.backgroundColor = [UIColor clearColor];
@@ -146,35 +146,24 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
+// loaded from editing user profile
 - (void)updateUserProfileImage:(NSNotification *)notification
 {
     UIImage *newProfileImage = notification.object;
     [self.profileImageView setImage:newProfileImage];
-    
-    /*
-    PFFile *userProfileImageFile = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey];
-    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-        if (!error) {
-            UIImage *profileImage = [UIImage imageWithData:imageData];
-            [self.profileImageView setImage:profileImage];
-        }
-    }];
-     */
 }
 
+// loaded from editing user profile
 - (void)updateUserProfileName:(NSNotification *)notification
 {
     NSString *newProfileName = notification.object;
     [self.profileNameLabel setText:newProfileName];
-    
-    //[self.profileNameLabel setText:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
 }
 
 
 
 
 #pragma mark - Private
-
 
 - (StringrHomeTabBarViewController *)setupHomeTabBarController
 {
@@ -206,7 +195,7 @@
     [activityVC setTitle:@"Activity"];
     
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
-    UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"solarSystem_icon"] tag:0];
+    UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
     
@@ -285,7 +274,7 @@
     [searchStringsVC setQueryForTable:searchStringsQuery];
     
     StringrNavigationController *searchStringsNavVC = [[StringrNavigationController alloc] initWithRootViewController:searchStringsVC];
-    UITabBarItem *searchStringsTab = [[UITabBarItem alloc] initWithTitle:@"Search Strings" image:nil tag:0];
+    UITabBarItem *searchStringsTab = [[UITabBarItem alloc] initWithTitle:@"Search Strings" image:[UIImage imageNamed:@"string_icon"] tag:0];
     [searchStringsNavVC setTabBarItem:searchStringsTab];
     
     
@@ -296,7 +285,7 @@
     [searchUsersVC setQueryForTable:queryForUsers];
     
     StringrNavigationController *searchUsersNavVC = [[StringrNavigationController alloc] initWithRootViewController:searchUsersVC];
-    UITabBarItem *searchUsersTab = [[UITabBarItem alloc] initWithTitle:@"Find People" image:nil tag:0];
+    UITabBarItem *searchUsersTab = [[UITabBarItem alloc] initWithTitle:@"Find People" image:[UIImage imageNamed:@"users_icon"] tag:0];
     [searchUsersNavVC setTabBarItem:searchUsersTab];
     
     [searchTabBarVC setViewControllers:@[searchStringsNavVC, searchUsersNavVC]];
@@ -386,7 +375,6 @@
     // Table section 0 menu items actions
     if (indexPath.row == 0) {
         [self.frostedViewController setContentViewController:[self setupHomeTabBarController]];
-        
     } else if (indexPath.row == 1) {
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
         

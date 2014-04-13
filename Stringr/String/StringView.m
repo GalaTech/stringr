@@ -21,8 +21,6 @@
 
 @property (strong, nonatomic) NSMutableArray *collectionData;
 
-@property (strong, nonatomic) PFObject *stringToLoad; // string PFObject
-@property (strong, nonatomic) NSArray *collectionViewPhotos; // of Photo PFObject's
 
 @end
 @implementation StringView
@@ -48,48 +46,68 @@
 
 - (void)setStringObject:(PFObject *)string
 {
-    _stringToLoad = string;
-    
-    
-    
-    // queries parse after a string object has been set to load
-    [self queryPhotosFromString];
+    if (string) {
+        _stringToLoad = string;
+        
+        // queries parse after a string object has been set to load
+        [self queryPhotosFromString];
+    }
 }
 
-- (NSMutableArray *)getCollectionData
+- (NSMutableArray *)collectionViewPhotos
 {
-    return [_collectionViewPhotos mutableCopy];
+    if (!_collectionViewPhotos) {
+        _collectionViewPhotos = [[NSMutableArray alloc] init];
+    }
+    
+    return _collectionViewPhotos;
 }
-
-
-
-#pragma mark - Private
-
-- (void)refreshString
-{
-    [self queryPhotosFromString];
-}
-
 
 
 #pragma mark - Parse
 
 - (void)queryPhotosFromString
-{
+{    
     if (self.stringToLoad) {
         PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-        [stringPhotoQuery orderByAscending:@"createdAt"];
         [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:self.stringToLoad];
+        [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
         
         [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
             if (!error) {
-                self.collectionViewPhotos = [[NSArray alloc] initWithArray:photos];
-                [self.subclassDelegate getCollectionViewPhotoData:[self getCollectionData]];
+                self.collectionViewPhotos = [[NSMutableArray alloc] initWithArray:photos];
                 
                 if (self.stringCollectionView) {
                     [self.stringCollectionView reloadData];
                 } else if (self.stringLargeCollectionView) {
                     [self.stringLargeCollectionView reloadData];
+                }
+            }
+        }];
+    }
+}
+
+// liked photos
+- (void)queryPhotosFromQuery:(PFQuery *)query
+{
+    if (query) {
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            self.collectionViewPhotos = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < objects.count; i++) {
+                PFObject *activityObject = [objects objectAtIndex:i];
+                PFObject *photo = [activityObject objectForKey:kStringrActivityPhotoKey];
+                
+                [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *photoObject, NSError *error) {
+                    [self.collectionViewPhotos addObject:photoObject];
+                }];
+                
+                if (i == objects.count - 1) {
+                    if (self.stringCollectionView) {
+                        [self.stringCollectionView reloadData];
+                    } else if (self.stringLargeCollectionView) {
+                        [self.stringLargeCollectionView reloadData];
+                    }
                 }
             }
         }];
@@ -114,20 +132,28 @@
 {
     StringCollectionViewCell *stringCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
     
-    stringCell.tag = indexPath.item;
+    // used for when a user taps on a photo in the string
+    //stringCell.tag = indexPath.item;
     
     [stringCell.loadingImageIndicator setHidden:NO];
     [stringCell.loadingImageIndicator startAnimating];
     
-    PFObject *photoObject = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+    id photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
     
-    PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
-    [stringCell.cellImage setFile:imageFile];
-    [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+    if ([photo isKindOfClass:[PFObject class]]) {
+        PFObject *photoObject = (PFObject *)photo;
+        
+        PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+        [stringCell.cellImage setFile:imageFile];
+        [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+            [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+            [stringCell.loadingImageIndicator stopAnimating];
+            [stringCell.loadingImageIndicator setHidden:YES];
+        }];
+    } else if ([photo isKindOfClass:[UIImage class]]) {
+        [stringCell.cellImage setImage:photo];
         [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
-        [stringCell.loadingImageIndicator stopAnimating];
-        [stringCell.loadingImageIndicator setHidden:YES];
-    }];
+    }
     
     
     return stringCell;
@@ -140,7 +166,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //PFObject *cellData = [self.collectionViewPhotos objectAtIndex:indexPath.row]; // PFObject(Photo)
+    // Sends information to delegate for what cell was tapped. This allows for simple access to push details about the selected cells data.
     [self.delegate collectionView:collectionView tappedPhotoAtIndex:indexPath.row inPhotos:self.collectionViewPhotos fromString:self.stringToLoad];
 }
 

@@ -40,10 +40,10 @@
         
         NSString *forObjectKey = kStringrActivityStringKey;
         NSString *forObjectUserKey = kStringrStringUserKey;
-        [self.objectToCommentOn incrementKey:kStringrStringNumberOfCommentsKey];
+        //[self.objectToCommentOn incrementKey:kStringrStringNumberOfCommentsKey]; // cant save to a string or photo that will be read only...
         
         if ([self.objectToCommentOn.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            [self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey];
+            [self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey]; // can't save to a string or photo that will be read only...
             forObjectKey = kStringrActivityPhotoKey;
             forObjectUserKey = kStringrPhotoUserKey;
         }
@@ -52,6 +52,10 @@
         [self.comment setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
         [self.comment setObject:[self.objectToCommentOn objectForKey:forObjectUserKey] forKey:kStringrActivityToUserKey];
     }
+    
+    PFACL *commentACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [commentACL setPublicReadAccess:YES];
+    [self.comment setACL:commentACL];
     
     // Automatically displays the keyboard
     [self.commentTextView becomeFirstResponder];
@@ -68,22 +72,10 @@
 
 #pragma mark - Custom Accessors
 
-/*
-- (void)setComment:(PFObject *)comment
-{
-    _comment = comment;
-    
-    if ([_comment objectForKey:kStringrActivityContentKey]) {
-        [self.navigationItem.rightBarButtonItem setEnabled:!self.navigationItem.rightBarButtonItem.enabled];
-    }
-    
-}
- */
-
 - (PFObject *)comment
 {
     if ([_comment objectForKey:kStringrActivityContentKey]) {
-        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    [self.navigationItem.rightBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
     }
@@ -100,7 +92,7 @@
         [self dismissViewControllerAnimated:YES completion:^ {
             [self.comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
-                    [self.objectToCommentOn saveInBackground];
+                    //[self.objectToCommentOn saveInBackground]; // save to incrememnt comment count // can't save to a string/photo that is read only...
                     [self.delegate reloadCommentTableView];
                 }
             }];

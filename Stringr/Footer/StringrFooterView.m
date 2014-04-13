@@ -110,7 +110,7 @@ static float const contentViewWidth = 320.0;
         PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
         [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
             self.userForObject = (PFUser *)user;
-            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
+            [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]]];
             
             PFFile *uploaderProfileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             
@@ -118,6 +118,12 @@ static float const contentViewWidth = 320.0;
             [self.profileImageView loadInBackground];
             [self loadingProfileImageIndicatorEnabled:NO];
         }];
+    } else {
+        [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]]];
+        
+        PFFile *currentUserProfileImageFile = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
+        [self.profileImageView setFile:currentUserProfileImageFile];
+        [self.profileImageView loadInBackground];
     }
 }
 
@@ -126,6 +132,8 @@ static float const contentViewWidth = 320.0;
     if (self.objectForFooterView) {
         NSString *uploadTime = [StringrUtility timeAgoFromDate:self.objectForFooterView.createdAt];
         [self.uploadDateLabel setText:uploadTime];
+    } else {
+        [self.uploadDateLabel setText:@"Now"];
     }
 }
 
@@ -141,6 +149,9 @@ static float const contentViewWidth = 320.0;
         NSNumber *numberOfComments = [object objectForKey:commentKey];
         
         [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", [numberOfComments intValue]]];
+    } else {
+        [self.commentsButton setEnabled:NO];
+        [self.commentsTextLabel setText:[NSString stringWithFormat:@"0"]];
     }
 }
 
@@ -155,6 +166,9 @@ static float const contentViewWidth = 320.0;
         
         NSNumber *numberOfLikes = [object objectForKey:likeKey];
         [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", [numberOfLikes intValue]]];
+    } else {
+        [self.likesButton setEnabled:NO];
+        [self.likesTextLabel setText:@"0"];
     }
 }
 
@@ -204,7 +218,6 @@ static float const contentViewWidth = 320.0;
     [self.profileNameLabel setTextColor:[UIColor grayColor]];
     [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
     [self.profileNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
-    //[self.profileNameLabel setBackgroundColor:[UIColor purpleColor]];
     [self addSubview:self.profileNameLabel];
 }
 

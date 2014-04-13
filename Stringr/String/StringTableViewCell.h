@@ -15,5 +15,6 @@
 - (void)setStringViewDelegate:(id<StringViewDelegate>)delegate;
 - (void)setCollectionData:(NSArray *)collectionData;
 - (void)setStringObject:(PFObject *)string;
+- (void)queryPhotosFromQuery:(PFQuery *)query;
 
 @end

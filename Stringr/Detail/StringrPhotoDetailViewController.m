@@ -44,6 +44,11 @@
         
         self.tablePhotoVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
         [self.tablePhotoVC setEditDetailsEnabled:YES];
+        
+        // this is necessary so that delegation from the table view to the string view is accessible
+        StringrPhotoDetailEditTableViewController *editPhotoTableVC = (StringrPhotoDetailEditTableViewController *)self.tablePhotoVC;
+        [editPhotoTableVC setDelegate:self.delegateForPhotoController];
+        
     } else {
         self.title = @"Photo Details";
         
@@ -110,7 +115,10 @@
 // only used on edit photo views
 - (void)savePhoto
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+        [photo saveInBackground];
+    }];
 }
 
 - (void)cancelPhotoEdit

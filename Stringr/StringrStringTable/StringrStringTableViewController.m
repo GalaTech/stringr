@@ -63,16 +63,9 @@
 {
     [super viewWillAppear:animated];
     
-    // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
+
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -102,7 +95,7 @@
 
 
 
-#pragma mark - NSNotificationCenter Oberserver Action Handlers
+#pragma mark - Action Handlers
 
 // Handles the action of pushing to to the detail view of a selected string
 - (void)pushToStringDetailView:(UIButton *)sender
@@ -114,41 +107,6 @@
     [detailVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:detailVC animated:YES];
-}
-
-- (void)addNewString
-{
-    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
-                                                                      delegate:self
-                                                             cancelButtonTitle:nil
-                                                        destructiveButtonTitle:nil
-                                                             otherButtonTitles:nil];
-    
-    [newStringActionSheet addButtonWithTitle:@"Take Photo"];
-    [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
-    
-    /* Implement return to saved string
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    
-    if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
-        [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
-        [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-    }
-     */
-    
-    [newStringActionSheet addButtonWithTitle:@"Cancel"];
-    [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-    
-    
-    
-    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
-    if ([window.subviews containsObject:self.view]) {
-        [newStringActionSheet showInView:self.view];
-    } else {
-        [newStringActionSheet showInView:window];
-    }
-    
 }
 
 
@@ -288,6 +246,15 @@ static float const contentViewWidthPercentage = .93;
         [stringCell setStringViewDelegate:self];
         [stringCell setStringObject:object];
         
+        /* for liked photos
+        PFQuery *likedPhotosQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [likedPhotosQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
+        [likedPhotosQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+        [likedPhotosQuery whereKeyExists:kStringrActivityPhotoKey];
+        [likedPhotosQuery orderByAscending:@"photoOrder"];
+        [stringCell queryPhotosFromQuery:likedPhotosQuery];
+        */
+        
         return stringCell;
     } else if (indexPath.row == 1) {
         static NSString *cellIdentifier = @"StringTableViewFooter";
@@ -348,71 +315,6 @@ static float const contentViewWidthPercentage = .93;
 
 
 
-#pragma mark - UIActionSheet Delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == [actionSheet cancelButtonIndex]) {
-        [actionSheet resignFirstResponder];
-    } else if (buttonIndex == 0) {
-        
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-        }
-        
-        // image picker needs a delegate,
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
-        
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-    }
-    
-    
-}
-
-
-
-
-#pragma mark - UIImagePicker Delegate
-
-//delegate methode will be called after picking photo either from camera or library
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:^ {
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setStringToLoad:self.objects[0]];
-        [newStringVC setEditDetailsEnabled:YES];
-        [newStringVC setUserSelectedPhoto:image];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-    }];
-}
-
-
-
-
 #pragma mark - StringView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
@@ -420,6 +322,8 @@ static float const contentViewWidthPercentage = .93;
     if (photos)
     {
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        
+        
         
         [photoDetailVC setEditDetailsEnabled:NO];
         

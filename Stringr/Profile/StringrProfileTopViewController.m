@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
 @property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
 
+@property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
+
 @end
 
 @implementation StringrProfileTopViewController
@@ -32,10 +34,8 @@
 {
     [super viewDidLoad];
     
+    [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]];
     
-    
-    [self.profileNameLabel setText:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
-    //[self.profileUniversityLabel setText:[NSString stringWithFormat:@"@%@", [self.userForProfile objectForKey:kStringrUserSelectedUniversityKey]]];
     [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
     
     int numberOfStrings = [[self.userForProfile objectForKey:kStringrUserNumberOfStringsKey] intValue];
@@ -46,9 +46,6 @@
     }
     
     [self.profileNumberOfStringsLabel setText:numberOfStringsText];
-    
-    
-    
     
     
     // Sets the circle image path properties
@@ -84,6 +81,8 @@
     }
      */
     
+    
+    // loads follow button and determines the status of the current user following the profile user
     self.followUserButtonLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     CGFloat buttonHeight = CGRectGetHeight(self.followUserButton.frame);
     CGFloat buttonWidth = CGRectGetWidth(self.followUserButton.frame);
@@ -126,6 +125,18 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.usernameAndDisplayNameAnimationTimer invalidate];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -136,24 +147,22 @@
 
 #pragma mark - Private
 
-- (void)followButtonTouchHandler
+- (void)setupAnimatedProfileName
 {
-    [self.followUserButtonLoadingIndicator startAnimating];
-    [self configureUnfollowButton];
+    NSString *nameToDisplay = @"";
     
-    [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
-        [self.followUserButtonLoadingIndicator stopAnimating];
-        if (error) {
-            [self configureFollowButton];
-        }
-    }];
-}
-
-- (void)unfollowButtonTouchHandler
-{
-    [self configureFollowButton];
+    // changes the name between user username and displayname
+    if ([self.profileNameLabel.text isEqualToString:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]]) {
+        nameToDisplay = [self.userForProfile objectForKey:kStringrUserDisplayNameKey];
+    } else {
+        nameToDisplay = [StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]];
+    }
     
-    [StringrUtility unfollowUserEventually:self.userForProfile];
+    [UIView transitionWithView:self.profileNameLabel
+                      duration:1.0 options:UIViewAnimationOptionTransitionFlipFromTop
+                    animations:^{
+                        [self.profileNameLabel setText:nameToDisplay];
+                    } completion:nil];
 }
 
 - (void)configureFollowButton
@@ -188,6 +197,32 @@
 
 
 
+#pragma mark - Action Handler
+
+
+- (void)followButtonTouchHandler
+{
+    [self.followUserButtonLoadingIndicator startAnimating];
+    [self configureUnfollowButton];
+    
+    [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
+        [self.followUserButtonLoadingIndicator stopAnimating];
+        if (error) {
+            [self configureFollowButton];
+        }
+    }];
+}
+
+- (void)unfollowButtonTouchHandler
+{
+    [self configureFollowButton];
+    
+    [StringrUtility unfollowUserEventually:self.userForProfile];
+}
+
+
+
+
 #pragma mark - IBActions
 
 - (IBAction)followUserButton:(UIButton *)sender
@@ -206,6 +241,11 @@
 {
     StringrUserTableViewController *followersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowersVC"];
     
+    /*
+    PFQuery *followersProfileUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [followersProfileUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+    [followersProfileUserQuery whereKey:kStringrActivityToUserKey equalTo:[PFUser currentUser]];
+    */
     
     PFQuery *followersQuery = [PFUser query];
     [followersQuery orderByAscending:@"displayName"];
@@ -222,6 +262,23 @@
 - (IBAction)accessFollowing:(UIButton *)sender
 {
     StringrUserTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowingVC"];
+    
+    /*
+    PFQuery *followingProfileUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [followingProfileUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+    [followingProfileUserQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [followingProfileUserQuery setLimit:1000];
+    
+    PFQuery *usersFromFollowingProfileUsersQuery = [PFUser query];
+    */
+    
+    
+    PFQuery *allUserObjects = [PFUser query];
+    [allUserObjects findObjectsInBackgroundWithBlock:^(NSArray *userObjects, NSError *error) {
+        
+    }];
+
+
     
     PFQuery *followingQuery = [PFUser query];
     [followingQuery orderByAscending:@"displayName"];
