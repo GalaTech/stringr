@@ -59,28 +59,6 @@
     [self.profileImage setPathColor:[UIColor darkGrayColor]];
     [self.profileImage setContentMode:UIViewContentModeScaleAspectFill];
     
-    /*
-    PFFile *userProfileImageFile = [self.userForProfile objectForKey:kStringrUserProfilePictureKey];
-    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-        if (!error) {
-            UIImage *profileImage = [UIImage imageWithData:imageData];
-            [self.profileImage setImage:profileImage];
-        }
-    }];
-     */
-
-    
-    // Sets the title of the button to follow or unfollow depending upon what the users
-    // relationship is with the current profile.
-    // TODO: Set this via StringrCache
-    /*
-    if (!self.isFollowingUser) {
-        [self configureFollowButton];
-    } else {
-        [self configureUnfollowButton];
-    }
-     */
-    
     
     // loads follow button and determines the status of the current user following the profile user
     self.followUserButtonLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -93,23 +71,41 @@
     
         [self.followUserButtonLoadingIndicator startAnimating];
         
-        PFQuery *userIsFollowingUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [userIsFollowingUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
-        [userIsFollowingUserQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
-        [userIsFollowingUserQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-        [userIsFollowingUserQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
-        [userIsFollowingUserQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            if (error && error.code != kPFErrorCacheMiss) {
-                NSLog(@"Couldn't determine follow relationship: %@", error);
+        NSDictionary *userAttributes = [[StringrCache sharedCache] attributesForUser:self.userForProfile];
+        
+        if (userAttributes) {
+            BOOL currentUserIsFollowingProfileUser = [[StringrCache sharedCache] followStatusForUser:self.userForProfile];
+            
+            if (currentUserIsFollowingProfileUser) {
+                [self configureUnfollowButton];
             } else {
-                [self.followUserButtonLoadingIndicator stopAnimating];
-                if (number == 0) {
-                    [self configureFollowButton];
-                } else {
-                    [self configureUnfollowButton];
-                }
+                [self configureFollowButton];
             }
-        }];
+            
+            [self.followUserButtonLoadingIndicator stopAnimating];
+        } else {
+            @synchronized(self){
+                PFQuery *userIsFollowingUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+                [userIsFollowingUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+                [userIsFollowingUserQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
+                [userIsFollowingUserQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+                [userIsFollowingUserQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+                [userIsFollowingUserQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                    if (error && error.code != kPFErrorCacheMiss) {
+                        NSLog(@"Couldn't determine follow relationship: %@", error);
+                    } else {
+                        [self.followUserButtonLoadingIndicator stopAnimating];
+                        if (number == 0) {
+                            [self configureFollowButton];
+                            [[StringrCache sharedCache] setFollowStatus:NO forUser:self.userForProfile];
+                        } else {
+                            [self configureUnfollowButton];
+                            [[StringrCache sharedCache] setFollowStatus:YES forUser:self.userForProfile];
+                        }
+                    }
+                }];
+            }
+        }
     } else {
         // button setup for when it's the current users profile
         [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
@@ -204,6 +200,7 @@
 {
     [self.followUserButtonLoadingIndicator startAnimating];
     [self configureUnfollowButton];
+    [[StringrCache sharedCache] setFollowStatus:YES forUser:self.userForProfile];
     
     [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
         [self.followUserButtonLoadingIndicator stopAnimating];
@@ -217,6 +214,7 @@
 {
     [self configureFollowButton];
     
+    [[StringrCache sharedCache] setFollowStatus:NO forUser:self.userForProfile];
     [StringrUtility unfollowUserEventually:self.userForProfile];
 }
 

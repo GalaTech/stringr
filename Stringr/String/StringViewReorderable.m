@@ -55,10 +55,14 @@
         
         [photo setObject:width forKey:kStringrPhotoPictureWidth];
         [photo setObject:height forKey:kStringrPhotoPictureHeight];
-        
-        [photo setObject:@(0) forKey:kStringrPhotoNumberOfCommentsKey];
-        [photo setObject:@(0) forKey:kStringrPhotoNumberOfLikesKey];
+
         [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
+        [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
+        
+        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]];
+        [photoACL setPublicReadAccess:YES];
+        [photo setACL:photoACL];
         
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -66,7 +70,6 @@
                 [self.collectionViewPhotos replaceObjectAtIndex:indexOfImagePhoto withObject:photo];
                 
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
-                //[self.stringLargeReorderableCollectionView insertItemsAtIndexPaths:@[indexPath]];
                 [self.stringLargeReorderableCollectionView reloadItemsAtIndexPaths:@[indexPath]];
             }
         }];
@@ -140,9 +143,7 @@
         } else {
             PFObject *newString = [PFObject objectWithClassName:kStringrStringClassKey];
             [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
-            [newString setObject:@(0) forKey:kStringrStringNumberOfCommentsKey];
-            [newString setObject:@(0) forKey:kStringrStringNumberOfLikesKey];
-            
+
             self.stringToLoad = newString;
             [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
@@ -156,6 +157,9 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
             }];
+            
+            [[PFUser currentUser] incrementKey:kStringrUserNumberOfStringsKey];
+            [[PFUser currentUser] saveInBackground];
         }
         
         if (completionBlock) {

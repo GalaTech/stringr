@@ -70,6 +70,7 @@
     
     // accounts for main info view so that it 'sticks' to the bottom of the view when you go full screen
     [self setMaxHeight:CGRectGetHeight(self.view.frame) - kStringrPFObjectDetailTableViewCellHeight];
+    [self setMaxHeightBorder:FLT_MAX];
 }
 
 - (void)viewWillAppear:(BOOL)animated

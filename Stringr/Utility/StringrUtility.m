@@ -14,10 +14,42 @@
 
 #pragma mark - Like/Unlike Photo/String
 
++ (void)likeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    } else {
+        [self likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    }
+}
+
++ (void)unlikeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self unlikeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    } else {
+        [self unlikePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    }
+}
+
 + (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [photo incrementKey:kStringrPhotoNumberOfLikesKey];
-    
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
@@ -30,38 +62,64 @@
                 [activity delete]; // maybe delete in background?
             }
         }
-    }];
-    
-    PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-    [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
-    [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-    [likeActivity setObject:[photo objectForKey:kStringrPhotoUserKey] forKey:kStringrActivityToUserKey];
-    [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
-    
-    PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-    [likeACL setPublicReadAccess:YES];
-    
-    [likeActivity setACL:likeACL];
-    
-    
-    [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (completionBlock) {
-            completionBlock(succeeded, error);
-        }
         
-        if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-            // send push notification to photo uploader
-        }
         
-        // refresh sharedCache
+        PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+        [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
+        [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+        [likeActivity setObject:[photo objectForKey:kStringrPhotoUserKey] forKey:kStringrActivityToUserKey];
+        [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
+        
+        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [likeACL setPublicReadAccess:YES];
+        
+        [likeActivity setACL:likeACL];
+        
+        
+        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+            
+            if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                // send push notification to photo uploader
+            }
+            
+            /*
+            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:photo cachePolicy:kPFCachePolicyNetworkOnly];
+            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    NSMutableArray *likers = [[NSMutableArray alloc] init];
+                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                    
+                    BOOL isLikedByCurrentUser = NO;
+                    
+                    for (PFObject *activity in activities) {
+                        // add user to likers array if they like the current string/photo
+                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [likers addObject:kStringrActivityFromUserKey];
+                            
+                            // if the current user is one of the likers we set them to liking the string/photo
+                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                                isLikedByCurrentUser = YES;
+                            }
+                            
+                            // add user to commentors if they commented on the current string/photo
+                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [commentors addObject:kStringrActivityFromUserKey];
+                        }
+                    }
+                    
+                    [[StringrCache sharedCache] setAttributesForObject:photo likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
+                }
+            }];
+            */
+        }];
     }];
-    
 }
 
 + (void)unlikePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [photo incrementKey:kStringrPhotoNumberOfLikesKey byAmount:@(-1)];
-    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
@@ -77,7 +135,35 @@
                 completionBlock(YES, nil);
             }
             
-            // refresh cache
+            /*
+            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:photo cachePolicy:kPFCachePolicyNetworkOnly];
+            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    NSMutableArray *likers = [[NSMutableArray alloc] init];
+                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                    
+                    BOOL isLikedByCurrentUser = NO;
+                    
+                    for (PFObject *activity in activities) {
+                        // add user to likers array if they like the current string/photo
+                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [likers addObject:kStringrActivityFromUserKey];
+                            
+                            // if the current user is one of the likers we set them to liking the string/photo
+                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                                isLikedByCurrentUser = YES;
+                            }
+                            
+                            // add user to commentors if they commented on the current string/photo
+                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [commentors addObject:kStringrActivityFromUserKey];
+                        }
+                    }
+                    
+                    [[StringrCache sharedCache] setAttributesForObject:photo likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
+                }
+            }];
+            */
         } else {
             if (completionBlock) {
                 completionBlock(NO, error);
@@ -88,10 +174,6 @@
 
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [string incrementKey:kStringrStringNumberOfLikesKey byAmount:@(1)];
-    [string saveInBackground];
-    
-    
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:string];
@@ -105,40 +187,60 @@
             }
         }
         
-    }]; // I moved this closing bracket up here instead of encapsulating all the code in this method.
-        // it was saving two likes every time if I had it the later.
-     
-    
-    PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-    [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
-    [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-    [likeActivity setObject:[string objectForKey:kStringrStringUserKey] forKey:kStringrActivityToUserKey];
-    [likeActivity setObject:string forKey:kStringrActivityStringKey];
-    
-    PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-    [likeACL setPublicReadAccess:YES];
-    [likeActivity setACL:likeACL];
-    
-    [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (completionBlock) {
-            completionBlock(succeeded, error);
-        }
+        PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+        [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
+        [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+        [likeActivity setObject:[string objectForKey:kStringrStringUserKey] forKey:kStringrActivityToUserKey];
+        [likeActivity setObject:string forKey:kStringrActivityStringKey];
         
+        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [likeACL setPublicReadAccess:YES];
+        [likeActivity setACL:likeACL];
         
-        if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-            // send push notification to photo uploader
-        }
-        
-        
-        // refresh sharedCache
+        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+            
+            if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                // send push notification to photo uploader
+            }
+            
+            /*
+            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:string cachePolicy:kPFCachePolicyNetworkOnly];
+            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    NSMutableArray *likers = [[NSMutableArray alloc] init];
+                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                    
+                    BOOL isLikedByCurrentUser = NO;
+                    
+                    for (PFObject *activity in activities) {
+                        // add user to likers array if they like the current string/photo
+                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [likers addObject:kStringrActivityFromUserKey];
+                            
+                            // if the current user is one of the likers we set them to liking the string/photo
+                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                                isLikedByCurrentUser = YES;
+                            }
+                            
+                            // add user to commentors if they commented on the current string/photo
+                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [commentors addObject:kStringrActivityFromUserKey];
+                        }
+                    }
+                    
+                    [[StringrCache sharedCache] setAttributesForObject:string likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
+                }
+            }];
+             */
+        }];
     }];
 }
 
 + (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [string incrementKey:kStringrStringNumberOfLikesKey byAmount:@(-1)];
-    [string saveInBackground];
-    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityStringKey equalTo:string];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
@@ -154,8 +256,35 @@
                 completionBlock(YES, nil);
             }
             
-            // refresh cache
-            
+            /*
+            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:string cachePolicy:kPFCachePolicyNetworkOnly];
+            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    NSMutableArray *likers = [[NSMutableArray alloc] init];
+                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                    
+                    BOOL isLikedByCurrentUser = NO;
+                    
+                    for (PFObject *activity in activities) {
+                        // add user to likers array if they like the current string/photo
+                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [likers addObject:kStringrActivityFromUserKey];
+                            
+                            // if the current user is one of the likers we set them to liking the string/photo
+                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                                isLikedByCurrentUser = YES;
+                            }
+                            
+                            // add user to commentors if they commented on the current string/photo
+                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [commentors addObject:kStringrActivityFromUserKey];
+                        }
+                    }
+                    
+                    [[StringrCache sharedCache] setAttributesForObject:string likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
+                }
+            }];
+             */
         } else {
             if (completionBlock) {
                 completionBlock(NO, error);
@@ -289,6 +418,15 @@
 
 #pragma mark Activities
 
++ (PFQuery *)queryForActivitiesOnObject:(PFObject *)object cachePolicy:(PFCachePolicy)cachePolicy
+{
+    if ([StringrUtility objectIsString:object]) {
+        return [self queryForActivitiesOnString:object cachePolicy:cachePolicy];
+    } else {
+        return [self queryForActivitiesOnPhoto:object cachePolicy:cachePolicy];
+    }
+}
+
 + (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
 {
     PFQuery *queryLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
@@ -323,6 +461,15 @@
     [query includeKey:kStringrActivityStringKey];
     
     return query;
+}
+
++ (BOOL)objectIsString:(PFObject *)object
+{
+    if ([object.parseClassName isEqualToString:kStringrStringClassKey] || [object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+        return [object.parseClassName isEqualToString:kStringrStringClassKey];
+    }
+    
+    return NO;
 }
 
 

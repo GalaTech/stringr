@@ -105,8 +105,8 @@ extern NSString * const kStringrStringPhotosKey;
 extern NSString * const kStringrStringUserKey;
 extern NSString * const kStringrStringTitleKey;
 extern NSString * const kStringrStringDescriptionKey;
-extern NSString * const kStringrStringNumberOfLikesKey;
-extern NSString * const kStringrStringNumberOfCommentsKey;
+//extern NSString * const kStringrStringNumberOfLikesKey;
+//extern NSString * const kStringrStringNumberOfCommentsKey;
 
 
 
@@ -126,8 +126,8 @@ extern NSString * const kStringrPhotoPictureHeight;
 extern NSString * const kStringrPhotoOrderNumber;
 extern NSString * const kStringrPhotoThumbnailWidth;
 extern NSString * const kStringrPhotoThumbnailHeight;
-extern NSString * const kStringrPhotoNumberOfLikesKey;
-extern NSString * const kStringrPhotoNumberOfCommentsKey;
+//extern NSString * const kStringrPhotoNumberOfLikesKey;
+//extern NSString * const kStringrPhotoNumberOfCommentsKey;
 
 
 

@@ -68,9 +68,11 @@
 
 - (void)setDescriptionForCell:(NSString *)description
 {
-    NSAttributedString *attributedDescriptionText = [[NSAttributedString alloc] initWithString:description attributes:self.textAttributes];
+    if (description) {
+        NSAttributedString *attributedDescriptionText = [[NSAttributedString alloc] initWithString:description attributes:self.textAttributes];
     
-    [self.descriptionLabel setAttributedText:attributedDescriptionText];    
+        [self.descriptionLabel setAttributedText:attributedDescriptionText];
+    }
 }
 
 - (NSDictionary *)getDescriptionTextAttributes

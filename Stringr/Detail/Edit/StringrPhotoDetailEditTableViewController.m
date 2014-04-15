@@ -157,6 +157,7 @@
             //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterDeletePhotoFromStringKey object:self.photoDetailsToLoad];
             
             [self.delegate deletePhotoFromString:self.photoDetailsToLoad];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
         }];
     }
 }

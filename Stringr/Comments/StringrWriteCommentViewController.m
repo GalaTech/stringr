@@ -43,7 +43,7 @@
         //[self.objectToCommentOn incrementKey:kStringrStringNumberOfCommentsKey]; // cant save to a string or photo that will be read only...
         
         if ([self.objectToCommentOn.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            [self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey]; // can't save to a string or photo that will be read only...
+            //[self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey]; // can't save to a string or photo that will be read only...
             forObjectKey = kStringrActivityPhotoKey;
             forObjectUserKey = kStringrPhotoUserKey;
         }
@@ -54,6 +54,14 @@
     }
     
     PFACL *commentACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    
+    // allows the original owner of the string/photo being commented on to edit the posted comment.
+    if ([StringrUtility objectIsString:self.objectToCommentOn]) {
+        [commentACL setWriteAccess:YES forUser:[self.objectToCommentOn objectForKey:kStringrStringUserKey]];
+    } else {
+        [commentACL setWriteAccess:YES forUser:[self.objectToCommentOn objectForKey:kStringrPhotoUserKey]];
+    }
+    
     [commentACL setPublicReadAccess:YES];
     [self.comment setACL:commentACL];
     
@@ -94,8 +102,12 @@
                 if (!error) {
                     //[self.objectToCommentOn saveInBackground]; // save to incrememnt comment count // can't save to a string/photo that is read only...
                     [self.delegate reloadCommentTableView];
+                } else if (error && error.code == kPFErrorObjectNotFound) {
+                    [[StringrCache sharedCache] decrementCommentCountForObject:self.objectToCommentOn];
                 }
             }];
+            
+            [[StringrCache sharedCache] incrementCommentCountForObject:self.objectToCommentOn];
         }];
     }
 }

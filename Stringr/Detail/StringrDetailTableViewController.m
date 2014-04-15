@@ -141,6 +141,7 @@
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
+    /*
     if (object) {
         if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
             [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
@@ -156,6 +157,7 @@
             }];
         }
     }
+     */
 }
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object

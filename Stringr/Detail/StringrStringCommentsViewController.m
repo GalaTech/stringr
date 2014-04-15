@@ -170,17 +170,12 @@
         PFObject *commentToRemove = [self.objects objectAtIndex:indexPath.row];
         [commentToRemove deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                
-                if ([self.objectForCommentThread.parseClassName isEqualToString:kStringrStringClassKey]) {
-                    [self.objectForCommentThread incrementKey:kStringrStringNumberOfCommentsKey byAmount:@(-1)];
-                } else if ([self.objectForCommentThread.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-                    [self.objectForCommentThread incrementKey:kStringrPhotoNumberOfCommentsKey byAmount:@(-1)];
-                }
-                
                 [self.objectForCommentThread saveInBackground];
                 [self loadObjects];
             }
         }];
+        
+        [[StringrCache sharedCache] decrementCommentCountForObject:commentToRemove];
     }
 }
 
