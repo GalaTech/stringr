@@ -9,17 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 
-@protocol StringrLoginViewDownloadingSocialNetworkInfoDelegate;
+@protocol StringrLoginViewControllerDelegate;
+
 
 @interface StringrLoginViewController : UIViewController
 
-@property (strong, nonatomic) id<StringrLoginViewDownloadingSocialNetworkInfoDelegate>delegate;
+@property (strong, nonatomic) id<StringrLoginViewControllerDelegate>delegate;
 
 @end
 
 
-@protocol StringrLoginViewDownloadingSocialNetworkInfoDelegate <NSObject>
+@protocol StringrLoginViewControllerDelegate <NSObject>
 
+@optional
+- (void)logInViewController:(StringrLoginViewController *)logInController didLogInUser:(PFUser *)user;
 - (void)socialNetworkProfileImageDidFinishDownloading:(UIImage *)profileImage;
 
 @end

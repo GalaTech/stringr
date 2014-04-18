@@ -15,5 +15,6 @@
 //@property (strong, nonatomic) NSArray *stringPhotoData;
 @property (strong, nonatomic) PFObject *stringToLoad;
 
+- (void)addImageToPublicString:(UIImage *)image;
 
 @end

@@ -84,6 +84,12 @@ NSString * const kNSNotificationCenterStringDeletedSuccessfully = @"co.galatech.
 
 
 
+#pragma mark - Installation Class
+
+NSString * const kStringrInstallationUserKey = @"user";
+NSString * const kStringrInstallationPrivateChannelsKey = @"channels";
+
+
 
 #pragma mark - PFObject Activity Class
 // Class Key
@@ -196,4 +202,23 @@ NSString * const kStringrStringAttributesLikeCountKey = @"likeCount";
 NSString * const kStringrStringAttributesCommentCountKey = @"commentCount";
 
 
+
+#pragma mark - PFPush Notification Payload Keys
+
+NSString * const kAPNSAlertKey = @"alert";
+NSString * const kAPNSBadgeKey = @"badge";
+NSString * const kAPNSSoundKey = @"sound";
+
+NSString * const kStringrPushPayloadPayloadTypeKey = @"p";
+NSString * const kStringrPushPayloadPayloadTypeActivityKey = @"a";
+
+NSString * const kStringrPushPayloadActivityTypeKey = @"t";
+NSString * const kStringrPushPayloadActivityLikeKey = @"l";
+NSString * const kStringrPushPayloadActivityCommentKey = @"c";
+NSString * const kStringrPushPayloadActivityFollowKey = @"f";
+
+NSString * const kStringrPushPayloadFromUserObjectIdKey = @"fu";
+NSString * const kStringrPushPayloadToUserObjectIdKey = @"tu";
+NSString * const kStringrPushPayloadPhotoObjectIdKey = @"pid";
+NSString * const kStringrPushPayloadStringObjectIDKey = @"sid";
 

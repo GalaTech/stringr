@@ -59,8 +59,6 @@
 {
     NSInteger photoIndex = self.commentsProfileImage.tag;
     [self.delegate tappedCommentorProfileImage:photoIndex];
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedProfileImageKey object:nil];
 }
 
 #pragma mark - Private

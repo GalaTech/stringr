@@ -46,9 +46,13 @@
  */
 - (void)queryPhotosFromQuery:(PFQuery *)query;
 
-
-/// Returns a mutable copy of the current String data.
-//- (NSArray *)getCollectionData;
+/**
+ * Adds a given image to the end of the String. The image will be immediately
+ * added and a photo PFObject will be created and saved in the background. Once 
+ * saved it will replace the original image.
+ * @param image The image being added to the String.
+ */
+- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock;
 
 
 

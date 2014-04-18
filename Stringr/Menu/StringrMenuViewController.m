@@ -423,15 +423,24 @@
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.row == 7) {
         [PFQuery clearAllCachedResults];
+        [[StringrCache sharedCache] clear];
+        
+        // Unsubscribe from push notifications
+        [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
+        [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];
+        [[PFInstallation currentInstallation] saveEventually];
+        
         [PFUser logOut];
         
         [self.navigationController popToRootViewControllerAnimated:NO];
+        
+        // forces the main content area to be blank with no content. That way if a user logs
+        // back in we can easily reinstantiate the content area without any data remaining from the previous
         UIViewController *blankVC = [[UIViewController alloc] init];
         [self.frostedViewController setContentViewController:blankVC];
         
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];
-        
         [self presentViewController:loginNavVC animated:YES completion:nil];
     }
     
@@ -451,40 +460,6 @@
     cell.textLabel.textColor = [UIColor colorWithWhite:0.38f alpha:1.0f];
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
 }
-
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
-{
-    if (sectionIndex == 0)
-        return nil;
-    
-    // Creates a custom menu section header
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
-    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
-    
-    // Set the section header text based off of what section it is
-    switch (sectionIndex) {
-        case 1:
-            label.text = @"Discover";
-            break;
-        case 2:
-            label.text = @"Settings";
-            break;
-        default:
-            label.text = @"";
-    }
-    
-    label.font = [UIFont systemFontOfSize:15];
-    label.textColor = [UIColor whiteColor];
-    label.backgroundColor = [UIColor clearColor];
-    [label sizeToFit];
-    [view addSubview:label];
-    
-    return view;
-}
- */
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {

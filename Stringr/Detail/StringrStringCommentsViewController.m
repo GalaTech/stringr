@@ -39,7 +39,7 @@
     if (self) {
         self.parseClassName = kStringrActivityClassKey;
         self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = YES;
+        //self.paginationEnabled = YES;
         self.objectsPerPage = 10;
     }
     
@@ -104,7 +104,6 @@
 
 - (void)writeComment
 {
-    
     StringrWriteCommentViewController *writeCommentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"writeCommentVC"];
     [writeCommentVC setObjectToCommentOn:self.objectForCommentThread];
     [writeCommentVC setDelegate:self];
@@ -256,7 +255,8 @@
         PFUser *commentUser = [object objectForKey:kStringrActivityFromUserKey];
         
         [commentUser fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
-            [commentsCell.commentsProfileDisplayName setText:[user objectForKey:kStringrUserDisplayNameKey]];
+            NSString *commentorUsername = [StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]];
+            [commentsCell.commentsProfileDisplayName setText:commentorUsername];
             
             // allows easy access to this users profile when profile image is tapped
             [self.commentUsers addObject:user];

@@ -54,6 +54,7 @@
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
 		AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */; };
 		AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */; };
+		AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76D189094D3006B32AB /* TestViewController.m */; };
 		ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */; };
@@ -212,6 +213,8 @@
 		AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoDetailTopViewController.m; path = Detail/StringrPhotoDetailTopViewController.m; sourceTree = "<group>"; };
 		AB9D742C1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoDetailTableViewController.h; path = Detail/StringrPhotoDetailTableViewController.h; sourceTree = "<group>"; };
 		AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoDetailTableViewController.m; path = Detail/StringrPhotoDetailTableViewController.m; sourceTree = "<group>"; };
+		AB9D782918FDA99500E84015 /* StringrActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActivityTableViewCell.h; path = TableViewCell/StringrActivityTableViewCell.h; sourceTree = "<group>"; };
+		AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityTableViewCell.m; path = TableViewCell/StringrActivityTableViewCell.m; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
 		ABB7F76C189094D3006B32AB /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
@@ -365,10 +368,10 @@
 			children = (
 				ABDB7E4D18D63C620047691B /* StringrTableViewController.h */,
 				ABDB7E4E18D63C620047691B /* StringrTableViewController.m */,
-				BF3EDE07183E98910071E047 /* String Table */,
-				BF3EDE2A184449CE0071E047 /* User Table */,
 				ABFBE60518D8C7D40026BCC1 /* Activity */,
 				ABF121EE189B2D9D0029177A /* Comments Table */,
+				BF3EDE07183E98910071E047 /* String Table */,
+				BF3EDE2A184449CE0071E047 /* User Table */,
 			);
 			name = "TableView Controllers";
 			sourceTree = "<group>";
@@ -382,13 +385,13 @@
 			name = Footer;
 			sourceTree = "<group>";
 		};
-		AB2E0C5F18EF359A00B5681A /* Load More Cell */ = {
+		AB2E0C5F18EF359A00B5681A /* Load More TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */,
 				AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */,
 			);
-			name = "Load More Cell";
+			name = "Load More TableViewCell";
 			sourceTree = "<group>";
 		};
 		AB4FF07B18C0019E000F550F /* UIImage+Resize */ = {
@@ -435,13 +438,13 @@
 			name = Edit;
 			sourceTree = "<group>";
 		};
-		AB6FDA3918EB729D003A6831 /* Filler Table View Cell */ = {
+		AB6FDA3918EB729D003A6831 /* Filler TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */,
 				AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */,
 			);
-			name = "Filler Table View Cell";
+			name = "Filler TableViewCell";
 			sourceTree = "<group>";
 		};
 		AB757A89187F173F00D32917 /* Image Path  */ = {
@@ -451,6 +454,7 @@
 				AB757A87187F173A00D32917 /* StringrPathImageView.m */,
 			);
 			name = "Image Path ";
+			path = ../Stringr;
 			sourceTree = "<group>";
 		};
 		AB7D345518BE900E0009CFC5 /* Edit Profile */ = {
@@ -458,7 +462,6 @@
 			children = (
 				BF3EDE24183EDF700071E047 /* StringrEditProfileViewController.h */,
 				BF3EDE25183EDF700071E047 /* StringrEditProfileViewController.m */,
-				ABDFDE5318CE48EE00682EDD /* Edit Profile TableView Cell's */,
 			);
 			name = "Edit Profile";
 			sourceTree = "<group>";
@@ -486,7 +489,41 @@
 			name = "Photo Detail";
 			sourceTree = "<group>";
 		};
-		ABDB7CAE18D3C0980047691B /* Table View Cell's */ = {
+		AB9D782C18FDA9A600E84015 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				AB9D782D18FDA9D200E84015 /* Activity TableViewCell */,
+				ABF121F2189C14850029177A /* Comments TableViewCell */,
+				ABDB7CAE18D3C0980047691B /* Detail TableViewCells */,
+				ABDFDE5318CE48EE00682EDD /* Edit Profile TableViewCells */,
+				AB6FDA3918EB729D003A6831 /* Filler TableViewCell */,
+				AB2E0C5F18EF359A00B5681A /* Load More TableViewCell */,
+				BF3EDE4D1847C0670071E047 /* User TableViewCell */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
+		AB9D782D18FDA9D200E84015 /* Activity TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AB9D782918FDA99500E84015 /* StringrActivityTableViewCell.h */,
+				AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */,
+			);
+			name = "Activity TableViewCell";
+			sourceTree = "<group>";
+		};
+		AB9D782E18FDAA9C00E84015 /* Write and Edit Text */ = {
+			isa = PBXGroup;
+			children = (
+				AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */,
+				AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */,
+				AB11C4B518F7337300D406D8 /* StringrWriteAndEditTextViewController.h */,
+				AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */,
+			);
+			name = "Write and Edit Text";
+			sourceTree = "<group>";
+		};
+		ABDB7CAE18D3C0980047691B /* Detail TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				ABDB7CAB18D3C0960047691B /* StringrDetailTitleTableViewCell.h */,
@@ -498,7 +535,7 @@
 				ABDB7CB218D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.h */,
 				ABDB7CB318D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m */,
 			);
-			name = "Table View Cell's";
+			name = "Detail TableViewCells";
 			sourceTree = "<group>";
 		};
 		ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */ = {
@@ -512,7 +549,7 @@
 			path = ParallaxScrollViewController;
 			sourceTree = "<group>";
 		};
-		ABDFDE5318CE48EE00682EDD /* Edit Profile TableView Cell's */ = {
+		ABDFDE5318CE48EE00682EDD /* Edit Profile TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */,
@@ -524,7 +561,7 @@
 				AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */,
 				AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */,
 			);
-			name = "Edit Profile TableView Cell's";
+			name = "Edit Profile TableViewCells";
 			sourceTree = "<group>";
 		};
 		ABDFDE6418CFC1E000682EDD /* ParseImagePager */ = {
@@ -544,21 +581,17 @@
 			children = (
 				BF465188186F748800EB464F /* StringrStringCommentsViewController.h */,
 				BF465189186F748800EB464F /* StringrStringCommentsViewController.m */,
-				AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */,
-				AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */,
-				AB11C4B518F7337300D406D8 /* StringrWriteAndEditTextViewController.h */,
-				AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */,
 			);
 			name = "Comments Table";
 			sourceTree = "<group>";
 		};
-		ABF121F2189C14850029177A /* Comments Table View Cell */ = {
+		ABF121F2189C14850029177A /* Comments TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				ABF121EF189C14810029177A /* StringrCommentsTableViewCell.h */,
 				ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */,
 			);
-			name = "Comments Table View Cell";
+			name = "Comments TableViewCell";
 			sourceTree = "<group>";
 		};
 		ABFBE60518D8C7D40026BCC1 /* Activity */ = {
@@ -599,12 +632,8 @@
 			isa = PBXGroup;
 			children = (
 				BF170EBD184BEA9D0056ECE7 /* String */,
-				AB757A89187F173F00D32917 /* Image Path  */,
 				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
-				BF3EDE4D1847C0670071E047 /* User Table View Cell */,
-				ABF121F2189C14850029177A /* Comments Table View Cell */,
-				AB2E0C5F18EF359A00B5681A /* Load More Cell */,
-				AB6FDA3918EB729D003A6831 /* Filler Table View Cell */,
+				AB9D782C18FDA9A600E84015 /* TableViewCells */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -618,6 +647,7 @@
 				BF3EDE1C183EA26C0071E047 /* Detail and Edit */,
 				AB1B0C84188DADE20063EAC5 /* TableView Controllers */,
 				BF3EDE0B183E9BC10071E047 /* TabBar Controllers */,
+				AB9D782E18FDAA9C00E84015 /* Write and Edit Text */,
 				BF3EDE18183E9FD80071E047 /* Settings */,
 			);
 			name = Controllers;
@@ -656,13 +686,13 @@
 		BF3EDE03183E92380071E047 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				AB7D345518BE900E0009CFC5 /* Edit Profile */,
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
 				BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */,
 				BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */,
 				BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */,
 				BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */,
+				AB7D345518BE900E0009CFC5 /* Edit Profile */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -706,10 +736,10 @@
 		BF3EDE18183E9FD80071E047 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */,
-				ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */,
 				BF3EDE15183E9FD40071E047 /* StringrSettingsViewController.h */,
 				BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */,
+				ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */,
+				ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -725,7 +755,6 @@
 				AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */,
 				AB5B5947189AC9BD00790510 /* String Detail */,
 				AB9D74281892D660003BB2B8 /* Photo Detail */,
-				ABDB7CAE18D3C0980047691B /* Table View Cell's */,
 			);
 			name = "Detail and Edit";
 			sourceTree = "<group>";
@@ -743,13 +772,13 @@
 			name = "User Table";
 			sourceTree = "<group>";
 		};
-		BF3EDE4D1847C0670071E047 /* User Table View Cell */ = {
+		BF3EDE4D1847C0670071E047 /* User TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				BF3EDE4A1847C05D0071E047 /* StringrUserTableViewCell.h */,
 				BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */,
 			);
-			name = "User Table View Cell";
+			name = "User TableViewCell";
 			sourceTree = "<group>";
 		};
 		BF8349C218297FD600D15963 = {
@@ -854,6 +883,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AB757A89187F173F00D32917 /* Image Path  */,
 				ABDFDE6418CFC1E000682EDD /* ParseImagePager */,
 				AB4FF07B18C0019E000F550F /* UIImage+Resize */,
 				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
@@ -1033,6 +1063,7 @@
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
 				ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
+				AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
 				AB5B5959189B182F00790510 /* StringEditCollectionView.m in Sources */,
@@ -1221,8 +1252,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr",
@@ -1232,7 +1263,7 @@
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4AF75F85-657A-4705-801E-5A875228C751";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1243,8 +1274,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr",
@@ -1254,7 +1285,7 @@
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4AF75F85-657A-4705-801E-5A875228C751";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

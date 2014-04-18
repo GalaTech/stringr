@@ -424,7 +424,7 @@ static float const contentViewWidth = 320.0;
             [self setLikesButtonState:succeeded];
             
             if (!succeeded) {
-                [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
+                //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
             }
         }];
     } else {
@@ -436,7 +436,7 @@ static float const contentViewWidth = 320.0;
             [self setLikesButtonState:!succeeded];
             
             if (!succeeded) {
-                [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
+                //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]]; // having this enabled results in a 'flicker' of liking. 
             }
         }];
     }

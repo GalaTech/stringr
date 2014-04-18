@@ -64,10 +64,81 @@
 }
 
 
+
+#pragma mark - Public
+
+- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
+{
+    if (image) {
+        PFObject *photo = [PFObject objectWithClassName:kStringrPhotoClassKey];
+        
+        UIImage *resizedImage = [StringrUtility formatPhotoImageForUpload:image];
+        NSData *resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
+        
+        PFFile *imageFileForUpload = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]] data:resizedImageData];
+        
+        [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
+        [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
+        
+        NSNumber *width = [NSNumber numberWithInt:resizedImage.size.width];
+        NSNumber *height = [NSNumber numberWithInt:resizedImage.size.height];
+        
+        [photo setObject:width forKey:kStringrPhotoPictureWidth];
+        [photo setObject:height forKey:kStringrPhotoPictureHeight];
+        
+        [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
+        [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
+        [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
+        [photo setObject:@(self.collectionViewPhotos.count) forKey:kStringrPhotoOrderNumber];
+        
+        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                int indexOfImagePhoto = [self.collectionViewPhotos indexOfObject:resizedImage];
+                [self.collectionViewPhotos replaceObjectAtIndex:indexOfImagePhoto withObject:photo];
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
+                if (self.stringCollectionView) {
+                    [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+                } else if (self.stringLargeCollectionView) {
+                    [self.stringLargeCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
+            }
+            
+            if (completionBlock) {
+                completionBlock(succeeded, photo, error);
+            }
+        }];
+        
+        [self.collectionViewPhotos addObject:resizedImage];
+        
+        // if the collectionViewPhotos count == 1 that means we just added the first object.
+        // That means this must be a brand new string.
+        // For every other situation it must mean that we are adding a new photo to a string.
+        if (self.collectionViewPhotos.count == 1) {
+            if (self.stringCollectionView) {
+                [self.stringCollectionView reloadData];
+            } else if (self.stringLargeCollectionView) {
+                [self.stringLargeCollectionView reloadData];
+            }
+        } else {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.collectionViewPhotos.count - 1 inSection:0];
+            if (self.stringCollectionView) {
+                [self.stringCollectionView insertItemsAtIndexPaths:@[indexPath]];
+                [self.stringCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            } else if (self.stringLargeCollectionView) {
+                [self.stringLargeCollectionView insertItemsAtIndexPaths:@[indexPath]];
+                [self.stringLargeCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            }
+        }
+        
+    }
+}
+
+
 #pragma mark - Parse
 
 - (void)queryPhotosFromString
-{    
+{
     if (self.stringToLoad) {
         PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
         [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:self.stringToLoad];
@@ -177,10 +248,23 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+    id photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
     
-    NSNumber *width = [photo objectForKey:kStringrPhotoPictureWidth];
-    NSNumber *height = [photo objectForKey:kStringrPhotoPictureHeight];
+    NSNumber *width = 0;
+    NSNumber *height = 0;
+    
+    if ([photo isKindOfClass:[PFObject class]]) {
+        PFObject *photoObject = (PFObject *)photo;
+        
+        width = [photoObject objectForKey:kStringrPhotoPictureWidth];
+        height = [photoObject objectForKey:kStringrPhotoPictureHeight];
+    } else if ([photo isKindOfClass:[UIImage class]]) {
+        UIImage *photoImage = (UIImage *)photo;
+        
+        width = [NSNumber numberWithInt:photoImage.size.width];
+        height = [NSNumber numberWithInt:photoImage.size.height];
+    }
+    
     
     return CGSizeMake([width floatValue], [height floatValue]);
 }

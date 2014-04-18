@@ -48,6 +48,12 @@ extern NSString * const kNSNotificationCenterStringPublishedSuccessfully;
 extern NSString * const kNSNotificationCenterStringDeletedSuccessfully;
 
 
+
+#pragma mark - Installation Class
+
+extern NSString * const kStringrInstallationUserKey;
+extern NSString * const kStringrInstallationPrivateChannelsKey;
+
 #pragma mark - PFObject Activity Class
 // Class Key
 extern NSString * const kStringrActivityClassKey;
@@ -152,5 +158,24 @@ extern NSString * const kStringrStringAttributesIsLikedByCurrentUserKey;
 extern NSString * const kStringrStringAttributesLikeCountKey;
 extern NSString * const kStringrStringAttributesCommentCountKey;
 
+
+#pragma mark - PFPush Notification Payload Keys
+
+extern NSString * const kAPNSAlertKey;
+extern NSString * const kAPNSBadgeKey;
+extern NSString * const kAPNSSoundKey;
+
+extern NSString * const kStringrPushPayloadPayloadTypeKey;
+extern NSString * const kStringrPushPayloadPayloadTypeActivityKey;
+
+extern NSString * const kStringrPushPayloadActivityTypeKey;
+extern NSString * const kStringrPushPayloadActivityLikeKey;
+extern NSString * const kStringrPushPayloadActivityCommentKey;
+extern NSString * const kStringrPushPayloadActivityFollowKey;
+
+extern NSString * const kStringrPushPayloadFromUserObjectIdKey;
+extern NSString * const kStringrPushPayloadToUserObjectIdKey;
+extern NSString * const kStringrPushPayloadPhotoObjectIdKey;
+extern NSString * const kStringrPushPayloadStringObjectIDKey;
 
 

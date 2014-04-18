@@ -12,7 +12,7 @@
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrStringDetailViewController.h"
 
-@interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate>
+@interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) StringrPhotoDetailTopViewController *topPhotoVC;
 @property (strong, nonatomic) StringrPhotoDetailTableViewController *tablePhotoVC;
@@ -29,6 +29,12 @@
     [super viewDidLoad];
     
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    
+    [self.stringOwner fetchIfNeededInBackgroundWithBlock:^(PFObject *string, NSError *error) {
+        if (!error) {
+            self.stringOwner = string;
+        }
+    }];
     
     self.topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTopVC"];
     [self.topPhotoVC setPhotosToLoad:self.photosToLoad];
@@ -52,11 +58,12 @@
     } else {
         self.title = @"Photo Details";
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePhoto)];
+        //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePhoto)];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"options_button"] style:UIBarButtonItemStyleBordered target:self action:@selector(photoActionSheet)];
     }
     
     [self.tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[self.selectedPhotoIndex]];
-    [self.tablePhotoVC setStringOwner:self.stringOwner];
     
     [self setupWithTopViewController:self.topPhotoVC andTopHeight:250 andBottomViewController:self.tablePhotoVC];
     
@@ -93,12 +100,15 @@
 
 
 #pragma mark - Actions
-                                              
+
+- (void)photoActionSheet
+{
+    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", nil];
+    [photoOptionsActionSheet showInView:self.view];
+}
+
 - (void)sharePhoto
 {
-    //TODO: Update the ability to share a photo
-    //StringrPhotoDetailTopViewController *topPhotoVC = (StringrPhotoDetailTopViewController *)self.topViewController;
-    
     NSArray *photoToShare = @[[self.topPhotoVC photoAtIndex:self.selectedPhotoIndex]];
     
     if (photoToShare) {
@@ -106,11 +116,13 @@
     
         [self presentViewController:sharePhoto animated:YES completion:nil];
     }
-    
-     
-     
-    //StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-    //[self.navigationController pushViewController:stringDetailVC animated:YES];
+}
+
+- (void)pushToStringOwner
+{
+    StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    [stringDetailVC setStringToLoad:self.stringOwner];
+    [self.navigationController pushViewController:stringDetailVC animated:YES];
 }
 
 // only used on edit photo views
@@ -155,8 +167,21 @@
         direction = ScrolledLeft;
     }
     
+    PFObject *photo = self.photosToLoad[index];
     
-    [self.tablePhotoVC setPhotoDetailsToLoad:self.photosToLoad[index]];
+    /*
+    if ([photo.objectId isEqualToString:[[PFUser currentUser] objectId]]) {
+        StringrPhotoDetailEditTableViewController *editTableVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
+        self.tablePhotoVC = editTableVC;
+        [self.tablePhotoVC setPhotoDetailsToLoad:photo];
+    } else {
+        StringrPhotoDetailTableViewController *tableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
+        self.tablePhotoVC = tableVC;
+        [self.tablePhotoVC setPhotoDetailsToLoad:photo];
+    }
+     */
+    
+    [self.tablePhotoVC setPhotoDetailsToLoad:photo];
     [self.tablePhotoVC reloadPhotoDetailsWithScrollDirection:direction];
     
     self.selectedPhotoIndex = index;
@@ -168,6 +193,19 @@
     [self.navigationController setNavigationBarHidden:!self.navigationBarIsHidden animated:YES];
     self.navigationBarIsHidden = !self.navigationBarIsHidden;
     [self handleTap:nil];
+}
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share Photo"]) {
+        [self sharePhoto];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"String Owner"]) {
+        [self pushToStringOwner];
+    }
 }
 
 @end

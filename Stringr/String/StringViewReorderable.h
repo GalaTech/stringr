@@ -10,12 +10,6 @@
 
 @interface StringViewReorderable : StringView
 
-/** 
- * Adds a given photo to the end of the String.
- * @param photo The photo being added to the String.
- */
-- (void)addImageToString:(UIImage *)image;
-
 /**
  * Removes the given photo from the String.
  * @param photo The photo that you are wanting to remove from the string.

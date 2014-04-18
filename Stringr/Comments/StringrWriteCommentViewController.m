@@ -92,6 +92,61 @@
 }
 
 
+
+#pragma mark - Private
+
+- (void)sendCommentPushNotification
+{
+    // TODO: Set private channel to that of the photo uploader
+    NSString *photoUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+    NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+  
+    // String with the commenters name and the comment
+    NSString *alert = [NSString stringWithFormat:@"%@: %@", currentUsernameFormatted, [self.comment objectForKey:kStringrActivityContentKey]];
+    
+    // make sure to leave enough space for payload overhead
+    if (alert.length > 100) {
+        alert = [alert substringToIndex:89];
+        alert = [alert stringByAppendingString:@"…"];
+    }
+    
+    if (![[[self.objectToCommentOn objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]] && [StringrUtility objectIsString:self.objectToCommentOn]) {
+        if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
+            NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  alert, kAPNSAlertKey,
+                                  @"increment", kAPNSBadgeKey,
+                                  kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                  kStringrPushPayloadActivityCommentKey, kStringrPushPayloadActivityTypeKey,
+                                  [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                  [self.objectToCommentOn objectId], kStringrPushPayloadStringObjectIDKey,
+                                  nil];
+            
+            PFPush *likePhotoPushNotification = [[PFPush alloc] init];
+            [likePhotoPushNotification setChannel:photoUploaderPrivatePushChannel];
+            [likePhotoPushNotification setData:data];
+            [likePhotoPushNotification sendPushInBackground];
+        }
+    } else if (![[[self.objectToCommentOn objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]] && ![StringrUtility objectIsString:self.objectToCommentOn]) {
+        if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
+            NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  alert, kAPNSAlertKey,
+                                  @"increment", kAPNSBadgeKey,
+                                  kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                  kStringrPushPayloadActivityCommentKey, kStringrPushPayloadActivityTypeKey,
+                                  [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                  [self.objectToCommentOn objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                  nil];
+            
+            PFPush *likePhotoPushNotification = [[PFPush alloc] init];
+            [likePhotoPushNotification setChannel:photoUploaderPrivatePushChannel];
+            [likePhotoPushNotification setData:data];
+            [likePhotoPushNotification sendPushInBackground];
+        }
+    }
+}
+
+
+
 #pragma mark - Actions
 
 - (void)postComment
@@ -102,6 +157,7 @@
                 if (!error) {
                     //[self.objectToCommentOn saveInBackground]; // save to incrememnt comment count // can't save to a string/photo that is read only...
                     [self.delegate reloadCommentTableView];
+                    [self sendCommentPushNotification];
                 } else if (error && error.code == kPFErrorObjectNotFound) {
                     [[StringrCache sharedCache] decrementCommentCountForObject:self.objectToCommentOn];
                 }

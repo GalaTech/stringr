@@ -65,8 +65,23 @@
 #pragma mark - Public
 
 - (void)addNewImageToString:(UIImage *)image
-{    
-    [self.stringReorderableCollectionView addImageToString:image];
+{
+    // creates a local weak version of self so that I can use it inside of the block
+    __weak typeof(self) weakSelf = self;
+    
+    [self.stringReorderableCollectionView addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
+        if (succeeded) {
+            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+            [editPhotoVC setEditDetailsEnabled:YES];
+            [editPhotoVC setStringOwner:weakSelf.stringToLoad];
+            [editPhotoVC setSelectedPhotoIndex:0];
+            [editPhotoVC setPhotosToLoad:@[photo]];
+            
+            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+            
+            [weakSelf presentViewController:navVC animated:YES completion:nil];
+        }
+    }];
 }
 
 - (void)saveString

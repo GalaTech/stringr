@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) id<StringrWriteCommentDelegate> delegate;
 @property (strong, nonatomic) PFObject *objectToCommentOn;
+@property (strong, nonatomic) NSArray *commentors;
 
 @end
 

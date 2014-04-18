@@ -59,63 +59,53 @@
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             for (PFObject *activity in likes) {
-                [activity delete]; // maybe delete in background?
+                [activity deleteInBackground]; // maybe delete in background?
             }
         }
-        
-        
-        PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-        [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
-        [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-        [likeActivity setObject:[photo objectForKey:kStringrPhotoUserKey] forKey:kStringrActivityToUserKey];
-        [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
-        
-        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [likeACL setPublicReadAccess:YES];
-        
-        [likeActivity setACL:likeACL];
-        
-        
-        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (completionBlock) {
-                completionBlock(succeeded, error);
-            }
-            
-            if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                // send push notification to photo uploader
-            }
-            
-            /*
-            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:photo cachePolicy:kPFCachePolicyNetworkOnly];
-            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                if (!error) {
-                    NSMutableArray *likers = [[NSMutableArray alloc] init];
-                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
-                    
-                    BOOL isLikedByCurrentUser = NO;
-                    
-                    for (PFObject *activity in activities) {
-                        // add user to likers array if they like the current string/photo
-                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [likers addObject:kStringrActivityFromUserKey];
-                            
-                            // if the current user is one of the likers we set them to liking the string/photo
-                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                            
-                            // add user to commentors if they commented on the current string/photo
-                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [commentors addObject:kStringrActivityFromUserKey];
-                        }
-                    }
-                    
-                    [[StringrCache sharedCache] setAttributesForObject:photo likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
-                }
-            }];
-            */
-        }];
     }];
+    
+    PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+    [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
+    [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+    [likeActivity setObject:[photo objectForKey:kStringrPhotoUserKey] forKey:kStringrActivityToUserKey];
+    [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
+    
+    PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setPublicReadAccess:YES];
+    
+    [likeActivity setACL:likeACL];
+    
+    
+    [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (completionBlock) {
+            completionBlock(succeeded, error);
+        }
+        
+        if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            
+            // TODO: Set private channel to that of the photo uploader
+            NSString *photoUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+            
+            if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
+                NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+                
+                NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSString stringWithFormat:@"%@ liked your photo!", currentUsernameFormatted], kAPNSAlertKey,
+                                      @"increment", kAPNSBadgeKey,
+                                      kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                      kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
+                                      [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                      [photo objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                      nil];
+                
+                PFPush *likePhotoPushNotification = [[PFPush alloc] init];
+                [likePhotoPushNotification setChannel:photoUploaderPrivatePushChannel];
+                [likePhotoPushNotification setData:data];
+                [likePhotoPushNotification sendPushInBackground];
+            }
+        }
+    }];
+    
 }
 
 + (void)unlikePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
@@ -128,42 +118,12 @@
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             for (PFObject *activity in likes) {
-                [activity delete];
+                [activity deleteInBackground];
             }
             
             if (completionBlock) {
                 completionBlock(YES, nil);
             }
-            
-            /*
-            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:photo cachePolicy:kPFCachePolicyNetworkOnly];
-            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                if (!error) {
-                    NSMutableArray *likers = [[NSMutableArray alloc] init];
-                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
-                    
-                    BOOL isLikedByCurrentUser = NO;
-                    
-                    for (PFObject *activity in activities) {
-                        // add user to likers array if they like the current string/photo
-                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [likers addObject:kStringrActivityFromUserKey];
-                            
-                            // if the current user is one of the likers we set them to liking the string/photo
-                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                            
-                            // add user to commentors if they commented on the current string/photo
-                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [commentors addObject:kStringrActivityFromUserKey];
-                        }
-                    }
-                    
-                    [[StringrCache sharedCache] setAttributesForObject:photo likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
-                }
-            }];
-            */
         } else {
             if (completionBlock) {
                 completionBlock(NO, error);
@@ -203,38 +163,30 @@
             }
             
             if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                // send push notification to photo uploader
-            }
-            
-            /*
-            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:string cachePolicy:kPFCachePolicyNetworkOnly];
-            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                if (!error) {
-                    NSMutableArray *likers = [[NSMutableArray alloc] init];
-                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
                     
-                    BOOL isLikedByCurrentUser = NO;
+                    // TODO: Set private channel to that of the string uploader
+                    NSString *stringUploaderPrivatePushChannel = @"user_4Lr24ej01N";
                     
-                    for (PFObject *activity in activities) {
-                        // add user to likers array if they like the current string/photo
-                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [likers addObject:kStringrActivityFromUserKey];
-                            
-                            // if the current user is one of the likers we set them to liking the string/photo
-                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                            
-                            // add user to commentors if they commented on the current string/photo
-                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [commentors addObject:kStringrActivityFromUserKey];
-                        }
+                    if (stringUploaderPrivatePushChannel && stringUploaderPrivatePushChannel.length != 0) {
+                        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+                        
+                        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              [NSString stringWithFormat:@"%@ liked your string!", currentUsernameFormatted], kAPNSAlertKey,
+                                              @"increment", kAPNSBadgeKey,
+                                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                              kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
+                                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                              [string objectId], kStringrPushPayloadStringObjectIDKey,
+                                              nil];
+                        
+                        PFPush *likeStringPushNotification = [[PFPush alloc] init];
+                        [likeStringPushNotification setChannel:stringUploaderPrivatePushChannel];
+                        [likeStringPushNotification setData:data];
+                        [likeStringPushNotification sendPushInBackground];
                     }
-                    
-                    [[StringrCache sharedCache] setAttributesForObject:string likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
                 }
-            }];
-             */
+            }
         }];
     }];
 }
@@ -255,36 +207,6 @@
             if (completionBlock) {
                 completionBlock(YES, nil);
             }
-            
-            /*
-            PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:string cachePolicy:kPFCachePolicyNetworkOnly];
-            [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                if (!error) {
-                    NSMutableArray *likers = [[NSMutableArray alloc] init];
-                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
-                    
-                    BOOL isLikedByCurrentUser = NO;
-                    
-                    for (PFObject *activity in activities) {
-                        // add user to likers array if they like the current string/photo
-                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [likers addObject:kStringrActivityFromUserKey];
-                            
-                            // if the current user is one of the likers we set them to liking the string/photo
-                            if ([[[activity objectForKey:kStringrActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                            
-                            // add user to commentors if they commented on the current string/photo
-                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [commentors addObject:kStringrActivityFromUserKey];
-                        }
-                    }
-                    
-                    [[StringrCache sharedCache] setAttributesForObject:string likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
-                }
-            }];
-             */
         } else {
             if (completionBlock) {
                 completionBlock(NO, error);
@@ -396,9 +318,9 @@
 
 + (void)sendFollowingPushNotification:(PFUser *)user
 {
+    /*
     NSString *privateChannelName = [user objectForKey:kStringrUserPrivateChannelKey];
     if (privateChannelName && privateChannelName.length != 0) {
-        /*
         NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%@ is now following you!", [StringrUtility firstNameForDisplayName:[[PFUser currentUser] objectForKey:kPAPUserDisplayNameKey]]], kAPNSAlertKey,
                               kPAPPushPayloadPayloadTypeActivityKey, kPAPPushPayloadPayloadTypeKey,
@@ -409,7 +331,27 @@
         [push setChannel:privateChannelName];
         [push setData:data];
         [push sendPushInBackground];
-         */
+    }
+    */
+    
+    // TODO: set private channel to that of the parameter 'user'
+    NSString *followedUserPrivatePushChannel = @"user_4Lr24ej01N";
+    
+    if (followedUserPrivatePushChannel && followedUserPrivatePushChannel.length != 0) {
+        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%@ is now following you!", currentUsernameFormatted], kAPNSAlertKey,
+                              @"increment", kAPNSBadgeKey,
+                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                              kStringrPushPayloadActivityFollowKey, kStringrPushPayloadActivityTypeKey,
+                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              nil];
+        
+        PFPush *likeStringPushNotification = [[PFPush alloc] init];
+        [likeStringPushNotification setChannel:followedUserPrivatePushChannel];
+        [likeStringPushNotification setData:data];
+        [likeStringPushNotification sendPushInBackground];
     }
 }
 
@@ -690,17 +632,16 @@
     NSMutableParagraphStyle *textAlignment = [[NSMutableParagraphStyle alloc] init];
     [textAlignment setAlignment:NSTextAlignmentLeft];
     
-    NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: NSFontAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13],
-                                    NSParagraphStyleAttributeName, textAlignment,
-                                    NSForegroundColorAttributeName, [UIColor darkGrayColor], nil];
+    NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13], NSFontAttributeName,
+                                    textAlignment, NSParagraphStyleAttributeName,
+                                    [UIColor darkGrayColor], NSForegroundColorAttributeName,  nil];
     
     CGSize maxLabelSize = CGSizeMake(280, FLT_MAX);
-    
     CGRect rectForLabel = [text boundingRectWithSize:maxLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:textAttributes context:nil];
     
     CGFloat labelHeight = rectForLabel.size.height;
-    CGFloat marginSpace = ((labelHeight / 13) * 3) + 25;
-    CGFloat cellHeight = labelHeight + marginSpace;
+   // CGFloat marginSpace = ((labelHeight / 13) * 3);
+    CGFloat cellHeight = labelHeight + 30;
     
     
     return  cellHeight;

@@ -166,9 +166,12 @@
             
             return  [StringrUtility heightForLabelWithNSString:descriptionText]; // the 31 is for additional margin space
         }
-    } else if (indexPath.section == 1) {
+    }
+    
+    /*else if (indexPath.section == 1) {
         return 55.0f;
     }
+     */
     
     return 44.0f;
 }

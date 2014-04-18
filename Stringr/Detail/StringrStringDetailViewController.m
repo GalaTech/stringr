@@ -27,15 +27,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTopVC"];
     [self.stringTopVC setStringToLoad:self.stringToLoad];
     
     self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTableVC"];
     [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
-    
-    
-
     
     if (self.editDetailsEnabled) {
         self.title = @"Publish String";
@@ -196,8 +193,14 @@
 {
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
-        [topVC addNewImageToString:image];
+        
+        if (self.editDetailsEnabled) {
+            StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+            [topVC addNewImageToString:image];
+        } else {
+            StringrStringDetailTopViewController *topVC = (StringrStringDetailTopViewController *)self.stringTopVC;
+            [topVC addImageToPublicString:image];
+        }
     }];
 }
 

@@ -8,6 +8,7 @@
 
 #import "StringrStringDetailTopViewController.h"
 #import "StringrPhotoDetailViewController.h"
+#import "StringrNavigationController.h"
 #import "StringrFooterView.h"
 
 @interface StringrStringDetailTopViewController ()
@@ -50,7 +51,27 @@
 {
     [super didReceiveMemoryWarning];
 }
- 
+
+
+- (void)addImageToPublicString:(UIImage *)image
+{
+    // creates a local weak version of self so that I can use it inside of the block
+    __weak typeof(self) weakSelf = self;
+
+    [self.stringCollectionView addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
+        if (succeeded) {
+            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+            [editPhotoVC setEditDetailsEnabled:YES];
+            [editPhotoVC setStringOwner:weakSelf.stringToLoad];
+            [editPhotoVC setSelectedPhotoIndex:0];
+            [editPhotoVC setPhotosToLoad:@[photo]];
+            
+            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+            
+            [weakSelf presentViewController:navVC animated:YES completion:nil];
+        }
+    }];
+}
 
 
 
@@ -61,16 +82,28 @@
     if (photos)
     {
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
-        
-        [photoDetailVC setEditDetailsEnabled:NO];
+        [photoDetailVC setStringOwner:string];
         
         // Sets the initial photo to the selected cell's PFObject photo data
         [photoDetailVC setPhotosToLoad:photos];
         [photoDetailVC setSelectedPhotoIndex:index];
-        [photoDetailVC setStringOwner:string];
+        [photoDetailVC setEditDetailsEnabled:NO];
+
+        /*
+        PFObject *photo = [photos objectAtIndex:index];
+        if ([[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            [photoDetailVC setPhotosToLoad:@[photo]];
+            [photoDetailVC setSelectedPhotoIndex:0];
+            [photoDetailVC setEditDetailsEnabled:YES];
+        } else {
+            // Sets the initial photo to the selected cell's PFObject photo data
+            [photoDetailVC setPhotosToLoad:photos];
+            [photoDetailVC setSelectedPhotoIndex:index];
+            [photoDetailVC setEditDetailsEnabled:NO];
+        }
+         */
         
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
 }

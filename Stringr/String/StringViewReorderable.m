@@ -37,7 +37,7 @@
 
 #pragma mark - Public
 
-- (void)addImageToString:(UIImage *)image
+- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
 {
     if (image) {
         PFObject *photo = [PFObject objectWithClassName:kStringrPhotoClassKey];
@@ -59,11 +59,6 @@
         [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
         [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
         
-        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]];
-        [photoACL setPublicReadAccess:YES];
-        [photo setACL:photoACL];
-        
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 int indexOfImagePhoto = [self.collectionViewPhotos indexOfObject:resizedImage];
@@ -71,6 +66,10 @@
                 
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
                 [self.stringLargeReorderableCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }
+            
+            if (completionBlock) {
+                completionBlock(succeeded, photo, error);
             }
         }];
         
@@ -84,6 +83,9 @@
         } else {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.collectionViewPhotos.count - 1 inSection:0];
             [self.stringLargeReorderableCollectionView insertItemsAtIndexPaths:@[indexPath]];
+            
+            // scroll's user to the new photo they just added. 
+            [self.stringLargeReorderableCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
         }
         
     }
@@ -125,6 +127,12 @@
         if (self.stringToLoad) {
             for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                 PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
+                
+                PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+                [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
+                [photoACL setPublicReadAccess:YES];
+                [photo setACL:photoACL];
+                
                 [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                 [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
                 [photo saveEventually];
@@ -145,10 +153,22 @@
             [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
 
             self.stringToLoad = newString;
+            
+            PFACL *stringACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            [stringACL setPublicReadAccess:YES];
+            [stringACL setPublicWriteAccess:self.stringWriteAccess];
+            [self.stringToLoad setACL:stringACL];
+            
             [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                         PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
+                        
+                        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+                        [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
+                        [photoACL setPublicReadAccess:YES];
+                        [photo setACL:photoACL];
+                        
                         [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                         [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
                         [photo saveEventually];
@@ -197,6 +217,9 @@
         for (PFObject *photo in self.collectionViewPhotos) {
             [photo deleteEventually];
         }
+        
+        [[PFUser currentUser] incrementKey:kStringrUserNumberOfStringsKey byAmount:@(-1)];
+        [[PFUser currentUser] saveEventually];
     }
 }
 

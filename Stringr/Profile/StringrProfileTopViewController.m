@@ -204,6 +204,7 @@
     
     [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
         [self.followUserButtonLoadingIndicator stopAnimating];
+        [StringrUtility sendFollowingPushNotification:self.userForProfile];
         if (error) {
             [self configureFollowButton];
         }

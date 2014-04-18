@@ -65,11 +65,6 @@
     //[self.facebookLoginButton setUserInteractionEnabled:NO];
     //[self.userNeedsToVerifyEmailButton setUserInteractionEnabled:NO];
     
-    
-
-    
-    
-    
     [self setupBlurredUsernameAndPasswordBackgrounds];
     [self setupTextFieldDesign];
     
@@ -309,6 +304,9 @@
             [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
             [self.loginActivityIndicator stopAnimating];
             [self dismissViewControllerAnimated:YES completion:nil];
+            
+            // alert delegate that we logged in with user
+            [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
         } else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
             StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
             [self.loginActivityIndicator stopAnimating];
@@ -351,32 +349,7 @@
                 [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
                 [[PFUser currentUser] setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
             //}
-            
-            /*
-            if ([self didAttendCollege:userData]) {
-                NSLog(@"YES! They are a college student!");
-                
-                [[PFUser currentUser] setObject:self.universityNames[0] forKey:kStringrUserSelectedUniversityKey];
-                [[PFUser currentUser] setObject:self.universityNames forKey:kStringrUserUniversitiesKey];
-                
-                // changes the modal transition from a cross-fade
-                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            } else {
-                NSLog(@"not a college student...");
-                
-                // not needed because we log the user out and return before the info is saved.
-                //[[PFUser currentUser] setObject:@(NO) forKey:@"isCollegeStudent"];
-                
-                UIAlertView *notACollegeStudent = [[UIAlertView alloc] initWithTitle:@"Unable to Login" message:@"You must be a college student to login!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                [notACollegeStudent show];
-                
-                // Logs the user out so that they can attempt in the future. Otherwise it will always attempt
-                // a login on the initial account that was entered.
-                [PFUser logOut];
-                return;
-            }
-             */
+
             
             // I might just add the addition of geo location when a user attempts to select a location based page
             /*
@@ -461,26 +434,6 @@
     
 }
 
-// Fast enumerates through the data of the users Facebook info.
-// It checks all of their college info to see if they attended a
-// college.
-- (BOOL)didAttendCollege:(NSDictionary *)userData
-{
-    self.universityNames = [[NSMutableArray alloc] init];
-    
-    for (FBGraphObject *educationObject in userData[@"education"]) {
-        NSString *educationType = educationObject[@"type"];
-        
-        if ([educationType isEqualToString:@"College"]) {
-            NSString *universityName = educationObject[@"school"][@"name"];
-            [self.universityNames addObject:universityName];
-            
-        }
-    }
-    
-    return self.universityNames.count > 0;
-}
-
 - (void)downloadProfileImage
 {
     // Download the user's social network profile picture
@@ -547,12 +500,14 @@
         UIAlertView *noPasswordEntered = [[UIAlertView alloc] initWithTitle:@"Invalid Password" message:@"Please enter your password!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [noPasswordEntered show];
     } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
-        
         // instantiates the main logged in content area
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
         [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self dismissViewControllerAnimated:YES completion:nil];
+        
+        // alert delegate that we logged in with user
+        [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
     } else if ([StringrUtility usernameUserNeedsToVerifyEmail:user]) {
         [self.userNeedsToVerifyEmailButton setHidden:NO];
         StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];

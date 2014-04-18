@@ -7,12 +7,19 @@
 //
 
 #import "StringrActivityTableViewController.h"
+#import "StringrActivityTableViewCell.h"
+#import "StringrProfileViewController.h"
+#import "StringrNavigationController.h"
+#import "StringrStringDetailViewController.h"
+#import "StringrPhotoDetailViewController.h"
 
-@interface StringrActivityTableViewController ()
+@interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
 
 @end
 
 @implementation StringrActivityTableViewController
+
+#pragma mark - Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +36,9 @@
     
     if (self) {
         self.parseClassName = kStringrActivityClassKey;
+        self.pullToRefreshEnabled = YES;
+        self.paginationEnabled = YES;
+        self.objectsPerPage = 15;
     }
     
     return self;
@@ -46,15 +56,154 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+
+#pragma mark - Private
+
++ (NSString *)stringForActivityType:(NSString *)activityType
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([activityType isEqualToString:kStringrActivityTypeLike]) {
+        return kStringrActivityTypeLike;
+    } else if ([activityType isEqualToString:kStringrActivityTypeComment]) {
+        return kStringrActivityTypeComment;
+    } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
+        return kStringrActivityTypeFollow;
+    } else {
+        return nil;
+    }
 }
-*/
+
+
+
+#pragma mark - UITableViewController DataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.objects.count;
+}
+
+
+
+
+#pragma mark - UITableViewController Delegate
+
+/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 75.0f;
+}
+ */
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.0f, 0.0f)];
+    return footerView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row];
+    NSString *activityType = [objectForIndexPath objectForKey:kStringrActivityTypeKey];
+    
+    if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
+        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        [stringDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:stringDetailVC animated:YES];
+    } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        
+        PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
+        [photoDetailVC setPhotosToLoad:@[photo]];
+        [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:photoDetailVC animated:YES];
+    } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
+        [profileVC setProfileReturnState:ProfileBackReturnState];
+        [profileVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:profileVC animated:YES];
+    }
+}
+
+
+#pragma mark - PFQueryTableViewController Delegate
+
+- (PFQuery *)queryForTable
+{
+    // if there is no current user the query will return 0 objects
+    if (![PFUser currentUser]) {
+        PFQuery *activityQuery = [PFQuery queryWithClassName:self.parseClassName];
+        [activityQuery setLimit:0];
+        return activityQuery;
+    }
+    
+    PFQuery *activityQuery = [PFQuery queryWithClassName:self.parseClassName];
+    [activityQuery whereKey:kStringrActivityToUserKey equalTo:[PFUser currentUser]];
+    [activityQuery whereKey:kStringrActivityFromUserKey notEqualTo:[PFUser currentUser]];
+    [activityQuery whereKeyExists:kStringrActivityFromUserKey];
+    [activityQuery includeKey:kStringrActivityFromUserKey];
+    [activityQuery includeKey:kStringrActivityStringKey];
+    [activityQuery includeKey:kStringrActivityPhotoKey];
+    [activityQuery setCachePolicy:kPFCachePolicyNetworkOnly];
+    [activityQuery orderByDescending:@"createdAt"];
+    
+    // perform conditional to check if there is a network connection
+    
+    return activityQuery;
+}
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
+{
+    static NSString *cellIdentifier = @"activityCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[StringrActivityTableViewCell class]]) {
+        StringrActivityTableViewCell *activityCell = (StringrActivityTableViewCell *)cell;
+        [activityCell setDelegate:self];
+        [activityCell setObjectForActivityCell:object];
+        [activityCell setRowForActivityCell:indexPath.row];
+        
+    }
+    
+    
+    return cell;
+}
+
+
+
+
+#pragma mark - StringrActivityTableViewCell Delegate
+
+- (void)tappedActivityUserProfileImage:(PFUser *)user
+{
+    if (user) {
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        
+        [profileVC setUserForProfile:user];
+        [profileVC setProfileReturnState:ProfileModalReturnState];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+        
+        [self presentViewController:navVC animated:YES completion:nil];
+    }
+}
+
 
 @end
