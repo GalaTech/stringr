@@ -78,9 +78,9 @@ NSString * const kNSNotificationCenterUploadNewStringKey = @"co.galatech.Stringr
 NSString * const kNSNotificationCenterDeletePhotoFromStringKey = @"co.galatech.Stringr.NSNotificationCenter.deletePhotoFromString";
 NSString * const kNSNotificationCenterUpdateMenuProfileImage = @"co.galatech.Stringr.NSNotificationCenter.updateMenuProfileImage";
 NSString * const kNSNotificationCenterUpdateMenuProfileName = @"co.galatech.Stringr.NSNotificationCenter.updateMenuProfileName";
-NSString * const kNSNotificationCenterStringPublishedSuccessfully = @"co.galatech.String.NSNotificationCenter.stringPublishedSuccessfully";
-NSString * const kNSNotificationCenterStringDeletedSuccessfully = @"co.galatech.String.NSNotificationCenter.stringDeletedSuccessfully";
-
+NSString * const kNSNotificationCenterStringPublishedSuccessfully = @"co.galatech.Stringr.NSNotificationCenter.stringPublishedSuccessfully";
+NSString * const kNSNotificationCenterStringDeletedSuccessfully = @"co.galatech.Stringr.NSNotificationCenter.stringDeletedSuccessfully";
+NSString * const kNSNotificationCenterApplicationDidReceiveRemoteNotification = @"co.galatech.Stringr.NSNotificationCenter.applicationDidReceivePushNotification";
 
 
 
@@ -104,13 +104,23 @@ NSString * const kStringrActivityContentKey = @"content";
 NSString * const kStringrActivityStringKey = @"string";
 NSString * const kStringrActivityPhotoKey = @"photo";
 
-
 // Type values
 NSString * const kStringrActivityTypeLike = @"like";
 NSString * const kStringrActivityTypeComment = @"comment";
 NSString * const kStringrActivityTypeFollow = @"follow";
 NSString * const kStringrActivityTypeJoin = @"join";
 
+
+
+
+#pragma mark - Statistics
+// Class Key
+NSString *const kStringrStatisticsClassKey = @"Statistics";
+
+// Field Keys
+NSString * const kStringrStatisticsStringKey = @"string";
+NSString * const kStringrStatisticsLikeCountKey = @"likeCount";
+NSString * const kStringrStatisticsCommentCountKey = @"commentCount";
 
 
 
@@ -173,9 +183,7 @@ NSString * const kStringrStringPhotosKey = @"photos";
 NSString * const kStringrStringUserKey = @"user";
 NSString * const kStringrStringTitleKey = @"title";
 NSString * const kStringrStringDescriptionKey = @"description";
-NSString * const kStringrStringNumberOfLikesKey = @"numberOfLikes";
-NSString * const kStringrStringNumberOfCommentsKey = @"numberOfComments";
-
+NSString * const kStringrStringStatisticsKey = @"statistics";
 
 
 
@@ -184,6 +192,8 @@ NSString * const kStringrStringNumberOfCommentsKey = @"numberOfComments";
 
 NSString * const kStringrUserAttributesIsFollowedByCurrentUserKey = @"isFollowedByCurrentUser";
 NSString * const kStringrUserAttributesStringCountKey = @"stringCount";
+NSString * const kStringrUserAttributesFollowingCountKey = @"followingCount";
+NSString * const kStringrUserAttributesFollowerCountKey = @"followerCount";
 
 
 
@@ -221,4 +231,62 @@ NSString * const kStringrPushPayloadFromUserObjectIdKey = @"fu";
 NSString * const kStringrPushPayloadToUserObjectIdKey = @"tu";
 NSString * const kStringrPushPayloadPhotoObjectIdKey = @"pid";
 NSString * const kStringrPushPayloadStringObjectIDKey = @"sid";
+
+
+
+
+#pragma mark - Storyboard Ids
+
+// Init and Login
+NSString * const kStoryboardRootViewID = @"rootVC";
+NSString * const kStoryboardLoginID = @"loginVC";
+NSString * const kStoryboardMenuID = @"StringrMenuViewController";
+
+// Signup
+NSString * const kStoryboardSignupWithEmailID = @"signupWithEmailVC";
+NSString * const kStoryboardEmailVerificationID = @"emailVerificationVC";
+NSString * const kStoryboardSignupWithSocialNetworkID = @"signupWithSocialNetworkVC";
+
+// Profile
+NSString * const kStoryboardProfileID = @"profileVC";
+NSString * const kStoryboardProfileTopViewID = @"TopProfileVC";
+NSString * const kStoryboardProfileTableViewID = @"TableProfileVC";
+NSString * const kStoryboardProfileConnectionsID = @"FollowersVC";
+NSString * const kStoryboardEditProfileID = @"EditProfileVC";
+
+// String Tables
+NSString * const kStoryboardStringTableID = @"stringTableVC";
+NSString * const kStoryboardMyStringsID = @"MyStringsVC";
+NSString * const kStoryboardLikedStringsID = @"LikedStringsVC";
+
+// Comments/Writing
+NSString * const kStoryboardCommentsID = @"StringCommentsVC";
+NSString * const kStoryboardWriteCommentID = @"writeCommentVC";
+NSString * const kStoryboardWriteAndEditID = @"writeAndEditVC";
+
+// String Detail
+NSString * const kStoryboardStringDetailID = @"stringDetailVC";
+NSString * const kStoryboardStringDetailTopViewID = @"stringDetailTopVC";
+NSString * const kStoryboardStringDetailTableViewID = @"stringDetailTableVC";
+NSString * const kStoryboardEditStringDetailTopViewID = @"stringDetailEditTopVC";
+NSString * const kStoryboardEditStringDetailTableViewID = @"stringDetailEditTableVC";
+
+// Photo Detail
+NSString * const kStoryboardPhotoDetailID = @"photoDetailVC";
+NSString * const kStoryboardPhotoDetailTopViewID = @"photoDetailTopVC";
+NSString * const kStoryboardPhotoDetailTableViewID = @"photoDetailTableVC";
+NSString * const kStoryboardEditPhotoDetailTableViewID = @"photoDetailEditTableVC";
+
+// Activity
+NSString * const kStoryboardActivityTableID = @"activityVC";
+
+// Search
+NSString * const kStoryboardSearchStringsID = @"SearchStringsVC";
+NSString * const kStoryboardSearchUsersID = @"SearchFindPeopleVC";
+
+// Settings
+NSString * const kStoryboardSettingsID = @"SettingsVC";
+NSString * const kStoryboardFindAndInviteFriendsID = @"findAndInviteFriendsVC";
+NSString * const kStoryboardPrivacyPolicyToSID = @"privacyPolicyToSVC";
+
 

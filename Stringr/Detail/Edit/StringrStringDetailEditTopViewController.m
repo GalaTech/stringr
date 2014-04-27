@@ -71,7 +71,7 @@
     
     [self.stringReorderableCollectionView addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
         if (succeeded) {
-            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             [editPhotoVC setEditDetailsEnabled:YES];
             [editPhotoVC setStringOwner:weakSelf.stringToLoad];
             [editPhotoVC setSelectedPhotoIndex:0];
@@ -153,7 +153,7 @@
         // makes sure that we aren't trying to move to the photo viewer with something that isn't a photo PFObject
         if (photo && [photo isKindOfClass:[PFObject class]]) {
             
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             
             [photoDetailVC setEditDetailsEnabled:YES];
             [photoDetailVC setDelegateForPhotoController:self]; // allows for deletion

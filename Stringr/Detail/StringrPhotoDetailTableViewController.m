@@ -190,7 +190,7 @@
     switch (indexPath.section) {
         case 1:
             if (indexPath.row == 0) {
-                StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+                StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
                 [stringDetailVC setStringToLoad:self.stringOwner];
                 [self.navigationController pushViewController:stringDetailVC animated:YES];
             }

@@ -25,4 +25,21 @@
 }
 
 
+
+
+#pragma mark - PFQueryTableViewController Delegate
+
+- (PFQuery *)queryForTable
+{
+    PFQuery *likedStringsQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [likedStringsQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
+    [likedStringsQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [likedStringsQuery whereKeyExists:kStringrActivityStringKey];
+    [likedStringsQuery includeKey:kStringrActivityStringKey];
+    [likedStringsQuery orderByAscending:@"createdAt"];
+    [likedStringsQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+    
+    return likedStringsQuery;
+}
+
 @end

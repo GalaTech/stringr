@@ -87,6 +87,33 @@
     return [NSNumber numberWithInt:0];
 }
 
+- (NSNumber *)followingCountForUser:(PFUser *)user
+{
+    NSDictionary *attributes = [self attributesForUser:user];
+    if (attributes) {
+        NSNumber *followingCount = [attributes objectForKey:kStringrUserAttributesFollowingCountKey];
+        if (followingCount) {
+            return followingCount;
+        }
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
+
+
+- (NSNumber *)followerCountForUser:(PFUser *)user
+{
+    NSDictionary *attributes = [self attributesForUser:user];
+    if (attributes) {
+        NSNumber *followerCount = [attributes objectForKey:kStringrUserAttributesFollowerCountKey];
+        if (followerCount) {
+            return followerCount;
+        }
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
+
 
 
 #pragma mark - Set User Attributes
@@ -119,6 +146,19 @@
     [self setAttributes:attributes forUser:user];
 }
 
+- (void)setFollowingCount:(NSNumber *)count forUser:(PFUser *)user
+{
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithDictionary:[self attributesForUser:user]];
+    [attributes setObject:count forKey:kStringrUserAttributesFollowingCountKey];
+    [self setAttributes:attributes forUser:user];
+}
+
+- (void)setFollowerCount:(NSNumber *)count forUser:(PFUser *)user
+{
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithDictionary:[self attributesForUser:user]];
+    [attributes setObject:count forKey:kStringrUserAttributesFollowerCountKey];
+    [self setAttributes:attributes forUser:user];
+}
 
 
 #pragma mark - Set Object Attributes

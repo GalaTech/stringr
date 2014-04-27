@@ -27,56 +27,63 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTopVC"];
-    [self.stringTopVC setStringToLoad:self.stringToLoad];
     
-    self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTableVC"];
-    [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
     
-    if (self.editDetailsEnabled) {
-        self.title = @"Publish String";
-        
-        UIBarButtonItem *publishStringButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload_button"]
-                                                                                style:UIBarButtonItemStyleBordered
-                                                                               target:self
-                                                                               action:@selector(saveAndPublishString)];
-        
-        UIBarButtonItem *addNewPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
-        [self.navigationItem setRightBarButtonItems:@[publishStringButton, addNewPhotoButton]  animated:NO];
-        
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"]
-                                                                                     style:UIBarButtonItemStyleBordered
-                                                                                    target:self
-                                                                                    action:@selector(returnToPreviousScreen)];
-        
-        
-        // notice that there is explicit casting for these classes.
-        self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
-        [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
-        [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
-        
-        self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
-        [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
-        [self.stringTableVC setEditDetailsEnabled:YES];
-        
-        StringrStringDetailEditTableViewController *tableVC = (StringrStringDetailEditTableViewController *)self.stringTableVC;
-        [tableVC setDelegate:self];
-        
-        [(StringrStringDetailEditTableViewController *)self.stringTableVC setDelegate:(StringrStringDetailEditTopViewController *)self.stringTopVC];
-    } else {
-        self.title = @"String Details";
-        
-        if ([self.stringToLoad.ACL getPublicWriteAccess]) {
-            UIBarButtonItem *addNewPhotoToPublicString = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
-            self.navigationItem.rightBarButtonItem = addNewPhotoToPublicString;
-        }
-    }
+    //[self.stringToLoad fetchIfNeededInBackgroundWithBlock:^(PFObject *stringObject, NSError *error) {
+        //if (!error) {
+            //self.stringToLoad = stringObject;
+            self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailTopViewID];
+            [self.stringTopVC setStringToLoad:self.stringToLoad];
+            
+            self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailTableViewID];
+            [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
+            
+            if (self.editDetailsEnabled) {
+                self.title = @"Publish String";
+                
+                UIBarButtonItem *publishStringButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload_button"]
+                                                                                        style:UIBarButtonItemStyleBordered
+                                                                                       target:self
+                                                                                       action:@selector(saveAndPublishString)];
+                
+                UIBarButtonItem *addNewPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
+                [self.navigationItem setRightBarButtonItems:@[publishStringButton, addNewPhotoButton]  animated:NO];
+                
+                self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"]
+                                                                                         style:UIBarButtonItemStyleBordered
+                                                                                        target:self
+                                                                                        action:@selector(returnToPreviousScreen)];
+                
+                
+                // notice that there is explicit casting for these classes.
+                self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTopViewID];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
+                
+                self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTableViewID];
+                [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
+                [self.stringTableVC setEditDetailsEnabled:YES];
+                
+                StringrStringDetailEditTableViewController *tableVC = (StringrStringDetailEditTableViewController *)self.stringTableVC;
+                [tableVC setDelegate:self];
+                
+                [(StringrStringDetailEditTableViewController *)self.stringTableVC setDelegate:(StringrStringDetailEditTopViewController *)self.stringTopVC];
+            } else {
+                self.title = @"String Details";
+                
+                if ([self.stringToLoad.ACL getPublicWriteAccess]) {
+                    UIBarButtonItem *addNewPhotoToPublicString = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
+                    self.navigationItem.rightBarButtonItem = addNewPhotoToPublicString;
+                }
+            }
+            
+            [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
+            
+            self.maxHeightBorder = CGRectGetHeight(self.view.frame);
+            [self enableTapGestureTopView:NO];
+       // }
+  //  }];
     
-    [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
-    
-    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
-    [self enableTapGestureTopView:NO];
 }
 
 

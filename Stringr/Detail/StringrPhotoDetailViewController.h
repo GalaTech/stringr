@@ -13,11 +13,19 @@
 
 @interface StringrPhotoDetailViewController : StringrDetailViewController
 
-@property (strong, nonatomic) NSArray *stringImages;
-@property (strong, nonatomic) UIImage *currentImage;
+//@property (strong, nonatomic) NSArray *stringImages;
+//@property (strong, nonatomic) UIImage *currentImage;
 
 @property (strong, nonatomic) NSArray *photosToLoad;
 @property (nonatomic) NSUInteger selectedPhotoIndex;
+
+/**
+ * The string owner for the current set of photos. The string owner will be the same
+ * for all photos if you are viewing a standard string.
+ * The string owner might be different for every photo for liked photos.
+ * This property should be nil if you are instantiating a photo detail view for 
+ * a set of liked photos.
+ */
 @property (strong, nonatomic) PFObject *stringOwner;
 
 @property (strong, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegateForPhotoController;

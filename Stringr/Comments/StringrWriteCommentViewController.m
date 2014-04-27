@@ -164,6 +164,12 @@
             }];
             
             [[StringrCache sharedCache] incrementCommentCountForObject:self.objectToCommentOn];
+            
+            if ([StringrUtility objectIsString:self.objectToCommentOn]) {
+                PFObject *stringStatistics = [self.objectToCommentOn objectForKey:kStringrStringStatisticsKey];
+                [stringStatistics incrementKey:kStringrStatisticsCommentCountKey];
+                [stringStatistics saveEventually];
+            }
         }];
     }
 }

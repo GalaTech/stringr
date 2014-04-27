@@ -31,7 +31,7 @@
     [backgroundVC.view addSubview:backgroundImageView];
     
     self.contentViewController = backgroundVC;
-    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
+    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardMenuID];
     
     self.liveBlur = YES;
     // makes the menu thinner than the default

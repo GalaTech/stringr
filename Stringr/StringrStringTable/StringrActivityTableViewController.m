@@ -48,6 +48,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,32 +95,19 @@
 
 #pragma mark - UITableViewController Delegate
 
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 75.0f;
-}
- */
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.0f, 0.0f)];
-    return footerView;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row];
     NSString *activityType = [objectForIndexPath objectForKey:kStringrActivityTypeKey];
     
     if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
-        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:stringDetailVC animated:YES];
     } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         
         PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
         [photoDetailVC setPhotosToLoad:@[photo]];
@@ -127,7 +116,7 @@
         
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
         [profileVC setProfileReturnState:ProfileBackReturnState];
         [profileVC setHidesBottomBarWhenPushed:YES];
@@ -135,6 +124,18 @@
         [self.navigationController pushViewController:profileVC animated:YES];
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
+
+
 
 
 #pragma mark - PFQueryTableViewController Delegate
@@ -179,7 +180,6 @@
         [activityCell setDelegate:self];
         [activityCell setObjectForActivityCell:object];
         [activityCell setRowForActivityCell:indexPath.row];
-        
     }
     
     
@@ -194,7 +194,7 @@
 - (void)tappedActivityUserProfileImage:(PFUser *)user
 {
     if (user) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         
         [profileVC setUserForProfile:user];
         [profileVC setProfileReturnState:ProfileModalReturnState];

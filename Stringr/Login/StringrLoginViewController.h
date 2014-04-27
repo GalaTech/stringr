@@ -11,7 +11,6 @@
 
 @protocol StringrLoginViewControllerDelegate;
 
-
 @interface StringrLoginViewController : UIViewController
 
 @property (strong, nonatomic) id<StringrLoginViewControllerDelegate>delegate;

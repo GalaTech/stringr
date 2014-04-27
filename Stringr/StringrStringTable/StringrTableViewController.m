@@ -8,6 +8,8 @@
 
 #import "StringrTableViewController.h"
 #import "StringrStringDetailViewController.h"
+#import "StringrActivityTableViewController.h"
+#import "StringrNavigationController.h"
 
 @interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -42,6 +44,8 @@
 {
     [super viewWillAppear:animated];
     
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:kNSNotificationCenterApplicationDidReceiveRemoteNotification object:nil];
+    
     // Sets the back button to have no text, just the <
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
@@ -56,12 +60,29 @@
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
+   // [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterApplicationDidReceiveRemoteNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+
+#pragma mark - Public
+
+- (void)setQueryForTable:(PFQuery *)queryForTable
+{
+    _providedQueryForTable = queryForTable;
+    
+}
+
+- (PFQuery *)getQueryForTable
+{
+    return _providedQueryForTable;
 }
 
 
@@ -75,22 +96,33 @@
     [StringrUtility showMenu:self.frostedViewController];
 }
 
-
-
-
-#pragma mark - Custom Accessor's/Public
-
-- (void)setQueryForTable:(PFQuery *)queryForTable
+- (void)closeModal
 {
-    _providedQueryForTable = queryForTable;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+#pragma mark - Actions
+
+/*
+- (void)handlePushNotification:(NSNotification *)note
+{
+    NSDictionary *pushNotificationDeatils = note.userInfo;
     
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_button"] style:UIBarButtonItemStyleBordered target:self action:@selector(closeModal)];
+
+    StringrActivityTableViewController *activityVC = [self.storyboard instantiateViewControllerWithIdentifier:@"activityVC"];
+    [activityVC setTitle:@"Activity"];
+    [activityVC setHidesBottomBarWhenPushed:YES];
+    
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
+    [navVC.navigationItem setLeftBarButtonItem:closeButton];
+    
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
-- (PFQuery *)getQueryForTable
-{
-    return _providedQueryForTable;
-}
-
+*/
 
 
 
@@ -180,7 +212,7 @@
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }
@@ -197,7 +229,7 @@
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setStringToLoad:nil];
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];

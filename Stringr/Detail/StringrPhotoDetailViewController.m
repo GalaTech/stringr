@@ -29,18 +29,12 @@
     [super viewDidLoad];
     
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
-    
-    [self.stringOwner fetchIfNeededInBackgroundWithBlock:^(PFObject *string, NSError *error) {
-        if (!error) {
-            self.stringOwner = string;
-        }
-    }];
-    
-    self.topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTopVC"];
+
+    self.topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailTopViewID];
     [self.topPhotoVC setPhotosToLoad:self.photosToLoad];
     [self.topPhotoVC setDelegate:self];
     
-    self.tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
+    self.tablePhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailTableViewID];
     
     if (self.editDetailsEnabled) {
         self.title = @"Edit Photo";
@@ -48,7 +42,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(savePhoto)];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPhotoEdit)];
         
-        self.tablePhotoVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
+        self.tablePhotoVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditPhotoDetailTableViewID];
         [self.tablePhotoVC setEditDetailsEnabled:YES];
         
         // this is necessary so that delegation from the table view to the string view is accessible
@@ -120,8 +114,15 @@
 
 - (void)pushToStringOwner
 {
-    StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-    [stringDetailVC setStringToLoad:self.stringOwner];
+    PFObject *stringOwner = self.stringOwner;
+    
+    if (!stringOwner) {
+        // the string owner for the specific photo that is currently being viewed
+        stringOwner = [[self.photosToLoad objectAtIndex:self.selectedPhotoIndex] objectForKey:kStringrPhotoStringKey];
+    }
+    
+    StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    [stringDetailVC setStringToLoad:stringOwner];
     [self.navigationController pushViewController:stringDetailVC animated:YES];
 }
 

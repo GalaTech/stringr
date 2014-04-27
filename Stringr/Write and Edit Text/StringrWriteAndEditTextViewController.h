@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    StringrWrittenTextTypeStandard,
+    StringrWrittenTextTypeEmail,
+    StringrWrittenTextTypePassword
+} StringrWrittenTextType;
+
 @protocol StringrWriteAndEditTextViewControllerDelegate;
 
 @interface StringrWriteAndEditTextViewController : UIViewController
@@ -20,6 +26,9 @@
 
 @protocol StringrWriteAndEditTextViewControllerDelegate <NSObject>
 
+@optional
+
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text;
+- (void)textWrittenAndSavedByUser:(NSString *)text withType:(StringrWrittenTextType)textType;
 
 @end

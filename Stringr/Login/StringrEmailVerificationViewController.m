@@ -44,7 +44,7 @@
     } else {
         PFFile *userProfileImage = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
         [self.userProfileImageView setFile:userProfileImage];
-        [self.userProfileImageView loadInBackground];
+        [self.userProfileImageView loadInBackgroundWithIndicator];
     }
     
     [self.userProfileImageView setImageToCirclePath];
