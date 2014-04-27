@@ -3,6 +3,7 @@ PODS:
   - ILTranslucentView (0.0.1)
   - LXReorderableCollectionViewFlowLayout (0.1.1)
   - NHBalancedFlowLayout (0.2)
+  - Reachability (3.1.1)
   - REFrostedViewController (2.4.5)
 
 DEPENDENCIES:
@@ -10,6 +11,7 @@ DEPENDENCIES:
   - ILTranslucentView (~> 0.0)
   - LXReorderableCollectionViewFlowLayout (~> 0.1.1)
   - NHBalancedFlowLayout (~> 0.2)
+  - Reachability (~> 3.1)
   - REFrostedViewController (~> 2.4.2)
 
 SPEC CHECKSUMS:
@@ -17,6 +19,7 @@ SPEC CHECKSUMS:
   ILTranslucentView: 520b15548983d2370daf3c3e883a355ca82b6bf0
   LXReorderableCollectionViewFlowLayout: 7476503803af6badf13fb6164953880396726cb3
   NHBalancedFlowLayout: 3be7c4a41f4dd918445e4823de25bc3cb7a18b4a
+  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   REFrostedViewController: ab017bbd8d8ab3b23615ef308707711d8576999b
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

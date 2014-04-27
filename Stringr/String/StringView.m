@@ -158,28 +158,24 @@
     }
 }
 
-// liked photos
 - (void)queryPhotosFromQuery:(PFQuery *)query
 {
     if (query) {
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.collectionViewPhotos = [[NSMutableArray alloc] init];
             
-            for (int i = 0; i < objects.count; i++) {
-                PFObject *activityObject = [objects objectAtIndex:i];
-                PFObject *photo = [activityObject objectForKey:kStringrActivityPhotoKey];
-                
-                [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *photoObject, NSError *error) {
-                    [self.collectionViewPhotos addObject:photoObject];
-                }];
-                
-                if (i == objects.count - 1) {
-                    if (self.stringCollectionView) {
-                        [self.stringCollectionView reloadData];
-                    } else if (self.stringLargeCollectionView) {
-                        [self.stringLargeCollectionView reloadData];
-                    }
-                }
+            for (PFObject *activityObject in objects) {
+                [self.collectionViewPhotos addObject:[activityObject objectForKey:kStringrActivityPhotoKey]];
+               
+                // just puts the string owner of a photo as the string to load in the photo detail controller
+                self.stringToLoad = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
+                [self.stringToLoad fetchIfNeeded];
+            }
+            
+            if (self.stringCollectionView) {
+                [self.stringCollectionView reloadData];
+            } else if (self.stringLargeCollectionView) {
+                [self.stringLargeCollectionView reloadData];
             }
         }];
     }

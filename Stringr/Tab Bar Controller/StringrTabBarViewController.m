@@ -63,11 +63,13 @@
 
 #pragma mark - UITabBar Delegate
 
+/*
 // Sets the title for the navigation controller to be that of the tab bar item we are one
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
     self.title = item.title;
     
 }
+ */
 
 @end

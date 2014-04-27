@@ -46,6 +46,7 @@ extern NSString * const kNSNotificationCenterUpdateMenuProfileImage;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileName;
 extern NSString * const kNSNotificationCenterStringPublishedSuccessfully;
 extern NSString * const kNSNotificationCenterStringDeletedSuccessfully;
+extern NSString * const kNSNotificationCenterApplicationDidReceiveRemoteNotification;
 
 
 
@@ -73,6 +74,17 @@ extern NSString * const kStringrActivityTypeFollow;
 extern NSString * const kStringrActivityTypeJoin;
 
 
+
+#pragma mark - Statistics
+
+// Class Key
+extern NSString *const kStringrStatisticsClassKey;
+
+// Field Keys
+extern NSString * const kStringrStatisticsStringKey;
+extern NSString * const kStringrStatisticsLikeCountKey;
+extern NSString * const kStringrStatisticsCommentCountKey;
+
 #pragma mark - PFObject User Class
 
 // Class Key
@@ -93,8 +105,6 @@ extern NSString * const kStringrUserProfilePictureKey;
 
 extern NSString * const kStringrUserDescriptionKey;
 extern NSString * const kStringrUserLocationKey;
-//extern NSString * const kStringrUserSelectedUniversityKey;
-//extern NSString * const kStringrUserUniversitiesKey;
 extern NSString * const kStringrUserNumberOfStringsKey;
 
 extern NSString * const kStringrUserPrivateChannelKey;
@@ -111,8 +121,7 @@ extern NSString * const kStringrStringPhotosKey;
 extern NSString * const kStringrStringUserKey;
 extern NSString * const kStringrStringTitleKey;
 extern NSString * const kStringrStringDescriptionKey;
-//extern NSString * const kStringrStringNumberOfLikesKey;
-//extern NSString * const kStringrStringNumberOfCommentsKey;
+extern NSString * const kStringrStringStatisticsKey;
 
 
 
@@ -141,7 +150,8 @@ extern NSString * const kStringrPhotoThumbnailHeight;
 
 extern NSString * const kStringrUserAttributesIsFollowedByCurrentUserKey;
 extern NSString * const kStringrUserAttributesStringCountKey;
-
+extern NSString * const kStringrUserAttributesFollowingCountKey;
+extern NSString * const kStringrUserAttributesFollowerCountKey;
 
 
 #pragma mark - Cached Photo Attributes
@@ -177,5 +187,52 @@ extern NSString * const kStringrPushPayloadFromUserObjectIdKey;
 extern NSString * const kStringrPushPayloadToUserObjectIdKey;
 extern NSString * const kStringrPushPayloadPhotoObjectIdKey;
 extern NSString * const kStringrPushPayloadStringObjectIDKey;
+
+
+
+#pragma mark - Storyboard Ids
+
+extern NSString * const kStoryboardRootViewID;
+extern NSString * const kStoryboardLoginID;
+extern NSString * const kStoryboardMenuID;
+
+extern NSString * const kStoryboardSignupWithEmailID;
+extern NSString * const kStoryboardEmailVerificationID;
+extern NSString * const kStoryboardSignupWithSocialNetworkID;
+
+extern NSString * const kStoryboardProfileID;
+extern NSString * const kStoryboardProfileTableViewID;
+extern NSString * const kStoryboardProfileTopViewID;
+extern NSString * const kStoryboardProfileConnectionsID;
+extern NSString * const kStoryboardEditProfileID;
+
+extern NSString * const kStoryboardStringTableID;
+extern NSString * const kStoryboardMyStringsID;
+extern NSString * const kStoryboardLikedStringsID;
+
+extern NSString * const kStoryboardCommentsID;
+extern NSString * const kStoryboardWriteCommentID;
+extern NSString * const kStoryboardWriteAndEditID;
+
+extern NSString * const kStoryboardStringDetailID;
+extern NSString * const kStoryboardStringDetailTableViewID;
+extern NSString * const kStoryboardStringDetailTopViewID;
+extern NSString * const kStoryboardEditStringDetailTableViewID;
+extern NSString * const kStoryboardEditStringDetailTopViewID;
+
+extern NSString * const kStoryboardPhotoDetailID;
+extern NSString * const kStoryboardPhotoDetailTableViewID;
+extern NSString * const kStoryboardPhotoDetailTopViewID;
+extern NSString * const kStoryboardEditPhotoDetailTableViewID;
+
+extern NSString * const kStoryboardActivityTableID;
+
+extern NSString * const kStoryboardSearchStringsID;
+extern NSString * const kStoryboardSearchUsersID;
+
+extern NSString * const kStoryboardSettingsID;
+extern NSString * const kStoryboardFindAndInviteFriendsID;
+extern NSString * const kStoryboardPrivacyPolicyToSID;
+
 
 

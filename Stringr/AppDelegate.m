@@ -44,7 +44,7 @@
     // setup and initialize the login controller
     self.rootVC = (StringrRootViewController *)[self.window rootViewController];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
     [loginVC setDelegate:self];
     [loginVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     UINavigationController *loginNavVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
@@ -91,6 +91,36 @@
 // the app open when a notifcation is sent
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    /*
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil userInfo:userInfo];
+    
+    if ([PFUser currentUser]) {
+        if ([self.tabBarController viewControllers].count > PAPActivityTabBarItemIndex) {
+            UITabBarItem *tabBarItem = [[[self.tabBarController viewControllers] objectAtIndex:PAPActivityTabBarItemIndex] tabBarItem];
+            
+            NSString *currentBadgeValue = tabBarItem.badgeValue;
+            
+            if (currentBadgeValue && currentBadgeValue.length > 0) {
+                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                NSNumber *badgeValue = [numberFormatter numberFromString:currentBadgeValue];
+                NSNumber *newBadgeValue = [NSNumber numberWithInt:[badgeValue intValue] + 1];
+                tabBarItem.badgeValue = [numberFormatter stringFromNumber:newBadgeValue];
+            } else {
+                tabBarItem.badgeValue = @"1";
+            }
+        }
+    }
+     */
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterApplicationDidReceiveRemoteNotification object:nil userInfo:userInfo];
+    
+    /*
+    if ([PFUser currentUser]) {
+        
+    }
+     */
+    
+    
     [PFPush handlePush:userInfo];
 }
 
@@ -161,7 +191,7 @@
     
     StringrHomeTabBarViewController *homeTabBarVC = [[StringrHomeTabBarViewController alloc] init];
     
-    StringrStringTableViewController *followingVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
+    StringrStringTableViewController *followingVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [followingVC setTitle:@"Following"];
     
     PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
@@ -183,7 +213,7 @@
     [followingNavVC setTabBarItem:followingTab];
     
     
-    StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"activityVC"];
+    StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
     [activityVC setTitle:@"Activity"];
     
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];

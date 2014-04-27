@@ -57,6 +57,7 @@
     
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -100,10 +101,18 @@
 // Handles the action of pushing to to the detail view of a selected string
 - (void)pushToStringDetailView:(UIButton *)sender
 {
-    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
+    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    
+    PFObject *string = [self.objects objectAtIndex:sender.tag];
+    
+    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [string objectForKey:kStringrStatisticsStringKey];
+    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [string objectForKey:kStringrActivityStringKey];
+    }
     
     // tag is set to the section number of each string
-    [detailVC setStringToLoad:[self.objects objectAtIndex:sender.tag]];
+    [detailVC setStringToLoad:string];
     [detailVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:detailVC animated:YES];
@@ -170,8 +179,16 @@ static float const contentViewWidthPercentage = .93;
     // Sets tag so we can easily access the correct string when a user taps the detail view for a string
     [contentHeaderViewButton setTag:section];
     
+    PFObject *string = [self.objects objectAtIndex:section];
     
-    NSString *titleText = [[self.objects objectAtIndex:section] objectForKey:kStringrStringTitleKey];
+    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [string objectForKey:kStringrStatisticsStringKey];
+    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [string objectForKey:kStringrActivityStringKey];
+    }
+
+    
+    NSString *titleText = [string objectForKey:kStringrStringTitleKey];
     [contentHeaderViewButton setTitle:titleText forState:UIControlStateNormal];
     [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -202,12 +219,13 @@ static float const contentViewWidthPercentage = .93;
 
 - (PFQuery *)queryForTable
 {
-    
     PFQuery *query = [self getQueryForTable];
     
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
+    
+    
     
     return query;
     
@@ -228,6 +246,15 @@ static float const contentViewWidthPercentage = .93;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
+    
+    PFObject *string = object;
+    
+    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [object objectForKey:kStringrStatisticsStringKey];
+    } else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [object objectForKey:kStringrActivityStringKey];
+    }
+    
     //static NSString *cellIdentifier = @"Cell";
     if (indexPath.section == self.objects.count) {
         // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
@@ -244,17 +271,8 @@ static float const contentViewWidthPercentage = .93;
         [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         [stringCell setStringViewDelegate:self];
-        [stringCell setStringObject:object];
-        
-        /* for liked photos
-        PFQuery *likedPhotosQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [likedPhotosQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
-        [likedPhotosQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-        [likedPhotosQuery whereKeyExists:kStringrActivityPhotoKey];
-        [likedPhotosQuery orderByAscending:@"photoOrder"];
-        [stringCell queryPhotosFromQuery:likedPhotosQuery];
-        */
-        
+        [stringCell setStringObject:string];
+
         return stringCell;
     } else if (indexPath.row == 1) {
         static NSString *cellIdentifier = @"StringTableViewFooter";
@@ -268,7 +286,7 @@ static float const contentViewWidthPercentage = .93;
         [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        StringrFooterView *footerView = [self addFooterViewToCellWithObject:object];
+        StringrFooterView *footerView = [self addFooterViewToCellWithObject:string];
         
         [footerCell.contentView addSubview:footerView];
         
@@ -281,7 +299,6 @@ static float const contentViewWidthPercentage = .93;
 - (void)objectsDidLoad:(NSError *)error
 {
     [super objectsDidLoad:error];
-    
     
 }
 
@@ -321,9 +338,7 @@ static float const contentViewWidthPercentage = .93;
 {
     if (photos)
     {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
-        
-        
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         
         [photoDetailVC setEditDetailsEnabled:NO];
         
@@ -345,7 +360,7 @@ static float const contentViewWidthPercentage = .93;
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     if (uploader) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
@@ -380,7 +395,7 @@ static float const contentViewWidthPercentage = .93;
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
         
         NSString *forObjectKey = kStringrActivityStringKey;

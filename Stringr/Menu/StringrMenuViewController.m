@@ -8,22 +8,23 @@
 
 #import "StringrMenuViewController.h"
 #import "StringrNavigationController.h"
+#import "StringrRootViewController.h"
 
 #import "StringrProfileViewController.h"
 #import "StringrMyStringsTableViewController.h"
 #import "StringrLikedStringsTableViewController.h"
 
 #import "StringrDiscoveryTabBarViewController.h"
-#import "StringrMySchoolTabBarViewController.h"
 #import "StringrSearchTabBarViewController.h"
 #import "StringrSearchTableViewController.h"
 #import "StringrUserSearchViewController.h"
 #import "StringrHomeTabBarViewController.h"
 #import "StringrActivityTableViewController.h"
+#import "StringrLikedTabBarViewController.h"
 
 #import "StringrStringDetailViewController.h"
 
-#import "StringrSettingsViewController.h"
+#import "StringrSettingsTableViewController.h"
 #import "StringrLoginViewController.h"
 
 #import "UIViewController+REFrostedViewController.h"
@@ -31,10 +32,13 @@
 
 #import "AppDelegate.h"
 
+#import "StringrLikedPhotosTableViewController.h"
+
 
 @interface StringrMenuViewController () <UIActionSheetDelegate>
 
 @property (strong,nonatomic) UIButton *cameraButton;
+@property (strong, nonatomic) UIButton *settingsButton;
 @property (strong, nonatomic) UILabel *profileNameLabel;
 @property (strong, nonatomic) StringrPathImageView *profileImageView;
 @property (strong, nonatomic) NSArray *menuRowTitles;
@@ -58,13 +62,80 @@
     self.tableView.opaque = NO; // Allows transparency
     self.tableView.backgroundColor = [UIColor clearColor];
     
+
+    
     
     [self.tableView setShowsVerticalScrollIndicator:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // I setup the table header view in viewWillAppear to ensure that the correct username and profile image is displayed
+    // for the currently logged in user. 
+    self.profileImageView = [[StringrPathImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)
+                                                                  image:[UIImage imageNamed:@"stringr_icon_filler"]
+                                                              pathColor:[UIColor darkGrayColor]
+                                                              pathWidth:1.0];
+    
+    // loads user profile image in background
+    [self.profileImageView setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
+    [self.profileImageView loadInBackgroundWithIndicator];
+    
+    [self.profileImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
+    
+    self.profileNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+    
+    self.profileNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    self.profileNameLabel.adjustsFontSizeToFitWidth = YES;
+    self.profileNameLabel.minimumScaleFactor = 0.5f;
+    
+    // parse user profile name
+    self.profileNameLabel.text = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+    
+    
+    self.profileNameLabel.backgroundColor = [UIColor clearColor];
+    self.profileNameLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.profileNameLabel sizeToFit];
+    self.profileNameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    // Creates the header of the menu that contains profile image and other graphics
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+    
+    self.cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(202, 24, 30, 30)];
+    [self.cameraButton setImage:[UIImage imageNamed:@"camera_button"] forState:UIControlStateNormal];
+    [self.cameraButton addTarget:self action:@selector(cameraButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImageView *settingsImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [settingsImage setImage:[UIImage imageNamed:@"settings_button"]];
+    
+    self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(18, 26.5, 30, 30)];
+    [self.settingsButton setImage:[UIImage imageNamed:@"settings_button"] forState:UIControlStateNormal];
+    [self.settingsButton addTarget:self action:@selector(settingsButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [view addSubview:self.cameraButton];
+    [view addSubview:self.settingsButton];
+    [view addSubview:self.profileImageView];
+    [view addSubview:self.profileNameLabel];
+    
+    
+    self.tableView.tableHeaderView = view;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileName:) name:kNSNotificationCenterUpdateMenuProfileName object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUpdateMenuProfileImage object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUpdateMenuProfileName object:nil];
+}
+/*
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -112,6 +183,7 @@
     
     self.tableView.tableHeaderView = view;
 }
+ */
 
 - (void)didReceiveMemoryWarning
 {
@@ -122,12 +194,12 @@
 
 
 
-#pragma mark - Custom Accessor's
+#pragma mark - Custom Accessors
 
 - (NSArray *)menuRowTitles
 {
     if (!_menuRowTitles) {
-        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"My Strings", @"Liked", @"Discover", @"Search", @"Settings", @"Logout", nil];
+        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"My Strings", @"Liked", @"Discover", @"Search", nil];
     }
     
     return _menuRowTitles;
@@ -138,12 +210,23 @@
 
 #pragma mark - Action Handlers
 
-- (void)cameraButtonPushed:(UIButton *)sender
+- (void)cameraButtonTouchHandler:(UIButton *)sender
 {
     // Closes the menu after we move to a new VC
     [self.frostedViewController hideMenuViewController];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUploadNewStringKey object:nil];
+}
+
+- (void)settingsButtonTouchHandler:(UIButton *)sender
+{
+    StringrSettingsTableViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSettingsID];
+    
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
+    
+    [self.frostedViewController setContentViewController:navVC];
+    
+    [self.frostedViewController hideMenuViewController];
 }
 
 // loaded from editing user profile
@@ -169,7 +252,7 @@
 {
     StringrHomeTabBarViewController *homeTabBarVC = [[StringrHomeTabBarViewController alloc] init];
     
-    StringrStringTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
+    StringrStringTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [followingVC setTitle:@"Following"];
     
     PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
@@ -191,7 +274,7 @@
     [followingNavVC setTabBarItem:followingTab];
     
     
-    StringrActivityTableViewController *activityVC = [self.storyboard instantiateViewControllerWithIdentifier:@"activityVC"];
+    StringrActivityTableViewController *activityVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
     [activityVC setTitle:@"Activity"];
     
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
@@ -204,28 +287,41 @@
     return homeTabBarVC;
 }
 
+- (StringrLikedTabBarViewController *)setupLikedTabBarController
+{
+    StringrLikedTabBarViewController *likedTabBarVC = [[StringrLikedTabBarViewController alloc] init];
+    
+    StringrLikedStringsTableViewController *likedStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLikedStringsID];
+    StringrNavigationController *likedStringsNavVC = [[StringrNavigationController alloc] initWithRootViewController:likedStringsVC];
+    
+    UITabBarItem *likedStringsTab = [[UITabBarItem alloc] initWithTitle:@"Strings" image:[UIImage imageNamed:@"liked_strings_icon"] tag:0];
+    [likedStringsNavVC setTabBarItem:likedStringsTab];
+    
+    
+    StringrLikedPhotosTableViewController *likedPhotosVC = [[StringrLikedPhotosTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    StringrNavigationController *likedPhotosNavVC = [[StringrNavigationController alloc] initWithRootViewController:likedPhotosVC];
+    
+    UITabBarItem *likedPhotosTab = [[UITabBarItem alloc] initWithTitle:@"Liked Photos" image:[UIImage imageNamed:@"photo_icon"] tag:0];
+    [likedPhotosNavVC setTabBarItem:likedPhotosTab];
+    
+    
+    [likedTabBarVC setViewControllers:@[likedStringsNavVC, likedPhotosNavVC]];
+    
+    return likedTabBarVC;
+}
+
 - (StringrDiscoveryTabBarViewController *)setupDiscoveryTabBarController
 {
     StringrDiscoveryTabBarViewController *discoveryTabBarVC = [[StringrDiscoveryTabBarViewController alloc] init];
     
-    /*
-    StringrStringTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
-    [followingVC setTitle:@"Following"];
-    
-    PFQuery *followingQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [followingQuery orderByAscending:@"createdAt"];
-    [followingVC setQueryForTable:followingQuery];
-    
-    StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
-    UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
-    [followingNavVC setTabBarItem:followingTab];
-    */
-    
-    StringrStringTableViewController *popularVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
+    StringrStringTableViewController *popularVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [popularVC setTitle:@"Popular"];
     
-    PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [popularQuery orderByDescending:@"createdAt"];
+    PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+    [popularQuery whereKeyExists:kStringrStatisticsStringKey];
+    [popularQuery includeKey:kStringrStatisticsStringKey];
+    [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
+    [popularQuery setLimit:100];
     [popularVC setQueryForTable:popularQuery];
     
     StringrNavigationController *popularNavVC = [[StringrNavigationController alloc] initWithRootViewController:popularVC];
@@ -233,11 +329,11 @@
     [popularNavVC setTabBarItem:popularTab];
     
     
-    StringrStringTableViewController *discoverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
+    StringrStringTableViewController *discoverVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [discoverVC setTitle:@"Discover"];
     
     PFQuery *discoverQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [discoverQuery orderByAscending:@"createdAt"];
+    [discoverQuery orderByAscending:@"updatedAt"];
     [discoverVC setQueryForTable:discoverQuery];
     
     StringrNavigationController *discoverNavVC = [[StringrNavigationController alloc] initWithRootViewController:discoverVC];
@@ -245,7 +341,7 @@
     [discoverNavVC setTabBarItem:discoverTab];
     
     
-    StringrStringTableViewController *nearYouVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
+    StringrStringTableViewController *nearYouVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [nearYouVC setTitle:@"Near You"];
     
     PFQuery *nearYouQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
@@ -267,7 +363,7 @@
 {
     StringrSearchTabBarViewController *searchTabBarVC = [[StringrSearchTabBarViewController alloc] init];
     
-    StringrSearchTableViewController *searchStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchStringsVC"];
+    StringrSearchTableViewController *searchStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSearchStringsID];
     
     PFQuery *searchStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [searchStringsQuery orderByAscending:@"createdAt"];
@@ -278,7 +374,7 @@
     [searchStringsNavVC setTabBarItem:searchStringsTab];
     
     
-    StringrUserSearchViewController *searchUsersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchFindPeopleVC"];
+    StringrUserSearchViewController *searchUsersVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSearchUsersID];
     
     PFQuery *queryForUsers = [PFUser query];
     [queryForUsers orderByAscending:@"displayName"];
@@ -329,33 +425,9 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.textLabel.text = self.menuRowTitles[indexPath.row];
+
         [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
     }
-    
-    /*
-     if (indexPath.section == 0) {
-     NSArray *titles = @[@"My Profile", @"My Strings", @"My School", @"Liked Strings"];
-     cell.textLabel.text = titles[indexPath.row];
-     } else {
-     NSArray *titles = @[@"Stringr Discovery", @"Search", @"Settings", @"Logout"];
-     cell.textLabel.text = titles[indexPath.row];
-     }
-    
-    NSArray *titles;
-    
-    switch (indexPath.section) {
-        case 0:
-            titles = @[@"My Profile", @"My Strings", @"Liked Strings"];
-            break;
-        case 1:
-            titles = @[@"Discover", @"My School", @"Search"];
-            break;
-        case 2:
-            titles = @[@"Settings", @"Logout"];
-            break;
-    }
-     */
-    
     
     return cell;
 }
@@ -376,7 +448,7 @@
     if (indexPath.row == 0) {
         [self.frostedViewController setContentViewController:[self setupHomeTabBarController]];
     } else if (indexPath.row == 1) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         
         [profileVC setUserForProfile:[PFUser currentUser]];
         [profileVC setProfileReturnState:ProfileMenuReturnState];
@@ -385,72 +457,27 @@
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.row == 2) {
-        StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MyStringsVC"];
+        StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardMyStringsID];
         [myStringsVC setTitle:@"My Strings"];
-        
-        /*
-        PFQuery *myStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-        [myStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
-        [myStringsQuery orderByDescending:@"createdAt"];
-        [myStringsVC setQueryForTable:myStringsQuery];
-        */
-         
+
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:myStringsVC];
-        
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.row == 3) {
-        StringrLikedStringsTableViewController *likedStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
-        [likedStringsVC setTitle:@"Liked Strings"];
-        
-        PFQuery *likedStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-        [likedStringsQuery orderByDescending:@"createdAt"];
-        [likedStringsVC setQueryForTable:likedStringsQuery];
-        
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:likedStringsVC];
-        
-        [self.frostedViewController setContentViewController:navVC];
+        [self.frostedViewController setContentViewController:[self setupLikedTabBarController]];
     } else if (indexPath.row == 4) {
         [self.frostedViewController setContentViewController:[self setupDiscoveryTabBarController]];
         
     } else if (indexPath.row == 5) {
          [self.frostedViewController setContentViewController:[self setupSearchTabBarController]];
-    } else if (indexPath.row == 6) {
-        
-        StringrSettingsViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsVC"];
-        
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
-        
-        [self.frostedViewController setContentViewController:navVC];
-    } else if (indexPath.row == 7) {
-        [PFQuery clearAllCachedResults];
-        [[StringrCache sharedCache] clear];
-        
-        // Unsubscribe from push notifications
-        [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
-        [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];
-        [[PFInstallation currentInstallation] saveEventually];
-        
-        [PFUser logOut];
-        
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        
-        // forces the main content area to be blank with no content. That way if a user logs
-        // back in we can easily reinstantiate the content area without any data remaining from the previous
-        UIViewController *blankVC = [[UIViewController alloc] init];
-        [self.frostedViewController setContentViewController:blankVC];
-        
-        StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];
-        [self presentViewController:loginNavVC animated:YES completion:nil];
     }
     
-    // Closes the menu after we move to a new VC
+    // Closes the menu after a user selects an item
     [self.frostedViewController hideMenuViewController];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 54.0f;
+    return 64.0f;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -469,6 +496,11 @@
     return 34.0f;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *blankFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.0f, 0.0f)];
+    return blankFooterView;
+}
 
 
 
@@ -477,7 +509,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         
         
@@ -490,7 +522,7 @@
          [self presentViewController:navVC animated:YES completion:nil];
          */
     } else if (buttonIndex == 1) {
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
         

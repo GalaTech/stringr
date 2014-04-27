@@ -50,6 +50,7 @@
 
 + (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    /*
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
@@ -63,6 +64,8 @@
             }
         }
     }];
+     */
+     
     
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
     [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
@@ -134,6 +137,7 @@
 
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    /*
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:string];
@@ -146,49 +150,54 @@
                 [activity deleteInBackground]; // maybe delete in background?
             }
         }
+    }];
+     */
+    
+    PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+    [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
+    [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+    [likeActivity setObject:[string objectForKey:kStringrStringUserKey] forKey:kStringrActivityToUserKey];
+    [likeActivity setObject:string forKey:kStringrActivityStringKey];
+    
+    PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setPublicReadAccess:YES];
+    [likeActivity setACL:likeACL];
+    
+    [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (completionBlock) {
+            completionBlock(succeeded, error);
+        }
         
-        PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-        [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
-        [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-        [likeActivity setObject:[string objectForKey:kStringrStringUserKey] forKey:kStringrActivityToUserKey];
-        [likeActivity setObject:string forKey:kStringrActivityStringKey];
-        
-        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [likeACL setPublicReadAccess:YES];
-        [likeActivity setACL:likeACL];
-        
-        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (completionBlock) {
-                completionBlock(succeeded, error);
-            }
-            
-            if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+        if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                
+                // TODO: Set private channel to that of the string uploader
+                NSString *stringUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+                
+                if (stringUploaderPrivatePushChannel && stringUploaderPrivatePushChannel.length != 0) {
+                    NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
                     
-                    // TODO: Set private channel to that of the string uploader
-                    NSString *stringUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+                    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [NSString stringWithFormat:@"%@ liked your string!", currentUsernameFormatted], kAPNSAlertKey,
+                                          @"increment", kAPNSBadgeKey,
+                                          kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                          kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
+                                          [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                          [string objectId], kStringrPushPayloadStringObjectIDKey,
+                                          nil];
                     
-                    if (stringUploaderPrivatePushChannel && stringUploaderPrivatePushChannel.length != 0) {
-                        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
-                        
-                        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSString stringWithFormat:@"%@ liked your string!", currentUsernameFormatted], kAPNSAlertKey,
-                                              @"increment", kAPNSBadgeKey,
-                                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
-                                              kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
-                                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
-                                              [string objectId], kStringrPushPayloadStringObjectIDKey,
-                                              nil];
-                        
-                        PFPush *likeStringPushNotification = [[PFPush alloc] init];
-                        [likeStringPushNotification setChannel:stringUploaderPrivatePushChannel];
-                        [likeStringPushNotification setData:data];
-                        [likeStringPushNotification sendPushInBackground];
-                    }
+                    PFPush *likeStringPushNotification = [[PFPush alloc] init];
+                    [likeStringPushNotification setChannel:stringUploaderPrivatePushChannel];
+                    [likeStringPushNotification setData:data];
+                    [likeStringPushNotification sendPushInBackground];
                 }
             }
-        }];
+        }
     }];
+    
+    PFObject *stringStatistics = [string objectForKey:kStringrStringStatisticsKey];
+    [stringStatistics incrementKey:kStringrStatisticsLikeCountKey];
+    [stringStatistics saveEventually];
 }
 
 + (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
@@ -213,6 +222,10 @@
             }
         }
     }];
+    
+    PFObject *stringStatistics = [string objectForKey:kStringrStringStatisticsKey];
+    [stringStatistics incrementKey:kStringrStatisticsLikeCountKey byAmount:@(-1)];
+    [stringStatistics saveEventually];
 }
 
 
@@ -639,7 +652,7 @@
     CGSize maxLabelSize = CGSizeMake(280, FLT_MAX);
     CGRect rectForLabel = [text boundingRectWithSize:maxLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:textAttributes context:nil];
     
-    CGFloat labelHeight = rectForLabel.size.height;
+    CGFloat labelHeight = CGRectGetHeight(rectForLabel);
    // CGFloat marginSpace = ((labelHeight / 13) * 3);
     CGFloat cellHeight = labelHeight + 30;
     

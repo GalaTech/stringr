@@ -168,7 +168,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) { // details/title/description
-        StringrWriteAndEditTextViewController *editTextVC = [self.storyboard instantiateViewControllerWithIdentifier:@"writeAndEditVC"];
+        StringrWriteAndEditTextViewController *editTextVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardWriteAndEditID];
         [editTextVC setDelegate:self];
         
         if (indexPath.row == 1) {
@@ -225,8 +225,6 @@
     if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
         [self.delegate deleteString];
         [self.navigationController popViewControllerAnimated:YES];
-        
-        // delete string here
     }
 }
 

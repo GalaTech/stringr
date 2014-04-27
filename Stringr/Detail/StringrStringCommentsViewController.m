@@ -104,7 +104,7 @@
 
 - (void)writeComment
 {
-    StringrWriteCommentViewController *writeCommentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"writeCommentVC"];
+    StringrWriteCommentViewController *writeCommentVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardWriteCommentID];
     [writeCommentVC setObjectToCommentOn:self.objectForCommentThread];
     [writeCommentVC setDelegate:self];
     
@@ -175,6 +175,12 @@
         }];
         
         [[StringrCache sharedCache] decrementCommentCountForObject:commentToRemove];
+        
+        if ([StringrUtility objectIsString:self.objectForCommentThread]) {
+            PFObject *stringStatistics = [self.objectForCommentThread objectForKey:kStringrStringStatisticsKey];
+            [stringStatistics incrementKey:kStringrStatisticsCommentCountKey byAmount:@(-1)];
+            [stringStatistics saveEventually];
+        }
     }
 }
 
@@ -266,17 +272,21 @@
             float height = CGRectGetHeight(commentsCell.commentsProfileImage.frame) / 2;
             [loadingProfileImageActivityIndicator setCenter:CGPointMake(width, height)];
             [commentsCell.commentsProfileImage addSubview:loadingProfileImageActivityIndicator];
-            [loadingProfileImageActivityIndicator startAnimating];
+            //[loadingProfileImageActivityIndicator startAnimating];
             
             PFFile *profileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             [commentsCell.commentsProfileImage setFile:profileImageFile];
             // set the tag to the row so that we can access the correct user when tapping on a profile image
             [commentsCell.commentsProfileImage setTag:indexPath.row];
+            [commentsCell.commentsProfileImage loadInBackgroundWithIndicator];
+            
+            /*
             [commentsCell.commentsProfileImage loadInBackground:^(UIImage *image, NSError *error) {
                 if (!error) {
                     [loadingProfileImageActivityIndicator stopAnimating];
                 }
             }];
+             */
         }];
         
         return commentsCell;
@@ -303,7 +313,7 @@
 
 - (void)tappedCommentorProfileImage:(NSInteger)index
 {
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
     
     PFUser *userForProfile = [self.commentUsers objectAtIndex:index];
 

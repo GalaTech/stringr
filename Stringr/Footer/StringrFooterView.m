@@ -35,8 +35,6 @@
 #pragma mark - Lifecycle
 
 static float const contentViewWidth = 320.0;
-//static float const contentViewHeight = 41.5;
-//static float const contentFooterViewWidthPercentage = .93;
 
 - (UIView *)initWithFrame:(CGRect)frame fullWidthCell:(BOOL)isFullWidthCell withObject:(PFObject *)object
 {
@@ -108,7 +106,7 @@ static float const contentViewWidth = 320.0;
 - (void)setUploaderProfileInformation
 {
     if (self.objectForFooterView) {
-        [self loadingProfileImageIndicatorEnabled:YES];
+        //[self loadingProfileImageIndicatorEnabled:YES];
         
         PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
         [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
@@ -118,15 +116,15 @@ static float const contentViewWidth = 320.0;
             PFFile *uploaderProfileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             
             [self.profileImageView setFile:uploaderProfileImageFile];
-            [self.profileImageView loadInBackground];
-            [self loadingProfileImageIndicatorEnabled:NO];
+            [self.profileImageView loadInBackgroundWithIndicator];
+            //[self loadingProfileImageIndicatorEnabled:NO];
         }];
     } else {
         [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]]];
         
         PFFile *currentUserProfileImageFile = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
         [self.profileImageView setFile:currentUserProfileImageFile];
-        [self.profileImageView loadInBackground];
+        [self.profileImageView loadInBackgroundWithIndicator];
     }
 }
 
@@ -420,10 +418,10 @@ static float const contentViewWidth = 320.0;
         [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount + 1]];
         
         [StringrUtility likeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
-            [self shouldEnableLikeButton:YES];
-            [self setLikesButtonState:succeeded];
-            
-            if (!succeeded) {
+            if (succeeded) {
+                [self shouldEnableLikeButton:YES];
+                [self setLikesButtonState:succeeded];
+            } else {
                 //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
             }
         }];

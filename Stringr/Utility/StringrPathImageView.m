@@ -10,6 +10,8 @@
 
 @interface StringrPathImageView ()
 
+@property (strong, nonatomic) UIActivityIndicatorView *loadingIndicator;
+
 @end
 
 
@@ -52,13 +54,31 @@
         //imageView.layer.shouldRasterize = YES;
         self.clipsToBounds = YES;
         
+        self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        
+        float width = CGRectGetWidth(self.frame);
+        float height = CGRectGetHeight(self.frame);
+        
+        self.loadingIndicator.center = CGPointMake(width / 2, height / 2);
+        
+        [self addSubview:self.loadingIndicator];
         //self = (StringrPathImageView *)self;
     }
     
     return self;
 }
 
-
+- (void)awakeFromNib
+{
+    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    
+    float width = CGRectGetWidth(self.frame);
+    float height = CGRectGetHeight(self.frame);
+    
+    self.loadingIndicator.center = CGPointMake(width / 2, height / 2);
+    
+    [self addSubview:self.loadingIndicator];
+}
 
 
 #pragma mark - Public
@@ -94,14 +114,16 @@
 }
 
 
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)loadInBackgroundWithIndicator
 {
-    // Drawing code
+    [self.loadingIndicator startAnimating];
+    
+    [self loadInBackground:^(UIImage *image, NSError *error) {
+        if (!error) {
+            self.image = image;
+            [self.loadingIndicator stopAnimating];
+        }
+    }];
 }
-*/
 
 @end

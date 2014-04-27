@@ -148,6 +148,18 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
             }];
+            
+            PFObject *stringStatistics = [PFObject objectWithClassName:kStringrStatisticsClassKey];
+            [stringStatistics setObject:@(0) forKey:kStringrStatisticsLikeCountKey];
+            [stringStatistics setObject:@(0) forKey:kStringrStatisticsCommentCountKey];
+            [stringStatistics setObject:self.stringToLoad forKey:kStringrStatisticsStringKey];
+            
+            PFACL *stringStatisticsACL = [PFACL ACL];
+            [stringStatisticsACL setPublicReadAccess:YES];
+            [stringStatisticsACL setPublicWriteAccess:YES];
+            [stringStatistics setACL:stringStatisticsACL];
+            
+            [stringStatistics saveEventually];
         } else {
             PFObject *newString = [PFObject objectWithClassName:kStringrStringClassKey];
             [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
@@ -177,6 +189,19 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
             }];
+            
+            PFObject *stringStatistics = [PFObject objectWithClassName:kStringrStatisticsClassKey];
+            [stringStatistics setObject:@(0) forKey:kStringrStatisticsLikeCountKey];
+            [stringStatistics setObject:@(0) forKey:kStringrStatisticsCommentCountKey];
+            [stringStatistics setObject:self.stringToLoad forKey:kStringrStatisticsStringKey];
+            
+            PFACL *stringStatisticsACL = [PFACL ACL];
+            [stringStatisticsACL setPublicReadAccess:YES];
+            [stringStatisticsACL setPublicWriteAccess:YES];
+            [stringStatistics setACL:stringStatisticsACL];
+            
+            
+            [stringStatistics saveEventually];
             
             [[PFUser currentUser] incrementKey:kStringrUserNumberOfStringsKey];
             [[PFUser currentUser] saveInBackground];
@@ -208,6 +233,9 @@
 {
     // delete the string and all photos in the string
     if (self.stringToLoad) {
+        PFObject *stringStatistics = [self.stringToLoad objectForKey:kStringrStringStatisticsKey];
+        [stringStatistics deleteEventually];
+        
         [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringDeletedSuccessfully object:nil];
@@ -217,6 +245,8 @@
         for (PFObject *photo in self.collectionViewPhotos) {
             [photo deleteEventually];
         }
+        
+        
         
         [[PFUser currentUser] incrementKey:kStringrUserNumberOfStringsKey byAmount:@(-1)];
         [[PFUser currentUser] saveEventually];

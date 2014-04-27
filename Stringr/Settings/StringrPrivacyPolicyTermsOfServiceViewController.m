@@ -50,17 +50,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 
 
@@ -76,7 +65,7 @@
 
 - (NSString *)termsOfServiceText
 {
-    NSString *myPath = [[NSBundle mainBundle]pathForResource:@"TermsOfService_3_8_14" ofType:@"txt"];
+    NSString *myPath = [[NSBundle mainBundle]pathForResource:@"3-8-14 Updated Terms of Service for Stringr" ofType:@"txt"];
     _termsOfServiceText = [[NSString alloc] initWithContentsOfFile:myPath encoding:NSUTF8StringEncoding error:nil];
     
     return _termsOfServiceText;

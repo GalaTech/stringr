@@ -109,7 +109,7 @@
                 
                 PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
                 [self.activityCellProfileImage setFile:activityUserProfileImage];
-                [self.activityCellProfileImage loadInBackground];
+                [self.activityCellProfileImage loadInBackgroundWithIndicator];
             }
         }];
         
@@ -137,7 +137,7 @@
                 
                 PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
                 [self.activityCellProfileImage setFile:activityUserProfileImage];
-                [self.activityCellProfileImage loadInBackground];
+                [self.activityCellProfileImage loadInBackgroundWithIndicator];
             }
         }];
         
@@ -164,7 +164,7 @@
                 
                 PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
                 [self.activityCellProfileImage setFile:activityUserProfileImage];
-                [self.activityCellProfileImage loadInBackground];
+                [self.activityCellProfileImage loadInBackgroundWithIndicator];
             }
         }];
         

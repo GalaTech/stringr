@@ -21,6 +21,8 @@
  * @param numberOfStrings The number of strings a user has uploaded
  *
  */
+
+/*
 - (id)initWithProfileImage:(UIImage *)profileImage displayName:(NSString *)displayName universityName:(NSString *)universityName numberOfUserStrings:(NSUInteger)numberOfStrings
 {
     
@@ -36,6 +38,7 @@
     
     return self;
 }
+*/
 
 /*
 - (NSString *)profileDisplayName

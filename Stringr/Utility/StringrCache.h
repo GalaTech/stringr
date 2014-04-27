@@ -21,8 +21,16 @@
 
 - (BOOL)followStatusForUser:(PFUser *)user;
 - (void)setFollowStatus:(BOOL)following forUser:(PFUser *)user;
+
 - (NSNumber *)stringCountForUser:(PFUser *)user;
 - (void)setStringCount:(NSNumber *)count forUser:(PFUser *)user;
+
+- (NSNumber *)followingCountForUser:(PFUser *)user;
+- (void)setFollowingCount:(NSNumber *)count forUser:(PFUser *)user;
+
+- (NSNumber *)followerCountForUser:(PFUser *)user;
+- (void)setFollowerCount:(NSNumber *)count forUser:(PFUser *)user;
+
 
 
 // object (String or Photo)

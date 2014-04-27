@@ -132,7 +132,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Creates a new instance of a user profile
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
 
     
     // Gets the cell that the user tapped on
@@ -190,7 +190,7 @@
         [cellProfileImage setPathWidth:1.0];
 
         [userProfileCell.ProfileThumbnailImageView setFile:[object objectForKey:kStringrUserProfilePictureThumbnailKey]];
-        [userProfileCell.ProfileThumbnailImageView loadInBackground];
+        [userProfileCell.ProfileThumbnailImageView loadInBackgroundWithIndicator];
 
         [userProfileCell.profileUsernameLabel setText:[NSString stringWithFormat:@"@%@", [object objectForKey:kStringrUserUsernameCaseSensitive]]];
         [userProfileCell.profileDisplayNameLabel setText:[object objectForKey:kStringrUserDisplayNameKey]];

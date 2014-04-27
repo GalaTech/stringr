@@ -91,6 +91,7 @@
 - (void)setTextForEditing:(NSString *)text
 {
     self.editedText = text;
+    self.editableTextView.text = text;
 }
 
 
@@ -103,14 +104,29 @@
 {
     [self dismissViewControllerAnimated:YES completion: ^{
         
-        NSIndexPath *textToReloadIndexPath = nil;
-        if ([self.title isEqualToString:@"Edit Title"]) {
-            textToReloadIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-        } else if ([self.title isEqualToString:@"Edit Description"]) {
-            textToReloadIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+        if ([self.delegate respondsToSelector:@selector(reloadTextAtIndexPath:withText:)]) {
+            NSIndexPath *textToReloadIndexPath = nil;
+            if ([self.title isEqualToString:@"Edit Title"]) {
+                textToReloadIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+            } else if ([self.title isEqualToString:@"Edit Description"]) {
+                textToReloadIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+            }
+            [self.delegate reloadTextAtIndexPath:textToReloadIndexPath withText:self.editedText];
+        } else if ([self.delegate respondsToSelector:@selector(textWrittenAndSavedByUser:withType:)]) {
+            if ([self.title isEqualToString:@"Change Email"]) {
+                if ([StringrUtility NSStringIsValidEmail:self.editedText]) {
+                    [self.delegate textWrittenAndSavedByUser:self.editedText withType:StringrWrittenTextTypeEmail];
+                }
+            } else if ([self.title isEqualToString:@"Change Password"]) {
+                if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.editedText]) {
+                    [self.delegate textWrittenAndSavedByUser:self.editedText withType:StringrWrittenTextTypePassword];
+                }
+            } else {
+                if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.editedText]) {
+                    [self.delegate textWrittenAndSavedByUser:self.editedText withType:StringrWrittenTextTypeStandard];
+                }
+            }
         }
-        
-        [self.delegate reloadTextAtIndexPath:textToReloadIndexPath withText:self.editedText];
     }];
 }
 

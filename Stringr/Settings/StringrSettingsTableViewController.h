@@ -1,5 +1,5 @@
 //
-//  StringrMySchoolViewController.h
+//  StringrSettingsViewController.h
 //  Stringr
 //
 //  Created by Jonathan Howard on 11/21/13.
@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrTabBarViewController.h"
+#import "StringrTableViewController.h"
 
-@interface StringrMySchoolTabBarViewController : StringrTabBarViewController
+@interface StringrSettingsTableViewController : UITableViewController
+
 
 @end

@@ -183,7 +183,7 @@
             }
         } else if (user.isNew) {
             [self userFacebookLoginData];
-            StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+            StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
             [facebookSignUpVC setNetworkType:FacebookNetworkType];
             [self setDelegate:facebookSignUpVC];
             [self.navigationController pushViewController:facebookSignUpVC animated:YES];
@@ -204,7 +204,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
-                StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+                StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
                 [facebookSignUpVC setNetworkType:FacebookNetworkType];
                 [self setDelegate:facebookSignUpVC];
                 [self.navigationController pushViewController:facebookSignUpVC animated:YES];
@@ -229,7 +229,7 @@
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in with Twitter!");
             [self userTwitterLoginData];
-            StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+            StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
             [twitterSignUpVC setNetworkType:TwitterNetworkType];
             [self setDelegate:twitterSignUpVC];
             [self.navigationController pushViewController:twitterSignUpVC animated:YES];
@@ -244,7 +244,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
-                StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+                StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
                 [twitterSignUpVC setNetworkType:TwitterNetworkType];
                 [self setDelegate:twitterSignUpVC];
                 [self.navigationController pushViewController:twitterSignUpVC animated:YES];
@@ -255,7 +255,7 @@
 
 - (IBAction)signUpWithEmailButtonTouchHandler:(UIButton *)sender
 {
-    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithEmailVC"];
+    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithEmailID];
     
     [self.navigationController pushViewController:signupWithEmailVC animated:YES];
 }
@@ -273,7 +273,7 @@
 
 - (IBAction)userNeedsToVerifyEmailButtonTouchHandler:(UIButton *)sender
 {
-    StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+    StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
     [self.navigationController pushViewController:emailVerificationVC animated:YES];
 }
 
@@ -308,7 +308,7 @@
             // alert delegate that we logged in with user
             [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
         } else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
-            StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+            StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
             [self.loginActivityIndicator stopAnimating];
             [self.navigationController pushViewController:emailVerificationVC animated:YES];
         }
@@ -327,7 +327,6 @@
             NSDictionary *userData = (NSDictionary *)result;
             
             NSString *facebookID = userData[@"id"];
-            
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
             // If it's a new user we go through the setup of loading all their facebook info
@@ -510,7 +509,7 @@
         [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
     } else if ([StringrUtility usernameUserNeedsToVerifyEmail:user]) {
         [self.userNeedsToVerifyEmailButton setHidden:NO];
-        StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+        StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
         [self.navigationController pushViewController:emailVerificationVC animated:YES];
     }
 }

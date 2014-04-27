@@ -60,7 +60,7 @@
 
     [self.stringCollectionView addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
         if (succeeded) {
-            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             [editPhotoVC setEditDetailsEnabled:YES];
             [editPhotoVC setStringOwner:weakSelf.stringToLoad];
             [editPhotoVC setSelectedPhotoIndex:0];
@@ -81,7 +81,7 @@
 {
     if (photos)
     {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         [photoDetailVC setStringOwner:string];
         
         // Sets the initial photo to the selected cell's PFObject photo data

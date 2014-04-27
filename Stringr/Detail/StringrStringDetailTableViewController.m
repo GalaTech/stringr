@@ -200,10 +200,18 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             NSString *titleText = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+            
+            if (!self.stringDetailsToLoad) {
+                titleText = @"";
+            }
 
             return [StringrUtility heightForLabelWithNSString:titleText]; // the 31 is for additional margin space
         } else if (indexPath.row == 2) {
             NSString *descriptionText = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+            
+            if (!self.stringDetailsToLoad) {
+                descriptionText = @"";
+            }
 
             return [StringrUtility heightForLabelWithNSString:descriptionText]; // the 31 is for additional margin space
         }
