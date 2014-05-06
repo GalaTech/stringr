@@ -57,13 +57,25 @@
 - (void)setStringTitle:(NSString *)stringTitle
 {
     _stringTitle = stringTitle;
-    [self.delegate setStringTitle:stringTitle];
+    
+    NSString *tempStringTitle = stringTitle;
+    if ([tempStringTitle isEqualToString:@"Enter the title for your String"]) {
+        tempStringTitle = @"";
+    }
+    
+    [self.delegate setStringTitle:tempStringTitle];
 }
 
 - (void)setStringDescription:(NSString *)stringDescription
 {
     _stringDescription = stringDescription;
-    [self.delegate setStringDescription:stringDescription];
+    
+    NSString *tempStringDescription = stringDescription;
+    if ([tempStringDescription isEqualToString:@"Enter the description for your String"]) {
+        tempStringDescription = @"";
+    }
+    
+    [self.delegate setStringDescription:tempStringDescription];
 }
 
 
@@ -117,6 +129,8 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
                 StringrDetailTitleTableViewCell *titleTableVC = (StringrDetailTitleTableViewCell *)cell;
+
+                
                 [titleTableVC setTitleForCell:self.stringTitle];
                 
             } else if (indexPath.row == 2) {
@@ -125,15 +139,8 @@
                 
                 StringrDetailDescriptionTableViewCell *descriptionTableVC = (StringrDetailDescriptionTableViewCell *)cell;
 
-                //NSDictionary *textAttributes = [descriptionTableVC getDescriptionTextAttributes];
-                //NSString *descriptionText = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
-
-                //CGSize sizeOfLabel = [descriptionText sizeWithAttributes:textAttributes];
                 
                 [descriptionTableVC setDescriptionForCell:self.stringDescription];
-                
-                
-                
             }
             break;
         case 1:
@@ -183,10 +190,22 @@
         [editTextVC setDelegate:self];
         
         if (indexPath.row == 1) {
-            [editTextVC setTextForEditing:self.stringTitle];
+            // sets the edit text view to be blank
+            NSString *stringTitle = self.stringTitle;
+            if ([stringTitle isEqualToString:@"Enter the title for your String"]) {
+                stringTitle = @"";
+            }
+            
+            [editTextVC setTextForEditing:stringTitle];
             [editTextVC setTitle:@"Edit Title"];
         } else if (indexPath.row == 2) {
-            [editTextVC setTextForEditing:self.stringDescription];
+            // sets the edit text view to be blank
+            NSString *stringDescription = self.stringDescription;
+            if ([stringDescription isEqualToString:@"Enter the description for your String"]) {
+                stringDescription = @"";
+            }
+            
+            [editTextVC setTextForEditing:stringDescription];
             [editTextVC setTitle:@"Edit Description"];
         }
         

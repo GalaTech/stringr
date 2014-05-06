@@ -78,14 +78,19 @@
     [self.descriptionLabel setText:description];
     [self.descriptionLabel setNumberOfLines:200];
     
-    UIColor *titleColor = [UIColor darkGrayColor];
-    NSMutableParagraphStyle *titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [titleParagraphStyle setAlignment:NSTextAlignmentLeft];
-    [titleParagraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
-    [titleParagraphStyle setParagraphSpacingBefore:40.0f];
+    UIColor *descriptionColor = [UIColor darkGrayColor];
+    if ([description isEqualToString:@"Enter the description for your String"]) {
+        descriptionColor = [UIColor lightGrayColor];
+    }
     
-    NSDictionary *titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:titleColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, titleParagraphStyle, NSParagraphStyleAttributeName, nil];
-    [self.descriptionLabel setAttributes:titleAttributes];
+    
+    NSMutableParagraphStyle *descriptionParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [descriptionParagraphStyle setAlignment:NSTextAlignmentLeft];
+    [descriptionParagraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [descriptionParagraphStyle setParagraphSpacingBefore:40.0f];
+    
+    NSDictionary *descriptionAttributes = [NSDictionary dictionaryWithObjectsAndKeys:descriptionColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, descriptionParagraphStyle, NSParagraphStyleAttributeName, nil];
+    [self.descriptionLabel setAttributes:descriptionAttributes];
     
     //[self.titleLabel setText:@"This is a cool label that can tell if there are any @mentions or #hashtags!\n"];
     

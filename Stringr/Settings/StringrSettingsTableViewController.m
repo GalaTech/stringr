@@ -155,7 +155,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -164,16 +164,18 @@
         case 0:
             return 2;
             break;
+            /*
         case 1:
             return 2;
             break;
-        case 2:
+             */
+        case 1:
             return 3;
             break;
-        case 3:
+        case 2:
             return 1;
             break;
-        case 4:
+        case 3:
             return 1;
             break;
         default:
@@ -201,36 +203,36 @@
                 }
                 break;
                 // connect/disconnect from facebook/twitter and change email/password
+           /*
             case 1:
-                /*
+//                if (indexPath.row == 0) {
+//                    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+//                        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+//                        [cell.textLabel setText:@"Disconnect from Facebook"];
+//                    } else {
+//                        UIColor *facebookBlue = [UIColor colorWithRed:59/255.0f green:89/255.0f blue:152/255.0f alpha:1.0];
+//                        [cell.textLabel setTextColor:facebookBlue];
+//                        [cell.textLabel setText:@"Connect with Facebook"];
+//                    }
+//                } else if (indexPath.row == 1) {
+//                    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) {
+//                        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+//                        [cell.textLabel setText:@"Disconnect from Twitter"];
+//                    } else {
+//                        UIColor *twitterBlue = [UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0];
+//                        [cell.textLabel setTextColor:twitterBlue];
+//                        [cell.textLabel setText:@"Connect with Twitter"];
+//                    }
+//                } else
+                
                 if (indexPath.row == 0) {
-                    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-                        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
-                        [cell.textLabel setText:@"Disconnect from Facebook"];
-                    } else {
-                        UIColor *facebookBlue = [UIColor colorWithRed:59/255.0f green:89/255.0f blue:152/255.0f alpha:1.0];
-                        [cell.textLabel setTextColor:facebookBlue];
-                        [cell.textLabel setText:@"Connect with Facebook"];
-                    }
-                } else if (indexPath.row == 1) {
-                    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) {
-                        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
-                        [cell.textLabel setText:@"Disconnect from Twitter"];
-                    } else {
-                        UIColor *twitterBlue = [UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0];
-                        [cell.textLabel setTextColor:twitterBlue];
-                        [cell.textLabel setText:@"Connect with Twitter"];
-                    }
-                } else
-                    */
-                    if (indexPath.row == 0) {
                     [cell.textLabel setText:@"Change Account Email"];
                 } else if (indexPath.row == 1) {
                     [cell.textLabel setText:@"Change Account Password"];
                 }
                 break;
-                
-            case 2:
+                */
+            case 1:
                 if (indexPath.row == 0) {
                     [cell.textLabel setText:@"Report a Problem"];
                 }
@@ -250,12 +252,12 @@
                 }
                  */
                 break;
-            case 3:
+            case 2:
                 if (indexPath.row == 0) {
                     [cell.textLabel setText:@"Push Notification Settings"];
                 }
                 break;
-            case 4:
+            case 3:
                 if (indexPath.row == 0) {
                     UIColor *redColor = [UIColor colorWithRed:204.0/255.0f green:102.0/255.0f blue:102.0/255.0f alpha:1.0];
                     [cell.textLabel setText:@"Log Out"];
@@ -292,7 +294,9 @@
             [self.navigationController pushViewController:inviteFriendsTableVC animated:YES];
         
         }
-    } else if (indexPath.section == 1) {
+    }
+    /*
+    else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             StringrWriteAndEditTextViewController *changeEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardWriteAndEditID];
             changeEmailVC.title = @"Change Email";
@@ -310,7 +314,9 @@
             StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:changePasswordVC];
             [self presentViewController:navVC animated:YES completion:nil];
         }
-    } else if (indexPath.section == 2) {
+    } 
+     */
+     else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             [self composeSupportEmail];
         } else if (indexPath.row ==1) {
@@ -318,10 +324,10 @@
         } else if (indexPath.row == 2) {
             [self presentTermsOfService];
         }
-    } else if (indexPath.section == 3 && indexPath.row == 0) {
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
         StringrPushNotificationsTableViewController *pushNotificationsVC = [[StringrPushNotificationsTableViewController alloc] initWithStyle:UITableViewStylePlain];
         [self.navigationController pushViewController:pushNotificationsVC animated:YES];
-    } else if (indexPath.section == 4 && indexPath.row == 0) {
+    } else if (indexPath.section == 3 && indexPath.row == 0) {
         [PFQuery clearAllCachedResults];
         [[StringrCache sharedCache] clear];
         

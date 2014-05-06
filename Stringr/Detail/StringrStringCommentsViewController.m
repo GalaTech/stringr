@@ -242,9 +242,6 @@
     if (indexPath.row == self.objects.count) {
         // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
         UITableViewCell *loadMoreCell = (StringrLoadMoreTableViewCell *)[self tableView:tableView cellForNextPageAtIndexPath:indexPath];
-        
-        
-        
         return loadMoreCell;
     } else {
         StringrCommentsTableViewCell *commentsCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

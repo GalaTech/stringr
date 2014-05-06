@@ -35,8 +35,18 @@
     [_stringReorderableCollectionView setDelegate:self];
     [_stringReorderableCollectionView setStringObject:self.stringToLoad];
     
+    __weak typeof (self) weakSelf = self;
+    
+    // this will occur if it is a new string because the only time an image will
+    // be passed in initially will be upon that creation.
     if (self.userSelectedPhoto) {
-        [self addNewImageToString:self.userSelectedPhoto];
+        [self.delegate toggleActionEnabledOnTableView:NO];
+        // disable tableview
+        [self addNewImageToString:self.userSelectedPhoto withBlock:^(BOOL succeeded) {
+            if (succeeded) {
+                [weakSelf.delegate toggleActionEnabledOnTableView:YES];
+            }
+        }];
     }
     
     [self.stringView addSubview:_stringReorderableCollectionView];
@@ -66,7 +76,7 @@
 
 #pragma mark - Public
 
-- (void)addNewImageToString:(UIImage *)image
+- (void)addNewImageToString:(UIImage *)image withBlock:(void(^)(BOOL succeeded))completionBlock
 {
     // creates a local weak version of self so that I can use it inside of the block
     __weak typeof(self) weakSelf = self;
@@ -81,7 +91,11 @@
             
             StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
             
-            [weakSelf presentViewController:navVC animated:YES completion:nil];
+            [weakSelf presentViewController:navVC animated:YES completion:^ {
+                if (completionBlock) {
+                    completionBlock(succeeded);
+                }
+            }];
         }
     }];
 }

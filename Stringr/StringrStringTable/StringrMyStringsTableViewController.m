@@ -8,8 +8,12 @@
 
 #import "StringrMyStringsTableViewController.h"
 #import "StringrStringDetailViewController.h"
+#import "StringrPhotoDetailViewController.h"
+#import "StringrNavigationController.h"
 
 @interface StringrMyStringsTableViewController () <UIActionSheetDelegate>
+
+@property (nonatomic) BOOL editingStringsEnabled;
 
 @end
 
@@ -20,20 +24,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-    
-    
+
     self.title = @"My Strings";
     
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(pushToStringEdit)];
-    
-        
-    //TODO: The action for this button is to edit a selected string. The selected string should be pushed in
-    // with this method so that it can easily be transferred to the edit controller.
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(pushToStringEdit:)];
 	self.navigationItem.rightBarButtonItem = editButton;
 }
 
@@ -55,6 +49,7 @@
 
 
 
+
 #pragma mark - Private
 
 - (void)editedStringSuccessfully
@@ -62,6 +57,23 @@
     [self loadObjects];
 }
 
+/*
+- (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
+{
+    headerView.section = section;
+    headerView.stringForHeader = string;
+    headerView.stringEditingEnabled = self.editingStringsEnabled;
+    headerView.delegate = self;
+}
+
+- (void)reloadHeaders {
+    for (NSInteger i = 0; i < [self numberOfSectionsInTableView:self.tableView]; i++) {
+        StringrStringHeaderView *header = (StringrStringHeaderView *)[self tableView:self.tableView viewForHeaderInSection:i];
+        PFObject *string = header.stringForHeader;
+        [self configureHeader:header forSection:i withString:string];
+    }
+}
+ */
 
 
 
@@ -71,26 +83,24 @@
 // Handles the action of moving a user to edit the selected string.
 // This will eventually incorporate the selection of a specific string and then taking the user
 // to edit that string individually
-- (void)pushToStringEdit
+- (void)pushToStringEdit:(UIBarButtonItem *)sender
 {
-    /*
-    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-    [stringEditVC setEditDetailsEnabled:YES];
-    [stringEditVC setStringToLoad:self.objects[0]];
+    if (!self.editingStringsEnabled) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pushToStringEdit:)];
+        
+        self.editingStringsEnabled = YES;
+    } else {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(pushToStringEdit:)];
+        self.editingStringsEnabled = NO;
+    }
     
-    [self.navigationController pushViewController:stringEditVC animated:YES];
-     */
-    
-    
-    
-    
-    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    //[self reloadHeaders];
 }
 
 
 
-#pragma mark - Parse
 
+#pragma mark - PFQueryTableViewController Delegate
 
 - (PFQuery *)queryForTable
 {
@@ -101,43 +111,88 @@
     return myStringsQuery;
 }
 
-
-
-#pragma mark - UITableView Delegate
-
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2 == 0) {
-        return YES;
-    }
-    
     return NO;
 }
 
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+
+#pragma mark - StringView Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
 {
-    return YES;
+    if (photos)
+    {
+        if (self.editingStringsEnabled) {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+            [photoDetailVC setEditDetailsEnabled:NO];
+            
+            // Sets the photos to be displayed in the photo pager
+            [photoDetailVC setPhotosToLoad:photos];
+            [photoDetailVC setSelectedPhotoIndex:index];
+            [photoDetailVC setStringOwner:string];
+            [photoDetailVC setEditDetailsEnabled:YES];
+            
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+            
+            [self presentViewController:navVC animated:YES completion:nil];
+        } else {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+            [photoDetailVC setEditDetailsEnabled:NO];
+            
+            // Sets the photos to be displayed in the photo pager
+            [photoDetailVC setPhotosToLoad:photos];
+            [photoDetailVC setSelectedPhotoIndex:index];
+            [photoDetailVC setStringOwner:string];
+            
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            [self.navigationController pushViewController:photoDetailVC animated:YES];
+        }
+    }
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+#pragma mark - StringrStringHeaderView Delegate
+
+- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
 {
-    // When a cell is selected it will push to that Strings edit page.
-    /*
-    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-    [stringEditVC setEditDetailsEnabled:YES];
-    
-    [self.navigationController pushViewController:stringEditVC animated:YES];
-     */
-    
-    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-    [stringEditVC setEditDetailsEnabled:YES];
-    [stringEditVC setStringToLoad:self.objects[indexPath.row]];
-    
-    [self.navigationController pushViewController:stringEditVC animated:YES];
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"delete");
+    if (self.editingStringsEnabled) {
+        StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        
+        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+            string = [string objectForKey:kStringrStatisticsStringKey];
+        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+            string = [string objectForKey:kStringrActivityStringKey];
+        }
+        
+        // tag is set to the section number of each string
+        [detailVC setStringToLoad:string];
+        [detailVC setEditDetailsEnabled:YES];
+        [detailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
+    } else {
+        StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        
+        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+            string = [string objectForKey:kStringrStatisticsStringKey];
+        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+            string = [string objectForKey:kStringrActivityStringKey];
+        }
+        
+        // tag is set to the section number of each string
+        [detailVC setStringToLoad:string];
+        [detailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
 

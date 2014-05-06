@@ -12,6 +12,7 @@
 #import "StringrNavigationController.h"
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
+#import "StringrStringCommentsViewController.h"
 
 @interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
 
@@ -104,7 +105,7 @@
         StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
-        
+
         [self.navigationController pushViewController:stringDetailVC animated:YES];
     } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
         StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];

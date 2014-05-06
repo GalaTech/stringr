@@ -152,7 +152,7 @@
 - (void)saveAndPublishInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))completionBlock
 {
     if (self.collectionViewPhotos.count > 0) {
-        if (self.stringToLoad) {
+        if (self.stringToLoad) {// string already existed
             for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                 PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
                 
@@ -183,7 +183,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
             }];
-        } else {
+        } else { // new string
             PFObject *newString = [PFObject objectWithClassName:kStringrStringClassKey];
             [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
 

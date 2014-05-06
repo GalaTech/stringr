@@ -32,8 +32,8 @@
         self.stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
         self.stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
     } else {
-        self.stringTitle = @"";
-        self.stringDescription = @"";
+        self.stringTitle = @"Enter the title for your String";
+        self.stringDescription = @"Enter the description for your String";
     }
 }
 

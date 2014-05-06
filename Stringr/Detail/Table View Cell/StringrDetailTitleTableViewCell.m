@@ -49,7 +49,11 @@
     [self.titleLabel setText:title];
     [self.titleLabel setNumberOfLines:200];
     
-    UIColor *titleColor = [UIColor darkGrayColor];
+    UIColor *titleColor  = [UIColor darkGrayColor];
+    if ([title isEqualToString:@"Enter the title for your String"]) {
+        titleColor = [UIColor lightGrayColor];
+    }
+    
     NSMutableParagraphStyle *titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     [titleParagraphStyle setAlignment:NSTextAlignmentLeft];
     [titleParagraphStyle setLineBreakMode:NSLineBreakByWordWrapping];

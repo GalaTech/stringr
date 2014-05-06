@@ -13,7 +13,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
-@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate>
+@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate>
 
 @property (strong, nonatomic) StringrStringDetailTopViewController *stringTopVC;
 @property (strong, nonatomic) StringrStringDetailTableViewController *stringTableVC;
@@ -59,6 +59,7 @@
                 self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTopViewID];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setDelegate:self];
                 
                 self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTableViewID];
                 [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
@@ -202,16 +203,46 @@
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
         if (self.editDetailsEnabled) {
+            StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
+            [tableVC.tableView setUserInteractionEnabled:NO];
+            
             StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
-            [topVC addNewImageToString:image];
+            [topVC addNewImageToString:image withBlock:^(BOOL succeeded) {
+                if (succeeded) {
+                    [tableVC.tableView setUserInteractionEnabled:YES];
+                }
+            }];
         } else {
+            StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
+            [tableVC.tableView setUserInteractionEnabled:NO];
+            
             StringrStringDetailTopViewController *topVC = (StringrStringDetailTopViewController *)self.stringTopVC;
-            [topVC addImageToPublicString:image];
+            [topVC addImageToPublicString:image withBlock:^(BOOL succeeded) {
+                if (succeeded) {
+                    [tableVC.tableView setUserInteractionEnabled:YES];
+                }
+            }];
+            
+            
+            
         }
     }];
 }
 
 
+
+
+#pragma mark - StringrStringDetailEditTopViewController Delegate
+
+- (void)toggleActionEnabledOnTableView:(BOOL)enabled
+{
+    StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
+    [tableVC.tableView setUserInteractionEnabled:enabled];
+}
+
+
+
+#pragma mark - Parallax Delegate
 
 
 /**

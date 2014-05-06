@@ -17,12 +17,13 @@
 #import "StringrUserTableViewController.h"
 
 #import "StringTableViewCell.h"
-#import "StringView.h"
 #import "StringrFooterView.h"
+
+#import "StringrLoadMoreTableViewCell.h"
 
 #import "StringrStringDetailViewController.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringViewDelegate, StringrFooterViewDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate>
 
 @end
 
@@ -37,7 +38,7 @@
         self.parseClassName = kStringrStringClassKey;
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = NO;
-        self.objectsPerPage = 1;
+        self.objectsPerPage = 2;
     }
     
     return self;
@@ -91,29 +92,11 @@
     return footerView;
 }
 
-
-
-
-#pragma mark - Action Handlers
-
-// Handles the action of pushing to to the detail view of a selected string
-- (void)pushToStringDetailView:(UIButton *)sender
+- (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
 {
-    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-    
-    PFObject *string = [self.objects objectAtIndex:sender.tag];
-    
-    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [string objectForKey:kStringrStatisticsStringKey];
-    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [string objectForKey:kStringrActivityStringKey];
-    }
-    
-    // tag is set to the section number of each string
-    [detailVC setStringToLoad:string];
-    [detailVC setHidesBottomBarWhenPushed:YES];
-    
-    [self.navigationController pushViewController:detailVC animated:YES];
+    headerView.section = section;
+    headerView.stringForHeader = string;
+    headerView.delegate = self;
 }
 
 
@@ -123,7 +106,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.objects count];
+    /*
+    if (self.objects.count == self.objectsPerPage) {
+        return self.objects.count + 1;
+    }
+     */
+    
+    return self.objects.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -131,11 +120,7 @@
     // One of the rows is for the footer view
     return 2;
 }
- 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
+
 
 
 
@@ -144,8 +129,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    //
-    return 23.5f;
+    if (section < self.objects.count) {
+        return 23.5f;
+    }
+    
+    return 0.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -153,60 +141,37 @@
     return 0.0f;
 }
 
-// Percentage for the width of the content header view
-static float const contentViewWidthPercentage = .93;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    // Section header view, which is used for embedding the content view of the section header
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
-    
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    [headerView setAlpha:1];
-    
-    float xpoint = (headerView.frame.size.width - (headerView.frame.size.width * contentViewWidthPercentage)) / 2;
-    CGRect contentHeaderRect = CGRectMake(xpoint, 0, headerView.frame.size.width * contentViewWidthPercentage, 23.5);
-    
-    
-    // This is the content view, which is a button that will provide user interaction that can take them to
-    // the detail view of a string
-    UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
-    [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
-    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView:) forControlEvents:UIControlEventTouchUpInside];
-    [contentHeaderViewButton setAlpha:0.92];
-    // Sets tag so we can easily access the correct string when a user taps the detail view for a string
-    [contentHeaderViewButton setTag:section];
-    
-    PFObject *string = [self.objects objectAtIndex:section];
-    
-    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [string objectForKey:kStringrStatisticsStringKey];
-    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [string objectForKey:kStringrActivityStringKey];
-    }
+    if (section < self.objects.count) {
+        StringrStringHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headerView"];
+        
+        if (!headerView) {
+            headerView = [[StringrStringHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+        }
+        
+        [self configureHeader:headerView forSection:section withString:[self.objects objectAtIndex:section]];
 
+        return headerView;
+    }
     
-    NSString *titleText = [string objectForKey:kStringrStringTitleKey];
-    [contentHeaderViewButton setTitle:titleText forState:UIControlStateNormal];
-    [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f]];
-    
-    [headerView addSubview:contentHeaderViewButton];
-    
-    return headerView;
+    return nil;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        // string view
-        return 157.0f;
-    } else if (indexPath.row == 1) {
-        // footer view
-        return 52.0f;
+    if (indexPath.section < self.objects.count) {
+        if (indexPath.row == 0) {
+            // string view
+            return 157.0f;
+        } else if (indexPath.row == 1) {
+            // footer view
+            return 52.0f;
+        }
     }
-    
+        
     return 0.0f;
 }
 
@@ -218,6 +183,7 @@ static float const contentViewWidthPercentage = .93;
 - (PFQuery *)queryForTable
 {
     PFQuery *query = [self getQueryForTable];
+    query.limit = 100;
     
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyNetworkElseCache;
@@ -244,16 +210,16 @@ static float const contentViewWidthPercentage = .93;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    
     PFObject *string = object;
     
+    // It's possible for this object to be of type statistic or activity. This just gets the string
+    // value from either of those classes
     if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
         string = [object objectForKey:kStringrStatisticsStringKey];
     } else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
         string = [object objectForKey:kStringrActivityStringKey];
     }
     
-    //static NSString *cellIdentifier = @"Cell";
     if (indexPath.section == self.objects.count) {
         // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
         UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
@@ -318,13 +284,18 @@ static float const contentViewWidthPercentage = .93;
     
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
-    [loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
+    //[loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     
-    return loadCell;
+    StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
+    
+    if (!loadMoreCell) {
+        loadMoreCell = [[StringrLoadMoreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"loadMoreCell"];
+    }
+    
+    return loadMoreCell;
 }
 
 
@@ -350,6 +321,27 @@ static float const contentViewWidthPercentage = .93;
         [self.navigationController pushViewController:photoDetailVC animated:YES];
         
     }
+}
+
+
+
+#pragma mark - StringrHeaderViewView Delegate
+
+- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
+{
+    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    
+    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [string objectForKey:kStringrStatisticsStringKey];
+    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [string objectForKey:kStringrActivityStringKey];
+    }
+    
+    // tag is set to the section number of each string
+    [detailVC setStringToLoad:string];
+    [detailVC setHidesBottomBarWhenPushed:YES];
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

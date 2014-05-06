@@ -57,7 +57,7 @@
 }
 
 
-- (void)addImageToPublicString:(UIImage *)image
+- (void)addImageToPublicString:(UIImage *)image withBlock:(void (^)(BOOL))completionBlock
 {
     // creates a local weak version of self so that I can use it inside of the block
     __weak typeof(self) weakSelf = self;
@@ -72,7 +72,11 @@
             
             StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
             
-            [weakSelf presentViewController:navVC animated:YES completion:nil];
+            [weakSelf presentViewController:navVC animated:YES completion:^ {
+                if (completionBlock) {
+                    completionBlock(succeeded);
+                }
+            }];
         }
     }];
 }

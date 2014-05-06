@@ -69,6 +69,7 @@
 		AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */; };
 		AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
+		ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */; };
 		ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */; };
 		ABDB7CB118D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CB018D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m */; };
 		ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CB318D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m */; };
@@ -248,6 +249,8 @@
 		AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityTableViewCell.m; path = TableViewCell/StringrActivityTableViewCell.m; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
+		ABCEFA061919783B0018C547 /* StringrStringHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringHeaderView.h; path = String/StringrStringHeaderView.h; sourceTree = "<group>"; };
+		ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringHeaderView.m; path = String/StringrStringHeaderView.m; sourceTree = "<group>"; };
 		ABDB7CAB18D3C0960047691B /* StringrDetailTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTitleTableViewCell.h; path = "Detail/Table View Cell/StringrDetailTitleTableViewCell.h"; sourceTree = "<group>"; };
 		ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTitleTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTitleTableViewCell.m"; sourceTree = "<group>"; };
 		ABDB7CAF18D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailDescriptionTableViewCell.h; path = "Detail/Table View Cell/StringrDetailDescriptionTableViewCell.h"; sourceTree = "<group>"; };
@@ -673,6 +676,8 @@
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
+				ABCEFA061919783B0018C547 /* StringrStringHeaderView.h */,
+				ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */,
 				BF170EC7184BEB700056ECE7 /* StringView.h */,
 				BF170EC8184BEB700056ECE7 /* StringView.m */,
 				AB919C48189EF23A00D40FD5 /* StringViewReorderable.h */,
@@ -1150,6 +1155,7 @@
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
+				ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */,
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
