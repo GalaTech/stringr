@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringLargeCollectionView;
 
-@property (strong, nonatomic) NSMutableArray *collectionData;
+//@property (strong, nonatomic) NSMutableArray *collectionData;
 
 
 @end
@@ -40,9 +40,11 @@
 
 #pragma mark - Custom Accessors
 
+/*
 - (void)setCollectionData:(NSMutableArray *)collectionData {
     _collectionData = collectionData;
 }
+ */
 
 - (void)setStringObject:(PFObject *)string
 {
@@ -67,6 +69,7 @@
 
 #pragma mark - Public
 
+// Add image to public string
 - (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
 {
     if (image) {
@@ -75,7 +78,8 @@
         UIImage *resizedImage = [StringrUtility formatPhotoImageForUpload:image];
         NSData *resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
         
-        PFFile *imageFileForUpload = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]] data:resizedImageData];
+        PFFile *imageFileForUpload = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpeg", [StringrUtility randomStringWithLength:8]] data:resizedImageData];
+        [imageFileForUpload saveInBackground];
         
         [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
         [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
@@ -90,6 +94,11 @@
         [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
         [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
         [photo setObject:@(self.collectionViewPhotos.count) forKey:kStringrPhotoOrderNumber];
+        
+        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
+        [photoACL setPublicReadAccess:YES];
+        [photo setACL:photoACL];
         
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -131,6 +140,34 @@
             }
         }
         
+    }
+}
+
+- (void)removePhotoFromString:(PFObject *)photo
+{
+    if (photo) {
+        NSUInteger indexOfPhoto = [self.collectionViewPhotos indexOfObject:photo];
+        
+        PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexOfPhoto];
+        [photo deleteEventually];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
+        [self.collectionViewPhotos removeObjectAtIndex:indexOfPhoto];
+        
+        if (self.stringCollectionView) {
+            [self.stringCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+        } else if (self.stringLargeCollectionView) {
+            [self.stringLargeCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+        }
+    }
+}
+
+- (void)reloadString
+{
+    if (self.stringCollectionView) {
+        [self.stringCollectionView reloadData];
+    } else if (self.stringLargeCollectionView) {
+        [self.stringLargeCollectionView reloadData];
     }
 }
 
@@ -233,8 +270,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Sends information to delegate for what cell was tapped. This allows for simple access to push details about the selected cells data.
-    [self.delegate collectionView:collectionView tappedPhotoAtIndex:indexPath.row inPhotos:self.collectionViewPhotos fromString:self.stringToLoad];
+    PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+    
+    if (photo) {
+        // Sends information to delegate for what cell was tapped. This allows for simple access to push details about the selected cells data.
+        [self.delegate collectionView:collectionView tappedPhotoAtIndex:indexPath.item inPhotos:self.collectionViewPhotos fromString:self.stringToLoad];
+    }
 }
 
 

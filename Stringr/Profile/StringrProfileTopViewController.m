@@ -38,34 +38,8 @@
     [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]];
     
     [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
-    
-    int numberOfStrings = [[self.userForProfile objectForKey:kStringrUserNumberOfStringsKey] intValue];
-    
-    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
-    if (numberOfStrings == 1) {
-        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
-    }
-    
-    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
-    
-    PFObject *object = [PFObject objectWithoutDataWithClassName:kStringrStringClassKey objectId:@"He5pxhvvW0"];
-    
-    
-    /*
-    PFQuery *testQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [testQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
-    [testQuery whereKey:kStringrActivityStringKey equalTo:object];
-    [testQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        if (!error) {
-            NSLog(@"%d", number);
-        }
-    }];
-    */
-    
-    
-    
+
     // Sets the circle image path properties
-    
     [self.profileImage setImage:[UIImage imageNamed:@"stringr_icon_filler"]];
     [self.profileImage setFile:[self.userForProfile objectForKey:kStringrUserProfilePictureKey]];
     [self.profileImage loadInBackgroundWithIndicator];
@@ -75,37 +49,110 @@
     [self.profileImage setPathColor:[UIColor darkGrayColor]];
     [self.profileImage setContentMode:UIViewContentModeScaleAspectFill];
     
+    // sets up the number of followers, following, and strings a user has.
+    // It will query for those number the first time, but will then retrieve them
+    // from cache in future requests
+    [self queryAndSetupUserProfileDetails];
     
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.usernameAndDisplayNameAnimationTimer invalidate];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
+
+
+
+#pragma mark - Private
+
+- (void)setupAnimatedProfileName
+{
+    NSString *nameToDisplay = @"";
+    
+    // changes the name between user username and displayname
+    if ([self.profileNameLabel.text isEqualToString:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]]) {
+        nameToDisplay = [self.userForProfile objectForKey:kStringrUserDisplayNameKey];
+    } else {
+        nameToDisplay = [StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]];
+    }
+    
+    [UIView transitionWithView:self.profileNameLabel
+                      duration:1.0 options:UIViewAnimationOptionTransitionFlipFromTop
+                    animations:^{
+                        [self.profileNameLabel setText:nameToDisplay];
+                    } completion:nil];
+}
+
+- (void)queryAndSetupUserProfileDetails
+{
     NSDictionary *userAttributes = [[StringrCache sharedCache] attributesForUser:self.userForProfile];
     
-    // sets the number of following/followers text for the users profile
+    
+    // sets the number of following/followers/number of Strings text for the users profile
     // Sets via cache if available and querries if not
     if (userAttributes) {
         NSNumber *currentUserFollowingCount = [[StringrCache sharedCache] followingCountForUser:self.userForProfile];
-        NSNumber *currentUserFollowerCount = [[StringrCache sharedCache] followerCountForUser:self.userForProfile];
-        
         self.followingLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowingCount intValue]];
-        self.followersLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]];
-    } else {
-        PFQuery *followingUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [followingUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
-        [followingUserActivityQuery whereKey:kStringrActivityFromUserKey equalTo:self.userForProfile];
-        [followingUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error ) {
-            if (!error) {
-                self.followingLabel.text = [NSString stringWithFormat:@"%d", number];
-                [[StringrCache sharedCache] setFollowingCount:@(number) forUser:self.userForProfile];
-            }
-        }];
         
-        PFQuery *followersUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [followersUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
-        [followersUserActivityQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
-        [followersUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            if (!error) {
-                self.followersLabel.text = [NSString stringWithFormat:@"%d", number];
-                [[StringrCache sharedCache] setFollowerCount:@(number) forUser:self.userForProfile];
-            }
-        }];
+        NSNumber *currentUserFollowerCount = [[StringrCache sharedCache] followerCountForUser:self.userForProfile];
+        self.followersLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]];
+        
+        NSNumber *numberOfStrings = [[StringrCache sharedCache] stringCountForUser:self.userForProfile];
+        NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", [numberOfStrings intValue]];
+        if ([numberOfStrings intValue] == 1) {
+            numberOfStringsText = [NSString stringWithFormat:@"%d String", [numberOfStrings intValue]];
+        }
+        [self.profileNumberOfStringsLabel setText:numberOfStringsText];
+    } else {
+        @synchronized(self) {
+            PFQuery *followingUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [followingUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+            [followingUserActivityQuery whereKey:kStringrActivityFromUserKey equalTo:self.userForProfile];
+            [followingUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error ) {
+                if (!error) {
+                    self.followingLabel.text = [NSString stringWithFormat:@"%d", number];
+                    [[StringrCache sharedCache] setFollowingCount:@(number) forUser:self.userForProfile];
+                }
+            }];
+            
+            PFQuery *followersUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [followersUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+            [followersUserActivityQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
+            [followersUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                if (!error) {
+                    self.followersLabel.text = [NSString stringWithFormat:@"%d", number];
+                    [[StringrCache sharedCache] setFollowerCount:@(number) forUser:self.userForProfile];
+                }
+            }];
+            
+            PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+            [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
+            [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int numberOfStrings, NSError *error) {
+                if (!error) {
+                    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
+                    if (numberOfStrings == 1) {
+                        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
+                    }
+                    
+                    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
+                    [[StringrCache sharedCache] setStringCount:@(numberOfStrings) forUser:self.userForProfile];
+                }
+            }];
+        }
     }
     
     // loads follow button and determines the status of the current user following the profile user
@@ -116,7 +163,7 @@
     [self.followUserButton addSubview:self.followUserButtonLoadingIndicator];
     
     if (![[self.userForProfile objectId] isEqualToString:[[PFUser currentUser] objectId]] ) {
-    
+        
         [self.followUserButtonLoadingIndicator startAnimating];
         
         if (userAttributes) {
@@ -163,48 +210,6 @@
         [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         [self.followUserButton setEnabled:NO];
     }
-    
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.usernameAndDisplayNameAnimationTimer invalidate];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-}
-
-
-
-#pragma mark - Private
-
-- (void)setupAnimatedProfileName
-{
-    NSString *nameToDisplay = @"";
-    
-    // changes the name between user username and displayname
-    if ([self.profileNameLabel.text isEqualToString:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]]) {
-        nameToDisplay = [self.userForProfile objectForKey:kStringrUserDisplayNameKey];
-    } else {
-        nameToDisplay = [StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]];
-    }
-    
-    [UIView transitionWithView:self.profileNameLabel
-                      duration:1.0 options:UIViewAnimationOptionTransitionFlipFromTop
-                    animations:^{
-                        [self.profileNameLabel setText:nameToDisplay];
-                    } completion:nil];
 }
 
 - (void)configureFollowButton

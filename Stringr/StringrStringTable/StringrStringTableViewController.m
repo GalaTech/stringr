@@ -22,8 +22,6 @@
 
 #import "StringrStringDetailViewController.h"
 
-#import "TestViewController.h"
-
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringViewDelegate, StringrFooterViewDelegate>
 
 @end
@@ -192,7 +190,7 @@ static float const contentViewWidthPercentage = .93;
     [contentHeaderViewButton setTitle:titleText forState:UIControlStateNormal];
     [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
+    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f]];
     
     [headerView addSubview:contentHeaderViewButton];
     
@@ -222,7 +220,7 @@ static float const contentViewWidthPercentage = .93;
     PFQuery *query = [self getQueryForTable];
     
     if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        query.cachePolicy = kPFCachePolicyNetworkElseCache;
     }
     
     

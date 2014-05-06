@@ -28,6 +28,8 @@
 
 @protocol StringrPhotoDetailEditTableViewControllerDelegate <NSObject>
 
+@optional
 - (void)deletePhotoFromString:(PFObject *)photo;
+- (void)deletePhotoFromPublicString:(PFObject *)photo;
 
 @end

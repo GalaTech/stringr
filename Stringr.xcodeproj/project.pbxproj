@@ -18,6 +18,14 @@
 		AB1B0C87188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */; };
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
+		AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */; };
+		AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA181911A4BB00A9DFF9 /* Parse.framework */; };
+		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
+		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
+		AB2CFA201911A68300A9DFF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1F1911A68300A9DFF9 /* Social.framework */; };
+		AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */; };
+		AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA231911D31500A9DFF9 /* AdSupport.framework */; };
+		AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */; };
 		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
@@ -33,7 +41,6 @@
 		AB50811518B296BB00DE933D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811418B296BB00DE933D /* Security.framework */; };
 		AB50811718B296C200DE933D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811618B296C200DE933D /* StoreKit.framework */; };
 		AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811818B296C900DE933D /* SystemConfiguration.framework */; };
-		AB50811B18B2985300DE933D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811A18B2985300DE933D /* Parse.framework */; };
 		AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811C18B298D100DE933D /* FacebookSDK.framework */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
@@ -157,6 +164,16 @@
 		AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTopViewController.m; sourceTree = "<group>"; };
 		AB1B0C8B188DEE0C0063EAC5 /* StringrFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFooterView.h; path = Footer/StringrFooterView.h; sourceTree = "<group>"; };
 		AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterView.m; path = Footer/StringrFooterView.m; sourceTree = "<group>"; };
+		AB20142A1916DEBA0097FD10 /* StringrDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTableViewCell.h; path = "Detail/Table View Cell/StringrDetailTableViewCell.h"; sourceTree = "<group>"; };
+		AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTableViewCell.m"; sourceTree = "<group>"; };
+		AB2CFA181911A4BB00A9DFF9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
+		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AB2CFA1F1911A68300A9DFF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		AB2CFA231911D31500A9DFF9 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		AB2CFA2519142D7E00A9DFF9 /* TestViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestViewViewController.h; path = TestVC/TestViewViewController.h; sourceTree = "<group>"; };
+		AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestViewViewController.m; path = TestVC/TestViewViewController.m; sourceTree = "<group>"; };
 		AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoadMoreTableViewCell.h; path = StringrStringTable/StringrLoadMoreTableViewCell.h; sourceTree = "<group>"; };
 		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
 		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
@@ -178,7 +195,6 @@
 		AB50811418B296BB00DE933D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		AB50811618B296C200DE933D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AB50811818B296C900DE933D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		AB50811A18B2985300DE933D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
 		AB50811C18B298D100DE933D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = External/FacebookSDK.framework; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
@@ -343,9 +359,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */,
+				AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */,
+				AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */,
+				AB2CFA201911A68300A9DFF9 /* Social.framework in Frameworks */,
+				AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */,
+				AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */,
 				AB6CB1C719058714008A8DB0 /* MessageUI.framework in Frameworks */,
 				AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */,
-				AB50811B18B2985300DE933D /* Parse.framework in Frameworks */,
 				AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */,
 				AB50811718B296C200DE933D /* StoreKit.framework in Frameworks */,
 				AB50811518B296BB00DE933D /* Security.framework in Frameworks */,
@@ -570,6 +591,8 @@
 		ABDB7CAE18D3C0980047691B /* Detail TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				AB20142A1916DEBA0097FD10 /* StringrDetailTableViewCell.h */,
+				AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */,
 				ABDB7CAB18D3C0960047691B /* StringrDetailTitleTableViewCell.h */,
 				ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */,
 				ABDB7CAF18D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.h */,
@@ -853,9 +876,14 @@
 		BF8349CD18297FD600D15963 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB2CFA231911D31500A9DFF9 /* AdSupport.framework */,
+				AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */,
+				AB2CFA1F1911A68300A9DFF9 /* Social.framework */,
+				AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */,
+				AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */,
+				AB2CFA181911A4BB00A9DFF9 /* Parse.framework */,
 				AB6CB1C619058714008A8DB0 /* MessageUI.framework */,
 				AB50811C18B298D100DE933D /* FacebookSDK.framework */,
-				AB50811A18B2985300DE933D /* Parse.framework */,
 				AB50811818B296C900DE933D /* SystemConfiguration.framework */,
 				AB50811618B296C200DE933D /* StoreKit.framework */,
 				AB50811418B296BB00DE933D /* Security.framework */,
@@ -888,6 +916,8 @@
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
 				AB0BDFD418E4929A006FAB57 /* StringrCache.h */,
 				AB0BDFD518E4929A006FAB57 /* StringrCache.m */,
+				AB2CFA2519142D7E00A9DFF9 /* TestViewViewController.h */,
+				AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */,
 				BF834A491829978300D15963 /* Resources */,
 				BF8349D518297FD600D15963 /* Supporting Files */,
 			);
@@ -1146,6 +1176,7 @@
 				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
+				AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */,
 				ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
@@ -1161,6 +1192,7 @@
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
+				AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */,
 				ABDB7E4F18D63C620047691B /* StringrTableViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,
 				ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */,
@@ -1300,11 +1332,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr/External",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/External";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
@@ -1322,11 +1350,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr/External",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/External";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";

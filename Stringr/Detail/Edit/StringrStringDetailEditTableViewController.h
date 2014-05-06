@@ -22,8 +22,6 @@
 - (void)setStringTitle:(NSString *)title;
 - (void)setStringDescription:(NSString *)description;
 - (void)setStringWriteAccess:(BOOL)canWrite;
-
-- (void)setStringTitle:(NSString *)title description:(NSString *)description andWriteAccess:(BOOL)canWrite;
 - (void)deleteString;
 
 - (void)changeTopHeightOfParallax;

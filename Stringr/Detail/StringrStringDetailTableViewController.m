@@ -18,7 +18,6 @@
 @property (weak, nonatomic) UITextField *stringTagsTextField;
 @property (weak, nonatomic) UIButton *addPhotoToStringButton;
 
-
 @end
 
 @implementation StringrStringDetailTableViewController
@@ -28,21 +27,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    if (self.stringDetailsToLoad) {
+        self.stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+        self.stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+    } else {
+        self.stringTitle = @"";
+        self.stringDescription = @"";
+    }
 }
 
 
 
 
 #pragma mark - Custom Accessors
-
-- (void)setStringTitle:(NSString *)stringTitle
-{
-    _stringTitle = stringTitle;
-    
-    NSIndexPath *titleIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[titleIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-}
  
 - (NSArray *)sectionHeaderTitles
 {
@@ -98,8 +96,9 @@
                 
                 if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
                     StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
-                    NSString *stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
-                    [titleCell setTitleForCell:stringTitle];
+                    //NSString *stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+                    [titleCell setTitleForCell:self.stringTitle];
+                    [titleCell setDelegate:self];
                     
                     return titleCell;
                 }
@@ -115,8 +114,9 @@
                 
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    NSString *stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
-                    [descriptionCell setDescriptionForCell:stringDescription];
+                    //NSString *stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+                    [descriptionCell setDescriptionForCell:self.stringDescription];
+                    [descriptionCell setDelegate:self];
                     
                     return descriptionCell;
                 }
@@ -205,7 +205,7 @@
                 titleText = @"";
             }
 
-            return [StringrUtility heightForLabelWithNSString:titleText]; // the 31 is for additional margin space
+            return [StringrUtility heightForLabelWithNSString:self.stringTitle]; // the 31 is for additional margin space
         } else if (indexPath.row == 2) {
             NSString *descriptionText = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
             
@@ -213,7 +213,7 @@
                 descriptionText = @"";
             }
 
-            return [StringrUtility heightForLabelWithNSString:descriptionText]; // the 31 is for additional margin space
+            return [StringrUtility heightForLabelWithNSString:self.stringDescription]; // the 31 is for additional margin space
         }
     } else if (indexPath.section == 1) {
         return 55.0f;
@@ -221,6 +221,7 @@
     
     return 44.0f;
 }
+
 
 
 

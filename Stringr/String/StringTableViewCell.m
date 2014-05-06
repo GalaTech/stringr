@@ -49,10 +49,12 @@
 
 #pragma mark - Public
 
+/*
 - (void)setCollectionData:(NSArray *)collectionData
 {
     [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
 }
+ */
 
 - (void)setStringObject:(PFObject *)string
 {

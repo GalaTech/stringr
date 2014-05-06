@@ -230,7 +230,7 @@
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [newStringVC setStringToLoad:nil];
+        [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];

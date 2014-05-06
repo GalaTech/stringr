@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *stringView;
 @property (strong, nonatomic) StringViewReorderable *stringReorderableCollectionView;
+@property (strong, nonatomic) NSString *stringTitle;
+@property (strong, nonatomic) NSString *stringDescription;
 
 @end
 
@@ -86,11 +88,13 @@
 
 - (void)saveString
 {
-    [self.stringReorderableCollectionView saveAndPublishInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-    }];
+    if ([self.stringReorderableCollectionView stringIsPreparedToPublish]) {
+        [self.stringReorderableCollectionView saveAndPublishInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    }
 }
 
 - (void)cancelString
@@ -110,20 +114,24 @@
     [self setStringWriteAccess:canWrite];
 }
 
+
 - (void)setStringTitle:(NSString *)title
 {
-    NSLog(@"set string title");
+    [self.stringReorderableCollectionView setStringTitle:title];
 }
 
 - (void)setStringDescription:(NSString *)description
 {
-    NSLog(@"set description");
+    [self.stringReorderableCollectionView setStringDescription:description];
 }
+
+
 
 - (void)setStringWriteAccess:(BOOL)canWrite
 {
     [self.stringReorderableCollectionView setStringWriteAccess:canWrite];
 }
+
 
 - (void)deleteString
 {

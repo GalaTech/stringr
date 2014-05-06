@@ -73,15 +73,18 @@
 // to edit that string individually
 - (void)pushToStringEdit
 {
-    
+    /*
     StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
     [stringEditVC setEditDetailsEnabled:YES];
     [stringEditVC setStringToLoad:self.objects[0]];
     
     [self.navigationController pushViewController:stringEditVC animated:YES];
-     
+     */
     
-    //[self.tableView setEditing:!self.tableView.editing animated:YES];
+    
+    
+    
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
 }
 
 
@@ -102,6 +105,7 @@
 
 #pragma mark - UITableView Delegate
 
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row % 2 == 0) {
@@ -111,16 +115,29 @@
     return NO;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // When a cell is selected it will push to that Strings edit page.
+    /*
     StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
     [stringEditVC setEditDetailsEnabled:YES];
     
     [self.navigationController pushViewController:stringEditVC animated:YES];
+     */
     
-    if (editingStyle == UITableViewCellEditingStyleInsert) {
-        NSLog(@"swiped");
+    StringrStringDetailViewController *stringEditVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    [stringEditVC setEditDetailsEnabled:YES];
+    [stringEditVC setStringToLoad:self.objects[indexPath.row]];
+    
+    [self.navigationController pushViewController:stringEditVC animated:YES];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"delete");
     }
 }
 

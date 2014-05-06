@@ -81,6 +81,7 @@
             
             self.maxHeightBorder = CGRectGetHeight(self.view.frame);
             [self enableTapGestureTopView:NO];
+    
        // }
   //  }];
     
@@ -176,7 +177,6 @@
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
-        
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
         UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
         [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];

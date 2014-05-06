@@ -107,6 +107,7 @@
                     
                     NSString *photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
                     [titleCell setTitleForCell:photoTitle];
+                    [titleCell setDelegate:self];
                     
                     return titleCell;
                 }
@@ -117,6 +118,7 @@
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
                     [descriptionCell setDescriptionForCell:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
+                    [descriptionCell setDelegate:self];
                     
                     return descriptionCell;
                 }

@@ -55,6 +55,16 @@
     return [UIColor colorWithRed:71.0f / 255.0f green:12.0f / 255.0f blue:128.0f / 255.0f alpha:1.0f];
 }
 
++ (UIColor *)kStringrHandleColor
+{
+    return [UIColor colorWithRed:208.0/255.0f green:76.0/255.0f blue:76.0/255.0f alpha:1.0];
+}
+
++ (UIColor *)kStringrHashtagColor
+{
+    return [UIColor colorWithRed:123.0/255.0f green:162.0/255.0f blue:214.0/255.0f alpha:1.0];
+}
+
 @end
 
 
@@ -132,6 +142,7 @@ NSString * const kStringrUserClassKey = @"User";
 NSString * const kStringrUserUsernameKey = @"username";
 NSString * const kStringrUserUsernameCaseSensitive = @"usernameCaseSensitive";
 NSString * const kStringrUserDisplayNameKey = @"displayName";
+NSString * const kStringrUserDisplayNameCaseInsensitiveKey = @"displayNameCaseInsensitive";
 NSString * const kStringrUserFacebookIDKey = @"facebookID";
 NSString * const kStringrUserTwitterIDKey = @"twitterID";
 NSString * const kStringrUserProfilePictureURLKey = @"profilePictureURL";

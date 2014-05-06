@@ -42,3 +42,9 @@
 #define COCOAPODS_VERSION_MINOR_Reachability 1
 #define COCOAPODS_VERSION_PATCH_Reachability 1
 
+// STTweetLabel
+#define COCOAPODS_POD_AVAILABLE_STTweetLabel
+#define COCOAPODS_VERSION_MAJOR_STTweetLabel 3
+#define COCOAPODS_VERSION_MINOR_STTweetLabel 1
+#define COCOAPODS_VERSION_PATCH_STTweetLabel 11
+

@@ -645,7 +645,7 @@
     NSMutableParagraphStyle *textAlignment = [[NSMutableParagraphStyle alloc] init];
     [textAlignment setAlignment:NSTextAlignmentLeft];
     
-    NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13], NSFontAttributeName,
+    NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName,
                                     textAlignment, NSParagraphStyleAttributeName,
                                     [UIColor darkGrayColor], NSForegroundColorAttributeName,  nil];
     
@@ -654,8 +654,7 @@
     
     CGFloat labelHeight = CGRectGetHeight(rectForLabel);
    // CGFloat marginSpace = ((labelHeight / 13) * 3);
-    CGFloat cellHeight = labelHeight + 30;
-    
+    CGFloat cellHeight = labelHeight + ((labelHeight > 100) ? 20 : 15);
     
     return  cellHeight;
 }

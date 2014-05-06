@@ -19,9 +19,10 @@
 + (UIColor *)kStringrTurquoiseColor;
 + (UIColor *)kStringrBlueColor;
 + (UIColor *)kStringrPurpleColor;
++ (UIColor *)kStringrHashtagColor;
++ (UIColor *)kStringrHandleColor;
 + (UIColor *)kStringTableViewBackgroundColor;
 + (UIColor *)kStringCollectionViewBackgroundColor;
-
 
 @end
 
@@ -36,10 +37,6 @@ extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;
 
 #pragma mark - NSNotificationCenter Keys
 
-//extern NSString * const kNSNotificationCenterSelectedStringItemKey;
-//extern NSString * const kNSNotificationCenterSelectedProfileImageKey;
-//extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
-//extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
 extern NSString * const kNSNotificationCenterUploadNewStringKey;
 extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileImage;
@@ -94,6 +91,7 @@ extern NSString * const kStringrUserClassKey;
 extern NSString * const kStringrUserUsernameKey;
 extern NSString * const kStringrUserUsernameCaseSensitive;
 extern NSString * const kStringrUserDisplayNameKey;
+extern NSString * const kStringrUserDisplayNameCaseInsensitiveKey;
 extern NSString * const kStringrUserFacebookIDKey;
 extern NSString * const kStringrUserTwitterIDKey;
 extern NSString * const kStringrUserProfilePictureURLKey;

@@ -365,9 +365,11 @@
     
     StringrSearchTableViewController *searchStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSearchStringsID];
     
+    /*
     PFQuery *searchStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [searchStringsQuery orderByAscending:@"createdAt"];
     [searchStringsVC setQueryForTable:searchStringsQuery];
+     */
     
     StringrNavigationController *searchStringsNavVC = [[StringrNavigationController alloc] initWithRootViewController:searchStringsVC];
     UITabBarItem *searchStringsTab = [[UITabBarItem alloc] initWithTitle:@"Search Strings" image:[UIImage imageNamed:@"string_icon"] tag:0];

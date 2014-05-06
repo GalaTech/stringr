@@ -37,6 +37,7 @@
 
 #pragma mark - Public
 
+// add image to locked string 
 - (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
 {
     if (image) {
@@ -45,8 +46,11 @@
         UIImage *resizedImage = [StringrUtility formatPhotoImageForUpload:image];
         NSData *resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
         
-        PFFile *imageFileForUpload = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]] data:resizedImageData];
-
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", [StringrUtility randomStringWithLength:8]];
+        
+        PFFile *imageFileForUpload = [PFFile fileWithName:fileName data:resizedImageData];
+        //[imageFileForUpload saveInBackground];
+        
         [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
         [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
         
@@ -59,6 +63,11 @@
         [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
         [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
         
+        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        //[photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
+        [photoACL setPublicReadAccess:YES];
+        [photo setACL:photoACL];
+        
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 int indexOfImagePhoto = [self.collectionViewPhotos indexOfObject:resizedImage];
@@ -66,6 +75,12 @@
                 
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
                 [self.stringLargeReorderableCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+            } else {
+                [self.collectionViewPhotos removeObject:resizedImage];
+                [self.stringLargeReorderableCollectionView reloadData];
+                
+                UIAlertView *failedToUploadPhotoAlert = [[UIAlertView alloc] initWithTitle:@"Upload Failed" message:@"For some reason your photo failed to upload. Just try again later and everything should work fine!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [failedToUploadPhotoAlert show];
             }
             
             if (completionBlock) {
@@ -116,9 +131,22 @@
     _stringDescription = stringDescription;
 }
 
+/*
 - (void)setStringWriteAccess:(BOOL)isPublic;
 {
     _stringWriteAccess = isPublic;
+}
+ */
+
+- (BOOL)stringIsPreparedToPublish
+{
+    for (PFObject *photo in self.collectionViewPhotos) {
+        if (![photo isKindOfClass:[PFObject class]]) {
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 - (void)saveAndPublishInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))completionBlock
@@ -128,14 +156,18 @@
             for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                 PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
                 
+                /*
                 PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
                 [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
                 [photoACL setPublicReadAccess:YES];
                 [photo setACL:photoACL];
+                 */
                 
-                [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
-                [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
-                [photo saveEventually];
+                if ([photo isKindOfClass:[PFObject class]]) {
+                    [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
+                    [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
+                    [photo saveEventually];
+                }
             }
             
             PFACL *stringACL = [PFACL ACLWithUser:[PFUser currentUser]];
@@ -143,23 +175,14 @@
             [stringACL setPublicWriteAccess:self.stringWriteAccess];
             [self.stringToLoad setACL:stringACL];
             
+            [self.stringToLoad setObject:self.stringTitle forKey:kStringrStringTitleKey];
+            [self.stringToLoad setObject:self.stringDescription forKey:kStringrStringDescriptionKey];
+            
             [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
             }];
-            
-            PFObject *stringStatistics = [PFObject objectWithClassName:kStringrStatisticsClassKey];
-            [stringStatistics setObject:@(0) forKey:kStringrStatisticsLikeCountKey];
-            [stringStatistics setObject:@(0) forKey:kStringrStatisticsCommentCountKey];
-            [stringStatistics setObject:self.stringToLoad forKey:kStringrStatisticsStringKey];
-            
-            PFACL *stringStatisticsACL = [PFACL ACL];
-            [stringStatisticsACL setPublicReadAccess:YES];
-            [stringStatisticsACL setPublicWriteAccess:YES];
-            [stringStatistics setACL:stringStatisticsACL];
-            
-            [stringStatistics saveEventually];
         } else {
             PFObject *newString = [PFObject objectWithClassName:kStringrStringClassKey];
             [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
@@ -171,15 +194,20 @@
             [stringACL setPublicWriteAccess:self.stringWriteAccess];
             [self.stringToLoad setACL:stringACL];
             
+            [self.stringToLoad setObject:self.stringTitle forKey:kStringrStringTitleKey];
+            [self.stringToLoad setObject:self.stringDescription forKey:kStringrStringDescriptionKey];
+            
             [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                         PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
-                        
+
+                        /*
                         PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
                         [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
                         [photoACL setPublicReadAccess:YES];
                         [photo setACL:photoACL];
+                         */
                         
                         [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                         [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
@@ -190,6 +218,7 @@
                 }
             }];
             
+            // creates a statistic object for this string
             PFObject *stringStatistics = [PFObject objectWithClassName:kStringrStatisticsClassKey];
             [stringStatistics setObject:@(0) forKey:kStringrStatisticsLikeCountKey];
             [stringStatistics setObject:@(0) forKey:kStringrStatisticsCommentCountKey];
@@ -200,11 +229,7 @@
             [stringStatisticsACL setPublicWriteAccess:YES];
             [stringStatistics setACL:stringStatisticsACL];
             
-            
             [stringStatistics saveEventually];
-            
-            [[PFUser currentUser] incrementKey:kStringrUserNumberOfStringsKey];
-            [[PFUser currentUser] saveInBackground];
         }
         
         if (completionBlock) {
@@ -223,8 +248,10 @@
 {
     // remove all new photos that aren't associated with a string yet
     for (PFObject *photo in self.collectionViewPhotos) {
-        if (![photo objectForKey:kStringrPhotoStringKey]) {
-            [photo deleteEventually];
+        if ([photo isKindOfClass:[PFObject class]]) {
+            if (![photo objectForKey:kStringrPhotoStringKey]) {
+                [photo deleteEventually];
+            }
         }
     }
 }
@@ -233,8 +260,15 @@
 {
     // delete the string and all photos in the string
     if (self.stringToLoad) {
-        PFObject *stringStatistics = [self.stringToLoad objectForKey:kStringrStringStatisticsKey];
-        [stringStatistics deleteEventually];
+        PFQuery *stringStatisticsQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+        [stringStatisticsQuery whereKey:kStringrStatisticsStringKey equalTo:self.stringToLoad];
+        [stringStatisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                for (PFObject *statistic in objects) {
+                    [statistic deleteEventually];
+                }
+            }
+        }];
         
         [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -246,9 +280,6 @@
             [photo deleteEventually];
         }
         
-        
-        
-        [[PFUser currentUser] incrementKey:kStringrUserNumberOfStringsKey byAmount:@(-1)];
         [[PFUser currentUser] saveEventually];
     }
 }

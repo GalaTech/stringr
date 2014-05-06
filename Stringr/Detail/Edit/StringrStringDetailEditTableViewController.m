@@ -15,10 +15,6 @@
 
 @property (nonatomic) NSInteger selectedRow;
 
-@property (weak, nonatomic) UITextView *stringDescriptionTextView;
-@property (weak, nonatomic) UITextField *stringTagsTextField;
-@property (weak, nonatomic) UIButton *addPhotoToStringButton;
-
 @end
 
 @implementation StringrStringDetailEditTableViewController
@@ -28,6 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 
 }
 
@@ -44,15 +41,29 @@
     }
     
     [self.delegate setStringWriteAccess:canWrite];
-    
 }
 
 
 #pragma mark - Custom Accessors
 
+@synthesize stringTitle = _stringTitle;
+@synthesize stringDescription = _stringDescription;
+
 - (NSArray *)sectionHeaderTitles
 {
     return @[@"Info", @"Privacy", @"Delete"];
+}
+
+- (void)setStringTitle:(NSString *)stringTitle
+{
+    _stringTitle = stringTitle;
+    [self.delegate setStringTitle:stringTitle];
+}
+
+- (void)setStringDescription:(NSString *)stringDescription
+{
+    _stringDescription = stringDescription;
+    [self.delegate setStringDescription:stringDescription];
 }
 
 
@@ -106,7 +117,7 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
                 StringrDetailTitleTableViewCell *titleTableVC = (StringrDetailTitleTableViewCell *)cell;
-                [titleTableVC setTitleForCell:[self.stringDetailsToLoad objectForKey:kStringrStringTitleKey]];
+                [titleTableVC setTitleForCell:self.stringTitle];
                 
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"string_descriptionCell";
@@ -119,7 +130,7 @@
 
                 //CGSize sizeOfLabel = [descriptionText sizeWithAttributes:textAttributes];
                 
-                [descriptionTableVC setDescriptionForCell:[self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey]];
+                [descriptionTableVC setDescriptionForCell:self.stringDescription];
                 
                 
                 
@@ -167,15 +178,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) { // details/title/description
+    if (indexPath.section == 0 && (indexPath.row == 1 || indexPath.row == 2)) { // details/title/description
         StringrWriteAndEditTextViewController *editTextVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardWriteAndEditID];
         [editTextVC setDelegate:self];
         
         if (indexPath.row == 1) {
-            [editTextVC setTextForEditing:[self.stringDetailsToLoad objectForKey:kStringrStringTitleKey]];
+            [editTextVC setTextForEditing:self.stringTitle];
             [editTextVC setTitle:@"Edit Title"];
         } else if (indexPath.row == 2) {
-            [editTextVC setTextForEditing:[self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey]];
+            [editTextVC setTextForEditing:self.stringDescription];
             [editTextVC setTitle:@"Edit Description"];
         }
         
@@ -236,9 +247,9 @@
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {
     if (indexPath.row == 1) {
-        [self.stringDetailsToLoad setObject:text forKey:kStringrStringTitleKey];
+        self.stringTitle = text;
     } else if (indexPath.row == 2) {
-        [self.stringDetailsToLoad setObject:text forKey:kStringrStringDescriptionKey];
+        self.stringDescription = text;
     }
     
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

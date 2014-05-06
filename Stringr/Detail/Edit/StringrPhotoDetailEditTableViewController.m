@@ -154,9 +154,13 @@
 {
     if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
         [self dismissViewControllerAnimated:YES completion:^ {
-            //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterDeletePhotoFromStringKey object:self.photoDetailsToLoad];
             
-            [self.delegate deletePhotoFromString:self.photoDetailsToLoad];
+            if ([self.delegate respondsToSelector:@selector(deletePhotoFromString:)]) {
+                [self.delegate deletePhotoFromString:self.photoDetailsToLoad];
+            } else if ([self.delegate respondsToSelector:@selector(deletePhotoFromPublicString:)]) {
+                [self.delegate deletePhotoFromPublicString:self.photoDetailsToLoad];
+            }
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
         }];
     }

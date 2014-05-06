@@ -77,6 +77,9 @@
         
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.displayName]) {
             [newUser setObject:self.displayName forKey:kStringrUserDisplayNameKey];
+            
+            NSString *lowercaseName = [self.displayName lowercaseString];
+            [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
             userIsValidForSignup++;
         } else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];

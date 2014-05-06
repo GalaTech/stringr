@@ -17,11 +17,12 @@
 #import "StringrWriteAndEditTextViewController.h"
 #import "StringrInviteFriendsTableViewController.h"
 #import "StringrPushNotificationsTableViewController.h"
+#import "StringrStringDetailViewController.h"
 #import <MessageUI/MessageUI.h>
 
 #import "StringView.h"
 
-@interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate>
+@interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end
 
@@ -49,6 +50,15 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     [self.navigationItem setBackBarButtonItem:backButton];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
 
@@ -427,5 +437,104 @@
     [[PFUser currentUser] saveEventually];
 }
 
+
+
+- (void)addNewString
+{
+    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
+                                                                      delegate:self
+                                                             cancelButtonTitle:nil
+                                                        destructiveButtonTitle:nil
+                                                             otherButtonTitles:nil];
+    
+    [newStringActionSheet addButtonWithTitle:@"Take Photo"];
+    [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
+    
+    /* Implement return to saved string
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     
+     
+     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
+     [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
+     [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
+     }
+     */
+    
+    [newStringActionSheet addButtonWithTitle:@"Cancel"];
+    [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
+    
+    
+    
+    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
+    if ([window.subviews containsObject:self.view]) {
+        [newStringActionSheet showInView:self.view];
+    } else {
+        [newStringActionSheet showInView:window];
+    }
+    
+}
+
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        [actionSheet resignFirstResponder];
+    } else if (buttonIndex == 0) {
+        
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if (buttonIndex == 1) {
+        
+        
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
+        
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }
+}
+
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
+        [newStringVC setEditDetailsEnabled:YES];
+        [newStringVC setUserSelectedPhoto:image];
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
+}
 
 @end

@@ -9,7 +9,6 @@
 #import "StringrLoginViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 #import "StringrRootViewController.h"
-#import "TestViewController.h"
 #import "UIImage+Resize.h"
 #import "StringrSignUpWithEmailTableViewController.h"
 #import "StringrSignUpWithSocialNetworkViewController.h"
@@ -338,6 +337,9 @@
             
                 if (userData[@"name"]) {
                     [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
+                    
+                    NSString *lowercaseName = [userData[@"name"] lowercaseString];
+                    [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
                 }
                 
                 if ([pictureURL absoluteString]) {
@@ -538,6 +540,10 @@
     // Saves the users Facebook profile image as a parse file once the data has been loaded
     PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
     PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+    
+    [profileImageFile saveInBackground];
+    [profileThumbnailImageFile saveInBackground];
+    
     [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
     [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
     // Save with block so that the menu profile image is not called until the new image has finished uploading

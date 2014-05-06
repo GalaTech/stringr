@@ -40,11 +40,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadString) name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
 }
  
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,6 +79,15 @@
 
 
 
+
+#pragma mark - Actions
+
+- (void)reloadString
+{
+    [self.stringCollectionView reloadString];
+}
+
+
 #pragma mark - StringView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
@@ -89,20 +102,6 @@
         [photoDetailVC setSelectedPhotoIndex:index];
         [photoDetailVC setEditDetailsEnabled:NO];
 
-        /*
-        PFObject *photo = [photos objectAtIndex:index];
-        if ([[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-            [photoDetailVC setPhotosToLoad:@[photo]];
-            [photoDetailVC setSelectedPhotoIndex:0];
-            [photoDetailVC setEditDetailsEnabled:YES];
-        } else {
-            // Sets the initial photo to the selected cell's PFObject photo data
-            [photoDetailVC setPhotosToLoad:photos];
-            [photoDetailVC setSelectedPhotoIndex:index];
-            [photoDetailVC setEditDetailsEnabled:NO];
-        }
-         */
-        
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }

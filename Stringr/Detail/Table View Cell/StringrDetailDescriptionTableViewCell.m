@@ -7,10 +7,11 @@
 //
 
 #import "StringrDetailDescriptionTableViewCell.h"
+#import "STTweetLabel.h"
 
 @interface StringrDetailDescriptionTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet STTweetLabel *descriptionLabel;
 @property (strong, nonatomic) NSDictionary *textAttributes;
 
 @end
@@ -73,6 +74,42 @@
     
         [self.descriptionLabel setAttributedText:attributedDescriptionText];
     }
+    
+    [self.descriptionLabel setText:description];
+    [self.descriptionLabel setNumberOfLines:200];
+    
+    UIColor *titleColor = [UIColor darkGrayColor];
+    NSMutableParagraphStyle *titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [titleParagraphStyle setAlignment:NSTextAlignmentLeft];
+    [titleParagraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [titleParagraphStyle setParagraphSpacingBefore:40.0f];
+    
+    NSDictionary *titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:titleColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, titleParagraphStyle, NSParagraphStyleAttributeName, nil];
+    [self.descriptionLabel setAttributes:titleAttributes];
+    
+    //[self.titleLabel setText:@"This is a cool label that can tell if there are any @mentions or #hashtags!\n"];
+    
+    
+    NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    
+    [self.descriptionLabel setAttributes:handleAttributes hotWord:STTweetHandle];
+    [self.descriptionLabel setAttributes:hashtagAttributes hotWord:STTweetHashtag];
+    
+    [self.descriptionLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+        if (hotWord == STTweetHandle) {
+            NSString *username = [[string stringByReplacingOccurrencesOfString:@"@" withString:@""] lowercaseString];
+            
+            if ([self.delegate respondsToSelector:@selector(tableViewCell:tappedUserHandleWithName:)]) {
+                [self.delegate tableViewCell:self tappedUserHandleWithName:username];
+            }
+        } else if (hotWord == STTweetHashtag) {
+            if ([self.delegate respondsToSelector:@selector(tableViewCell:tappedHashtagWithText:)]) {
+                [self.delegate tableViewCell:self tappedHashtagWithText:string];
+            }
+        }
+    }];
+    
 }
 
 - (NSDictionary *)getDescriptionTextAttributes

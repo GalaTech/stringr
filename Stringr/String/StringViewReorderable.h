@@ -20,6 +20,7 @@
 - (void)setStringDescription:(NSString *)stringDescription;
 - (void)setStringWriteAccess:(BOOL)isPublic;
 
+- (BOOL)stringIsPreparedToPublish;
 - (void)saveAndPublishInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))completionBlock;
 
 - (void)cancelString;

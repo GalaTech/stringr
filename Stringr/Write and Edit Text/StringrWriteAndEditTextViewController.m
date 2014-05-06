@@ -42,8 +42,6 @@
     [self.editableTextView setText:self.editedText];
     
     [self.editableTextView becomeFirstResponder];
-    
-    // writeAndEditVC
 }
 
 - (void)didReceiveMemoryWarning

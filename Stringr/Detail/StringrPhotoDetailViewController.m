@@ -11,8 +11,9 @@
 #import "StringrPhotoDetailTableViewController.h"
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrStringDetailViewController.h"
+#import "StringrNavigationController.h"
 
-@interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate, UIActionSheetDelegate>
+@interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate, StringrPhotoDetailEditTableViewControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) StringrPhotoDetailTopViewController *topPhotoVC;
 @property (strong, nonatomic) StringrPhotoDetailTableViewController *tablePhotoVC;
@@ -29,7 +30,7 @@
     [super viewDidLoad];
     
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
-
+    
     self.topPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailTopViewID];
     [self.topPhotoVC setPhotosToLoad:self.photosToLoad];
     [self.topPhotoVC setDelegate:self];
@@ -46,9 +47,9 @@
         [self.tablePhotoVC setEditDetailsEnabled:YES];
         
         // this is necessary so that delegation from the table view to the string view is accessible
+        // this delegation is set in the string top vc that presents the edit photo vc
         StringrPhotoDetailEditTableViewController *editPhotoTableVC = (StringrPhotoDetailEditTableViewController *)self.tablePhotoVC;
         [editPhotoTableVC setDelegate:self.delegateForPhotoController];
-        
     } else {
         self.title = @"Photo Details";
         
@@ -72,6 +73,14 @@
     // accounts for main info view so that it 'sticks' to the bottom of the view when you go full screen
     [self setMaxHeight:CGRectGetHeight(self.view.frame) - kStringrPFObjectDetailTableViewCellHeight];
     [self setMaxHeightBorder:FLT_MAX];
+    
+    // fetches the string owner if needed. This will most likely only be necessary for instances where a user is
+    // accessing the string owner via a photo through activity feed.
+    [self.stringOwner fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            self.stringOwner = object;
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -97,7 +106,20 @@
 
 - (void)photoActionSheet
 {
-    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", nil];
+    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", nil];
+    
+    PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+    
+    int cancelIndex = 2;
+    
+    if ([photo.ACL getWriteAccessForUser:[PFUser currentUser]]) {
+        [photoOptionsActionSheet addButtonWithTitle:@"Edit Photo"];
+        cancelIndex++;
+    }
+    
+    [photoOptionsActionSheet addButtonWithTitle:@"Cancel"];
+    [photoOptionsActionSheet setCancelButtonIndex:cancelIndex];
+    
     [photoOptionsActionSheet showInView:self.view];
 }
 
@@ -114,6 +136,8 @@
 
 - (void)pushToStringOwner
 {
+    // don't want to overwrite the stringOwner property because then once it's been written once
+    // we would no longer be able to check if it's nil.
     PFObject *stringOwner = self.stringOwner;
     
     if (!stringOwner) {
@@ -124,6 +148,21 @@
     StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
     [stringDetailVC setStringToLoad:stringOwner];
     [self.navigationController pushViewController:stringDetailVC animated:YES];
+}
+
+- (void)pushToEditPhoto
+{
+    StringrPhotoDetailViewController *editPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+    PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+    [editPhotoVC setPhotosToLoad:@[photo]];
+    [editPhotoVC setSelectedPhotoIndex:0];
+    [editPhotoVC setEditDetailsEnabled:YES];
+    [editPhotoVC setStringOwner:nil];
+    [editPhotoVC setDelegateForPhotoController:self];
+    
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+    
+    [self.navigationController presentViewController:navVC animated:YES completion:nil];
 }
 
 // only used on edit photo views
@@ -170,18 +209,6 @@
     
     PFObject *photo = self.photosToLoad[index];
     
-    /*
-    if ([photo.objectId isEqualToString:[[PFUser currentUser] objectId]]) {
-        StringrPhotoDetailEditTableViewController *editTableVC = (StringrPhotoDetailEditTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailEditTableVC"];
-        self.tablePhotoVC = editTableVC;
-        [self.tablePhotoVC setPhotoDetailsToLoad:photo];
-    } else {
-        StringrPhotoDetailTableViewController *tableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailTableVC"];
-        self.tablePhotoVC = tableVC;
-        [self.tablePhotoVC setPhotoDetailsToLoad:photo];
-    }
-     */
-    
     [self.tablePhotoVC setPhotoDetailsToLoad:photo];
     [self.tablePhotoVC reloadPhotoDetailsWithScrollDirection:direction];
     
@@ -206,7 +233,28 @@
         [self sharePhoto];
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"String Owner"]) {
         [self pushToStringOwner];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Photo"]) {
+        [self pushToEditPhoto];
     }
+}
+
+
+
+#pragma mark - StringrPhotoDetailEditTableViewControllerDelegate
+
+- (void)deletePhotoFromString:(PFObject *)photo
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [photo deleteEventually];
+    
+    /*
+    [photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
+        }
+    }];
+     */
 }
 
 @end

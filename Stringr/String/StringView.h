@@ -30,7 +30,7 @@
  * @param collectionData The mutable array of dictionaries. Each dictionary is considered
  * to be an individual photo with its accompanying information.
  */
-- (void)setCollectionData:(NSMutableArray *)collectionData;
+//- (void)setCollectionData:(NSMutableArray *)collectionData;
 
 /** 
  * Sets the string parse object for the collection view.
@@ -54,6 +54,9 @@
  */
 - (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock;
 
+- (void)removePhotoFromString:(PFObject *)photo;
+
+- (void)reloadString;
 
 
 @end

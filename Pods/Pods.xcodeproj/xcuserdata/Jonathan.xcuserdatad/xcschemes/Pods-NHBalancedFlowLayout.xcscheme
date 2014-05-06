@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2C2A6B4E38F430EA75D3626"
+               BlueprintIdentifier = "DDEA4924386C4A01A9E68BFF"
                BuildableName = "libPods-NHBalancedFlowLayout.a"
                BlueprintName = "Pods-NHBalancedFlowLayout"
                ReferencedContainer = "container:Pods.xcodeproj">

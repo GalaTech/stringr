@@ -288,6 +288,9 @@
         self.fillerProfileName = editedName;
         [self.delegate setProfileName:editedName];
         [[PFUser currentUser] setObject:editedName forKey:kStringrUserDisplayNameKey];
+        
+        NSString *lowercaseName = [editedName lowercaseString];
+        [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
         // saves with block so that the menu will only reload once the data has been successfully uploaded
         [[PFUser currentUser] saveInBackground];
         
@@ -473,8 +476,11 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
         NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
         NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
         
-        PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.jpg" data:profileImageData];
+        PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.jpeg" data:profileImageData];
         PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+        
+        [profileImageFile saveInBackground];
+        [profileThumbnailImageFile saveInBackground];
         
         [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
         [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
@@ -517,6 +523,10 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
     // Saves the users Facebook profile image as a parse file once the data has been loaded
     PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.png" data:self.profileImageData];
     PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+    
+    [profileImageFile saveInBackground];
+    [profileThumbnailImageFile saveInBackground];
+    
     [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
     [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
     
