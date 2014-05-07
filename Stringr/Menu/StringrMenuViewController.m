@@ -321,6 +321,7 @@
     [popularQuery whereKeyExists:kStringrStatisticsStringKey];
     [popularQuery includeKey:kStringrStatisticsStringKey];
     [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
+    [popularQuery addDescendingOrder:kStringrStatisticsLikeCountKey];
     [popularQuery setLimit:100];
     [popularVC setQueryForTable:popularQuery];
     
@@ -333,7 +334,7 @@
     [discoverVC setTitle:@"Discover"];
     
     PFQuery *discoverQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [discoverQuery orderByAscending:@"updatedAt"];
+    [discoverQuery orderByDescending:@"updatedAt"];
     [discoverVC setQueryForTable:discoverQuery];
     
     StringrNavigationController *discoverNavVC = [[StringrNavigationController alloc] initWithRootViewController:discoverVC];
@@ -345,6 +346,7 @@
     [nearYouVC setTitle:@"Near You"];
     
     PFQuery *nearYouQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [nearYouQuery whereKey:kStringrStringLocationKey nearGeoPoint:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] withinMiles:100.0];
     [nearYouQuery orderByDescending:@"createdAt"];
     [nearYouVC setQueryForTable:nearYouQuery];
     
@@ -378,9 +380,11 @@
     
     StringrUserSearchViewController *searchUsersVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSearchUsersID];
     
+    /*
     PFQuery *queryForUsers = [PFUser query];
     [queryForUsers orderByAscending:@"displayName"];
     [searchUsersVC setQueryForTable:queryForUsers];
+     */
     
     StringrNavigationController *searchUsersNavVC = [[StringrNavigationController alloc] initWithRootViewController:searchUsersVC];
     UITabBarItem *searchUsersTab = [[UITabBarItem alloc] initWithTitle:@"Find People" image:[UIImage imageNamed:@"users_icon"] tag:0];

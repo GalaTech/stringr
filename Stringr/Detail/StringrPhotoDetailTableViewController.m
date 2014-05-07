@@ -22,6 +22,7 @@
 {
     [super viewDidLoad];
     
+    [self reloadPhotoTitleAndDescription];
 }
 
 
@@ -49,13 +50,29 @@
         rowAnimation = UITableViewRowAnimationRight;
     }
     
+    [self reloadPhotoTitleAndDescription];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
     NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
-    //NSIndexPath *indexPath4 = [NSIndexPath indexPathForRow:0 inSection:1];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3] withRowAnimation:rowAnimation];
 }
 
+
+
+
+#pragma mark - Private
+
+- (void)reloadPhotoTitleAndDescription
+{
+    if (![[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey] isEqualToString:@""]) {
+        self.photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
+        self.photoDescription = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
+    } else {
+        self.photoTitle = @"Enter the title for your Photo";
+        self.photoDescription = @"Enter the description for your Photo";
+    }
+}
 
 
 
@@ -72,13 +89,7 @@
     // Return the number of rows in the section.
     if (section == 0) {
         return 3;
-    }
-    /*
-    else if (section == 1) {
-        return 1;
-    } 
-     */
-     else {
+    } else {
         return 0;
     }
 }
@@ -105,8 +116,7 @@
                 if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
                     StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
                     
-                    NSString *photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
-                    [titleCell setTitleForCell:photoTitle];
+                    [titleCell setTitleForCell:self.photoTitle];
                     [titleCell setDelegate:self];
                     
                     return titleCell;
@@ -117,7 +127,7 @@
                 
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    [descriptionCell setDescriptionForCell:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
+                    [descriptionCell setDescriptionForCell:self.photoDescription];
                     [descriptionCell setDelegate:self];
                     
                     return descriptionCell;
@@ -160,13 +170,9 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
-            NSString *titleText = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
-
-            return [StringrUtility heightForLabelWithNSString:titleText]; // the 31 is for additional margin space
+            return [StringrUtility heightForLabelWithNSString:self.photoTitle]; // the 31 is for additional margin space
         } else if (indexPath.row == 2) {
-            NSString *descriptionText = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
-            
-            return  [StringrUtility heightForLabelWithNSString:descriptionText]; // the 31 is for additional margin space
+            return  [StringrUtility heightForLabelWithNSString:self.photoDescription]; // the 31 is for additional margin space
         }
     }
     

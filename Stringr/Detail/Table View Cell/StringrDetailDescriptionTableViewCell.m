@@ -79,7 +79,7 @@
     [self.descriptionLabel setNumberOfLines:200];
     
     UIColor *descriptionColor = [UIColor darkGrayColor];
-    if ([description isEqualToString:@"Enter the description for your String"]) {
+    if ([description isEqualToString:@"Enter the description for your String"] || [description isEqualToString:@"Enter the description for your Photo"]) {
         descriptionColor = [UIColor lightGrayColor];
     }
     

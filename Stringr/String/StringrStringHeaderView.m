@@ -26,7 +26,7 @@ static float const contentViewWidthPercentage = .93;
     self = [super initWithFrame:frame];
     if (self) {
         self.frame = frame;
-        self.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
         self.alpha = 1.0f;
         
         float xpoint = (320 - (frame.size.width * contentViewWidthPercentage)) / 2;
@@ -36,6 +36,7 @@ static float const contentViewWidthPercentage = .93;
         // the detail view of a string
         self.headerButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
         [self.headerButton setBackgroundColor:[UIColor whiteColor]];
+        self.headerButton.backgroundColor = [UIColor whiteColor];
         [self.headerButton addTarget:self action:@selector(pushToStringDetailView) forControlEvents:UIControlEventTouchUpInside];
         [self.headerButton setAlpha:0.92];
         // Sets tag so we can easily access the correct string when a user taps the detail view for a string

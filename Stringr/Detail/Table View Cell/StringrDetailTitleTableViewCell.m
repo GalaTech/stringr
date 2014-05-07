@@ -50,7 +50,7 @@
     [self.titleLabel setNumberOfLines:200];
     
     UIColor *titleColor  = [UIColor darkGrayColor];
-    if ([title isEqualToString:@"Enter the title for your String"]) {
+    if ([title isEqualToString:@"Enter the title for your String"] || [title isEqualToString:@"Enter the title for your Photo"]) {
         titleColor = [UIColor lightGrayColor];
     }
     

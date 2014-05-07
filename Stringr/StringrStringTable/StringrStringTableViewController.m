@@ -56,7 +56,6 @@
     
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

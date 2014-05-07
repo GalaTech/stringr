@@ -174,9 +174,15 @@
             [[StringrCache sharedCache] incrementCommentCountForObject:self.objectToCommentOn];
             
             if ([StringrUtility objectIsString:self.objectToCommentOn]) {
-                PFObject *stringStatistics = [self.objectToCommentOn objectForKey:kStringrStringStatisticsKey];
-                [stringStatistics incrementKey:kStringrStatisticsCommentCountKey];
-                [stringStatistics saveEventually];
+                PFQuery *statisticsQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+                [statisticsQuery whereKey:kStringrStatisticsStringKey equalTo:self.objectToCommentOn];
+                [statisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *strings, NSError *error) {
+                    if (!error) {
+                        PFObject *stringStatistics = [strings firstObject];
+                        [stringStatistics incrementKey:kStringrStatisticsCommentCountKey];
+                        [stringStatistics saveEventually];
+                    }
+                }];
             }
         }];
     }

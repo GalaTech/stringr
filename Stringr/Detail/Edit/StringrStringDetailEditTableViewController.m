@@ -139,7 +139,6 @@
                 
                 StringrDetailDescriptionTableViewCell *descriptionTableVC = (StringrDetailDescriptionTableViewCell *)cell;
 
-                
                 [descriptionTableVC setDescriptionForCell:self.stringDescription];
             }
             break;

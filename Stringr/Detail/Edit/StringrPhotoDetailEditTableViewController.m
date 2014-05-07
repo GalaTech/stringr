@@ -75,8 +75,7 @@
                 if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
                     StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
                     
-                    NSString *photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
-                    [titleCell setTitleForCell:photoTitle];
+                    [titleCell setTitleForCell:self.photoTitle];
                     
                     return titleCell;
                 }
@@ -86,7 +85,7 @@
                 
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    [descriptionCell setDescriptionForCell:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
+                    [descriptionCell setDescriptionForCell:self.photoDescription];
                     
                     return descriptionCell;
                 }
@@ -129,10 +128,21 @@
         [editTextVC setDelegate:self];
         
         if (indexPath.row == 1) {
-            [editTextVC setTextForEditing:[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey]];
+            NSString *photoTitle = self.photoTitle;
+            if ([photoTitle isEqualToString:@"Enter the title for your Photo"]) {
+                photoTitle = @"";
+            }
+            
+            [editTextVC setTextForEditing:photoTitle];
             [editTextVC setTitle:@"Edit Title"];
         } else if (indexPath.row == 2) {
-            [editTextVC setTextForEditing:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
+            NSString *photoDescription = self.photoDescription;
+            if ([photoDescription isEqualToString:@"Enter the description for your Photo"]) {
+                photoDescription = @"";
+            }
+            
+            
+            [editTextVC setTextForEditing:photoDescription];
             [editTextVC setTitle:@"Edit Description"];
         }
         
@@ -173,9 +183,11 @@
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {
     if (indexPath.row == 1) {
+        self.photoTitle = text;
         [self.photoDetailsToLoad setObject:text forKey:kStringrPhotoCaptionKey];
        // [self.delegate setStringTitle:text];
     } else if (indexPath.row == 2) {
+        self.photoDescription = text;
         [self.photoDetailsToLoad setObject:text forKey:kStringrPhotoDescriptionKey];
         //[self.delegate setStringDescription:text];
     }

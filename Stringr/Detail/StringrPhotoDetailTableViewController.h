@@ -20,6 +20,9 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) PFObject *photoDetailsToLoad;
 @property (strong, nonatomic) PFObject *stringOwner;
 
+@property (strong, nonatomic) NSString *photoTitle;
+@property (strong, nonatomic) NSString *photoDescription;
+
 - (void)reloadPhotoDetailsWithScrollDirection:(ScrollDirection)direction;
 
 @end

@@ -120,6 +120,7 @@ extern NSString * const kStringrStringUserKey;
 extern NSString * const kStringrStringTitleKey;
 extern NSString * const kStringrStringDescriptionKey;
 extern NSString * const kStringrStringStatisticsKey;
+extern NSString * const kStringrStringLocationKey;
 
 
 

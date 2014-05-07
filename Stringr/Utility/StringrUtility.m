@@ -162,9 +162,15 @@
         }
     }];
     
-    PFObject *stringStatistics = [string objectForKey:kStringrStringStatisticsKey];
-    [stringStatistics incrementKey:kStringrStatisticsLikeCountKey];
-    [stringStatistics saveEventually];
+    PFQuery *statisticsQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+    [statisticsQuery whereKey:kStringrStatisticsStringKey equalTo:string];
+    [statisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *strings, NSError *error) {
+        if (!error) {
+            PFObject *stringStatistics = [strings firstObject];
+            [stringStatistics incrementKey:kStringrStatisticsLikeCountKey];
+            [stringStatistics saveEventually];
+        }
+    }];
 }
 
 + (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
@@ -190,9 +196,16 @@
         }
     }];
     
-    PFObject *stringStatistics = [string objectForKey:kStringrStringStatisticsKey];
-    [stringStatistics incrementKey:kStringrStatisticsLikeCountKey byAmount:@(-1)];
-    [stringStatistics saveEventually];
+    
+    PFQuery *statisticsQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+    [statisticsQuery whereKey:kStringrStatisticsStringKey equalTo:string];
+    [statisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *strings, NSError *error) {
+        if (!error) {
+            PFObject *stringStatistics = [strings firstObject];
+            [stringStatistics incrementKey:kStringrStatisticsLikeCountKey byAmount:@(-1)];
+            [stringStatistics saveEventually];
+        }
+    }];
 }
 
 
