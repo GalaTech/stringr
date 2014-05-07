@@ -75,7 +75,6 @@
                 if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
                     StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
                     
-                    NSString *photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
                     [titleCell setTitleForCell:self.photoTitle];
                     
                     return titleCell;
