@@ -98,7 +98,7 @@
 - (void)sendCommentPushNotification
 {
     // TODO: Set private channel to that of the photo uploader
-    NSString *photoUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+    NSString *photoUploaderPrivatePushChannel;
     NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
   
     // String with the commenters name and the comment
@@ -111,6 +111,9 @@
     }
     
     if (![[[self.objectToCommentOn objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]] && [StringrUtility objectIsString:self.objectToCommentOn]) {
+        
+        photoUploaderPrivatePushChannel = [[self.objectToCommentOn objectForKey:kStringrStringUserKey] objectForKey:kStringrUserPrivateChannelKey];
+        
         if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
             NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                   alert, kAPNSAlertKey,
@@ -121,12 +124,17 @@
                                   [self.objectToCommentOn objectId], kStringrPushPayloadStringObjectIDKey,
                                   nil];
             
+            
+            
             PFPush *likePhotoPushNotification = [[PFPush alloc] init];
             [likePhotoPushNotification setChannel:photoUploaderPrivatePushChannel];
             [likePhotoPushNotification setData:data];
             [likePhotoPushNotification sendPushInBackground];
         }
     } else if (![[[self.objectToCommentOn objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]] && ![StringrUtility objectIsString:self.objectToCommentOn]) {
+       
+        photoUploaderPrivatePushChannel = [[self.objectToCommentOn objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
+        
         if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
             NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                   alert, kAPNSAlertKey,
