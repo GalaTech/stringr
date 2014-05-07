@@ -185,7 +185,16 @@
                         // instantiates the main logged in content area
                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                         
-                        [self dismissViewControllerAnimated:YES completion:nil];
+                        [self dismissViewControllerAnimated:YES completion:^ {
+                            [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+                                if (!error) {
+                                    [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
+                                    
+                                    // Saves the user after we have ensured they are a valid college student
+                                    [[PFUser currentUser] saveInBackground];
+                                }
+                            }];
+                        }];
                     } else {
                         StringrEmailVerificationViewController *emailVerifyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
                         [emailVerifyVC setUserProfileImage:self.userProfileImage];

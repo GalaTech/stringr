@@ -57,7 +57,7 @@
     [self loadObjects];
 }
 
-/*
+
 - (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
 {
     headerView.section = section;
@@ -68,12 +68,12 @@
 
 - (void)reloadHeaders {
     for (NSInteger i = 0; i < [self numberOfSectionsInTableView:self.tableView]; i++) {
-        StringrStringHeaderView *header = (StringrStringHeaderView *)[self tableView:self.tableView viewForHeaderInSection:i];
+        StringrStringHeaderView *header = (StringrStringHeaderView *)[self.tableView headerViewForSection:i];
         PFObject *string = header.stringForHeader;
         [self configureHeader:header forSection:i withString:string];
     }
 }
- */
+
 
 
 
@@ -94,7 +94,7 @@
         self.editingStringsEnabled = NO;
     }
     
-    //[self reloadHeaders];
+    [self reloadHeaders];
 }
 
 

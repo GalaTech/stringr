@@ -152,17 +152,10 @@
 - (void)saveAndPublishInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))completionBlock
 {
     if (self.collectionViewPhotos.count > 0) {
-        if (self.stringToLoad) {// string already existed
+        if (self.stringToLoad) {// editing pre-existing string
             for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                 PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
-                
-                /*
-                PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-                [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
-                [photoACL setPublicReadAccess:YES];
-                [photo setACL:photoACL];
-                 */
-                
+
                 if ([photo isKindOfClass:[PFObject class]]) {
                     [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                     [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
@@ -197,18 +190,14 @@
             [self.stringToLoad setObject:self.stringTitle forKey:kStringrStringTitleKey];
             [self.stringToLoad setObject:self.stringDescription forKey:kStringrStringDescriptionKey];
             
+            // sets the location for this newly created string
+            [self.stringToLoad setObject:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] forKey:kStringrStringLocationKey];
+            
             [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     for (int i = 0; i < self.collectionViewPhotos.count; i++) {
                         PFObject *photo = [self.collectionViewPhotos objectAtIndex:i];
 
-                        /*
-                        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-                        [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
-                        [photoACL setPublicReadAccess:YES];
-                        [photo setACL:photoACL];
-                         */
-                        
                         [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                         [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
                         [photo saveEventually];

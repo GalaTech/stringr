@@ -153,7 +153,7 @@ NSString * const kStringrUserProfilePictureKey = @"profileImage";
 NSString * const kStringrUserProfilePictureThumbnailKey = @"profileImageThumbnail";
 
 NSString * const kStringrUserDescriptionKey = @"description";
-NSString * const kStringrUserLocationKey = @"location";
+NSString * const kStringrUserLocationKey = @"geoLocation";
 NSString * const kStringrUserSelectedUniversityKey = @"selectedUniversityName";
 NSString * const kStringrUserUniversitiesKey = @"universityNames";
 NSString * const kStringrUserNumberOfStringsKey = @"numberOfStrings";
@@ -195,7 +195,7 @@ NSString * const kStringrStringUserKey = @"user";
 NSString * const kStringrStringTitleKey = @"title";
 NSString * const kStringrStringDescriptionKey = @"description";
 NSString * const kStringrStringStatisticsKey = @"statistics";
-
+NSString * const kStringrStringLocationKey = @"location";
 
 
 

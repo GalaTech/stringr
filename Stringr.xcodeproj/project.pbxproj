@@ -591,6 +591,15 @@
 			name = "Write and Edit Text";
 			sourceTree = "<group>";
 		};
+		ABCEFA4C1919FEAA0018C547 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				ABCEFA061919783B0018C547 /* StringrStringHeaderView.h */,
+				ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
 		ABDB7CAE18D3C0980047691B /* Detail TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,8 +685,6 @@
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
-				ABCEFA061919783B0018C547 /* StringrStringHeaderView.h */,
-				ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */,
 				BF170EC7184BEB700056ECE7 /* StringView.h */,
 				BF170EC8184BEB700056ECE7 /* StringView.m */,
 				AB919C48189EF23A00D40FD5 /* StringViewReorderable.h */,
@@ -702,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				BF170EBD184BEA9D0056ECE7 /* String */,
+				ABCEFA4C1919FEAA0018C547 /* Header */,
 				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
 				AB9D782C18FDA9A600E84015 /* TableViewCells */,
 			);

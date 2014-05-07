@@ -302,7 +302,18 @@
         if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
             [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
             [self.loginActivityIndicator stopAnimating];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^ {
+                [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+                    if (!error) {
+                        [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
+                        
+                        // Saves the user after we have ensured they are a valid college student
+                        [[PFUser currentUser] saveInBackground];
+                    }
+                }];
+            }];
+            
+            
             
             // alert delegate that we logged in with user
             [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
@@ -505,7 +516,16 @@
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
         [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^ {
+            [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+                if (!error) {
+                    [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
+                    
+                    // Saves the user after we have ensured they are a valid college student
+                    [[PFUser currentUser] saveInBackground];
+                }
+            }];
+        }];
         
         // alert delegate that we logged in with user
         [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];

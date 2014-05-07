@@ -10,7 +10,7 @@
 
 @protocol StringrStringHeaderViewDelegate;
 
-@interface StringrStringHeaderView : UIView
+@interface StringrStringHeaderView : UITableViewHeaderFooterView
 
 @property (nonatomic) NSUInteger section;
 @property (strong, nonatomic) PFObject *stringForHeader;
