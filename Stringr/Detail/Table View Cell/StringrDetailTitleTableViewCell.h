@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrDetailTableViewCell.h"
 
-@interface StringrDetailTitleTableViewCell : UITableViewCell
+@interface StringrDetailTitleTableViewCell : StringrDetailTableViewCell
 
 - (void)setTitleForCell:(NSString *)title;
 

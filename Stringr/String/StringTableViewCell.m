@@ -40,15 +40,21 @@
     return self;
 }
 
+- (void)prepareForReuse
+{
+    
+}
 
 
 
 #pragma mark - Public
 
+/*
 - (void)setCollectionData:(NSArray *)collectionData
 {
     [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
 }
+ */
 
 - (void)setStringObject:(PFObject *)string
 {
@@ -58,6 +64,11 @@
 - (void)setStringViewDelegate:(id<StringViewDelegate>)delegate
 {
     [_stringCollectionView setDelegate:delegate];
+}
+
+- (void)queryPhotosFromQuery:(PFQuery *)query
+{
+    [_stringCollectionView queryPhotosFromQuery:query];
 }
 
 

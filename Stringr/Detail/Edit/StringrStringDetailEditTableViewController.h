@@ -8,18 +8,22 @@
 
 #import "StringrStringDetailTableViewController.h"
 
-@protocol StringrStringDetailEditViewControllerDelegate <NSObject>
+@protocol StringrStringDetailEditTableViewControllerDelegate;
+@interface StringrStringDetailEditTableViewController : StringrStringDetailTableViewController
 
-/**
- * Inserts the user selected photo into the currently displayed string.
- * @param image The photo that the user selected to add to the string.
- */
-- (void)addNewImageToString:(UIImage *)image;
+@property (strong, nonatomic) id<StringrStringDetailEditTableViewControllerDelegate> delegate;
 
 @end
 
-@interface StringrStringDetailEditTableViewController : StringrStringDetailTableViewController
 
-@property (strong, nonatomic) id<StringrStringDetailEditViewControllerDelegate> delegate;
+@protocol StringrStringDetailEditTableViewControllerDelegate <NSObject>
+
+@optional
+- (void)setStringTitle:(NSString *)title;
+- (void)setStringDescription:(NSString *)description;
+- (void)setStringWriteAccess:(BOOL)canWrite;
+- (void)deleteString;
+
+- (void)changeTopHeightOfParallax;
 
 @end

@@ -19,9 +19,10 @@
 + (UIColor *)kStringrTurquoiseColor;
 + (UIColor *)kStringrBlueColor;
 + (UIColor *)kStringrPurpleColor;
++ (UIColor *)kStringrHashtagColor;
++ (UIColor *)kStringrHandleColor;
 + (UIColor *)kStringTableViewBackgroundColor;
 + (UIColor *)kStringCollectionViewBackgroundColor;
-
 
 @end
 
@@ -36,15 +37,20 @@ extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;
 
 #pragma mark - NSNotificationCenter Keys
 
-//extern NSString * const kNSNotificationCenterSelectedStringItemKey;
-//extern NSString * const kNSNotificationCenterSelectedProfileImageKey;
-//extern NSString * const kNSNotificationCenterSelectedCommentsButtonKey;
-//extern NSString * const kNSNotificationCenterSelectedLikesButtonKey;
 extern NSString * const kNSNotificationCenterUploadNewStringKey;
 extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileImage;
 extern NSString * const kNSNotificationCenterUpdateMenuProfileName;
+extern NSString * const kNSNotificationCenterStringPublishedSuccessfully;
+extern NSString * const kNSNotificationCenterStringDeletedSuccessfully;
+extern NSString * const kNSNotificationCenterApplicationDidReceiveRemoteNotification;
 
+
+
+#pragma mark - Installation Class
+
+extern NSString * const kStringrInstallationUserKey;
+extern NSString * const kStringrInstallationPrivateChannelsKey;
 
 #pragma mark - PFObject Activity Class
 // Class Key
@@ -65,6 +71,17 @@ extern NSString * const kStringrActivityTypeFollow;
 extern NSString * const kStringrActivityTypeJoin;
 
 
+
+#pragma mark - Statistics
+
+// Class Key
+extern NSString *const kStringrStatisticsClassKey;
+
+// Field Keys
+extern NSString * const kStringrStatisticsStringKey;
+extern NSString * const kStringrStatisticsLikeCountKey;
+extern NSString * const kStringrStatisticsCommentCountKey;
+
 #pragma mark - PFObject User Class
 
 // Class Key
@@ -74,6 +91,7 @@ extern NSString * const kStringrUserClassKey;
 extern NSString * const kStringrUserUsernameKey;
 extern NSString * const kStringrUserUsernameCaseSensitive;
 extern NSString * const kStringrUserDisplayNameKey;
+extern NSString * const kStringrUserDisplayNameCaseInsensitiveKey;
 extern NSString * const kStringrUserFacebookIDKey;
 extern NSString * const kStringrUserTwitterIDKey;
 extern NSString * const kStringrUserProfilePictureURLKey;
@@ -85,8 +103,6 @@ extern NSString * const kStringrUserProfilePictureKey;
 
 extern NSString * const kStringrUserDescriptionKey;
 extern NSString * const kStringrUserLocationKey;
-//extern NSString * const kStringrUserSelectedUniversityKey;
-//extern NSString * const kStringrUserUniversitiesKey;
 extern NSString * const kStringrUserNumberOfStringsKey;
 
 extern NSString * const kStringrUserPrivateChannelKey;
@@ -103,8 +119,7 @@ extern NSString * const kStringrStringPhotosKey;
 extern NSString * const kStringrStringUserKey;
 extern NSString * const kStringrStringTitleKey;
 extern NSString * const kStringrStringDescriptionKey;
-extern NSString * const kStringrStringNumberOfLikesKey;
-extern NSString * const kStringrStringNumberOfCommentsKey;
+extern NSString * const kStringrStringStatisticsKey;
 
 
 
@@ -118,12 +133,14 @@ extern NSString * const kStringrPhotoThumbnailKey;
 extern NSString * const kStringrPhotoUserKey;
 extern NSString * const kStringrPhotoStringKey;
 extern NSString * const kStringrPhotoCaptionKey;
+extern NSString * const kStringrPhotoDescriptionKey;
 extern NSString * const kStringrPhotoPictureWidth;
 extern NSString * const kStringrPhotoPictureHeight;
+extern NSString * const kStringrPhotoOrderNumber;
 extern NSString * const kStringrPhotoThumbnailWidth;
 extern NSString * const kStringrPhotoThumbnailHeight;
-extern NSString * const kStringrPhotoNumberOfLikesKey;
-extern NSString * const kStringrPhotoNumberOfCommentsKey;
+//extern NSString * const kStringrPhotoNumberOfLikesKey;
+//extern NSString * const kStringrPhotoNumberOfCommentsKey;
 
 
 
@@ -131,7 +148,8 @@ extern NSString * const kStringrPhotoNumberOfCommentsKey;
 
 extern NSString * const kStringrUserAttributesIsFollowedByCurrentUserKey;
 extern NSString * const kStringrUserAttributesStringCountKey;
-
+extern NSString * const kStringrUserAttributesFollowingCountKey;
+extern NSString * const kStringrUserAttributesFollowerCountKey;
 
 
 #pragma mark - Cached Photo Attributes
@@ -147,6 +165,72 @@ extern NSString * const kStringrPhotoAttributesCommentCountKey;
 extern NSString * const kStringrStringAttributesIsLikedByCurrentUserKey;
 extern NSString * const kStringrStringAttributesLikeCountKey;
 extern NSString * const kStringrStringAttributesCommentCountKey;
+
+
+#pragma mark - PFPush Notification Payload Keys
+
+extern NSString * const kAPNSAlertKey;
+extern NSString * const kAPNSBadgeKey;
+extern NSString * const kAPNSSoundKey;
+
+extern NSString * const kStringrPushPayloadPayloadTypeKey;
+extern NSString * const kStringrPushPayloadPayloadTypeActivityKey;
+
+extern NSString * const kStringrPushPayloadActivityTypeKey;
+extern NSString * const kStringrPushPayloadActivityLikeKey;
+extern NSString * const kStringrPushPayloadActivityCommentKey;
+extern NSString * const kStringrPushPayloadActivityFollowKey;
+
+extern NSString * const kStringrPushPayloadFromUserObjectIdKey;
+extern NSString * const kStringrPushPayloadToUserObjectIdKey;
+extern NSString * const kStringrPushPayloadPhotoObjectIdKey;
+extern NSString * const kStringrPushPayloadStringObjectIDKey;
+
+
+
+#pragma mark - Storyboard Ids
+
+extern NSString * const kStoryboardRootViewID;
+extern NSString * const kStoryboardLoginID;
+extern NSString * const kStoryboardMenuID;
+
+extern NSString * const kStoryboardSignupWithEmailID;
+extern NSString * const kStoryboardEmailVerificationID;
+extern NSString * const kStoryboardSignupWithSocialNetworkID;
+
+extern NSString * const kStoryboardProfileID;
+extern NSString * const kStoryboardProfileTableViewID;
+extern NSString * const kStoryboardProfileTopViewID;
+extern NSString * const kStoryboardProfileConnectionsID;
+extern NSString * const kStoryboardEditProfileID;
+
+extern NSString * const kStoryboardStringTableID;
+extern NSString * const kStoryboardMyStringsID;
+extern NSString * const kStoryboardLikedStringsID;
+
+extern NSString * const kStoryboardCommentsID;
+extern NSString * const kStoryboardWriteCommentID;
+extern NSString * const kStoryboardWriteAndEditID;
+
+extern NSString * const kStoryboardStringDetailID;
+extern NSString * const kStoryboardStringDetailTableViewID;
+extern NSString * const kStoryboardStringDetailTopViewID;
+extern NSString * const kStoryboardEditStringDetailTableViewID;
+extern NSString * const kStoryboardEditStringDetailTopViewID;
+
+extern NSString * const kStoryboardPhotoDetailID;
+extern NSString * const kStoryboardPhotoDetailTableViewID;
+extern NSString * const kStoryboardPhotoDetailTopViewID;
+extern NSString * const kStoryboardEditPhotoDetailTableViewID;
+
+extern NSString * const kStoryboardActivityTableID;
+
+extern NSString * const kStoryboardSearchStringsID;
+extern NSString * const kStoryboardSearchUsersID;
+
+extern NSString * const kStoryboardSettingsID;
+extern NSString * const kStoryboardFindAndInviteFriendsID;
+extern NSString * const kStoryboardPrivacyPolicyToSID;
 
 
 

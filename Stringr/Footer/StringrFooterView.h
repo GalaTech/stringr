@@ -33,8 +33,6 @@
  */
 - (void)setupFooterViewWithObject:(PFObject *)object;
 
-- (void)refreshLikesAndComments;
-
 /** 
  * Starts animation and displays or stops animation and hides the loading indicator.
  * @param enabled Whether or not the loading indicator is animating and is displayed.

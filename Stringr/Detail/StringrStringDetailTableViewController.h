@@ -10,10 +10,11 @@
 #import "StringrDetailTableViewController.h"
 #import "QMBParallaxScrollViewController.h"
 
-@interface StringrStringDetailTableViewController : StringrDetailTableViewController
+@interface StringrStringDetailTableViewController : StringrDetailTableViewController <UITextFieldDelegate, UITextViewDelegate>
+
+@property (strong, nonatomic) PFObject *stringDetailsToLoad;
 
 @property (strong, nonatomic) NSString *stringTitle;
-@property (weak, nonatomic) UITextField *stringTitleTextField;
-@property (strong, nonatomic) PFObject *stringDetailsToLoad;
+@property (strong, nonatomic) NSString *stringDescription;
 
 @end

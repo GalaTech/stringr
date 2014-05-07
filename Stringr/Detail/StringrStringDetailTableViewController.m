@@ -10,14 +10,13 @@
 #import "StringrFooterView.h"
 #import "StringrDetailTagsTableViewCell.h"
 
-@interface StringrStringDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
+@interface StringrStringDetailTableViewController () <UIAlertViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) NSInteger selectedRow;
 
 @property (weak, nonatomic) UITextView *stringDescriptionTextView;
 @property (weak, nonatomic) UITextField *stringTagsTextField;
 @property (weak, nonatomic) UIButton *addPhotoToStringButton;
-
 
 @end
 
@@ -28,21 +27,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    if (self.stringDetailsToLoad) {
+        self.stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+        self.stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+    } else {
+        self.stringTitle = @"Enter the title for your String";
+        self.stringDescription = @"Enter the description for your String";
+    }
 }
 
 
 
 
 #pragma mark - Custom Accessors
-
-- (void)setStringTitle:(NSString *)stringTitle
-{
-    _stringTitle = stringTitle;
-    
-    NSIndexPath *titleIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[titleIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-}
  
 - (NSArray *)sectionHeaderTitles
 {
@@ -63,7 +61,7 @@
 {
     switch (section) {
         case 0:
-            return 4;
+            return 3;
             break;
         case 1:
             return 1;
@@ -98,8 +96,9 @@
                 
                 if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
                     StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
-                    NSString *stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
-                    [titleCell setTitleForCell:stringTitle];
+                    //NSString *stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+                    [titleCell setTitleForCell:self.stringTitle];
+                    [titleCell setDelegate:self];
                     
                     return titleCell;
                 }
@@ -115,15 +114,18 @@
                 
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    NSString *stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
-                    [descriptionCell setDescriptionForCell:stringDescription];
+                    //NSString *stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+                    [descriptionCell setDescriptionForCell:self.stringDescription];
+                    [descriptionCell setDelegate:self];
                     
                     return descriptionCell;
                 }
                 //self.stringDescriptionTextView = (UITextView *)[cell.contentView viewWithTag:2];
                 
                 //self.stringDescriptionTextView.delegate = self;
-            } else if (indexPath.row == 3) {
+            }
+            /*
+            else if (indexPath.row == 3) {
                 cellIdentifier = @"string_tagsCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
@@ -137,17 +139,28 @@
                 
                 //self.stringTagsTextField.delegate = self;
             }
+             */
+             
             break;
             
         case 1:
             if (indexPath.row == 0) {
-                cellIdentifier = @"stringPrivacy_lockedCell";
+                
+                if ([self.stringDetailsToLoad.ACL getPublicWriteAccess]) {
+                    cellIdentifier = @"stringPrivacy_unlockedCell";
+                } else {
+                    cellIdentifier = @"stringPrivacy_lockedCell";
+                }
+                
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+                
+                /*
                 if (self.selectedRow == 0) {
                     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 } else {
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
                 }
+                 */
             }
             /*
             else if (indexPath.row == 1) {
@@ -184,15 +197,31 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 2) {
-        return 110.0f;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            NSString *titleText = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+            
+            if (!self.stringDetailsToLoad) {
+                titleText = @"";
+            }
+
+            return [StringrUtility heightForLabelWithNSString:self.stringTitle]; // the 31 is for additional margin space
+        } else if (indexPath.row == 2) {
+            NSString *descriptionText = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+            
+            if (!self.stringDetailsToLoad) {
+                descriptionText = @"";
+            }
+
+            return [StringrUtility heightForLabelWithNSString:self.stringDescription]; // the 31 is for additional margin space
+        }
     } else if (indexPath.section == 1) {
         return 55.0f;
     }
     
-    
     return 44.0f;
 }
+
 
 
 

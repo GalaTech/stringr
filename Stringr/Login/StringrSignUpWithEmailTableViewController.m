@@ -83,7 +83,7 @@
 
 - (IBAction)privacyPolicyButton:(UIButton *)sender
 {
-    StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"privacyPolicyToSVC"];
+    StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:YES];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
@@ -93,7 +93,7 @@
 
 - (IBAction)termsOfServiceButton:(UIButton *)sender
 {
-    StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"privacyPolicyToSVC"];
+    StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:NO];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
@@ -127,6 +127,9 @@
         
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.displayName]) {
             [newUser setObject:self.displayName forKey:kStringrUserDisplayNameKey];
+            
+            NSString *lowercaseName = [self.displayName lowercaseString];
+            [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
             userIsValidForSignup++;
         } else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];
@@ -184,7 +187,7 @@
                         
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
-                        StringrEmailVerificationViewController *emailVerifyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+                        StringrEmailVerificationViewController *emailVerifyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
                         [emailVerifyVC setUserProfileImage:self.userProfileImage];
                         
                         // removes the signup page from the stack of vc's and pushes the email verification page on

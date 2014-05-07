@@ -17,14 +17,13 @@
 #import "StringrUserTableViewController.h"
 
 #import "StringTableViewCell.h"
-#import "StringView.h"
 #import "StringrFooterView.h"
+
+#import "StringrLoadMoreTableViewCell.h"
 
 #import "StringrStringDetailViewController.h"
 
-#import "TestViewController.h"
-
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringViewDelegate, StringrFooterViewDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate>
 
 @end
 
@@ -39,7 +38,7 @@
         self.parseClassName = kStringrStringClassKey;
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = NO;
-        self.objectsPerPage = 1;
+        self.objectsPerPage = 2;
     }
     
     return self;
@@ -57,22 +56,16 @@
     
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    // Adds observer's for different actions that can be performed by selecting different UIObject's on screen
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
+
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -99,56 +92,11 @@
     return footerView;
 }
 
-
-
-
-#pragma mark - NSNotificationCenter Oberserver Action Handlers
-
-// Handles the action of pushing to to the detail view of a selected string
-- (void)pushToStringDetailView:(UIButton *)sender
+- (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
 {
-    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-    
-    // tag is set to the section number of each string
-    [detailVC setStringToLoad:[self.objects objectAtIndex:sender.tag]];
-    [detailVC setHidesBottomBarWhenPushed:YES];
-    
-    [self.navigationController pushViewController:detailVC animated:YES];
-}
-
-- (void)addNewString
-{
-    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
-                                                                      delegate:self
-                                                             cancelButtonTitle:nil
-                                                        destructiveButtonTitle:nil
-                                                             otherButtonTitles:nil];
-    
-    [newStringActionSheet addButtonWithTitle:@"Take Photo"];
-    [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
-    
-    /* Implement return to saved string
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    
-    if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
-        [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
-        [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-    }
-     */
-    
-    [newStringActionSheet addButtonWithTitle:@"Cancel"];
-    [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-    
-    
-    
-    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
-    if ([window.subviews containsObject:self.view]) {
-        [newStringActionSheet showInView:self.view];
-    } else {
-        [newStringActionSheet showInView:window];
-    }
-    
+    headerView.section = section;
+    headerView.stringForHeader = string;
+    headerView.delegate = self;
 }
 
 
@@ -158,7 +106,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.objects count];
+    /*
+    if (self.objects.count == self.objectsPerPage) {
+        return self.objects.count + 1;
+    }
+     */
+    
+    return self.objects.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -166,11 +120,7 @@
     // One of the rows is for the footer view
     return 2;
 }
- 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
+
 
 
 
@@ -179,8 +129,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    //
-    return 23.5f;
+    if (section < self.objects.count) {
+        return 23.5f;
+    }
+    
+    return 0.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -188,52 +141,37 @@
     return 0.0f;
 }
 
-// Percentage for the width of the content header view
-static float const contentViewWidthPercentage = .93;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    // Section header view, which is used for embedding the content view of the section header
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    if (section < self.objects.count) {
+        StringrStringHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headerView"];
+        
+        if (!headerView) {
+            headerView = [[StringrStringHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+        }
+        
+        [self configureHeader:headerView forSection:section withString:[self.objects objectAtIndex:section]];
+
+        return headerView;
+    }
     
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    [headerView setAlpha:1];
-    
-    float xpoint = (headerView.frame.size.width - (headerView.frame.size.width * contentViewWidthPercentage)) / 2;
-    CGRect contentHeaderRect = CGRectMake(xpoint, 0, headerView.frame.size.width * contentViewWidthPercentage, 23.5);
-    
-    
-    // This is the content view, which is a button that will provide user interaction that can take them to
-    // the detail view of a string
-    UIButton *contentHeaderViewButton = [[UIButton alloc] initWithFrame:contentHeaderRect];
-    [contentHeaderViewButton setBackgroundColor:[UIColor whiteColor]];
-    [contentHeaderViewButton addTarget:self action:@selector(pushToStringDetailView:) forControlEvents:UIControlEventTouchUpInside];
-    [contentHeaderViewButton setAlpha:0.92];
-    // Sets tag so we can easily access the correct string when a user taps the detail view for a string
-    [contentHeaderViewButton setTag:section];
-    
-    
-    NSString *titleText = [[self.objects objectAtIndex:section] objectForKey:kStringrStringTitleKey];
-    [contentHeaderViewButton setTitle:titleText forState:UIControlStateNormal];
-    [contentHeaderViewButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [contentHeaderViewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [contentHeaderViewButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
-    
-    [headerView addSubview:contentHeaderViewButton];
-    
-    return headerView;
+    return nil;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        // string view
-        return 157.0f;
-    } else if (indexPath.row == 1) {
-        // footer view
-        return 52.0f;
+    if (indexPath.section < self.objects.count) {
+        if (indexPath.row == 0) {
+            // string view
+            return 157.0f;
+        } else if (indexPath.row == 1) {
+            // footer view
+            return 52.0f;
+        }
     }
-    
+        
     return 0.0f;
 }
 
@@ -244,12 +182,14 @@ static float const contentViewWidthPercentage = .93;
 
 - (PFQuery *)queryForTable
 {
-    
     PFQuery *query = [self getQueryForTable];
+    query.limit = 100;
     
     if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        query.cachePolicy = kPFCachePolicyNetworkElseCache;
     }
+    
+    
     
     return query;
     
@@ -270,7 +210,16 @@ static float const contentViewWidthPercentage = .93;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    //static NSString *cellIdentifier = @"Cell";
+    PFObject *string = object;
+    
+    // It's possible for this object to be of type statistic or activity. This just gets the string
+    // value from either of those classes
+    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [object objectForKey:kStringrStatisticsStringKey];
+    } else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [object objectForKey:kStringrActivityStringKey];
+    }
+    
     if (indexPath.section == self.objects.count) {
         // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
         UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
@@ -286,8 +235,8 @@ static float const contentViewWidthPercentage = .93;
         [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         [stringCell setStringViewDelegate:self];
-        [stringCell setStringObject:object];
-        
+        [stringCell setStringObject:string];
+
         return stringCell;
     } else if (indexPath.row == 1) {
         static NSString *cellIdentifier = @"StringTableViewFooter";
@@ -301,7 +250,7 @@ static float const contentViewWidthPercentage = .93;
         [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        StringrFooterView *footerView = [self addFooterViewToCellWithObject:object];
+        StringrFooterView *footerView = [self addFooterViewToCellWithObject:string];
         
         [footerCell.contentView addSubview:footerView];
         
@@ -314,7 +263,6 @@ static float const contentViewWidthPercentage = .93;
 - (void)objectsDidLoad:(NSError *)error
 {
     [super objectsDidLoad:error];
-    
     
 }
 
@@ -336,78 +284,18 @@ static float const contentViewWidthPercentage = .93;
     
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
-    [loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
+    //[loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     
-    return loadCell;
-}
-
-
-
-
-#pragma mark - UIActionSheet Delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == [actionSheet cancelButtonIndex]) {
-        [actionSheet resignFirstResponder];
-    } else if (buttonIndex == 0) {
-        
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-        }
-        
-        // image picker needs a delegate,
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
-        
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
+    StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
+    
+    if (!loadMoreCell) {
+        loadMoreCell = [[StringrLoadMoreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"loadMoreCell"];
     }
     
-    
-}
-
-
-
-
-#pragma mark - UIImagePicker Delegate
-
-//delegate methode will be called after picking photo either from camera or library
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:^ {
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setStringToLoad:self.objects[0]];
-        [newStringVC setEditDetailsEnabled:YES];
-        [newStringVC setUserSelectedPhoto:image];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-    }];
+    return loadMoreCell;
 }
 
 
@@ -419,7 +307,7 @@ static float const contentViewWidthPercentage = .93;
 {
     if (photos)
     {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoDetailVC"];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         
         [photoDetailVC setEditDetailsEnabled:NO];
         
@@ -436,12 +324,33 @@ static float const contentViewWidthPercentage = .93;
 }
 
 
+
+#pragma mark - StringrHeaderViewView Delegate
+
+- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
+{
+    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    
+    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [string objectForKey:kStringrStatisticsStringKey];
+    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [string objectForKey:kStringrActivityStringKey];
+    }
+    
+    // tag is set to the section number of each string
+    [detailVC setStringToLoad:string];
+    [detailVC setHidesBottomBarWhenPushed:YES];
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+
 #pragma mark - StringrFooterView Delegate
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     if (uploader) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
@@ -476,7 +385,7 @@ static float const contentViewWidthPercentage = .93;
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
         
         NSString *forObjectKey = kStringrActivityStringKey;

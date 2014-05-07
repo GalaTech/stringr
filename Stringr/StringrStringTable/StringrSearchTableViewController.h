@@ -10,4 +10,6 @@
 
 @interface StringrSearchTableViewController : StringrStringTableViewController
 
+- (void)searchStringsWithText:(NSString *)searchText;
+
 @end

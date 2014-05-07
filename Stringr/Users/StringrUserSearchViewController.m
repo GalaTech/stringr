@@ -11,6 +11,9 @@
 
 @interface StringrUserSearchViewController ()
 
+@property (strong, nonatomic) NSString *searchText;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 @end
 
 @implementation StringrUserSearchViewController
@@ -28,9 +31,9 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
+    
+    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
 }
-
-
 
 #pragma mark - Private
 
@@ -43,20 +46,51 @@
 
 
 
+#pragma mark - PFQueryTableViewController Delegate
+
+- (PFQuery *)queryForTable
+{
+    if (self.searchText && [StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.searchText]) {
+        NSString *lowercaseSearchText = [self.searchText lowercaseString];
+        NSPredicate * predicate = [NSPredicate predicateWithFormat:@"(username BEGINSWITH[c]%@) OR (displayNameCaseInsensitive BEGINSWITH[c]%@)", lowercaseSearchText, lowercaseSearchText];
+        PFQuery * userQuery = [PFQuery queryWithClassName:@"_User" predicate:predicate];
+        [userQuery orderByAscending:kStringrUserUsernameKey];
+        
+        return userQuery;
+    }
+    
+    PFQuery *nilQuery = [PFUser query];
+    [nilQuery whereKeyExists:@"nil"];
+    
+    return nilQuery;
+}
+
+
+
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
+
+
 #pragma mark - UISearchBar Delegate
 
 // Presents/Hides the scope bar and cancel button whenever the user goes to search
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    searchBar.showsScopeBar = YES;
-    [searchBar sizeToFit];
     [searchBar setShowsCancelButton:YES animated:YES];
     
     return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    searchBar.showsScopeBar = NO;
-    [searchBar sizeToFit];
     [searchBar setShowsCancelButton:NO animated:YES];
     
     return YES;
@@ -65,6 +99,8 @@
 // Hides the keyboard whenever a user has canceled a search or has pressed the search button
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    self.searchText = searchBar.text;
+    [self loadObjects];
     [searchBar resignFirstResponder];
 }
 

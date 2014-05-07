@@ -57,9 +57,8 @@
 
 - (void)pushToUserProfile
 {
-    [self.delegate tappedCommentorProfileImage];
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterSelectedProfileImageKey object:nil];
+    NSInteger photoIndex = self.commentsProfileImage.tag;
+    [self.delegate tappedCommentorProfileImage:photoIndex];
 }
 
 #pragma mark - Private

@@ -12,10 +12,8 @@
 @interface StringrUtility : NSObject
 
 // Like/Unlike
-+ (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
-+ (void)unlikePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
-+ (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
-+ (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
++ (void)likeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
++ (void)unlikeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
 
 
 // Follow/Unfollow
@@ -31,6 +29,8 @@
 
 
 //Activities
++ (PFQuery *)queryForActivitiesOnObject:(PFObject *)object cachePolicy:(PFCachePolicy)cachePolicy;
+
 /**
  * Provides all of the activities that are associated with the provided photo PFObject.
  * Includes likes, comments, the photo object itself, and the user that owns that photo.
@@ -48,6 +48,25 @@
  * @return A query that will contain all of the activites for the specified string
  */
 + (PFQuery *)queryForActivitiesOnString:(PFObject *)string cachePolicy:(PFCachePolicy)cachePolicy;
+
+/**
+ * Returns whether or not the passed in PFObject is of the String class.
+ * This method will only compare for String and Photo class objects. It will
+ * return NO for anything else. 
+ * @param object The PFObject passed in to test if it is of type string
+ * @return YES if the object is of type String and NO if it is of type Photo.
+ */
++ (BOOL)objectIsString:(PFObject *)object;
+
+
+
+
+
+// UIImage Formatting
++ (UIImage *)formatPhotoImageForUpload:(UIImage *)image;
++ (UIImage *)formatProfileImageForUpload:(UIImage *)image;
++ (UIImage *)formatProfileThumbnailImageForUpload:(UIImage *)image;
+
 
 
 
@@ -97,6 +116,13 @@
  * NO if it is not.
  */
 + (BOOL)NSStringIsValidUsername:(NSString *)checkString;
+
++ (NSString *)usernameFormattedWithMentionSymbol:(NSString *)username;
+
++ (NSString *)randomStringWithLength:(int)length;
+
++ (CGFloat)heightForLabelWithNSString:(NSString *)text;
++ (CGFloat)heightForLabelWithNSString:(NSString *)text labelSize:(CGSize)size andAttributes:(NSDictionary *)attributes;
 
 
 

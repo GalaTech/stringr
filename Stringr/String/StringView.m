@@ -19,10 +19,8 @@
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringLargeCollectionView;
 
-@property (strong, nonatomic) NSMutableArray *collectionData;
+//@property (strong, nonatomic) NSMutableArray *collectionData;
 
-@property (strong, nonatomic) PFObject *stringToLoad; // string PFObject
-@property (strong, nonatomic) NSArray *collectionViewPhotos; // of Photo PFObject's
 
 @end
 @implementation StringView
@@ -42,34 +40,136 @@
 
 #pragma mark - Custom Accessors
 
+/*
 - (void)setCollectionData:(NSMutableArray *)collectionData {
     _collectionData = collectionData;
 }
+ */
 
 - (void)setStringObject:(PFObject *)string
 {
-    _stringToLoad = string;
-    
-    
-    
-    // queries parse after a string object has been set to load
-    [self queryPhotosFromString];
+    if (string) {
+        _stringToLoad = string;
+        
+        // queries parse after a string object has been set to load
+        [self queryPhotosFromString];
+    }
 }
 
-- (NSMutableArray *)getCollectionData
+- (NSMutableArray *)collectionViewPhotos
 {
-    return [_collectionViewPhotos mutableCopy];
+    if (!_collectionViewPhotos) {
+        _collectionViewPhotos = [[NSMutableArray alloc] init];
+    }
+    
+    return _collectionViewPhotos;
 }
 
 
 
-#pragma mark - Private
+#pragma mark - Public
 
-- (void)refreshString
+// Add image to public string
+- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
 {
-    [self queryPhotosFromString];
+    if (image) {
+        PFObject *photo = [PFObject objectWithClassName:kStringrPhotoClassKey];
+        
+        UIImage *resizedImage = [StringrUtility formatPhotoImageForUpload:image];
+        NSData *resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
+        
+        PFFile *imageFileForUpload = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpeg", [StringrUtility randomStringWithLength:8]] data:resizedImageData];
+        [imageFileForUpload saveInBackground];
+        
+        [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
+        [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
+        
+        NSNumber *width = [NSNumber numberWithInt:resizedImage.size.width];
+        NSNumber *height = [NSNumber numberWithInt:resizedImage.size.height];
+        
+        [photo setObject:width forKey:kStringrPhotoPictureWidth];
+        [photo setObject:height forKey:kStringrPhotoPictureHeight];
+        
+        [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
+        [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
+        [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
+        [photo setObject:@(self.collectionViewPhotos.count) forKey:kStringrPhotoOrderNumber];
+        
+        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
+        [photoACL setPublicReadAccess:YES];
+        [photo setACL:photoACL];
+        
+        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                int indexOfImagePhoto = [self.collectionViewPhotos indexOfObject:resizedImage];
+                [self.collectionViewPhotos replaceObjectAtIndex:indexOfImagePhoto withObject:photo];
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
+                if (self.stringCollectionView) {
+                    [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+                } else if (self.stringLargeCollectionView) {
+                    [self.stringLargeCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
+            }
+            
+            if (completionBlock) {
+                completionBlock(succeeded, photo, error);
+            }
+        }];
+        
+        [self.collectionViewPhotos addObject:resizedImage];
+        
+        // if the collectionViewPhotos count == 1 that means we just added the first object.
+        // That means this must be a brand new string.
+        // For every other situation it must mean that we are adding a new photo to a string.
+        if (self.collectionViewPhotos.count == 1) {
+            if (self.stringCollectionView) {
+                [self.stringCollectionView reloadData];
+            } else if (self.stringLargeCollectionView) {
+                [self.stringLargeCollectionView reloadData];
+            }
+        } else {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.collectionViewPhotos.count - 1 inSection:0];
+            if (self.stringCollectionView) {
+                [self.stringCollectionView insertItemsAtIndexPaths:@[indexPath]];
+                [self.stringCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            } else if (self.stringLargeCollectionView) {
+                [self.stringLargeCollectionView insertItemsAtIndexPaths:@[indexPath]];
+                [self.stringLargeCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            }
+        }
+        
+    }
 }
 
+- (void)removePhotoFromString:(PFObject *)photo
+{
+    if (photo) {
+        NSUInteger indexOfPhoto = [self.collectionViewPhotos indexOfObject:photo];
+        
+        PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexOfPhoto];
+        [photo deleteEventually];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
+        [self.collectionViewPhotos removeObjectAtIndex:indexOfPhoto];
+        
+        if (self.stringCollectionView) {
+            [self.stringCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+        } else if (self.stringLargeCollectionView) {
+            [self.stringLargeCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+        }
+    }
+}
+
+- (void)reloadString
+{
+    if (self.stringCollectionView) {
+        [self.stringCollectionView reloadData];
+    } else if (self.stringLargeCollectionView) {
+        [self.stringLargeCollectionView reloadData];
+    }
+}
 
 
 #pragma mark - Parse
@@ -78,19 +178,41 @@
 {
     if (self.stringToLoad) {
         PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-        [stringPhotoQuery orderByAscending:@"createdAt"];
         [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:self.stringToLoad];
+        [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
         
         [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
             if (!error) {
-                self.collectionViewPhotos = [[NSArray alloc] initWithArray:photos];
-                [self.subclassDelegate getCollectionViewPhotoData:[self getCollectionData]];
+                self.collectionViewPhotos = [[NSMutableArray alloc] initWithArray:photos];
                 
                 if (self.stringCollectionView) {
                     [self.stringCollectionView reloadData];
                 } else if (self.stringLargeCollectionView) {
                     [self.stringLargeCollectionView reloadData];
                 }
+            }
+        }];
+    }
+}
+
+- (void)queryPhotosFromQuery:(PFQuery *)query
+{
+    if (query) {
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            self.collectionViewPhotos = [[NSMutableArray alloc] init];
+            
+            for (PFObject *activityObject in objects) {
+                [self.collectionViewPhotos addObject:[activityObject objectForKey:kStringrActivityPhotoKey]];
+               
+                // just puts the string owner of a photo as the string to load in the photo detail controller
+                self.stringToLoad = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
+                [self.stringToLoad fetchIfNeeded];
+            }
+            
+            if (self.stringCollectionView) {
+                [self.stringCollectionView reloadData];
+            } else if (self.stringLargeCollectionView) {
+                [self.stringLargeCollectionView reloadData];
             }
         }];
     }
@@ -114,20 +236,28 @@
 {
     StringCollectionViewCell *stringCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
     
-    stringCell.tag = indexPath.item;
+    // used for when a user taps on a photo in the string
+    //stringCell.tag = indexPath.item;
     
     [stringCell.loadingImageIndicator setHidden:NO];
     [stringCell.loadingImageIndicator startAnimating];
     
-    PFObject *photoObject = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+    id photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
     
-    PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
-    [stringCell.cellImage setFile:imageFile];
-    [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+    if ([photo isKindOfClass:[PFObject class]]) {
+        PFObject *photoObject = (PFObject *)photo;
+        
+        PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+        [stringCell.cellImage setFile:imageFile];
+        [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+            [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+            [stringCell.loadingImageIndicator stopAnimating];
+            [stringCell.loadingImageIndicator setHidden:YES];
+        }];
+    } else if ([photo isKindOfClass:[UIImage class]]) {
+        [stringCell.cellImage setImage:photo];
         [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
-        [stringCell.loadingImageIndicator stopAnimating];
-        [stringCell.loadingImageIndicator setHidden:YES];
-    }];
+    }
     
     
     return stringCell;
@@ -140,8 +270,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //PFObject *cellData = [self.collectionViewPhotos objectAtIndex:indexPath.row]; // PFObject(Photo)
-    [self.delegate collectionView:collectionView tappedPhotoAtIndex:indexPath.row inPhotos:self.collectionViewPhotos fromString:self.stringToLoad];
+    PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+    
+    if (photo) {
+        // Sends information to delegate for what cell was tapped. This allows for simple access to push details about the selected cells data.
+        [self.delegate collectionView:collectionView tappedPhotoAtIndex:indexPath.item inPhotos:self.collectionViewPhotos fromString:self.stringToLoad];
+    }
 }
 
 
@@ -151,10 +285,23 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+    id photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
     
-    NSNumber *width = [photo objectForKey:kStringrPhotoPictureWidth];
-    NSNumber *height = [photo objectForKey:kStringrPhotoPictureHeight];
+    NSNumber *width = 0;
+    NSNumber *height = 0;
+    
+    if ([photo isKindOfClass:[PFObject class]]) {
+        PFObject *photoObject = (PFObject *)photo;
+        
+        width = [photoObject objectForKey:kStringrPhotoPictureWidth];
+        height = [photoObject objectForKey:kStringrPhotoPictureHeight];
+    } else if ([photo isKindOfClass:[UIImage class]]) {
+        UIImage *photoImage = (UIImage *)photo;
+        
+        width = [NSNumber numberWithInt:photoImage.size.width];
+        height = [NSNumber numberWithInt:photoImage.size.height];
+    }
+    
     
     return CGSizeMake([width floatValue], [height floatValue]);
 }

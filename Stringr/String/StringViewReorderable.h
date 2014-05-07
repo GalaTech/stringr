@@ -8,27 +8,23 @@
 
 #import "StringView.h"
 
+@interface StringViewReorderable : StringView
 
-@interface StringViewReorderable : StringView <StringViewSubclassDelegate>
-
-/** 
- * Adds a given photo to the end of the String.
- * @param photo The photo being added to the String.
- */
-- (void)addPhotoToString:(NSDictionary *)photo;
-
-
-/** 
- * Removes a photo from the String at a given index.
- * @param index The index number of the photo that you're wantint to remove.
- * All photos in the string are in 1 section. This only refers to the item number.
- */
-- (void)removePhotoFromStringAtIndex:(NSInteger)index;
-
-/** 
+/**
  * Removes the given photo from the String.
  * @param photo The photo that you are wanting to remove from the string.
  */
-- (void)removePhotoFromString:(NSDictionary *)photo;
+- (void)removePhotoFromString:(PFObject *)photo;
+
+- (void)setStringTitle:(NSString *)stringTitle;
+- (void)setStringDescription:(NSString *)stringDescription;
+- (void)setStringWriteAccess:(BOOL)isPublic;
+
+- (BOOL)stringIsPreparedToPublish;
+- (void)saveAndPublishInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))completionBlock;
+
+- (void)cancelString;
+
+- (void)deleteString;
 
 @end

@@ -10,6 +10,7 @@
 #import "StringrNavigationController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
+#import "StringrSearchTableViewController.h"
 
 @interface StringrDetailTableViewController () 
 
@@ -128,7 +129,7 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     if (uploader) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
         
@@ -141,6 +142,7 @@
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
+    /*
     if (object) {
         if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
             [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
@@ -156,12 +158,13 @@
             }];
         }
     }
+     */
 }
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringCommentsVC"];
+        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
         
         NSString *forObjectKey = kStringrActivityStringKey;
@@ -188,6 +191,43 @@
 }
 
 
+
+
+#pragma mark - StringrDetailTableViewCell Delegate
+
+- (void)tableViewCell:(StringrDetailTableViewCell *)cell tappedUserHandleWithName:(NSString *)name
+{
+    PFQuery *findUserQuery = [PFUser query];
+    [findUserQuery whereKey:kStringrUserUsernameKey equalTo:name];
+    [findUserQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (!error) {
+            if (users.count > 0) {
+                PFUser *user = [users firstObject];
+                
+                StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+                [profileVC setUserForProfile:user];
+                [profileVC setProfileReturnState:ProfileModalReturnState];
+                
+                StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+                [self presentViewController:navVC animated:YES completion:nil];
+            } else {
+                NSLog(@"No user with that name was found!");
+            }
+        }
+    }];
+    
+}
+
+- (void)tableViewCell:(StringrDetailTableViewCell *)cell tappedHashtagWithText:(NSString *)text
+{
+    StringrSearchTableViewController *searchStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSearchStringsID];
+    [searchStringsVC searchStringsWithText:text];
+    
+    searchStringsVC.navigationItem.leftBarButtonItem = nil;
+    searchStringsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+    
+    [self.navigationController pushViewController:searchStringsVC animated:YES];
+}
 
 
 @end

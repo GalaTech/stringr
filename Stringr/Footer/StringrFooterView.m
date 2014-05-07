@@ -35,8 +35,6 @@
 #pragma mark - Lifecycle
 
 static float const contentViewWidth = 320.0;
-//static float const contentViewHeight = 41.5;
-//static float const contentFooterViewWidthPercentage = .93;
 
 - (UIView *)initWithFrame:(CGRect)frame fullWidthCell:(BOOL)isFullWidthCell withObject:(PFObject *)object
 {
@@ -88,15 +86,18 @@ static float const contentViewWidth = 320.0;
 {
     [self setUploaderProfileInformation];
     [self setUploadDate];
-    [self setCommentsWithObject:object];
-    [self setLikesWithObject:object];
+    [self setCommentsAndLikesWithObject:object];
+    //[self setCommentsWithObject:object];
+    //[self setLikesWithObject:object];
 }
 
+/*
 - (void)refreshLikesAndComments
 {
     [self setCommentsWithObject:self.objectForFooterView];
     [self setLikesWithObject:self.objectForFooterView];
 }
+ */
 
 
 
@@ -105,19 +106,25 @@ static float const contentViewWidth = 320.0;
 - (void)setUploaderProfileInformation
 {
     if (self.objectForFooterView) {
-        [self loadingProfileImageIndicatorEnabled:YES];
+        //[self loadingProfileImageIndicatorEnabled:YES];
         
         PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
         [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
             self.userForObject = (PFUser *)user;
-            [self.profileNameLabel setText:[user objectForKey:kStringrUserDisplayNameKey]];
+            [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]]];
             
             PFFile *uploaderProfileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
             
             [self.profileImageView setFile:uploaderProfileImageFile];
-            [self.profileImageView loadInBackground];
-            [self loadingProfileImageIndicatorEnabled:NO];
+            [self.profileImageView loadInBackgroundWithIndicator];
+            //[self loadingProfileImageIndicatorEnabled:NO];
         }];
+    } else {
+        [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]]];
+        
+        PFFile *currentUserProfileImageFile = [[PFUser currentUser] objectForKey:kStringrUserProfilePictureThumbnailKey];
+        [self.profileImageView setFile:currentUserProfileImageFile];
+        [self.profileImageView loadInBackgroundWithIndicator];
     }
 }
 
@@ -126,37 +133,170 @@ static float const contentViewWidth = 320.0;
     if (self.objectForFooterView) {
         NSString *uploadTime = [StringrUtility timeAgoFromDate:self.objectForFooterView.createdAt];
         [self.uploadDateLabel setText:uploadTime];
+    } else {
+        [self.uploadDateLabel setText:@"Now"];
     }
 }
 
+/*
 - (void)setCommentsWithObject:(PFObject *)object
 {
     if (object) {
-        // sets up the comments button/label with the number of comments the object has
-        NSString *commentKey = kStringrStringNumberOfCommentsKey;
-        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            commentKey = kStringrPhotoNumberOfCommentsKey;
+        PFQuery *commentCountQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [commentCountQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
+        
+        if ([StringrUtility objectIsString:object]) {
+            [commentCountQuery whereKey:kStringrActivityStringKey equalTo:object];
+        } else {
+            [commentCountQuery whereKey:kStringrActivityPhotoKey equalTo:object];
         }
         
-        NSNumber *numberOfComments = [object objectForKey:commentKey];
-        
-        [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", [numberOfComments intValue]]];
+        [commentCountQuery whereKeyExists:kStringrActivityFromUserKey];
+        [commentCountQuery countObjectsInBackgroundWithBlock:^(int numberOfComments, NSError *error) {
+            if (!error) {
+                [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", numberOfComments]];
+            }
+        }];
+    } else {
+        [self.commentsButton setEnabled:NO];
+        [self.commentsTextLabel setText:[NSString stringWithFormat:@"0"]];
     }
 }
 
 - (void)setLikesWithObject:(PFObject *)object
 {
     if (object) {
-        // sets up the like button/label with the number of likes the object has
-        NSString *likeKey = kStringrStringNumberOfLikesKey;
-        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            likeKey = kStringrPhotoNumberOfLikesKey;
-        }
         
-        NSNumber *numberOfLikes = [object objectForKey:likeKey];
-        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", [numberOfLikes intValue]]];
+        NSDictionary *objectAttributes = [[StringrCache sharedCache] attributesForObject:object];
+        
+        if (objectAttributes) {
+            [self setLikesButtonState:[[StringrCache sharedCache] isObjectLikedByCurrentUser:object]];
+        } else {
+        
+            PFQuery *likeCountQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [likeCountQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
+            
+            
+            
+            
+            if ([StringrUtility objectIsString:object]) {
+                [likeCountQuery whereKey:kStringrActivityStringKey equalTo:object];
+            } else {
+                [likeCountQuery whereKey:kStringrActivityPhotoKey equalTo:object];
+            }
+            [likeCountQuery whereKeyExists:kStringrActivityFromUserKey];
+            
+            [likeCountQuery findObjectsInBackgroundWithBlock:^(NSArray *activityObjects, NSError *error) {
+                
+                NSMutableArray *likers = [[NSMutableArray alloc] init];
+                NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                
+                for (PFObject *activity in activityObjects) {
+                    if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                        
+                        PFUser *likerUser = [activity objectForKey:kStringrActivityFromUserKey];
+                        if (![likers containsObject:likerUser]) {
+                            [likers addObject:likerUser];
+                        }
+                        
+                        if ([likerUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                            [self setLikesButtonState:YES];
+                            [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:object liked:YES];
+                        }
+                    }
+                }
+                
+                [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likers.count]];
+                
+            }];
+            
+        }
+    } else {
+        [self.likesButton setEnabled:NO];
+        [self.likesTextLabel setText:@"0"];
     }
 }
+*/
+
+
+- (void)setCommentsAndLikesWithObject:(PFObject *)object
+{
+    if (object) {
+        
+        NSDictionary *objectAttributes = [[StringrCache sharedCache] attributesForObject:object];
+        
+        if (objectAttributes) {
+            [self setLikesButtonState:[[StringrCache sharedCache] isObjectLikedByCurrentUser:object]];
+            
+            int likeCount = [[[StringrCache sharedCache] likeCountForObject:object] intValue];
+            [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
+            
+            int commentCount = [[[StringrCache sharedCache] commentCountForObject:object] intValue];
+            [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", commentCount]];
+        } else {
+            // set alpha to 0 so that they can later fade in
+            [self.likesTextLabel setAlpha:0.0f];
+            [self.commentsTextLabel setAlpha:0.0f];
+            
+            @synchronized(self) {
+                PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:object cachePolicy:kPFCachePolicyNetworkOnly];
+                [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                    if (error) {
+                        return;
+                    }
+                    
+                    NSMutableArray *likers = [[NSMutableArray alloc] init];
+                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
+                    
+                    BOOL isLikedByCurrentUser = NO;
+                    
+                    for (PFObject *activity in activities) {
+                         PFUser *likerUser = [activity objectForKey:kStringrActivityFromUserKey];
+                        
+                        // add user to likers array if they like the current string/photo
+                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            
+                            if (![likers containsObject:likerUser]) {
+                                [likers addObject:likerUser];
+                            }
+                            
+                            // if the current user is one of the likers we set them to liking the string/photo
+                            if ([[likerUser objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                                isLikedByCurrentUser = YES;
+                            }
+                            
+                            // add user to commentors if they commented on the current string/photo
+                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
+                            [commentors addObject:likerUser];
+                        }
+                    }
+                    
+                    [[StringrCache sharedCache] setAttributesForObject:object likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
+                    
+                    [self setLikesButtonState:isLikedByCurrentUser];
+                    
+                    [UIView animateWithDuration:0.5 animations:^ {
+                        [self.likesTextLabel setAlpha:1.0f];
+                        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likers.count]];
+                        
+                        [self.commentsTextLabel setAlpha:1.0f];
+                        [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", commentors.count]];
+                    }];
+                    
+                }];
+            }
+        }
+    }
+    /*
+    else {
+        [self.likesButton setEnabled:NO];
+        [self.likesTextLabel setText:@"0"];
+    }
+     */
+}
+
+
+
 
 - (void)loadingProfileImageIndicatorEnabled:(BOOL)enabled
 {
@@ -204,7 +344,6 @@ static float const contentViewWidth = 320.0;
     [self.profileNameLabel setTextColor:[UIColor grayColor]];
     [self.profileNameLabel setTextAlignment:NSTextAlignmentCenter];
     [self.profileNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
-    //[self.profileNameLabel setBackgroundColor:[UIColor purpleColor]];
     [self addSubview:self.profileNameLabel];
 }
 
@@ -223,7 +362,7 @@ static float const contentViewWidth = 320.0;
 - (void)addCommentsButtonAtLocation:(CGPoint)location withSize:(CGSize)size
 {
     self.commentsTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(location.x, location.y, size.width, size.height)];
-    [self.commentsTextLabel setText:@"0"];
+    [self.commentsTextLabel setText:@""];
     [self.commentsTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
     [self.commentsTextLabel setTextColor:[UIColor lightGrayColor]];
     [self.commentsTextLabel setTextAlignment:NSTextAlignmentRight];
@@ -266,29 +405,36 @@ static float const contentViewWidth = 320.0;
 // increments the number of likes for the current string and changes text color
 - (void)likesButtonTouchHandler:(UIButton *)button
 {
+    [self shouldEnableLikeButton:NO];
+    
     BOOL liked = !button.selected;
     [self setLikesButtonState:liked];
+    [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:self.objectForFooterView liked:liked];
     
-    [[StringrCache sharedCache] setStringIsLikedByCurrentUser:self.objectForFooterView liked:liked];
+    int likeCount = [self.likesTextLabel.text intValue];
     
     if (liked) {
-        [[StringrCache sharedCache] incrementLikeCountForString:self.objectForFooterView];
+        [[StringrCache sharedCache] incrementLikeCountForObject:self.objectForFooterView];
+        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount + 1]];
         
-        [StringrUtility likeStringInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
-            if (!succeeded) {
-                [self setLikesButtonState:NO];
+        [StringrUtility likeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self shouldEnableLikeButton:YES];
+                [self setLikesButtonState:succeeded];
             } else {
-                [self refreshLikesAndComments];
+                //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
             }
         }];
     } else {
-        [[StringrCache sharedCache] decrementLikeCountForString:self.objectForFooterView];
+        [[StringrCache sharedCache] decrementLikeCountForObject:self.objectForFooterView];
+        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount - 1]];
         
-        [StringrUtility unlikeStringInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+        [StringrUtility unlikeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+            [self shouldEnableLikeButton:YES];
+            [self setLikesButtonState:!succeeded];
+            
             if (!succeeded) {
-                [self setLikesButtonState:YES];
-            } else {
-                [self refreshLikesAndComments];
+                //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]]; // having this enabled results in a 'flicker' of liking. 
             }
         }];
     }
@@ -305,7 +451,14 @@ static float const contentViewWidth = 320.0;
     }
 }
 
-
+- (void)shouldEnableLikeButton:(BOOL)enable
+{
+    if (enable) {
+        [self.likesButton addTarget:self action:@selector(likesButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [self.likesButton removeTarget:self action:@selector(likesButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
 
 
 

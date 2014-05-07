@@ -29,6 +29,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-STTweetLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +47,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0DB1B15DC6F64A138A787C3F</key>
+		<key>05489469CF23430B8D2EBDF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>174DD342521E40FA92137E9C</key>
+		<key>135F5400730B472FBD1E88D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5838403CB1294EE8842C24B3</key>
+		<key>13C61DCFF88A47B496F9FECA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9DE07ADA158F452B998CE0EC</key>
+		<key>6EAC035418FF4D74B6BED15B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B453C35211B54F3FB851CB4D</key>
+		<key>83DFAAF43AFE42F6A7AB9F01</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C78366D703814F57A68AEFD2</key>
+		<key>C9164B65B7CA4026940E7191</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CBF05A44A356462FB2CAA9AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DDEA4924386C4A01A9E68BFF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,9 +9,24 @@
 /* Begin PBXBuildFile section */
 		93E97CAB3589478280C0B11E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 792BDC5C21374F12A2D410CC /* libPods.a */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
+		AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */; };
+		AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */; };
+		AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F5328190AF1FF00A29E59 /* StringrPopularTableViewController.m */; };
+		AB0F532C190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532B190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m */; };
+		AB0F5330190B25E700A29E59 /* StringrLikedTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532F190B25E700A29E59 /* StringrLikedTabBarViewController.m */; };
+		AB11C4B718F7337300D406D8 /* StringrWriteAndEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */; };
 		AB1B0C87188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */; };
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
+		AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */; };
+		AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA181911A4BB00A9DFF9 /* Parse.framework */; };
+		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
+		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
+		AB2CFA201911A68300A9DFF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1F1911A68300A9DFF9 /* Social.framework */; };
+		AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */; };
+		AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA231911D31500A9DFF9 /* AdSupport.framework */; };
+		AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */; };
+		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
 		AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */; };
@@ -26,7 +41,6 @@
 		AB50811518B296BB00DE933D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811418B296BB00DE933D /* Security.framework */; };
 		AB50811718B296C200DE933D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811618B296C200DE933D /* StoreKit.framework */; };
 		AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811818B296C900DE933D /* SystemConfiguration.framework */; };
-		AB50811B18B2985300DE933D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811A18B2985300DE933D /* Parse.framework */; };
 		AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811C18B298D100DE933D /* FacebookSDK.framework */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
@@ -37,14 +51,15 @@
 		AB5B5959189B182F00790510 /* StringEditCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5958189B182F00790510 /* StringEditCollectionView.m */; };
 		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
 		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
+		AB6CB1C719058714008A8DB0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6CB1C619058714008A8DB0 /* MessageUI.framework */; };
+		AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */; };
+		AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */; };
+		AB6CB1D01906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */; };
 		AB6FDA3818EB7041003A6831 /* StringrNoContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
-		AB757AAB1887532100D32917 /* StringrMySchoolTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AAA1887532100D32917 /* StringrMySchoolTableViewController.m */; };
 		AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */; };
-		AB85DD6A18904208007217DC /* TestTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB85DD6918904208007217DC /* TestTableViewViewController.m */; };
-		AB85DD6D18904345007217DC /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB85DD6C18904345007217DC /* TestTableViewCell.m */; };
 		AB919C4A189EF23A00D40FD5 /* StringViewReorderable.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C49189EF23A00D40FD5 /* StringViewReorderable.m */; };
 		AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB919C4E18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib */; };
 		AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */; };
@@ -52,8 +67,9 @@
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
 		AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */; };
 		AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */; };
+		AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
-		ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76D189094D3006B32AB /* TestViewController.m */; };
+		ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */; };
 		ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */; };
 		ABDB7CB118D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CB018D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m */; };
 		ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CB318D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m */; };
@@ -92,9 +108,8 @@
 		BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDFE183E89A60071E047 /* StringrUtility.m */; };
 		BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE01183E92340071E047 /* StringrProfileViewController.m */; };
 		BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE09183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m */; };
-		BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE10183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m */; };
 		BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE13183E9EFF0071E047 /* StringrSearchTabBarViewController.m */; };
-		BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */; };
+		BF3EDE17183E9FD40071E047 /* StringrSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE16183E9FD40071E047 /* StringrSettingsTableViewController.m */; };
 		BF3EDE1F183EA4F10071E047 /* StringrStringTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */; };
 		BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE25183EDF700071E047 /* StringrEditProfileViewController.m */; };
 		BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE28184449C80071E047 /* StringrUserTableViewController.m */; };
@@ -102,7 +117,6 @@
 		BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */; };
 		BF46518A186F748800EB464F /* StringrStringCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF465189186F748800EB464F /* StringrStringCommentsViewController.m */; };
 		BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF732191184914FB00A4D9AA /* StringrUserSearchViewController.m */; };
-		BF7321951849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7321941849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m */; };
 		BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349CE18297FD600D15963 /* Foundation.framework */; };
 		BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D018297FD600D15963 /* CoreGraphics.framework */; };
 		BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8349D218297FD600D15963 /* UIKit.framework */; };
@@ -133,12 +147,36 @@
 		792BDC5C21374F12A2D410CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
 		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
+		AB0F531F1908458800A29E59 /* StringrInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrInviteFriendsTableViewController.h; path = Settings/StringrInviteFriendsTableViewController.h; sourceTree = "<group>"; };
+		AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrInviteFriendsTableViewController.m; path = Settings/StringrInviteFriendsTableViewController.m; sourceTree = "<group>"; };
+		AB0F532219098F9E00A29E59 /* StringrPushNotificationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPushNotificationsTableViewController.h; path = Settings/StringrPushNotificationsTableViewController.h; sourceTree = "<group>"; };
+		AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPushNotificationsTableViewController.m; path = Settings/StringrPushNotificationsTableViewController.m; sourceTree = "<group>"; };
+		AB0F5327190AF1FF00A29E59 /* StringrPopularTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPopularTableViewController.h; path = StringrStringTable/StringrPopularTableViewController.h; sourceTree = "<group>"; };
+		AB0F5328190AF1FF00A29E59 /* StringrPopularTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPopularTableViewController.m; path = StringrStringTable/StringrPopularTableViewController.m; sourceTree = "<group>"; };
+		AB0F532A190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLikedPhotosTableViewController.h; path = StringrStringTable/StringrLikedPhotosTableViewController.h; sourceTree = "<group>"; };
+		AB0F532B190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLikedPhotosTableViewController.m; path = StringrStringTable/StringrLikedPhotosTableViewController.m; sourceTree = "<group>"; };
+		AB0F532E190B25E700A29E59 /* StringrLikedTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLikedTabBarViewController.h; path = "Tab Bar Controller/StringrLikedTabBarViewController.h"; sourceTree = "<group>"; };
+		AB0F532F190B25E700A29E59 /* StringrLikedTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLikedTabBarViewController.m; path = "Tab Bar Controller/StringrLikedTabBarViewController.m"; sourceTree = "<group>"; };
+		AB11C4B518F7337300D406D8 /* StringrWriteAndEditTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrWriteAndEditTextViewController.h; path = "Write and Edit Text/StringrWriteAndEditTextViewController.h"; sourceTree = "<group>"; };
+		AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrWriteAndEditTextViewController.m; path = "Write and Edit Text/StringrWriteAndEditTextViewController.m"; sourceTree = "<group>"; };
 		AB1B0C85188DAE5D0063EAC5 /* StringrStringDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrStringDetailTableViewController.h; sourceTree = "<group>"; };
 		AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTableViewController.m; sourceTree = "<group>"; };
 		AB1B0C88188DB7DA0063EAC5 /* StringrStringDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrStringDetailTopViewController.h; sourceTree = "<group>"; };
 		AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTopViewController.m; sourceTree = "<group>"; };
 		AB1B0C8B188DEE0C0063EAC5 /* StringrFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFooterView.h; path = Footer/StringrFooterView.h; sourceTree = "<group>"; };
 		AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterView.m; path = Footer/StringrFooterView.m; sourceTree = "<group>"; };
+		AB20142A1916DEBA0097FD10 /* StringrDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTableViewCell.h; path = "Detail/Table View Cell/StringrDetailTableViewCell.h"; sourceTree = "<group>"; };
+		AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTableViewCell.m"; sourceTree = "<group>"; };
+		AB2CFA181911A4BB00A9DFF9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
+		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AB2CFA1F1911A68300A9DFF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		AB2CFA231911D31500A9DFF9 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		AB2CFA2519142D7E00A9DFF9 /* TestViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestViewViewController.h; path = TestVC/TestViewViewController.h; sourceTree = "<group>"; };
+		AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestViewViewController.m; path = TestVC/TestViewViewController.m; sourceTree = "<group>"; };
+		AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoadMoreTableViewCell.h; path = StringrStringTable/StringrLoadMoreTableViewCell.h; sourceTree = "<group>"; };
+		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
 		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -158,7 +196,6 @@
 		AB50811418B296BB00DE933D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		AB50811618B296C200DE933D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AB50811818B296C900DE933D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		AB50811A18B2985300DE933D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
 		AB50811C18B298D100DE933D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = External/FacebookSDK.framework; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
@@ -178,6 +215,13 @@
 		AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrEmailVerificationViewController.m; path = Login/StringrEmailVerificationViewController.m; sourceTree = "<group>"; };
 		AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSignUpWithSocialNetworkViewController.h; path = Login/StringrSignUpWithSocialNetworkViewController.h; sourceTree = "<group>"; };
 		AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSignUpWithSocialNetworkViewController.m; path = Login/StringrSignUpWithSocialNetworkViewController.m; sourceTree = "<group>"; };
+		AB6CB1C619058714008A8DB0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		AB6CB1C819059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFindAndInviteFriendsTableViewController.h; path = Settings/StringrFindAndInviteFriendsTableViewController.h; sourceTree = "<group>"; };
+		AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFindAndInviteFriendsTableViewController.m; path = Settings/StringrFindAndInviteFriendsTableViewController.m; sourceTree = "<group>"; };
+		AB6CB1CB1905CA95008A8DB0 /* StringrInviteUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrInviteUserTableViewCell.h; path = TableViewCell/StringrInviteUserTableViewCell.h; sourceTree = "<group>"; };
+		AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrInviteUserTableViewCell.m; path = TableViewCell/StringrInviteUserTableViewCell.m; sourceTree = "<group>"; };
+		AB6CB1CE1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFBFriendPickerViewController.h; path = Settings/StringrFBFriendPickerViewController.h; sourceTree = "<group>"; };
+		AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFBFriendPickerViewController.m; path = Settings/StringrFBFriendPickerViewController.m; sourceTree = "<group>"; };
 		AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentTableViewCell.h; path = StringrStringTable/StringrNoContentTableViewCell.h; sourceTree = "<group>"; };
 		AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentTableViewCell.m; path = StringrStringTable/StringrNoContentTableViewCell.m; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
@@ -186,14 +230,8 @@
 		AB757AA418874CF300D32917 /* StringrTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrTabBarViewController.m; path = "Tab Bar Controller/StringrTabBarViewController.m"; sourceTree = "<group>"; };
 		AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDiscoveryTableViewController.h; path = StringrStringTable/StringrDiscoveryTableViewController.h; sourceTree = "<group>"; };
 		AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDiscoveryTableViewController.m; path = StringrStringTable/StringrDiscoveryTableViewController.m; sourceTree = "<group>"; };
-		AB757AA91887532100D32917 /* StringrMySchoolTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMySchoolTableViewController.h; path = StringrStringTable/StringrMySchoolTableViewController.h; sourceTree = "<group>"; };
-		AB757AAA1887532100D32917 /* StringrMySchoolTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrMySchoolTableViewController.m; path = StringrStringTable/StringrMySchoolTableViewController.m; sourceTree = "<group>"; };
 		AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSelectProfileImageTableViewCell.h; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.h; sourceTree = "<group>"; };
 		AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectProfileImageTableViewCell.m; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.m; sourceTree = "<group>"; };
-		AB85DD6818904208007217DC /* TestTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewViewController.h; sourceTree = "<group>"; };
-		AB85DD6918904208007217DC /* TestTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewViewController.m; sourceTree = "<group>"; };
-		AB85DD6B18904345007217DC /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
-		AB85DD6C18904345007217DC /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
 		AB919C48189EF23A00D40FD5 /* StringViewReorderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringViewReorderable.h; path = String/StringViewReorderable.h; sourceTree = "<group>"; };
 		AB919C49189EF23A00D40FD5 /* StringViewReorderable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringViewReorderable.m; path = String/StringViewReorderable.m; sourceTree = "<group>"; };
 		AB919C4E18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeReorderableCollectionView.xib; path = String/StringLargeReorderableCollectionView.xib; sourceTree = "<group>"; };
@@ -207,10 +245,12 @@
 		AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoDetailTopViewController.m; path = Detail/StringrPhotoDetailTopViewController.m; sourceTree = "<group>"; };
 		AB9D742C1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoDetailTableViewController.h; path = Detail/StringrPhotoDetailTableViewController.h; sourceTree = "<group>"; };
 		AB9D742D1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoDetailTableViewController.m; path = Detail/StringrPhotoDetailTableViewController.m; sourceTree = "<group>"; };
+		AB9D782918FDA99500E84015 /* StringrActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActivityTableViewCell.h; path = TableViewCell/StringrActivityTableViewCell.h; sourceTree = "<group>"; };
+		AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityTableViewCell.m; path = TableViewCell/StringrActivityTableViewCell.m; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
-		ABB7F76C189094D3006B32AB /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		ABB7F76D189094D3006B32AB /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		ABCEFA061919783B0018C547 /* StringrStringHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringHeaderView.h; path = String/StringrStringHeaderView.h; sourceTree = "<group>"; };
+		ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringHeaderView.m; path = String/StringrStringHeaderView.m; sourceTree = "<group>"; };
 		ABDB7CAB18D3C0960047691B /* StringrDetailTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTitleTableViewCell.h; path = "Detail/Table View Cell/StringrDetailTitleTableViewCell.h"; sourceTree = "<group>"; };
 		ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTitleTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTitleTableViewCell.m"; sourceTree = "<group>"; };
 		ABDB7CAF18D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailDescriptionTableViewCell.h; path = "Detail/Table View Cell/StringrDetailDescriptionTableViewCell.h"; sourceTree = "<group>"; };
@@ -280,12 +320,10 @@
 		BF3EDE01183E92340071E047 /* StringrProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileViewController.m; path = Profile/StringrProfileViewController.m; sourceTree = "<group>"; };
 		BF3EDE08183E9BB90071E047 /* StringrDiscoveryTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDiscoveryTabBarViewController.h; path = "Tab Bar Controller/StringrDiscoveryTabBarViewController.h"; sourceTree = "<group>"; };
 		BF3EDE09183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDiscoveryTabBarViewController.m; path = "Tab Bar Controller/StringrDiscoveryTabBarViewController.m"; sourceTree = "<group>"; };
-		BF3EDE0F183E9E0C0071E047 /* StringrMySchoolTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMySchoolTabBarViewController.h; path = "Tab Bar Controller/StringrMySchoolTabBarViewController.h"; sourceTree = "<group>"; };
-		BF3EDE10183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrMySchoolTabBarViewController.m; path = "Tab Bar Controller/StringrMySchoolTabBarViewController.m"; sourceTree = "<group>"; };
 		BF3EDE12183E9EFF0071E047 /* StringrSearchTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSearchTabBarViewController.h; path = "Tab Bar Controller/StringrSearchTabBarViewController.h"; sourceTree = "<group>"; };
 		BF3EDE13183E9EFF0071E047 /* StringrSearchTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSearchTabBarViewController.m; path = "Tab Bar Controller/StringrSearchTabBarViewController.m"; sourceTree = "<group>"; };
-		BF3EDE15183E9FD40071E047 /* StringrSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSettingsViewController.h; path = Settings/StringrSettingsViewController.h; sourceTree = "<group>"; };
-		BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSettingsViewController.m; path = Settings/StringrSettingsViewController.m; sourceTree = "<group>"; };
+		BF3EDE15183E9FD40071E047 /* StringrSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSettingsTableViewController.h; path = Settings/StringrSettingsTableViewController.h; sourceTree = "<group>"; };
+		BF3EDE16183E9FD40071E047 /* StringrSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSettingsTableViewController.m; path = Settings/StringrSettingsTableViewController.m; sourceTree = "<group>"; };
 		BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringTableViewController.h; path = StringrStringTable/StringrStringTableViewController.h; sourceTree = "<group>"; };
 		BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringTableViewController.m; path = StringrStringTable/StringrStringTableViewController.m; sourceTree = "<group>"; };
 		BF3EDE24183EDF700071E047 /* StringrEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrEditProfileViewController.h; path = Profile/StringrEditProfileViewController.h; sourceTree = "<group>"; };
@@ -300,8 +338,6 @@
 		BF465189186F748800EB464F /* StringrStringCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringCommentsViewController.m; path = Detail/StringrStringCommentsViewController.m; sourceTree = "<group>"; };
 		BF732190184914FB00A4D9AA /* StringrUserSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserSearchViewController.h; path = Users/StringrUserSearchViewController.h; sourceTree = "<group>"; };
 		BF732191184914FB00A4D9AA /* StringrUserSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserSearchViewController.m; path = Users/StringrUserSearchViewController.m; sourceTree = "<group>"; };
-		BF7321931849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserUniversityPeopleTableViewController.h; path = Users/StringrUserUniversityPeopleTableViewController.h; sourceTree = "<group>"; };
-		BF7321941849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserUniversityPeopleTableViewController.m; path = Users/StringrUserUniversityPeopleTableViewController.m; sourceTree = "<group>"; };
 		BF8349CB18297FD600D15963 /* Stringr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stringr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8349CE18297FD600D15963 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF8349D018297FD600D15963 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -326,8 +362,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */,
+				AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */,
+				AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */,
+				AB2CFA201911A68300A9DFF9 /* Social.framework in Frameworks */,
+				AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */,
+				AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */,
+				AB6CB1C719058714008A8DB0 /* MessageUI.framework in Frameworks */,
 				AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */,
-				AB50811B18B2985300DE933D /* Parse.framework in Frameworks */,
 				AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */,
 				AB50811718B296C200DE933D /* StoreKit.framework in Frameworks */,
 				AB50811518B296BB00DE933D /* Security.framework in Frameworks */,
@@ -357,15 +399,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB0F5325190AF14E00A29E59 /* String TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF170EC1184BEB100056ECE7 /* StringTableViewCell.h */,
+				BF170EC2184BEB100056ECE7 /* StringTableViewCell.m */,
+			);
+			name = "String TableViewCell";
+			sourceTree = "<group>";
+		};
+		AB0F5326190AF1D100A29E59 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				AB0F5327190AF1FF00A29E59 /* StringrPopularTableViewController.h */,
+				AB0F5328190AF1FF00A29E59 /* StringrPopularTableViewController.m */,
+				AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */,
+				AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */,
+			);
+			name = Discover;
+			sourceTree = "<group>";
+		};
+		AB0F532D190B1DF500A29E59 /* Liked Strings/Photos */ = {
+			isa = PBXGroup;
+			children = (
+				BF170EA71849213C0056ECE7 /* StringrLikedStringsTableViewController.h */,
+				BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */,
+				AB0F532A190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.h */,
+				AB0F532B190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m */,
+			);
+			name = "Liked Strings/Photos";
+			sourceTree = "<group>";
+		};
 		AB1B0C84188DADE20063EAC5 /* TableView Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				ABDB7E4D18D63C620047691B /* StringrTableViewController.h */,
 				ABDB7E4E18D63C620047691B /* StringrTableViewController.m */,
-				BF3EDE07183E98910071E047 /* String Table */,
-				BF3EDE2A184449CE0071E047 /* User Table */,
 				ABFBE60518D8C7D40026BCC1 /* Activity */,
 				ABF121EE189B2D9D0029177A /* Comments Table */,
+				BF3EDE07183E98910071E047 /* String Table */,
+				BF3EDE2A184449CE0071E047 /* User Table */,
 			);
 			name = "TableView Controllers";
 			sourceTree = "<group>";
@@ -377,6 +450,15 @@
 				AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */,
 			);
 			name = Footer;
+			sourceTree = "<group>";
+		};
+		AB2E0C5F18EF359A00B5681A /* Load More TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */,
+				AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */,
+			);
+			name = "Load More TableViewCell";
 			sourceTree = "<group>";
 		};
 		AB4FF07B18C0019E000F550F /* UIImage+Resize */ = {
@@ -423,13 +505,13 @@
 			name = Edit;
 			sourceTree = "<group>";
 		};
-		AB6FDA3918EB729D003A6831 /* Filler Table View Cell */ = {
+		AB6FDA3918EB729D003A6831 /* Filler TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */,
 				AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */,
 			);
-			name = "Filler Table View Cell";
+			name = "Filler TableViewCell";
 			sourceTree = "<group>";
 		};
 		AB757A89187F173F00D32917 /* Image Path  */ = {
@@ -439,6 +521,7 @@
 				AB757A87187F173A00D32917 /* StringrPathImageView.m */,
 			);
 			name = "Image Path ";
+			path = ../Stringr;
 			sourceTree = "<group>";
 		};
 		AB7D345518BE900E0009CFC5 /* Edit Profile */ = {
@@ -446,7 +529,6 @@
 			children = (
 				BF3EDE24183EDF700071E047 /* StringrEditProfileViewController.h */,
 				BF3EDE25183EDF700071E047 /* StringrEditProfileViewController.m */,
-				ABDFDE5318CE48EE00682EDD /* Edit Profile TableView Cell's */,
 			);
 			name = "Edit Profile";
 			sourceTree = "<group>";
@@ -474,9 +556,46 @@
 			name = "Photo Detail";
 			sourceTree = "<group>";
 		};
-		ABDB7CAE18D3C0980047691B /* Table View Cell's */ = {
+		AB9D782C18FDA9A600E84015 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				AB9D782D18FDA9D200E84015 /* Activity TableViewCell */,
+				ABF121F2189C14850029177A /* Comments TableViewCell */,
+				ABDB7CAE18D3C0980047691B /* Detail TableViewCells */,
+				ABDFDE5318CE48EE00682EDD /* Edit Profile TableViewCells */,
+				AB6FDA3918EB729D003A6831 /* Filler TableViewCell */,
+				AB2E0C5F18EF359A00B5681A /* Load More TableViewCell */,
+				AB0F5325190AF14E00A29E59 /* String TableViewCell */,
+				BF3EDE4D1847C0670071E047 /* User TableViewCell */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
+		AB9D782D18FDA9D200E84015 /* Activity TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AB9D782918FDA99500E84015 /* StringrActivityTableViewCell.h */,
+				AB9D782A18FDA99500E84015 /* StringrActivityTableViewCell.m */,
+			);
+			name = "Activity TableViewCell";
+			sourceTree = "<group>";
+		};
+		AB9D782E18FDAA9C00E84015 /* Write and Edit Text */ = {
+			isa = PBXGroup;
+			children = (
+				AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */,
+				AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */,
+				AB11C4B518F7337300D406D8 /* StringrWriteAndEditTextViewController.h */,
+				AB11C4B618F7337300D406D8 /* StringrWriteAndEditTextViewController.m */,
+			);
+			name = "Write and Edit Text";
+			sourceTree = "<group>";
+		};
+		ABDB7CAE18D3C0980047691B /* Detail TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				AB20142A1916DEBA0097FD10 /* StringrDetailTableViewCell.h */,
+				AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */,
 				ABDB7CAB18D3C0960047691B /* StringrDetailTitleTableViewCell.h */,
 				ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */,
 				ABDB7CAF18D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.h */,
@@ -486,7 +605,7 @@
 				ABDB7CB218D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.h */,
 				ABDB7CB318D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m */,
 			);
-			name = "Table View Cell's";
+			name = "Detail TableViewCells";
 			sourceTree = "<group>";
 		};
 		ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */ = {
@@ -500,7 +619,7 @@
 			path = ParallaxScrollViewController;
 			sourceTree = "<group>";
 		};
-		ABDFDE5318CE48EE00682EDD /* Edit Profile TableView Cell's */ = {
+		ABDFDE5318CE48EE00682EDD /* Edit Profile TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */,
@@ -512,7 +631,7 @@
 				AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */,
 				AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */,
 			);
-			name = "Edit Profile TableView Cell's";
+			name = "Edit Profile TableViewCells";
 			sourceTree = "<group>";
 		};
 		ABDFDE6418CFC1E000682EDD /* ParseImagePager */ = {
@@ -532,19 +651,17 @@
 			children = (
 				BF465188186F748800EB464F /* StringrStringCommentsViewController.h */,
 				BF465189186F748800EB464F /* StringrStringCommentsViewController.m */,
-				AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */,
-				AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */,
 			);
 			name = "Comments Table";
 			sourceTree = "<group>";
 		};
-		ABF121F2189C14850029177A /* Comments Table View Cell */ = {
+		ABF121F2189C14850029177A /* Comments TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				ABF121EF189C14810029177A /* StringrCommentsTableViewCell.h */,
 				ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */,
 			);
-			name = "Comments Table View Cell";
+			name = "Comments TableViewCell";
 			sourceTree = "<group>";
 		};
 		ABFBE60518D8C7D40026BCC1 /* Activity */ = {
@@ -559,6 +676,8 @@
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
+				ABCEFA061919783B0018C547 /* StringrStringHeaderView.h */,
+				ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */,
 				BF170EC7184BEB700056ECE7 /* StringView.h */,
 				BF170EC8184BEB700056ECE7 /* StringView.m */,
 				AB919C48189EF23A00D40FD5 /* StringViewReorderable.h */,
@@ -573,8 +692,6 @@
 				ABB7F76A18908BA0006B32AB /* StringCollectionView.m */,
 				AB5B5957189B182F00790510 /* StringEditCollectionView.h */,
 				AB5B5958189B182F00790510 /* StringEditCollectionView.m */,
-				BF170EC1184BEB100056ECE7 /* StringTableViewCell.h */,
-				BF170EC2184BEB100056ECE7 /* StringTableViewCell.m */,
 				ABDD30D61896EF300043CC28 /* StringrStringCollectionViewController.h */,
 				ABDD30D71896EF300043CC28 /* StringrStringCollectionViewController.m */,
 			);
@@ -585,11 +702,8 @@
 			isa = PBXGroup;
 			children = (
 				BF170EBD184BEA9D0056ECE7 /* String */,
-				BF3EDE4D1847C0670071E047 /* User Table View Cell */,
-				ABF121F2189C14850029177A /* Comments Table View Cell */,
-				AB6FDA3918EB729D003A6831 /* Filler Table View Cell */,
 				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
-				AB757A89187F173F00D32917 /* Image Path  */,
+				AB9D782C18FDA9A600E84015 /* TableViewCells */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -603,6 +717,7 @@
 				BF3EDE1C183EA26C0071E047 /* Detail and Edit */,
 				AB1B0C84188DADE20063EAC5 /* TableView Controllers */,
 				BF3EDE0B183E9BC10071E047 /* TabBar Controllers */,
+				AB9D782E18FDAA9C00E84015 /* Write and Edit Text */,
 				BF3EDE18183E9FD80071E047 /* Settings */,
 			);
 			name = Controllers;
@@ -641,13 +756,13 @@
 		BF3EDE03183E92380071E047 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				AB7D345518BE900E0009CFC5 /* Edit Profile */,
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
 				BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */,
 				BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */,
 				BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */,
 				BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */,
+				AB7D345518BE900E0009CFC5 /* Edit Profile */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -657,14 +772,10 @@
 			children = (
 				BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */,
-				AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */,
-				AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */,
-				AB757AA91887532100D32917 /* StringrMySchoolTableViewController.h */,
-				AB757AAA1887532100D32917 /* StringrMySchoolTableViewController.m */,
+				AB0F5326190AF1D100A29E59 /* Discover */,
 				BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */,
 				BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */,
-				BF170EA71849213C0056ECE7 /* StringrLikedStringsTableViewController.h */,
-				BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */,
+				AB0F532D190B1DF500A29E59 /* Liked Strings/Photos */,
 				BF170EB8184930930056ECE7 /* StringrSearchTableViewController.h */,
 				BF170EB9184930930056ECE7 /* StringrSearchTableViewController.m */,
 			);
@@ -678,12 +789,12 @@
 				AB757AA418874CF300D32917 /* StringrTabBarViewController.m */,
 				ABFBE5FF18D8C67A0026BCC1 /* StringrHomeTabBarViewController.h */,
 				ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */,
+				AB0F532E190B25E700A29E59 /* StringrLikedTabBarViewController.h */,
+				AB0F532F190B25E700A29E59 /* StringrLikedTabBarViewController.m */,
 				BF3EDE08183E9BB90071E047 /* StringrDiscoveryTabBarViewController.h */,
 				BF3EDE09183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m */,
 				BF3EDE12183E9EFF0071E047 /* StringrSearchTabBarViewController.h */,
 				BF3EDE13183E9EFF0071E047 /* StringrSearchTabBarViewController.m */,
-				BF3EDE0F183E9E0C0071E047 /* StringrMySchoolTabBarViewController.h */,
-				BF3EDE10183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m */,
 			);
 			name = "TabBar Controllers";
 			sourceTree = "<group>";
@@ -691,10 +802,18 @@
 		BF3EDE18183E9FD80071E047 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				BF3EDE15183E9FD40071E047 /* StringrSettingsTableViewController.h */,
+				BF3EDE16183E9FD40071E047 /* StringrSettingsTableViewController.m */,
 				ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */,
 				ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */,
-				BF3EDE15183E9FD40071E047 /* StringrSettingsViewController.h */,
-				BF3EDE16183E9FD40071E047 /* StringrSettingsViewController.m */,
+				AB6CB1C819059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.h */,
+				AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */,
+				AB0F531F1908458800A29E59 /* StringrInviteFriendsTableViewController.h */,
+				AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */,
+				AB6CB1CE1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.h */,
+				AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */,
+				AB0F532219098F9E00A29E59 /* StringrPushNotificationsTableViewController.h */,
+				AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -710,7 +829,6 @@
 				AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */,
 				AB5B5947189AC9BD00790510 /* String Detail */,
 				AB9D74281892D660003BB2B8 /* Photo Detail */,
-				ABDB7CAE18D3C0980047691B /* Table View Cell's */,
 			);
 			name = "Detail and Edit";
 			sourceTree = "<group>";
@@ -722,21 +840,21 @@
 				BF3EDE28184449C80071E047 /* StringrUserTableViewController.m */,
 				BF732190184914FB00A4D9AA /* StringrUserSearchViewController.h */,
 				BF732191184914FB00A4D9AA /* StringrUserSearchViewController.m */,
-				BF7321931849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.h */,
-				BF7321941849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m */,
 				BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */,
 				BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */,
 			);
 			name = "User Table";
 			sourceTree = "<group>";
 		};
-		BF3EDE4D1847C0670071E047 /* User Table View Cell */ = {
+		BF3EDE4D1847C0670071E047 /* User TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				BF3EDE4A1847C05D0071E047 /* StringrUserTableViewCell.h */,
 				BF3EDE4B1847C05D0071E047 /* StringrUserTableViewCell.m */,
+				AB6CB1CB1905CA95008A8DB0 /* StringrInviteUserTableViewCell.h */,
+				AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */,
 			);
-			name = "User Table View Cell";
+			name = "User TableViewCell";
 			sourceTree = "<group>";
 		};
 		BF8349C218297FD600D15963 = {
@@ -763,8 +881,14 @@
 		BF8349CD18297FD600D15963 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB2CFA231911D31500A9DFF9 /* AdSupport.framework */,
+				AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */,
+				AB2CFA1F1911A68300A9DFF9 /* Social.framework */,
+				AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */,
+				AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */,
+				AB2CFA181911A4BB00A9DFF9 /* Parse.framework */,
+				AB6CB1C619058714008A8DB0 /* MessageUI.framework */,
 				AB50811C18B298D100DE933D /* FacebookSDK.framework */,
-				AB50811A18B2985300DE933D /* Parse.framework */,
 				AB50811818B296C900DE933D /* SystemConfiguration.framework */,
 				AB50811618B296C200DE933D /* StoreKit.framework */,
 				AB50811418B296BB00DE933D /* Security.framework */,
@@ -797,12 +921,8 @@
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
 				AB0BDFD418E4929A006FAB57 /* StringrCache.h */,
 				AB0BDFD518E4929A006FAB57 /* StringrCache.m */,
-				AB85DD6818904208007217DC /* TestTableViewViewController.h */,
-				AB85DD6918904208007217DC /* TestTableViewViewController.m */,
-				AB85DD6B18904345007217DC /* TestTableViewCell.h */,
-				AB85DD6C18904345007217DC /* TestTableViewCell.m */,
-				ABB7F76C189094D3006B32AB /* TestViewController.h */,
-				ABB7F76D189094D3006B32AB /* TestViewController.m */,
+				AB2CFA2519142D7E00A9DFF9 /* TestViewViewController.h */,
+				AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */,
 				BF834A491829978300D15963 /* Resources */,
 				BF8349D518297FD600D15963 /* Supporting Files */,
 			);
@@ -841,6 +961,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AB757A89187F173F00D32917 /* Image Path  */,
 				ABDFDE6418CFC1E000682EDD /* ParseImagePager */,
 				AB4FF07B18C0019E000F550F /* UIImage+Resize */,
 				ABDD30CD1896EF1F0043CC28 /* ParallaxScrollViewController */,
@@ -1015,34 +1136,36 @@
 				AB6FDA3818EB7041003A6831 /* StringrNoContentTableViewCell.m in Sources */,
 				AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */,
-				BF3EDE17183E9FD40071E047 /* StringrSettingsViewController.m in Sources */,
+				BF3EDE17183E9FD40071E047 /* StringrSettingsTableViewController.m in Sources */,
 				BF3EDE1F183EA4F10071E047 /* StringrStringTableViewController.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
 				ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
+				AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
 				AB5B5959189B182F00790510 /* StringEditCollectionView.m in Sources */,
 				ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */,
 				BF170EC9184BEB700056ECE7 /* StringView.m in Sources */,
-				AB85DD6D18904345007217DC /* TestTableViewCell.m in Sources */,
+				AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */,
 				AB1B0C87188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m in Sources */,
 				AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */,
-				AB757AAB1887532100D32917 /* StringrMySchoolTableViewController.m in Sources */,
 				AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */,
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
+				ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */,
+				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
-				ABB7F76E189094D3006B32AB /* TestViewController.m in Sources */,
 				AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */,
-				AB85DD6A18904208007217DC /* TestTableViewViewController.m in Sources */,
+				AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
+				AB0F5330190B25E700A29E59 /* StringrLikedTabBarViewController.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
 				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
@@ -1051,30 +1174,36 @@
 				AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */,
 				BF170EC3184BEB100056ECE7 /* StringTableViewCell.m in Sources */,
 				AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */,
+				AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */,
 				BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */,
-				BF7321951849176C00A4D9AA /* StringrUserUniversityPeopleTableViewController.m in Sources */,
 				BF3EDE3018445AF10071E047 /* StringrStringDetailViewController.m in Sources */,
 				ABDB7CB118D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m in Sources */,
+				AB6CB1D01906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m in Sources */,
 				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
+				AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */,
 				ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
 				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
+				AB11C4B718F7337300D406D8 /* StringrWriteAndEditTextViewController.m in Sources */,
 				ABDB7CB718D3D4360047691B /* StringrDetailTagsTableViewCell.m in Sources */,
+				AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */,
+				AB0F532C190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
 				ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
-				BF3EDE11183E9E0C0071E047 /* StringrMySchoolTabBarViewController.m in Sources */,
 				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
+				AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */,
 				ABDB7E4F18D63C620047691B /* StringrTableViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,
 				ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */,
 				AB919C4A189EF23A00D40FD5 /* StringViewReorderable.m in Sources */,
+				AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
 				ABDB7E5218D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m in Sources */,
 				ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */,
@@ -1207,18 +1336,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr/External",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/External";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4AF75F85-657A-4705-801E-5A875228C751";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1229,18 +1354,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Howard (8G55TX9A7F)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr",
-					"/Users/Jonathan/Documents/Programming/Git/Client\\ Projects/Stringr/External",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/External";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4AF75F85-657A-4705-801E-5A875228C751";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

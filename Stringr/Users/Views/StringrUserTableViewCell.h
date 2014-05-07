@@ -12,23 +12,23 @@
 @interface StringrUserTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet StringrPathImageView *ProfileThumbnailImageView;
+@property (weak, nonatomic) IBOutlet UILabel *profileUsernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileDisplayNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *profileUniversityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;
 
-
+/*
 @property (strong, nonatomic) NSString *profileDisplayName;
 @property (strong, nonatomic) UIImage *profileThumbnailImage;
 @property (strong, nonatomic) NSString *profileUniversityName;
 @property (nonatomic) NSUInteger profileNumberOfStrings;
+*/
 
-
-
+/*
 - (id)initWithProfileImage:(UIImage *)profileImage
                displayName:(NSString *)displayName
             universityName:(NSString *)universityName
        numberOfUserStrings:(NSUInteger)numberOfStrings;
-
+*/
 
 
 @end

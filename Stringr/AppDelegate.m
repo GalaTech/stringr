@@ -16,7 +16,7 @@
 #import "StringrStringTableViewController.h"
 #import "StringrMenuViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <StringrLoginViewControllerDelegate>
 
 @property (strong, nonatomic) StringrRootViewController *rootVC;
 
@@ -24,6 +24,7 @@
 
 @implementation AppDelegate
 
+#pragma mark - Lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Initialize app for Parse and Facebook
@@ -34,27 +35,93 @@
     // Parse 'app open' analytics®
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    // Registers the app for notification types via in app alert view
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
+    
+
+    // setup and initialize the login controller
     self.rootVC = (StringrRootViewController *)[self.window rootViewController];
-    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
+    [loginVC setDelegate:self];
     [loginVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    
     UINavigationController *loginNavVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
-    
-    //[self.window makeKeyAndVisible];
-    
-    // makes it so that the login screen only appears if you need to login, but results in double check to see if user is authenticated
-    //if (![PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        // Slightly delays the presentation of the loginVC so that it doesn't mess up the navigation
-        double delayInSeconds = 0.5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.rootVC presentViewController:loginNavVC animated:YES completion:nil];
-        });
-    //}
+
+    // Slightly delays the presentation of the loginVC so that it doesn't mess up the navigation
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.rootVC presentViewController:loginNavVC animated:YES completion:nil];
+    });
     
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    
+    // add blank channel key initially
+    [currentInstallation addUniqueObject:@"" forKey:kStringrInstallationPrivateChannelsKey];
+    
+    if ([PFUser currentUser]) {
+        // see if we have a private channel key already associated with the current user
+        // if we do set the current installation's channel to that of the current user.
+        NSString *privateChannelName = [[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey];
+        if (privateChannelName && privateChannelName.length > 0) {
+            [currentInstallation addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+        }
+        
+    }
+    // Store the deviceToken in the current installation and save it to Parse.
+    [currentInstallation setDeviceTokenFromData:newDeviceToken];
+    [currentInstallation saveEventually];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+	if ([error code] != 3010) { // 3010 is for the iPhone Simulator
+        NSLog(@"Application failed to register for push notifications: %@", error);
+	}
+}
+
+// Parse will display an in app alert view with the notification text if the user has
+// the app open when a notifcation is sent
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    /*
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil userInfo:userInfo];
+    
+    if ([PFUser currentUser]) {
+        if ([self.tabBarController viewControllers].count > PAPActivityTabBarItemIndex) {
+            UITabBarItem *tabBarItem = [[[self.tabBarController viewControllers] objectAtIndex:PAPActivityTabBarItemIndex] tabBarItem];
+            
+            NSString *currentBadgeValue = tabBarItem.badgeValue;
+            
+            if (currentBadgeValue && currentBadgeValue.length > 0) {
+                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                NSNumber *badgeValue = [numberFormatter numberFromString:currentBadgeValue];
+                NSNumber *newBadgeValue = [NSNumber numberWithInt:[badgeValue intValue] + 1];
+                tabBarItem.badgeValue = [numberFormatter stringFromNumber:newBadgeValue];
+            } else {
+                tabBarItem.badgeValue = @"1";
+            }
+        }
+    }
+     */
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterApplicationDidReceiveRemoteNotification object:nil userInfo:userInfo];
+    
+    /*
+    if ([PFUser currentUser]) {
+        
+    }
+     */
+    
+    
+    [PFPush handlePush:userInfo];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -66,10 +133,15 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    
+    // sets the app badge icon to 0
+    if (application.applicationIconBadgeNumber != 0) {
+        application.applicationIconBadgeNumber = 0;
+        [[PFInstallation currentInstallation] saveEventually];
+    }
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -97,10 +169,11 @@
 }
 
 
-// see if you can implement this method via app delegate rather than on every view that needs it
+
+#pragma mark - Public
+
 - (void)setupLoggedInContent
 {
-    //StringrRootViewController *rootVC = (StringrRootViewController *)[self.window rootViewController];
     StringrMenuViewController *menuVC = (StringrMenuViewController *)self.rootVC.menuViewController;
     // Forces the menu table view controller to be scrolled to the top upon logging in
     menuVC.tableView.contentOffset = CGPointMake(0, 0 - menuVC.tableView.contentInset.top);
@@ -108,13 +181,17 @@
     [self.rootVC setContentViewController:[self setupHomeTabBarController]];
 }
 
+
+
+#pragma mark - Private
+
 - (StringrHomeTabBarViewController *)setupHomeTabBarController
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     StringrHomeTabBarViewController *homeTabBarVC = [[StringrHomeTabBarViewController alloc] init];
     
-    StringrStringTableViewController *followingVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"stringTableVC"];
+    StringrStringTableViewController *followingVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [followingVC setTitle:@"Following"];
     
     PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
@@ -136,11 +213,11 @@
     [followingNavVC setTabBarItem:followingTab];
     
     
-    StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"activityVC"];
+    StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
     [activityVC setTitle:@"Activity"];
     
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
-    UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"solarSystem_icon"] tag:0];
+    UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
     
@@ -149,6 +226,24 @@
     return homeTabBarVC;
 }
 
+
+
+
+#pragma mark - StringrLoginViewControllerDelegate
+
+- (void)logInViewController:(StringrLoginViewController *)logInController didLogInUser:(PFUser *)user
+{
+    // Subscribe to private push channel
+    if (user) {
+        // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
+        NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
+        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+        [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+        [[PFInstallation currentInstallation] saveEventually];
+        [user setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+        [user saveEventually];
+    }
+}
 
 
 

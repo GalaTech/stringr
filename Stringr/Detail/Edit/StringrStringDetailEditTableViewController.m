@@ -7,15 +7,13 @@
 //
 
 #import "StringrStringDetailEditTableViewController.h"
+#import "StringrWriteAndEditTextViewController.h"
+#import "StringrNavigationController.h"
 #import "StringrFooterView.h"
 
-@interface StringrStringDetailEditTableViewController () <UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface StringrStringDetailEditTableViewController () <UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrWriteAndEditTextViewControllerDelegate>
 
 @property (nonatomic) NSInteger selectedRow;
-
-@property (weak, nonatomic) UITextView *stringDescriptionTextView;
-@property (weak, nonatomic) UITextField *stringTagsTextField;
-@property (weak, nonatomic) UIButton *addPhotoToStringButton;
 
 @end
 
@@ -26,29 +24,58 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // initially sets the selected row based around the current ALC permissions of the string
+    BOOL canWrite = [self.stringDetailsToLoad.ACL getPublicWriteAccess];
+    if (canWrite) {
+        self.selectedRow = 1; // public row
+    } else {
+        self.selectedRow = 0; // locked row
+    }
+    
+    [self.delegate setStringWriteAccess:canWrite];
 }
 
 
-
-
 #pragma mark - Custom Accessors
+
+@synthesize stringTitle = _stringTitle;
+@synthesize stringDescription = _stringDescription;
 
 - (NSArray *)sectionHeaderTitles
 {
     return @[@"Info", @"Privacy", @"Delete"];
 }
 
-
-
-#pragma mark - Actions
-
-// Provides initial functionality for adding a new photo to the current string
-- (void)addPhotoToString
+- (void)setStringTitle:(NSString *)stringTitle
 {
-    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Photo to String" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
+    _stringTitle = stringTitle;
     
-    [newStringActionSheet showInView:self.view];
+    NSString *tempStringTitle = stringTitle;
+    if ([tempStringTitle isEqualToString:@"Enter the title for your String"]) {
+        tempStringTitle = @"";
+    }
+    
+    [self.delegate setStringTitle:tempStringTitle];
+}
+
+- (void)setStringDescription:(NSString *)stringDescription
+{
+    _stringDescription = stringDescription;
+    
+    NSString *tempStringDescription = stringDescription;
+    if ([tempStringDescription isEqualToString:@"Enter the description for your String"]) {
+        tempStringDescription = @"";
+    }
+    
+    [self.delegate setStringDescription:tempStringDescription];
 }
 
 
@@ -65,10 +92,10 @@
 {
     switch (section) {
         case 0:
-            return 4;
+            return 3;
             break;
         case 1:
-            return 3;
+            return 2;
             break;
         case 2:
             return 1;
@@ -81,10 +108,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     NSString *cellIdentifier;
     UITableViewCell *cell;
-    
-    
+
     switch (indexPath.section) {
         case 0:
             if (indexPath.row == 0) {
@@ -93,16 +120,7 @@
                 
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) fullWidthCell:YES withObject:self.stringDetailsToLoad];
                 [mainDetailView setDelegate:self];
-                
-                /*
-                // Init's the footer with live data from here
-                [mainDetailView.profileNameLabel setText:@"Alonso Holmes"];
-                [mainDetailView.uploadDateLabel setText:@"10 minutes ago"];
-                [mainDetailView.profileImageView setImage:[UIImage imageNamed:@"alonsoAvatar.jpg"]];
-                [mainDetailView.commentsTextLabel setText:@"0"];
-                [mainDetailView.likesTextLabel setText:@"0"];
-                 */
-                
+
                 [cell addSubview:mainDetailView];
                 
                 //return footerCell;
@@ -110,50 +128,36 @@
                 cellIdentifier = @"string_titleCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
-                self.addPhotoToStringButton = (UIButton *)[cell.contentView viewWithTag:5];
-                [self.addPhotoToStringButton addTarget:self action:@selector(addPhotoToString) forControlEvents:UIControlEventTouchUpInside];
+                StringrDetailTitleTableViewCell *titleTableVC = (StringrDetailTitleTableViewCell *)cell;
+
                 
-                //self.stringTitleTextField = (UITextField *)[cell.contentView viewWithTag:1];
-                [self.stringTitleTextField setPlaceholder:self.stringTitle];
-                
-                //self.stringTitleTextField.delegate = self;
+                [titleTableVC setTitleForCell:self.stringTitle];
                 
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"string_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                //self.stringDescriptionTextView = (UITextView *)[cell.contentView viewWithTag:2];
                 
-                //self.stringDescriptionTextView.delegate = self;
-            } else if (indexPath.row == 3) {
-                cellIdentifier = @"string_tagsCell";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                //self.stringTagsTextField = (UITextField *)[cell.contentView viewWithTag:3];
+                StringrDetailDescriptionTableViewCell *descriptionTableVC = (StringrDetailDescriptionTableViewCell *)cell;
+
                 
-                //self.stringTagsTextField.delegate = self;
+                [descriptionTableVC setDescriptionForCell:self.stringDescription];
             }
             break;
-            
         case 1:
             if (indexPath.row == 0) {
                 cellIdentifier = @"stringPrivacy_lockedCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+                
                 if (self.selectedRow == 0) {
                     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 } else {
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
                 }
             } else if (indexPath.row == 1) {
-                cellIdentifier = @"stringPrivacy_mySchoolCell";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                if (self.selectedRow == 1) {
-                    [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-                } else {
-                    [cell setAccessoryType:UITableViewCellAccessoryNone];
-                }
-            } else if (indexPath.row == 2) {
                 cellIdentifier = @"stringPrivacy_unlockedCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                if (self.selectedRow == 2) {
+                
+                if (self.selectedRow == 1) {
                     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 } else {
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -179,71 +183,65 @@
 
 #pragma mark - TableView Delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 && indexPath.row == 2) {
-        return 110.0f;
-    } else if (indexPath.section == 1) {
-        return 55.0f;
-    }
-    
-    
-    return 44.0f;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Stores previously selected (radio) row
-    NSIndexPath *previousCellIndexPath = [NSIndexPath indexPathForRow:self.selectedRow inSection:1];
-    
-    switch (indexPath.section) {
-        case 1:
-            if (indexPath.row == 0) {
-                self.selectedRow = 0;
-            } else if (indexPath.row == 1) {
-                self.selectedRow = 1;
-            } else if (indexPath.row == 2) {
-                self.selectedRow = 2;
+    if (indexPath.section == 0 && (indexPath.row == 1 || indexPath.row == 2)) { // details/title/description
+        StringrWriteAndEditTextViewController *editTextVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardWriteAndEditID];
+        [editTextVC setDelegate:self];
+        
+        if (indexPath.row == 1) {
+            // sets the edit text view to be blank
+            NSString *stringTitle = self.stringTitle;
+            if ([stringTitle isEqualToString:@"Enter the title for your String"]) {
+                stringTitle = @"";
             }
-            break;
-        case 2:
-            if (indexPath.row == 0) {
-                UIAlertView *deleteStringAlert = [[UIAlertView alloc] initWithTitle:@"Delete String" message:@"Are you sure that you want to delete this string? This action cannot be undone." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-                
-                [deleteStringAlert show];
+            
+            [editTextVC setTextForEditing:stringTitle];
+            [editTextVC setTitle:@"Edit Title"];
+        } else if (indexPath.row == 2) {
+            // sets the edit text view to be blank
+            NSString *stringDescription = self.stringDescription;
+            if ([stringDescription isEqualToString:@"Enter the description for your String"]) {
+                stringDescription = @"";
             }
-        default:
-            break;
-    }
-    
-    NSArray *indexPaths = @[indexPath];
-    
-    // If the two indexes are not the same I add them both to be reloaded.
-    if (previousCellIndexPath.row != indexPath.row) {
-        indexPaths = @[previousCellIndexPath, indexPaths[0]];
-    }
-
-    // If I attempted to load both the array without a conditional check it could crash if
-    // the user happened to press the same row twice.
-    [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-}
-
-
-
-
-#pragma mark - UITextViewDelegate
-
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([[textView text] isEqualToString:@"Description..."]) {
-        [textView setText:@""];
-    }
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    if ([[textView text] length] == 0) {
-        [textView setText:@"Description..."];
+            
+            [editTextVC setTextForEditing:stringDescription];
+            [editTextVC setTitle:@"Edit Description"];
+        }
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editTextVC];
+        [self.navigationController presentViewController:navVC animated:YES completion:nil];
+    } else if (indexPath.section == 1) { // locked/public
+        
+        // Stores previously selected (radio) row
+        NSIndexPath *previousCellIndexPath = [NSIndexPath indexPathForRow:self.selectedRow inSection:1];
+        
+        if (indexPath.row == 0) { // locked
+            self.selectedRow = 0;
+            
+            [self.delegate setStringWriteAccess:NO];
+        } else if (indexPath.row == 1) { // public
+            self.selectedRow = 1;
+            
+            [self.delegate setStringWriteAccess:YES];
+        }
+        
+        NSArray *indexPaths = @[indexPath];
+        
+        // If the two indexes are not the same I add them both to be reloaded.
+        if (previousCellIndexPath.row != indexPath.row) {
+            indexPaths = @[previousCellIndexPath, indexPaths[0]];
+        }
+        
+        // If I attempted to load both the array without a conditional check it could crash if
+        // the user happened to press the same row twice.
+        [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    } else if (indexPath.section == 2) { // delete string
+        if (indexPath.row == 0) {
+            UIAlertView *deleteStringAlert = [[UIAlertView alloc] initWithTitle:@"Delete String" message:@"Are you sure that you want to delete this string? This action cannot be undone." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            
+            [deleteStringAlert show];
+        }
     }
 }
 
@@ -255,6 +253,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
+        [self.delegate deleteString];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -262,80 +261,17 @@
 
 
 
-#pragma mark - UIActionSheet Delegate
+#pragma mark - StringrWriteAndEditTextView Delegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
-        NSLog(@"take");
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-        }
-        
-        // image picker needs a delegate,
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
-        NSLog(@"choose");
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
+    if (indexPath.row == 1) {
+        self.stringTitle = text;
+    } else if (indexPath.row == 2) {
+        self.stringDescription = text;
     }
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
-
-
-
-
-#pragma mark - UIImagePicker Delegate
-
-//delegate methode will be called after picking photo either from camera or library
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:^ {
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        [self.delegate addNewImageToString:image];
-    }];
-}
-
-
-/*
- #pragma mark - UITextField Delegate
- 
- - (BOOL)textFieldShouldReturn:(UITextField *)textField
- {
- [self.view endEditing:YES];
- return YES;
- }
- 
- 
- 
- #pragma mark - UIScrollViewDelegate
- 
- 
- // Hides the keyboard if you begin to move the scroll view
- - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
- [self.stringTitleTextField resignFirstResponder];
- [self.stringDescriptionTextView resignFirstResponder];
- [self.stringTagsTextField resignFirstResponder];
- }
- */
-
-
-
 
 @end

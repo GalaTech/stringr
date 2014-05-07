@@ -50,7 +50,7 @@
     
     // Sets the 'return' button based off of what state the profile is in. Modal, Menu, or Back.
     if (self.profileReturnState == ProfileModalReturnState) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  X" style:UIBarButtonItemStyleBordered target:self action:@selector(closeProfileVC)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"] style:UIBarButtonItemStyleBordered target:self action:@selector(closeProfileVC)];
     } else if (self.profileReturnState == ProfileMenuReturnState) {
         // Creates the navigation item to access the menu
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -60,18 +60,18 @@
         
     }
     // Instantiates the parallax VC with a top and bottom VC.
-    self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TopProfileVC"];
+    self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileTopViewID];
     // Sets the user for the currently accessed profile
     [self.topProfileVC setUserForProfile:self.userForProfile];
     
-    self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TableProfileVC"];
+    self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileTableViewID];
     
     // Querries all strings that are owned by the user for the specified profile
     PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
     [profileStringsQuery orderByAscending:@"createdAt"];
     [self.tableProfileVC setQueryForTable:profileStringsQuery];
-    
+
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     
     self.delegate = self;
@@ -138,11 +138,11 @@
 
 - (void)pushToEditProfile
 {
-    StringrEditProfileViewController *editProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"EditProfileVC"];
+    StringrEditProfileViewController *editProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditProfileID];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
     
     [editProfileVC setFillerProfileImage:topVC.profileImage];
-    [editProfileVC setFillerProfileName:topVC.profileNameLabel.text];
+    [editProfileVC setFillerProfileName:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
     [editProfileVC setFillerDescription:topVC.profileDescriptionLabel.text];
     [editProfileVC setFillerUniversityName:topVC.profileUniversityLabel.text];
     
@@ -183,12 +183,12 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:newStringVC animated:YES];
     } else if (buttonIndex == 1) {
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StringEditVC"];
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:newStringVC animated:YES];

@@ -84,7 +84,7 @@
     
     _foregroundScrollView = [UIScrollView new];
     _foregroundScrollView.backgroundColor = [UIColor clearColor];
-    if ([self respondsToSelector:@selector(topLayoutGuide)]){
+if ([self respondsToSelector:@selector(topLayoutGuide)]){
         [self.foregroundScrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
     }
     _foregroundScrollView.delegate = self;

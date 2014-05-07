@@ -8,8 +8,10 @@
 
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrFooterView.h"
+#import "StringrWriteAndEditTextViewController.h"
+#import "StringrNavigationController.h"
 
-@interface StringrPhotoDetailEditTableViewController () <UIAlertViewDelegate>
+@interface StringrPhotoDetailEditTableViewController () <UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate>
 
 @end
 
@@ -69,9 +71,25 @@
             } else if (indexPath.row == 1) {
                 cellIdentifier = @"photo_titleCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+                
+                if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
+                    StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
+                    
+                    NSString *photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
+                    [titleCell setTitleForCell:photoTitle];
+                    
+                    return titleCell;
+                }
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+                
+                if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
+                    StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
+                    [descriptionCell setDescriptionForCell:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
+                    
+                    return descriptionCell;
+                }
             }
             break;
         case 1:
@@ -93,6 +111,7 @@
 
 #pragma mark - TableView Delegate
 
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 2) {
@@ -101,18 +120,28 @@
     
     return 44.0f;
 }
+ */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 1:
-            if (indexPath.row == 0) {
-                UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo" message:@"Are you sure that you want to delete this photo? This action cannot be undone." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-                
-                [deletePhotoAlert show];
-            }
-        default:
-            break;
+    if (indexPath.section == 0) { // details/title/description
+        StringrWriteAndEditTextViewController *editTextVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardWriteAndEditID];
+        [editTextVC setDelegate:self];
+        
+        if (indexPath.row == 1) {
+            [editTextVC setTextForEditing:[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey]];
+            [editTextVC setTitle:@"Edit Title"];
+        } else if (indexPath.row == 2) {
+            [editTextVC setTextForEditing:[self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey]];
+            [editTextVC setTitle:@"Edit Description"];
+        }
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editTextVC];
+        [self.navigationController presentViewController:navVC animated:YES completion:nil];
+    } else if (indexPath.section == 1) {
+        UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo" message:@"Are you sure that you want to delete this photo? This action cannot be undone." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        
+        [deletePhotoAlert show];
     }
 }
 
@@ -125,9 +154,38 @@
 {
     if ([[alertView buttonTitleAtIndex:buttonIndex]  isEqual:@"Yes"]) {
         [self dismissViewControllerAnimated:YES completion:^ {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterDeletePhotoFromStringKey object:@{@"image": @"image"}];
+            
+            if ([self.delegate respondsToSelector:@selector(deletePhotoFromString:)]) {
+                [self.delegate deletePhotoFromString:self.photoDetailsToLoad];
+            } else if ([self.delegate respondsToSelector:@selector(deletePhotoFromPublicString:)]) {
+                [self.delegate deletePhotoFromPublicString:self.photoDetailsToLoad];
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
         }];
     }
 }
+
+
+
+#pragma mark - StringrWriteAndEditTextViewController Delegate
+
+- (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
+{
+    if (indexPath.row == 1) {
+        [self.photoDetailsToLoad setObject:text forKey:kStringrPhotoCaptionKey];
+       // [self.delegate setStringTitle:text];
+    } else if (indexPath.row == 2) {
+        [self.photoDetailsToLoad setObject:text forKey:kStringrPhotoDescriptionKey];
+        //[self.delegate setStringDescription:text];
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+
+
+
 
 @end

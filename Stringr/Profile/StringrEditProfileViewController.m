@@ -91,9 +91,26 @@
 {
     UIActionSheet *changeImage = [[UIActionSheet alloc] initWithTitle:@"Change Profile Image"
                                                              delegate:self
-                                                    cancelButtonTitle:@"Cancel"
+                                                    cancelButtonTitle:nil
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Take Photo", @"Choose from Library", @"Reload from Facebook", nil];
+                                                    otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
+    
+    int numberOfButtons = 2;
+    
+    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [changeImage addButtonWithTitle: @"Reload from Facebook"];
+        numberOfButtons++;
+    }
+    
+    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [changeImage addButtonWithTitle:@"Reload from Twitter"];
+        numberOfButtons++;
+    }
+    
+    [changeImage addButtonWithTitle:@"Cancel"];
+    
+    [changeImage setCancelButtonIndex:numberOfButtons];
+    
     [changeImage showInView:self.view];
 }
 
@@ -102,12 +119,12 @@
 
 #pragma mark - Private
 
-- (void)downloadFacebookProfileImage
+- (void)downloadSocialNetworkProfileImage
 {
     // Download the user's facebook profile picture
     self.profileImageData = [[NSMutableData alloc] init]; // the data will be loaded in here
     
-    if ([[PFUser currentUser] objectForKey:kStringrUserFacebookIDKey] && [[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]) {
+    if ( ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] || [PFTwitterUtils isLinkedWithUser:[PFUser currentUser]] ) && [[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey] ) {
         NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureURLKey]];
         
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
@@ -120,27 +137,6 @@
         }
     }
 }
-
-- (void)setupAndDisplayUniversitySelectView
-{
-    /*
-    NSArray *array = [[PFUser currentUser] objectForKey:kStringrUserUniversitiesKey];
-    
-    UIActionSheet *universitySelectActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your University" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    
-    for (NSString *title in array) {
-        [universitySelectActionSheet addButtonWithTitle:title];
-    }
-    
-    [universitySelectActionSheet addButtonWithTitle:@"Cancel"];
-    [universitySelectActionSheet setCancelButtonIndex:[array count]];
-    
-    
-    [universitySelectActionSheet showInView:self.view];
-     */
-}
-
-
 
 
 #pragma mark - UITableViewController DataSource
@@ -188,19 +184,6 @@
         [setDescriptionText.numberOfCharactersRemainingLabel setText:charactersRemaining];
         
     }
-    /*
-    else if (indexPath.section == 3) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"editProfile_SelectUniversity" forIndexPath:indexPath];
-        
-        StringrSelectUniversityTableViewCell *selectUniversityCell = (StringrSelectUniversityTableViewCell *)cell;
-        
-        NSString *selectedUniversityName = [[PFUser currentUser] objectForKey:kStringrUserSelectedUniversityKey];
-        
-        if (selectedUniversityName) {
-            [selectUniversityCell.selectedUniversityLabel setText:selectedUniversityName];
-        }
-    }
-     */
 
     
     return cell;
@@ -218,7 +201,7 @@
         //[profileImageCell.userProfileImage setImage:self.editProfileImage.image];
         
     } else if (indexPath.section == 3) {
-        [self setupAndDisplayUniversitySelectView];
+
     }
 }
 
@@ -249,7 +232,7 @@
                 [headerText setText:nil];
                 break;
             case 1:
-                [headerText setText:@"Profile Name"];
+                [headerText setText:@"Display Name"];
                 break;
             case 2:
                 [headerText setText:@"Profile Description"];
@@ -305,6 +288,9 @@
         self.fillerProfileName = editedName;
         [self.delegate setProfileName:editedName];
         [[PFUser currentUser] setObject:editedName forKey:kStringrUserDisplayNameKey];
+        
+        NSString *lowercaseName = [editedName lowercaseString];
+        [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
         // saves with block so that the menu will only reload once the data has been successfully uploaded
         [[PFUser currentUser] saveInBackground];
         
@@ -454,23 +440,10 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Reload from Facebook"]) {
         
-        [self downloadFacebookProfileImage];
+        [self downloadSocialNetworkProfileImage];
         
-    } else {
-        // button is not equal to cancel
-        if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
-            NSString *selectedUniversityName = [actionSheet buttonTitleAtIndex:buttonIndex];
-            
-            // if not equal to the currently selected university name
-            if (![selectedUniversityName isEqualToString:self.selectUniversityButton.titleLabel.text]) {
-                [self.selectUniversityButton setTitle:selectedUniversityName forState:UIControlStateNormal];
-                
-                [self.delegate setProfileUniversityName:selectedUniversityName];
-                
-                //[[PFUser currentUser] setObject:selectedUniversityName forKey:kStringrUserSelectedUniversityKey];
-                [[PFUser currentUser] saveInBackground];
-            }
-        }
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Reload from Twitter"]) {
+        [self downloadSocialNetworkProfileImage];
     }
 }
 
@@ -503,8 +476,11 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
         NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
         NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
         
-        PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.jpg" data:profileImageData];
+        PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.jpeg" data:profileImageData];
         PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+        
+        [profileImageFile saveInBackground];
+        [profileThumbnailImageFile saveInBackground];
         
         [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
         [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
@@ -547,6 +523,10 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
     // Saves the users Facebook profile image as a parse file once the data has been loaded
     PFFile *profileImageFile = [PFFile fileWithName:@"profileImage.png" data:self.profileImageData];
     PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+    
+    [profileImageFile saveInBackground];
+    [profileThumbnailImageFile saveInBackground];
+    
     [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
     [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
     

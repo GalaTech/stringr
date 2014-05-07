@@ -22,40 +22,31 @@
 - (BOOL)followStatusForUser:(PFUser *)user;
 - (void)setFollowStatus:(BOOL)following forUser:(PFUser *)user;
 
+- (NSNumber *)stringCountForUser:(PFUser *)user;
+- (void)setStringCount:(NSNumber *)count forUser:(PFUser *)user;
 
-// photo
-- (NSDictionary *)attributesForPhoto:(PFObject *)photo;
-- (void)setAttributes:(NSDictionary *)attributes forPhoto:(PFObject *)photo;
-- (void)setAttributesForPhoto:(PFObject *)photo likeCount:(NSNumber *)likeCount commentCount:(NSNumber *)commentCount likedByCurrentUser:(BOOL)likedByCurrentUser;
+- (NSNumber *)followingCountForUser:(PFUser *)user;
+- (void)setFollowingCount:(NSNumber *)count forUser:(PFUser *)user;
 
-- (BOOL)isPhotoLikedByCurrentUser:(PFObject *)photo;
-- (void)setPhotoIsLikedByCurrentUser:(PFObject *)photo liked:(BOOL)liked;
-
-- (NSNumber *)likeCountForPhoto:(PFObject *)photo;
-- (void)incrementLikeCountForPhoto:(PFObject *)photo;
-- (void)decrementLikeCountForPhoto:(PFObject *)photo;
-
-- (NSNumber *)commentCountForPhoto:(PFObject *)photo;
-- (void)incrementCommentCountForPhoto:(PFObject *)photo;
-- (void)decrementCommentCountForPhoto:(PFObject *)photo;
+- (NSNumber *)followerCountForUser:(PFUser *)user;
+- (void)setFollowerCount:(NSNumber *)count forUser:(PFUser *)user;
 
 
-// string
-- (NSDictionary *)attributesForString:(PFObject *)string;
-- (void)setAttributes:(NSDictionary *)attributes forString:(PFObject *)string;
-- (void)setAttributesForString:(PFObject *)string likeCount:(NSNumber *)likeCount commentCount:(NSNumber *)commentCount likedByCurrentUser:(BOOL)likedByCurrentUser;
 
-- (BOOL)isStringLikedByCurrentUser:(PFObject *)string;
-- (void)setStringIsLikedByCurrentUser:(PFObject *)string liked:(BOOL)liked;
+// object (String or Photo)
+- (NSDictionary *)attributesForObject:(PFObject *)object;
+- (void)setAttributes:(NSDictionary *)attributes forObject:(PFObject *)object;
+- (void)setAttributesForObject:(PFObject *)object likeCount:(NSNumber *)likeCount commentCount:(NSNumber *)commentCount likedByCurrentUser:(BOOL)likedByCurrentUser;
 
-- (NSNumber *)likeCountForString:(PFObject *)string;
-- (void)incrementLikeCountForString:(PFObject *)string;
-- (void)decrementLikeCountForString:(PFObject *)string;
+- (BOOL)isObjectLikedByCurrentUser:(PFObject *)object;
+- (void)setObjectIsLikedByCurrentUser:(PFObject *)object liked:(BOOL)liked;
 
-- (NSNumber *)commentCountForString:(PFObject *)string;
-- (void)incrementCommentCountForString:(PFObject *)string;
-- (void)decrementCommentCountForString:(PFObject *)string;
+- (NSNumber *)likeCountForObject:(PFObject *)object;
+- (void)incrementLikeCountForObject:(PFObject *)object;
+- (void)decrementLikeCountForObject:(PFObject *)object;
 
-
+- (NSNumber *)commentCountForObject:(PFObject *)object;
+- (void)incrementCommentCountForObject:(PFObject *)object;
+- (void)decrementCommentCountForObject:(PFObject *)object;
 
 @end

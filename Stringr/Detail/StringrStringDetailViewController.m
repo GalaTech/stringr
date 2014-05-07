@@ -7,14 +7,13 @@
 //
 
 #import "StringrStringDetailViewController.h"
-//#import "StringrDiscoveryTabBarViewController.h"
 #import "StringrStringDetailTableViewController.h"
 #import "StringrStringDetailTopViewController.h"
 #import "StringrStringDetailEditTopViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
 
-@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate>
 
 @property (strong, nonatomic) StringrStringDetailTopViewController *stringTopVC;
 @property (strong, nonatomic) StringrStringDetailTableViewController *stringTableVC;
@@ -29,45 +28,64 @@
 {
     [super viewDidLoad];
     
-    self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTopVC"];
-    [self.stringTopVC setStringToLoad:self.stringToLoad];
     
-    self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailTableVC"];
-    [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
+    //[self.stringToLoad fetchIfNeededInBackgroundWithBlock:^(PFObject *stringObject, NSError *error) {
+        //if (!error) {
+            //self.stringToLoad = stringObject;
+            self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailTopViewID];
+            [self.stringTopVC setStringToLoad:self.stringToLoad];
+            
+            self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailTableViewID];
+            [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
+            
+            if (self.editDetailsEnabled) {
+                self.title = @"Publish String";
+                
+                UIBarButtonItem *publishStringButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload_button"]
+                                                                                        style:UIBarButtonItemStyleBordered
+                                                                                       target:self
+                                                                                       action:@selector(saveAndPublishString)];
+                
+                UIBarButtonItem *addNewPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
+                [self.navigationItem setRightBarButtonItems:@[publishStringButton, addNewPhotoButton]  animated:NO];
+                
+                self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"]
+                                                                                         style:UIBarButtonItemStyleBordered
+                                                                                        target:self
+                                                                                        action:@selector(returnToPreviousScreen)];
+                
+                
+                // notice that there is explicit casting for these classes.
+                self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTopViewID];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setDelegate:self];
+                
+                self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTableViewID];
+                [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
+                [self.stringTableVC setEditDetailsEnabled:YES];
+                
+                StringrStringDetailEditTableViewController *tableVC = (StringrStringDetailEditTableViewController *)self.stringTableVC;
+                [tableVC setDelegate:self];
+                
+                [(StringrStringDetailEditTableViewController *)self.stringTableVC setDelegate:(StringrStringDetailEditTopViewController *)self.stringTopVC];
+            } else {
+                self.title = @"String Details";
+                
+                if ([self.stringToLoad.ACL getPublicWriteAccess]) {
+                    UIBarButtonItem *addNewPhotoToPublicString = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
+                    self.navigationItem.rightBarButtonItem = addNewPhotoToPublicString;
+                }
+            }
+            
+            [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
+            
+            self.maxHeightBorder = CGRectGetHeight(self.view.frame);
+            [self enableTapGestureTopView:NO];
     
+       // }
+  //  }];
     
-    if (self.editDetailsEnabled) {
-        self.title = @"Publish String";
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish"
-                                                                                  style:UIBarButtonItemStyleBordered
-                                                                                 target:self
-                                                                                 action:@selector(saveAndPublishString)];
-        
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                                     style:UIBarButtonItemStyleBordered
-                                                                                    target:self
-                                                                                    action:@selector(returnToPreviousScreen)];
-        
-        
-        // notice that there is explicit casting for these classes.
-        self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTopVC"];
-        [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
-        [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
-        
-        self.stringTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailEditTableVC"];
-        [self.stringTableVC setStringDetailsToLoad:self.stringToLoad];
-        [self.stringTableVC setEditDetailsEnabled:YES];
-        [(StringrStringDetailEditTableViewController *)self.stringTableVC setDelegate:(StringrStringDetailEditTopViewController *)self.stringTopVC];
-    } else {
-        self.title = @"String Details";
-    }
-    
-    
-    [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
-    
-    self.maxHeightBorder = CGRectGetHeight(self.view.frame);
-    [self enableTapGestureTopView:NO];
 }
 
 
@@ -91,11 +109,15 @@
 
 - (void)saveAndPublishString
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:kUserDefaultsWorkingStringSavedImagesKey];
-    [defaults synchronize];
+    StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+    [topVC saveString];
+}
+
+- (void)addNewPhoto
+{
+    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Photo to String" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose from Library", nil];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [newStringActionSheet showInView:self.view];
 }
 
 - (void)returnToPreviousScreen
@@ -104,8 +126,11 @@
                                                                 message:@"Are you sure that you want to cancel?"
                                                                delegate:self
                                                       cancelButtonTitle:@"No"
-                                                      otherButtonTitles:@"Yes", @"Save for later", nil];
+                                                      otherButtonTitles:@"Yes", /*@"Save for Later",*/ nil];
     [cancelStringAlert show];
+    
+    StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+    [topVC cancelString];
 }
 
 
@@ -121,15 +146,118 @@
         [defaults synchronize];
         
         [self.navigationController popViewControllerAnimated:YES];
-    } else if (buttonIndex == 2) {
+    }
+    /*
+    else if (buttonIndex == 2) {
         // Set the delegate to parentViewController so that it will properly be handled after the navigation has moved back to that VC
         UIAlertView *stringSavedAlert = [[UIAlertView alloc] initWithTitle:@"String Saved!" message:@"Your string has been saved for future editing." delegate:self.parentViewController cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         
         [stringSavedAlert show];
         [self.navigationController popViewControllerAnimated:YES];
     }
+     */
 }
 
+
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
+        
+        // image picker needs a delegate,
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
+        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        // image picker needs a delegate so we can respond to its messages
+        [imagePickerController setDelegate:self];
+        
+        // Place image picker on the screen
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    }
+}
+
+
+
+
+#pragma mark - UIImagePicker Delegate
+
+//delegate methode will be called after picking photo either from camera or library
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^ {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        if (self.editDetailsEnabled) {
+            StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
+            [tableVC.tableView setUserInteractionEnabled:NO];
+            
+            StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+            [topVC addNewImageToString:image withBlock:^(BOOL succeeded) {
+                if (succeeded) {
+                    [tableVC.tableView setUserInteractionEnabled:YES];
+                }
+            }];
+        } else {
+            StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
+            [tableVC.tableView setUserInteractionEnabled:NO];
+            
+            StringrStringDetailTopViewController *topVC = (StringrStringDetailTopViewController *)self.stringTopVC;
+            [topVC addImageToPublicString:image withBlock:^(BOOL succeeded) {
+                if (succeeded) {
+                    [tableVC.tableView setUserInteractionEnabled:YES];
+                }
+            }];
+            
+            
+            
+        }
+    }];
+}
+
+
+
+
+#pragma mark - StringrStringDetailEditTopViewController Delegate
+
+- (void)toggleActionEnabledOnTableView:(BOOL)enabled
+{
+    StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
+    [tableVC.tableView setUserInteractionEnabled:enabled];
+}
+
+
+
+#pragma mark - Parallax Delegate
+
+
+/**
+ * Callback when the top height changed
+ */
+- (void) parallaxScrollViewController:(QMBParallaxScrollViewController *) controller didChangeTopHeight:(CGFloat) height
+{
+    NSLog(@"%f", height);
+}
+
+
+- (void)changeTopHeightOfParallax
+{
+    [self changeTopHeight:0.0f];
+}
 
 
 

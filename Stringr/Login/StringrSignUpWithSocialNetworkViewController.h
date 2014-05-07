@@ -14,7 +14,7 @@ typedef enum {
     TwitterNetworkType = 1
 } SocialNetworkType;
 
-@interface StringrSignUpWithSocialNetworkViewController : StringrSignUpWithEmailTableViewController <StringrLoginViewDownloadingSocialNetworkInfoDelegate>
+@interface StringrSignUpWithSocialNetworkViewController : StringrSignUpWithEmailTableViewController <StringrLoginViewControllerDelegate>
 
 @property (nonatomic) SocialNetworkType networkType;
 @property (strong, nonatomic) NSString *twitterScreenName;

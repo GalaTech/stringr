@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrDetailTableViewCell.h"
 
-@interface StringrDetailDescriptionTableViewCell : UITableViewCell
+@interface StringrDetailDescriptionTableViewCell : StringrDetailTableViewCell
 
 - (void)setDescriptionForCell:(NSString *)description;
+- (NSDictionary *)getDescriptionTextAttributes;
 
 @end

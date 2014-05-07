@@ -7,16 +7,50 @@
 //
 
 #import "StringrUtility.h"
+#import "UIImage+Resize.h"
 
 @implementation StringrUtility
 
 
 #pragma mark - Like/Unlike Photo/String
 
++ (void)likeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    } else {
+        [self likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    }
+}
+
++ (void)unlikeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self unlikeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    } else {
+        [self unlikePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
+            if (completionBlock) {
+                completionBlock(succeeded, error);
+            }
+        }];
+    }
+}
+
 + (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [photo incrementKey:kStringrPhotoNumberOfLikesKey];
-    
+    /*
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
@@ -26,10 +60,12 @@
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             for (PFObject *activity in likes) {
-                [activity delete]; // maybe delete in background?
+                [activity deleteInBackground]; // maybe delete in background?
             }
         }
     }];
+     */
+     
     
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
     [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
@@ -49,18 +85,34 @@
         }
         
         if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-            // send push notification to photo uploader
+            
+            // TODO: Set private channel to that of the photo uploader
+            NSString *photoUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+            
+            if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
+                NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+                
+                NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSString stringWithFormat:@"%@ liked your photo!", currentUsernameFormatted], kAPNSAlertKey,
+                                      @"increment", kAPNSBadgeKey,
+                                      kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                      kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
+                                      [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                      [photo objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                      nil];
+                
+                PFPush *likePhotoPushNotification = [[PFPush alloc] init];
+                [likePhotoPushNotification setChannel:photoUploaderPrivatePushChannel];
+                [likePhotoPushNotification setData:data];
+                [likePhotoPushNotification sendPushInBackground];
+            }
         }
-        
-        // refresh sharedCache
     }];
     
 }
 
 + (void)unlikePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [photo incrementKey:kStringrPhotoNumberOfLikesKey byAmount:@(-1)];
-    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
@@ -69,14 +121,12 @@
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             for (PFObject *activity in likes) {
-                [activity delete];
+                [activity deleteInBackground];
             }
             
             if (completionBlock) {
                 completionBlock(YES, nil);
             }
-            
-            // refresh cache
         } else {
             if (completionBlock) {
                 completionBlock(NO, error);
@@ -87,10 +137,7 @@
 
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [string incrementKey:kStringrStringNumberOfLikesKey byAmount:@(1)];
-    [string saveInBackground];
-    
-    
+    /*
     // remove any existing likes the current user has on the specified photo
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:string];
@@ -103,10 +150,8 @@
                 [activity deleteInBackground]; // maybe delete in background?
             }
         }
-        
-    }]; // I moved this closing bracket up here instead of encapsulating all the code in this method.
-        // it was saving two likes every time if I had it the later.
-     
+    }];
+     */
     
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
     [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
@@ -123,21 +168,40 @@
             completionBlock(succeeded, error);
         }
         
-        
         if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-            // send push notification to photo uploader
+            if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                
+                // TODO: Set private channel to that of the string uploader
+                NSString *stringUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+                
+                if (stringUploaderPrivatePushChannel && stringUploaderPrivatePushChannel.length != 0) {
+                    NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+                    
+                    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [NSString stringWithFormat:@"%@ liked your string!", currentUsernameFormatted], kAPNSAlertKey,
+                                          @"increment", kAPNSBadgeKey,
+                                          kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                                          kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
+                                          [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                                          [string objectId], kStringrPushPayloadStringObjectIDKey,
+                                          nil];
+                    
+                    PFPush *likeStringPushNotification = [[PFPush alloc] init];
+                    [likeStringPushNotification setChannel:stringUploaderPrivatePushChannel];
+                    [likeStringPushNotification setData:data];
+                    [likeStringPushNotification sendPushInBackground];
+                }
+            }
         }
-        
-        
-        // refresh sharedCache
     }];
+    
+    PFObject *stringStatistics = [string objectForKey:kStringrStringStatisticsKey];
+    [stringStatistics incrementKey:kStringrStatisticsLikeCountKey];
+    [stringStatistics saveEventually];
 }
 
 + (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    [string incrementKey:kStringrStringNumberOfLikesKey byAmount:@(-1)];
-    [string saveInBackground];
-    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityStringKey equalTo:string];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
@@ -152,15 +216,16 @@
             if (completionBlock) {
                 completionBlock(YES, nil);
             }
-            
-            // refresh cache
-            
         } else {
             if (completionBlock) {
                 completionBlock(NO, error);
             }
         }
     }];
+    
+    PFObject *stringStatistics = [string objectForKey:kStringrStringStatisticsKey];
+    [stringStatistics incrementKey:kStringrStatisticsLikeCountKey byAmount:@(-1)];
+    [stringStatistics saveEventually];
 }
 
 
@@ -266,9 +331,9 @@
 
 + (void)sendFollowingPushNotification:(PFUser *)user
 {
+    /*
     NSString *privateChannelName = [user objectForKey:kStringrUserPrivateChannelKey];
     if (privateChannelName && privateChannelName.length != 0) {
-        /*
         NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%@ is now following you!", [StringrUtility firstNameForDisplayName:[[PFUser currentUser] objectForKey:kPAPUserDisplayNameKey]]], kAPNSAlertKey,
                               kPAPPushPayloadPayloadTypeActivityKey, kPAPPushPayloadPayloadTypeKey,
@@ -279,7 +344,27 @@
         [push setChannel:privateChannelName];
         [push setData:data];
         [push sendPushInBackground];
-         */
+    }
+    */
+    
+    // TODO: set private channel to that of the parameter 'user'
+    NSString *followedUserPrivatePushChannel = @"user_4Lr24ej01N";
+    
+    if (followedUserPrivatePushChannel && followedUserPrivatePushChannel.length != 0) {
+        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%@ is now following you!", currentUsernameFormatted], kAPNSAlertKey,
+                              @"increment", kAPNSBadgeKey,
+                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                              kStringrPushPayloadActivityFollowKey, kStringrPushPayloadActivityTypeKey,
+                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              nil];
+        
+        PFPush *likeStringPushNotification = [[PFPush alloc] init];
+        [likeStringPushNotification setChannel:followedUserPrivatePushChannel];
+        [likeStringPushNotification setData:data];
+        [likeStringPushNotification sendPushInBackground];
     }
 }
 
@@ -287,6 +372,15 @@
 
 
 #pragma mark Activities
+
++ (PFQuery *)queryForActivitiesOnObject:(PFObject *)object cachePolicy:(PFCachePolicy)cachePolicy
+{
+    if ([StringrUtility objectIsString:object]) {
+        return [self queryForActivitiesOnString:object cachePolicy:cachePolicy];
+    } else {
+        return [self queryForActivitiesOnPhoto:object cachePolicy:cachePolicy];
+    }
+}
 
 + (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
 {
@@ -322,6 +416,71 @@
     [query includeKey:kStringrActivityStringKey];
     
     return query;
+}
+
++ (BOOL)objectIsString:(PFObject *)object
+{
+    if ([object.parseClassName isEqualToString:kStringrStringClassKey] || [object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+        return [object.parseClassName isEqualToString:kStringrStringClassKey];
+    }
+    
+    return NO;
+}
+
+
+
+#pragma mark - UIImage Formatting
+
++ (UIImage *)formatPhotoImageForUpload:(UIImage *)image
+{
+    // resizes the images for upload
+    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(314, 314) interpolationQuality:kCGInterpolationHigh];
+    
+    /*
+    // Creates a data representation of the newly selected profile image
+    // Saves that image to the current users parse user profile
+    NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
+    
+    
+    NSString *photoName = [NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]];
+    PFFile *imageFile = [PFFile fileWithName:photoName data:imageData];
+     */
+
+    return resizedImage;
+}
+
++ (UIImage *)formatProfileImageForUpload:(UIImage *)image
+{
+    // resizes the images for upload
+    UIImage *resizedProfileImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(500, 500) interpolationQuality:kCGInterpolationHigh];
+    
+    /*
+    // Creates a data representation of the newly selected profile image
+    // Saves that image to the current users parse user profile
+    NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
+    
+    
+    NSString *photoName = [NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]];
+    PFFile *profileImageFile = [PFFile fileWithName:photoName data:profileImageData];
+    */
+     
+    return resizedProfileImage;
+}
+
++ (UIImage *)formatProfileThumbnailImageForUpload:(UIImage *)image
+{
+    // resizes the images for upload
+    UIImage *resizedThumbnailImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+    
+    /*
+    // Creates a data representation of the newly selected profile image
+    // Saves that image to the current users parse user profile
+    NSData *thumbnailImageData = UIImagePNGRepresentation(resizedThumbnailImage);
+    
+    PFFile *thumbnailImageFile = [PFFile fileWithData:thumbnailImageData];
+    */
+     
+    return resizedThumbnailImage;
 }
 
 
@@ -462,6 +621,53 @@
     }
     
     return NO;
+}
+
++ (NSString *)usernameFormattedWithMentionSymbol:(NSString *)username
+{
+    return [NSString stringWithFormat:@"@%@", username];
+}
+
++ (NSString *)randomStringWithLength:(int)length
+{
+    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [[NSMutableString alloc] initWithCapacity:length];
+    
+    for (int i = 0; i < length; i++) {
+        [randomString appendFormat:@"%C", [letters characterAtIndex: arc4random() % letters.length]];
+    }
+    
+    return randomString;
+}
+
++ (CGFloat)heightForLabelWithNSString:(NSString *)text
+{
+    NSMutableParagraphStyle *textAlignment = [[NSMutableParagraphStyle alloc] init];
+    [textAlignment setAlignment:NSTextAlignmentLeft];
+    
+    NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName,
+                                    textAlignment, NSParagraphStyleAttributeName,
+                                    [UIColor darkGrayColor], NSForegroundColorAttributeName,  nil];
+    
+    CGSize maxLabelSize = CGSizeMake(280, FLT_MAX);
+    CGRect rectForLabel = [text boundingRectWithSize:maxLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:textAttributes context:nil];
+    
+    CGFloat labelHeight = CGRectGetHeight(rectForLabel);
+   // CGFloat marginSpace = ((labelHeight / 13) * 3);
+    CGFloat cellHeight = labelHeight + ((labelHeight > 100) ? 20 : 15);
+    
+    return  cellHeight;
+}
+
++ (CGFloat)heightForLabelWithNSString:(NSString *)text labelSize:(CGSize)size andAttributes:(NSDictionary *)attributes
+{
+    CGSize maxLabelSize = size;
+    
+    CGRect rectForLabel = [text boundingRectWithSize:maxLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    
+    CGFloat cellHeight = rectForLabel.size.height;
+    
+    return  cellHeight;
 }
 
 

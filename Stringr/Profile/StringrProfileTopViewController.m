@@ -10,12 +10,15 @@
 #import "StringrProfileViewController.h"
 #import "StringrEditProfileViewController.h"
 #import "StringrUserTableViewController.h"
+#import "StringrUserConnectionsTableViewController.h"
 
 
 @interface StringrProfileTopViewController ()
 
 @property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
 @property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
+
+@property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
 
 @end
 
@@ -32,98 +35,38 @@
 {
     [super viewDidLoad];
     
+    [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]];
     
-    
-    [self.profileNameLabel setText:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
-    //[self.profileUniversityLabel setText:[NSString stringWithFormat:@"@%@", [self.userForProfile objectForKey:kStringrUserSelectedUniversityKey]]];
     [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
-    
-    int numberOfStrings = [[self.userForProfile objectForKey:kStringrUserNumberOfStringsKey] intValue];
-    
-    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
-    if (numberOfStrings == 1) {
-        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
-    }
-    
-    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
-    
-    
-    
-    
-    
+
     // Sets the circle image path properties
-    
     [self.profileImage setImage:[UIImage imageNamed:@"stringr_icon_filler"]];
     [self.profileImage setFile:[self.userForProfile objectForKey:kStringrUserProfilePictureKey]];
-    [self.profileImage loadInBackground];
+    [self.profileImage loadInBackgroundWithIndicator];
     
     [self.profileImage setImageToCirclePath];
     [self.profileImage setPathWidth:1.0];
     [self.profileImage setPathColor:[UIColor darkGrayColor]];
     [self.profileImage setContentMode:UIViewContentModeScaleAspectFill];
     
-    /*
-    PFFile *userProfileImageFile = [self.userForProfile objectForKey:kStringrUserProfilePictureKey];
-    [userProfileImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-        if (!error) {
-            UIImage *profileImage = [UIImage imageWithData:imageData];
-            [self.profileImage setImage:profileImage];
-        }
-    }];
-     */
-
-    
-    // Sets the title of the button to follow or unfollow depending upon what the users
-    // relationship is with the current profile.
-    // TODO: Set this via StringrCache
-    /*
-    if (!self.isFollowingUser) {
-        [self configureFollowButton];
-    } else {
-        [self configureUnfollowButton];
-    }
-     */
-    
-    self.followUserButtonLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    CGFloat buttonHeight = CGRectGetHeight(self.followUserButton.frame);
-    CGFloat buttonWidth = CGRectGetWidth(self.followUserButton.frame);
-    [self.followUserButtonLoadingIndicator setCenter:CGPointMake(buttonWidth / 2, buttonHeight / 2)];
-    [self.followUserButton addSubview:self.followUserButtonLoadingIndicator];
-    
-    if (![[self.userForProfile objectId] isEqualToString:[[PFUser currentUser] objectId]] ) {
-    
-        [self.followUserButtonLoadingIndicator startAnimating];
-        
-        PFQuery *userIsFollowingUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [userIsFollowingUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
-        [userIsFollowingUserQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
-        [userIsFollowingUserQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-        [userIsFollowingUserQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
-        [userIsFollowingUserQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            if (error && error.code != kPFErrorCacheMiss) {
-                NSLog(@"Couldn't determine follow relationship: %@", error);
-            } else {
-                [self.followUserButtonLoadingIndicator stopAnimating];
-                if (number == 0) {
-                    [self configureFollowButton];
-                } else {
-                    [self configureUnfollowButton];
-                }
-            }
-        }];
-    } else {
-        // button setup for when it's the current users profile
-        [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
-        [self.followUserButton setLabelTextColor:[StringrConstants kStringTableViewBackgroundColor] highlightedColor:nil disableColor:nil];
-        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
-        [self.followUserButton setCornerRadius:15];
-        [self.followUserButton setBorderStyle:[StringrConstants kStringTableViewBackgroundColor] andInnerColor:nil];
-        [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
-        [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
-        [self.followUserButton setEnabled:NO];
-    }
+    // sets up the number of followers, following, and strings a user has.
+    // It will query for those number the first time, but will then retrieve them
+    // from cache in future requests
+    [self queryAndSetupUserProfileDetails];
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.usernameAndDisplayNameAnimationTimer invalidate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,24 +79,137 @@
 
 #pragma mark - Private
 
-- (void)followButtonTouchHandler
+- (void)setupAnimatedProfileName
 {
-    [self.followUserButtonLoadingIndicator startAnimating];
-    [self configureUnfollowButton];
+    NSString *nameToDisplay = @"";
     
-    [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
-        [self.followUserButtonLoadingIndicator stopAnimating];
-        if (error) {
-            [self configureFollowButton];
-        }
-    }];
+    // changes the name between user username and displayname
+    if ([self.profileNameLabel.text isEqualToString:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]]) {
+        nameToDisplay = [self.userForProfile objectForKey:kStringrUserDisplayNameKey];
+    } else {
+        nameToDisplay = [StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]];
+    }
+    
+    [UIView transitionWithView:self.profileNameLabel
+                      duration:1.0 options:UIViewAnimationOptionTransitionFlipFromTop
+                    animations:^{
+                        [self.profileNameLabel setText:nameToDisplay];
+                    } completion:nil];
 }
 
-- (void)unfollowButtonTouchHandler
+- (void)queryAndSetupUserProfileDetails
 {
-    [self configureFollowButton];
+    NSDictionary *userAttributes = [[StringrCache sharedCache] attributesForUser:self.userForProfile];
     
-    [StringrUtility unfollowUserEventually:self.userForProfile];
+    
+    // sets the number of following/followers/number of Strings text for the users profile
+    // Sets via cache if available and querries if not
+    if (userAttributes) {
+        NSNumber *currentUserFollowingCount = [[StringrCache sharedCache] followingCountForUser:self.userForProfile];
+        self.followingLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowingCount intValue]];
+        
+        NSNumber *currentUserFollowerCount = [[StringrCache sharedCache] followerCountForUser:self.userForProfile];
+        self.followersLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]];
+        
+        NSNumber *numberOfStrings = [[StringrCache sharedCache] stringCountForUser:self.userForProfile];
+        NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", [numberOfStrings intValue]];
+        if ([numberOfStrings intValue] == 1) {
+            numberOfStringsText = [NSString stringWithFormat:@"%d String", [numberOfStrings intValue]];
+        }
+        [self.profileNumberOfStringsLabel setText:numberOfStringsText];
+    } else {
+        @synchronized(self) {
+            PFQuery *followingUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [followingUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+            [followingUserActivityQuery whereKey:kStringrActivityFromUserKey equalTo:self.userForProfile];
+            [followingUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error ) {
+                if (!error) {
+                    self.followingLabel.text = [NSString stringWithFormat:@"%d", number];
+                    [[StringrCache sharedCache] setFollowingCount:@(number) forUser:self.userForProfile];
+                }
+            }];
+            
+            PFQuery *followersUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [followersUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+            [followersUserActivityQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
+            [followersUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                if (!error) {
+                    self.followersLabel.text = [NSString stringWithFormat:@"%d", number];
+                    [[StringrCache sharedCache] setFollowerCount:@(number) forUser:self.userForProfile];
+                }
+            }];
+            
+            PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+            [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
+            [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int numberOfStrings, NSError *error) {
+                if (!error) {
+                    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
+                    if (numberOfStrings == 1) {
+                        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
+                    }
+                    
+                    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
+                    [[StringrCache sharedCache] setStringCount:@(numberOfStrings) forUser:self.userForProfile];
+                }
+            }];
+        }
+    }
+    
+    // loads follow button and determines the status of the current user following the profile user
+    self.followUserButtonLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    CGFloat buttonHeight = CGRectGetHeight(self.followUserButton.frame);
+    CGFloat buttonWidth = CGRectGetWidth(self.followUserButton.frame);
+    [self.followUserButtonLoadingIndicator setCenter:CGPointMake(buttonWidth / 2, buttonHeight / 2)];
+    [self.followUserButton addSubview:self.followUserButtonLoadingIndicator];
+    
+    if (![[self.userForProfile objectId] isEqualToString:[[PFUser currentUser] objectId]] ) {
+        
+        [self.followUserButtonLoadingIndicator startAnimating];
+        
+        if (userAttributes) {
+            BOOL currentUserIsFollowingProfileUser = [[StringrCache sharedCache] followStatusForUser:self.userForProfile];
+            
+            if (currentUserIsFollowingProfileUser) {
+                [self configureUnfollowButton];
+            } else {
+                [self configureFollowButton];
+            }
+            
+            [self.followUserButtonLoadingIndicator stopAnimating];
+        } else {
+            @synchronized(self){
+                PFQuery *userIsFollowingUserQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+                [userIsFollowingUserQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+                [userIsFollowingUserQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
+                [userIsFollowingUserQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+                [userIsFollowingUserQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+                [userIsFollowingUserQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                    if (error && error.code != kPFErrorCacheMiss) {
+                        NSLog(@"Couldn't determine follow relationship: %@", error);
+                    } else {
+                        [self.followUserButtonLoadingIndicator stopAnimating];
+                        if (number == 0) {
+                            [self configureFollowButton];
+                            [[StringrCache sharedCache] setFollowStatus:NO forUser:self.userForProfile];
+                        } else {
+                            [self configureUnfollowButton];
+                            [[StringrCache sharedCache] setFollowStatus:YES forUser:self.userForProfile];
+                        }
+                    }
+                }];
+            }
+        }
+    } else {
+        // button setup for when it's the current users profile
+        [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
+        [self.followUserButton setLabelTextColor:[StringrConstants kStringTableViewBackgroundColor] highlightedColor:nil disableColor:nil];
+        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+        [self.followUserButton setCornerRadius:15];
+        [self.followUserButton setBorderStyle:[StringrConstants kStringTableViewBackgroundColor] andInnerColor:nil];
+        [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+        [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+        [self.followUserButton setEnabled:NO];
+    }
 }
 
 - (void)configureFollowButton
@@ -188,6 +244,35 @@
 
 
 
+#pragma mark - Action Handler
+
+
+- (void)followButtonTouchHandler
+{
+    [self.followUserButtonLoadingIndicator startAnimating];
+    [self configureUnfollowButton];
+    [[StringrCache sharedCache] setFollowStatus:YES forUser:self.userForProfile];
+    
+    [StringrUtility followUserEventually:self.userForProfile block:^(BOOL succeeded, NSError *error) {
+        [self.followUserButtonLoadingIndicator stopAnimating];
+        [StringrUtility sendFollowingPushNotification:self.userForProfile];
+        if (error) {
+            [self configureFollowButton];
+        }
+    }];
+}
+
+- (void)unfollowButtonTouchHandler
+{
+    [self configureFollowButton];
+    
+    [[StringrCache sharedCache] setFollowStatus:NO forUser:self.userForProfile];
+    [StringrUtility unfollowUserEventually:self.userForProfile];
+}
+
+
+
+
 #pragma mark - IBActions
 
 - (IBAction)followUserButton:(UIButton *)sender
@@ -204,16 +289,10 @@
 
 - (IBAction)accessFollowers:(UIButton *)sender
 {
-    StringrUserTableViewController *followersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowersVC"];
-    
-    
-    PFQuery *followersQuery = [PFUser query];
-    [followersQuery orderByAscending:@"displayName"];
-    [followersQuery whereKey:kStringrUserDisplayNameKey notEqualTo:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
-    [followersVC setQueryForTable:followersQuery];
-    
-    [followersVC setTitle:@"Followers"];
-    
+    StringrUserConnectionsTableViewController *followersVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileConnectionsID];
+    followersVC.title = @"Followers";
+    followersVC.userForConnections = self.userForProfile;
+    followersVC.connectionType = UserConnectionFollowersType;
     
     [self.navigationController pushViewController:followersVC animated:YES];
 }
@@ -221,15 +300,10 @@
 
 - (IBAction)accessFollowing:(UIButton *)sender
 {
-    StringrUserTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowingVC"];
-    
-    PFQuery *followingQuery = [PFUser query];
-    [followingQuery orderByAscending:@"displayName"];
-    [followingQuery whereKey:kStringrUserDisplayNameKey notEqualTo:[[PFUser currentUser] objectForKey:kStringrUserDisplayNameKey]];
-    [followingVC setQueryForTable:followingQuery];
-    
-    [followingVC setTitle:@"Following"];
-    
+    StringrUserConnectionsTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileConnectionsID];
+    followingVC.title = @"Following";
+    followingVC.userForConnections = self.userForProfile;
+    followingVC.connectionType = UserConnectionFollowingType;
     
     [self.navigationController pushViewController:followingVC animated:YES];
 }

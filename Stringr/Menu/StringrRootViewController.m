@@ -31,7 +31,7 @@
     [backgroundVC.view addSubview:backgroundImageView];
     
     self.contentViewController = backgroundVC;
-    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StringrMenuViewController"];
+    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardMenuID];
     
     self.liveBlur = YES;
     // makes the menu thinner than the default
@@ -44,9 +44,30 @@
                                                             }];
 }
 
+/*
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publishedStringSuccessfully) name:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterStringPublishedSuccessfully object:nil];
+}
 
 
 #pragma mark - Private
+
+- (void)publishedStringSuccessfully
+{
+    UIAlertView *publsihedStringSuccessfullyAlert = [[UIAlertView alloc] initWithTitle:@"String Published" message:@"Your string has been published successfully" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [publsihedStringSuccessfullyAlert show];
+}
+ */
 
 /*
 - (StringrHomeTabBarViewController *)setupHomeTabBarController

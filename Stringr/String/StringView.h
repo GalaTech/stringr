@@ -18,7 +18,9 @@
 @interface StringView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) id<StringViewDelegate> delegate;
-@property (strong, nonatomic) id<StringViewSubclassDelegate> subclassDelegate;
+
+@property (strong, nonatomic) PFObject *stringToLoad; // string PFObject
+@property (strong, nonatomic) NSMutableArray *collectionViewPhotos; // of Photo PFObject's
 
 
 /** 
@@ -28,7 +30,7 @@
  * @param collectionData The mutable array of dictionaries. Each dictionary is considered
  * to be an individual photo with its accompanying information.
  */
-- (void)setCollectionData:(NSMutableArray *)collectionData;
+//- (void)setCollectionData:(NSMutableArray *)collectionData;
 
 /** 
  * Sets the string parse object for the collection view.
@@ -37,8 +39,24 @@
  */
 - (void)setStringObject:(PFObject *)string;
 
-/// Returns a mutable copy of the current String data.
-//- (NSArray *)getCollectionData;
+/**
+ * Querries all photos from a provided query. The photos loaded from this query will be
+ * displayed inside of the current string.
+ * @param query The query that will be used to find photos.
+ */
+- (void)queryPhotosFromQuery:(PFQuery *)query;
+
+/**
+ * Adds a given image to the end of the String. The image will be immediately
+ * added and a photo PFObject will be created and saved in the background. Once 
+ * saved it will replace the original image.
+ * @param image The image being added to the String.
+ */
+- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock;
+
+- (void)removePhotoFromString:(PFObject *)photo;
+
+- (void)reloadString;
 
 
 @end
@@ -55,13 +73,16 @@
 @required
 - (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string;
 
-
-
 @end
 
+
+/*
 @protocol StringViewSubclassDelegate <NSObject>
 
 @optional
 - (void)getCollectionViewPhotoData:(NSMutableArray *)photoData;
 
+- (void)getCollectionViewPhotos:(NSMutableArray *)photos;
+
 @end
+*/

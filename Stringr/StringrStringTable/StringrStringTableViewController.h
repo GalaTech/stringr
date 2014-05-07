@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "StringrTableViewController.h"
 #import "REFrostedViewController.h"
+#import "StringView.h"
+#import "StringrStringHeaderView.h"
 
-@interface StringrStringTableViewController : StringrTableViewController
+@interface StringrStringTableViewController : StringrTableViewController <StringViewDelegate, StringrStringHeaderViewDelegate>
 
 
 @end

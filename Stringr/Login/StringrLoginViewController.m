@@ -9,7 +9,6 @@
 #import "StringrLoginViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 #import "StringrRootViewController.h"
-#import "TestViewController.h"
 #import "UIImage+Resize.h"
 #import "StringrSignUpWithEmailTableViewController.h"
 #import "StringrSignUpWithSocialNetworkViewController.h"
@@ -64,11 +63,6 @@
     // prevents a user from tapping the login button before it checks to see if you're already connected
     //[self.facebookLoginButton setUserInteractionEnabled:NO];
     //[self.userNeedsToVerifyEmailButton setUserInteractionEnabled:NO];
-    
-    
-
-    
-    
     
     [self setupBlurredUsernameAndPasswordBackgrounds];
     [self setupTextFieldDesign];
@@ -188,7 +182,7 @@
             }
         } else if (user.isNew) {
             [self userFacebookLoginData];
-            StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+            StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
             [facebookSignUpVC setNetworkType:FacebookNetworkType];
             [self setDelegate:facebookSignUpVC];
             [self.navigationController pushViewController:facebookSignUpVC animated:YES];
@@ -209,7 +203,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
-                StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+                StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
                 [facebookSignUpVC setNetworkType:FacebookNetworkType];
                 [self setDelegate:facebookSignUpVC];
                 [self.navigationController pushViewController:facebookSignUpVC animated:YES];
@@ -234,7 +228,7 @@
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in with Twitter!");
             [self userTwitterLoginData];
-            StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+            StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
             [twitterSignUpVC setNetworkType:TwitterNetworkType];
             [self setDelegate:twitterSignUpVC];
             [self.navigationController pushViewController:twitterSignUpVC animated:YES];
@@ -249,7 +243,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
-                StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithSocialNetworkVC"];
+                StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
                 [twitterSignUpVC setNetworkType:TwitterNetworkType];
                 [self setDelegate:twitterSignUpVC];
                 [self.navigationController pushViewController:twitterSignUpVC animated:YES];
@@ -260,7 +254,7 @@
 
 - (IBAction)signUpWithEmailButtonTouchHandler:(UIButton *)sender
 {
-    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"signupWithEmailVC"];
+    StringrSignUpWithEmailTableViewController *signupWithEmailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithEmailID];
     
     [self.navigationController pushViewController:signupWithEmailVC animated:YES];
 }
@@ -278,7 +272,7 @@
 
 - (IBAction)userNeedsToVerifyEmailButtonTouchHandler:(UIButton *)sender
 {
-    StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+    StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
     [self.navigationController pushViewController:emailVerificationVC animated:YES];
 }
 
@@ -293,6 +287,7 @@
     // shows or hides the email icon based around whether or not the current user has verified their email
     BOOL setHidden = ![StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]];
     [self.userNeedsToVerifyEmailButton setHidden:setHidden];
+    [self.loginActivityIndicator startAnimating];
     
     // delay time for check so that there is not a error with the navigation
     double delayInSeconds = 1.0;
@@ -306,9 +301,14 @@
         // Check if user is cached and linked to Facebook, twitter, or email, if so, bypass login
         if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
             [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+            [self.loginActivityIndicator stopAnimating];
             [self dismissViewControllerAnimated:YES completion:nil];
+            
+            // alert delegate that we logged in with user
+            [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
         } else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
-            StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+            StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
+            [self.loginActivityIndicator stopAnimating];
             [self.navigationController pushViewController:emailVerificationVC animated:YES];
         }
     });
@@ -326,7 +326,6 @@
             NSDictionary *userData = (NSDictionary *)result;
             
             NSString *facebookID = userData[@"id"];
-            
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
             // If it's a new user we go through the setup of loading all their facebook info
@@ -338,6 +337,9 @@
             
                 if (userData[@"name"]) {
                     [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
+                    
+                    NSString *lowercaseName = [userData[@"name"] lowercaseString];
+                    [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
                 }
                 
                 if ([pictureURL absoluteString]) {
@@ -348,32 +350,7 @@
                 [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
                 [[PFUser currentUser] setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
             //}
-            
-            /*
-            if ([self didAttendCollege:userData]) {
-                NSLog(@"YES! They are a college student!");
-                
-                [[PFUser currentUser] setObject:self.universityNames[0] forKey:kStringrUserSelectedUniversityKey];
-                [[PFUser currentUser] setObject:self.universityNames forKey:kStringrUserUniversitiesKey];
-                
-                // changes the modal transition from a cross-fade
-                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            } else {
-                NSLog(@"not a college student...");
-                
-                // not needed because we log the user out and return before the info is saved.
-                //[[PFUser currentUser] setObject:@(NO) forKey:@"isCollegeStudent"];
-                
-                UIAlertView *notACollegeStudent = [[UIAlertView alloc] initWithTitle:@"Unable to Login" message:@"You must be a college student to login!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                [notACollegeStudent show];
-                
-                // Logs the user out so that they can attempt in the future. Otherwise it will always attempt
-                // a login on the initial account that was entered.
-                [PFUser logOut];
-                return;
-            }
-             */
+
             
             // I might just add the addition of geo location when a user attempts to select a location based page
             /*
@@ -458,26 +435,6 @@
     
 }
 
-// Fast enumerates through the data of the users Facebook info.
-// It checks all of their college info to see if they attended a
-// college.
-- (BOOL)didAttendCollege:(NSDictionary *)userData
-{
-    self.universityNames = [[NSMutableArray alloc] init];
-    
-    for (FBGraphObject *educationObject in userData[@"education"]) {
-        NSString *educationType = educationObject[@"type"];
-        
-        if ([educationType isEqualToString:@"College"]) {
-            NSString *universityName = educationObject[@"school"][@"name"];
-            [self.universityNames addObject:universityName];
-            
-        }
-    }
-    
-    return self.universityNames.count > 0;
-}
-
 - (void)downloadProfileImage
 {
     // Download the user's social network profile picture
@@ -544,15 +501,17 @@
         UIAlertView *noPasswordEntered = [[UIAlertView alloc] initWithTitle:@"Invalid Password" message:@"Please enter your password!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [noPasswordEntered show];
     } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
-        
         // instantiates the main logged in content area
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
         [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self dismissViewControllerAnimated:YES completion:nil];
+        
+        // alert delegate that we logged in with user
+        [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
     } else if ([StringrUtility usernameUserNeedsToVerifyEmail:user]) {
         [self.userNeedsToVerifyEmailButton setHidden:NO];
-        StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"emailVerificationVC"];
+        StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
         [self.navigationController pushViewController:emailVerificationVC animated:YES];
     }
 }
@@ -581,6 +540,10 @@
     // Saves the users Facebook profile image as a parse file once the data has been loaded
     PFFile *profileImageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profileImage.png"] data:self.profileImageData];
     PFFile *profileThumbnailImageFile = [PFFile fileWithName:@"profileThumbnailImage.png" data:profileThumbnailImageData];
+    
+    [profileImageFile saveInBackground];
+    [profileThumbnailImageFile saveInBackground];
+    
     [[PFUser currentUser] setObject:profileImageFile forKey:kStringrUserProfilePictureKey];
     [[PFUser currentUser] setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
     // Save with block so that the menu profile image is not called until the new image has finished uploading

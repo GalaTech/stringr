@@ -44,41 +44,17 @@
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
-}
-
-
-
-
-#pragma mark - NSNotificationCenter Action Handlers
-
-- (void)addNewString
-{
-    UIActionSheet *newStringActionSheet = [[UIActionSheet alloc] initWithTitle:@"Create New String"
-                                                                      delegate:self
-                                                             cancelButtonTitle:@"cancel"
-                                                        destructiveButtonTitle:nil
-                                                             otherButtonTitles:@"Take Photo", @"Choose From Existing", nil];
-    
-    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
-    if ([window.subviews containsObject:self.view]) {
-        [newStringActionSheet showInView:self.view];
-    } else {
-        [newStringActionSheet showInView:window];
-    }
     
 }
 
@@ -156,7 +132,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Creates a new instance of a user profile
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
 
     
     // Gets the cell that the user tapped on
@@ -214,10 +190,10 @@
         [cellProfileImage setPathWidth:1.0];
 
         [userProfileCell.ProfileThumbnailImageView setFile:[object objectForKey:kStringrUserProfilePictureThumbnailKey]];
-        [userProfileCell.ProfileThumbnailImageView loadInBackground];
+        [userProfileCell.ProfileThumbnailImageView loadInBackgroundWithIndicator];
 
+        [userProfileCell.profileUsernameLabel setText:[NSString stringWithFormat:@"@%@", [object objectForKey:kStringrUserUsernameCaseSensitive]]];
         [userProfileCell.profileDisplayNameLabel setText:[object objectForKey:kStringrUserDisplayNameKey]];
-        //[userProfileCell.profileUniversityNameLabel setText:[object objectForKey:kStringrUserSelectedUniversityKey]];
         
         PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
         [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:object];
@@ -225,16 +201,6 @@
         int numberOfStrings = [[object objectForKey:kStringrUserNumberOfStringsKey] intValue];
         
         [userProfileCell.profileNumberOfStringsLabel setText:[NSString stringWithFormat:@"%d", numberOfStrings]];
-        
-        /*
-        [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            if (!error) {
-                userProfileCell.profileNumberOfStringsLabel.text = [NSString stringWithFormat:@"%d", number];
-            }
-        }];
-         */
-        
-        
     }
  
     return cell;
@@ -249,103 +215,5 @@
 {
     [super objectsWillLoad];
 }
-
-
-
-#pragma mark - UIActionSheet Delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-        }
-        
-        // image picker needs a delegate,
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-        
-        /*
-        //NSLog(@"Removed Observers from selecting action sheet");
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
-        
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
-        
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-        
-        
-        // Modal
-        
-         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-         
-         [self presentViewController:navVC animated:YES completion:nil];
-         */
-    } else if (buttonIndex == 1) {
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-        
-        /*
-        //NSLog(@"Removed Observers from selecting action sheet");
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectItemFromCollectionView" object:nil];
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectProfileImage" object:nil];
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectCommentsButton" object:nil];
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"didSelectLikesButton" object:nil];
-        
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
-        
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-        
-        
-        // Modal
-        
-         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:newStringVC];
-         
-         [self presentViewController:navVC animated:YES completion:nil];
-         */
-    }
-}
-
-
-
-#pragma mark - UIImagePicker Delegate
-
-//delegate methode will be called after picking photo either from camera or library
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:^ {
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:@"stringDetailVC"];
-        [newStringVC setEditDetailsEnabled:YES];
-        [newStringVC setUserSelectedPhoto:image];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
-    }];
-}
-
 
 @end

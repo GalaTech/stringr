@@ -30,6 +30,16 @@
     return sharedInstance;
 }
 
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        self.cache = [[NSCache alloc] init];
+    }
+    
+    return self;
+}
+
 - (void)clear
 {
     [self.cache removeAllObjects];
@@ -64,6 +74,45 @@
     return NO;
 }
 
+- (NSNumber *)stringCountForUser:(PFUser *)user
+{
+    NSDictionary *attributes = [self attributesForUser:user];
+    if (attributes) {
+        NSNumber *stringCount = [attributes objectForKey:kStringrUserAttributesStringCountKey];
+        if (stringCount) {
+            return stringCount;
+        }
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
+
+- (NSNumber *)followingCountForUser:(PFUser *)user
+{
+    NSDictionary *attributes = [self attributesForUser:user];
+    if (attributes) {
+        NSNumber *followingCount = [attributes objectForKey:kStringrUserAttributesFollowingCountKey];
+        if (followingCount) {
+            return followingCount;
+        }
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
+
+
+- (NSNumber *)followerCountForUser:(PFUser *)user
+{
+    NSDictionary *attributes = [self attributesForUser:user];
+    if (attributes) {
+        NSNumber *followerCount = [attributes objectForKey:kStringrUserAttributesFollowerCountKey];
+        if (followerCount) {
+            return followerCount;
+        }
+    }
+    
+    return [NSNumber numberWithInt:0];
+}
 
 
 
@@ -89,6 +138,141 @@
     [userAttributes setObject:[NSNumber numberWithBool:following] forKey:kStringrUserAttributesIsFollowedByCurrentUserKey];
     [self setAttributes:userAttributes forUser:user];
 }
+
+- (void)setStringCount:(NSNumber *)count forUser:(PFUser *)user
+{
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithDictionary:[self attributesForUser:user]];
+    [attributes setObject:count forKey:kStringrUserAttributesStringCountKey];
+    [self setAttributes:attributes forUser:user];
+}
+
+- (void)setFollowingCount:(NSNumber *)count forUser:(PFUser *)user
+{
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithDictionary:[self attributesForUser:user]];
+    [attributes setObject:count forKey:kStringrUserAttributesFollowingCountKey];
+    [self setAttributes:attributes forUser:user];
+}
+
+- (void)setFollowerCount:(NSNumber *)count forUser:(PFUser *)user
+{
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithDictionary:[self attributesForUser:user]];
+    [attributes setObject:count forKey:kStringrUserAttributesFollowerCountKey];
+    [self setAttributes:attributes forUser:user];
+}
+
+
+#pragma mark - Set Object Attributes
+
+- (void)setAttributes:(NSDictionary *)attributes forObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self setAttributes:attributes forString:object];
+    } else {
+        [self setAttributes:attributes forPhoto:object];
+    }
+}
+
+- (void)setAttributesForObject:(PFObject *)object likeCount:(NSNumber *)likeCount commentCount:(NSNumber *)commentCount likedByCurrentUser:(BOOL)likedByCurrentUser
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self setAttributesForString:object likeCount:likeCount commentCount:commentCount likedByCurrentUser:likedByCurrentUser];
+    } else {
+        [self setAttributesForPhoto:object likeCount:likeCount commentCount:commentCount likedByCurrentUser:likedByCurrentUser];
+    }
+}
+
+- (void)setObjectIsLikedByCurrentUser:(PFObject *)object liked:(BOOL)liked
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self setStringIsLikedByCurrentUser:object liked:liked];
+    } else {
+        [self setPhotoIsLikedByCurrentUser:object liked:liked];
+    }
+}
+
+- (void)incrementLikeCountForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self incrementLikeCountForString:object];
+    } else {
+        [self incrementLikeCountForPhoto:object];
+    }
+}
+
+- (void)decrementLikeCountForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self decrementLikeCountForString:object];
+    } else {
+        [self decrementLikeCountForPhoto:object];
+    }
+}
+
+- (void)incrementCommentCountForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self incrementCommentCountForString:object];
+    } else {
+        [self incrementCommentCountForPhoto:object];
+    }
+}
+
+- (void)decrementCommentCountForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        [self decrementCommentCountForString:object];
+    } else {
+        [self decrementCommentCountForPhoto:object];
+    }
+}
+
+
+
+
+#pragma mark - Get Object Attributes
+
+- (NSDictionary *)attributesForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        return [self attributesForString:object];
+    } else {
+        return [self attributesForPhoto:object];
+    }
+}
+
+- (BOOL)isObjectLikedByCurrentUser:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        return [self isStringLikedByCurrentUser:object];
+    } else {
+        return [self isPhotoLikedByCurrentUser:object];
+    }
+}
+
+- (NSNumber *)likeCountForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        return [self likeCountForString:object];
+    } else {
+        return [self likeCountForPhoto:object];
+    }
+}
+
+- (NSNumber *)commentCountForObject:(PFObject *)object
+{
+    if ([StringrUtility objectIsString:object]) {
+        return [self commentCountForString:object];
+    } else {
+        return [self commentCountForPhoto:object];
+    }
+}
+
+
+
+
+
+
+
 
 
 
@@ -274,7 +458,7 @@
 {
     NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForString:string]];
     [stringAttributes setObject:[NSNumber numberWithBool:liked] forKey:kStringrStringAttributesIsLikedByCurrentUserKey];
-    [self setAttributes:stringAttributes forPhoto:string];
+    [self setAttributes:stringAttributes forString:string];
 }
 
 - (void)incrementLikeCountForString:(PFObject *)string

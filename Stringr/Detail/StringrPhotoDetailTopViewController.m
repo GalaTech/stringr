@@ -33,9 +33,6 @@
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor blackColor]];
-    
-    
-    
 }
 
 
@@ -80,8 +77,6 @@
     
     return photo;
 }
-
-
 
 
 #pragma mark - ParseImagePager DataSource

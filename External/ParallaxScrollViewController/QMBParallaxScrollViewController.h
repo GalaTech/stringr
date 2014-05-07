@@ -62,6 +62,8 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
 @property (nonatomic, assign, readonly) CGFloat topHeight;
 @property (nonatomic, assign, setter = setMaxHeight:) CGFloat maxHeight;
 
+- (void) changeTopHeight:(CGFloat) height;
+
 /**
  * Set the height of the border (margin from top) that has to be scrolled over to expand the background view.
  * Default: MAX(1.5f * _topHeight, 300.0f)

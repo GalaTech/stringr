@@ -22,5 +22,9 @@
     return self;
 }
 
+- (void)prepareForReuse
+{
+    self.cellImage.image = nil;
+}
 
 @end
