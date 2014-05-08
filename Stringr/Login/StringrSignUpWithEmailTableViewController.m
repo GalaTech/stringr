@@ -156,10 +156,11 @@
                 [newUser setObject:self.profileImageFile forKey:kStringrUserProfilePictureKey];
                 [newUser setObject:self.profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
             }
-            /*
+            
             else {
+                /*
                  This sets the profile image and thumbnail to the stringr image. For now I am not implementing it because that is just
-                 * a lot of wasted space on the server. By default the app displays that image for users without a profile pic.
+                 * a lot of wasted space on the server. By default the app displays that image for users without a profile pic.*/
                 UIImage *resizedProfileImage = [[UIImage imageNamed:@"Stringr Image"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
                 UIImage *thumbnailProfileImage = [[UIImage imageNamed:@"Stringr Image"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
                 
@@ -172,7 +173,7 @@
                 [newUser setObject:profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
                  
             }
-                 */
+            
             
             
             [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

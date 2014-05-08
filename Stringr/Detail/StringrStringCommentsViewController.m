@@ -161,7 +161,12 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.commentsEditable;
+    NSString *rowObjectId;
+    if (indexPath.row < self.objects.count) {
+         rowObjectId = [[[self.objects objectAtIndex:indexPath.row] objectForKey:kStringrActivityFromUserKey] objectId];
+    }
+    
+    return self.commentsEditable || [rowObjectId isEqualToString:[[PFUser currentUser] objectId]];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

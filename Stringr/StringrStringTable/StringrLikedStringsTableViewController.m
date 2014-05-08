@@ -36,7 +36,7 @@
     [likedStringsQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
     [likedStringsQuery whereKeyExists:kStringrActivityStringKey];
     [likedStringsQuery includeKey:kStringrActivityStringKey];
-    [likedStringsQuery orderByAscending:@"createdAt"];
+    [likedStringsQuery orderByDescending:@"createdAt"];
     [likedStringsQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
     
     return likedStringsQuery;

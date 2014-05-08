@@ -204,7 +204,7 @@
     
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
-    [query orderByAscending:@"createdAt"];
+    [query orderByDescending:@"createdAt"];
     
     [followingVC setQueryForTable:query];
     

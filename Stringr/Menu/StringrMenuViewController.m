@@ -259,13 +259,15 @@
     [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
     [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
     [followingUsersQuery setLimit:1000];
+    [followingUsersQuery orderByDescending:@"createdAt"];
     
     PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
+    [followingUsersQuery orderByDescending:@"createdAt"];
     
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
-    [query orderByAscending:@"createdAt"];
+    [query orderByDescending:@"createdAt"];
 
     [followingVC setQueryForTable:query];
     
