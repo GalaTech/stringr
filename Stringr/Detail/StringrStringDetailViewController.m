@@ -15,8 +15,8 @@
 
 @interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate>
 
-@property (strong, nonatomic) StringrStringDetailTopViewController *stringTopVC;
-@property (strong, nonatomic) StringrStringDetailTableViewController *stringTableVC;
+@property (weak, nonatomic) StringrStringDetailTopViewController *stringTopVC;
+@property (weak, nonatomic) StringrStringDetailTableViewController *stringTableVC;
 
 @end
 

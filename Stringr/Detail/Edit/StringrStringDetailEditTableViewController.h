@@ -11,7 +11,7 @@
 @protocol StringrStringDetailEditTableViewControllerDelegate;
 @interface StringrStringDetailEditTableViewController : StringrStringDetailTableViewController
 
-@property (strong, nonatomic) id<StringrStringDetailEditTableViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<StringrStringDetailEditTableViewControllerDelegate> delegate;
 
 @end
 

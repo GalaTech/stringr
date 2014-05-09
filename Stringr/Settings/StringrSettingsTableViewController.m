@@ -19,6 +19,8 @@
 #import "StringrPushNotificationsTableViewController.h"
 #import "StringrStringDetailViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "AppDelegate.h"
+#import "PBWebViewController.h"
 
 #import "StringView.h"
 
@@ -87,22 +89,55 @@
 
 - (void)presentPrivacyPolicy
 {
+    /*
+    // Initialize the web view controller and set it's URL
+    self.webViewController = [[PBWebViewController alloc] init];
+    self.webViewController.URL = [NSURL URLWithString:@"http://www.apple.com"];
+    
+    // These are custom UIActivity subclasses that will show up in the UIActivityViewController
+    // when the action button is clicked
+    PBSafariActivity *activity = [[PBSafariActivity alloc] init];
+    self.webViewController.applicationActivities = @[activity];
+    
+    // This property also corresponds to the same one on UIActivityViewController
+    // Both properties do not need to be set unless you want custom actions
+    self.webViewController.excludedActivityTypes = @[UIActivityTypeMail, UIActivityTypeMessage, UIActivityTypePostToWeibo];
+    
+    // Push it
+    [self.navigationController pushViewController:self.webViewController animated:YES];
+     */
+    
+    PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"https://www.facebook.com/about/privacy/your-info"]];
+
+    [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
+    
+    /*
+    
     StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:YES];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
     
     [self.navigationController pushViewController:privacyPolicyVC animated:YES];
+     */
 }
 
 - (void)presentTermsOfService
 {
+    PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"https://www.facebook.com/legal/terms"]];
+    
+    [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
+    
+    /*
     StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:NO];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
     
     [self.navigationController pushViewController:privacyPolicyVC animated:YES];
+     */
 }
 
 - (void)connectOrDisconnectFromTwitterAtRow:(NSIndexPath *)indexPath
@@ -344,7 +379,10 @@
         UIWindow *window = [[[UIApplication sharedApplication] windows] firstObject];
         StringrRootViewController *rootVC = (StringrRootViewController *)[window rootViewController];
         
+        AppDelegate *stringrAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
+        [loginVC setDelegate:stringrAppDelegate];
+        
         StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];
         
         [rootVC presentViewController:loginNavVC animated:YES completion:^{

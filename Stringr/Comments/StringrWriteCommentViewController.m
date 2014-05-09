@@ -163,7 +163,6 @@
         [self dismissViewControllerAnimated:YES completion:^ {
             [self.comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
-                    //[self.objectToCommentOn saveInBackground]; // save to incrememnt comment count // can't save to a string/photo that is read only...
                     [self.delegate reloadCommentTableView];
                     [self sendCommentPushNotification];
                 } else if (error && error.code == kPFErrorObjectNotFound) {

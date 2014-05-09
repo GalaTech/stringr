@@ -245,16 +245,10 @@
 - (void)deletePhotoFromString:(PFObject *)photo
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+
     [photo deleteEventually];
-    
-    /*
-    [photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
-        }
-    }];
-     */
+ 
 }
+
 
 @end
