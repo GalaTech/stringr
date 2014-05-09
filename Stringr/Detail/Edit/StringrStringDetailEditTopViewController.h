@@ -31,7 +31,7 @@
 
 - (void)cancelString;
 
-@property (strong, nonatomic) id<StringrStringDetailEditTopViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<StringrStringDetailEditTopViewControllerDelegate> delegate;
 
 @end
 

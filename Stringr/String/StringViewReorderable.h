@@ -14,7 +14,7 @@
  * Removes the given photo from the String.
  * @param photo The photo that you are wanting to remove from the string.
  */
-- (void)removePhotoFromString:(PFObject *)photo;
+//- (void)removePhotoFromString:(PFObject *)photo;
 
 - (void)setStringTitle:(NSString *)stringTitle;
 - (void)setStringDescription:(NSString *)stringDescription;

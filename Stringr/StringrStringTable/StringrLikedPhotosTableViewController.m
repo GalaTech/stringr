@@ -84,6 +84,7 @@
     
     [stringCell queryPhotosFromQuery:likePhotosActivityQuery];
     
+    
     return stringCell;
 }
 

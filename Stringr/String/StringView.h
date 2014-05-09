@@ -17,10 +17,11 @@
  */
 @interface StringView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (strong, nonatomic) id<StringViewDelegate> delegate;
+@property (weak, nonatomic) id<StringViewDelegate> delegate;
 
 @property (strong, nonatomic) PFObject *stringToLoad; // string PFObject
-@property (strong, nonatomic) NSMutableArray *collectionViewPhotos; // of Photo PFObject's
+@property (strong, nonatomic) NSMutableArray *collectionViewPhotos; // of Photo PFObjects
+@property (strong, nonatomic) NSMutableArray *stringPhotosToDelete; // of Photo PFObjects
 
 
 /** 

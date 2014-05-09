@@ -347,8 +347,13 @@
     StringrStringTableViewController *nearYouVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
     [nearYouVC setTitle:@"Near You"];
     
+    
     PFQuery *nearYouQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [nearYouQuery whereKey:kStringrStringLocationKey nearGeoPoint:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] withinMiles:100.0];
+    if ([[PFUser currentUser] objectForKey:kStringrUserLocationKey]) {
+        [nearYouQuery whereKey:kStringrStringLocationKey nearGeoPoint:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] withinMiles:100.0];
+    } else {
+        [nearYouQuery whereKey:kStringrStringTitleKey equalTo:@"!@#%@#$^%^&*"];
+    }
     [nearYouQuery orderByDescending:@"createdAt"];
     [nearYouVC setQueryForTable:nearYouQuery];
     

@@ -22,7 +22,7 @@
 @protocol StringrPhotoDetailEditTableViewControllerDelegate;
 @interface StringrPhotoDetailEditTableViewController : StringrPhotoDetailTableViewController
 
-@property (strong, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegate;
 
 @end
 

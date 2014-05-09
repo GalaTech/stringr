@@ -66,6 +66,17 @@
 }
 
 
+- (NSMutableArray *)stringPhotosToDelete
+{
+    if (!_stringPhotosToDelete) {
+        _stringPhotosToDelete = [[NSMutableArray alloc] init];
+    }
+    
+    return _stringPhotosToDelete;
+}
+
+
+
 
 #pragma mark - Public
 
@@ -138,8 +149,7 @@
                 [self.stringLargeCollectionView insertItemsAtIndexPaths:@[indexPath]];
                 [self.stringLargeCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
             }
-        }
-        
+        }     
     }
 }
 
@@ -170,6 +180,18 @@
         [self.stringLargeCollectionView reloadData];
     }
 }
+
+
+
+
+#pragma mark - Private
+
+- (void)deletePhotoFromString:(PFObject *)photo
+{
+    
+}
+
+
 
 
 #pragma mark - Parse
@@ -206,7 +228,7 @@
                
                 // just puts the string owner of a photo as the string to load in the photo detail controller
                 self.stringToLoad = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
-                [self.stringToLoad fetchIfNeeded];
+                [self.stringToLoad fetchIfNeededInBackgroundWithBlock:nil];
             }
             
             if (self.stringCollectionView) {
@@ -249,6 +271,7 @@
         
         PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
         [stringCell.cellImage setFile:imageFile];
+    
         [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
             [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
             [stringCell.loadingImageIndicator stopAnimating];

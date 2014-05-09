@@ -15,7 +15,7 @@
 @interface StringrStringDetailEditTopViewController () <StringrPhotoDetailEditTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *stringView;
-@property (strong, nonatomic) StringViewReorderable *stringReorderableCollectionView;
+@property (weak, nonatomic) StringViewReorderable *stringReorderableCollectionView;
 @property (strong, nonatomic) NSString *stringTitle;
 @property (strong, nonatomic) NSString *stringDescription;
 
@@ -63,7 +63,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,6 +71,7 @@
     [super didReceiveMemoryWarning];
     
 }
+
 
 
 

@@ -169,6 +169,8 @@
                 [self.delegate deletePhotoFromString:self.photoDetailsToLoad];
             } else if ([self.delegate respondsToSelector:@selector(deletePhotoFromPublicString:)]) {
                 [self.delegate deletePhotoFromPublicString:self.photoDetailsToLoad];
+            } else {
+                [self.photoDetailsToLoad deleteInBackground];
             }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
