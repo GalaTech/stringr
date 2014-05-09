@@ -199,18 +199,18 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
-            NSString *titleText = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
+            //NSString *titleText = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
             
             if (!self.stringDetailsToLoad) {
-                titleText = @"";
+                //titleText = @"";
             }
 
             return [StringrUtility heightForLabelWithNSString:self.stringTitle]; // the 31 is for additional margin space
         } else if (indexPath.row == 2) {
-            NSString *descriptionText = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
+            //NSString *descriptionText = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
             
             if (!self.stringDetailsToLoad) {
-                descriptionText = @"";
+               // descriptionText = @"";
             }
 
             return [StringrUtility heightForLabelWithNSString:self.stringDescription]; // the 31 is for additional margin space

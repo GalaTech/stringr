@@ -79,10 +79,11 @@
     [likePhotosActivityQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
     [likePhotosActivityQuery whereKeyExists:kStringrActivityPhotoKey];
     [likePhotosActivityQuery includeKey:kStringrActivityPhotoKey];
-    [likePhotosActivityQuery orderByAscending:@"createdAt"];
+    [likePhotosActivityQuery orderByDescending:@"createdAt"];
     [likePhotosActivityQuery setCachePolicy:kPFCachePolicyNetworkOnly];
     
     [stringCell queryPhotosFromQuery:likePhotosActivityQuery];
+    
     
     return stringCell;
 }

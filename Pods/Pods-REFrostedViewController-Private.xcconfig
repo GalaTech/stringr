@@ -1,5 +1,5 @@
 #include "Pods-REFrostedViewController.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/REFrostedViewController" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/ACPButton" "${PODS_ROOT}/Headers/ILTranslucentView" "${PODS_ROOT}/Headers/LXReorderableCollectionViewFlowLayout" "${PODS_ROOT}/Headers/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/REFrostedViewController" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/STTweetLabel"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/REFrostedViewController" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/ACPButton" "${PODS_ROOT}/Headers/ILTranslucentView" "${PODS_ROOT}/Headers/LXReorderableCollectionViewFlowLayout" "${PODS_ROOT}/Headers/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/PBWebViewController" "${PODS_ROOT}/Headers/REFrostedViewController" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/STTweetLabel"
 OTHER_LDFLAGS = -ObjC ${PODS_REFROSTEDVIEWCONTROLLER_OTHER_LDFLAGS}
 PODS_ROOT = ${SRCROOT}

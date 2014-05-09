@@ -50,23 +50,6 @@
 
 + (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    /*
-    // remove any existing likes the current user has on the specified photo
-    PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:photo];
-    [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
-    [queryExistingLikes whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-    [queryExistingLikes setCachePolicy:kPFCachePolicyCacheThenNetwork];
-    [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
-        if (!error) {
-            for (PFObject *activity in likes) {
-                [activity deleteInBackground]; // maybe delete in background?
-            }
-        }
-    }];
-     */
-     
-    
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
     [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
     [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
@@ -87,7 +70,7 @@
         if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
             
             // TODO: Set private channel to that of the photo uploader
-            NSString *photoUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+            NSString *photoUploaderPrivatePushChannel = [[photo objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
             
             if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
                 NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
@@ -137,22 +120,6 @@
 
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
-    /*
-    // remove any existing likes the current user has on the specified photo
-    PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [queryExistingLikes whereKey:kStringrActivityPhotoKey equalTo:string];
-    [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
-    [queryExistingLikes whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-    [queryExistingLikes setCachePolicy:kPFCachePolicyCacheThenNetwork];
-    [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
-        if (!error) {
-            for (PFObject *activity in likes) {
-                [activity deleteInBackground]; // maybe delete in background?
-            }
-        }
-    }];
-     */
-    
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
     [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
     [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
@@ -172,7 +139,7 @@
             if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
                 
                 // TODO: Set private channel to that of the string uploader
-                NSString *stringUploaderPrivatePushChannel = @"user_4Lr24ej01N";
+                NSString *stringUploaderPrivatePushChannel = [[string objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
                 
                 if (stringUploaderPrivatePushChannel && stringUploaderPrivatePushChannel.length != 0) {
                     NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
@@ -361,7 +328,7 @@
     */
     
     // TODO: set private channel to that of the parameter 'user'
-    NSString *followedUserPrivatePushChannel = @"user_4Lr24ej01N";
+    NSString *followedUserPrivatePushChannel = [user objectForKey:kStringrUserPrivateChannelKey];
     
     if (followedUserPrivatePushChannel && followedUserPrivatePushChannel.length != 0) {
         NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];

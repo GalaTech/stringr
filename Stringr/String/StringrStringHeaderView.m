@@ -43,6 +43,8 @@ static float const contentViewWidthPercentage = .93;
         [self.headerButton setTag:self.section];
         
         [self.headerButton setTitle:@"" forState:UIControlStateNormal];
+        [self.headerButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+        [self.headerButton.titleLabel setMinimumScaleFactor:0.5f];
         [self.headerButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [self.headerButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [self.headerButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f]];

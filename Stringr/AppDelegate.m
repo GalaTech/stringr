@@ -10,13 +10,12 @@
 #import "StringrRootViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 #import "StringrNavigationController.h"
-#import "StringrLoginViewController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrMenuViewController.h"
 
-@interface AppDelegate () <StringrLoginViewControllerDelegate>
+@interface AppDelegate ()
 
 @property (strong, nonatomic) StringrRootViewController *rootVC;
 
@@ -204,7 +203,7 @@
     
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
-    [query orderByAscending:@"createdAt"];
+    [query orderByDescending:@"createdAt"];
     
     [followingVC setQueryForTable:query];
     

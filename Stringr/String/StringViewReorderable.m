@@ -30,9 +30,13 @@
 - (void)awakeFromNib
 {
     [_stringLargeReorderableCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePhotoFromString:) name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
 }
 
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
+}
 
 
 #pragma mark - Public
@@ -109,11 +113,11 @@
 - (void)removePhotoFromString:(PFObject *)photo
 {
     if (photo) {
+        if ([photo isKindOfClass:[PFObject class]]) {
+            [self.stringPhotosToDelete addObject:photo];
+        }
+        
         NSUInteger indexOfPhoto = [self.collectionViewPhotos indexOfObject:photo];
-        
-        PFObject *photo = [self.collectionViewPhotos objectAtIndex:indexOfPhoto];
-        [photo deleteEventually];
-        
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
         [self.collectionViewPhotos removeObjectAtIndex:indexOfPhoto];
         
@@ -176,6 +180,13 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
             }];
+            
+            // deletes photos that the user selected in this session
+            if (self.stringPhotosToDelete.count > 0) {
+                for (PFObject *photo in self.stringPhotosToDelete) {
+                    [photo deleteEventually];
+                }
+            }
         } else { // new string
             PFObject *newString = [PFObject objectWithClassName:kStringrStringClassKey];
             [newString setObject:[PFUser currentUser] forKey:kStringrStringUserKey];
@@ -219,6 +230,13 @@
             [stringStatistics setACL:stringStatisticsACL];
             
             [stringStatistics saveEventually];
+            
+            // deletes photos that the user selected in this session
+            if (self.stringPhotosToDelete.count > 0) {
+                for (PFObject *photo in self.stringPhotosToDelete) {
+                    [photo deleteEventually];
+                }
+            }
         }
         
         if (completionBlock) {
@@ -272,6 +290,8 @@
         [[PFUser currentUser] saveEventually];
     }
 }
+
+
 
 
 #pragma mark - ReorderableCollectionView DataSource
