@@ -25,6 +25,8 @@
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate>
 
+@property (strong, nonatomic) NSMutableArray *stringPhotos;
+
 @end
 
 @implementation StringrStringTableViewController
@@ -46,7 +48,8 @@
 
 - (void)dealloc
 {
-    self.tableView = nil;
+    [PFQuery clearAllCachedResults];
+    NSLog(@"dealloc string table");
 }
 
 
@@ -63,6 +66,12 @@
     [super viewWillAppear:animated];
     
 
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"disappear");
 }
 
 
@@ -174,6 +183,16 @@
     return 0.0f;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if ([cell isKindOfClass:[StringTableViewCell class]]) {
+        StringTableViewCell *stringCell = (StringTableViewCell *)cell;
+        [stringCell reloadString];
+    }
+     
+    
+}
 
 
 
@@ -210,6 +229,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     PFObject *string = object;
+    
+    //NSArray *photos = [self.stringPhotos objectAtIndex:indexPath.row];
     
     // It's possible for this object to be of type statistic or activity. This just gets the string
     // value from either of those classes
@@ -263,6 +284,29 @@
 {
     [super objectsDidLoad:error];
     
+    // instantiates string photos with blank objects of count self.objects
+    self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
+    for (int i = 0; i < self.objects.count; i++) {
+        [self.stringPhotos addObject:@""];
+    }
+    
+    // Querries all of the photos for the strings and puts them in an array
+    for (int i = 0; i < self.objects.count; i++) {
+        PFObject *string = [self.objects objectAtIndex:i];
+        
+        PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+        [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+        [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+        [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+        [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+            if (!error) {
+                [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+                
+                NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+                [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }];
+    }
 }
 
 - (void)objectsWillLoad
@@ -283,6 +327,7 @@
     
 }
 
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
     //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
@@ -295,6 +340,42 @@
     }
     
     return loadMoreCell;
+}
+ */
+
+
+
+
+#pragma mark - UICollectionView Data Source
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    NSArray *stringPhotos = [self.stringPhotos objectAtIndex:section];
+    
+    return stringPhotos.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return nil;
+}
+
+
+
+
+#pragma mark - UICollectionView Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //PFObject *string = [self.objects objectAtIndex:indexPath.section];
+    //NSArray *photos = [self.stringPhotos objectAtIndex:indexPath.section];
+    
 }
 
 

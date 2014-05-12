@@ -15,7 +15,7 @@
 @property (nonatomic) NSUInteger section;
 @property (strong, nonatomic) PFObject *stringForHeader;
 @property (nonatomic) BOOL stringEditingEnabled;
-@property (strong, nonatomic) id<StringrStringHeaderViewDelegate> delegate;
+@property (weak, nonatomic) id<StringrStringHeaderViewDelegate> delegate;
 
 @end
 

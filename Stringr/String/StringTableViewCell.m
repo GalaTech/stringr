@@ -13,7 +13,7 @@
 
 @interface StringTableViewCell ()
 
-@property (strong, nonatomic) StringView *stringCollectionView;
+@property (weak, nonatomic) StringView *stringCollectionView;
 
 @property (strong, nonatomic) StringrPathImageView *detailTabProfileImage;
 @property (strong, nonatomic) UILabel *detailTabNumberOfCommentsLabel;
@@ -42,7 +42,11 @@
 
 - (void)prepareForReuse
 {
-    
+}
+
+- (void)dealloc
+{
+    NSLog(@"dealloc string table view cell");
 }
 
 
@@ -69,6 +73,11 @@
 - (void)queryPhotosFromQuery:(PFQuery *)query
 {
     [_stringCollectionView queryPhotosFromQuery:query];
+}
+
+- (void)reloadString
+{
+    [_stringCollectionView reloadString];
 }
 
 

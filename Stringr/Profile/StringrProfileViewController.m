@@ -17,8 +17,8 @@
 
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) StringrProfileTopViewController *topProfileVC;
-@property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
+@property (weak, nonatomic) StringrProfileTopViewController *topProfileVC;
+@property (weak, nonatomic) StringrProfileTableViewController *tableProfileVC;
 
 @end
 
@@ -28,9 +28,7 @@
 
 - (void)dealloc
 {
-    self.view = nil;
-    //self.tableProfileVC = nil;
-    //self.topProfileVC = nil;
+    NSLog(@"profile dealloc");
 }
 
 - (void)viewDidLoad
@@ -69,12 +67,12 @@
     // Querries all strings that are owned by the user for the specified profile
     PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
-    [profileStringsQuery orderByAscending:@"createdAt"];
+    [profileStringsQuery orderByDescending:@"createdAt"];
     [self.tableProfileVC setQueryForTable:profileStringsQuery];
 
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     
-    self.delegate = self;
+    //self.delegate = self; // prevents deallocation
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
     
@@ -89,14 +87,12 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     [self.navigationItem setBackBarButtonItem:backButton];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:@"UploadNewString" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UploadNewString" object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning

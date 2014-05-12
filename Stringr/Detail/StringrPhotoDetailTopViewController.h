@@ -16,7 +16,7 @@
 @interface StringrPhotoDetailTopViewController : StringrDetailTopViewController
 
 @property (strong, nonatomic) NSArray *photosToLoad;
-@property (strong, nonatomic) id<StringrPhotoDetailTopViewControllerImagePagerDelegate> delegate;
+@property (weak, nonatomic) id<StringrPhotoDetailTopViewControllerImagePagerDelegate> delegate;
 @property (strong, nonatomic) UIImage *currentlyPresentPhoto;
 
 /**

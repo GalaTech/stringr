@@ -36,6 +36,11 @@
     
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc navigation controller");
+}
+
 
 #pragma mark - Action Handlers
 

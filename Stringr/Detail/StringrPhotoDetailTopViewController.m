@@ -9,7 +9,7 @@
 #import "StringrPhotoDetailTopViewController.h"
 
 
-@interface StringrPhotoDetailTopViewController () <ParseImagePagerDataSource, ParseImagePagerDelegate, ParseImagePagerDataSource, ParseImagePagerDelegate>
+@interface StringrPhotoDetailTopViewController () <ParseImagePagerDataSource, ParseImagePagerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *photos;
 
@@ -33,6 +33,11 @@
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor blackColor]];
+}
+
+- (void)dealloc
+{
+    NSLog(@"dealloc photo detail top");
 }
 
 

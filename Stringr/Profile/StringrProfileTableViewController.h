@@ -13,7 +13,7 @@
 
 @interface StringrProfileTableViewController : StringrStringTableViewController<QMBParallaxScrollViewHolder>
 
-@property (strong, nonatomic) id<StringrProfileTableViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<StringrProfileTableViewControllerDelegate> delegate;
 
 @end
 

@@ -63,6 +63,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc settings");
+}
 
 
 

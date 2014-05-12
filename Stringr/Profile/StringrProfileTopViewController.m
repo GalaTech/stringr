@@ -16,8 +16,7 @@
 @interface StringrProfileTopViewController ()
 
 @property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
-@property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
-
+@property (weak, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
 @property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
 
 @end
@@ -28,7 +27,7 @@
 
 - (void)dealloc
 {
-    self.view = nil;
+    NSLog(@"dealloc profile top");
 }
 
 - (void)viewDidLoad

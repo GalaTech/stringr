@@ -19,10 +19,10 @@
 
 @property (strong, nonatomic) NSMutableArray *commentsThread;
 
-@property (strong, nonatomic) StringrWriteCommentViewController *writeCommentVC;
-@property (strong, nonatomic) StringrCommentsTableViewCell *commentsTableVC;
-@property (strong, nonatomic) StringrProfileViewController *profileVC;
-@property (strong, nonatomic) StringrNavigationController *navigationVC;
+@property (weak, nonatomic) StringrWriteCommentViewController *writeCommentVC;
+@property (weak, nonatomic) StringrCommentsTableViewCell *commentsTableVC;
+@property (weak, nonatomic) StringrProfileViewController *profileVC;
+@property (weak, nonatomic) StringrNavigationController *navigationVC;
 @property (strong, nonatomic) NSMutableArray *commentUsers;
 
 @end

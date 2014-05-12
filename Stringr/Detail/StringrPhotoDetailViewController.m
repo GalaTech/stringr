@@ -15,8 +15,8 @@
 
 @interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate, StringrPhotoDetailEditTableViewControllerDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) StringrPhotoDetailTopViewController *topPhotoVC;
-@property (strong, nonatomic) StringrPhotoDetailTableViewController *tablePhotoVC;
+@property (weak, nonatomic) StringrPhotoDetailTopViewController *topPhotoVC;
+@property (weak, nonatomic) StringrPhotoDetailTableViewController *tablePhotoVC;
 @property (nonatomic) BOOL navigationBarIsHidden;
 
 @end
@@ -100,6 +100,13 @@
     // accounts for when a user taps on the comments button when in full screen
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+
+- (void)dealloc
+{
+    NSLog(@"dealloc photo detail");
+}
+
+
 
 
 #pragma mark - Actions
