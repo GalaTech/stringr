@@ -19,10 +19,8 @@
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringLargeCollectionView;
 
-//@property (strong, nonatomic) NSMutableArray *collectionData;
-
-
 @end
+
 @implementation StringView
 
 #pragma mark - Lifecycle
@@ -33,6 +31,16 @@
     [_stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
     // Large is only utilized on the detail string pages
     [_stringLargeCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];    
+}
+
+- (void)dealloc
+{
+    self.collectionViewPhotos = nil;
+    self.stringPhotosToDelete = nil;
+    [PFQuery clearAllCachedResults];
+    self.stringCollectionView = nil;
+    self.stringLargeCollectionView = nil;
+    NSLog(@"dealloc string");
 }
 
 
@@ -202,7 +210,7 @@
         PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
         [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:self.stringToLoad];
         [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
-        
+        [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
         [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
             if (!error) {
                 self.collectionViewPhotos = [[NSMutableArray alloc] initWithArray:photos];
@@ -258,30 +266,30 @@
 {
     StringCollectionViewCell *stringCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StringCollectionViewCell" forIndexPath:indexPath];
     
-    // used for when a user taps on a photo in the string
-    //stringCell.tag = indexPath.item;
-    
-    [stringCell.loadingImageIndicator setHidden:NO];
-    [stringCell.loadingImageIndicator startAnimating];
-    
-    id photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
-    
-    if ([photo isKindOfClass:[PFObject class]]) {
-        PFObject *photoObject = (PFObject *)photo;
+    if (stringCell) {
+        [stringCell.loadingImageIndicator setHidden:NO];
+        [stringCell.loadingImageIndicator startAnimating];
         
-        PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
-        [stringCell.cellImage setFile:imageFile];
-    
-        [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+        id photo = [self.collectionViewPhotos objectAtIndex:indexPath.item];
+        
+        if ([photo isKindOfClass:[PFObject class]]) {
+            PFObject *photoObject = (PFObject *)photo;
+            
+            PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+            [stringCell.cellImage setFile:imageFile];
+            
+            [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+                [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+                [stringCell.loadingImageIndicator stopAnimating];
+                [stringCell.loadingImageIndicator setHidden:YES];
+                image = nil;
+            }];
+        } else if ([photo isKindOfClass:[UIImage class]]) {
+            [stringCell.cellImage setImage:photo];
             [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
-            [stringCell.loadingImageIndicator stopAnimating];
-            [stringCell.loadingImageIndicator setHidden:YES];
-        }];
-    } else if ([photo isKindOfClass:[UIImage class]]) {
-        [stringCell.cellImage setImage:photo];
-        [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+            photo = nil;
+        }
     }
-    
     
     return stringCell;
 }

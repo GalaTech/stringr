@@ -24,12 +24,12 @@
 
 @interface StringrEditProfileViewController : UITableViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
-@property (strong, nonatomic) StringrPathImageView *fillerProfileImage;
+@property (weak, nonatomic) StringrPathImageView *fillerProfileImage;
 @property (strong, nonatomic) NSString *fillerProfileName;
 @property (strong, nonatomic) NSString *fillerDescription;
 @property (strong, nonatomic) NSString *fillerUniversityName;
 
-@property (strong, nonatomic) id<StringrEditProfileDelegate> delegate;
+@property (weak, nonatomic) id<StringrEditProfileDelegate> delegate;
 
 @end
 

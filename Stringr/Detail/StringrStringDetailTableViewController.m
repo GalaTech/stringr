@@ -37,6 +37,11 @@
     }
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc string detail table");
+}
+
 
 
 

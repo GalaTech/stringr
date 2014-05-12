@@ -12,7 +12,7 @@
 
 @interface StringrDetailTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) id<StringrDetailTableViewCellDelegate> delegate;
+@property (weak, nonatomic) id<StringrDetailTableViewCellDelegate> delegate;
 
 @end
 

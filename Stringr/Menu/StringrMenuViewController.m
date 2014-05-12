@@ -191,6 +191,10 @@
     
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc menu");
+}
 
 
 

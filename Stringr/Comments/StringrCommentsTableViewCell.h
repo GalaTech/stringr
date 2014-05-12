@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentsUploadDateTime;
 @property (weak, nonatomic) IBOutlet UILabel *commentsTextComment;
 
-@property (strong, nonatomic) id<StringrCommentsTableViewCellDelegate> delegate;
+@property (weak, nonatomic) id<StringrCommentsTableViewCellDelegate> delegate;
 
 @end
 

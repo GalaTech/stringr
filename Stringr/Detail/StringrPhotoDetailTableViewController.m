@@ -25,6 +25,11 @@
     [self reloadPhotoTitleAndDescription];
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc photo detail table");
+}
+
 
 
 

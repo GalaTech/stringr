@@ -15,7 +15,7 @@
 - (void)setObjectForActivityCell:(PFObject *)object;
 - (void)setRowForActivityCell:(NSUInteger)row;
 
-@property (strong, nonatomic) id<StringrActivityTableViewCellDelegate> delegate;
+@property (weak, nonatomic) id<StringrActivityTableViewCellDelegate> delegate;
 
 @end
 
