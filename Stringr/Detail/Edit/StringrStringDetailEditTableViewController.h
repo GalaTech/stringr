@@ -9,6 +9,7 @@
 #import "StringrStringDetailTableViewController.h"
 
 @protocol StringrStringDetailEditTableViewControllerDelegate;
+
 @interface StringrStringDetailEditTableViewController : StringrStringDetailTableViewController
 
 @property (weak, nonatomic) id<StringrStringDetailEditTableViewControllerDelegate> delegate;

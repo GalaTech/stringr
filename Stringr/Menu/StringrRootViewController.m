@@ -44,6 +44,11 @@
                                                             }];
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc root view");
+}
+
 /*
 - (void)viewWillAppear:(BOOL)animated
 {

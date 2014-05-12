@@ -107,6 +107,10 @@
     [self.backgroundRotationTimer invalidate];
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc login");
+}
 
 #pragma mark - Action Handlers
 

@@ -14,7 +14,7 @@
 @interface StringrStringDetailTopViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *stringView;
-@property (strong, nonatomic) StringView *stringCollectionView;
+@property (weak, nonatomic) StringView *stringCollectionView;
 
 @end
 
@@ -56,6 +56,14 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    NSLog(@"dealloc string detail top");
+}
+
+
+
+#pragma mark - Public
 
 - (void)addImageToPublicString:(UIImage *)image withBlock:(void (^)(BOOL))completionBlock
 {

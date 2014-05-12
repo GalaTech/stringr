@@ -18,7 +18,7 @@ typedef enum {
 
 @interface StringrWriteAndEditTextViewController : UIViewController
 
-@property (strong, nonatomic) id<StringrWriteAndEditTextViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<StringrWriteAndEditTextViewControllerDelegate> delegate;
 
 - (void)setTextForEditing:(NSString *)text;
 

@@ -18,7 +18,7 @@
 
 - (void)dealloc
 {
-    self.tableView = nil;
+    NSLog(@"dealloc profile table");
 }
 
 - (void)viewDidLoad

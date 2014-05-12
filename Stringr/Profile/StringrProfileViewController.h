@@ -26,6 +26,6 @@ typedef enum{
 @interface StringrProfileViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
 
 @property (strong, nonatomic) PFUser *userForProfile;
-@property (assign, nonatomic) ProfileReturnState profileReturnState;
+@property (nonatomic) ProfileReturnState profileReturnState;
 
 @end

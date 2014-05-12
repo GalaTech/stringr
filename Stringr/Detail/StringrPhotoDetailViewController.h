@@ -28,6 +28,6 @@
  */
 @property (strong, nonatomic) PFObject *stringOwner;
 
-@property (strong, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegateForPhotoController;
+@property (weak, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegateForPhotoController;
 
 @end

@@ -27,4 +27,10 @@
     self.cellImage.image = nil;
 }
 
+- (void)dealloc
+{
+    self.cellImage = nil;
+    NSLog(@"dealloc string image");
+}
+
 @end

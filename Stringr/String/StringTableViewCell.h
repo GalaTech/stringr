@@ -16,5 +16,6 @@
 //- (void)setCollectionData:(NSArray *)collectionData;
 - (void)setStringObject:(PFObject *)string;
 - (void)queryPhotosFromQuery:(PFQuery *)query;
+- (void)reloadString;
 
 @end

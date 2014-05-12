@@ -58,7 +58,10 @@
     
 }
 
-
+- (void)dealloc
+{
+    NSLog(@"dealloc user table");
+}
 
 
 #pragma mark - Table View Data Source

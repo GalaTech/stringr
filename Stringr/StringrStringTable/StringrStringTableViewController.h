@@ -12,7 +12,7 @@
 #import "StringView.h"
 #import "StringrStringHeaderView.h"
 
-@interface StringrStringTableViewController : StringrTableViewController <StringViewDelegate, StringrStringHeaderViewDelegate>
+@interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate, StringViewDelegate, StringrStringHeaderViewDelegate>
 
 
 @end

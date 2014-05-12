@@ -59,7 +59,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)dealloc
+{
+    NSLog(@"dealloc activity");
+}
 
 
 #pragma mark - Private

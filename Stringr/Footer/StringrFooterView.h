@@ -14,7 +14,7 @@
 @interface StringrFooterView : UIView
 
 @property (strong, nonatomic) UIActivityIndicatorView *loadingProfileImageIndicator;
-@property (strong, nonatomic) id<StringrFooterViewDelegate> delegate;
+@property (weak, nonatomic) id<StringrFooterViewDelegate> delegate;
 
 
 /** 

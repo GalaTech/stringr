@@ -13,7 +13,7 @@
 
 @interface StringrLoginViewController : UIViewController
 
-@property (strong, nonatomic) id<StringrLoginViewControllerDelegate>delegate;
+@property (weak, nonatomic) id<StringrLoginViewControllerDelegate>delegate;
 
 @end
 
