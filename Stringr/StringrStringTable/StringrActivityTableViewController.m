@@ -162,6 +162,8 @@
     [activityQuery includeKey:kStringrActivityPhotoKey];
     [activityQuery setCachePolicy:kPFCachePolicyNetworkOnly];
     [activityQuery orderByDescending:@"createdAt"];
+
+
     
     // perform conditional to check if there is a network connection
     

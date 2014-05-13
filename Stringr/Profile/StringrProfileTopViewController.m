@@ -16,7 +16,7 @@
 @interface StringrProfileTopViewController ()
 
 @property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
-@property (weak, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
+@property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
 @property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
 
 @end

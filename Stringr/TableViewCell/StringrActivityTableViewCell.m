@@ -84,6 +84,8 @@
         receiverObjectTypeName = @"String";
     } else if ([object objectForKey:kStringrActivityPhotoKey]) {
         receiverObjectTypeName = @"Photo";
+    } else {
+        receiverObjectTypeName = @"Deleted Photo or String";
     }
     
     if ([activityType isEqualToString:kStringrActivityTypeLike]) {

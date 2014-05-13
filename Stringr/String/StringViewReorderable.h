@@ -16,6 +16,7 @@
  */
 //- (void)removePhotoFromString:(PFObject *)photo;
 
+/*
 - (void)setStringTitle:(NSString *)stringTitle;
 - (void)setStringDescription:(NSString *)stringDescription;
 - (void)setStringWriteAccess:(BOOL)isPublic;
@@ -26,5 +27,6 @@
 - (void)cancelString;
 
 - (void)deleteString;
+ */
 
 @end

@@ -20,7 +20,7 @@
  * Inserts the user selected photo into the currently displayed string.
  * @param image The photo that the user selected to add to the string.
  */
-- (void)addNewImageToString:(UIImage *)image withBlock:(void(^)(BOOL succeeded))completionBlock;
+//- (void)addNewImageToString:(UIImage *)image withBlock:(void(^)(BOOL succeeded))completionBlock;
 
 /**
  * Saves the current string to the server and publishes it.
@@ -28,7 +28,6 @@
  * will be saved.
  */
 - (void)saveString;
-
 - (void)cancelString;
 
 @property (weak, nonatomic) id<StringrStringDetailEditTopViewControllerDelegate> delegate;

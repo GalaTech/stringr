@@ -110,17 +110,6 @@
 
 #pragma mark - TableView Delegate
 
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 && indexPath.row == 2) {
-        return 110.0f;
-    }
-    
-    return 44.0f;
-}
- */
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) { // details/title/description
@@ -167,9 +156,19 @@
             
             if ([self.delegate respondsToSelector:@selector(deletePhotoFromString:)]) {
                 [self.delegate deletePhotoFromString:self.photoDetailsToLoad];
-            } else if ([self.delegate respondsToSelector:@selector(deletePhotoFromPublicString:)]) {
-                [self.delegate deletePhotoFromPublicString:self.photoDetailsToLoad];
             } else {
+                PFQuery *photoActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+                [photoActivityQuery whereKey:kStringrActivityPhotoKey equalTo:self.photoDetailsToLoad];
+                [photoActivityQuery whereKeyExists:kStringrActivityPhotoKey];
+                [photoActivityQuery whereKeyExists:kStringrActivityToUserKey];
+                [photoActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                    if (!error) {
+                        for (PFObject *activity in activities) {
+                            [activity deleteInBackground];
+                        }
+                    }
+                }];
+                
                 [self.photoDetailsToLoad deleteInBackground];
             }
             

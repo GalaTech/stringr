@@ -14,7 +14,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface StringView () <NHBalancedFlowLayoutDelegate>
+@interface StringView ()
 
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringCollectionView;
 @property (weak, nonatomic) IBOutlet StringCollectionView *stringLargeCollectionView;
@@ -25,6 +25,7 @@
 
 #pragma mark - Lifecycle
 
+/*
 - (void)awakeFromNib
 {
     // Register the colleciton cell for both large and normal string sizes
@@ -42,7 +43,7 @@
     self.stringLargeCollectionView = nil;
     NSLog(@"dealloc string");
 }
-
+*/
 
 
 
@@ -54,6 +55,7 @@
 }
  */
 
+/*
 - (void)setStringObject:(PFObject *)string
 {
     if (string) {
@@ -63,6 +65,7 @@
         [self queryPhotosFromString];
     }
 }
+ 
 
 - (NSMutableArray *)collectionViewPhotos
 {
@@ -336,7 +339,7 @@
     
     return CGSizeMake([width floatValue], [height floatValue]);
 }
-
+*/
 
 
 @end

@@ -2071,7 +2071,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="283"/>
                     <connections>
-                        <outlet property="stringView" destination="poq-IT-vBa" id="ilA-UW-0Il"/>
+                        <outlet property="stringView" destination="poq-IT-vBa" id="F9m-vd-1Wg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZjQ-nj-6G7" userLabel="First Responder" sceneMemberID="firstResponder"/>

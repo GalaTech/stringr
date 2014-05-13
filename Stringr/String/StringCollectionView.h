@@ -10,6 +10,6 @@
 
 @interface StringCollectionView : UICollectionView
 
-@property (strong, readonly) NSArray *stringImages;
+@property (nonatomic, assign) NSInteger index;
 
 @end

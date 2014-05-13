@@ -8,10 +8,13 @@
 
 #import "StringrStringDetailViewController.h"
 #import "StringrStringDetailTableViewController.h"
+#import "StringrStringDetailEditTableViewController.h"
 #import "StringrStringDetailTopViewController.h"
 #import "StringrStringDetailEditTopViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
+#import "StringrPhotoDetailViewController.h"
+#import "StringrNavigationController.h"
 
 @interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate>
 
@@ -211,9 +214,17 @@
             [tableVC.tableView setUserInteractionEnabled:NO];
             
             StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
-            [topVC addNewImageToString:image withBlock:^(BOOL succeeded) {
+            [topVC addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
                 if (succeeded) {
-                    [tableVC.tableView setUserInteractionEnabled:YES];
+                    StringrPhotoDetailViewController *editPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+                    [editPhotoVC setEditDetailsEnabled:YES];
+                    [editPhotoVC setStringOwner:self.stringToLoad];
+                    [editPhotoVC setSelectedPhotoIndex:0];
+                    [editPhotoVC setPhotosToLoad:@[photo]];
+                    
+                    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+                    
+                    [self presentViewController:navVC animated:YES completion:nil];
                 }
             }];
         } else {
@@ -221,14 +232,19 @@
             [tableVC.tableView setUserInteractionEnabled:NO];
             
             StringrStringDetailTopViewController *topVC = (StringrStringDetailTopViewController *)self.stringTopVC;
-            [topVC addImageToPublicString:image withBlock:^(BOOL succeeded) {
+            [topVC addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
                 if (succeeded) {
-                    [tableVC.tableView setUserInteractionEnabled:YES];
+                    StringrPhotoDetailViewController *editPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+                    [editPhotoVC setEditDetailsEnabled:YES];
+                    [editPhotoVC setStringOwner:self.stringToLoad];
+                    [editPhotoVC setSelectedPhotoIndex:0];
+                    [editPhotoVC setPhotosToLoad:@[photo]];
+                    
+                    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+                    
+                    [self presentViewController:navVC animated:YES completion:nil];
                 }
             }];
-            
-            
-            
         }
     }];
 }

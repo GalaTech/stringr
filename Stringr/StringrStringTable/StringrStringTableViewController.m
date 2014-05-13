@@ -8,24 +8,23 @@
 
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
-
+#import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrStringCommentsViewController.h"
-
 #import "StringrMyStringsTableViewController.h"
 #import "StringrUserTableViewController.h"
-
 #import "StringTableViewCell.h"
+#import "StringCollectionViewCell.h"
 #import "StringrFooterView.h"
-
 #import "StringrLoadMoreTableViewCell.h"
+#import "NHBalancedFlowLayout.h"
 
-#import "StringrStringDetailViewController.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *stringPhotos;
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate>
+
+@property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
 @end
 
@@ -71,7 +70,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog(@"disappear");
 }
 
 
@@ -183,15 +181,16 @@
     return 0.0f;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView willDisplayCell:(StringTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if ([cell isKindOfClass:[StringTableViewCell class]]) {
-        StringTableViewCell *stringCell = (StringTableViewCell *)cell;
-        [stringCell reloadString];
+    if (indexPath.row == 0) {
+        [cell setCollectionViewDataSourceDelegate:self index:indexPath.section];
+        
+        NSInteger index = cell.stringCollectionView.index;
+        
+        CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
+        [cell.stringCollectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
     }
-     
-    
 }
 
 
@@ -250,12 +249,13 @@
         
         if (!stringCell) {
             stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            NSLog(@"cell for string row");
         }
         
         [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        [stringCell setStringViewDelegate:self];
-        [stringCell setStringObject:string];
+        //[stringCell setStringViewDelegate:self];
+        //[stringCell setStringObject:string];
 
         return stringCell;
     } else if (indexPath.row == 1) {
@@ -293,6 +293,12 @@
     // Querries all of the photos for the strings and puts them in an array
     for (int i = 0; i < self.objects.count; i++) {
         PFObject *string = [self.objects objectAtIndex:i];
+        
+        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+            string = [string objectForKey:kStringrStatisticsStringKey];
+        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+            string = [string objectForKey:kStringrActivityStringKey];
+        }
         
         PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
         [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
@@ -353,17 +359,48 @@
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(StringCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *stringPhotos = [self.stringPhotos objectAtIndex:section];
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
     
-    return stringPhotos.count;
+    if ([stringPhotos isKindOfClass:[NSArray class]]) {
+        return stringPhotos.count;
+    }
+
+    return 0;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(StringCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:StringCollectionViewCellIdentifier forIndexPath:indexPath];
     
-    return nil;
+    if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
+        
+        NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+        PFObject *photo = stringPhotos[indexPath.item];
+        
+        StringCollectionViewCell *stringCell = (StringCollectionViewCell *)cell;
+        
+        [stringCell.loadingImageIndicator setHidden:NO];
+        [stringCell.loadingImageIndicator startAnimating];
+        
+        if ([photo isKindOfClass:[PFObject class]]) {
+            PFObject *photoObject = (PFObject *)photo;
+            
+            PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+            [stringCell.cellImage setFile:imageFile];
+            
+            [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+                [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+                [stringCell.loadingImageIndicator stopAnimating];
+                [stringCell.loadingImageIndicator setHidden:YES];
+            }];
+        }
+        
+        return stringCell;
+    } else {
+        return nil;
+    }
 }
 
 
@@ -371,11 +408,70 @@
 
 #pragma mark - UICollectionView Delegate
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //PFObject *string = [self.objects objectAtIndex:indexPath.section];
-    //NSArray *photos = [self.stringPhotos objectAtIndex:indexPath.section];
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
     
+    if (stringPhotos) {
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+        
+        [photoDetailVC setEditDetailsEnabled:NO];
+        
+        // Sets the photos to be displayed in the photo pager
+        [photoDetailVC setPhotosToLoad:stringPhotos];
+        [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+        [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+        
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:photoDetailVC animated:YES];
+    }
+    
+}
+
+
+
+
+#pragma mark - StringCollectionViewFlowLayout Delegate
+
+- (CGSize)collectionView:(StringCollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+    id photo = stringPhotos[indexPath.item];
+    
+    NSNumber *width = 0;
+    NSNumber *height = 0;
+    
+    if ([photo isKindOfClass:[PFObject class]]) {
+        PFObject *photoObject = (PFObject *)photo;
+        
+        width = [photoObject objectForKey:kStringrPhotoPictureWidth];
+        height = [photoObject objectForKey:kStringrPhotoPictureHeight];
+    } else if ([photo isKindOfClass:[UIImage class]]) {
+        UIImage *photoImage = (UIImage *)photo;
+        
+        width = [NSNumber numberWithInt:photoImage.size.width];
+        height = [NSNumber numberWithInt:photoImage.size.height];
+    }
+    
+    
+    return CGSizeMake([width floatValue], [height floatValue]);
+}
+
+
+
+
+#pragma mark - UIScrollViewDelegate Methods
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (![scrollView isKindOfClass:[StringCollectionView class]]) return;
+    
+    CGFloat horizontalOffset = scrollView.contentOffset.x;
+    
+    StringCollectionView *collectionView = (StringCollectionView *)scrollView;
+    NSInteger index = collectionView.index;
+    self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
 }
 
 

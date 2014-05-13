@@ -10,8 +10,9 @@
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
+#import "StringCollectionView.h"
 
-@interface StringrMyStringsTableViewController () <UIActionSheetDelegate>
+@interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate>
 
 @property (nonatomic) BOOL editingStringsEnabled;
 
@@ -77,7 +78,6 @@
 
 
 
-
 #pragma mark - Actions
 
 // Handles the action of moving a user to edit the selected string.
@@ -100,6 +100,50 @@
 
 
 
+#pragma mark - UICollectionView Delegate
+
+- (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+    
+    if (stringPhotos) {
+        
+        if (self.editingStringsEnabled) {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+            [photoDetailVC setEditDetailsEnabled:YES];
+            
+            // Sets the photos to be displayed in the photo pager
+            [photoDetailVC setPhotosToLoad:stringPhotos];
+            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+            [photoDetailVC setDelegateForPhotoController:self]; // to delete from string directly
+            
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+            
+            [self presentViewController:navVC animated:YES completion:nil];
+        } else {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+            [photoDetailVC setEditDetailsEnabled:NO];
+            
+            // Sets the photos to be displayed in the photo pager
+            [photoDetailVC setPhotosToLoad:stringPhotos];
+            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+            
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            [self.navigationController pushViewController:photoDetailVC animated:YES];
+        }
+
+    }
+}
+
+
+
 #pragma mark - PFQueryTableViewController Delegate
 
 - (PFQuery *)queryForTable
@@ -118,7 +162,7 @@
 
 
 
-
+/*
 #pragma mark - StringView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
@@ -157,6 +201,7 @@
         }
     }
 }
+ */
 
 
 

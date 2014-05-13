@@ -20,9 +20,9 @@
 @protocol StringrStringDetailEditTableViewControllerDelegate <NSObject>
 
 @optional
-- (void)setStringTitle:(NSString *)title;
-- (void)setStringDescription:(NSString *)description;
-- (void)setStringWriteAccess:(BOOL)canWrite;
+- (void)setTitleForString:(NSString *)title;
+- (void)setDescriptionForString:(NSString *)description;
+- (void)setWriteAccessForString:(BOOL)canWrite;
 - (void)deleteString;
 
 - (void)changeTopHeightOfParallax;

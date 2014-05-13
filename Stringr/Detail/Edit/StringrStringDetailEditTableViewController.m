@@ -40,7 +40,7 @@
         self.selectedRow = 0; // locked row
     }
     
-    [self.delegate setStringWriteAccess:canWrite];
+    [self.delegate setWriteAccessForString:canWrite];
 }
 
 
@@ -63,7 +63,7 @@
         tempStringTitle = @"";
     }
     
-    [self.delegate setStringTitle:tempStringTitle];
+    [self.delegate setTitleForString:tempStringTitle];
 }
 
 - (void)setStringDescription:(NSString *)stringDescription
@@ -75,7 +75,7 @@
         tempStringDescription = @"";
     }
     
-    [self.delegate setStringDescription:tempStringDescription];
+    [self.delegate setDescriptionForString:tempStringDescription];
 }
 
 
@@ -218,11 +218,11 @@
         if (indexPath.row == 0) { // locked
             self.selectedRow = 0;
             
-            [self.delegate setStringWriteAccess:NO];
+            [self.delegate setWriteAccessForString:NO];
         } else if (indexPath.row == 1) { // public
             self.selectedRow = 1;
             
-            [self.delegate setStringWriteAccess:YES];
+            [self.delegate setWriteAccessForString:YES];
         }
         
         NSArray *indexPaths = @[indexPath];
