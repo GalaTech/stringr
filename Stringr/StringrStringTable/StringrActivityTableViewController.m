@@ -13,6 +13,7 @@
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrStringCommentsViewController.h"
+#import "StringrLoadMoreTableViewCell.h"
 
 @interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
 
@@ -38,8 +39,8 @@
     if (self) {
         self.parseClassName = kStringrActivityClassKey;
         self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = YES;
-        self.objectsPerPage = 15;
+//        self.paginationEnabled = YES;
+        self.objectsPerPage = 30;
     }
     
     return self;
@@ -91,6 +92,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+//    if (self.objects.count == self.objectsPerPage) {
+//        return self.objects.count + 1;
+//    }
+    
     return self.objects.count;
 }
 
@@ -101,24 +106,66 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == self.objects.count) [self loadNextPage];
+    
     PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row];
     NSString *activityType = [objectForIndexPath objectForKey:kStringrActivityTypeKey];
-    
     if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
-        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
-        [stringDetailVC setHidesBottomBarWhenPushed:YES];
-
-        [self.navigationController pushViewController:stringDetailVC animated:YES];
+        
+        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
+            StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+            stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+            [stringDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            [commentsVC setObjectForCommentThread:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+            commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            
+            NSArray *currentViewControllers = self.navigationController.viewControllers;
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+            [viewControllers addObject:stringDetailVC];
+            [viewControllers addObject:commentsVC];
+            
+            [self.navigationController setViewControllers:viewControllers animated:YES];
+        } else {
+            StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+            [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+            [stringDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            [self.navigationController pushViewController:stringDetailVC animated:YES];
+        }
     } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         
-        PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
-        [photoDetailVC setPhotosToLoad:@[photo]];
-        [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:photoDetailVC animated:YES];
+        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            
+            PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
+            [photoDetailVC setPhotosToLoad:@[photo]];
+            [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            [commentsVC setObjectForCommentThread:photo];
+            commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            
+            NSArray *currentViewControllers = self.navigationController.viewControllers;
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+            [viewControllers addObject:photoDetailVC];
+            [viewControllers addObject:commentsVC];
+            
+            [self.navigationController setViewControllers:viewControllers animated:YES];
+        } else {
+             StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+             
+             PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
+             [photoDetailVC setPhotosToLoad:@[photo]];
+             [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
+             [photoDetailVC setHidesBottomBarWhenPushed:YES];
+             
+             [self.navigationController pushViewController:photoDetailVC animated:YES];
+        }
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
@@ -127,6 +174,15 @@
         
         [self.navigationController pushViewController:profileVC animated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    if (indexPath.row == self.objects.count) {
+//        return 45.0f; // load more cell
+//    }
+    
+    return 75.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -162,8 +218,6 @@
     [activityQuery includeKey:kStringrActivityPhotoKey];
     [activityQuery setCachePolicy:kPFCachePolicyNetworkOnly];
     [activityQuery orderByDescending:@"createdAt"];
-
-
     
     // perform conditional to check if there is a network connection
     
@@ -181,7 +235,11 @@
     static NSString *cellIdentifier = @"activityCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    if ([cell isKindOfClass:[StringrActivityTableViewCell class]]) {
+    if (indexPath.row == self.objects.count) {
+        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+        UITableViewCell *loadMoreCell = (StringrLoadMoreTableViewCell *)[self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+        return loadMoreCell;
+    } else if ([cell isKindOfClass:[StringrActivityTableViewCell class]]) {
         StringrActivityTableViewCell *activityCell = (StringrActivityTableViewCell *)cell;
         [activityCell setDelegate:self];
         [activityCell setObjectForActivityCell:object];
@@ -190,6 +248,17 @@
     
     
     return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
+{
+    StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
+    
+    if (!loadMoreCell) {
+        loadMoreCell = [[StringrLoadMoreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"loadMoreCell"];
+    }
+    
+    return loadMoreCell;
 }
 
 

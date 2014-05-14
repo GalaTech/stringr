@@ -172,6 +172,34 @@
         
         NSString *activityUploadDate = [StringrUtility timeAgoFromDate:object.createdAt];
         [self.activityCellDateLabel setText:activityUploadDate];
+    } else if ([activityType isEqualToString:kStringrActivityTypeMention]) {
+        PFUser *activityUser = [object objectForKey:kStringrActivityFromUserKey];
+        [activityUser fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+            if (!error) {
+                _userForActivityCell = (PFUser *)user;
+                
+                NSString *activityUserFormattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]];
+                NSString *likedObjectText = [NSString stringWithFormat:@"%@ mentioned you in their %@", activityUserFormattedUsername, receiverObjectTypeName];
+                
+                NSMutableAttributedString *activityText = [[NSMutableAttributedString alloc] initWithString:likedObjectText];
+                NSRange textBeyondUsername = NSMakeRange(activityUserFormattedUsername.length, likedObjectText.length - activityUserFormattedUsername.length);
+                NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13], NSFontAttributeName,
+                                                [UIColor grayColor], NSForegroundColorAttributeName, nil];
+                
+                [activityText setAttributes:textAttributes range:textBeyondUsername];
+                
+                [self.activityCellTextLabel setAttributedText:activityText];
+                
+                
+                
+                PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
+                [self.activityCellProfileImage setFile:activityUserProfileImage];
+                [self.activityCellProfileImage loadInBackgroundWithIndicator];
+            }
+        }];
+        
+        NSString *activityUploadDate = [StringrUtility timeAgoFromDate:object.createdAt];
+        [self.activityCellDateLabel setText:activityUploadDate];
     }
 }
 

@@ -10,8 +10,9 @@
 #import "StringrStringDetailViewController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrNavigationController.h"
+#import "ZCImagePickerController.h"
 
-@interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZCImagePickerControllerDelegate>
 
 @property (strong, nonatomic) PFQuery *providedQueryForTable;
 
@@ -204,8 +205,13 @@
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 1) {
+        ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
+        imagePickerController.imagePickerDelegate = self;
+        imagePickerController.maximumAllowsSelectionCount = 5;
+        imagePickerController.mediaType = ZCMediaAllPhotos;
+        [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
         
-        
+        /*
         UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
         [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         
@@ -214,6 +220,7 @@
         
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
+         */
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
@@ -240,6 +247,40 @@
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
+}
+
+
+
+#pragma mark - ZCImagePickerController Delegate
+
+- (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSDictionary *imageDict in info) {
+        UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [images addObject:image];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^ {
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
+        [newStringVC setEditDetailsEnabled:YES];
+        
+        if (images.count <= 1) {
+            [newStringVC setUserSelectedPhoto:images[0]];
+        } else {
+            [newStringVC setUserSelectedPhotos:images];
+        }
+        
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
+}
+
+- (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

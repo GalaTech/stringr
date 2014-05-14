@@ -15,8 +15,9 @@
 #import "StringrStringCommentsViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
+#import "ZCImagePickerController.h"
 
-@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate>
+@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate, ZCImagePickerControllerDelegate>
 
 @property (weak, nonatomic) StringrStringDetailTopViewController *stringTopVC;
 @property (weak, nonatomic) StringrStringDetailTableViewController *stringTableVC;
@@ -61,6 +62,7 @@
                 // notice that there is explicit casting for these classes.
                 self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTopViewID];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhotos:self.userSelectedPhotos];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setDelegate:self];
                 
@@ -149,7 +151,7 @@
 {
     if (buttonIndex == 1) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults removeObjectForKey:kUserDefaultsWorkingStringSavedImagesKey];
+        [defaults removeObjectForKey:kNSUserDefaultsWorkingStringSavedImagesKey];
         [defaults synchronize];
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -186,15 +188,27 @@
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+
+        if (self.editDetailsEnabled) {
+            ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
+            imagePickerController.imagePickerDelegate = self;
+            imagePickerController.maximumAllowsSelectionCount = 5;
+            imagePickerController.mediaType = ZCMediaAllPhotos;
+            [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
+            
+        } else {
+             UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+             [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+             
+             // image picker needs a delegate so we can respond to its messages
+             [imagePickerController setDelegate:self];
+             
+             // Place image picker on the screen
+             [self presentViewController:imagePickerController animated:YES completion:nil];
+        }
         
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
         
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
+
     }
 }
 
@@ -214,19 +228,8 @@
             [tableVC.tableView setUserInteractionEnabled:NO];
             
             StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
-            [topVC addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
-                if (succeeded) {
-                    StringrPhotoDetailViewController *editPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-                    [editPhotoVC setEditDetailsEnabled:YES];
-                    [editPhotoVC setStringOwner:self.stringToLoad];
-                    [editPhotoVC setSelectedPhotoIndex:0];
-                    [editPhotoVC setPhotosToLoad:@[photo]];
-                    
-                    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
-                    
-                    [self presentViewController:navVC animated:YES completion:nil];
-                }
-            }];
+            [topVC setUserSelectedPhoto:image]; // proceeds to create and new PF photo object and presents photo edit view
+
         } else {
             StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
             [tableVC.tableView setUserInteractionEnabled:NO];
@@ -249,6 +252,34 @@
     }];
 }
 
+
+
+#pragma mark - ZCImagePickerController Delegate
+
+- (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSDictionary *imageDict in info) {
+        UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [images addObject:image];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^ {
+        StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+        
+        if (images.count <= 1) {
+            [topVC setUserSelectedPhoto:[images firstObject]]; //
+        } else {
+            [topVC setUserSelectedPhotos:images];
+        }
+    }];
+}
+
+- (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 

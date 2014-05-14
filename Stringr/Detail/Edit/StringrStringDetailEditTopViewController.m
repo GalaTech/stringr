@@ -34,26 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    __weak typeof (self) weakSelf = self;
-    if (self.userSelectedPhoto) {
-        [self.delegate toggleActionEnabledOnTableView:NO];
-        [self addImageToString:self.userSelectedPhoto withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
-            if (succeeded) {
-                StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-                [editPhotoVC setEditDetailsEnabled:YES];
-                [editPhotoVC setStringOwner:weakSelf.stringToLoad];
-                [editPhotoVC setSelectedPhotoIndex:0];
-                [editPhotoVC setPhotosToLoad:@[photo]];
-                
-                StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
-                
-                [weakSelf presentViewController:navVC animated:YES completion:nil];
-                
-                [weakSelf.delegate toggleActionEnabledOnTableView:YES];
-            }
-        }];
-    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -88,6 +69,45 @@
     return _stringPhotosToDelete;
 }
 
+- (void)setUserSelectedPhoto:(UIImage *)userSelectedPhoto
+{
+    _userSelectedPhoto = userSelectedPhoto;
+    
+    if (_userSelectedPhoto) {
+        __weak typeof (self) weakSelf = self;
+        [self.delegate toggleActionEnabledOnTableView:NO];
+        [self addImageToString:self.userSelectedPhoto withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
+            if (succeeded) {
+                StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+                [editPhotoVC setEditDetailsEnabled:YES];
+                [editPhotoVC setStringOwner:weakSelf.stringToLoad];
+                [editPhotoVC setSelectedPhotoIndex:0];
+                [editPhotoVC setPhotosToLoad:@[photo]];
+                
+                StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+                
+                [weakSelf presentViewController:navVC animated:YES completion:nil];
+                
+                [weakSelf.delegate toggleActionEnabledOnTableView:YES];
+                weakSelf.userSelectedPhoto = nil;
+            }
+        }];
+    }
+}
+
+- (void)setUserSelectedPhotos:(NSArray *)userSelectedPhotos
+{
+    _userSelectedPhotos = userSelectedPhotos;
+    
+    if (_userSelectedPhotos) {
+        for (UIImage *image in self.userSelectedPhotos) {
+            [self addImageToString:image withBlock:nil];
+        }
+        [self.stringCollectionView reloadData];
+        self.userSelectedPhotos = nil; // resets the array so that the assets won't be reused
+    }
+}
+
 
 
 
@@ -104,7 +124,6 @@
         NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", [StringrUtility randomStringWithLength:8]];
         
         PFFile *imageFileForUpload = [PFFile fileWithName:fileName data:resizedImageData];
-        //[imageFileForUpload saveInBackground];
         
         [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
         [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
@@ -125,10 +144,10 @@
         
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                NSUInteger indexOfImagePhoto = [self.stringPhotos indexOfObject:resizedImage];
-                [self.stringPhotos replaceObjectAtIndex:indexOfImagePhoto withObject:photo];
+                NSUInteger indexOfPhoto = [self.stringPhotos indexOfObject:resizedImage];
+                [self.stringPhotos replaceObjectAtIndex:indexOfPhoto withObject:photo];
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.stringPhotos count] - 1 inSection:0];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
                 [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
             } else {
                 [self.stringPhotos removeObject:resizedImage];
@@ -144,13 +163,12 @@
                 completionBlock(succeeded, photo, error);
             }
         }];
-        
+
         [self.stringPhotos addObject:resizedImage];
         
-        // if the collectionViewPhotos count == 1 that means we just added the first object.
-        // That means this must be a brand new string.
-        // For every other situation it must mean that we are adding a new photo to a string.
-        if (self.stringPhotos.count == 1) {
+        if (self.userSelectedPhotos) { // return because in the setter for userSelectedPhotos I reloadData after all images have been added
+            return;
+        } else if (self.stringPhotos.count == 1) { // this means it's a new string
             [self.stringCollectionView reloadData];
         } else {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.stringPhotos.count - 1 inSection:0];
@@ -233,6 +251,7 @@
 {
     if (self.stringPhotos.count > 0) {
         if (self.stringToLoad) {// editing pre-existing string
+            // Sets string data for all photos in the string
             for (int i = 0; i < self.stringPhotos.count; i++) {
                 PFObject *photo = [self.stringPhotos objectAtIndex:i];
                 
@@ -257,7 +276,10 @@
                 }
             }];
             
-            // deletes photos that the user selected in this session
+            // Creates activity notifications for any user who is mentioned in this strings title/description
+            [self findAndSendNotificationToMentionsInString:self.stringToLoad];
+            
+            // deletes photos that the user selected to delete in this session
             if (self.stringPhotosToDelete.count > 0) {
                 for (PFObject *photo in self.stringPhotosToDelete) {
                     [self deletePhoto:photo];
@@ -307,7 +329,7 @@
             
             [stringStatistics saveEventually];
             
-            // deletes photos that the user selected in this session
+            // deletes photos that the user selected to delete in this session
             if (self.stringPhotosToDelete.count > 0) {
                 for (PFObject *photo in self.stringPhotosToDelete) {
                     [self deletePhoto:photo];
@@ -325,6 +347,57 @@
     }
 }
 
+- (void)findAndSendNotificationToMentionsInString:(PFObject *)string
+{
+    // Extracts all of the @mentions from the title and description of the string
+    NSArray *titleMentions = [StringrUtility mentionsContainedWithinString:self.stringTitle];
+    NSArray *descriptionMentions = [StringrUtility mentionsContainedWithinString:self.stringDescription];
+    
+    NSMutableSet *combinedMentionsSet = [NSMutableSet setWithArray:titleMentions];
+    [combinedMentionsSet addObjectsFromArray:descriptionMentions];
+    
+    NSArray *combinedMentionsArray = [combinedMentionsSet allObjects];
+    
+    // Finds all users whose username matches these mentions.
+    PFQuery *mentionUsersQuery = [PFUser query];
+    [mentionUsersQuery whereKey:kStringrUserUsernameKey containedIn:combinedMentionsArray];
+    [mentionUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (!error) {
+            // Finds any activities that might already exist for the mentioned usernames on this string
+            PFQuery *activityMentionQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [activityMentionQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeMention];
+            [activityMentionQuery whereKey:kStringrActivityStringKey equalTo:string];
+            [activityMentionQuery whereKey:kStringrActivityToUserKey containedIn:users];
+            [activityMentionQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+            [activityMentionQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    // delete any activities that already existed so that there will not be duplicates
+                    for (PFObject *activity in activities) {
+                        [activity deleteInBackground];
+                    }
+                    
+                    // Create a new mention activity for all users who were mentioned in the string
+                    for (PFUser *user in users) {
+                        if (![user.objectId isEqualToString:[PFUser currentUser].objectId]){
+                            PFObject *mentionActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+                            [mentionActivity setObject:kStringrActivityTypeMention forKey:kStringrActivityTypeKey];
+                            [mentionActivity setObject:user forKey:kStringrActivityToUserKey];
+                            [mentionActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+                            [mentionActivity setObject:string forKey:kStringrActivityStringKey];
+                            
+                            PFACL *mentionACL = [PFACL ACLWithUser:[PFUser currentUser]];
+                            [mentionACL setPublicReadAccess:YES];
+                            [mentionACL setPublicWriteAccess:YES];
+                            [mentionActivity setACL:mentionACL];
+                            
+                            [mentionActivity saveInBackground];
+                        }
+                    }
+                }
+            }];
+        }
+    }];
+}
 
 
 
@@ -421,8 +494,9 @@
 {
     PFQuery *photoActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [photoActivityQuery whereKey:kStringrActivityPhotoKey equalTo:photo];
-    [photoActivityQuery whereKeyExists:kStringrActivityPhotoKey];
-    [photoActivityQuery whereKeyExists:kStringrActivityToUserKey];
+    //[photoActivityQuery whereKeyExists:kStringrActivityPhotoKey];
+    //[photoActivityQuery whereKeyExists:kStringrActivityToUserKey];
+    
     [photoActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
         if (!error) {
             for (PFObject *activity in activities) {
@@ -430,6 +504,7 @@
             }
         }
     }];
+    
     
     [photo deleteInBackground];
 }

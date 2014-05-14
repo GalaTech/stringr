@@ -650,6 +650,20 @@
     return  cellHeight;
 }
 
++ (NSArray *)mentionsContainedWithinString:(NSString *)string
+{
+    NSMutableArray *mentionsInString = [[NSMutableArray alloc] init];
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"@(\\w+)" options:0 error:&error];
+    NSArray *matches = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange wordRange = [match rangeAtIndex:1];
+        NSString* word = [[string substringWithRange:wordRange] lowercaseString];
+        [mentionsInString addObject:word];
+    }
+    
+    return [mentionsInString copy];
+}
 
 
 

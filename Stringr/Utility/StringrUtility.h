@@ -124,6 +124,7 @@
 + (CGFloat)heightForLabelWithNSString:(NSString *)text;
 + (CGFloat)heightForLabelWithNSString:(NSString *)text labelSize:(CGSize)size andAttributes:(NSDictionary *)attributes;
 
++ (NSArray *)mentionsContainedWithinString:(NSString *)string;
 
 
 + (BOOL)facebookUserCanLogin:(PFUser *)facebookUser;

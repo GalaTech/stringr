@@ -236,13 +236,32 @@
 {
     // Subscribe to private push channel
     if (user) {
-        // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
-        NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
-        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
-        [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
-        [[PFInstallation currentInstallation] saveEventually];
-        [user setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-        [user saveEventually];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        // checks for push enabled key first. If it exists we setup their channel based upon their preferences
+        // else we set it up regardless.
+        if ([defaults objectForKey:kNSUserDefaultsPushNotificationsEnabledKey]) {
+            BOOL pushEnabled = [defaults boolForKey:kNSUserDefaultsPushNotificationsEnabledKey];
+            if (pushEnabled) {
+                // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
+                NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
+                [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+                [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+                [[PFInstallation currentInstallation] saveEventually];
+            } else {
+                [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
+                [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];
+                [[PFInstallation currentInstallation] saveEventually];
+            }
+        } else {
+            // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
+            NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
+            [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+            [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+            [[PFInstallation currentInstallation] saveEventually];
+            [user setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+            [user saveEventually];
+        }
     }
 }
 

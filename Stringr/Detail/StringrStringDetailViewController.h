@@ -13,6 +13,7 @@
 @interface StringrStringDetailViewController : StringrDetailViewController
 
 @property (strong, nonatomic) UIImage *userSelectedPhoto; // from UIImagePickerView
+@property (strong, nonatomic) NSArray *userSelectedPhotos; // from Multi-Selected Image Picker
 
 @property (strong, nonatomic) PFObject *stringToLoad;
 

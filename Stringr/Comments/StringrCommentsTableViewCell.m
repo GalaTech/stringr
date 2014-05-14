@@ -9,6 +9,19 @@
 #import "StringrCommentsTableViewCell.h"
 #import "StringrProfileViewController.h"
 
+@interface StringrCommentsTableViewCell ()
+
+@property (nonatomic) NSUInteger rowNumberForCommentCell;
+@property (strong, nonatomic) PFUser *commentUser;
+
+@property (weak, nonatomic) IBOutlet StringrPathImageView *commentsProfileImage;
+
+@property (weak, nonatomic) IBOutlet UILabel *commentsProfileDisplayName;
+@property (weak, nonatomic) IBOutlet UILabel *commentsUploadDateTime;
+@property (weak, nonatomic) IBOutlet UILabel *commentsTextComment;
+
+@end
+
 @implementation StringrCommentsTableViewCell
 
 #pragma mark - Lifecycle
@@ -38,12 +51,11 @@
         
         [self.contentView addSubview:profileImage];
         [self.contentView addSubview:profileImageButton];
-        
-        
-        
     }
     return self;
 }
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -53,15 +65,51 @@
 }
 
 
-#pragma mark - Actions
+
+#pragma mark - Custom Accessors
+
+// Also Public
+- (void)setObjectForCommentCell:(PFObject *)object
+{
+    [self setupCommentCellWithObject:object];
+}
+
+- (void)setRowForCommentCell:(NSUInteger)row
+{
+    self.rowNumberForCommentCell = row;
+}
+
+
+#pragma mark - Action Handlers
 
 - (void)pushToUserProfile
 {
-    NSInteger photoIndex = self.commentsProfileImage.tag;
-    [self.delegate tappedCommentorProfileImage:photoIndex];
+    if ([self.delegate respondsToSelector:@selector(tappedCommentorUserProfileImage:)]) {
+        [self.delegate tappedCommentorUserProfileImage:self.commentUser];
+    }
 }
 
+
+
+
 #pragma mark - Private
+
+- (void)setupCommentCellWithObject:(PFObject *)object
+{
+    _commentUser = [object objectForKey:kStringrActivityFromUserKey];
+    
+    NSString *commentorUsername = [StringrUtility usernameFormattedWithMentionSymbol:[_commentUser objectForKey:kStringrUserUsernameCaseSensitive]];
+    [self.commentsProfileDisplayName setText:commentorUsername];
+    
+    [self.commentsTextComment setText:[object objectForKey:kStringrActivityContentKey]];
+    [self.commentsUploadDateTime setText:[StringrUtility timeAgoFromDate:object.createdAt]];
+    
+    PFFile *profileImageFile = [_commentUser objectForKey:kStringrUserProfilePictureThumbnailKey];
+    [self.commentsProfileImage setFile:profileImageFile];
+    // set the tag to the row so that we can access the correct user when tapping on a profile image
+    [self.commentsProfileImage loadInBackgroundWithIndicator];
+    
+}
 
 - (UIView *)commentSeperatorView
 {
@@ -90,7 +138,6 @@
     
     return profileImageButton;
 }
-
 
 
 @end

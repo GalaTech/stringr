@@ -132,28 +132,6 @@
     return [self.objects count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"commentCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if ([cell isKindOfClass:[StringrCommentsTableViewCell class]]) {
-        StringrCommentsTableViewCell *commentsCell = (StringrCommentsTableViewCell *)cell;
-        [commentsCell setDelegate:self];
-        
-        NSDictionary *comment = [self.commentsThread objectAtIndex:indexPath.row];
-        
-        [commentsCell.commentsProfileImage setImage:[UIImage imageNamed:[comment objectForKey:@"profileImage"]]];
-        [commentsCell.commentsProfileDisplayName setText:[comment objectForKey:@"profileDisplayName"]];
-        [commentsCell.commentsUploadDateTime setText:[comment objectForKey:@"uploadDate"]];
-        [commentsCell.commentsTextComment setText:[comment objectForKey:@"commentText"]];
-    }
-    
-    return cell;
-}
- */
-
 
 
 
@@ -192,7 +170,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == self.objects.count) {
-        return 45.0f;
+        return 45.0f; // load more cell
     }
     
     // dynamic comment cell height
@@ -204,29 +182,26 @@
 }
 
 
-/*
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat scrollViewHeight = CGRectGetHeight(self.tableView.bounds);
-    CGFloat scrollContentSizeHeight = scrollView.contentSize.height;
-    CGFloat bottomInset = scrollView.contentInset.bottom;
-    CGFloat scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight;
-
-    if (scrollView.contentOffset.y >= scrollViewBottomOffset) {
-        [self loadNextPage];
-    }
-}
- */
-
-
 
 
 #pragma mark - PFQueryTableView DataSource
 
 - (PFQuery *)queryForTable
-{
-    PFQuery *query = [self getQueryForTable];
+{   
+    NSString *forObjectKey = kStringrActivityStringKey;
+    
+    if ([self.objectForCommentThread.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+        forObjectKey = kStringrActivityPhotoKey;
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    [query whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
+    [query whereKey:forObjectKey equalTo:self.objectForCommentThread];
+    [query whereKeyExists:kStringrActivityFromUserKey];
+    [query whereKeyExists:kStringrActivityContentKey];
+    [query includeKey:kStringrActivityFromUserKey];
+    [query orderByDescending:@"createdAt"];
+
     
     if (self.objects.count == 0) {
         // I changed the cache policy from kPFCachePolicyCacheThenNetwork because this was resulting
@@ -240,9 +215,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     static NSString * cellIdentifier = @"commentCell";
-    //UITableViewCell *cell;
-    
-    
     
     if (indexPath.row == self.objects.count) {
         // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
@@ -250,46 +222,14 @@
         return loadMoreCell;
     } else {
         StringrCommentsTableViewCell *commentsCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        //StringrCommentsTableViewCell *commentsCell = (StringrCommentsTableViewCell *)cell;
         
         if (!commentsCell) {
             commentsCell = [[StringrCommentsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
         
         [commentsCell setDelegate:self];
-        [commentsCell.commentsTextComment setText:[object objectForKey:kStringrActivityContentKey]];
-        [commentsCell.commentsUploadDateTime setText:[StringrUtility timeAgoFromDate:object.createdAt]];
-        
-        PFUser *commentUser = [object objectForKey:kStringrActivityFromUserKey];
-        
-        [commentUser fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
-            NSString *commentorUsername = [StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]];
-            [commentsCell.commentsProfileDisplayName setText:commentorUsername];
-            
-            // allows easy access to this users profile when profile image is tapped
-            [self.commentUsers addObject:user];
-            
-            UIActivityIndicatorView *loadingProfileImageActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            float width = CGRectGetWidth(commentsCell.commentsProfileImage.frame) / 2;
-            float height = CGRectGetHeight(commentsCell.commentsProfileImage.frame) / 2;
-            [loadingProfileImageActivityIndicator setCenter:CGPointMake(width, height)];
-            [commentsCell.commentsProfileImage addSubview:loadingProfileImageActivityIndicator];
-            //[loadingProfileImageActivityIndicator startAnimating];
-            
-            PFFile *profileImageFile = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
-            [commentsCell.commentsProfileImage setFile:profileImageFile];
-            // set the tag to the row so that we can access the correct user when tapping on a profile image
-            [commentsCell.commentsProfileImage setTag:indexPath.row];
-            [commentsCell.commentsProfileImage loadInBackgroundWithIndicator];
-            
-            /*
-            [commentsCell.commentsProfileImage loadInBackground:^(UIImage *image, NSError *error) {
-                if (!error) {
-                    [loadingProfileImageActivityIndicator stopAnimating];
-                }
-            }];
-             */
-        }];
+        [commentsCell setObjectForCommentCell:object];
+        [commentsCell setRowForCommentCell:indexPath.row];
         
         return commentsCell;
     }
@@ -297,9 +237,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
-    //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
-    //[loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    
     StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
     
     if (!loadMoreCell) {
@@ -311,18 +248,16 @@
 
 
 
+
 #pragma mark - StringrCommentsTableViewCell Delegate
 
-- (void)tappedCommentorProfileImage:(NSInteger)index
+- (void)tappedCommentorUserProfileImage:(PFUser *)user
 {
     StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
     
-    PFUser *userForProfile = [self.commentUsers objectAtIndex:index];
-
-    [profileVC setUserForProfile:userForProfile];
+    [profileVC setUserForProfile:user];
     [profileVC setProfileReturnState:ProfileModalReturnState];
-    
-    
+
     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
     [self presentViewController:navVC animated:YES completion:nil];

@@ -54,10 +54,12 @@
     [self.pushNotificationsEnabledSwitch setEnabled:YES];
     [self.pushNotificationsEnabledSwitch addTarget:self action:@selector(toggledSwitch:) forControlEvents:UIControlEventValueChanged];
     
-    if ([[PFInstallation currentInstallation] objectForKey:kStringrInstallationPrivateChannelsKey]) {
-        [self.pushNotificationsEnabledSwitch setOn:YES];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:kNSUserDefaultsPushNotificationsEnabledKey]) {
+        BOOL switchEnabled = [defaults boolForKey:kNSUserDefaultsPushNotificationsEnabledKey];
+        self.pushNotificationsEnabledSwitch.on = switchEnabled;
     } else {
-        [self.pushNotificationsEnabledSwitch setOn:NO];
+        self.pushNotificationsEnabledSwitch.on = YES;
     }
     
     [cell addSubview:self.pushNotificationsEnabledSwitch];
@@ -66,6 +68,8 @@
 - (void)toggledSwitch:(UISwitch *)switchControl
 {
     if (switchControl.on) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNSUserDefaultsPushNotificationsEnabledKey];;
+        [[NSUserDefaults standardUserDefaults] synchronize];
         // see if we have a private channel key already associated with the current user
         // if we do set the current installation's channel to that of the current user.
         NSString *privateChannelName = [[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey];
@@ -74,6 +78,8 @@
             [[PFInstallation currentInstallation] saveEventually];
         }
     } else {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNSUserDefaultsPushNotificationsEnabledKey];;
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
         [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];
         [[PFInstallation currentInstallation] saveEventually];

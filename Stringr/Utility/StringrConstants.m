@@ -76,7 +76,8 @@ float const kStringrPFObjectDetailTableViewCellHeight = 41.5;
 
 #pragma mark - NSUserDefaults Keys
 
-NSString * const kUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";
+NSString * const kNSUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";
+NSString * const kNSUserDefaultsPushNotificationsEnabledKey = @"co.galatech.Stringr.userDefaults.pushNotificationsEnabledKey";
 
 
 #pragma mark - NSNotificationCenter Keys
@@ -119,6 +120,7 @@ NSString * const kStringrActivityTypeLike = @"like";
 NSString * const kStringrActivityTypeComment = @"comment";
 NSString * const kStringrActivityTypeFollow = @"follow";
 NSString * const kStringrActivityTypeJoin = @"join";
+NSString * const kStringrActivityTypeMention = @"mention";
 
 
 

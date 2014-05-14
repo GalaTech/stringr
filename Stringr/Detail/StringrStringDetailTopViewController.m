@@ -138,17 +138,12 @@
         
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                int indexOfImagePhoto = [self.stringPhotos indexOfObject:resizedImage];
+                NSUInteger indexOfImagePhoto = [self.stringPhotos indexOfObject:resizedImage];
                 [self.stringPhotos replaceObjectAtIndex:indexOfImagePhoto withObject:photo];
                 
-                /*
-                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.collectionViewPhotos count] - 1 inSection:0];
-                 if (self.stringCollectionView) {
-                 [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
-                 } else if (self.stringLargeCollectionView) {
-                 [self.stringLargeCollectionView reloadItemsAtIndexPaths:@[indexPath]];
-                 }
-                 */
+                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfImagePhoto inSection:0];
+
+                [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
             }
             
             if (completionBlock) {
@@ -162,30 +157,13 @@
         // That means this must be a brand new string.
         // For every other situation it must mean that we are adding a new photo to a string.
         if (self.stringPhotos.count == 1) {
-            
-            /*
-             if (self.stringCollectionView) {
-             [self.stringCollectionView reloadData];
-             } else if (self.stringLargeCollectionView) {
-             [self.stringLargeCollectionView reloadData];
-             }
-             */
+
             [self.stringCollectionView reloadData];
         } else {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.stringPhotos.count - 1 inSection:0];
             
             [self.stringCollectionView insertItemsAtIndexPaths:@[indexPath]];
             [self.stringCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-            
-            /*
-             if (self.stringCollectionView) {
-             [self.stringCollectionView insertItemsAtIndexPaths:@[indexPath]];
-             [self.stringCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-             } else if (self.stringLargeCollectionView) {
-             [self.stringLargeCollectionView insertItemsAtIndexPaths:@[indexPath]];
-             [self.stringLargeCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-             }
-             */
         }
     }
 }
@@ -253,7 +231,7 @@
     
     if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
         
-        PFObject *photo = self.stringPhotos[indexPath.item];
+        id photo = self.stringPhotos[indexPath.item];
         
         StringCollectionViewCell *stringCell = (StringCollectionViewCell *)cell;
         
@@ -271,6 +249,9 @@
                 [stringCell.loadingImageIndicator stopAnimating];
                 [stringCell.loadingImageIndicator setHidden:YES];
             }];
+        } else if ([photo isKindOfClass:[UIImage class]]) {
+            [stringCell.cellImage setImage:photo];
+            [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
         }
         
         return stringCell;

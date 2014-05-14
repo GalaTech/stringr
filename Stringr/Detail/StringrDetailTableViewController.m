@@ -166,20 +166,7 @@
     if (object) {
         StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
-        
-        NSString *forObjectKey = kStringrActivityStringKey;
-        
-        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            forObjectKey = kStringrActivityPhotoKey;
-        }
-        
-        PFQuery *query = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [query whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
-        [query whereKey:forObjectKey equalTo:object];
-        [query whereKeyExists:kStringrActivityFromUserKey];
-        [query orderByDescending:@"createdAt"];
-        [commentsVC setQueryForTable:query];
-        
+
         if (self.editDetailsEnabled) {
             [commentsVC setCommentsEditable:YES];
         }

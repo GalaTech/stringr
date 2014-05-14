@@ -32,7 +32,8 @@ extern float const kStringrPFObjectDetailTableViewCellHeight;
 
 #pragma mark - NSUserDefaults Keys
 
-extern NSString * const kUserDefaultsWorkingStringSavedImagesKey;
+extern NSString * const kNSUserDefaultsWorkingStringSavedImagesKey;
+extern NSString * const kNSUserDefaultsPushNotificationsEnabledKey;
 
 
 #pragma mark - NSNotificationCenter Keys
@@ -69,6 +70,7 @@ extern NSString * const kStringrActivityTypeLike;
 extern NSString * const kStringrActivityTypeComment;
 extern NSString * const kStringrActivityTypeFollow;
 extern NSString * const kStringrActivityTypeJoin;
+extern NSString * const kStringrActivityTypeMention;
 
 
 

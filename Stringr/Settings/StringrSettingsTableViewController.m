@@ -21,10 +21,11 @@
 #import <MessageUI/MessageUI.h>
 #import "AppDelegate.h"
 #import "PBWebViewController.h"
+#import "ZCImagePickerController.h"
 
 #import "StringView.h"
 
-@interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ZCImagePickerControllerDelegate>
 
 @end
 
@@ -393,6 +394,7 @@
             
             // forces the main content area to be blank with no content. That way if a user logs
             // back in we can easily reinstantiate the content area without any data remaining from the previous
+            // user
             UIViewController *blankVC = [[UIViewController alloc] init];
             [self.frostedViewController setContentViewController:blankVC];
             
@@ -547,16 +549,11 @@
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 1) {
-        
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+        ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
+        imagePickerController.imagePickerDelegate = self;
+        imagePickerController.maximumAllowsSelectionCount = 5;
+        imagePickerController.mediaType = ZCMediaAllPhotos;
+        [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
@@ -583,6 +580,41 @@
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
+}
+
+
+
+
+#pragma mark - ZCImagePickerController Delegate
+
+- (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSDictionary *imageDict in info) {
+        UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [images addObject:image];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^ {
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
+        [newStringVC setEditDetailsEnabled:YES];
+        
+        if (images.count <= 1) {
+            [newStringVC setUserSelectedPhoto:images[0]];
+        } else {
+            [newStringVC setUserSelectedPhotos:images];
+        }
+        
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
+}
+
+- (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -15,12 +15,13 @@
 @interface StringrStringDetailEditTopViewController : StringrStringDetailTopViewController <StringrStringDetailEditTableViewControllerDelegate>
 
 @property (strong, nonatomic) UIImage *userSelectedPhoto; // from UIImagePickerView
+@property (strong, nonatomic) NSArray *userSelectedPhotos; // from Multi-Selected Image picker
 
 /**
- * Inserts the user selected photo into the currently displayed string.
- * @param image The photo that the user selected to add to the string.
+ * Inserts the user selected photos into the currently displayed string.
+ * @param images The photos that the user selected to add to the string.
  */
-//- (void)addNewImageToString:(UIImage *)image withBlock:(void(^)(BOOL succeeded))completionBlock;
+//- (void)addImagesToString:(NSArray *)images;
 
 /**
  * Saves the current string to the server and publishes it.

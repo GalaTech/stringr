@@ -277,10 +277,10 @@ static float const contentViewWidth = 320.0;
                     
                     [UIView animateWithDuration:0.5 animations:^ {
                         [self.likesTextLabel setAlpha:1.0f];
-                        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likers.count]];
+                        [self.likesTextLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)likers.count]];
                         
                         [self.commentsTextLabel setAlpha:1.0f];
-                        [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", commentors.count]];
+                        [self.commentsTextLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)commentors.count]];
                     }];
                     
                 }];
