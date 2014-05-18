@@ -9,6 +9,7 @@
 #import "StringrUserConnectionsTableViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrUserTableViewCell.h"
+#import "StringrPathImageView.h"
 
 @interface StringrUserConnectionsTableViewController ()
 

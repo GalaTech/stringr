@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+
 @protocol StringrStringHeaderViewDelegate;
 
 @interface StringrStringHeaderView : UITableViewHeaderFooterView
 
-@property (nonatomic) NSUInteger section;
 @property (strong, nonatomic) PFObject *stringForHeader;
-@property (nonatomic) BOOL stringEditingEnabled;
+@property (nonatomic) NSUInteger section;
+@property (nonatomic) BOOL stringEditingEnabled; // default is NO
 @property (weak, nonatomic) id<StringrStringHeaderViewDelegate> delegate;
 
 @end
@@ -22,6 +23,14 @@
 
 @protocol StringrStringHeaderViewDelegate <NSObject>
 
-- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string;
+/**
+ * Tells the delegate that the header view was tapped at a specific section index.
+ * @param headerView The header view object that is notifying you of the tapping.
+ * @param section The section index of the header view that was selected.
+ * @param string The string object that is being represented at the selected header view section.
+ */
+- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string;
+
+
 
 @end

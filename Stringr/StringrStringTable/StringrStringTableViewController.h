@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "StringrTableViewController.h"
 #import "REFrostedViewController.h"
-#import "StringView.h"
 #import "StringrStringHeaderView.h"
 
-@interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate, StringViewDelegate, StringrStringHeaderViewDelegate>
+@interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate, StringrStringHeaderViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *stringPhotos;
 

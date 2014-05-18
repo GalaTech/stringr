@@ -7,13 +7,12 @@
 //
 
 #import "StringrLikedPhotosTableViewController.h"
-#import "StringView.h"
 #import "StringTableViewCell.h"
 #import "StringrPhotoDetailViewController.h"
 #import "NHBalancedFlowLayout.h"
 #import "StringCollectionViewCell.h"
 
-@interface StringrLikedPhotosTableViewController () <StringViewDelegate, NHBalancedFlowLayoutDelegate>
+@interface StringrLikedPhotosTableViewController () <NHBalancedFlowLayoutDelegate>
 
 @property (strong, nonatomic) NSMutableArray *collectionViewLikedPhotos;
 
@@ -61,10 +60,6 @@
             [self.collectionViewLikedPhotos addObject:[activityObject objectForKey:kStringrActivityPhotoKey]];
             PFObject *string = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
             [string fetchInBackgroundWithBlock:nil];
-            
-            // just puts the string owner of a photo as the string to load in the photo detail controller
-          //  self.stringToLoad = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
-            //[self.stringToLoad fetchIfNeededInBackgroundWithBlock:nil];
         }
 }
 
@@ -75,13 +70,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return 1;
 }
 
@@ -152,7 +145,6 @@
 {
     [super objectsWillLoad];
     
-    //[self.tableView reloadData];
 }
 
 
@@ -176,7 +168,6 @@
     
     if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
         
-        //NSArray *stringPhotos = self.stringPhotos[collectionView.index];
         PFObject *photo = self.collectionViewLikedPhotos[indexPath.item];
         
         StringCollectionViewCell *stringCell = (StringCollectionViewCell *)cell;
@@ -270,7 +261,6 @@
         // Sets the photos to be displayed in the photo pager
         [photoDetailVC setPhotosToLoad:photos];
         [photoDetailVC setSelectedPhotoIndex:index];
-        [photoDetailVC setStringOwner:nil];
         
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
         

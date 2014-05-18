@@ -45,6 +45,10 @@ extern NSString * const kNSNotificationCenterUpdateMenuProfileName;
 extern NSString * const kNSNotificationCenterStringPublishedSuccessfully;
 extern NSString * const kNSNotificationCenterStringDeletedSuccessfully;
 extern NSString * const kNSNotificationCenterApplicationDidReceiveRemoteNotification;
+extern NSString * const kNSNotificationCenterRemovedPhotoFromPublicString;
+extern NSString * const kNSNotificationCenterReloadPublicString;
+extern NSString * const kNSNotificationCenterRefreshStringDetails;
+
 
 
 
@@ -71,6 +75,7 @@ extern NSString * const kStringrActivityTypeComment;
 extern NSString * const kStringrActivityTypeFollow;
 extern NSString * const kStringrActivityTypeJoin;
 extern NSString * const kStringrActivityTypeMention;
+extern NSString * const kStringrActivityTypeAddedPhotoToPublicString;
 
 
 

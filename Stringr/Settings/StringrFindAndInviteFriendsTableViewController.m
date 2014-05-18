@@ -11,6 +11,7 @@
 #import "StringrUserTableViewCell.h"
 #import "StringrInviteUserTableViewCell.h"
 #import "StringrProfileViewController.h"
+#import "StringrPathImageView.h"
 #import "UIImage+Resize.h"
 
 @interface StringrFindAndInviteFriendsTableViewController () <FBFriendPickerDelegate>

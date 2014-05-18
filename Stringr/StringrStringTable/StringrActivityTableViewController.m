@@ -12,7 +12,7 @@
 #import "StringrNavigationController.h"
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
 #import "StringrLoadMoreTableViewCell.h"
 
 @interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
@@ -76,6 +76,10 @@
         return kStringrActivityTypeComment;
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
         return kStringrActivityTypeFollow;
+    } else if ([activityType isEqualToString:kStringrActivityTypeMention]) {
+        return kStringrActivityTypeMention;
+    } else if ([activityType isEqualToString:kStringrActivityTypeAddedPhotoToPublicString]) {
+        return kStringrActivityTypeAddedPhotoToPublicString;
     } else {
         return nil;
     }
@@ -110,15 +114,20 @@
     
     PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row];
     NSString *activityType = [objectForIndexPath objectForKey:kStringrActivityTypeKey];
-    if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
+    if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey] && [objectForIndexPath objectForKey:kStringrActivityStringKey]) { // added photo to public string
+        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
+        [self.navigationController pushViewController:stringDetailVC animated:YES];
+    } else if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
         if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
             StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
             stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
             [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
-            StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
             [commentsVC setObjectForCommentThread:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
             commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
@@ -136,7 +145,6 @@
             [self.navigationController pushViewController:stringDetailVC animated:YES];
         }
     } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
-        
         if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
             StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
@@ -146,7 +154,7 @@
             [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
             [photoDetailVC setHidesBottomBarWhenPushed:YES];
             
-            StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
             [commentsVC setObjectForCommentThread:photo];
             commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             

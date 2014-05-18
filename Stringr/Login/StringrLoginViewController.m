@@ -202,6 +202,8 @@
                 
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                 
+                [self.delegate logInViewController:self didLogInUser:user];
+                
                 // changes the modal transition from a cross-fade
                 [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -242,6 +244,8 @@
             if ([StringrUtility twitterUserCanLogin:user]) {
                 
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                
+                [self.delegate logInViewController:self didLogInUser:user];
                 
                 [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                 [self dismissViewControllerAnimated:YES completion:nil];

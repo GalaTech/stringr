@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrProfileViewController.h"
 #import "StringrCommentsTableViewCell.h"
@@ -15,7 +15,7 @@
 #import "StringrLoadMoreTableViewCell.h"
 #import "StringrWriteAndEditTextViewController.h"
 
-@interface StringrStringCommentsViewController () <UINavigationControllerDelegate, StringrCommentsTableViewCellDelegate, StringrWriteCommentDelegate>
+@interface StringrCommentsTableViewController () <UINavigationControllerDelegate, StringrCommentsTableViewCellDelegate, StringrWriteCommentDelegate>
 
 @property (strong, nonatomic) NSMutableArray *commentsThread;
 
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation StringrStringCommentsViewController
+@implementation StringrCommentsTableViewController
 
 #pragma mark - Lifecycle
 
@@ -144,6 +144,7 @@
          rowObjectId = [[[self.objects objectAtIndex:indexPath.row] objectForKey:kStringrActivityFromUserKey] objectId];
     }
     
+    // Either self is set to edit comments or the comment row at indexPath is owned by the current user
     return self.commentsEditable || [rowObjectId isEqualToString:[[PFUser currentUser] objectId]];
 }
 
@@ -157,12 +158,17 @@
             }
         }];
         
-        [[StringrCache sharedCache] decrementCommentCountForObject:commentToRemove];
+        [[StringrCache sharedCache] decrementCommentCountForObject:self.objectForCommentThread];
         
+        // decrement associated string statistic number of comments
         if ([StringrUtility objectIsString:self.objectForCommentThread]) {
             PFObject *stringStatistics = [self.objectForCommentThread objectForKey:kStringrStringStatisticsKey];
             [stringStatistics incrementKey:kStringrStatisticsCommentCountKey byAmount:@(-1)];
             [stringStatistics saveEventually];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(commentsTableView:didChangeCommentCountInSection:)]) {
+            [self.delegate commentsTableView:self didChangeCommentCountInSection:self.section];
         }
     }
 }
@@ -268,9 +274,18 @@
 
 #pragma mark - StringrWriteComment Delegate
 
-- (void)reloadCommentTableView
+- (void)commentViewController:(StringrWriteCommentViewController *)commentView didPostComment:(PFObject *)comment
 {
     [self loadObjects];
+    
+    if ([self.delegate respondsToSelector:@selector(commentsTableView:didChangeCommentCountInSection:)]) {
+        [self.delegate commentsTableView:self didChangeCommentCountInSection:self.section];
+    }
+}
+
+- (void)commentViewControllerDidCancel:(StringrWriteCommentViewController *)commentView
+{
+    
 }
 
 

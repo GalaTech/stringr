@@ -207,7 +207,7 @@
 
 #pragma mark - StringrStringHeaderView Delegate
 
-- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
+- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
     if (self.editingStringsEnabled) {
         StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];

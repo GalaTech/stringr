@@ -12,8 +12,9 @@
 #import "StringrDetailTitleTableViewCell.h"
 #import "StringrDetailDescriptionTableViewCell.h"
 #import "StringrDetailPhotoOwnerTableViewCell.h"
+#import "StringrCommentsTableViewController.h"
 
-@interface StringrDetailTableViewController : UITableViewController<QMBParallaxScrollViewHolder, StringrFooterViewDelegate, StringrDetailTableViewCellDelegate>
+@interface StringrDetailTableViewController : UITableViewController<QMBParallaxScrollViewHolder, StringrFooterViewDelegate, StringrDetailTableViewCellDelegate, StringrCommentsTableViewDelegate>
 
 @property (strong, nonatomic) NSArray *sectionHeaderTitles;
 @property (nonatomic) BOOL editDetailsEnabled;

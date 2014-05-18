@@ -10,4 +10,6 @@
 
 @interface StringrNoContentTableViewCell : UITableViewCell
 
+- (void)setNoContentTextForCell:(NSString *)text;
+
 @end

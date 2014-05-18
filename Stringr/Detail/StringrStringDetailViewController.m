@@ -12,7 +12,7 @@
 #import "StringrStringDetailTopViewController.h"
 #import "StringrStringDetailEditTopViewController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
 #import "ZCImagePickerController.h"

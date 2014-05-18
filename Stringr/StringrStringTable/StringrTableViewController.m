@@ -190,8 +190,6 @@
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];
     } else if (buttonIndex == 0) {
-        
-        
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -199,10 +197,8 @@
             [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
         }
         
-        // image picker needs a delegate,
         [imagePickerController setDelegate:self];
         
-        // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 1) {
         ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
@@ -211,16 +207,6 @@
         imagePickerController.mediaType = ZCMediaAllPhotos;
         [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
         
-        /*
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-         */
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
@@ -234,7 +220,6 @@
 
 #pragma mark - UIImagePicker Delegate
 
-//delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissViewControllerAnimated:YES completion:^ {

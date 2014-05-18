@@ -25,6 +25,7 @@
  */
 - (UIImage *)photoAtIndex:(NSUInteger)index;
 
+- (void)savePhoto:(PFObject *)photo;
 
 @end
 

@@ -175,72 +175,30 @@
 // only used on edit photo views
 - (void)savePhoto
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
-        
-        [self findAndSendNotificationToMentionsInPhoto:photo];
-        
-        
-        [photo saveInBackground];
-    }];
+    PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+    StringrPhotoDetailTopViewController *topVC = (StringrPhotoDetailTopViewController *)self.topPhotoVC;
+    StringrPhotoDetailEditTableViewController *editTableVC = (StringrPhotoDetailEditTableViewController *)self.tablePhotoVC;
+    
+    // only saves photo if title is set
+    if ([editTableVC photoIsPreparedToSave]) {
+        [topVC savePhoto:photo];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)cancelPhotoEdit
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)findAndSendNotificationToMentionsInPhoto:(PFObject *)photo
-{
-    // Extracts all of the @mentions from the title and description of the photo
-    NSArray *titleMentions = [StringrUtility mentionsContainedWithinString:[photo objectForKey:kStringrPhotoCaptionKey]];
-    NSArray *descriptionMentions = [StringrUtility mentionsContainedWithinString:[photo objectForKey:kStringrPhotoDescriptionKey]];
-    
-    NSMutableSet *combinedMentionsSet = [NSMutableSet setWithArray:titleMentions];
-    [combinedMentionsSet addObjectsFromArray:descriptionMentions];
-    
-    NSArray *combinedMentionsArray = [combinedMentionsSet allObjects];
-    
-    // Finds all users whose username matches these mentions.
-    PFQuery *mentionUsersQuery = [PFUser query];
-    [mentionUsersQuery whereKey:kStringrUserUsernameKey containedIn:combinedMentionsArray];
-    [mentionUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-        if (!error) {
-            // Finds any activities that might already exist for the mentioned usernames on this photo
-            PFQuery *activityMentionQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-            [activityMentionQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeMention];
-            [activityMentionQuery whereKey:kStringrActivityPhotoKey equalTo:photo];
-            [activityMentionQuery whereKey:kStringrActivityToUserKey containedIn:users];
-            [activityMentionQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-            [activityMentionQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                if (!error) {
-                    // delete any activities that already existed so that there will not be duplicates
-                    for (PFObject *activity in activities) {
-                        [activity deleteInBackground];
-                    }
-                    
-                    // Create a new mention activity for all users who were mentioned in the photo
-                    for (PFUser *user in users) {
-                        if (![user.objectId isEqualToString:[PFUser currentUser].objectId]){
-                            PFObject *mentionActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
-                            [mentionActivity setObject:kStringrActivityTypeMention forKey:kStringrActivityTypeKey];
-                            [mentionActivity setObject:user forKey:kStringrActivityToUserKey];
-                            [mentionActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
-                            [mentionActivity setObject:photo forKey:kStringrActivityPhotoKey];
-                            
-                            PFACL *mentionACL = [PFACL ACLWithUser:[PFUser currentUser]];
-                            [mentionACL setPublicReadAccess:YES];
-                            [mentionACL setPublicWriteAccess:YES];
-                            [mentionActivity setACL:mentionACL];
-                            
-                            [mentionActivity saveInBackground];
-                        }
-                    }
-                }
-            }];
-        }
+    [self dismissViewControllerAnimated:YES completion:^ {
+        // removes the new photo object from the current string and deletes the photo from server
+        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+        NSDictionary *detailsDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:photo, @"photo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadPublicString" object:nil userInfo:detailsDictionary];
+        
+        [photo deleteInBackground];
     }];
 }
+
+
 
 
 #pragma mark - ParallaxController Delegate
@@ -299,17 +257,6 @@
     }
 }
 
-
-
-#pragma mark - StringrPhotoDetailEditTableViewControllerDelegate
-
-- (void)deletePhotoFromString:(PFObject *)photo
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    [photo deleteEventually];
- 
-}
 
 
 @end

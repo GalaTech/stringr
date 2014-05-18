@@ -7,8 +7,6 @@
 //
 
 #import "StringCollectionView.h"
-#import "StringCollectionViewCell.h"
-#import "NHBalancedFlowLayout.h"
 
 @interface StringCollectionView ()
 

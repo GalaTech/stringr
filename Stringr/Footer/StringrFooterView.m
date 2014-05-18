@@ -7,6 +7,7 @@
 //
 
 #import "StringrFooterView.h"
+#import "StringrPathImageView.h"
 
 @interface StringrFooterView ()
 
@@ -91,13 +92,13 @@ static float const contentViewWidth = 320.0;
     //[self setLikesWithObject:object];
 }
 
-/*
 - (void)refreshLikesAndComments
 {
-    [self setCommentsWithObject:self.objectForFooterView];
-    [self setLikesWithObject:self.objectForFooterView];
+    [self setCommentsAndLikesWithObject:self.objectForFooterView];
 }
- */
+
+
+
 
 
 
@@ -224,7 +225,7 @@ static float const contentViewWidth = 320.0;
     if (object) {
         
         NSDictionary *objectAttributes = [[StringrCache sharedCache] attributesForObject:object];
-        
+        //NSDictionary *objectAttributes = nil;
         if (objectAttributes) {
             [self setLikesButtonState:[[StringrCache sharedCache] isObjectLikedByCurrentUser:object]];
             
@@ -379,7 +380,9 @@ static float const contentViewWidth = 320.0;
 // Sends user to current strings comments section and changes text color
 - (void)pushCommentsButton
 {
-    [self.delegate stringrFooterView:self didTapCommentButton:self.commentsButton objectToCommentOn:self.objectForFooterView];
+    if ([self.delegate respondsToSelector:@selector(stringrFooterView:didTapCommentButton:objectToCommentOn:inSection:)]) {
+        [self.delegate stringrFooterView:self didTapCommentButton:self.commentsButton objectToCommentOn:self.objectForFooterView inSection:self.section];
+    }
 }
 
 - (void)addLikesButtonAtLocation:(CGPoint)location withSize:(CGSize)size
@@ -439,7 +442,10 @@ static float const contentViewWidth = 320.0;
         }];
     }
     
-    [self.delegate stringrFooterView:self didTapLikeButton:self.likesButton objectToLike:self.objectForFooterView];
+    if ([self.delegate respondsToSelector:@selector(stringrFooterView:didTapLikeButton:objectToLike:inSection:)]) {
+        [self.delegate stringrFooterView:self didTapLikeButton:self.likesButton objectToLike:self.objectForFooterView inSection:self.section];
+    }
+    
 }
 
 - (void)setLikesButtonState:(BOOL)selected
@@ -460,7 +466,5 @@ static float const contentViewWidth = 320.0;
     }
 }
 
-
-
-
 @end
+

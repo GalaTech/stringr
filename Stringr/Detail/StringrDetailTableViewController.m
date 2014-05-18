@@ -9,7 +9,6 @@
 #import "StringrDetailTableViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
 #import "StringrSearchTableViewController.h"
 
 @interface StringrDetailTableViewController () 
@@ -140,32 +139,17 @@
     }
 }
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object inSection:(NSUInteger)section
 {
-    /*
-    if (object) {
-        if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
-            [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        } else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            [StringrUtility likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        }
-    }
-     */
+
 }
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
+        [commentsVC setDelegate:self];
 
         if (self.editDetailsEnabled) {
             [commentsVC setCommentsEditable:YES];
@@ -174,6 +158,25 @@
         [commentsVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:commentsVC animated:YES];
+    }
+}
+
+
+
+
+#pragma mark - StringrCommentsTableView Delegate
+
+- (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
+{
+    NSIndexPath *footerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *footerCell = [self.tableView cellForRowAtIndexPath:footerIndexPath];
+    
+    // finds the footer view inside of the footer table view cell and updates the comments/like amount
+    for (UIView *view in footerCell.contentView.subviews) {
+        if ([view isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *footerView = (StringrFooterView *)view;
+            [footerView refreshLikesAndComments];
+        }
     }
 }
 

@@ -14,10 +14,9 @@
 #import "StringrNavigationController.h"
 #import "StringrFooterView.h"
 
-@interface StringrStringDetailTopViewController () <NHBalancedFlowLayoutDelegate>
+@interface StringrStringDetailTopViewController () <NHBalancedFlowLayoutDelegate, StringrPhotoDetailEditTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *stringView;
-@property (weak, nonatomic) StringView *oldStringView;
 @property (strong, nonatomic) StringCollectionView *stringCollectionView;
 
 @end
@@ -51,14 +50,14 @@
 {
     [super viewWillAppear:animated];
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadString) name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoRemovedFromPublicString:) name:kNSNotificationCenterReloadPublicString object:nil];
+
 }
- 
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterDeletePhotoFromStringKey object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,6 +67,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterReloadPublicString object:nil];
+    
     NSLog(@"dealloc string detail top");
 }
 
@@ -85,6 +86,25 @@
 }
 
 
+
+#pragma mark - Action Handlers
+
+- (void)photoRemovedFromPublicString:(NSNotification *)notification
+{
+    // gets the photo that has been deleted by a user and removes it from the current string
+    NSDictionary *notificationDictionary = [notification userInfo];
+    PFObject *photo = [notificationDictionary objectForKey:@"photo"];
+    
+    if (photo) {
+        NSInteger indexOfPhoto = [self.stringPhotos indexOfObject:photo];
+
+        if (indexOfPhoto <= self.stringPhotos.count) {
+            [self.stringPhotos removeObjectAtIndex:indexOfPhoto];
+            NSIndexPath *photoIndexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
+            [self.stringCollectionView deleteItemsAtIndexPaths:@[photoIndexPath]];
+        }
+    }
+}
 
 
 #pragma mark - Public
@@ -146,6 +166,8 @@
                 [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
             }
             
+            [self sendActivityNotificationForAddingPhoto:photo];
+            
             if (completionBlock) {
                 completionBlock(succeeded, photo, error);
             }
@@ -168,31 +190,6 @@
     }
 }
 
-/*
-- (void)addImageToPublicString:(UIImage *)image withBlock:(void (^)(BOOL))completionBlock
-{
-    // creates a local weak version of self so that I can use it inside of the block
-    __weak typeof(self) weakSelf = self;
-
-    [self.oldStringView addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
-        if (succeeded) {
-            StringrPhotoDetailViewController *editPhotoVC = [weakSelf.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            [editPhotoVC setEditDetailsEnabled:YES];
-            [editPhotoVC setStringOwner:weakSelf.stringToLoad];
-            [editPhotoVC setSelectedPhotoIndex:0];
-            [editPhotoVC setPhotosToLoad:@[photo]];
-            
-            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
-            
-            [weakSelf presentViewController:navVC animated:YES completion:^ {
-                if (completionBlock) {
-                    completionBlock(succeeded);
-                }
-            }];
-        }
-    }];
-}
-*/
 
 
 
@@ -210,6 +207,26 @@
     return balancedLayout;
 }
 
+/// Sends an activity notification to the string owner.
+/// @param photo The photo that has been added to the string
+- (void)sendActivityNotificationForAddingPhoto:(PFObject *)photo
+{
+    PFUser *user = [self.stringToLoad objectForKey:kStringrStringUserKey];
+    
+    PFObject *addPhotoToPublicStringActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+    [addPhotoToPublicStringActivity setObject:kStringrActivityTypeAddedPhotoToPublicString forKey:kStringrActivityTypeKey];
+    [addPhotoToPublicStringActivity setObject:user forKey:kStringrActivityToUserKey];
+    [addPhotoToPublicStringActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+    [addPhotoToPublicStringActivity setObject:self.stringToLoad forKey:kStringrActivityStringKey];
+    [addPhotoToPublicStringActivity setObject:photo forKey:kStringrActivityPhotoKey];
+    
+    PFACL *addPhotoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [addPhotoACL setPublicReadAccess:YES];
+    [addPhotoACL setPublicWriteAccess:YES];
+    [addPhotoToPublicStringActivity setACL:addPhotoACL];
+    
+    [addPhotoToPublicStringActivity saveInBackground];
+}
 
 
 
@@ -283,6 +300,7 @@
     }
     
 }
+
 
 
 

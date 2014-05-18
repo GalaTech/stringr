@@ -10,6 +10,11 @@
 
 @interface StringCollectionViewCell : UICollectionViewCell
 
+/**
+ * This image view fills the entire frame of the collection view cell. It has autolyaout applied
+ * so that it will dynamically increase no matter the size of the image it contains. The image will
+ * generally be of type PFObject, which will be loaded asynchronously into the image view. 
+ */
 @property (weak, nonatomic) IBOutlet PFImageView *cellImage;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingImageIndicator;
 

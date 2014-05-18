@@ -7,7 +7,7 @@
 //
 
 #import "StringrUserTableViewCell.h"
-
+#import "StringrPathImageView.h"
 
 @implementation StringrUserTableViewCell
 

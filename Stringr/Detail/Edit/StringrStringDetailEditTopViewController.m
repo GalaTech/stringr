@@ -238,10 +238,19 @@
 
 - (BOOL)stringIsPreparedToPublish
 {
+    // All photos must be of type PFObject
     for (PFObject *photo in self.stringPhotos) {
         if (![photo isKindOfClass:[PFObject class]]) {
             return NO;
         }
+    }
+    
+    // String title must contain characters/content
+    if ([self.stringTitle isEqualToString:@"Enter the title for your String"] || ![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.stringTitle]) {
+        UIAlertView *mustEditTitle = [[UIAlertView alloc] initWithTitle:@"String Title" message:@"You need to set a title for your String!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [mustEditTitle show];
+        
+        return NO;
     }
     
     return YES;
@@ -459,34 +468,30 @@
         [stringStatisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 for (PFObject *statistic in objects) {
-                    [statistic deleteEventually];
+                    [statistic deleteInBackground];
                 }
             }
-        }];
-        
-        PFQuery *activitiesForString = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [activitiesForString whereKeyExists:kStringrActivityStringKey];
-        [activitiesForString whereKeyExists:kStringrActivityToUserKey];
-        [activitiesForString whereKey:kStringrActivityStringKey equalTo:self.stringToLoad];
-        [activitiesForString findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-            if (!error) {
-                for (PFObject *activity in activities) {
-                    [activity deleteInBackground];
+            
+            PFQuery *activitiesForString = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [activitiesForString whereKey:kStringrActivityStringKey equalTo:self.stringToLoad];
+            [activitiesForString findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    for (PFObject *activity in activities) {
+                        [activity deleteInBackground];
+                    }
                 }
-            }
+                
+                [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringDeletedSuccessfully object:nil];
+                    }
+                }];
+                
+                for (PFObject *photo in self.stringPhotos) {
+                    [self deletePhoto:photo];
+                }
+            }];
         }];
-        
-        [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringDeletedSuccessfully object:nil];
-            }
-        }];
-        
-        for (PFObject *photo in self.stringPhotos) {
-            [self deletePhoto:photo];
-        }
-        
-        [[PFUser currentUser] saveInBackground];
     }
 }
 
@@ -494,19 +499,15 @@
 {
     PFQuery *photoActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [photoActivityQuery whereKey:kStringrActivityPhotoKey equalTo:photo];
-    //[photoActivityQuery whereKeyExists:kStringrActivityPhotoKey];
-    //[photoActivityQuery whereKeyExists:kStringrActivityToUserKey];
-    
     [photoActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
         if (!error) {
             for (PFObject *activity in activities) {
                 [activity deleteInBackground];
             }
+            
+            [photo deleteInBackground];
         }
     }];
-    
-    
-    [photo deleteInBackground];
 }
 
 

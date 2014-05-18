@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrPathImageView.h"
-#import "ACPButton.h"
+
+@class StringrPathImageView;
 
 @interface StringrProfileTopViewController : UIViewController
 
@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet StringrPathImageView *profileImage;
 
 @property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
-//@property (weak, nonatomic) IBOutlet UITextView *profileDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *profileDescriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;

@@ -163,7 +163,10 @@
         [self dismissViewControllerAnimated:YES completion:^ {
             [self.comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
-                    [self.delegate reloadCommentTableView];
+                    if ([self.delegate respondsToSelector:@selector(commentViewController:didPostComment:)]) {
+                        [self.delegate commentViewController:self didPostComment:self.comment];
+                    }
+                    
                     [self sendCommentPushNotification];
                 } else if (error && error.code == kPFErrorObjectNotFound) {
                     [[StringrCache sharedCache] decrementCommentCountForObject:self.objectToCommentOn];
@@ -221,6 +224,10 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
+        if ([self.delegate respondsToSelector:@selector(commentViewControllerDidCancel:)]) {
+            [self.delegate commentViewControllerDidCancel:self];
+        }
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

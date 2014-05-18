@@ -11,7 +11,6 @@
 @interface StringrInviteUserTableViewCell : UITableViewCell
 
 - (void)setUserToInviteDisplayName:(NSString *)name;
-//- (void)setUserToInviteProfileImage:(UIImage *)image;
 - (void)setUserToInviteProfileImageURL:(NSURL *)url;
 
 @end

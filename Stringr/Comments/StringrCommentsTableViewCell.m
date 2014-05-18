@@ -8,6 +8,7 @@
 
 #import "StringrCommentsTableViewCell.h"
 #import "StringrProfileViewController.h"
+#import "StringrPathImageView.h"
 
 @interface StringrCommentsTableViewCell ()
 

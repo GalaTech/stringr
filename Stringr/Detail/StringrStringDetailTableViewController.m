@@ -37,6 +37,17 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+}
+
 - (void)dealloc
 {
     NSLog(@"dealloc string detail table");
@@ -50,6 +61,23 @@
 - (NSArray *)sectionHeaderTitles
 {
     return @[@"Info", @"Privacy"];
+}
+
+
+
+#pragma mark - Action Handlers
+
+- (void)refreshStringDetails
+{
+    NSIndexPath *stringDetailsIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *stringDetailsCell = [self.tableView cellForRowAtIndexPath:stringDetailsIndexPath];
+    
+    for (UIView *detailsCellSubview in stringDetailsCell.contentView.subviews) {
+        if ([detailsCellSubview isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *stringDetailView = (StringrFooterView *)detailsCellSubview;
+            [stringDetailView refreshLikesAndComments];
+        }
+    }
 }
 
 
@@ -89,12 +117,14 @@
                 cellIdentifier = @"string_mainDetails";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 
+                if (!cell) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                }
+                
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) fullWidthCell:YES withObject:self.stringDetailsToLoad];
                 [mainDetailView setDelegate:self];
                  
-                [cell addSubview:mainDetailView];
-                
-                //return footerCell;
+                [cell.contentView addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
                 cellIdentifier = @"string_titleCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];

@@ -73,9 +73,6 @@
     if (![[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey] isEqualToString:@""]) {
         self.photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
         self.photoDescription = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
-    } else {
-        self.photoTitle = @"Enter the title for your Photo";
-        self.photoDescription = @"Enter the description for your Photo";
     }
 }
 
@@ -139,25 +136,6 @@
                 }
             }
             break;
-            
-            /*
-        case 1:
-            if (indexPath.row == 0) {
-                cellIdentifier = @"photo_stringOwnerCell";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                
-                if ([cell isKindOfClass:[StringrDetailPhotoOwnerTableViewCell class]]) {
-                    StringrDetailPhotoOwnerTableViewCell *photoOwnerCell = (StringrDetailPhotoOwnerTableViewCell *)cell;
-                    
-                    NSString *stringOwnerTitle = [self.stringOwner objectForKey:kStringrStringTitleKey];
-                    [photoOwnerCell setStringOwnerNameForCell:stringOwnerTitle];
-                    
-                    return photoOwnerCell;
-                }
-
-            }
-             
-             */
         default:
             break;
     }
@@ -175,16 +153,11 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
-            return [StringrUtility heightForLabelWithNSString:self.photoTitle]; // the 31 is for additional margin space
+            return [StringrUtility heightForLabelWithNSString:self.photoTitle];
         } else if (indexPath.row == 2) {
-            return  [StringrUtility heightForLabelWithNSString:self.photoDescription]; // the 31 is for additional margin space
+            return  [StringrUtility heightForLabelWithNSString:self.photoDescription];
         }
     }
-    
-    /*else if (indexPath.section == 1) {
-        return 55.0f;
-    }
-     */
     
     return 44.0f;
 }

@@ -12,15 +12,26 @@
 
 @interface StringrWriteCommentViewController : UIViewController
 
-@property (weak, nonatomic) id<StringrWriteCommentDelegate> delegate;
-@property (strong, nonatomic) PFObject *objectToCommentOn;
+@property (strong, nonatomic) PFObject *objectToCommentOn; // String or photo object
 @property (strong, nonatomic) NSArray *commentors;
+@property (weak, nonatomic) id<StringrWriteCommentDelegate> delegate;
 
 @end
 
 @protocol StringrWriteCommentDelegate <NSObject>
 
-- (void)reloadCommentTableView;
+/**
+ * Alerts the delegate that the user did post a comment. 
+ * @param commentView The comment view that posted the comment object
+ * @param comment The comment that was posted by the user
+ */
+- (void)commentViewController:(StringrWriteCommentViewController *)commentView didPostComment:(PFObject *)comment;
+
+/**
+ * Alerts the delegate that the user cancelled the comment view
+ * @param commentView The modally presented comment view.
+ */
+- (void)commentViewControllerDidCancel:(StringrWriteCommentViewController *)commentView;
 
 @end
 

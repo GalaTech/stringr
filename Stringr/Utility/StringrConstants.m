@@ -92,7 +92,9 @@ NSString * const kNSNotificationCenterUpdateMenuProfileName = @"co.galatech.Stri
 NSString * const kNSNotificationCenterStringPublishedSuccessfully = @"co.galatech.Stringr.NSNotificationCenter.stringPublishedSuccessfully";
 NSString * const kNSNotificationCenterStringDeletedSuccessfully = @"co.galatech.Stringr.NSNotificationCenter.stringDeletedSuccessfully";
 NSString * const kNSNotificationCenterApplicationDidReceiveRemoteNotification = @"co.galatech.Stringr.NSNotificationCenter.applicationDidReceivePushNotification";
-
+NSString * const kNSNotificationCenterRemovedPhotoFromPublicString = @"co.galatech.Stringr.NSNotificationCenter.removedPhotoFromPublicString";
+NSString * const kNSNotificationCenterReloadPublicString = @"co.galatech.Stringr.NSNotificationCenter.reloadPublicString";
+NSString * const kNSNotificationCenterRefreshStringDetails = @"co.galatech.Stringr.NSNotificationCenter.refreshStringDetails";
 
 
 #pragma mark - Installation Class
@@ -121,6 +123,7 @@ NSString * const kStringrActivityTypeComment = @"comment";
 NSString * const kStringrActivityTypeFollow = @"follow";
 NSString * const kStringrActivityTypeJoin = @"join";
 NSString * const kStringrActivityTypeMention = @"mention";
+NSString * const kStringrActivityTypeAddedPhotoToPublicString = @"addedPhoto";
 
 
 

@@ -23,7 +23,6 @@
 #import "PBWebViewController.h"
 #import "ZCImagePickerController.h"
 
-#import "StringView.h"
 
 @interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ZCImagePickerControllerDelegate>
 

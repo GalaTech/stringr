@@ -897,10 +897,10 @@
             </objects>
             <point key="canvasLocation" x="260" y="-5049"/>
         </scene>
-        <!--Stringr String Comments View Controller-->
+        <!--Stringr Comments Table View Controller-->
         <scene sceneID="YEM-zs-tD1">
             <objects>
-                <tableViewController storyboardIdentifier="StringCommentsVC" id="yhs-0g-vKw" customClass="StringrStringCommentsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="StringCommentsVC" id="yhs-0g-vKw" customClass="StringrCommentsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="xU1-vH-SPK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

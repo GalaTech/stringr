@@ -7,14 +7,11 @@
 //
 
 #import "StringTableViewCell.h"
-#import "StringView.h"
 #import "StringCollectionViewCell.h"
 #import "StringrPathImageView.h"
 #import "NHBalancedFlowLayout.h"
 
 @interface StringTableViewCell ()
-
-//@property (weak, nonatomic) StringView *stringView;
 
 @end
 
@@ -28,12 +25,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        /*
-        // Initialization code
-         _stringView= [[NSBundle mainBundle] loadNibNamed:@"StringView" owner:self options:nil][0];
-        _stringView.frame = self.bounds;
-        [self.contentView addSubview:_stringView];
-         */
         
         NHBalancedFlowLayout *balancedLayout = [[NHBalancedFlowLayout alloc] init];
         balancedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -61,16 +52,6 @@
     self.stringCollectionView.frame = self.contentView.bounds;
 }
 
-/*
-- (void)prepareForReuse
-{
-}
-
-- (void)dealloc
-{
-    NSLog(@"dealloc string table view cell");
-}
- */
 
 
 
@@ -84,42 +65,5 @@
     
     [self.stringCollectionView reloadData];
 }
-
-/*
-- (void)setCollectionData:(NSArray *)collectionData
-{
-    [_stringCollectionView setCollectionData:[collectionData mutableCopy]];
-}
- */
-
-/*
-- (void)setStringObject:(PFObject *)string
-{
-    [_stringView setStringObject:string];
-}
-
-- (void)setStringViewDelegate:(id<StringViewDelegate>)delegate
-{
-    [_stringView setDelegate:delegate];
-}
-
-- (void)queryPhotosFromQuery:(PFQuery *)query
-{
-    [_stringView queryPhotosFromQuery:query];
-}
-
-- (void)reloadString
-{
-    [_stringView reloadString];
-}
-*/
-
-#pragma mark - Private
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-}
-
 
 @end

@@ -11,18 +11,19 @@
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
 #import "StringrMyStringsTableViewController.h"
 #import "StringrUserTableViewController.h"
 #import "StringTableViewCell.h"
 #import "StringCollectionViewCell.h"
 #import "StringrFooterView.h"
 #import "StringrLoadMoreTableViewCell.h"
+#import "StringrNoContentView.h"
 #import "NHBalancedFlowLayout.h"
 
 
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -48,6 +49,7 @@
 - (void)dealloc
 {
     [PFQuery clearAllCachedResults];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterRefreshStringDetails object:nil];
     NSLog(@"dealloc string table");
 }
 
@@ -64,7 +66,7 @@
 {
     [super viewWillAppear:animated];
     
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshStringDetails) name:kNSNotificationCenterRefreshStringDetails object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -81,10 +83,27 @@
 
 
 
+#pragma mark - Action Handlers
+
+- (void)refreshStringDetails
+{
+    NSIndexPath *stringDetailsIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *stringDetailsCell = [self.tableView cellForRowAtIndexPath:stringDetailsIndexPath];
+    
+    for (UIView *detailsCellSubview in stringDetailsCell.contentView.subviews) {
+        if ([detailsCellSubview isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *stringDetailView = (StringrFooterView *)detailsCellSubview;
+            [stringDetailView refreshLikesAndComments];
+        }
+    }
+}
+
+
+
 
 #pragma mark - Private
 
-- (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object
+- (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object inSection:(NSUInteger)section
 {
     static float const contentViewWidth = 320.0;
     static float const contentViewHeight = 41.5;
@@ -93,6 +112,7 @@
     float footerXLocation = (contentViewWidth - (contentViewWidth * contentFooterViewWidthPercentage)) / 2;
     CGRect footerRect = CGRectMake(footerXLocation, 0, contentViewWidth * contentFooterViewWidthPercentage, contentViewHeight);
     StringrFooterView *footerView = [[StringrFooterView alloc] initWithFrame:footerRect fullWidthCell:NO withObject:object];
+    [footerView setSection:section];
     [footerView setDelegate:self];
     
     return footerView;
@@ -206,30 +226,12 @@
         query.cachePolicy = kPFCachePolicyNetworkElseCache;
     }
     
-    
-    
     return query;
-    
-    /*
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
-    [query orderByAscending:@"createdAt"];
-    
-    return query;
-     */
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     PFObject *string = object;
-    
-    //NSArray *photos = [self.stringPhotos objectAtIndex:indexPath.row];
     
     // It's possible for this object to be of type statistic or activity. This just gets the string
     // value from either of those classes
@@ -253,9 +255,6 @@
         }
         
         [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        //[stringCell setStringViewDelegate:self];
-        //[stringCell setStringObject:string];
 
         return stringCell;
     } else if (indexPath.row == 1) {
@@ -270,7 +269,7 @@
         [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        StringrFooterView *footerView = [self addFooterViewToCellWithObject:string];
+        StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
         
         [footerCell.contentView addSubview:footerView];
         
@@ -284,34 +283,40 @@
 {
     [super objectsDidLoad:error];
     
-    // instantiates string photos with blank objects of count self.objects
-    self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
-    for (int i = 0; i < self.objects.count; i++) {
-        [self.stringPhotos addObject:@""];
-    }
-    
-    // Querries all of the photos for the strings and puts them in an array
-    for (int i = 0; i < self.objects.count; i++) {
-        PFObject *string = [self.objects objectAtIndex:i];
-        
-        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-            string = [string objectForKey:kStringrStatisticsStringKey];
-        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-            string = [string objectForKey:kStringrActivityStringKey];
+    if (self.objects.count > 0) {
+        // instantiates string photos with blank objects of count self.objects
+        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
+        for (int i = 0; i < self.objects.count; i++) {
+            [self.stringPhotos addObject:@""];
         }
         
-        PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-        [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
-        [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
-        [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
-        [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
-            if (!error) {
-                [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
-                
-                NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-                [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        // Querries all of the photos for the strings and puts them in an array
+        for (int i = 0; i < self.objects.count; i++) {
+            PFObject *string = [self.objects objectAtIndex:i];
+            
+            if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+                string = [string objectForKey:kStringrStatisticsStringKey];
+            } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+                string = [string objectForKey:kStringrActivityStringKey];
             }
-        }];
+            
+            PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+            [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+            [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+            [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+            [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+                if (!error) {
+                    [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+                    
+                    NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+                    [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            }];
+        }
+    } else {
+      //  StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Strings!"];
+        
+        //self.tableView.tableHeaderView = noContentHeaderView;
     }
 }
 
@@ -319,7 +324,6 @@
 {
     [super objectsWillLoad];
     
-    // This method is called before a PFQuery is fired to get more objects
 }
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -477,48 +481,26 @@
 
 
 
-#pragma mark - StringView Delegate
-
-- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
-{
-    if (photos)
-    {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-        
-        [photoDetailVC setEditDetailsEnabled:NO];
-        
-        // Sets the photos to be displayed in the photo pager
-        [photoDetailVC setPhotosToLoad:photos];
-        [photoDetailVC setSelectedPhotoIndex:index];
-        [photoDetailVC setStringOwner:string];
-        
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:photoDetailVC animated:YES];
-        
-    }
-}
-
-
-
 #pragma mark - StringrHeaderViewView Delegate
 
-- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
+- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
     StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
     
+    // passes the appropriate string object based around what type of parse object has been querried
     if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
         string = [string objectForKey:kStringrStatisticsStringKey];
     } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
         string = [string objectForKey:kStringrActivityStringKey];
     }
     
-    // tag is set to the section number of each string
     [detailVC setStringToLoad:string];
     [detailVC setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
+
+
 
 
 #pragma mark - StringrFooterView Delegate
@@ -539,34 +521,39 @@
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
-    /*
-    if (object) {
-        if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
-            [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        } else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            [StringrUtility likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        }
-    }
-     */
+
 }
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
+        [commentsVC setSection:section];
+        [commentsVC setDelegate:self];
 
         [commentsVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:commentsVC animated:YES];
+    }
+}
+
+
+
+
+#pragma mark - StringrCommentsTableView Delegate
+
+- (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
+{
+    NSIndexPath *footerIndexPath = [NSIndexPath indexPathForRow:1 inSection:section];
+    UITableViewCell *footerCell = [self.tableView cellForRowAtIndexPath:footerIndexPath];
+    
+    // finds the footer view inside of the footer table view cell and updates the comments/like amount
+    for (UIView *view in footerCell.contentView.subviews) {
+        if ([view isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *footerView = (StringrFooterView *)view;
+            [footerView refreshLikesAndComments];
+        }
     }
 }
 

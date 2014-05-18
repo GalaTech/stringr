@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "StringrDetailTopViewController.h"
-#import "StringView.h"
+
 
 @interface StringrStringDetailTopViewController : StringrDetailTopViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) PFObject *stringToLoad;
 @property (strong, nonatomic) NSMutableArray *stringPhotos;
 
-//- (void)addImageToPublicString:(UIImage *)image withBlock:(void(^)(BOOL succeeded))completionBlock;
 - (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock;
 - (void)queryPhotosFromString;
 

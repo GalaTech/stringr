@@ -33,6 +33,37 @@
 }
 
 
+
+
+#pragma mark - Public
+
+- (BOOL)photoIsPreparedToSave
+{
+    if ([self.photoTitle isEqualToString:@"Enter the title for your Photo"] || ![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.photoTitle]) {
+        UIAlertView *mustEditTitle = [[UIAlertView alloc] initWithTitle:@"Photo Title" message:@"You need to set a title for your Photo!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [mustEditTitle show];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+#pragma mark - Private
+
+- (void)reloadPhotoTitleAndDescription
+{
+    if (![[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey] isEqualToString:@""]) {
+        self.photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
+        self.photoDescription = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
+    } else {
+        self.photoTitle = @"Enter the title for your Photo";
+        self.photoDescription = @"Enter the description for your Photo";
+    }
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -159,8 +190,6 @@
             } else {
                 PFQuery *photoActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
                 [photoActivityQuery whereKey:kStringrActivityPhotoKey equalTo:self.photoDetailsToLoad];
-                [photoActivityQuery whereKeyExists:kStringrActivityPhotoKey];
-                [photoActivityQuery whereKeyExists:kStringrActivityToUserKey];
                 [photoActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
                     if (!error) {
                         for (PFObject *activity in activities) {
@@ -170,6 +199,10 @@
                 }];
                 
                 [self.photoDetailsToLoad deleteInBackground];
+                
+                NSDictionary *detailsDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:self.photoDetailsToLoad, @"photo", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterRemovedPhotoFromPublicString object:nil userInfo:detailsDictionary];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterReloadPublicString object:nil userInfo:detailsDictionary];
             }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];

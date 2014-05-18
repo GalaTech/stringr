@@ -11,6 +11,8 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrUserTableViewController.h"
 #import "StringrUserConnectionsTableViewController.h"
+#import "StringrPathImageView.h"
+#import "ACPButton.h"
 
 
 @interface StringrProfileTopViewController ()
