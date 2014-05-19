@@ -9,17 +9,18 @@
 #import "StringrCommentsTableViewCell.h"
 #import "StringrProfileViewController.h"
 #import "StringrPathImageView.h"
+#import "STTweetLabel.h"
 
 @interface StringrCommentsTableViewCell ()
 
-@property (nonatomic) NSUInteger rowNumberForCommentCell;
-@property (strong, nonatomic) PFUser *commentUser;
-
 @property (weak, nonatomic) IBOutlet StringrPathImageView *commentsProfileImage;
-
 @property (weak, nonatomic) IBOutlet UILabel *commentsProfileDisplayName;
 @property (weak, nonatomic) IBOutlet UILabel *commentsUploadDateTime;
-@property (weak, nonatomic) IBOutlet UILabel *commentsTextComment;
+@property (weak, nonatomic) IBOutlet STTweetLabel *commentsTextComment;
+
+@property (strong, nonatomic) PFUser *commentUser;
+@property (strong, nonatomic) PFObject *comment;
+@property (nonatomic) NSUInteger rowNumberForCommentCell;
 
 @end
 
@@ -81,6 +82,8 @@
 }
 
 
+
+
 #pragma mark - Action Handlers
 
 - (void)pushToUserProfile
@@ -97,19 +100,58 @@
 
 - (void)setupCommentCellWithObject:(PFObject *)object
 {
-    _commentUser = [object objectForKey:kStringrActivityFromUserKey];
+    self.comment = object;
+    self.commentUser = [object objectForKey:kStringrActivityFromUserKey];
     
     NSString *commentorUsername = [StringrUtility usernameFormattedWithMentionSymbol:[_commentUser objectForKey:kStringrUserUsernameCaseSensitive]];
     [self.commentsProfileDisplayName setText:commentorUsername];
     
-    [self.commentsTextComment setText:[object objectForKey:kStringrActivityContentKey]];
     [self.commentsUploadDateTime setText:[StringrUtility timeAgoFromDate:object.createdAt]];
+    [self setupCommentTextWithText:[object objectForKey:kStringrActivityContentKey]];
     
     PFFile *profileImageFile = [_commentUser objectForKey:kStringrUserProfilePictureThumbnailKey];
     [self.commentsProfileImage setFile:profileImageFile];
     // set the tag to the row so that we can access the correct user when tapping on a profile image
     [self.commentsProfileImage loadInBackgroundWithIndicator];
+}
+
+- (void)setupCommentTextWithText:(NSString *)commentText
+{
+    [self.commentsTextComment setText:commentText];
+    [self.commentsTextComment setNumberOfLines:200];
     
+    NSMutableParagraphStyle *commentParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [commentParagraphStyle setAlignment:NSTextAlignmentLeft];
+    [commentParagraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+//    [commentParagraphStyle setParagraphSpacing:40.0f];
+    
+    UIColor *commentColor = [UIColor darkGrayColor];
+    UIFont *commentFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f];
+    
+    NSDictionary *commentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:commentColor, NSForegroundColorAttributeName, commentFont, NSFontAttributeName, commentParagraphStyle, NSParagraphStyleAttributeName, nil];
+    [self.commentsTextComment setAttributes:commentAttributes];
+    
+    NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    NSDictionary *httpAttributes = [NSDictionary dictionaryWithObjectsAndKeys:commentColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    
+    [self.commentsTextComment setAttributes:handleAttributes hotWord:STTweetHandle];
+    [self.commentsTextComment setAttributes:hashtagAttributes hotWord:STTweetHashtag];
+    [self.commentsTextComment setAttributes:httpAttributes hotWord:STTweetLink];
+    
+    [self.commentsTextComment setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+        if (hotWord == STTweetHandle) {
+            NSString *username = [[string stringByReplacingOccurrencesOfString:@"@" withString:@""] lowercaseString];
+            
+            if ([self.delegate respondsToSelector:@selector(tableViewCell:tappedUserHandleWithName:)]) {
+                [self.delegate tableViewCell:self tappedUserHandleWithName:username];
+            }
+        } else if (hotWord == STTweetHashtag) {
+            if ([self.delegate respondsToSelector:@selector(tableViewCell:tappedHashtagWithText:)]) {
+                [self.delegate tableViewCell:self tappedHashtagWithText:string];
+            }
+        }
+    }];
 }
 
 - (UIView *)commentSeperatorView

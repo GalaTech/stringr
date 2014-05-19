@@ -62,15 +62,28 @@ static const CGFloat kFooterHeight = 60.0;
     _tableFooterLabel.textColor = [UIColor grayColor];
     _tableFooterLabel.textAlignment = NSTextAlignmentCenter;
     
+    /*
     _navigationBarTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    _navigationBarTitleLabel.textColor = [UIColor grayColor];
     _navigationBarTitleLabel.backgroundColor = [UIColor clearColor];
     
     if ([ZCHelper isPhone]) {
-        _navigationBarTitleLabel.font = [UIFont boldSystemFontOfSize:20.0];
+        _navigationBarTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     }
     else {
-        _navigationBarTitleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        _navigationBarTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     }
+     */
+    
+    
+    /// Added by me on 5/19/2014
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor grayColor],
+                                                            NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
+                                                            }];
+    self.title = @"Select Photos";
+    ///
+     
     
     _navigationBarTitleLabel.adjustsFontSizeToFitWidth = YES;
     
@@ -85,7 +98,7 @@ static const CGFloat kFooterHeight = 60.0;
     
     self.tableView.tableFooterView = _tableFooterLabel;
     
-    self.navigationItem.titleView = _navigationBarTitleLabel;
+    //self.navigationItem.titleView = _navigationBarTitleLabel;
 	
 	UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
 	[self.navigationItem setRightBarButtonItem:doneButtonItem];

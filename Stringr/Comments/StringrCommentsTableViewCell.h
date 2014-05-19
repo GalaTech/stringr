@@ -23,5 +23,7 @@
 @protocol StringrCommentsTableViewCellDelegate <NSObject>
 
 - (void)tappedCommentorUserProfileImage:(PFUser *)user;
+- (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedUserHandleWithName:(NSString *)name;
+- (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedHashtagWithText:(NSString *)hashtag;
 
 @end

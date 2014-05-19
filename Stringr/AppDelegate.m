@@ -222,6 +222,34 @@
     [activityNavVC setTabBarItem:activityTab];
     
     
+    PFQuery *activityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [activityQuery whereKey:kStringrActivityToUserKey equalTo:[PFUser currentUser]];
+    [activityQuery whereKey:kStringrActivityFromUserKey notEqualTo:[PFUser currentUser]];
+    [activityQuery whereKeyExists:kStringrActivityFromUserKey];
+    [activityQuery includeKey:kStringrActivityFromUserKey];
+    [activityQuery includeKey:kStringrActivityStringKey];
+    [activityQuery includeKey:kStringrActivityPhotoKey];
+    [activityQuery countObjectsInBackgroundWithBlock:^(int numberOfActivites, NSError *error) {
+        if (!error) {
+            NSNumber *numberOfPreviousActivitiesFromInstallation = [[PFUser currentUser] objectForKey:kStringrInstallationNumberOfPreviousActivitiesKey];
+           
+            NSInteger numberOfPreviousActivities = 0;
+            if (numberOfPreviousActivitiesFromInstallation) {
+                numberOfPreviousActivities = [numberOfPreviousActivitiesFromInstallation integerValue];
+            }
+            
+            NSInteger numberOfNewActivities = numberOfActivites - numberOfPreviousActivities;
+            
+            if (numberOfNewActivities > 0) {
+                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
+            }
+            
+            [[PFUser currentUser] setObject:@(numberOfActivites) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
+            [[PFUser currentUser] saveInBackground];
+        }
+    }];
+    
+    
     [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
     
     return homeTabBarVC;

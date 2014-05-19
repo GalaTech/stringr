@@ -370,6 +370,8 @@
         [PFQuery clearAllCachedResults];
         [[StringrCache sharedCache] clear];
         
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kNSUserDefaultsNumberOfActivitiesKey];
+        
         // Unsubscribe from push notifications for this installation
         [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
         [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];

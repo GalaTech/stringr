@@ -77,7 +77,7 @@
                 
                 NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSString stringWithFormat:@"%@ liked your photo!", currentUsernameFormatted], kAPNSAlertKey,
-                                      @"increment", kAPNSBadgeKey,
+                                      @"Increment", kAPNSBadgeKey,
                                       kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                       kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
                                       [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
@@ -146,7 +146,7 @@
                     
                     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                           [NSString stringWithFormat:@"%@ liked your string!", currentUsernameFormatted], kAPNSAlertKey,
-                                          @"increment", kAPNSBadgeKey,
+                                          @"Increment", kAPNSBadgeKey,
                                           kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                           kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
                                           [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
@@ -335,7 +335,7 @@
         
         NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%@ is now following you!", currentUsernameFormatted], kAPNSAlertKey,
-                              @"increment", kAPNSBadgeKey,
+                              @"Increment", kAPNSBadgeKey,
                               kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                               kStringrPushPayloadActivityFollowKey, kStringrPushPayloadActivityTypeKey,
                               [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,

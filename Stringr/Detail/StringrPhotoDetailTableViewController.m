@@ -59,8 +59,8 @@
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
-    NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2, indexPath3] withRowAnimation:rowAnimation];
+    //NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2] withRowAnimation:rowAnimation];
 }
 
 
@@ -90,7 +90,7 @@
 {
     // Return the number of rows in the section.
     if (section == 0) {
-        return 3;
+        return 2;
     } else {
         return 0;
     }
@@ -110,7 +110,7 @@
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) fullWidthCell:YES withObject:self.photoDetailsToLoad];
                 [mainDetailView setDelegate:self];
                  
-                [cell addSubview:mainDetailView];
+                [cell.contentView addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
                 cellIdentifier = @"photo_titleCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -123,7 +123,9 @@
                     
                     return titleCell;
                 }
-            } else if (indexPath.row == 2) {
+            }
+            /*
+            else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
@@ -135,6 +137,7 @@
                     return descriptionCell;
                 }
             }
+             */
             break;
         default:
             break;
@@ -154,9 +157,12 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             return [StringrUtility heightForLabelWithNSString:self.photoTitle];
-        } else if (indexPath.row == 2) {
+        }
+        /*
+        else if (indexPath.row == 2) {
             return  [StringrUtility heightForLabelWithNSString:self.photoDescription];
         }
+         */
     }
     
     return 44.0f;

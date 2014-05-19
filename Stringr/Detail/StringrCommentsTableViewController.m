@@ -14,6 +14,7 @@
 #import "StringrPathImageView.h"
 #import "StringrLoadMoreTableViewCell.h"
 #import "StringrWriteAndEditTextViewController.h"
+#import "StringrSearchTableViewController.h"
 
 @interface StringrCommentsTableViewController () <UINavigationControllerDelegate, StringrCommentsTableViewCellDelegate, StringrWriteCommentDelegate>
 
@@ -267,6 +268,39 @@
     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
     [self presentViewController:navVC animated:YES completion:nil];
+}
+
+- (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedUserHandleWithName:(NSString *)name
+{
+    PFQuery *findUserQuery = [PFUser query];
+    [findUserQuery whereKey:kStringrUserUsernameKey equalTo:name];
+    [findUserQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (!error) {
+            if (users.count > 0) {
+                PFUser *user = [users firstObject];
+                
+                StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+                [profileVC setUserForProfile:user];
+                [profileVC setProfileReturnState:ProfileModalReturnState];
+                
+                StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+                [self presentViewController:navVC animated:YES completion:nil];
+            } else {
+                NSLog(@"No user with that name was found!");
+            }
+        }
+    }];
+}
+
+- (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedHashtagWithText:(NSString *)hashtag
+{
+    StringrSearchTableViewController *searchStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSearchStringsID];
+    [searchStringsVC searchStringsWithText:hashtag];
+    
+    searchStringsVC.navigationItem.leftBarButtonItem = nil;
+    searchStringsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+    
+    [self.navigationController pushViewController:searchStringsVC animated:YES];
 }
 
 

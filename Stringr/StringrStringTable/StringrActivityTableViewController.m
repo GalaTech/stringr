@@ -120,6 +120,22 @@
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:stringDetailVC animated:YES];
+    } else if ([[objectForIndexPath objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) {
+        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        [stringDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        [commentsVC setObjectForCommentThread:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        
+        NSArray *currentViewControllers = self.navigationController.viewControllers;
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+        [viewControllers addObject:stringDetailVC];
+        [viewControllers addObject:commentsVC];
+        
+        [self.navigationController setViewControllers:viewControllers animated:YES];
     } else if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
         if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
             StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];

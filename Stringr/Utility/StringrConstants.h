@@ -34,6 +34,7 @@ extern float const kStringrPFObjectDetailTableViewCellHeight;
 
 extern NSString * const kNSUserDefaultsWorkingStringSavedImagesKey;
 extern NSString * const kNSUserDefaultsPushNotificationsEnabledKey;
+extern NSString * const kNSUserDefaultsNumberOfActivitiesKey;
 
 
 #pragma mark - NSNotificationCenter Keys
@@ -56,6 +57,7 @@ extern NSString * const kNSNotificationCenterRefreshStringDetails;
 
 extern NSString * const kStringrInstallationUserKey;
 extern NSString * const kStringrInstallationPrivateChannelsKey;
+extern NSString * const kStringrInstallationNumberOfPreviousActivitiesKey;
 
 #pragma mark - PFObject Activity Class
 // Class Key
@@ -76,6 +78,9 @@ extern NSString * const kStringrActivityTypeFollow;
 extern NSString * const kStringrActivityTypeJoin;
 extern NSString * const kStringrActivityTypeMention;
 extern NSString * const kStringrActivityTypeAddedPhotoToPublicString;
+
+// Content values
+extern NSString * const kStringrActivityContentCommentKey;
 
 
 

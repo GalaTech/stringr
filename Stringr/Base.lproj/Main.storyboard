@@ -817,20 +817,13 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@University" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5tK-Xx-9iP">
-                                <rect key="frame" x="250" y="284" width="70" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dw2-ml-PNp" customClass="ACPButton">
                                 <rect key="frame" x="110" y="285" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit your profile to set the description." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.45000000000000001" preferredMaxLayoutWidth="270" translatesAutoresizingMaskIntoConstraints="NO" id="4ks-8O-S4A">
-                                <rect key="frame" x="25" y="194" width="270" height="50"/>
+                                <rect key="frame" x="25" y="191" width="270" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -890,7 +883,6 @@
                         <outlet property="profileImage" destination="dqR-Ql-Wmx" id="oAb-va-qzC"/>
                         <outlet property="profileNameLabel" destination="yXu-b8-gyS" id="YAJ-2I-4qb"/>
                         <outlet property="profileNumberOfStringsLabel" destination="06l-Ax-DDO" id="VEA-BC-lRR"/>
-                        <outlet property="profileUniversityLabel" destination="5tK-Xx-9iP" id="lSB-6t-mDe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wao-yF-aS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -939,8 +931,8 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="200" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-wT-1a2">
-                                            <rect key="frame" x="59" y="28" width="239" height="60"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="200" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-wT-1a2" customClass="STTweetLabel">
+                                            <rect key="frame" x="59" y="33" width="239" height="58"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -950,7 +942,7 @@
                                     <constraints>
                                         <constraint firstItem="Pu6-dt-piY" firstAttribute="leading" secondItem="SS2-hu-WgZ" secondAttribute="trailing" constant="11" id="7TY-gF-yWS"/>
                                         <constraint firstItem="UBD-wT-1a2" firstAttribute="leading" secondItem="NQ0-do-QJO" secondAttribute="leading" constant="59" id="EI0-GK-pV2"/>
-                                        <constraint firstItem="UBD-wT-1a2" firstAttribute="top" secondItem="Pu6-dt-piY" secondAttribute="bottom" constant="3" id="JXJ-WT-SpZ"/>
+                                        <constraint firstItem="UBD-wT-1a2" firstAttribute="top" secondItem="Pu6-dt-piY" secondAttribute="bottom" constant="8" id="JXJ-WT-SpZ"/>
                                         <constraint firstAttribute="trailing" secondItem="UBD-wT-1a2" secondAttribute="trailing" constant="22" id="KKg-zb-hCI"/>
                                         <constraint firstItem="SS2-hu-WgZ" firstAttribute="leading" secondItem="NQ0-do-QJO" secondAttribute="leading" constant="9" id="L6W-Af-5Jt"/>
                                         <constraint firstItem="Pu6-dt-piY" firstAttribute="baseline" secondItem="VWo-c7-ZdQ" secondAttribute="baseline" id="V5u-aT-4NT"/>
@@ -958,7 +950,7 @@
                                         <constraint firstItem="Pu6-dt-piY" firstAttribute="top" secondItem="SS2-hu-WgZ" secondAttribute="top" id="gua-D7-Pze"/>
                                         <constraint firstAttribute="trailing" secondItem="VWo-c7-ZdQ" secondAttribute="trailing" constant="20" id="mp9-TS-GTp"/>
                                         <constraint firstItem="VWo-c7-ZdQ" firstAttribute="top" secondItem="Pu6-dt-piY" secondAttribute="top" id="oW9-dl-CDB"/>
-                                        <constraint firstAttribute="bottom" secondItem="UBD-wT-1a2" secondAttribute="bottom" constant="11" id="u7d-O6-F5E"/>
+                                        <constraint firstAttribute="bottom" secondItem="UBD-wT-1a2" secondAttribute="bottom" constant="8" id="u7d-O6-F5E"/>
                                         <constraint firstItem="SS2-hu-WgZ" firstAttribute="top" secondItem="NQ0-do-QJO" secondAttribute="top" constant="5" id="v2a-ZS-1wv"/>
                                         <constraint firstItem="Pu6-dt-piY" firstAttribute="leading" secondItem="UBD-wT-1a2" secondAttribute="leading" id="xaa-Y1-Zmx"/>
                                     </constraints>
@@ -2164,26 +2156,6 @@
                                 <connections>
                                     <outlet property="numberOfCharactersRemainingLabel" destination="bbN-19-gGI" id="Plg-LJ-Wjm"/>
                                     <outlet property="setProfileDescriptionTextView" destination="0bc-Xc-I6H" id="h2Y-F5-dbN"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editProfile_SelectUniversity" rowHeight="55" id="krP-5J-jgf" customClass="StringrSelectUniversityTableViewCell">
-                                <rect key="frame" x="0.0" y="319" width="320" height="55"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="krP-5J-jgf" id="y3C-XK-RZx">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select your University..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="66Y-Pg-aME">
-                                            <rect key="frame" x="20" y="16" width="280" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                            <color key="textColor" red="0.79105548469999998" green="0.79105548469999998" blue="0.79105548469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="selectedUniversityLabel" destination="66Y-Pg-aME" id="DI7-WU-uNB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

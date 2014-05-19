@@ -82,6 +82,8 @@
     
     if ([object objectForKey:kStringrActivityPhotoKey] && [object objectForKey:kStringrActivityStringKey]) { // photo added to public string
         receiverObjectTypeName = @"String";
+    } else if ([[object objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) {
+        receiverObjectTypeName = @"Comment";
     } else if ([object objectForKey:kStringrActivityStringKey]) {
         receiverObjectTypeName = @"String";
     } else if ([object objectForKey:kStringrActivityPhotoKey]) {

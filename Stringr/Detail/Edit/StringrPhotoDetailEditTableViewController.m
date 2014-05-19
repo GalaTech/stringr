@@ -56,10 +56,10 @@
 {
     if (![[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey] isEqualToString:@""]) {
         self.photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
-        self.photoDescription = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
+        //self.photoDescription = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
     } else {
         self.photoTitle = @"Enter the title for your Photo";
-        self.photoDescription = @"Enter the description for your Photo";
+        //self.photoDescription = @"Enter the description for your Photo";
     }
 }
 
@@ -76,7 +76,7 @@
 {
     // Return the number of rows in the section.
     if (section == 0) {
-        return 3;
+        return 2;
     } else if (section == 1) {
         return 1;
     } else {
@@ -98,7 +98,7 @@
                 StringrFooterView *mainDetailView = [[StringrFooterView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cell.frame), 48) fullWidthCell:YES withObject:self.photoDetailsToLoad];
                 [mainDetailView setDelegate:self];
                  
-                [cell addSubview:mainDetailView];
+                [cell.contentView addSubview:mainDetailView];
             } else if (indexPath.row == 1) {
                 cellIdentifier = @"photo_titleCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -110,7 +110,10 @@
                     
                     return titleCell;
                 }
-            } else if (indexPath.row == 2) {
+            }
+            
+            /*
+            else if (indexPath.row == 2) {
                 cellIdentifier = @"photo_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
@@ -121,6 +124,7 @@
                     return descriptionCell;
                 }
             }
+             */
             break;
         case 1:
             if (indexPath.row == 0) {
@@ -155,7 +159,9 @@
             
             [editTextVC setTextForEditing:photoTitle];
             [editTextVC setTitle:@"Edit Title"];
-        } else if (indexPath.row == 2) {
+        }
+        /*
+        else if (indexPath.row == 2) {
             NSString *photoDescription = self.photoDescription;
             if ([photoDescription isEqualToString:@"Enter the description for your Photo"]) {
                 photoDescription = @"";
@@ -165,6 +171,7 @@
             [editTextVC setTextForEditing:photoDescription];
             [editTextVC setTitle:@"Edit Description"];
         }
+         */
         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editTextVC];
         [self.navigationController presentViewController:navVC animated:YES completion:nil];
@@ -220,11 +227,14 @@
         self.photoTitle = text;
         [self.photoDetailsToLoad setObject:text forKey:kStringrPhotoCaptionKey];
        // [self.delegate setStringTitle:text];
-    } else if (indexPath.row == 2) {
+    }
+    /*
+    else if (indexPath.row == 2) {
         self.photoDescription = text;
         [self.photoDetailsToLoad setObject:text forKey:kStringrPhotoDescriptionKey];
         //[self.delegate setStringDescription:text];
     }
+     */
     
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }

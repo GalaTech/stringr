@@ -26,5 +26,11 @@
     
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if ([item.title isEqualToString:@"Activity"]) {
+        item.badgeValue = nil;
+    }
+}
 
 @end

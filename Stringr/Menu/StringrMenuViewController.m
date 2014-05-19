@@ -61,9 +61,7 @@
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.opaque = NO; // Allows transparency
     self.tableView.backgroundColor = [UIColor clearColor];
-    
-
-    
+    [self setClearsSelectionOnViewWillAppear:NO];
     
     [self.tableView setShowsVerticalScrollIndicator:NO];
 }
@@ -287,7 +285,6 @@
     UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
-    
     [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
     
     return homeTabBarVC;
@@ -458,12 +455,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    
     // Instance of our navigation controller, which is the frostedVC
     //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     // Table section 0 menu items actions
     if (indexPath.row == 0) {
-        [self.frostedViewController setContentViewController:[self setupHomeTabBarController]];
+        StringrHomeTabBarViewController *homeTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupHomeTabBarController];
+        
+        [self.frostedViewController setContentViewController:homeTabBarVC];
     } else if (indexPath.row == 1) {
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         

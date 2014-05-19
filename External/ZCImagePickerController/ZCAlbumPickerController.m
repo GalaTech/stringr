@@ -34,6 +34,9 @@ static const CGFloat kRowHeight = 57.0;
     if ([ZCHelper isPhone]) {
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.navigationController action:@selector(cancelImagePicker)];
         [self.navigationItem setRightBarButtonItem:cancelButton];
+        
+        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     }
 
 	self.assetsGroups = [NSMutableArray array];
@@ -58,7 +61,7 @@ static const CGFloat kRowHeight = 57.0;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     

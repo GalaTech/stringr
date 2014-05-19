@@ -78,6 +78,7 @@ float const kStringrPFObjectDetailTableViewCellHeight = 41.5;
 
 NSString * const kNSUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";
 NSString * const kNSUserDefaultsPushNotificationsEnabledKey = @"co.galatech.Stringr.userDefaults.pushNotificationsEnabledKey";
+NSString * const kNSUserDefaultsNumberOfActivitiesKey = @"co.galatech.Stringr.userDefaults.numberOfActivitiesKey";
 
 
 #pragma mark - NSNotificationCenter Keys
@@ -101,6 +102,7 @@ NSString * const kNSNotificationCenterRefreshStringDetails = @"co.galatech.Strin
 
 NSString * const kStringrInstallationUserKey = @"user";
 NSString * const kStringrInstallationPrivateChannelsKey = @"channels";
+NSString * const kStringrInstallationNumberOfPreviousActivitiesKey = @"numberOfPreviousActivites";
 
 
 
@@ -125,7 +127,8 @@ NSString * const kStringrActivityTypeJoin = @"join";
 NSString * const kStringrActivityTypeMention = @"mention";
 NSString * const kStringrActivityTypeAddedPhotoToPublicString = @"addedPhoto";
 
-
+// Content values
+NSString * const kStringrActivityContentCommentKey = @"_*_comment_*_";
 
 
 #pragma mark - Statistics
