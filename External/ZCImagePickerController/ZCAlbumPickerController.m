@@ -23,9 +23,11 @@ static const CGFloat kRowHeight = 57.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    self.wantsFullScreenLayout = YES;
+    // TODO: This method is deprecated and I commented it out.
+    //self.wantsFullScreenLayout = YES;
     
-    self.contentSizeForViewInPopover = CGSizeMake(320, 460);
+    //self.contentSizeForViewInPopover = CGSizeMake(320, 460);
+    self.preferredContentSize = CGSizeMake(320, 460);
     
     self.navigationItem.title = NSLocalizedStringFromTable(@"Loading...", LOCALIZED_STRING_TABLE, nil);
     

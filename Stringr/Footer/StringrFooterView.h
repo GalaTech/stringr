@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class StringrFooterView;
+
 @protocol StringrFooterViewDelegate;
 
 @interface StringrFooterView : UIView
@@ -30,6 +32,7 @@
 - (void)refreshLikesAndComments;
 
 @end
+
 
 /// Provides a call back after a user taps the profile image, like button, and comment button.
 @protocol StringrFooterViewDelegate <NSObject>
@@ -63,3 +66,5 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section;
 
 @end
+
+

@@ -203,7 +203,7 @@
 - (NSArray *)menuRowTitles
 {
     if (!_menuRowTitles) {
-        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"My Strings", @"Liked", @"Discover", @"Search", nil];
+        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"My Strings", @"Liked", @"Explore", @"Search", nil];
     }
     
     return _menuRowTitles;

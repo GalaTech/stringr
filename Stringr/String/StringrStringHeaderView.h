@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class StringrStringHeaderView;
 
 @protocol StringrStringHeaderViewDelegate;
 
@@ -31,6 +32,6 @@
  */
 - (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string;
 
-
-
 @end
+
+

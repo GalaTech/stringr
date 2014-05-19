@@ -11,21 +11,18 @@
 #import "StringrSelectProfileImageTableViewCell.h"
 #import "StringrSetProfileDisplayNameTableViewCell.h"
 #import "StringrSetProfileDescriptionTableViewCell.h"
-#import "StringrSelectUniversityTableViewCell.h"
+#import "StringrPathImageView.h"
 #import "UIImage+Resize.h"
 
 
 @interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
 @property (weak, nonatomic) IBOutlet StringrPathImageView *editProfileImage;
 @property (weak, nonatomic) IBOutlet UITextField *editProfileNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *editProfileDescriptionTextView;
-
 @property (weak, nonatomic) IBOutlet UILabel *charactersRemaining;
 @property (weak, nonatomic) IBOutlet UITextField *underlyingProfileDescriptionTextField;
-
 @property (weak, nonatomic) IBOutlet UIButton *selectUniversityButton;
 
 @property (strong, nonatomic) NSMutableData *profileImageData;
@@ -64,7 +61,7 @@
     
     [self.selectUniversityButton setTitle:self.fillerUniversityName forState:UIControlStateNormal];
     
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%lu", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - self.editProfileDescriptionTextView.text.length];
     [self.charactersRemaining setText:charactersRemaining];
 }
 
@@ -180,7 +177,7 @@
         [setDescriptionText.setProfileDescriptionTextView setText:self.fillerDescription];
         
         // Sets the number of characters remaining based around the length of text
-        NSString *charactersRemaining = [NSString stringWithFormat:@"%lu", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
+        NSString *charactersRemaining = [NSString stringWithFormat:@"%u", kNUMBER_OF_CHARACTERS_ALLOWED - setDescriptionText.setProfileDescriptionTextView.text.length];
         [setDescriptionText.numberOfCharactersRemainingLabel setText:charactersRemaining];
         
     }
@@ -382,7 +379,7 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
     // Creates a string with the number of characters remaining and sets it to the
     // characters remaining label on the view
-    NSString *charactersRemaining = [NSString stringWithFormat:@"%ld", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
+    NSString *charactersRemaining = [NSString stringWithFormat:@"%d", kNUMBER_OF_CHARACTERS_ALLOWED - numberRemainging];
     
     NSIndexPath *profileDescriptionIndexPath = [NSIndexPath indexPathForRow:0 inSection:2];
     StringrSetProfileDescriptionTableViewCell *descriptionCell = (StringrSetProfileDescriptionTableViewCell *)[self.tableView cellForRowAtIndexPath:profileDescriptionIndexPath];

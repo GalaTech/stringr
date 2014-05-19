@@ -7,20 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrPathImageView.h"
 
+@class StringrPathImageView;
 
-@protocol StringrEditProfileDelegate <NSObject>
-
-@optional
-- (void)setProfileName:(NSString *)name;
-- (void)setProfilePhoto:(UIImage *)profilePhoto;
-- (void)setProfileDescription:(NSString *)description;
-- (void)setProfileUniversityName:(NSString *)universityName;
-
-
-@end
-
+@protocol StringrEditProfileDelegate;
 
 @interface StringrEditProfileViewController : UITableViewController <UITextViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
@@ -30,6 +20,16 @@
 @property (strong, nonatomic) NSString *fillerUniversityName;
 
 @property (weak, nonatomic) id<StringrEditProfileDelegate> delegate;
+
+@end
+
+
+@protocol StringrEditProfileDelegate <NSObject>
+
+@optional
+- (void)setProfileName:(NSString *)name;
+- (void)setProfilePhoto:(UIImage *)profilePhoto;
+- (void)setProfileDescription:(NSString *)description;
 
 @end
 

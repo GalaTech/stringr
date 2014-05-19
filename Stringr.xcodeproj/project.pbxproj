@@ -29,7 +29,6 @@
 		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
-		AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */; };
 		AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */; };
 		AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */; };
 		AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810818B2967800DE933D /* AudioToolbox.framework */; };
@@ -195,8 +194,6 @@
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		AB4FF07D18C0019E000F550F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		AB4FF07F18C6B53E000F550F /* StringrSelectUniversityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSelectUniversityTableViewCell.h; path = Profile/TableViewCell/StringrSelectUniversityTableViewCell.h; sourceTree = "<group>"; };
-		AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectUniversityTableViewCell.m; path = Profile/TableViewCell/StringrSelectUniversityTableViewCell.m; sourceTree = "<group>"; };
 		AB4FF08218C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSetProfileDisplayNameTableViewCell.h; path = Profile/TableViewCell/StringrSetProfileDisplayNameTableViewCell.h; sourceTree = "<group>"; };
 		AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSetProfileDisplayNameTableViewCell.m; path = Profile/TableViewCell/StringrSetProfileDisplayNameTableViewCell.m; sourceTree = "<group>"; };
 		AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSetProfileDescriptionTableViewCell.h; path = Profile/TableViewCell/StringrSetProfileDescriptionTableViewCell.h; sourceTree = "<group>"; };
@@ -704,8 +701,6 @@
 			children = (
 				AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */,
 				AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */,
-				AB4FF07F18C6B53E000F550F /* StringrSelectUniversityTableViewCell.h */,
-				AB4FF08018C6B53E000F550F /* StringrSelectUniversityTableViewCell.m */,
 				AB4FF08218C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.h */,
 				AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */,
 				AB4FF08518C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.h */,
@@ -1265,7 +1260,6 @@
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
-				AB4FF08118C6B53E000F550F /* StringrSelectUniversityTableViewCell.m in Sources */,
 				AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
 				AB0F5330190B25E700A29E59 /* StringrLikedTabBarViewController.m in Sources */,

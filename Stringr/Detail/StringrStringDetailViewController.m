@@ -192,7 +192,7 @@
         if (self.editDetailsEnabled) {
             ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
             imagePickerController.imagePickerDelegate = self;
-            imagePickerController.maximumAllowsSelectionCount = 5;
+            imagePickerController.maximumAllowsSelectionCount = 10;
             imagePickerController.mediaType = ZCMediaAllPhotos;
             [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
             

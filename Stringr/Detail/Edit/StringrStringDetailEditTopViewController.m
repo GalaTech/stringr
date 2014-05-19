@@ -17,8 +17,8 @@
 @interface StringrStringDetailEditTopViewController () <StringrPhotoDetailEditTableViewControllerDelegate, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIView *stringView;
-@property (strong, nonatomic) StringCollectionView *stringCollectionView;
 
+@property (strong, nonatomic) StringCollectionView *stringCollectionView;
 @property (strong, nonatomic) NSMutableArray *stringPhotosToDelete;
 @property (weak, nonatomic) StringViewReorderable *stringReorderableCollectionView;
 @property (strong, nonatomic) NSString *stringTitle;
@@ -204,6 +204,9 @@
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
+        
+//        UIAlertView *saveStringAlertView = [[UIAlertView alloc] initWithTitle:@"String Saved" message:@"Your String has been saved and will be published in the background." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+//        [saveStringAlertView show];
     }
 }
 

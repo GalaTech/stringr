@@ -10,7 +10,7 @@
 #import "StringEditCollectionView.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 
-@interface StringViewReorderable () <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
+@interface StringViewReorderable () //<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet StringEditCollectionView *stringLargeReorderableCollectionView;
 

@@ -46,7 +46,8 @@ static const CGFloat kFooterHeight = 60.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.wantsFullScreenLayout = YES;
+    // TODO: This method is deprecated and I commented it out.
+    //self.wantsFullScreenLayout = YES;
     self.preferredContentSize = CGSizeMake(320, 460);
     
     UIEdgeInsets tableViewInsets = self.tableView.contentInset;

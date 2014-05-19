@@ -13,7 +13,6 @@
 @interface StringrStringDetailTableViewController : StringrDetailTableViewController <UITextFieldDelegate, UITextViewDelegate>
 
 @property (strong, nonatomic) PFObject *stringDetailsToLoad;
-
 @property (strong, nonatomic) NSString *stringTitle;
 @property (strong, nonatomic) NSString *stringDescription;
 

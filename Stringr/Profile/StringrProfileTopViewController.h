@@ -12,23 +12,16 @@
 
 @interface StringrProfileTopViewController : UIViewController
 
-@property (strong, nonatomic) PFUser *userForProfile;
-
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
-
 @property (weak, nonatomic) IBOutlet UIButton *followersButton;
 @property (weak, nonatomic) IBOutlet UILabel *followersLabel;
-
 @property (weak, nonatomic) IBOutlet StringrPathImageView *profileImage;
-
 @property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileDescriptionLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *profileNumberOfStringsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *profileUniversityLabel;
 
+@property (strong, nonatomic) PFUser *userForProfile;
 @property (nonatomic) BOOL isFollowingUser;
-
 
 @end

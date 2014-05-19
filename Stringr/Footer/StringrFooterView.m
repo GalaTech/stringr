@@ -107,7 +107,7 @@ static float const contentViewWidth = 320.0;
 - (void)setUploaderProfileInformation
 {
     if (self.objectForFooterView) {
-        //[self loadingProfileImageIndicatorEnabled:YES];
+        [self loadingProfileImageIndicatorEnabled:YES];
         
         PFUser *stringUploader = [self.objectForFooterView objectForKey:kStringrStringUserKey];
         [stringUploader fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
@@ -118,7 +118,7 @@ static float const contentViewWidth = 320.0;
             
             [self.profileImageView setFile:uploaderProfileImageFile];
             [self.profileImageView loadInBackgroundWithIndicator];
-            //[self loadingProfileImageIndicatorEnabled:NO];
+            [self loadingProfileImageIndicatorEnabled:NO];
         }];
     } else {
         [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]]];
@@ -377,11 +377,13 @@ static float const contentViewWidth = 320.0;
     [self addSubview:self.commentsButton];
 }
 
-// Sends user to current strings comments section and changes text color
+// Sends user to current strings/photos comments section and changes text color
 - (void)pushCommentsButton
 {
-    if ([self.delegate respondsToSelector:@selector(stringrFooterView:didTapCommentButton:objectToCommentOn:inSection:)]) {
-        [self.delegate stringrFooterView:self didTapCommentButton:self.commentsButton objectToCommentOn:self.objectForFooterView inSection:self.section];
+    if (self.objectForFooterView) {
+        if ([self.delegate respondsToSelector:@selector(stringrFooterView:didTapCommentButton:objectToCommentOn:inSection:)]) {
+            [self.delegate stringrFooterView:self didTapCommentButton:self.commentsButton objectToCommentOn:self.objectForFooterView inSection:self.section];
+        }
     }
 }
 
@@ -408,44 +410,45 @@ static float const contentViewWidth = 320.0;
 // increments the number of likes for the current string and changes text color
 - (void)likesButtonTouchHandler:(UIButton *)button
 {
-    [self shouldEnableLikeButton:NO];
-    
-    BOOL liked = !button.selected;
-    [self setLikesButtonState:liked];
-    [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:self.objectForFooterView liked:liked];
-    
-    int likeCount = [self.likesTextLabel.text intValue];
-    
-    if (liked) {
-        [[StringrCache sharedCache] incrementLikeCountForObject:self.objectForFooterView];
-        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount + 1]];
+    if (self.objectForFooterView) {
+        [self shouldEnableLikeButton:NO];
         
-        [StringrUtility likeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                [self shouldEnableLikeButton:YES];
-                [self setLikesButtonState:succeeded];
-            } else {
-                //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
-            }
-        }];
-    } else {
-        [[StringrCache sharedCache] decrementLikeCountForObject:self.objectForFooterView];
-        [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount - 1]];
+        BOOL liked = !button.selected;
+        [self setLikesButtonState:liked];
+        [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:self.objectForFooterView liked:liked];
         
-        [StringrUtility unlikeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
-            [self shouldEnableLikeButton:YES];
-            [self setLikesButtonState:!succeeded];
+        int likeCount = [self.likesTextLabel.text intValue];
+        
+        if (liked) {
+            [[StringrCache sharedCache] incrementLikeCountForObject:self.objectForFooterView];
+            [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount + 1]];
             
-            if (!succeeded) {
-                //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]]; // having this enabled results in a 'flicker' of liking. 
-            }
-        }];
+            [StringrUtility likeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [self shouldEnableLikeButton:YES];
+                    [self setLikesButtonState:succeeded];
+                } else {
+                    //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]];
+                }
+            }];
+        } else {
+            [[StringrCache sharedCache] decrementLikeCountForObject:self.objectForFooterView];
+            [self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount - 1]];
+            
+            [StringrUtility unlikeObjectInBackground:self.objectForFooterView block:^(BOOL succeeded, NSError *error) {
+                [self shouldEnableLikeButton:YES];
+                [self setLikesButtonState:!succeeded];
+                
+                if (!succeeded) {
+                    //[self.likesTextLabel setText:[NSString stringWithFormat:@"%d", likeCount]]; // having this enabled results in a 'flicker' of liking. 
+                }
+            }];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(stringrFooterView:didTapLikeButton:objectToLike:inSection:)]) {
+            [self.delegate stringrFooterView:self didTapLikeButton:self.likesButton objectToLike:self.objectForFooterView inSection:self.section];
+        }
     }
-    
-    if ([self.delegate respondsToSelector:@selector(stringrFooterView:didTapLikeButton:objectToLike:inSection:)]) {
-        [self.delegate stringrFooterView:self didTapLikeButton:self.likesButton objectToLike:self.objectForFooterView inSection:self.section];
-    }
-    
 }
 
 - (void)setLikesButtonState:(BOOL)selected

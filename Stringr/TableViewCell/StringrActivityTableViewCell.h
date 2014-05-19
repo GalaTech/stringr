@@ -19,7 +19,6 @@
 
 @end
 
-
 @protocol StringrActivityTableViewCellDelegate <NSObject>
 
 - (void)tappedActivityUserProfileImage:(PFUser *)user;
