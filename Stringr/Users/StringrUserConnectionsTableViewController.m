@@ -49,7 +49,6 @@
 {
     [super viewWillAppear:animated];
     
-    //[self queryForFollowingUsers];
 }
 
 

@@ -167,12 +167,18 @@
 
 - (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
 {
+    // First checks internet to ensure that the user is connected
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        //[self presentCheckYourInternetConnectionAlertView];
+        return;
+    }
+    
     // Set permissions required from the facebook user account
     NSArray *permissionsArray = @[@"basic_info"];
     
     // Show loading indicator until login is finished
     [self.loginActivityIndicator startAnimating];
-    
+
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         // Hide loading indicator
@@ -191,9 +197,9 @@
             [self setDelegate:facebookSignUpVC];
             [self.navigationController pushViewController:facebookSignUpVC animated:YES];
             /*
-            // changes the modal transition from a cross-fade
-            [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            [self dismissViewControllerAnimated:YES completion:nil];
+             // changes the modal transition from a cross-fade
+             [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+             [self dismissViewControllerAnimated:YES completion:nil];
              */
         } else {
             NSLog(@"User with facebook logged in!");
@@ -216,12 +222,15 @@
             }
         }
     }];
-    
-    
 }
 
 - (IBAction)loginWithTwitterButtonTouchHandler:(UIButton *)sender
 {
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        //[self presentCheckYourInternetConnectionAlertView];
+        return;
+    }
+    
     // Show loading indicator until login is finished
     [self.loginActivityIndicator startAnimating];
     
@@ -292,6 +301,12 @@
 // logs in the user after the refresh is complete on the current user
 - (void)loginUserFromRefresh
 {
+    // First checks internet to ensure that the user is connected
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        //[self presentCheckYourInternetConnectionAlertView];
+        return;
+    }
+    
     // shows or hides the email icon based around whether or not the current user has verified their email
     BOOL setHidden = ![StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]];
     [self.userNeedsToVerifyEmailButton setHidden:setHidden];
@@ -333,8 +348,6 @@
     });
 }
 
-
-
 - (void)userFacebookLoginData
 {
     FBRequest *request = [FBRequest requestForMe];
@@ -357,8 +370,8 @@
                 if (userData[@"name"]) {
                     [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
                     
-                    NSString *lowercaseName = [userData[@"name"] lowercaseString];
-                    [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
+                    //NSString *lowercaseName = [userData[@"name"] lowercaseString];
+                    //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
                 }
                 
                 if ([pictureURL absoluteString]) {
@@ -511,6 +524,11 @@
 {
     [self.loginActivityIndicator stopAnimating];
     
+    // First checks internet to ensure that the user is connected
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        //[self presentCheckYourInternetConnectionAlertView];
+        return;
+    }
     
     if (error.code == 101) { // 101 = invalid login credentials
         // The login failed. Check error to see why.
@@ -542,6 +560,12 @@
         StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
         [self.navigationController pushViewController:emailVerificationVC animated:YES];
     }
+}
+
+- (void)presentCheckYourInternetConnectionAlertView
+{
+    UIAlertView *checkInternetConnectionAlertView = [[UIAlertView alloc] initWithTitle:@"Check Your Connection" message:@"There seems to be something wrong with your connection! Make sure that you're connected to the internet or just try again soon." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [checkInternetConnectionAlertView show];
 }
 
 

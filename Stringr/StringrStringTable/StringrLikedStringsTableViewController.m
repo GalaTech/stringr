@@ -42,5 +42,17 @@
     return likedStringsQuery;
 }
 
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+    
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You do not have any liked Strings"];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    }
+}
+
 
 @end

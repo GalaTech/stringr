@@ -17,7 +17,6 @@
     [super viewDidLoad];
     
     [self.tabBar setTintColor:[StringrConstants kStringrBlueColor]];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated

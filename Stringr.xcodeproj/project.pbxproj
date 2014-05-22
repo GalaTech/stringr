@@ -96,6 +96,9 @@
 		ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */; };
 		ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */; };
 		ABF0554D192962C000BB08A7 /* StringrNoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF0554C192962C000BB08A7 /* StringrNoContentView.m */; };
+		ABF05552192BCE3500BB08A7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05551192BCE3500BB08A7 /* Reachability.m */; };
+		ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */; };
+		ABF0555C192D81D400BB08A7 /* StringrNearYouTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF0555B192D81D400BB08A7 /* StringrNearYouTableViewController.m */; };
 		ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */; };
 		ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */; };
 		ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */; };
@@ -309,6 +312,12 @@
 		ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
 		ABF0554B192962C000BB08A7 /* StringrNoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentView.h; path = StringrStringTable/StringrNoContentView.h; sourceTree = "<group>"; };
 		ABF0554C192962C000BB08A7 /* StringrNoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentView.m; path = StringrStringTable/StringrNoContentView.m; sourceTree = "<group>"; };
+		ABF05550192BCE3500BB08A7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		ABF05551192BCE3500BB08A7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		ABF05553192D607C00BB08A7 /* StringrFollowingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFollowingTableViewController.h; path = StringrStringTable/StringrFollowingTableViewController.h; sourceTree = "<group>"; };
+		ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFollowingTableViewController.m; path = StringrStringTable/StringrFollowingTableViewController.m; sourceTree = "<group>"; };
+		ABF0555A192D81D400BB08A7 /* StringrNearYouTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNearYouTableViewController.h; path = StringrStringTable/StringrNearYouTableViewController.h; sourceTree = "<group>"; };
+		ABF0555B192D81D400BB08A7 /* StringrNearYouTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNearYouTableViewController.m; path = StringrStringTable/StringrNearYouTableViewController.m; sourceTree = "<group>"; };
 		ABF121EF189C14810029177A /* StringrCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCommentsTableViewCell.h; path = Comments/StringrCommentsTableViewCell.h; sourceTree = "<group>"; };
 		ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCommentsTableViewCell.m; path = Comments/StringrCommentsTableViewCell.m; sourceTree = "<group>"; };
 		ABFBE5FF18D8C67A0026BCC1 /* StringrHomeTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrHomeTabBarViewController.h; path = "Tab Bar Controller/StringrHomeTabBarViewController.h"; sourceTree = "<group>"; };
@@ -442,15 +451,17 @@
 			name = "String TableViewCell";
 			sourceTree = "<group>";
 		};
-		AB0F5326190AF1D100A29E59 /* Discover */ = {
+		AB0F5326190AF1D100A29E59 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
 				AB0F5327190AF1FF00A29E59 /* StringrPopularTableViewController.h */,
 				AB0F5328190AF1FF00A29E59 /* StringrPopularTableViewController.m */,
 				AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */,
 				AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */,
+				ABF0555A192D81D400BB08A7 /* StringrNearYouTableViewController.h */,
+				ABF0555B192D81D400BB08A7 /* StringrNearYouTableViewController.m */,
 			);
-			name = Discover;
+			name = Explore;
 			sourceTree = "<group>";
 		};
 		AB0F532D190B1DF500A29E59 /* Liked Strings/Photos */ = {
@@ -469,10 +480,10 @@
 			children = (
 				ABDB7E4D18D63C620047691B /* StringrTableViewController.h */,
 				ABDB7E4E18D63C620047691B /* StringrTableViewController.m */,
-				ABFBE60518D8C7D40026BCC1 /* Activity */,
+				ABFBE60518D8C7D40026BCC1 /* Activity Table */,
 				ABF121EE189B2D9D0029177A /* Comments Table */,
-				BF3EDE07183E98910071E047 /* String Table */,
-				BF3EDE2A184449CE0071E047 /* User Table */,
+				BF3EDE07183E98910071E047 /* String Tables */,
+				BF3EDE2A184449CE0071E047 /* User Tables */,
 			);
 			name = "TableView Controllers";
 			sourceTree = "<group>";
@@ -730,6 +741,15 @@
 			name = "No Content View";
 			sourceTree = "<group>";
 		};
+		ABF0554F192BCE3500BB08A7 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				ABF05550192BCE3500BB08A7 /* Reachability.h */,
+				ABF05551192BCE3500BB08A7 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		ABF121EE189B2D9D0029177A /* Comments Table */ = {
 			isa = PBXGroup;
 			children = (
@@ -748,13 +768,13 @@
 			name = "Comments TableViewCell";
 			sourceTree = "<group>";
 		};
-		ABFBE60518D8C7D40026BCC1 /* Activity */ = {
+		ABFBE60518D8C7D40026BCC1 /* Activity Table */ = {
 			isa = PBXGroup;
 			children = (
 				ABFBE60218D8C7CA0026BCC1 /* StringrActivityTableViewController.h */,
 				ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */,
 			);
-			name = Activity;
+			name = "Activity Table";
 			sourceTree = "<group>";
 		};
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
@@ -851,19 +871,21 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
-		BF3EDE07183E98910071E047 /* String Table */ = {
+		BF3EDE07183E98910071E047 /* String Tables */ = {
 			isa = PBXGroup;
 			children = (
 				BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */,
-				AB0F5326190AF1D100A29E59 /* Discover */,
+				ABF05553192D607C00BB08A7 /* StringrFollowingTableViewController.h */,
+				ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */,
 				BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */,
 				BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */,
-				AB0F532D190B1DF500A29E59 /* Liked Strings/Photos */,
 				BF170EB8184930930056ECE7 /* StringrSearchTableViewController.h */,
 				BF170EB9184930930056ECE7 /* StringrSearchTableViewController.m */,
+				AB0F5326190AF1D100A29E59 /* Explore */,
+				AB0F532D190B1DF500A29E59 /* Liked Strings/Photos */,
 			);
-			name = "String Table";
+			name = "String Tables";
 			sourceTree = "<group>";
 		};
 		BF3EDE0B183E9BC10071E047 /* TabBar Controllers */ = {
@@ -917,7 +939,7 @@
 			name = "Detail and Edit";
 			sourceTree = "<group>";
 		};
-		BF3EDE2A184449CE0071E047 /* User Table */ = {
+		BF3EDE2A184449CE0071E047 /* User Tables */ = {
 			isa = PBXGroup;
 			children = (
 				BF3EDE27184449C80071E047 /* StringrUserTableViewController.h */,
@@ -927,7 +949,7 @@
 				BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */,
 				BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */,
 			);
-			name = "User Table";
+			name = "User Tables";
 			sourceTree = "<group>";
 		};
 		BF3EDE4D1847C0670071E047 /* User TableViewCell */ = {
@@ -1045,6 +1067,7 @@
 		BF834A3E1829973000D15963 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				ABF0554F192BCE3500BB08A7 /* Reachability */,
 				ABA2F04A1922BB430004A806 /* ZCImagePickerController */,
 				AB757A89187F173F00D32917 /* Image Path  */,
 				ABDFDE6418CFC1E000682EDD /* ParseImagePager */,
@@ -1260,6 +1283,7 @@
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
+				ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */,
 				AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
 				AB0F5330190B25E700A29E59 /* StringrLikedTabBarViewController.m in Sources */,
@@ -1290,6 +1314,7 @@
 				ABDB7CB718D3D4360047691B /* StringrDetailTagsTableViewCell.m in Sources */,
 				AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */,
 				AB0F532C190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m in Sources */,
+				ABF05552192BCE3500BB08A7 /* Reachability.m in Sources */,
 				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
 				ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */,
 				ABDD30D81896EF300043CC28 /* StringrStringCollectionViewController.m in Sources */,
@@ -1300,6 +1325,7 @@
 				ABDB7E4F18D63C620047691B /* StringrTableViewController.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,
 				ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */,
+				ABF0555C192D81D400BB08A7 /* StringrNearYouTableViewController.m in Sources */,
 				AB919C4A189EF23A00D40FD5 /* StringViewReorderable.m in Sources */,
 				AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,

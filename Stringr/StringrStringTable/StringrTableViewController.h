@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "StringrNoContentView.h"
 
-@interface StringrTableViewController : PFQueryTableViewController
+@interface StringrTableViewController : PFQueryTableViewController <StringrNoContentViewDelegate>
+
+@property (strong, nonatomic, readonly) UIStoryboard *mainStoryboard;
 
 - (void)setQueryForTable:(PFQuery *)queryForTable;
 - (PFQuery *)getQueryForTable;
+
 
 @end

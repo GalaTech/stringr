@@ -73,6 +73,16 @@
 - (void)dealloc
 {
     NSLog(@"dealloc table view");
+    
+}
+
+
+
+#pragma mark - Custom Accessors
+
+- (UIStoryboard *)mainStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"Main" bundle: nil];
 }
 
 
@@ -156,20 +166,8 @@
     [newStringActionSheet addButtonWithTitle:@"Take Photo"];
     [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
     
-    /* Implement return to saved string
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     
-     
-     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
-     [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
-     [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-     }
-     */
-    
     [newStringActionSheet addButtonWithTitle:@"Cancel"];
     [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-    
-    
     
     UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
     if ([window.subviews containsObject:self.view]) {

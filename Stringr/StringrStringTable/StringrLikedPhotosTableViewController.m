@@ -138,7 +138,13 @@
 {
     [super objectsDidLoad:error];
     
-    [self getLikedPhotos];
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Strings!"];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        [self getLikedPhotos];
+    }
 }
 
 - (void)objectsWillLoad

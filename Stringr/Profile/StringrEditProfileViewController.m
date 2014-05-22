@@ -286,8 +286,8 @@
         [self.delegate setProfileName:editedName];
         [[PFUser currentUser] setObject:editedName forKey:kStringrUserDisplayNameKey];
         
-        NSString *lowercaseName = [editedName lowercaseString];
-        [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
+        //NSString *lowercaseName = [editedName lowercaseString];
+        //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
         // saves with block so that the menu will only reload once the data has been successfully uploaded
         [[PFUser currentUser] saveInBackground];
         

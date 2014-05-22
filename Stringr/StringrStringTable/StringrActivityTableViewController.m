@@ -50,6 +50,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Activity";
     
     self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
 }
@@ -202,10 +203,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.row == self.objects.count) {
-//        return 45.0f; // load more cell
-//    }
-    
     return 75.0f;
 }
 
@@ -244,6 +241,14 @@
     [activityQuery orderByDescending:@"createdAt"];
     
     // perform conditional to check if there is a network connection
+    if (self.objects.count == 0) {
+        [activityQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+    }
+    
+    
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        activityQuery = [PFQuery queryWithClassName:@"no_class"];
+    }
     
     return activityQuery;
 }
@@ -252,6 +257,11 @@
 {
     [super objectsDidLoad:error];
     
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Activities"];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object

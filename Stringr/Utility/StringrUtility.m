@@ -589,6 +589,20 @@
     return NO;
 }
 
+// Trim the input string by removing leading and trailing white spaces
+// and return the result
++ (NSString *)stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:(NSString *)string
+{
+    NSString *leadingTrailingWhiteSpacesPattern = @"(?:^\\s+)|(?:\\s+$)";
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:leadingTrailingWhiteSpacesPattern options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    NSRange stringRange = NSMakeRange(0, string.length);
+    NSString *trimmedString = [regex stringByReplacingMatchesInString:string options:NSMatchingReportProgress range:stringRange withTemplate:@"$1"];
+    
+    return trimmedString;
+}
+
 + (BOOL)NSStringIsValidUsername:(NSString *)checkString
 {
     if ([self NSStringContainsCharactersWithoutWhiteSpace:checkString] && checkString.length > 0 && checkString.length <= 15) {

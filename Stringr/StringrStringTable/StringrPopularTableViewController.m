@@ -14,19 +14,13 @@
 
 @implementation StringrPopularTableViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Popular";
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,15 +29,32 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+
+#pragma mark - PFQueryTableViewController Delegate
+
+- (PFQuery *)queryForTable
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+    [popularQuery whereKeyExists:kStringrStatisticsStringKey];
+    [popularQuery includeKey:kStringrStatisticsStringKey];
+    [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
+    [popularQuery addDescendingOrder:kStringrStatisticsLikeCountKey];
+    [popularQuery setLimit:100];
+    
+    return popularQuery;
 }
-*/
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Popular Strings"];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    }
+}
 
 @end

@@ -18,7 +18,6 @@
 #import "StringCollectionViewCell.h"
 #import "StringrFooterView.h"
 #import "StringrLoadMoreTableViewCell.h"
-#import "StringrNoContentView.h"
 #import "NHBalancedFlowLayout.h"
 
 
@@ -46,6 +45,20 @@
     return self;
 }
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        self.parseClassName = kStringrStringClassKey;
+        self.pullToRefreshEnabled = YES;
+        self.paginationEnabled = NO;
+        self.objectsPerPage = 2;
+        
+    }
+    
+    return self;
+}
+
 - (void)dealloc
 {
     [PFQuery clearAllCachedResults];
@@ -59,7 +72,9 @@
     [super viewDidLoad];
     
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"StringTableViewFooter"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.tableView setSeparatorColor:[UIColor clearColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -222,8 +237,14 @@
     PFQuery *query = [self getQueryForTable];
     query.limit = 100;
     
+    
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    }
+     
+    
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        query = [PFQuery queryWithClassName:@"no_class"];
     }
     
     return query;
@@ -313,10 +334,6 @@
                 }
             }];
         }
-    } else {
-      //  StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Strings!"];
-        
-        //self.tableView.tableHeaderView = noContentHeaderView;
     }
 }
 
@@ -417,7 +434,7 @@
     NSArray *stringPhotos = self.stringPhotos[collectionView.index];
     
     if (stringPhotos) {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+        StringrPhotoDetailViewController *photoDetailVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         
         [photoDetailVC setEditDetailsEnabled:NO];
         
@@ -485,7 +502,7 @@
 
 - (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
-    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    StringrStringDetailViewController *detailVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
     
     // passes the appropriate string object based around what type of parse object has been querried
     if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
@@ -508,7 +525,7 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     if (uploader) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
@@ -527,7 +544,7 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
 {
     if (object) {
-        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        StringrCommentsTableViewController *commentsVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
         [commentsVC setSection:section];
         [commentsVC setDelegate:self];

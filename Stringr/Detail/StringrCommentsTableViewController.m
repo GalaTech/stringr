@@ -211,12 +211,26 @@
 
     
     if (self.objects.count == 0) {
-        // I changed the cache policy from kPFCachePolicyCacheThenNetwork because this was resulting
-        // in duplicate objects being loaded
-        query.cachePolicy = kPFCachePolicyNetworkElseCache;
+        [query setCachePolicy:kPFCachePolicyNetworkOnly];
+    }
+     
+    
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        query = [PFQuery queryWithClassName:@"no_class"];
     }
     
     return query;
+}
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Comments"];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object

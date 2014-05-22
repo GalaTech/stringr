@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol StringrNoContentViewDelegate;
+
 @interface StringrNoContentView : UIView
+
+@property (weak, nonatomic) id<StringrNoContentViewDelegate> delegate;
 
 /**
  * This will setup a view that contains a centered label with the inputted text.
@@ -19,5 +23,15 @@
  * will dynamically change based around the amount of text provided.
  */
 - (id)initWithFrame:(CGRect)frame andNoContentText:(NSString *)text; // Designated Initializer
+
+- (void)setTitleForExploreOptionButton:(NSString *)title;
+
+@end
+
+
+@protocol StringrNoContentViewDelegate <NSObject>
+
+@optional
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton;
 
 @end

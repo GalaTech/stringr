@@ -46,7 +46,8 @@
     
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     [self.agreementView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(signupWithUserInformation)];
+    
+    UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(signupWithUserInformation)];
     [self.navigationItem setRightBarButtonItem:signupNavigationItem];
     self.userProfileImage = [UIImage imageNamed:@"stringr_icon_filler"];
 }
@@ -128,8 +129,8 @@
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.displayName]) {
             [newUser setObject:self.displayName forKey:kStringrUserDisplayNameKey];
             
-            NSString *lowercaseName = [self.displayName lowercaseString];
-            [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
+            //NSString *lowercaseName = [self.displayName lowercaseString];
+            //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
             userIsValidForSignup++;
         } else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];

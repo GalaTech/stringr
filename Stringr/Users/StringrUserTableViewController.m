@@ -169,8 +169,14 @@
 {
     PFQuery *query = [self getQueryForTable];
     
+    
     if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        [query setCachePolicy:kPFCachePolicyNetworkElseCache];
+    }
+     
+    
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        query = [PFQuery queryWithClassName:@"no_class"];
     }
     
     return query;

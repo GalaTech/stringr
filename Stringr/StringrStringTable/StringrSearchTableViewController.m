@@ -47,15 +47,31 @@
 - (PFQuery *)queryForTable
 {
     if (self.searchText && [StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.searchText]) {
+        NSString *modifiedSearchText = [StringrUtility stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:self.searchText];
+        
+        NSError *error = NULL;
+        NSString *hashtagRegexPattern = @"(#[a-z]+)\\b";
+        NSRange textRange = NSMakeRange(0, modifiedSearchText.length);
+        
+        NSRegularExpression *hashtagRegex = [NSRegularExpression regularExpressionWithPattern:hashtagRegexPattern options:NSRegularExpressionCaseInsensitive error:&error];
+        NSArray *hashtagMatches = [hashtagRegex matchesInString:modifiedSearchText options:NSMatchingReportProgress range:textRange];
+        
+        NSString *searchText = modifiedSearchText;
+        if (hashtagMatches.count ==1) {
+            for (NSTextCheckingResult *match in hashtagMatches) {
+                searchText = [NSString stringWithFormat:@"(%@)\\b", [modifiedSearchText substringWithRange:match.range]];
+            }
+        }
         
         PFQuery *stringTitleQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-        [stringTitleQuery whereKey:kStringrStringTitleKey containsString:self.searchText];
+        [stringTitleQuery whereKey:kStringrStringTitleKey matchesRegex:searchText modifiers:@"i"];
         
         PFQuery *stringDescriptionQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-        [stringDescriptionQuery whereKey:kStringrStringDescriptionKey containsString:self.searchText];
+        [stringDescriptionQuery whereKey:kStringrStringDescriptionKey matchesRegex:searchText modifiers:@"i"];
         
         PFQuery *stringSearchQuery = [PFQuery orQueryWithSubqueries:@[stringTitleQuery, stringDescriptionQuery]];
-        
+        [stringSearchQuery orderByDescending:@"createdAt"];
+
         return stringSearchQuery;
     }
     
@@ -65,6 +81,16 @@
     return nilQuery;
 }
 
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"Search for Strings or #hashtags"];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    }
+}
 
 
 

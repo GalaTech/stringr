@@ -162,48 +162,6 @@
 
 
 
-/*
-#pragma mark - StringView Delegate
-
-- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
-{
-    if (photos)
-    {
-        if (self.editingStringsEnabled) {
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            
-            [photoDetailVC setEditDetailsEnabled:NO];
-            
-            // Sets the photos to be displayed in the photo pager
-            [photoDetailVC setPhotosToLoad:photos];
-            [photoDetailVC setSelectedPhotoIndex:index];
-            [photoDetailVC setStringOwner:string];
-            [photoDetailVC setEditDetailsEnabled:YES];
-            
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
-            
-            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
-            
-            [self presentViewController:navVC animated:YES completion:nil];
-        } else {
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            
-            [photoDetailVC setEditDetailsEnabled:NO];
-            
-            // Sets the photos to be displayed in the photo pager
-            [photoDetailVC setPhotosToLoad:photos];
-            [photoDetailVC setSelectedPhotoIndex:index];
-            [photoDetailVC setStringOwner:string];
-            
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
-            
-            [self.navigationController pushViewController:photoDetailVC animated:YES];
-        }
-    }
-}
- */
-
-
 
 #pragma mark - StringrStringHeaderView Delegate
 

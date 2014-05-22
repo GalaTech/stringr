@@ -24,7 +24,7 @@
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) StringrProfileTopViewController *topProfileVC;
-@property (weak, nonatomic) StringrProfileTableViewController *tableProfileVC;
+@property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
 
 @end
 
@@ -68,13 +68,8 @@
     // Sets the user for the currently accessed profile
     [self.topProfileVC setUserForProfile:self.userForProfile];
     
-    self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileTableViewID];
-    
-    // Querries all strings that are owned by the user for the specified profile
-    PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
-    [profileStringsQuery orderByDescending:@"createdAt"];
-    [self.tableProfileVC setQueryForTable:profileStringsQuery];
+    self.tableProfileVC = [[StringrProfileTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.tableProfileVC setUserForProfile:self.userForProfile];
 
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     
