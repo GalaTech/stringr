@@ -237,11 +237,16 @@
             StringrStringDetailTopViewController *topVC = (StringrStringDetailTopViewController *)self.stringTopVC;
             [topVC addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
                 if (succeeded) {
+                    
                     StringrPhotoDetailViewController *editPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
                     [editPhotoVC setEditDetailsEnabled:YES];
                     [editPhotoVC setStringOwner:self.stringToLoad];
                     [editPhotoVC setSelectedPhotoIndex:0];
                     [editPhotoVC setPhotosToLoad:@[photo]];
+                    
+                    if ([self.stringToLoad.ACL getPublicWriteAccess]) {
+                        editPhotoVC.isPublicPhoto = YES;
+                    }
                     
                     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
                     

@@ -98,6 +98,7 @@
     if (photo) {
         NSInteger indexOfPhoto = [self.stringPhotos indexOfObject:photo];
 
+        [photo deleteInBackground];
         if (indexOfPhoto <= self.stringPhotos.count) {
             [self.stringPhotos removeObjectAtIndex:indexOfPhoto];
             NSIndexPath *photoIndexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];

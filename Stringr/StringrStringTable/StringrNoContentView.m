@@ -50,13 +50,15 @@
         
         self.exploreOptionButton = [[UIButton alloc] initWithFrame:CGRectMake(FLT_MIN, FLT_MIN, 280, 35)];
         self.exploreOptionButton.center = CGPointMake(centerX, centerY + 80);
-        [self.exploreOptionButton setTitle:@"Explore More" forState:UIControlStateNormal];
         
-        [self.exploreOptionButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        UIColor *lightGrayBlueColor = [UIColor colorWithRed:155.0/255.0f green:168.0/255.0f blue:185.0/255.0f alpha:1.0];
+        
+        [self.exploreOptionButton setTitleColor:lightGrayBlueColor forState:UIControlStateNormal];
         [self.exploreOptionButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
         [self.exploreOptionButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
         [self.exploreOptionButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
         [self.exploreOptionButton addTarget:self action:@selector(exploreMoreButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
+        [self.exploreOptionButton setUserInteractionEnabled:NO]; // Is set to yes when a title is set for the button
         [self addSubview:self.exploreOptionButton];
 
         [self addSubview:[self setupColoredHeaderRibbon]];
@@ -98,6 +100,7 @@
 - (void)setTitleForExploreOptionButton:(NSString *)title
 {
     [self.exploreOptionButton setTitle:title forState:UIControlStateNormal];
+    [self.exploreOptionButton setUserInteractionEnabled:YES];
 }
 
 

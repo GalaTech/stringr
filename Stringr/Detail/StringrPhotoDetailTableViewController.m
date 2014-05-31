@@ -22,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    [self reloadPhotoTitleAndDescription];
+    [self reloadPhotoTitle];
 }
 
 - (void)dealloc
@@ -55,11 +55,10 @@
         rowAnimation = UITableViewRowAnimationRight;
     }
     
-    [self reloadPhotoTitleAndDescription];
+    [self reloadPhotoTitle];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
-    //NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:2 inSection:0];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath, indexPath2] withRowAnimation:rowAnimation];
 }
 
@@ -68,11 +67,15 @@
 
 #pragma mark - Private
 
-- (void)reloadPhotoTitleAndDescription
+- (void)reloadPhotoTitle
 {
     if (![[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey] isEqualToString:@""]) {
         self.photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];
-        self.photoDescription = [self.photoDetailsToLoad objectForKey:kStringrPhotoDescriptionKey];
+    }
+    
+    else {
+        // Without this a photo with no title would sometimes take on the title of a photo adjacent to it.
+        self.photoTitle = @"";
     }
 }
 
@@ -124,20 +127,6 @@
                     return titleCell;
                 }
             }
-            /*
-            else if (indexPath.row == 2) {
-                cellIdentifier = @"photo_descriptionCell";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-                
-                if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
-                    StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    [descriptionCell setDescriptionForCell:self.photoDescription];
-                    [descriptionCell setDelegate:self];
-                    
-                    return descriptionCell;
-                }
-            }
-             */
             break;
         default:
             break;
@@ -158,11 +147,6 @@
         if (indexPath.row == 1) {
             return [StringrUtility heightForLabelWithNSString:self.photoTitle];
         }
-        /*
-        else if (indexPath.row == 2) {
-            return  [StringrUtility heightForLabelWithNSString:self.photoDescription];
-        }
-         */
     }
     
     return 44.0f;
@@ -192,11 +176,6 @@
             break;
     }
 }
-
-
-
-
-
 
 
 @end

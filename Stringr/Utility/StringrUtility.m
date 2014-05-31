@@ -57,6 +57,7 @@
     [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
     
     PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setWriteAccess:YES forUser:[photo objectForKey:kStringrPhotoUserKey]];
     [likeACL setPublicReadAccess:YES];
     
     [likeActivity setACL:likeACL];
@@ -127,6 +128,7 @@
     [likeActivity setObject:string forKey:kStringrActivityStringKey];
     
     PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setWriteAccess:YES forUser:[string objectForKey:kStringrStringUserKey]];
     [likeACL setPublicReadAccess:YES];
     [likeActivity setACL:likeACL];
     
@@ -225,6 +227,7 @@
     [followActivity setObject:kStringrActivityTypeFollow forKey:kStringrActivityTypeKey];
     
     PFACL *followACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [followACL setWriteAccess:YES forUser:user];
     [followACL setPublicReadAccess:YES];
     followActivity.ACL = followACL;
     
@@ -253,6 +256,7 @@
     [followActivity setObject:kStringrActivityTypeFollow forKey:kStringrActivityTypeKey];
     
     PFACL *followACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [followACL setWriteAccess:YES forUser:user];
     [followACL setPublicReadAccess:YES];
     followActivity.ACL = followACL;
     
@@ -311,23 +315,6 @@
 
 + (void)sendFollowingPushNotification:(PFUser *)user
 {
-    /*
-    NSString *privateChannelName = [user objectForKey:kStringrUserPrivateChannelKey];
-    if (privateChannelName && privateChannelName.length != 0) {
-        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSString stringWithFormat:@"%@ is now following you!", [StringrUtility firstNameForDisplayName:[[PFUser currentUser] objectForKey:kPAPUserDisplayNameKey]]], kAPNSAlertKey,
-                              kPAPPushPayloadPayloadTypeActivityKey, kPAPPushPayloadPayloadTypeKey,
-                              kPAPPushPayloadActivityFollowKey, kPAPPushPayloadActivityTypeKey,
-                              [[PFUser currentUser] objectId], kPAPPushPayloadFromUserObjectIdKey,
-                              nil];
-        PFPush *push = [[PFPush alloc] init];
-        [push setChannel:privateChannelName];
-        [push setData:data];
-        [push sendPushInBackground];
-    }
-    */
-    
-    // TODO: set private channel to that of the parameter 'user'
     NSString *followedUserPrivatePushChannel = [user objectForKey:kStringrUserPrivateChannelKey];
     
     if (followedUserPrivatePushChannel && followedUserPrivatePushChannel.length != 0) {

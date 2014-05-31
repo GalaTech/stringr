@@ -28,6 +28,8 @@
  */
 @property (strong, nonatomic) PFObject *stringOwner;
 
+@property (nonatomic) BOOL isPublicPhoto;
+
 @property (weak, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegateForPhotoController;
 
 @end

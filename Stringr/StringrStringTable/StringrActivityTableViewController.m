@@ -113,85 +113,94 @@
 {
     if (indexPath.row == self.objects.count) [self loadNextPage];
     
-    PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row];
+    PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row]; // activity object
+    PFObject *stringToLoad = [objectForIndexPath objectForKey:kStringrActivityStringKey]; // string object
+    PFObject *photoToLoad = [objectForIndexPath objectForKey:kStringrActivityPhotoKey]; // photo object
+
     NSString *activityType = [objectForIndexPath objectForKey:kStringrActivityTypeKey];
+    
     if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey] && [objectForIndexPath objectForKey:kStringrActivityStringKey]) { // added photo to public string
+        if (!stringToLoad) return;
         StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        [stringDetailVC setStringToLoad:stringToLoad];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:stringDetailVC animated:YES];
-    } else if ([[objectForIndexPath objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) {
+    } else if ([[objectForIndexPath objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) { // mentioned in comment
+        if (!stringToLoad) return;
         StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
-        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        [stringDetailVC setStringToLoad:stringToLoad];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
         StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
-        [commentsVC setObjectForCommentThread:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        [commentsVC setObjectForCommentThread:stringToLoad];
         commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         
+        // Pushes both the String detail and comments onto the navVC
         NSArray *currentViewControllers = self.navigationController.viewControllers;
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
         [viewControllers addObject:stringDetailVC];
         [viewControllers addObject:commentsVC];
         
         [self.navigationController setViewControllers:viewControllers animated:YES];
-    } else if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
-        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
+    } else if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) { // Activity on a string
+        if (!stringToLoad) return;
+        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) { // Commented on your string
             StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
             stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
-            [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+            [stringDetailVC setStringToLoad:stringToLoad];
             [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
             StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
-            [commentsVC setObjectForCommentThread:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+            [commentsVC setObjectForCommentThread:stringToLoad];
             commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
+            // Pushes both the String detail and comments onto the navVC
             NSArray *currentViewControllers = self.navigationController.viewControllers;
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
             [viewControllers addObject:stringDetailVC];
             [viewControllers addObject:commentsVC];
             
             [self.navigationController setViewControllers:viewControllers animated:YES];
-        } else {
+        } else { // Liked Your String
             StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-            [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+            [stringDetailVC setStringToLoad:stringToLoad];
             [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
             [self.navigationController pushViewController:stringDetailVC animated:YES];
         }
-    } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
-        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) {
+    } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) { // Activity on a Photo
+        if (!photoToLoad) return;
+        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) { // Commented on your photo
             StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
-            PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
-            [photoDetailVC setPhotosToLoad:@[photo]];
-            [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
+            [photoDetailVC setPhotosToLoad:@[photoToLoad]];
+            [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
             [photoDetailVC setHidesBottomBarWhenPushed:YES];
             
             StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
-            [commentsVC setObjectForCommentThread:photo];
+            [commentsVC setObjectForCommentThread:photoToLoad];
             commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
+            // Pushes both the Photo detail and comments onto the navVC
             NSArray *currentViewControllers = self.navigationController.viewControllers;
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
             [viewControllers addObject:photoDetailVC];
             [viewControllers addObject:commentsVC];
             
             [self.navigationController setViewControllers:viewControllers animated:YES];
-        } else {
+        } else { // Liked your photo
              StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-             
-             PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
-             [photoDetailVC setPhotosToLoad:@[photo]];
-             [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
+            
+             [photoDetailVC setPhotosToLoad:@[photoToLoad]];
+             [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
              [photoDetailVC setHidesBottomBarWhenPushed:YES];
              
              [self.navigationController pushViewController:photoDetailVC animated:YES];
         }
-    } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
+    } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) { // Follow activity action
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
         [profileVC setProfileReturnState:ProfileBackReturnState];
@@ -258,9 +267,13 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Activities"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You don't have any Activity"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Explore New Content"];
+        [noContentHeaderView setDelegate:self];
         
         self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        self.tableView.tableHeaderView = nil;
     }
 }
 
@@ -312,6 +325,18 @@
         
         [self presentViewController:navVC animated:YES completion:nil];
     }
+}
+
+
+
+#pragma mark - StringrNoContentView Delegate
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
+{
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discover
+    
+    [self.frostedViewController setContentViewController:discoveryTabBarVC];
 }
 
 

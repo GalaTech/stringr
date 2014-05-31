@@ -175,7 +175,6 @@
     } else {
         [newStringActionSheet showInView:window];
     }
-    
 }
 
 
@@ -207,7 +206,7 @@
         
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }
@@ -223,7 +222,7 @@
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
@@ -246,7 +245,7 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:^ {
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
         [newStringVC setEditDetailsEnabled:YES];
         

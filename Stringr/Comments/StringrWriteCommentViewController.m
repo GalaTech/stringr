@@ -40,10 +40,8 @@
         
         NSString *forObjectKey = kStringrActivityStringKey;
         NSString *forObjectUserKey = kStringrStringUserKey;
-        //[self.objectToCommentOn incrementKey:kStringrStringNumberOfCommentsKey]; // cant save to a string or photo that will be read only...
         
         if ([self.objectToCommentOn.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            //[self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey]; // can't save to a string or photo that will be read only...
             forObjectKey = kStringrActivityPhotoKey;
             forObjectUserKey = kStringrPhotoUserKey;
         }

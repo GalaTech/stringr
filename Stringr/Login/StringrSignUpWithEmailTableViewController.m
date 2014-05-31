@@ -162,8 +162,8 @@
                 /*
                  This sets the profile image and thumbnail to the stringr image. For now I am not implementing it because that is just
                  * a lot of wasted space on the server. By default the app displays that image for users without a profile pic.*/
-                UIImage *resizedProfileImage = [[UIImage imageNamed:@"Stringr Image"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
-                UIImage *thumbnailProfileImage = [[UIImage imageNamed:@"Stringr Image"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+                UIImage *resizedProfileImage = [[UIImage imageNamed:@"stringr_icon_filler"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
+                UIImage *thumbnailProfileImage = [[UIImage imageNamed:@"stringr_icon_filler"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
                 
                 NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
                 NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
@@ -192,8 +192,14 @@
                                 if (!error) {
                                     [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                     
-                                    // Saves the user after we have ensured they are a valid college student
+                                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+                                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+                                    
                                     [[PFUser currentUser] saveInBackground];
+                                    
+                                    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+                                    [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+                                    [[PFInstallation currentInstallation] saveEventually];
                                 }
                             }];
                         }];

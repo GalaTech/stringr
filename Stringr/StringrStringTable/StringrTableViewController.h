@@ -16,6 +16,7 @@
 
 - (void)setQueryForTable:(PFQuery *)queryForTable;
 - (PFQuery *)getQueryForTable;
+- (void)addNewString;
 
 
 @end

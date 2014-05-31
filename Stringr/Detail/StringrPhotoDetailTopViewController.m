@@ -172,6 +172,7 @@
     PFObject *photo = [notificationDictionary objectForKey:@"photo"];
     
     if (photo) {
+        //[photo deleteInBackground];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

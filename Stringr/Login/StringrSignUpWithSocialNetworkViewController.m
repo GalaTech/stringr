@@ -78,9 +78,7 @@
         
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.displayName]) {
             [newUser setObject:self.displayName forKey:kStringrUserDisplayNameKey];
-            
-            //NSString *lowercaseName = [self.displayName lowercaseString];
-            //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
+
             userIsValidForSignup++;
         } else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];
@@ -98,6 +96,7 @@
             [newUser setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
             [newUser setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
             
+            
             [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     // instantiates the main logged in content area
@@ -108,8 +107,14 @@
                             if (!error) {
                                 [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                 
-                                // Saves the user after we have ensured they are a valid college student
+                                NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+                                [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+                                
                                 [[PFUser currentUser] saveInBackground];
+                                
+                                [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+                                [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+                                [[PFInstallation currentInstallation] saveEventually];
                             }
                         }];
                     }];

@@ -270,7 +270,7 @@
                 if ([photo isKindOfClass:[PFObject class]]) {
                     [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                     [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
-                    [photo saveEventually];
+                    [photo saveInBackground];
                 }
             }
             
@@ -282,7 +282,7 @@
             [self.stringToLoad setObject:self.stringTitle forKey:kStringrStringTitleKey];
             [self.stringToLoad setObject:self.stringDescription forKey:kStringrStringDescriptionKey];
             
-            [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
+            [self.stringToLoad saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
                 }
@@ -314,14 +314,14 @@
             // sets the location for this newly created string
             [self.stringToLoad setObject:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] forKey:kStringrStringLocationKey];
             
-            [self.stringToLoad saveEventually:^(BOOL succeeded, NSError *error) {
+            [self.stringToLoad saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     for (int i = 0; i < self.stringPhotos.count; i++) {
                         PFObject *photo = [self.stringPhotos objectAtIndex:i];
                         
                         [photo setObject:@(i) forKey:kStringrPhotoOrderNumber];
                         [photo setObject:self.stringToLoad forKey:kStringrPhotoStringKey];
-                        [photo saveEventually];
+                        [photo saveInBackground];
                     }
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringPublishedSuccessfully object:nil];
@@ -339,7 +339,7 @@
             [stringStatisticsACL setPublicWriteAccess:YES];
             [stringStatistics setACL:stringStatisticsACL];
             
-            [stringStatistics saveEventually];
+            [stringStatistics saveInBackground];
             
             // deletes photos that the user selected to delete in this session
             if (self.stringPhotosToDelete.count > 0) {
@@ -466,35 +466,41 @@
 {
     // delete the string and all photos in the string
     if (self.stringToLoad) {
-        PFQuery *stringStatisticsQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
-        [stringStatisticsQuery whereKey:kStringrStatisticsStringKey equalTo:self.stringToLoad];
-        [stringStatisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        PFQuery *activitiesForString = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [activitiesForString whereKey:kStringrActivityStringKey equalTo:self.stringToLoad];
+        [activitiesForString findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
             if (!error) {
-                for (PFObject *statistic in objects) {
-                    [statistic deleteInBackground];
+                for (PFObject *activity in activities) {
+                    [activity deleteEventually];
                 }
             }
             
-            PFQuery *activitiesForString = [PFQuery queryWithClassName:kStringrActivityClassKey];
-            [activitiesForString whereKey:kStringrActivityStringKey equalTo:self.stringToLoad];
-            [activitiesForString findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+            PFQuery *stringStatisticsQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+            [stringStatisticsQuery whereKey:kStringrStatisticsStringKey equalTo:self.stringToLoad];
+            [stringStatisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
-                    for (PFObject *activity in activities) {
-                        [activity deleteInBackground];
+                    for (PFObject *statistic in objects) {
+                        [statistic deleteEventually];
                     }
                 }
                 
-                [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringDeletedSuccessfully object:nil];
-                    }
-                }];
+            }];
+            
+            [self.stringToLoad deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterStringDeletedSuccessfully object:nil];
+                }
                 
                 for (PFObject *photo in self.stringPhotos) {
                     [self deletePhoto:photo];
                 }
             }];
+            
+            
         }];
+
+        
+
     }
 }
 

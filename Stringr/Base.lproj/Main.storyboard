@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TYo-jH-Mhx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TYo-jH-Mhx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -674,11 +674,11 @@
                                     <constraint firstAttribute="height" constant="45" id="lSZ-SB-M0Y"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="36E-gq-hoW">
-                                <rect key="frame" x="142" y="115" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="36E-gq-hoW">
+                                <rect key="frame" x="142" y="144" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwG-O4-N9W">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwG-O4-N9W">
                                 <rect key="frame" x="147" y="377" width="27" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="mail_icon">
@@ -688,6 +688,13 @@
                                     <action selector="userNeedsToVerifyEmailButtonTouchHandler:" destination="UvT-5J-tYG" eventType="touchUpInside" id="xyM-ar-Hyh"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The world on a String" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qoo-OC-y2G">
+                                <rect key="frame" x="78" y="115" width="165" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -700,29 +707,30 @@
                             <constraint firstItem="WKD-IZ-igY" firstAttribute="leading" secondItem="GL1-iV-wQg" secondAttribute="trailing" constant="75" id="95j-HI-sfd"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="top" secondItem="YwG-O4-N9W" secondAttribute="bottom" constant="34" id="9bB-GO-5yR"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="leading" secondItem="Zwc-VE-TEV" secondAttribute="leading" id="C89-Gi-rSB"/>
+                            <constraint firstItem="Qoo-OC-y2G" firstAttribute="top" secondItem="tA9-fS-EJk" secondAttribute="bottom" constant="8" id="CQT-NG-FvB"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="top" secondItem="GL1-iV-wQg" secondAttribute="bottom" constant="23" id="GfQ-gE-thx"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="centerX" secondItem="ecA-DM-Xgk" secondAttribute="centerX" id="GyU-mb-cDA"/>
                             <constraint firstItem="GL1-iV-wQg" firstAttribute="leading" secondItem="bmH-wy-ehC" secondAttribute="leading" constant="59" id="J9c-6K-D0v"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="leading" secondItem="7Yi-tG-hD8" secondAttribute="leading" id="LF4-py-Gt5"/>
                             <constraint firstItem="br3-UO-Akp" firstAttribute="top" secondItem="7Yi-tG-hD8" secondAttribute="bottom" id="LhB-2S-DSl"/>
                             <constraint firstAttribute="trailing" secondItem="7Yi-tG-hD8" secondAttribute="trailing" id="O7i-aX-WS3"/>
+                            <constraint firstItem="36E-gq-hoW" firstAttribute="top" secondItem="Qoo-OC-y2G" secondAttribute="bottom" constant="8" id="PhA-EG-aQ3"/>
                             <constraint firstItem="WKD-IZ-igY" firstAttribute="trailing" secondItem="ecA-DM-Xgk" secondAttribute="trailing" id="QGY-Ty-Vqc"/>
                             <constraint firstItem="WKD-IZ-igY" firstAttribute="bottom" secondItem="GL1-iV-wQg" secondAttribute="bottom" id="Qbp-wg-JyH"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="top" secondItem="tA9-fS-EJk" secondAttribute="bottom" priority="999" constant="154" id="QoE-ke-ruR"/>
                             <constraint firstItem="rtu-Rh-Lr3" firstAttribute="top" secondItem="JYF-Mw-27s" secondAttribute="bottom" constant="8" id="RBK-pH-f0L"/>
                             <constraint firstAttribute="bottom" secondItem="Zwc-VE-TEV" secondAttribute="bottom" constant="20" symbolic="YES" id="Roy-1o-62O"/>
                             <constraint firstItem="7Yi-tG-hD8" firstAttribute="top" secondItem="bmH-wy-ehC" secondAttribute="top" id="SOU-qD-OT6"/>
-                            <constraint firstItem="36E-gq-hoW" firstAttribute="top" secondItem="tA9-fS-EJk" secondAttribute="bottom" constant="8" symbolic="YES" id="X0g-or-mqu"/>
                             <constraint firstItem="YwG-O4-N9W" firstAttribute="leading" secondItem="GL1-iV-wQg" secondAttribute="trailing" constant="17" id="cIU-Jg-iDV"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="trailing" secondItem="7Yi-tG-hD8" secondAttribute="trailing" id="dDk-WX-FQY"/>
-                            <constraint firstItem="36E-gq-hoW" firstAttribute="centerX" secondItem="YwG-O4-N9W" secondAttribute="centerX" id="gbv-A4-P16"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="trailing" secondItem="rtu-Rh-Lr3" secondAttribute="trailing" id="i9d-kg-7vK"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="leading" secondItem="GL1-iV-wQg" secondAttribute="leading" id="iC3-Ax-YHG"/>
+                            <constraint firstItem="36E-gq-hoW" firstAttribute="centerX" secondItem="Qoo-OC-y2G" secondAttribute="centerX" id="mQR-bb-M3p"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="leading" secondItem="rtu-Rh-Lr3" secondAttribute="leading" id="oW9-CY-hXQ"/>
                             <constraint firstItem="JYF-Mw-27s" firstAttribute="height" secondItem="rtu-Rh-Lr3" secondAttribute="height" id="oie-sC-cJM"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="width" secondItem="Zwc-VE-TEV" secondAttribute="width" id="pxD-ET-J0H"/>
-                            <constraint firstItem="36E-gq-hoW" firstAttribute="centerX" secondItem="tA9-fS-EJk" secondAttribute="centerX" id="sHG-7Q-tM5"/>
                             <constraint firstAttribute="trailing" secondItem="tA9-fS-EJk" secondAttribute="trailing" constant="39" id="uEr-zH-vJ7"/>
+                            <constraint firstItem="Qoo-OC-y2G" firstAttribute="leading" secondItem="7Yi-tG-hD8" secondAttribute="trailing" constant="-242" id="xgh-q8-sgc"/>
                             <constraint firstItem="Zwc-VE-TEV" firstAttribute="top" secondItem="ecA-DM-Xgk" secondAttribute="bottom" constant="8" id="z38-dz-vdu"/>
                         </constraints>
                     </view>
@@ -1349,14 +1357,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Strings" id="ub8-bH-WUq">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for Strings or #hashtags" id="ub8-bH-WUq">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
-                            <scopeButtonTitles>
-                                <string>Title</string>
-                                <string>Title</string>
-                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="75q-Er-pmp" id="thr-jQ-Fev"/>
                             </connections>

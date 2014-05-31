@@ -57,9 +57,15 @@
         self.collectionViewLikedPhotos = [[NSMutableArray alloc] init];
         
         for (PFObject *activityObject in self.objects) {
-            [self.collectionViewLikedPhotos addObject:[activityObject objectForKey:kStringrActivityPhotoKey]];
+            PFObject *photo = [activityObject objectForKey:kStringrActivityPhotoKey];
+            if (photo) {
+                [self.collectionViewLikedPhotos addObject:[activityObject objectForKey:kStringrActivityPhotoKey]];
+            }
+            
             PFObject *string = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
-            [string fetchInBackgroundWithBlock:nil];
+            if (string) {
+                [string fetchInBackgroundWithBlock:nil];
+            }
         }
 }
 
@@ -75,7 +81,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (self.objects.count > 0) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -139,10 +149,13 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Strings!"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You do not have any liked Photos"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Explore Photos to Like"];
+        [noContentHeaderView setDelegate:self];
         
         self.tableView.tableHeaderView = noContentHeaderView;
     } else {
+        self.tableView.tableHeaderView = nil;
         [self getLikedPhotos];
     }
 }
@@ -175,23 +188,24 @@
     if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
         
         PFObject *photo = self.collectionViewLikedPhotos[indexPath.item];
-        
         StringCollectionViewCell *stringCell = (StringCollectionViewCell *)cell;
         
-        [stringCell.loadingImageIndicator setHidden:NO];
-        [stringCell.loadingImageIndicator startAnimating];
-        
-        if ([photo isKindOfClass:[PFObject class]]) {
-            PFObject *photoObject = (PFObject *)photo;
+        if (photo) {
+            [stringCell.loadingImageIndicator setHidden:NO];
+            [stringCell.loadingImageIndicator startAnimating];
             
-            PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
-            [stringCell.cellImage setFile:imageFile];
-            
-            [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
-                [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
-                [stringCell.loadingImageIndicator stopAnimating];
-                [stringCell.loadingImageIndicator setHidden:YES];
-            }];
+            if ([photo isKindOfClass:[PFObject class]]) {
+                PFObject *photoObject = (PFObject *)photo;
+                
+                PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+                [stringCell.cellImage setFile:imageFile];
+                
+                [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+                    [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+                    [stringCell.loadingImageIndicator stopAnimating];
+                    [stringCell.loadingImageIndicator setHidden:YES];
+                }];
+            }
         }
         
         return stringCell;
@@ -253,26 +267,15 @@
 }
 
 
-#pragma mark - StringrView Delegate
 
-- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
+#pragma mark - StringrNoContentView Delegate
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    if (photos) {
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        
-        StringrPhotoDetailViewController *photoDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-        
-        [photoDetailVC setEditDetailsEnabled:NO];
-        
-        // Sets the photos to be displayed in the photo pager
-        [photoDetailVC setPhotosToLoad:photos];
-        [photoDetailVC setSelectedPhotoIndex:index];
-        
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:photoDetailVC animated:YES];
-        
-    }
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discovery
+    
+    [self.frostedViewController setContentViewController:discoveryTabBarVC];
 }
 
 @end

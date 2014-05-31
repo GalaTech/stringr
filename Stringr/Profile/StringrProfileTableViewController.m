@@ -58,8 +58,9 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"This user has no Strings"];
-        
+        NSString *username = [self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200)
+                                                                               andNoContentText:[NSString stringWithFormat:@"@%@ hasn't uploaded any Strings!", username]];
         self.tableView.tableHeaderView = noContentHeaderView;
     }
 }

@@ -52,7 +52,7 @@
 
 #pragma mark - Private
 
-- (void)reloadPhotoTitleAndDescription
+- (void)reloadPhotoTitle
 {
     if (![[self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey] isEqualToString:@""]) {
         self.photoTitle = [self.photoDetailsToLoad objectForKey:kStringrPhotoCaptionKey];

@@ -85,12 +85,18 @@
 {
     [super objectsDidLoad:error];
     
+    /*
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"Search for Strings or #hashtags"];
+        CGFloat searchBarHeight = CGRectGetHeight(self.searchBar.frame);
         
-        self.tableView.tableHeaderView = noContentHeaderView;
+        
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, searchBarHeight, 640, 200) andNoContentText:@"Search for Strings or #hashtags"];
+        
+        [self.tableView.tableHeaderView addSubview:noContentHeaderView];
     }
+     */
 }
+
 
 
 

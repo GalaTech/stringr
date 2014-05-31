@@ -84,9 +84,9 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"Search for a user by their Username or Display Name"];
+        //StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"Search for a user by their Username or Display Name"];
         
-        self.tableView.tableHeaderView = noContentHeaderView;
+        //self.tableView.tableHeaderView = noContentHeaderView;
     }
 }
 

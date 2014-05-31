@@ -160,6 +160,22 @@
     return NO;
 }
 
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You haven't uploaded any Strings!"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Upload your first String"];
+        [noContentHeaderView setDelegate:self];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        self.tableView.tableHeaderView = nil;
+    }
+    
+}
 
 
 
@@ -197,6 +213,16 @@
         
         [self.navigationController pushViewController:detailVC animated:YES];
     }
+}
+
+
+
+
+#pragma mark - StringrNoContentView Delegate
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
+{
+    [self addNewString];
 }
 
 @end

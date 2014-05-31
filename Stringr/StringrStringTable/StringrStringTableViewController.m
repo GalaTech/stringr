@@ -192,7 +192,11 @@
             headerView = [[StringrStringHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
         }
         
-        [self configureHeader:headerView forSection:section withString:[self.objects objectAtIndex:section]];
+        PFObject *string = [self.objects objectAtIndex:section];
+        
+        if (string) {
+            [self configureHeader:headerView forSection:section withString:string];
+        }
 
         return headerView;
     }
@@ -262,39 +266,43 @@
         string = [object objectForKey:kStringrActivityStringKey];
     }
     
-    if (indexPath.section == self.objects.count) {
-        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
-        UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
-        return cell;
-    } else if (indexPath.row == 0) {
-        static NSString *cellIdentifier = @"StringTableViewCell";
-        StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if (!stringCell) {
-            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            NSLog(@"cell for string row");
-        }
-        
-        [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if (string) {
+        if (indexPath.section == self.objects.count) {
+            // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+            UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+            return cell;
+        } else if (indexPath.row == 0) {
+            static NSString *cellIdentifier = @"StringTableViewCell";
+            StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            
+            if (!stringCell) {
+                stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                NSLog(@"cell for string row");
+            }
+            
+            [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
-        return stringCell;
-    } else if (indexPath.row == 1) {
-        static NSString *cellIdentifier = @"StringTableViewFooter";
-        
-        UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if (!footerCell) {
-            footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            return stringCell;
+        } else if (indexPath.row == 1) {
+            static NSString *cellIdentifier = @"StringTableViewFooter";
+            
+            UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            
+            if (!footerCell) {
+                footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            }
+            
+            [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+            [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            
+            StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
+            
+            [footerCell.contentView addSubview:footerView];
+            
+            return footerCell;
+        } else {
+            return nil;
         }
-        
-        [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-        [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
-        
-        [footerCell.contentView addSubview:footerView];
-        
-        return footerCell;
     } else {
         return nil;
     }
@@ -321,18 +329,26 @@
                 string = [string objectForKey:kStringrActivityStringKey];
             }
             
-            PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-            [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
-            [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
-            [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
-            [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
-                if (!error) {
-                    [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
-                    
-                    NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-                    [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                }
-            }];
+            if (string) {
+                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+                    if (!error) {
+                        for (PFObject *photo in photos) {
+                            if (!photo) {
+                                return;
+                            }
+                        }
+                        
+                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+                        
+                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }
+                }];
+            }
         }
     }
 }
@@ -402,20 +418,22 @@
         
         StringCollectionViewCell *stringCell = (StringCollectionViewCell *)cell;
         
-        [stringCell.loadingImageIndicator setHidden:NO];
-        [stringCell.loadingImageIndicator startAnimating];
-        
-        if ([photo isKindOfClass:[PFObject class]]) {
-            PFObject *photoObject = (PFObject *)photo;
+        if (photo) {
+            [stringCell.loadingImageIndicator setHidden:NO];
+            [stringCell.loadingImageIndicator startAnimating];
             
-            PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
-            [stringCell.cellImage setFile:imageFile];
-            
-            [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
-                [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
-                [stringCell.loadingImageIndicator stopAnimating];
-                [stringCell.loadingImageIndicator setHidden:YES];
-            }];
+            if ([photo isKindOfClass:[PFObject class]]) {
+                PFObject *photoObject = (PFObject *)photo;
+                
+                PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+                [stringCell.cellImage setFile:imageFile];
+                
+                [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+                    [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+                    [stringCell.loadingImageIndicator stopAnimating];
+                    [stringCell.loadingImageIndicator setHidden:YES];
+                }];
+            }
         }
         
         return stringCell;
@@ -463,12 +481,12 @@
     NSNumber *width = 0;
     NSNumber *height = 0;
     
-    if ([photo isKindOfClass:[PFObject class]]) {
+    if (photo && [photo isKindOfClass:[PFObject class]]) {
         PFObject *photoObject = (PFObject *)photo;
         
         width = [photoObject objectForKey:kStringrPhotoPictureWidth];
         height = [photoObject objectForKey:kStringrPhotoPictureHeight];
-    } else if ([photo isKindOfClass:[UIImage class]]) {
+    } else if (photo && [photo isKindOfClass:[UIImage class]]) {
         UIImage *photoImage = (UIImage *)photo;
         
         width = [NSNumber numberWithInt:photoImage.size.width];

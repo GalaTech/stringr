@@ -49,9 +49,25 @@
     if (self.objects.count == 0) {
     
         StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You do not have any liked Strings"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Explore Strings to Like"];
+        [noContentHeaderView setDelegate:self];
         
         self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        self.tableView.tableHeaderView = nil;
     }
+}
+
+
+
+
+#pragma mark - StringrNoContentView Delegate
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
+{
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+    
+    [self.frostedViewController setContentViewController:discoveryTabBarVC];
 }
 
 

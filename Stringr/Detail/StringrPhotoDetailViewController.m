@@ -177,25 +177,30 @@
 {
     PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
     StringrPhotoDetailTopViewController *topVC = (StringrPhotoDetailTopViewController *)self.topPhotoVC;
-    StringrPhotoDetailEditTableViewController *editTableVC = (StringrPhotoDetailEditTableViewController *)self.tablePhotoVC;
+   // StringrPhotoDetailEditTableViewController *editTableVC = (StringrPhotoDetailEditTableViewController *)self.tablePhotoVC;
     
     // only saves photo if title is set
-    if ([editTableVC photoIsPreparedToSave]) {
+   // if ([editTableVC photoIsPreparedToSave]) {
         [topVC savePhoto:photo];
         [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    //}
 }
 
 - (void)cancelPhotoEdit
 {
-    [self dismissViewControllerAnimated:YES completion:^ {
-        // removes the new photo object from the current string and deletes the photo from server
-        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
-        NSDictionary *detailsDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:photo, @"photo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadPublicString" object:nil userInfo:detailsDictionary];
-        
-        [photo deleteInBackground];
-    }];
+    if (self.isPublicPhoto) {
+        [self dismissViewControllerAnimated:YES completion:^ {
+            // removes the new photo object from the current string and deletes the photo from server
+            PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+            
+            NSDictionary *detailsDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:photo, @"photo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterReloadPublicString object:nil userInfo:detailsDictionary];
+            
+            //[photo deleteInBackground];
+        }];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 
