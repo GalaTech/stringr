@@ -64,14 +64,22 @@
     [followingUserActivityQuery setLimit:1000];
     [followingUserActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            
-            self.connectionUsers = [[NSMutableArray alloc] initWithCapacity:objects.count];
-            for (PFObject *activityObject in objects) {
+            if (objects.count > 0) {
+                self.connectionUsers = [[NSMutableArray alloc] initWithCapacity:objects.count];
+                for (PFObject *activityObject in objects) {
+                    
+                    [self.connectionUsers addObject:[activityObject objectForKey:kStringrActivityToUserKey]];
+                }
                 
-                [self.connectionUsers addObject:[activityObject objectForKey:kStringrActivityToUserKey]];
+                [self.tableView reloadData];
+            } else {
+                NSString *currentUserProfileName = [self.userForConnections objectForKey:kStringrUserUsernameCaseSensitive];
+                NSString *usernameWithMention = [StringrUtility usernameFormattedWithMentionSymbol:currentUserProfileName];
+                StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:[NSString stringWithFormat:@"%@ is not following any users", usernameWithMention]];
+                [noContentHeaderView setDelegate:self];
+                
+                self.tableView.tableHeaderView = noContentHeaderView;
             }
-            
-            [self.tableView reloadData];
         }
     }];
 }
@@ -84,14 +92,22 @@
     [followersUserActivityQuery setLimit:1000];
     [followersUserActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            
-            self.connectionUsers = [[NSMutableArray alloc] initWithCapacity:objects.count];
-            for (PFObject *activityObject in objects) {
+            if (objects.count > 0) {
+                self.connectionUsers = [[NSMutableArray alloc] initWithCapacity:objects.count];
+                for (PFObject *activityObject in objects) {
+                    
+                    [self.connectionUsers addObject:[activityObject objectForKey:kStringrActivityFromUserKey]];
+                }
                 
-                [self.connectionUsers addObject:[activityObject objectForKey:kStringrActivityFromUserKey]];
+                [self.tableView reloadData];
+            } else {
+                NSString *currentUserProfileName = [self.userForConnections objectForKey:kStringrUserUsernameCaseSensitive];
+                NSString *usernameWithMention = [StringrUtility usernameFormattedWithMentionSymbol:currentUserProfileName];
+                StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:[NSString stringWithFormat:@"%@ does not have any followers", usernameWithMention]];
+                [noContentHeaderView setDelegate:self];
+                
+                self.tableView.tableHeaderView = noContentHeaderView;
             }
-            
-            [self.tableView reloadData];
         }
     }];
 }

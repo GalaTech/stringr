@@ -139,6 +139,11 @@
                 
                 StringrDetailDescriptionTableViewCell *descriptionTableVC = (StringrDetailDescriptionTableViewCell *)cell;
 
+                // Checks to see if a description exists and if not we add the filler text
+                if (![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.stringDescription]) {
+                    self.stringDescription = @"Enter the description for your String";
+                }
+                
                 [descriptionTableVC setDescriptionForCell:self.stringDescription];
             }
             break;

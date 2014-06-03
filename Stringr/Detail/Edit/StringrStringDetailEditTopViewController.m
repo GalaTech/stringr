@@ -471,7 +471,7 @@
         [activitiesForString findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
             if (!error) {
                 for (PFObject *activity in activities) {
-                    [activity deleteEventually];
+                    [activity deleteInBackground];
                 }
             }
             
@@ -480,7 +480,7 @@
             [stringStatisticsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
                     for (PFObject *statistic in objects) {
-                        [statistic deleteEventually];
+                        [statistic deleteInBackground];
                     }
                 }
                 
