@@ -22,7 +22,9 @@
 
 @implementation StringrActivityTableViewCell
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -58,8 +60,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setObjectForActivityCell:(PFObject *)object
 {
@@ -73,8 +76,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)setupActivityCellWithActivityType:(NSString *)activityType andObject:(PFObject *)object
 {

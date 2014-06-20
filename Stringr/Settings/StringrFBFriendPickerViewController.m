@@ -14,6 +14,10 @@
 
 @implementation StringrFBFriendPickerViewController
 
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,7 +56,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)closeModal
 {
@@ -98,8 +104,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - FB Friend Picker Delegate
+//*********************************************************************************/
 
 - (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker
 {

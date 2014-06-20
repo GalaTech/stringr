@@ -19,7 +19,9 @@
 
 @implementation StringrStringDetailEditTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -44,7 +46,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
 
 @synthesize stringTitle = _stringTitle;
 @synthesize stringDescription = _stringDescription;
@@ -80,8 +85,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -130,9 +136,9 @@
                 
                 StringrDetailTitleTableViewCell *titleTableVC = (StringrDetailTitleTableViewCell *)cell;
 
-                
-                [titleTableVC setTitleForCell:self.stringTitle];
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [titleTableVC setTitleForCell:self.stringTitle];
+                });
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"string_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -144,7 +150,9 @@
                     self.stringDescription = @"Enter the description for your String";
                 }
                 
-                [descriptionTableVC setDescriptionForCell:self.stringDescription];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [descriptionTableVC setDescriptionForCell:self.stringDescription];
+                });
             }
             break;
         case 1:
@@ -184,8 +192,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -251,8 +260,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
+//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -264,8 +274,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrWriteAndEditTextView Delegate
+//*********************************************************************************/
 
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {

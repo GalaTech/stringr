@@ -19,7 +19,10 @@
 
 @implementation StringrSignUpWithSocialNetworkViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,15 +57,16 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)signUpWithSocialNetwork
 {
     if (self.username && self.displayName && self.password) {
         // used as an incremental boolean value. Every time a field is correct we increment it.
         // at the end we know how many field's should be correct so we can assess if the value
-        // is equal to that value. The value should be 4 if all are correct
+        // is equal to that value. The value should be 3 if all are correct
         int userIsValidForSignup = 0;
         NSString *errorString = @"";
         
@@ -93,9 +97,7 @@
         
         if (userIsValidForSignup == 3) {
             [newUser setObject:@(YES) forKey:kStringrUserSocialNetworkSignupCompleteKey];
-            [newUser setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
             [newUser setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
-            
             
             [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
@@ -105,6 +107,7 @@
                     [self dismissViewControllerAnimated:YES completion:^ {
                         [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
                             if (!error) {
+                                
                                 [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                 
                                 NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
@@ -180,8 +183,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableViewDataSource
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -272,8 +276,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableViewDelegate
+//*********************************************************************************/
 
 /*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -315,8 +320,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITextField Delegate
+//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -347,8 +353,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -366,7 +373,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - StringrLoginViewDownloadingSocialNetworkInfoDelegate
+//*********************************************************************************/
 
 - (void)socialNetworkProfileImageDidFinishDownloading:(UIImage *)profileImage
 {

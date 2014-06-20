@@ -68,20 +68,27 @@
 @end
 
 
+
+//*********************************************************************************/
 #pragma mark - Constant Numerical Values
+//*********************************************************************************/
 
 float const kStringrPFObjectDetailTableViewCellHeight = 41.5;
 
 
-
+//*********************************************************************************/
 #pragma mark - NSUserDefaults Keys
+//*********************************************************************************/
 
 NSString * const kNSUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";
 NSString * const kNSUserDefaultsPushNotificationsEnabledKey = @"co.galatech.Stringr.userDefaults.pushNotificationsEnabledKey";
 NSString * const kNSUserDefaultsNumberOfActivitiesKey = @"co.galatech.Stringr.userDefaults.numberOfActivitiesKey";
 
 
+//*********************************************************************************/
 #pragma mark - NSNotificationCenter Keys
+//*********************************************************************************/
+
 NSString * const kNSNotificationCenterSelectedStringItemKey = @"co.galatech.Stringr.NSNotificationCenter.didSelectItemFromCollectionView";
 NSString * const kNSNotificationCenterSelectedProfileImageKey = @"co.galatech.Stringr.NSNotificationCenter.didSelectProfileImage";
 NSString * const kNSNotificationCenterSelectedCommentsButtonKey = @"co.galatech.Stringr.NSNotificationCenter.didSelectCommentsButton";
@@ -98,15 +105,19 @@ NSString * const kNSNotificationCenterReloadPublicString = @"co.galatech.Stringr
 NSString * const kNSNotificationCenterRefreshStringDetails = @"co.galatech.Stringr.NSNotificationCenter.refreshStringDetails";
 
 
+//*********************************************************************************/
 #pragma mark - Installation Class
+//*********************************************************************************/
 
 NSString * const kStringrInstallationUserKey = @"user";
 NSString * const kStringrInstallationPrivateChannelsKey = @"channels";
 NSString * const kStringrInstallationNumberOfPreviousActivitiesKey = @"numberOfPreviousActivites";
 
 
-
+//*********************************************************************************/
 #pragma mark - PFObject Activity Class
+//*********************************************************************************/
+
 // Class Key
 NSString * const kStringrActivityClassKey = @"Activity";
 
@@ -131,7 +142,10 @@ NSString * const kStringrActivityTypeAddedPhotoToPublicString = @"addedPhoto";
 NSString * const kStringrActivityContentCommentKey = @"_*_comment_*_";
 
 
+//*********************************************************************************/
 #pragma mark - Statistics
+//*********************************************************************************/
+
 // Class Key
 NSString *const kStringrStatisticsClassKey = @"Statistics";
 
@@ -141,8 +155,10 @@ NSString * const kStringrStatisticsLikeCountKey = @"likeCount";
 NSString * const kStringrStatisticsCommentCountKey = @"commentCount";
 
 
-
+//*********************************************************************************/
 #pragma mark - PFObject User Class
+//*********************************************************************************/
+
 // Class Key
 NSString * const kStringrUserClassKey = @"User";
 
@@ -169,9 +185,10 @@ NSString * const kStringrUserNumberOfStringsKey = @"numberOfStrings";
 NSString * const kStringrUserPrivateChannelKey = @"channel";
 
 
-
-
+//*********************************************************************************/
 #pragma mark - PFObject Photo Class
+//*********************************************************************************/
+
 // Class Key
 NSString * const kStringrPhotoClassKey = @"Photo";
 
@@ -191,9 +208,10 @@ NSString * const kStringrPhotoNumberOfLikesKey = @"numberOfLikes";
 NSString * const kStringrPhotoNumberOfCommentsKey = @"numberOfComments";
 
 
-
-
+//*********************************************************************************/
 #pragma mark - PFObject StringrString class
+//*********************************************************************************/
+
 // Class Key
 NSString * const kStringrStringClassKey = @"String";
 
@@ -206,8 +224,9 @@ NSString * const kStringrStringStatisticsKey = @"statistics";
 NSString * const kStringrStringLocationKey = @"location";
 
 
-
+//*********************************************************************************/
 #pragma mark - Cached User Attributes
+//*********************************************************************************/
 
 NSString * const kStringrUserAttributesIsFollowedByCurrentUserKey = @"isFollowedByCurrentUser";
 NSString * const kStringrUserAttributesStringCountKey = @"stringCount";
@@ -215,24 +234,27 @@ NSString * const kStringrUserAttributesFollowingCountKey = @"followingCount";
 NSString * const kStringrUserAttributesFollowerCountKey = @"followerCount";
 
 
-
+//*********************************************************************************/
 #pragma mark - Cached Photo Attributes
+//*********************************************************************************/
 
 NSString * const kStringrPhotoAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
 NSString * const kStringrPhotoAttributesLikeCountKey = @"likeCount";
 NSString * const kStringrPhotoAttributesCommentCountKey = @"commentCount";
 
 
-
+//*********************************************************************************/
 #pragma mark - Cached String Attributes
+//*********************************************************************************/
 
 NSString * const kStringrStringAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
 NSString * const kStringrStringAttributesLikeCountKey = @"likeCount";
 NSString * const kStringrStringAttributesCommentCountKey = @"commentCount";
 
 
-
+//*********************************************************************************/
 #pragma mark - PFPush Notification Payload Keys
+//*********************************************************************************/
 
 NSString * const kAPNSAlertKey = @"alert";
 NSString * const kAPNSBadgeKey = @"badge";
@@ -252,9 +274,9 @@ NSString * const kStringrPushPayloadPhotoObjectIdKey = @"pid";
 NSString * const kStringrPushPayloadStringObjectIDKey = @"sid";
 
 
-
-
+//*********************************************************************************/
 #pragma mark - Storyboard Ids
+//*********************************************************************************/
 
 // Init and Login
 NSString * const kStoryboardRootViewID = @"rootVC";

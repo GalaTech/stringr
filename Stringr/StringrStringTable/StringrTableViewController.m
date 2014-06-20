@@ -20,7 +20,9 @@
 
 @implementation StringrTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -78,7 +80,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
 
 - (UIStoryboard *)mainStoryboard
 {
@@ -87,7 +91,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setQueryForTable:(PFQuery *)queryForTable
 {
@@ -102,8 +108,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 // Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
@@ -118,7 +125,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 /*
 - (void)handlePushNotification:(NSNotification *)note
@@ -141,7 +150,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -179,8 +190,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -214,8 +226,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -233,7 +246,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - ZCImagePickerController Delegate
+//*********************************************************************************/
 
 - (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
 {

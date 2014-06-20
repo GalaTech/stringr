@@ -32,7 +32,10 @@
 
 @implementation AppDelegate
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Initialize app for Parse and Facebook
@@ -178,8 +181,9 @@
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setupLoggedInContent
 {
@@ -204,8 +208,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)monitorReachability
 {
@@ -314,11 +319,14 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrLoginViewControllerDelegate
+//*********************************************************************************/
 
 - (void)logInViewController:(StringrLoginViewController *)logInController didLogInUser:(PFUser *)user
 {
+    [self setupLoggedInContent];
+    
     // Subscribe to private push channel
     if (user) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

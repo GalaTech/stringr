@@ -31,7 +31,9 @@
 
 @implementation StringrEditProfileViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void) dealloc
 {
@@ -80,9 +82,9 @@
 
 
 
-
-
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 - (void)changeProfileImage
 {
@@ -113,8 +115,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)downloadSocialNetworkProfileImage
 {
@@ -129,6 +132,7 @@
                                                               timeoutInterval:2.0f];
         // Run network request asynchronously
         NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+        
         if (!urlConnection) {
             NSLog(@"Failed to download picture");
         }
@@ -136,7 +140,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - UITableViewController DataSource
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -187,7 +194,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - UITableViewController Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -275,8 +285,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITextFieldDelegate
+//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -310,8 +321,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITextViewDelegate
+//*********************************************************************************/
 
 static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
@@ -393,8 +405,9 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIScrollViewDelegate
+//*********************************************************************************/
 
 
 // Hides the keyboard if you begin to move the scroll view
@@ -407,8 +420,9 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -446,8 +460,9 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -491,8 +506,9 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 
 
 
-
+//*********************************************************************************/
 #pragma mark - NSURLConnectionDelegate
+//*********************************************************************************/
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // As chuncks of the image are received, we build our data file
@@ -500,7 +516,11 @@ static int const kNUMBER_OF_CHARACTERS_ALLOWED = 100;
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - NSURLConnectionDataDelegate
+//*********************************************************************************/
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     UIImage *facebookProfileImage = [UIImage imageWithData:self.profileImageData];

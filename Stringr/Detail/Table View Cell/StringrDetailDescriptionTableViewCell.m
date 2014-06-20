@@ -18,7 +18,9 @@
 
 @implementation StringrDetailDescriptionTableViewCell
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -45,8 +47,9 @@
 }
 
 
-
-#pragma mark - Custom Accessor's
+//*********************************************************************************/
+#pragma mark - Custom Accessors
+//*********************************************************************************/
 
 - (NSDictionary *)textAttributes
 {
@@ -69,13 +72,6 @@
 
 - (void)setDescriptionForCell:(NSString *)description
 {
-    if (description) {
-        NSAttributedString *attributedDescriptionText = [[NSAttributedString alloc] initWithString:description attributes:self.textAttributes];
-    
-        [self.descriptionLabel setAttributedText:attributedDescriptionText];
-    }
-    
-    [self.descriptionLabel setText:description];
     [self.descriptionLabel setNumberOfLines:200];
     
     UIColor *descriptionColor = [UIColor darkGrayColor];
@@ -90,20 +86,28 @@
     [descriptionParagraphStyle setParagraphSpacingBefore:40.0f];
     
     NSDictionary *descriptionAttributes = [NSDictionary dictionaryWithObjectsAndKeys:descriptionColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, descriptionParagraphStyle, NSParagraphStyleAttributeName, nil];
-    [self.descriptionLabel setAttributes:descriptionAttributes];
-    
-    //[self.titleLabel setText:@"This is a cool label that can tell if there are any @mentions or #hashtags!\n"];
     
     
     NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     NSDictionary *httpAttributes = [NSDictionary dictionaryWithObjectsAndKeys:descriptionColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     
-    
-    [self.descriptionLabel setAttributes:handleAttributes hotWord:STTweetHandle];
-    [self.descriptionLabel setAttributes:hashtagAttributes hotWord:STTweetHashtag];
-    [self.descriptionLabel setAttributes:httpAttributes hotWord:STTweetLink];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (description) {
+            NSAttributedString *attributedDescriptionText = [[NSAttributedString alloc] initWithString:description attributes:self.textAttributes];
+            
+            [self.descriptionLabel setAttributedText:attributedDescriptionText];
+        }
+        
+        [self.descriptionLabel setText:description];
+        
+        [self.descriptionLabel setAttributes:descriptionAttributes];
+        
+        [self.descriptionLabel setAttributes:handleAttributes hotWord:STTweetHandle];
+        [self.descriptionLabel setAttributes:hashtagAttributes hotWord:STTweetHashtag];
+        [self.descriptionLabel setAttributes:httpAttributes hotWord:STTweetLink];
+    });
+
     [self.descriptionLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
         if (hotWord == STTweetHandle) {
             NSString *username = [[string stringByReplacingOccurrencesOfString:@"@" withString:@""] lowercaseString];

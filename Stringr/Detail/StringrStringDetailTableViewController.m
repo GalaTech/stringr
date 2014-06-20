@@ -22,7 +22,9 @@
 
 @implementation StringrStringDetailTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -55,8 +57,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
  
 - (NSArray *)sectionHeaderTitles
 {
@@ -65,7 +68,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Action Handlers
+//*********************************************************************************/
 
 - (void)refreshStringDetails
 {
@@ -82,8 +87,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -131,8 +137,11 @@
                 
                 if ([cell isKindOfClass:[StringrDetailTitleTableViewCell class]]) {
                     StringrDetailTitleTableViewCell *titleCell = (StringrDetailTitleTableViewCell *)cell;
-                    //NSString *stringTitle = [self.stringDetailsToLoad objectForKey:kStringrStringTitleKey];
-                    [titleCell setTitleForCell:self.stringTitle];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [titleCell setTitleForCell:self.stringTitle];
+                    });
+                    
                     [titleCell setDelegate:self];
                     
                     return titleCell;
@@ -149,8 +158,11 @@
                 
                 if ([cell isKindOfClass:[StringrDetailDescriptionTableViewCell class]]) {
                     StringrDetailDescriptionTableViewCell *descriptionCell = (StringrDetailDescriptionTableViewCell *)cell;
-                    //NSString *stringDescription = [self.stringDetailsToLoad objectForKey:kStringrStringDescriptionKey];
-                    [descriptionCell setDescriptionForCell:self.stringDescription];
+                   
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [descriptionCell setDescriptionForCell:self.stringDescription];
+                    });
+                    
                     [descriptionCell setDelegate:self];
                     
                     return descriptionCell;
@@ -227,8 +239,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 @interface StringrConstants : NSObject
 
-
+//*********************************************************************************/
 #pragma mark - Colors
+//*********************************************************************************/
 
 + (UIColor *)kStringrRedColor;
 + (UIColor *)kStringrOrangeColor;
@@ -26,18 +27,26 @@
 
 @end
 
+
+//*********************************************************************************/
 #pragma mark - Constant Numerical Values
+//*********************************************************************************/
 
 extern float const kStringrPFObjectDetailTableViewCellHeight;
 
+
+//*********************************************************************************/
 #pragma mark - NSUserDefaults Keys
+//*********************************************************************************/
 
 extern NSString * const kNSUserDefaultsWorkingStringSavedImagesKey;
 extern NSString * const kNSUserDefaultsPushNotificationsEnabledKey;
 extern NSString * const kNSUserDefaultsNumberOfActivitiesKey;
 
 
+//*********************************************************************************/
 #pragma mark - NSNotificationCenter Keys
+//*********************************************************************************/
 
 extern NSString * const kNSNotificationCenterUploadNewStringKey;
 extern NSString * const kNSNotificationCenterDeletePhotoFromStringKey;
@@ -51,15 +60,19 @@ extern NSString * const kNSNotificationCenterReloadPublicString;
 extern NSString * const kNSNotificationCenterRefreshStringDetails;
 
 
-
-
+//*********************************************************************************/
 #pragma mark - Installation Class
+//*********************************************************************************/
 
 extern NSString * const kStringrInstallationUserKey;
 extern NSString * const kStringrInstallationPrivateChannelsKey;
 extern NSString * const kStringrInstallationNumberOfPreviousActivitiesKey;
 
+
+//*********************************************************************************/
 #pragma mark - PFObject Activity Class
+//*********************************************************************************/
+
 // Class Key
 extern NSString * const kStringrActivityClassKey;
 
@@ -83,8 +96,9 @@ extern NSString * const kStringrActivityTypeAddedPhotoToPublicString;
 extern NSString * const kStringrActivityContentCommentKey;
 
 
-
+//*********************************************************************************/
 #pragma mark - Statistics
+//*********************************************************************************/
 
 // Class Key
 extern NSString *const kStringrStatisticsClassKey;
@@ -94,7 +108,10 @@ extern NSString * const kStringrStatisticsStringKey;
 extern NSString * const kStringrStatisticsLikeCountKey;
 extern NSString * const kStringrStatisticsCommentCountKey;
 
+
+//*********************************************************************************/
 #pragma mark - PFObject User Class
+//*********************************************************************************/
 
 // Class Key
 extern NSString * const kStringrUserClassKey;
@@ -120,9 +137,10 @@ extern NSString * const kStringrUserNumberOfStringsKey;
 extern NSString * const kStringrUserPrivateChannelKey;
 
 
-
-
+//*********************************************************************************/
 #pragma mark - PFObject String class
+//*********************************************************************************/
+
 // Class Key
 extern NSString * const kStringrStringClassKey;
 
@@ -135,8 +153,10 @@ extern NSString * const kStringrStringStatisticsKey;
 extern NSString * const kStringrStringLocationKey;
 
 
-
+//*********************************************************************************/
 #pragma mark - PFObject Photo Class
+//*********************************************************************************/
+
 // Class Key
 extern NSString * const kStringrPhotoClassKey;
 
@@ -156,8 +176,9 @@ extern NSString * const kStringrPhotoThumbnailHeight;
 //extern NSString * const kStringrPhotoNumberOfCommentsKey;
 
 
-
+//*********************************************************************************/
 #pragma mark - Cached User Attributes
+//*********************************************************************************/
 
 extern NSString * const kStringrUserAttributesIsFollowedByCurrentUserKey;
 extern NSString * const kStringrUserAttributesStringCountKey;
@@ -165,22 +186,27 @@ extern NSString * const kStringrUserAttributesFollowingCountKey;
 extern NSString * const kStringrUserAttributesFollowerCountKey;
 
 
+//*********************************************************************************/
 #pragma mark - Cached Photo Attributes
+//*********************************************************************************/
 
 extern NSString * const kStringrPhotoAttributesIsLikedByCurrentUserKey;
 extern NSString * const kStringrPhotoAttributesLikeCountKey;
 extern NSString * const kStringrPhotoAttributesCommentCountKey;
 
 
-
+//*********************************************************************************/
 #pragma mark - Cached String Attributes
+//*********************************************************************************/
 
 extern NSString * const kStringrStringAttributesIsLikedByCurrentUserKey;
 extern NSString * const kStringrStringAttributesLikeCountKey;
 extern NSString * const kStringrStringAttributesCommentCountKey;
 
 
+//*********************************************************************************/
 #pragma mark - PFPush Notification Payload Keys
+//*********************************************************************************/
 
 extern NSString * const kAPNSAlertKey;
 extern NSString * const kAPNSBadgeKey;
@@ -200,8 +226,9 @@ extern NSString * const kStringrPushPayloadPhotoObjectIdKey;
 extern NSString * const kStringrPushPayloadStringObjectIDKey;
 
 
-
+//*********************************************************************************/
 #pragma mark - Storyboard Ids
+//*********************************************************************************/
 
 extern NSString * const kStoryboardRootViewID;
 extern NSString * const kStoryboardLoginID;

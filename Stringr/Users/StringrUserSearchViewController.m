@@ -18,7 +18,9 @@
 
 @implementation StringrUserSearchViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -35,7 +37,11 @@
     self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
 }
 
+
+
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 // Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
@@ -45,8 +51,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -92,8 +99,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableViewDelegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -106,7 +114,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - UISearchBar Delegate
+//*********************************************************************************/
 
 // Presents/Hides the scope bar and cancel button whenever the user goes to search
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {

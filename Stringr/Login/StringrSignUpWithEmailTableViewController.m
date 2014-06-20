@@ -27,6 +27,10 @@
 
 @implementation StringrSignUpWithEmailTableViewController
 
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -70,7 +74,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Action's
+//*********************************************************************************/
 
 - (void)selectProfileImage
 {
@@ -79,8 +86,9 @@
 
 
 
-
-#pragma mark - IBAction's
+//*********************************************************************************/
+#pragma mark - IBActions
+//*********************************************************************************/
 
 - (IBAction)privacyPolicyButton:(UIButton *)sender
 {
@@ -104,8 +112,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)signupWithUserInformation
 {
@@ -240,7 +249,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -335,7 +347,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -420,7 +434,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UITextField Delegate
+//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -456,8 +472,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIScrollView Delegate
+//*********************************************************************************/
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -466,8 +483,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -498,8 +516,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {

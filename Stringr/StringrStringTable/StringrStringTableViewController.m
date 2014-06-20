@@ -30,7 +30,9 @@
 
 @implementation StringrStringTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithCoder:(NSCoder *)aCoder
 {
@@ -97,8 +99,9 @@
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - Action Handlers
+//*********************************************************************************/
 
 - (void)refreshStringDetails
 {
@@ -115,8 +118,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object inSection:(NSUInteger)section
 {
@@ -142,8 +146,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableView DataSource
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -164,9 +169,9 @@
 
 
 
-
-
+//*********************************************************************************/
 #pragma mark - UITableView Delegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -234,7 +239,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -295,10 +302,12 @@
             [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
             [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
-            StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
-            
-            [footerCell.contentView addSubview:footerView];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
+                
+                [footerCell.contentView addSubview:footerView];
+            });
+
             return footerCell;
         } else {
             return nil;
@@ -353,12 +362,6 @@
     }
 }
 
-- (void)objectsWillLoad
-{
-    [super objectsWillLoad];
-    
-}
-
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
 {
     // returns the object for every collection string and footer cell
@@ -388,8 +391,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UICollectionView Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -444,8 +448,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UICollectionView Delegate
+//*********************************************************************************/
 
 - (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -470,8 +475,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringCollectionViewFlowLayout Delegate
+//*********************************************************************************/
 
 - (CGSize)collectionView:(StringCollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -499,8 +505,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIScrollViewDelegate Methods
+//*********************************************************************************/
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -515,8 +522,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrHeaderViewView Delegate
+//*********************************************************************************/
 
 - (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
@@ -537,8 +545,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrFooterView Delegate
+//*********************************************************************************/
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
@@ -575,8 +584,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrCommentsTableView Delegate
+//*********************************************************************************/
 
 - (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
 {

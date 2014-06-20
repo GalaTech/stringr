@@ -17,7 +17,9 @@
 
 @implementation StringrPhotoDetailEditTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -25,7 +27,11 @@
 	// Do any additional setup after loading the view.
 }
 
+
+
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
 
 - (NSArray *)sectionHeaderTitles
 {
@@ -34,8 +40,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (BOOL)photoIsPreparedToSave
 {
@@ -50,7 +57,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)reloadPhotoTitle
 {
@@ -64,7 +74,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -142,8 +155,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -184,8 +198,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
+//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -219,7 +234,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - StringrWriteAndEditTextViewController Delegate
+//*********************************************************************************/
 
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {
@@ -238,10 +255,6 @@
     
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
-
-
-
-
 
 
 @end

@@ -17,7 +17,9 @@
 
 @implementation StringrSearchTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -32,7 +34,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)searchStringsWithText:(NSString *)searchText
 {
@@ -42,7 +46,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -99,8 +105,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UISearchBar Delegate
+//*********************************************************************************/
 
 // Presents/Hides the scope bar and cancel button whenever the user goes to search
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {

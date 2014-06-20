@@ -53,7 +53,9 @@
 
 @implementation StringrLoginViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -112,7 +114,11 @@
     NSLog(@"dealloc login");
 }
 
+
+
+//*********************************************************************************/
 #pragma mark - Action Handlers
+//*********************************************************************************/
 
 - (void)changeBackgroundImage
 {
@@ -163,7 +169,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - IBActions
+//*********************************************************************************/
 
 - (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
 {
@@ -196,23 +205,12 @@
             [facebookSignUpVC setNetworkType:FacebookNetworkType];
             [self setDelegate:facebookSignUpVC];
             [self.navigationController pushViewController:facebookSignUpVC animated:YES];
-            /*
-             // changes the modal transition from a cross-fade
-             [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-             [self dismissViewControllerAnimated:YES completion:nil];
-             */
         } else {
             NSLog(@"User with facebook logged in!");
             
             if ([StringrUtility facebookUserCanLogin:user]) {
-                
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
-                
-                [self.delegate logInViewController:self didLogInUser:user];
-                
-                // changes the modal transition from a cross-fade
-                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                 [self dismissViewControllerAnimated:YES completion:nil];
+                [self.delegate logInViewController:self didLogInUser:user];
             } else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
                 StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
@@ -251,13 +249,8 @@
             NSLog(@"User logged in with Twitter!");
             
             if ([StringrUtility twitterUserCanLogin:user]) {
-                
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
-                
-                [self.delegate logInViewController:self didLogInUser:user];
-                
-                [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                 [self dismissViewControllerAnimated:YES completion:nil];
+                [self.delegate logInViewController:self didLogInUser:user];
             } else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
                 StringrSignUpWithSocialNetworkViewController *twitterSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
@@ -279,8 +272,6 @@
 - (IBAction)loginWithEmailButtonTouchHandler:(UIButton *)sender
 {
     [self.loginActivityIndicator startAnimating];
-    
-    [self.loginActivityIndicator startAnimating];
     [PFUser logInWithUsernameInBackground:self.username
                                  password:self.userPassword
                                    target:self
@@ -295,8 +286,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 // logs in the user after the refresh is complete on the current user
 - (void)loginUserFromRefresh
@@ -323,7 +315,7 @@
         
         // Check if user is cached and linked to Facebook, twitter, or email, if so, bypass login
         if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
-            [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+            //[(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
             [self.loginActivityIndicator stopAnimating];
             [self dismissViewControllerAnimated:YES completion:^ {
                 [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
@@ -344,6 +336,8 @@
             StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
             [self.loginActivityIndicator stopAnimating];
             [self.navigationController pushViewController:emailVerificationVC animated:YES];
+        } else {
+            [self.loginActivityIndicator stopAnimating];
         }
     });
 }
@@ -539,9 +533,9 @@
         [noPasswordEntered show];
     } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
         // instantiates the main logged in content area
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+        //[(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
-        [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        //[self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self dismissViewControllerAnimated:YES completion:^ {
             [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
                 if (!error) {
@@ -570,8 +564,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - NSURLConnection Delegate
+//*********************************************************************************/
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // As chuncks of the image are received, we build our data file
@@ -580,8 +575,10 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - NSURLConnectionDataDelegate
+//*********************************************************************************/
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     self.userProfileImage = [UIImage imageWithData:self.profileImageData];
@@ -608,7 +605,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UITextField Delegate
+//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {

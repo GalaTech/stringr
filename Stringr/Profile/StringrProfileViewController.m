@@ -30,7 +30,9 @@
 
 @implementation StringrProfileViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)dealloc
 {
@@ -70,7 +72,7 @@
     
     self.tableProfileVC = [[StringrProfileTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.tableProfileVC setUserForProfile:self.userForProfile];
-
+    
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     
     //self.delegate = self; // prevents deallocation
@@ -104,8 +106,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)showMenu
 {
@@ -114,8 +117,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 - (void)closeProfileVC
 {
@@ -149,8 +153,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrEditProfile Delegate
+//*********************************************************************************/
 
 - (void)setProfilePhoto:(UIImage *)profilePhoto
 {
@@ -169,8 +174,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -189,8 +195,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Parallax Delegate Methods
+//*********************************************************************************/
 
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {

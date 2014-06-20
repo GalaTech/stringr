@@ -15,6 +15,10 @@
 
 @implementation StringrInviteFriendsTableViewController
 
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -42,7 +46,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)connectOrDisconnectFromFacebookAtRow:(NSIndexPath *)indexPath
 {
@@ -95,8 +101,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -133,8 +140,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Table View Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -173,7 +181,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UIAlertViewDelegate
+//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

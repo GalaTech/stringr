@@ -19,7 +19,9 @@
 
 @implementation StringrUserConnectionsTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -53,8 +55,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)queryForFollowingUsers
 {
@@ -114,7 +117,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UITableView Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -169,8 +174,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableView Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

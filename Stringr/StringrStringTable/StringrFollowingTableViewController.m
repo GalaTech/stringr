@@ -14,7 +14,9 @@
 
 @implementation StringrFollowingTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -31,8 +33,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -47,6 +50,11 @@
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
     [query orderByDescending:@"createdAt"];
+    
+    dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+    });
     
     return query;
 }
@@ -68,8 +76,9 @@
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrNoContentView Delegate
+//*********************************************************************************/
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {

@@ -29,7 +29,9 @@
 
 @implementation StringrStringDetailEditTopViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -57,8 +59,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
 
 - (NSMutableArray *)stringPhotosToDelete
 {
@@ -110,8 +113,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
 {
@@ -119,50 +123,56 @@
         PFObject *photo = [PFObject objectWithClassName:kStringrPhotoClassKey];
         
         UIImage *resizedImage = [StringrUtility formatPhotoImageForUpload:image];
-        NSData *resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
         
-        NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", [StringrUtility randomStringWithLength:8]];
+        __block NSData *resizedImageData = nil;
         
-        PFFile *imageFileForUpload = [PFFile fileWithName:fileName data:resizedImageData];
-        
-        [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
-        [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
-        
-        NSNumber *width = [NSNumber numberWithInt:resizedImage.size.width];
-        NSNumber *height = [NSNumber numberWithInt:resizedImage.size.height];
-        
-        [photo setObject:width forKey:kStringrPhotoPictureWidth];
-        [photo setObject:height forKey:kStringrPhotoPictureHeight];
-        
-        [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
-        [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
-        
-        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        //[photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
-        [photoACL setPublicReadAccess:YES];
-        [photo setACL:photoACL];
-        
-        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSUInteger indexOfPhoto = [self.stringPhotos indexOfObject:resizedImage];
-                [self.stringPhotos replaceObjectAtIndex:indexOfPhoto withObject:photo];
-                
-                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
-                [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
-            } else {
-                [self.stringPhotos removeObject:resizedImage];
-                [self.stringCollectionView reloadData];
-                
-                UIAlertView *failedToUploadPhotoAlert = [[UIAlertView alloc] initWithTitle:@"Upload Failed" message:@"For some reason your photo failed to upload. Just try again later and everything should work fine!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                [failedToUploadPhotoAlert show];
-            }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            resizedImageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", [StringrUtility randomStringWithLength:8]];
             
-            [self.delegate toggleActionEnabledOnTableView:YES];
+            PFFile *imageFileForUpload = [PFFile fileWithName:fileName data:resizedImageData];
+            [photo setObject:imageFileForUpload forKey:kStringrPhotoPictureKey];
             
-            if (completionBlock) {
-                completionBlock(succeeded, photo, error);
-            }
-        }];
+            [photo setObject:[PFUser currentUser] forKey:kStringrPhotoUserKey];
+            
+            NSNumber *width = [NSNumber numberWithInt:resizedImage.size.width];
+            NSNumber *height = [NSNumber numberWithInt:resizedImage.size.height];
+            
+            [photo setObject:width forKey:kStringrPhotoPictureWidth];
+            [photo setObject:height forKey:kStringrPhotoPictureHeight];
+            
+            [photo setObject:@"" forKey:kStringrPhotoCaptionKey];
+            [photo setObject:@"" forKey:kStringrPhotoDescriptionKey];
+            
+            PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            //[photoACL setWriteAccess:YES forUser:[self.stringToLoad objectForKey:kStringrStringUserKey]]; // sets write access for the user uploading the photo
+            [photoACL setPublicReadAccess:YES];
+            [photo setACL:photoACL];
+            
+            
+            
+            [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSUInteger indexOfPhoto = [self.stringPhotos indexOfObject:resizedImage];
+                    [self.stringPhotos replaceObjectAtIndex:indexOfPhoto withObject:photo];
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:indexOfPhoto inSection:0];
+                    [self.stringCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+                } else {
+                    [self.stringPhotos removeObject:resizedImage];
+                    [self.stringCollectionView reloadData];
+                    
+                    UIAlertView *failedToUploadPhotoAlert = [[UIAlertView alloc] initWithTitle:@"Upload Failed" message:@"For some reason your photo failed to upload. Just try again later and everything should work fine!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    [failedToUploadPhotoAlert show];
+                }
+                
+                [self.delegate toggleActionEnabledOnTableView:YES];
+                
+                if (completionBlock) {
+                    completionBlock(succeeded, photo, error);
+                }
+            }];
+        });
 
         [self.stringPhotos addObject:resizedImage];
         
@@ -224,8 +234,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (UICollectionViewLayout *)layoutForCollectionView
 {
@@ -412,8 +423,9 @@
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - UICollectionView Delegate
+//*********************************************************************************/
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -444,8 +456,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrStringDetailEditTableViewController Delegate
+//*********************************************************************************/
 
 - (void)setTitleForString:(NSString *)title
 {
@@ -521,7 +534,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - StringrPhotoDetailEditTableViewController Delegate
+//*********************************************************************************/
 
 - (void)deletePhotoFromString:(PFObject *)photo
 {
@@ -530,7 +545,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - ReorderableCollectionView DataSource
+//*********************************************************************************/
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
@@ -552,8 +569,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - ReorderableCollectionView Delegate
+//*********************************************************************************/
 
 - (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath
 {
