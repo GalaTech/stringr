@@ -124,7 +124,6 @@
     [view addSubview:self.profileImageView];
     [view addSubview:self.profileNameLabel];
     
-    
     self.tableView.tableHeaderView = view;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];

@@ -47,14 +47,8 @@
     PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
     
-    
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
     [query orderByDescending:@"createdAt"];
-    
-    dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-    });
     
     return query;
 }

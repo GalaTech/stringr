@@ -686,10 +686,6 @@
 
 + (BOOL)twitterUserCanLogin:(PFUser *)twitterUser
 {
-    BOOL test1 = [PFTwitterUtils isLinkedWithUser:twitterUser];
-    BOOL test2 = (twitterUser);
-    BOOL test3 = [[twitterUser objectForKey:kStringrUserSocialNetworkSignupCompleteKey] boolValue];
-    
     return twitterUser && [PFTwitterUtils isLinkedWithUser:twitterUser] && [[twitterUser objectForKey:kStringrUserSocialNetworkSignupCompleteKey] boolValue] == YES;
 }
 
