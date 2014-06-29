@@ -674,11 +674,11 @@
                                     <constraint firstAttribute="height" constant="45" id="lSZ-SB-M0Y"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="36E-gq-hoW">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="36E-gq-hoW">
                                 <rect key="frame" x="142" y="144" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwG-O4-N9W">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwG-O4-N9W">
                                 <rect key="frame" x="147" y="377" width="27" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="mail_icon">
@@ -688,7 +688,7 @@
                                     <action selector="userNeedsToVerifyEmailButtonTouchHandler:" destination="UvT-5J-tYG" eventType="touchUpInside" id="xyM-ar-Hyh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The world on a String" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qoo-OC-y2G">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The World on a String" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qoo-OC-y2G">
                                 <rect key="frame" x="78" y="115" width="165" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -700,12 +700,14 @@
                         <constraints>
                             <constraint firstItem="YwG-O4-N9W" firstAttribute="top" secondItem="rtu-Rh-Lr3" secondAttribute="bottom" constant="18" id="0ah-Ok-DFk"/>
                             <constraint firstItem="GL1-iV-wQg" firstAttribute="top" secondItem="rtu-Rh-Lr3" secondAttribute="bottom" constant="8" id="2g1-U0-idy"/>
+                            <constraint firstItem="36E-gq-hoW" firstAttribute="leading" secondItem="7Yi-tG-hD8" secondAttribute="trailing" constant="-178" id="2uc-VZ-L4l"/>
                             <constraint firstItem="WKD-IZ-igY" firstAttribute="top" secondItem="GL1-iV-wQg" secondAttribute="top" id="3bp-k3-nXE"/>
                             <constraint firstItem="7Yi-tG-hD8" firstAttribute="leading" secondItem="bmH-wy-ehC" secondAttribute="leading" id="40t-1z-Gzf"/>
                             <constraint firstItem="tA9-fS-EJk" firstAttribute="leading" secondItem="bmH-wy-ehC" secondAttribute="leading" constant="40" id="486-99-lh0"/>
                             <constraint firstItem="tA9-fS-EJk" firstAttribute="top" secondItem="bmH-wy-ehC" secondAttribute="top" constant="20" symbolic="YES" id="85p-w1-9X3"/>
                             <constraint firstItem="WKD-IZ-igY" firstAttribute="leading" secondItem="GL1-iV-wQg" secondAttribute="trailing" constant="75" id="95j-HI-sfd"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="top" secondItem="YwG-O4-N9W" secondAttribute="bottom" constant="34" id="9bB-GO-5yR"/>
+                            <constraint firstItem="WKD-IZ-igY" firstAttribute="leading" secondItem="YwG-O4-N9W" secondAttribute="trailing" constant="31" id="Aea-NP-hlv"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="leading" secondItem="Zwc-VE-TEV" secondAttribute="leading" id="C89-Gi-rSB"/>
                             <constraint firstItem="Qoo-OC-y2G" firstAttribute="top" secondItem="tA9-fS-EJk" secondAttribute="bottom" constant="8" id="CQT-NG-FvB"/>
                             <constraint firstItem="ecA-DM-Xgk" firstAttribute="top" secondItem="GL1-iV-wQg" secondAttribute="bottom" constant="23" id="GfQ-gE-thx"/>

@@ -15,6 +15,7 @@
 #import "UIImage+Resize.h"
 #import "StringrRootViewController.h"
 #import "AppDelegate.h"
+#import "PBWebViewController.h"
 
 
 @interface StringrSignUpWithEmailTableViewController () 
@@ -92,22 +93,38 @@
 
 - (IBAction)privacyPolicyButton:(UIButton *)sender
 {
+    PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"http://stringrapp.com/privacy-policy/"]];
+    
+    [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
+    
+
+    
+    /*
     StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:YES];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
     
     [self.navigationController pushViewController:privacyPolicyVC animated:YES];
+     */
 }
 
 - (IBAction)termsOfServiceButton:(UIButton *)sender
 {
+    PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"http://stringrapp.com/terms-of-service/"]];
+    
+    [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
+    
+    /*
     StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:NO];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
     
     [self.navigationController pushViewController:privacyPolicyVC animated:YES];
+     */
 }
 
 
@@ -165,9 +182,7 @@
             if (self.profileImageFile && self.profileThumbnailImageFile) {
                 [newUser setObject:self.profileImageFile forKey:kStringrUserProfilePictureKey];
                 [newUser setObject:self.profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
-            }
-            
-            else {
+            } else {
                 /*
                  This sets the profile image and thumbnail to the stringr image. For now I am not implementing it because that is just
                  * a lot of wasted space on the server. By default the app displays that image for users without a profile pic.*/
@@ -192,7 +207,9 @@
                     // sets the new user to the current user
                     [PFUser becomeInBackground:newUser.sessionToken];
                     
-                    if ((BOOL)[newUser objectForKey:@"emailVerified"] == YES) {
+                    NSNumber *emailIsVerified = [[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey];
+                    
+                    if ([emailIsVerified boolValue]) {
                         // instantiates the main logged in content area
                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                         

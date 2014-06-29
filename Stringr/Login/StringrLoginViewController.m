@@ -209,6 +209,9 @@
             NSLog(@"User with facebook logged in!");
             
             if ([StringrUtility facebookUserCanLogin:user]) {
+                // instantiates the main logged in content area
+                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate logInViewController:self didLogInUser:user];
             } else {
@@ -249,6 +252,9 @@
             NSLog(@"User logged in with Twitter!");
             
             if ([StringrUtility twitterUserCanLogin:user]) {
+                // instantiates the main logged in content area
+                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate logInViewController:self didLogInUser:user];
             } else {
@@ -315,7 +321,7 @@
         
         // Check if user is cached and linked to Facebook, twitter, or email, if so, bypass login
         if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
-            //[(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+            [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
             [self.loginActivityIndicator stopAnimating];
             [self dismissViewControllerAnimated:YES completion:^ {
                 [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
@@ -533,7 +539,7 @@
         [noPasswordEntered show];
     } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
         // instantiates the main logged in content area
-        //[(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
         //[self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self dismissViewControllerAnimated:YES completion:^ {

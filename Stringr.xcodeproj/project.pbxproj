@@ -103,8 +103,6 @@
 		ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */; };
 		ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */; };
 		ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */; };
-		ABFBE61218D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */; };
-		ABFBE61318D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */; };
 		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
@@ -326,8 +324,6 @@
 		ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityTableViewController.m; path = StringrStringTable/StringrActivityTableViewController.m; sourceTree = "<group>"; };
 		ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPrivacyPolicyTermsOfServiceViewController.h; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.h; sourceTree = "<group>"; };
 		ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPrivacyPolicyTermsOfServiceViewController.m; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.m; sourceTree = "<group>"; };
-		ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "3-8-14 Updated Privacy Policy for Stringr.txt"; path = "External/3-8-14 Updated Privacy Policy for Stringr.txt"; sourceTree = SOURCE_ROOT; };
-		ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "3-8-14 Updated Terms of Service for Stringr.txt"; path = "External/3-8-14 Updated Terms of Service for Stringr.txt"; sourceTree = SOURCE_ROOT; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
@@ -387,7 +383,7 @@
 		BF8349D218297FD600D15963 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BF8349D618297FD600D15963 /* Stringr-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stringr-Info.plist"; sourceTree = "<group>"; };
 		BF8349D818297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = /Users/Jonathan/Documents/iOS/Personal/Git/Stringr/Stringr/main.m; sourceTree = "<absolute>"; };
+		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "/Users/Jonathan/Documents/Programming/Git/Client Projects/Stringr/Stringr/main.m"; sourceTree = "<absolute>"; };
 		BF8349DC18297FD600D15963 /* Stringr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stringr-Prefix.pch"; sourceTree = "<group>"; };
 		BF8349DD18297FD600D15963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF8349DE18297FD600D15963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -636,6 +632,17 @@
 			name = "Write and Edit Text";
 			sourceTree = "<group>";
 		};
+		ABA1DD0619608DCF00D1C280 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				ABDB7E5018D7EAB30047691B /* StringrSignUpWithEmailTableViewController.h */,
+				ABDB7E5118D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m */,
+				AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */,
+				AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
 		ABA2F04A1922BB430004A806 /* ZCImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,10 +852,7 @@
 			children = (
 				BF3EDDF9183E842A0071E047 /* StringrLoginViewController.h */,
 				BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */,
-				AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */,
-				AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */,
-				ABDB7E5018D7EAB30047691B /* StringrSignUpWithEmailTableViewController.h */,
-				ABDB7E5118D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m */,
+				ABA1DD0619608DCF00D1C280 /* SignUp */,
 				ABDB7E5418D7ED330047691B /* StringrLoginWithEmailTableViewController.h */,
 				ABDB7E5518D7ED330047691B /* StringrLoginWithEmailTableViewController.m */,
 				AB5F56B718E0B98F00D27372 /* StringrEmailVerificationViewController.h */,
@@ -1081,8 +1085,6 @@
 		BF834A491829978300D15963 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ABFBE61018D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt */,
-				ABFBE61118D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt */,
 				BF8349E618297FD600D15963 /* Images.xcassets */,
 			);
 			name = Resources;
@@ -1171,7 +1173,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABFBE61218D928F60026BCC1 /* 3-8-14 Updated Privacy Policy for Stringr.txt in Resources */,
 				ABA2F0661922BB430004A806 /* SelectionOverlay~iOS7@2x.png in Resources */,
 				AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */,
 				ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */,
@@ -1188,7 +1189,6 @@
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
 				BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
-				ABFBE61318D928F60026BCC1 /* 3-8-14 Updated Terms of Service for Stringr.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

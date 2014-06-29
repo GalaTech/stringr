@@ -325,7 +325,7 @@
 
 - (void)logInViewController:(StringrLoginViewController *)logInController didLogInUser:(PFUser *)user
 {
-    [self setupLoggedInContent];
+    //[self setupLoggedInContent];
     
     // Subscribe to private push channel
     if (user) {
