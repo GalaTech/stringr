@@ -406,18 +406,10 @@
 
 + (UIImage *)formatPhotoImageForUpload:(UIImage *)image
 {
-    // resizes the images for upload
-    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(314, 314) interpolationQuality:kCGInterpolationHigh];
+    CGFloat sizeChangeRatio = 314 / image.size.height;
+    CGFloat newWidth = image.size.width * sizeChangeRatio;
     
-    /*
-    // Creates a data representation of the newly selected profile image
-    // Saves that image to the current users parse user profile
-    NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
-    
-    
-    NSString *photoName = [NSString stringWithFormat:@"%@.jpg", [StringrUtility randomStringWithLength:10]];
-    PFFile *imageFile = [PFFile fileWithName:photoName data:imageData];
-     */
+    UIImage *resizedImage = [image resizedImage:CGSizeMake(newWidth, 314) interpolationQuality:kCGInterpolationHigh];
 
     return resizedImage;
 }
