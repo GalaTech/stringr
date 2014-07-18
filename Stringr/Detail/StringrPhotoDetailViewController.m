@@ -199,6 +199,8 @@
             NSDictionary *detailsDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:photo, @"photo", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterReloadPublicString object:nil userInfo:detailsDictionary];
             
+            
+            [self removeActivityForPhoto:photo];
             //[photo deleteInBackground];
         }];
     } else {
@@ -206,6 +208,27 @@
     }
 }
 
+
+
+
+//*********************************************************************************/
+#pragma mark - Private
+//*********************************************************************************/
+
+- (void)removeActivityForPhoto:(PFObject *)photo
+{
+    PFQuery *removeActivityFromPublicStringQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [removeActivityFromPublicStringQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [removeActivityFromPublicStringQuery whereKey:kStringrActivityPhotoKey equalTo:photo];
+    [removeActivityFromPublicStringQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeAddedPhotoToPublicString];
+    [removeActivityFromPublicStringQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *activity in objects) {
+                [activity deleteInBackground];
+            }
+        }
+    }];
+}
 
 
 //*********************************************************************************/

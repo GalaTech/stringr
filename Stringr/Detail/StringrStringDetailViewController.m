@@ -235,8 +235,8 @@
             
             StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
             [topVC setUserSelectedPhoto:image]; // proceeds to create and new PF photo object and presents photo edit view
-
-        } else {
+ 
+        } else { // Public
             StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
             [tableVC.tableView setUserInteractionEnabled:NO];
             

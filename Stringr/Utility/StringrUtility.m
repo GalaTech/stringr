@@ -83,7 +83,7 @@
                                       kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                       kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
                                       [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
-                                      [photo objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                      [photo objectId], kStringrPushPayloadPhotoObjectIdKey, @"default", kAPNSSoundKey,
                                       nil];
                 
                 PFPush *likePhotoPushNotification = [[PFPush alloc] init];
@@ -153,7 +153,7 @@
                                           kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                           kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
                                           [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
-                                          [string objectId], kStringrPushPayloadStringObjectIDKey,
+                                          [string objectId], kStringrPushPayloadStringObjectIDKey, @"default", kAPNSSoundKey,
                                           nil];
                     
                     PFPush *likeStringPushNotification = [[PFPush alloc] init];
@@ -329,6 +329,7 @@
                               kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                               kStringrPushPayloadActivityFollowKey, kStringrPushPayloadActivityTypeKey,
                               [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              @"default", kAPNSSoundKey,
                               nil];
         
         PFPush *likeStringPushNotification = [[PFPush alloc] init];

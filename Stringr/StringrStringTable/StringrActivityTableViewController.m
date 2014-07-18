@@ -130,10 +130,23 @@
     if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey] && [objectForIndexPath objectForKey:kStringrActivityStringKey]) { // added photo to public string
         if (!stringToLoad) return;
         StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         [stringDetailVC setStringToLoad:stringToLoad];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
-        [self.navigationController pushViewController:stringDetailVC animated:YES];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+        photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        
+        [photoDetailVC setPhotosToLoad:@[photoToLoad]];
+        [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        NSArray *currentViewControllers = self.navigationController.viewControllers;
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+        [viewControllers addObject:stringDetailVC];
+        [viewControllers addObject:photoDetailVC];
+        
+        [self.navigationController setViewControllers:viewControllers animated:YES];
     } else if ([[objectForIndexPath objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) { // mentioned in comment
         if (!stringToLoad) return;
         StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];

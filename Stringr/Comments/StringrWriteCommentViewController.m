@@ -125,6 +125,7 @@
                                   kStringrPushPayloadActivityCommentKey, kStringrPushPayloadActivityTypeKey,
                                   [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
                                   [self.objectToCommentOn objectId], kStringrPushPayloadStringObjectIDKey,
+                                  @"default", kAPNSSoundKey,
                                   nil];
             
             
@@ -146,6 +147,7 @@
                                   kStringrPushPayloadActivityCommentKey, kStringrPushPayloadActivityTypeKey,
                                   [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
                                   [self.objectToCommentOn objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                  @"default", kAPNSSoundKey,
                                   nil];
             
             PFPush *likePhotoPushNotification = [[PFPush alloc] init];

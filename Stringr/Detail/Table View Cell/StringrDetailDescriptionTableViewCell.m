@@ -83,7 +83,7 @@
     NSMutableParagraphStyle *descriptionParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     [descriptionParagraphStyle setAlignment:NSTextAlignmentLeft];
     [descriptionParagraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
-    [descriptionParagraphStyle setParagraphSpacingBefore:40.0f];
+    //[descriptionParagraphStyle setParagraphSpacingBefore:40.0f];
     
     NSDictionary *descriptionAttributes = [NSDictionary dictionaryWithObjectsAndKeys:descriptionColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, descriptionParagraphStyle, NSParagraphStyleAttributeName, nil];
     
@@ -129,4 +129,8 @@
     return self.textAttributes;
 }
 
+- (NSString *)getDescriptionText
+{
+    return [self.descriptionLabel.attributedText string];
+}
 @end
