@@ -12,6 +12,7 @@
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrStringDetailViewController.h"
 #import "StringrNavigationController.h"
+#import "StringrFlagContentHelper.h"
 
 @interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate, StringrPhotoDetailEditTableViewControllerDelegate, UIActionSheetDelegate>
 
@@ -116,11 +117,13 @@
 
 - (void)photoActionSheet
 {
-    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", nil];
+    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", @"Flag Photo", nil];
+    
+    [photoOptionsActionSheet setDestructiveButtonIndex:2];
     
     PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
     
-    int cancelIndex = 2;
+    int cancelIndex = 3;
     
     if ([photo.ACL getWriteAccessForUser:[PFUser currentUser]]) {
         [photoOptionsActionSheet addButtonWithTitle:@"Edit Photo"];
@@ -285,13 +288,18 @@
 {
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share Photo"]) {
         [self sharePhoto];
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"String Owner"]) {
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"String Owner"]) {
         [self pushToStringOwner];
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Photo"]) {
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Flag Photo"]) {
+        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+        [StringrFlagContentHelper flagContent:photo withFlaggingUser:[PFUser currentUser]];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Photo"]) {
         [self pushToEditPhoto];
     }
 }
-
 
 
 @end

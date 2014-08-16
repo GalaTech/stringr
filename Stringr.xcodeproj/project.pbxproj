@@ -19,6 +19,7 @@
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
 		AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */; };
+		AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */; };
 		AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA181911A4BB00A9DFF9 /* Parse.framework */; };
 		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
 		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
@@ -181,6 +182,8 @@
 		AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterView.m; path = Footer/StringrFooterView.m; sourceTree = "<group>"; };
 		AB20142A1916DEBA0097FD10 /* StringrDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTableViewCell.h; path = "Detail/Table View Cell/StringrDetailTableViewCell.h"; sourceTree = "<group>"; };
 		AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTableViewCell.m"; sourceTree = "<group>"; };
+		AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFlagContentHelper.h; path = Utility/StringrFlagContentHelper.h; sourceTree = "<group>"; };
+		AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFlagContentHelper.m; path = Utility/StringrFlagContentHelper.m; sourceTree = "<group>"; };
 		AB2CFA181911A4BB00A9DFF9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
 		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -491,6 +494,15 @@
 				AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */,
 			);
 			name = Footer;
+			sourceTree = "<group>";
+		};
+		AB29CC74199FD8C6001177DD /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */,
+				AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 		AB2E0C5F18EF359A00B5681A /* Load More TableViewCell */ = {
@@ -1022,6 +1034,7 @@
 			children = (
 				BF3EDDC9183AAC630071E047 /* Views */,
 				BF3EDDCA183AAC6A0071E047 /* Controllers */,
+				AB29CC74199FD8C6001177DD /* Helper */,
 				BF8349E018297FD600D15963 /* Main.storyboard */,
 				BF8349DD18297FD600D15963 /* AppDelegate.h */,
 				BF8349DE18297FD600D15963 /* AppDelegate.m */,
@@ -1323,6 +1336,7 @@
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */,
 				ABDB7E4F18D63C620047691B /* StringrTableViewController.m in Sources */,
+				AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,
 				ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */,
 				ABF0555C192D81D400BB08A7 /* StringrNearYouTableViewController.m in Sources */,

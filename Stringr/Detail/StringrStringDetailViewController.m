@@ -16,8 +16,9 @@
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
 #import "ZCImagePickerController.h"
+#import "StringrFlagContentHelper.h"
 
-@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate, ZCImagePickerControllerDelegate>
+@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate, ZCImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) StringrStringDetailTopViewController *stringTopVC;
 @property (weak, nonatomic) StringrStringDetailTableViewController *stringTableVC;
@@ -79,10 +80,17 @@
             } else {
                 self.title = @"String Details";
                 
+                NSMutableArray *rightNavigationItems = [NSMutableArray new];
+                
+                UIBarButtonItem *stringActionButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"options_button"] style:UIBarButtonItemStyleBordered target:self action:@selector(stringActionSheet)];
+                [rightNavigationItems addObject:stringActionButton];
+                
                 if ([self.stringToLoad.ACL getPublicWriteAccess]) {
                     UIBarButtonItem *addNewPhotoToPublicString = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
-                    self.navigationItem.rightBarButtonItem = addNewPhotoToPublicString;
+                    [rightNavigationItems addObject:addNewPhotoToPublicString];
                 }
+                
+                [self.navigationItem setRightBarButtonItems:rightNavigationItems];
             }
             
             [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
@@ -143,6 +151,16 @@
     
     StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
     [topVC cancelString];
+}
+
+- (void)stringActionSheet
+{
+    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"String Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Flag String", @"Cancel", nil];
+    
+    [photoOptionsActionSheet setCancelButtonIndex:1];
+    [photoOptionsActionSheet setDestructiveButtonIndex:0];
+    
+    [photoOptionsActionSheet showInView:self.view];
 }
 
 
@@ -211,9 +229,9 @@
              // Place image picker on the screen
              [self presentViewController:imagePickerController animated:YES completion:nil];
         }
-        
-        
-
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Flag String"]) {
+        [StringrFlagContentHelper flagContent:self.stringToLoad withFlaggingUser:[PFUser currentUser]];
     }
 }
 
@@ -324,6 +342,7 @@
 {
     [self changeTopHeight:0.0f];
 }
+
 
 
 
