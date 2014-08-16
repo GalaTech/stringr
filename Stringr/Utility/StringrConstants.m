@@ -331,3 +331,13 @@ NSString * const kStoryboardFindAndInviteFriendsID = @"findAndInviteFriendsVC";
 NSString * const kStoryboardPrivacyPolicyToSID = @"privacyPolicyToSVC";
 
 
+//*********************************************************************************/
+#pragma mark - Helpers
+//*********************************************************************************/
+
+NSString * const kStringrFlaggedContentClassKey = @"Flagged";
+NSString * const kStringrFlaggedPhotoKey = @"flaggedPhoto";
+NSString * const kStringrFlaggedStringKey = @"flaggedString";
+NSString * const kStringrFlaggedUserKey = @"flaggedUser";
+NSString * const kstringrFlaggingUserKey = @"flaggingUser";
+

@@ -163,9 +163,6 @@
                         [descriptionCell setDescriptionForCell:self.stringDescription];
                     });
                     
-                    NSString *test = [descriptionCell getDescriptionText];
-                    NSLog(@"%@", [descriptionCell getDescriptionText]);
-                    
                     [descriptionCell setDelegate:self];
                     
                     return descriptionCell;

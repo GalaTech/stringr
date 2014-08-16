@@ -273,4 +273,15 @@ extern NSString * const kStoryboardFindAndInviteFriendsID;
 extern NSString * const kStoryboardPrivacyPolicyToSID;
 
 
+//*********************************************************************************/
+#pragma mark - Helpers
+//*********************************************************************************/
+
+extern NSString * const kStringrFlaggedContentClassKey;
+extern NSString * const kStringrFlaggedPhotoKey;
+extern NSString * const kStringrFlaggedStringKey;
+extern NSString * const kStringrFlaggedUserKey;
+extern NSString * const kstringrFlaggingUserKey;
+
+
 
