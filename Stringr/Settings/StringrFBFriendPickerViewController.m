@@ -79,7 +79,7 @@
         
         // presents the modal facebook request view that will contain
         [FBWebDialogs presentRequestsDialogModallyWithSession:FBSession.activeSession
-                                                      message:[NSString stringWithFormat:@"Come and check out the greatest app!"]
+                                                      message:[NSString stringWithFormat:@"Come and check out the greatest app! https://itunes.apple.com/us/app/stringr/id878744492?ls=1&mt=8"]
                                                         title:@"Stringr"
                                                    parameters:params
                                                       handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {

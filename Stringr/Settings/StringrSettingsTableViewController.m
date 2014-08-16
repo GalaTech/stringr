@@ -339,8 +339,15 @@
             }
         } else if (indexPath.row == 1) {
             
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[@"Come and check out the greatest app! \n Join Stringr https://itunes.apple.com/us/app/stringr/id878744492?ls=1&mt=8"] applicationActivities:nil];
+            [self presentViewController:activityVC animated:YES completion:^{
+                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }];
+            
+            /*
             StringrInviteFriendsTableViewController *inviteFriendsTableVC = [[StringrInviteFriendsTableViewController alloc] initWithStyle:UITableViewStylePlain];
             [self.navigationController pushViewController:inviteFriendsTableVC animated:YES];
+             */
         
         }
     }
