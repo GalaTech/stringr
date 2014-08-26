@@ -17,7 +17,9 @@
 
 @implementation StringrDiscoveryTabBarViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {

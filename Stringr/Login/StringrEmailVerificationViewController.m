@@ -22,6 +22,10 @@
 
 @implementation StringrEmailVerificationViewController
 
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -78,8 +82,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - IBAction's
+//*********************************************************************************/
 
 - (IBAction)checkAgainButtonTouchHandler:(UIButton *)sender
 {
@@ -99,8 +104,15 @@
                             if (!error) {
                                 [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                 
-                                // Saves the user after we have ensured they are a valid college student
+                                NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+                                [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+                                
                                 [[PFUser currentUser] saveInBackground];
+                                
+                                
+                                [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+                                [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+                                [[PFInstallation currentInstallation] saveEventually];
                             }
                         }];
                     }];
@@ -112,7 +124,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)addStringrColoredHeaderToView
 {

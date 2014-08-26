@@ -22,7 +22,9 @@
 
 @implementation StringrActivityTableViewCell
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -58,8 +60,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setObjectForActivityCell:(PFObject *)object
 {
@@ -73,17 +76,24 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)setupActivityCellWithActivityType:(NSString *)activityType andObject:(PFObject *)object
 {
     NSString *receiverObjectTypeName;
     
-    if ([object objectForKey:kStringrActivityStringKey]) {
+    if ([object objectForKey:kStringrActivityPhotoKey] && [object objectForKey:kStringrActivityStringKey]) { // photo added to public string
+        receiverObjectTypeName = @"String";
+    } else if ([[object objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) {
+        receiverObjectTypeName = @"Comment";
+    } else if ([object objectForKey:kStringrActivityStringKey]) {
         receiverObjectTypeName = @"String";
     } else if ([object objectForKey:kStringrActivityPhotoKey]) {
         receiverObjectTypeName = @"Photo";
+    } else {
+        receiverObjectTypeName = @"Deleted Photo or String";
     }
     
     if ([activityType isEqualToString:kStringrActivityTypeLike]) {
@@ -160,6 +170,62 @@
                 [activityText setAttributes:textAttributes range:textBeyondUsername];
                 
                 [self.activityCellTextLabel setAttributedText:activityText];
+                
+                
+                PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
+                [self.activityCellProfileImage setFile:activityUserProfileImage];
+                [self.activityCellProfileImage loadInBackgroundWithIndicator];
+            }
+        }];
+        
+        NSString *activityUploadDate = [StringrUtility timeAgoFromDate:object.createdAt];
+        [self.activityCellDateLabel setText:activityUploadDate];
+    } else if ([activityType isEqualToString:kStringrActivityTypeMention]) {
+        PFUser *activityUser = [object objectForKey:kStringrActivityFromUserKey];
+        [activityUser fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+            if (!error) {
+                _userForActivityCell = (PFUser *)user;
+                
+                NSString *activityUserFormattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]];
+                NSString *likedObjectText = [NSString stringWithFormat:@"%@ mentioned you in their %@", activityUserFormattedUsername, receiverObjectTypeName];
+                
+                NSMutableAttributedString *activityText = [[NSMutableAttributedString alloc] initWithString:likedObjectText];
+                NSRange textBeyondUsername = NSMakeRange(activityUserFormattedUsername.length, likedObjectText.length - activityUserFormattedUsername.length);
+                NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13], NSFontAttributeName,
+                                                [UIColor grayColor], NSForegroundColorAttributeName, nil];
+                
+                [activityText setAttributes:textAttributes range:textBeyondUsername];
+                
+                [self.activityCellTextLabel setAttributedText:activityText];
+                
+                
+                
+                PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];
+                [self.activityCellProfileImage setFile:activityUserProfileImage];
+                [self.activityCellProfileImage loadInBackgroundWithIndicator];
+            }
+        }];
+        
+        NSString *activityUploadDate = [StringrUtility timeAgoFromDate:object.createdAt];
+        [self.activityCellDateLabel setText:activityUploadDate];
+    } else if ([activityType isEqualToString:kStringrActivityTypeAddedPhotoToPublicString]) {
+        PFUser *activityUser = [object objectForKey:kStringrActivityFromUserKey];
+        [activityUser fetchIfNeededInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+            if (!error) {
+                _userForActivityCell = (PFUser *)user;
+                
+                NSString *activityUserFormattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:[user objectForKey:kStringrUserUsernameCaseSensitive]];
+                NSString *addedPhotoToStringText = [NSString stringWithFormat:@"%@ added a photo to your %@", activityUserFormattedUsername, receiverObjectTypeName];
+                
+                NSMutableAttributedString *activityText = [[NSMutableAttributedString alloc] initWithString:addedPhotoToStringText];
+                NSRange textBeyondUsername = NSMakeRange(activityUserFormattedUsername.length, addedPhotoToStringText.length - activityUserFormattedUsername.length);
+                NSDictionary *textAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: [UIFont fontWithName:@"HelveticaNeue-Light" size:13], NSFontAttributeName,
+                                                [UIColor grayColor], NSForegroundColorAttributeName, nil];
+                
+                [activityText setAttributes:textAttributes range:textBeyondUsername];
+                
+                [self.activityCellTextLabel setAttributedText:activityText];
+                
                 
                 
                 PFFile *activityUserProfileImage = [user objectForKey:kStringrUserProfilePictureThumbnailKey];

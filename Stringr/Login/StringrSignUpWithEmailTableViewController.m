@@ -15,6 +15,7 @@
 #import "UIImage+Resize.h"
 #import "StringrRootViewController.h"
 #import "AppDelegate.h"
+#import "PBWebViewController.h"
 
 
 @interface StringrSignUpWithEmailTableViewController () 
@@ -26,6 +27,10 @@
 @end
 
 @implementation StringrSignUpWithEmailTableViewController
+
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,7 +51,8 @@
     
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     [self.agreementView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(signupWithUserInformation)];
+    
+    UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(signupWithUserInformation)];
     [self.navigationItem setRightBarButtonItem:signupNavigationItem];
     self.userProfileImage = [UIImage imageNamed:@"stringr_icon_filler"];
 }
@@ -69,7 +75,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Action's
+//*********************************************************************************/
 
 - (void)selectProfileImage
 {
@@ -78,33 +87,51 @@
 
 
 
-
-#pragma mark - IBAction's
+//*********************************************************************************/
+#pragma mark - IBActions
+//*********************************************************************************/
 
 - (IBAction)privacyPolicyButton:(UIButton *)sender
 {
+    PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"http://stringrapp.com/privacy-policy/"]];
+    
+    [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
+    
+
+    
+    /*
     StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:YES];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
     
     [self.navigationController pushViewController:privacyPolicyVC animated:YES];
+     */
 }
 
 - (IBAction)termsOfServiceButton:(UIButton *)sender
 {
+    PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"http://stringrapp.com/terms-of-service/"]];
+    
+    [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
+    
+    /*
     StringrPrivacyPolicyTermsOfServiceViewController *privacyPolicyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPrivacyPolicyToSID];
     [privacyPolicyVC setIsPrivacyPolicy:NO];
     UIBarButtonItem *privacyBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [self.navigationItem setBackBarButtonItem:privacyBarButtonItem];
     
     [self.navigationController pushViewController:privacyPolicyVC animated:YES];
+     */
 }
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)signupWithUserInformation
 {
@@ -128,8 +155,8 @@
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.displayName]) {
             [newUser setObject:self.displayName forKey:kStringrUserDisplayNameKey];
             
-            NSString *lowercaseName = [self.displayName lowercaseString];
-            [[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
+            //NSString *lowercaseName = [self.displayName lowercaseString];
+            //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
             userIsValidForSignup++;
         } else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];
@@ -155,14 +182,12 @@
             if (self.profileImageFile && self.profileThumbnailImageFile) {
                 [newUser setObject:self.profileImageFile forKey:kStringrUserProfilePictureKey];
                 [newUser setObject:self.profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
-            }
-            
-            else {
+            } else {
                 /*
                  This sets the profile image and thumbnail to the stringr image. For now I am not implementing it because that is just
                  * a lot of wasted space on the server. By default the app displays that image for users without a profile pic.*/
-                UIImage *resizedProfileImage = [[UIImage imageNamed:@"Stringr Image"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
-                UIImage *thumbnailProfileImage = [[UIImage imageNamed:@"Stringr Image"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
+                UIImage *resizedProfileImage = [[UIImage imageNamed:@"stringr_icon_filler"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(150, 150) interpolationQuality:kCGInterpolationHigh];
+                UIImage *thumbnailProfileImage = [[UIImage imageNamed:@"stringr_icon_filler"] resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(50, 50) interpolationQuality:kCGInterpolationDefault];
                 
                 NSData *profileImageData = UIImageJPEGRepresentation(resizedProfileImage, 0.8f);
                 NSData *profileThumbnailImageData = UIImagePNGRepresentation(thumbnailProfileImage);
@@ -182,7 +207,9 @@
                     // sets the new user to the current user
                     [PFUser becomeInBackground:newUser.sessionToken];
                     
-                    if ((BOOL)[newUser objectForKey:@"emailVerified"] == YES) {
+                    NSNumber *emailIsVerified = [[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey];
+                    
+                    if ([emailIsVerified boolValue]) {
                         // instantiates the main logged in content area
                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                         
@@ -191,8 +218,14 @@
                                 if (!error) {
                                     [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                     
-                                    // Saves the user after we have ensured they are a valid college student
+                                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+                                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+                                    
                                     [[PFUser currentUser] saveInBackground];
+                                    
+                                    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+                                    [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+                                    [[PFInstallation currentInstallation] saveEventually];
                                 }
                             }];
                         }];
@@ -233,7 +266,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -328,7 +364,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -413,7 +451,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UITextField Delegate
+//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -449,8 +489,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIScrollView Delegate
+//*********************************************************************************/
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -459,8 +500,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -491,8 +533,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {

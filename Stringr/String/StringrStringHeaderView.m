@@ -18,6 +18,10 @@
 
 @implementation StringrStringHeaderView
 
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
+
 // Percentage for the width of the content header view
 static float const contentViewWidthPercentage = .93;
 
@@ -55,17 +59,11 @@ static float const contentViewWidthPercentage = .93;
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setStringForHeader:(PFObject *)stringForHeader
 {
@@ -93,8 +91,8 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)pushToStringDetailView
 {
-    if ([self.delegate respondsToSelector:@selector(headerView:pushToStringDetailViewWithString:)]) {
-        [self.delegate headerView:self pushToStringDetailViewWithString:self.stringForHeader];
+    if ([self.delegate respondsToSelector:@selector(headerView:tappedHeaderInSection:withString:)]) {
+        [self.delegate headerView:self tappedHeaderInSection:self.section withString:self.stringForHeader];
     }
 }
 

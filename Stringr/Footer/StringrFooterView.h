@@ -7,15 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrPathImageView.h"
+
+@class StringrFooterView;
 
 @protocol StringrFooterViewDelegate;
 
 @interface StringrFooterView : UIView
 
 @property (strong, nonatomic) UIActivityIndicatorView *loadingProfileImageIndicator;
+@property (nonatomic) NSUInteger section;
 @property (weak, nonatomic) id<StringrFooterViewDelegate> delegate;
-
 
 /** 
  * Inits a new footer view with the provided frame and adjusts based around whether or not
@@ -25,34 +26,45 @@
  * @param frame The frame used for containing the footer view objects
  * @param isFullWidth Determines whether or not the cell is a full width footer view.
  */
-- (UIView *)initWithFrame:(CGRect)frame fullWidthCell:(BOOL)isFullWidthCell withObject:(PFObject *)object;
+- (UIView *)initWithFrame:(CGRect)frame fullWidthCell:(BOOL)isFullWidthCell withObject:(PFObject *)object; // Designated Initializer
 
-/**
- * Set's the uploader profile image and display name to that of the object's uploader.
- * @param object The object that contains information about the photo/string.
- */
-- (void)setupFooterViewWithObject:(PFObject *)object;
-
-/** 
- * Starts animation and displays or stops animation and hides the loading indicator.
- * @param enabled Whether or not the loading indicator is animating and is displayed.
- */
-- (void)loadingProfileImageIndicatorEnabled:(BOOL)enabled;
+/// Refreshes the value displayed in the footer for both the Likes and Comments.
+- (void)refreshLikesAndComments;
 
 @end
 
-/**
- * Allows simple response from the footer view to user interaction with the objects it contains.
- * Provides a call back after a user taps the profile image, like button, and comment button.
- */
+
+/// Provides a call back after a user taps the profile image, like button, and comment button.
 @protocol StringrFooterViewDelegate <NSObject>
 
 @optional
 
+/**
+ * Tells the delegate that the footer view user profile image has been tapped.
+ * @param footerView The footer view object that is notifying the tapping.
+ * @param sender The UIButton that was tapped by the user.
+ * @param uploader The PFUser user object that uploaded the String or Photo that is being represented by this footer view.
+ */
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader;
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object;
+/**
+ * Tells the delegate that the footer view like button was tapped.
+ * @param footerView The footer view object that is notifying the tapping.
+ * @param sender The UIButton that was tapped by the user.
+ * @param object The String or Photo object that was liked by the user.
+ * @param section The section that this footer view lives at within a calling UITableView
+ */
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object inSection:(NSUInteger)section;
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object;
+/**
+ * Tells the delegate that the footer view comment button was tapped.
+ * @param footerView The footer view object that is notifying the tapping.
+ * @param sender The UIButton that was tapped by the user.
+ * @param object The String or Photo object that will be commented on by the user.
+ * @param section The section that this footer view lives at within a calling UITableView
+ */
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section;
 
 @end
+
+

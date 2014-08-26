@@ -14,7 +14,14 @@ typedef enum {
     StringrWrittenTextTypePassword
 } StringrWrittenTextType;
 
-@protocol StringrWriteAndEditTextViewControllerDelegate;
+@protocol StringrWriteAndEditTextViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text;
+- (void)textWrittenAndSavedByUser:(NSString *)text withType:(StringrWrittenTextType)textType;
+
+@end
 
 @interface StringrWriteAndEditTextViewController : UIViewController
 
@@ -24,11 +31,3 @@ typedef enum {
 
 @end
 
-@protocol StringrWriteAndEditTextViewControllerDelegate <NSObject>
-
-@optional
-
-- (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text;
-- (void)textWrittenAndSavedByUser:(NSString *)text withType:(StringrWrittenTextType)textType;
-
-@end

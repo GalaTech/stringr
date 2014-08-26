@@ -105,6 +105,10 @@
  */
 + (BOOL)NSStringContainsCharactersWithoutWhiteSpace:(NSString *)checkString;
 
+// Trim the input string by removing leading and trailing white spaces
+// and return the result
++ (NSString *)stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:(NSString *)string;
+
 /**
  * Checks to see if a string contains valid characters for creating a username.
  * Valid characters consist of: A-Z a-z 0-9 . _ -
@@ -124,6 +128,7 @@
 + (CGFloat)heightForLabelWithNSString:(NSString *)text;
 + (CGFloat)heightForLabelWithNSString:(NSString *)text labelSize:(CGSize)size andAttributes:(NSDictionary *)attributes;
 
++ (NSArray *)mentionsContainedWithinString:(NSString *)string;
 
 
 + (BOOL)facebookUserCanLogin:(PFUser *)facebookUser;

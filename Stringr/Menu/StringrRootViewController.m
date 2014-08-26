@@ -20,15 +20,19 @@
 
 @implementation StringrRootViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)awakeFromNib
 {
     UIViewController *backgroundVC = [[UIViewController alloc] init];
     
-    UIImage *fillerImage = [UIImage imageNamed:@"pre_logged_in_filler"];
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:fillerImage];
-    [backgroundVC.view addSubview:backgroundImageView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *fillerImage = [UIImage imageNamed:@"pre_logged_in_filler"];
+        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:fillerImage];
+        [backgroundVC.view addSubview:backgroundImageView];
+    });
     
     self.contentViewController = backgroundVC;
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardMenuID];

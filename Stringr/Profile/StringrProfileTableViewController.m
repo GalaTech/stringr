@@ -14,7 +14,9 @@
 
 @implementation StringrProfileTableViewController
 
+//*********************************************************************************/
 #pragma mark - LifeCycle
+//*********************************************************************************/
 
 - (void)dealloc
 {
@@ -40,8 +42,37 @@
 
 
 
+//*********************************************************************************/
+#pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
+- (PFQuery *)queryForTable
+{
+    // Querries all strings that are owned by the user for the specified profile
+    PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
+    [profileStringsQuery orderByDescending:@"createdAt"];
+    
+    return profileStringsQuery;
+}
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        NSString *username = [self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200)
+                                                                               andNoContentText:[NSString stringWithFormat:@"@%@ hasn't uploaded any Strings!", username]];
+        self.tableView.tableHeaderView = noContentHeaderView;
+    }
+}
+
+
+
+//*********************************************************************************/
 #pragma mark - ParallaxScrollViewController Delegate
+//*********************************************************************************/
 
 - (UIScrollView *)scrollViewForParallexController
 {

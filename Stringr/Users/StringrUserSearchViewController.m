@@ -18,7 +18,9 @@
 
 @implementation StringrUserSearchViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -35,7 +37,11 @@
     self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
 }
 
+
+
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 // Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
@@ -45,15 +51,30 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
     if (self.searchText && [StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.searchText]) {
-        NSString *lowercaseSearchText = [self.searchText lowercaseString];
-        NSPredicate * predicate = [NSPredicate predicateWithFormat:@"(username BEGINSWITH[c]%@) OR (displayNameCaseInsensitive BEGINSWITH[c]%@)", lowercaseSearchText, lowercaseSearchText];
-        PFQuery * userQuery = [PFQuery queryWithClassName:@"_User" predicate:predicate];
+
+        NSString *modifiedSearchText = [StringrUtility stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:self.searchText];
+        
+        //NSPredicate * predicate = [NSPredicate predicateWithFormat:@"(username BEGINSWITH[c]%@) OR (displayNameCaseInsensitive BEGINSWITH[c]%@)", lowercaseSearchText, lowercaseSearchText];
+        //PFQuery * userQuery = [PFQuery queryWithClassName:@"_User" predicate:predicate];
+        
+        // Forces search to look at the beginning pattern of words so that it's not matching letters in the center
+        // of a word. Also looks at the end of word to match for last names.
+        //NSString *usernameSearchRegexPattern = [NSString stringWithFormat:@"^%@|%@$", modifiedSearchText, modifiedSearchText];
+        
+        PFQuery *userUsernameQuery = [PFUser query];
+        [userUsernameQuery whereKey:kStringrUserUsernameKey matchesRegex:modifiedSearchText modifiers:@"i"];
+        
+        PFQuery *userDisplaynameQuery = [PFUser query];
+        [userDisplaynameQuery whereKey:kStringrUserDisplayNameKey matchesRegex:modifiedSearchText modifiers:@"i"];
+        
+        PFQuery *userQuery = [PFQuery orQueryWithSubqueries:@[userUsernameQuery, userDisplaynameQuery]];
         [userQuery orderByAscending:kStringrUserUsernameKey];
         
         return userQuery;
@@ -65,10 +86,22 @@
     return nilQuery;
 }
 
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        //StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"Search for a user by their Username or Display Name"];
+        
+        //self.tableView.tableHeaderView = noContentHeaderView;
+    }
+}
 
 
 
+//*********************************************************************************/
 #pragma mark - UITableViewDelegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -81,7 +114,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - UISearchBar Delegate
+//*********************************************************************************/
 
 // Presents/Hides the scope bar and cancel button whenever the user goes to search
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {

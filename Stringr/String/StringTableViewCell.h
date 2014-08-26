@@ -6,16 +6,14 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringView.h"
+#import "StringCollectionView.h"
+
+static NSString *StringCollectionViewCellIdentifier = @"StringCollectionViewCellIdentifier";
+
 @interface StringTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) UIView *detailTabView;
+@property (strong, nonatomic) StringCollectionView *stringCollectionView;
 
-/// Required for using this class. View StringViewDelegate for more info
-- (void)setStringViewDelegate:(id<StringViewDelegate>)delegate;
-//- (void)setCollectionData:(NSArray *)collectionData;
-- (void)setStringObject:(PFObject *)string;
-- (void)queryPhotosFromQuery:(PFQuery *)query;
-- (void)reloadString;
-
+-(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
+  
 @end

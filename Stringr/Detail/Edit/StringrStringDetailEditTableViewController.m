@@ -19,7 +19,9 @@
 
 @implementation StringrStringDetailEditTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -40,11 +42,14 @@
         self.selectedRow = 0; // locked row
     }
     
-    [self.delegate setStringWriteAccess:canWrite];
+    [self.delegate setWriteAccessForString:canWrite];
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
 
 @synthesize stringTitle = _stringTitle;
 @synthesize stringDescription = _stringDescription;
@@ -63,7 +68,7 @@
         tempStringTitle = @"";
     }
     
-    [self.delegate setStringTitle:tempStringTitle];
+    [self.delegate setTitleForString:tempStringTitle];
 }
 
 - (void)setStringDescription:(NSString *)stringDescription
@@ -75,13 +80,14 @@
         tempStringDescription = @"";
     }
     
-    [self.delegate setStringDescription:tempStringDescription];
+    [self.delegate setDescriptionForString:tempStringDescription];
 }
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -130,16 +136,23 @@
                 
                 StringrDetailTitleTableViewCell *titleTableVC = (StringrDetailTitleTableViewCell *)cell;
 
-                
-                [titleTableVC setTitleForCell:self.stringTitle];
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [titleTableVC setTitleForCell:self.stringTitle];
+                });
             } else if (indexPath.row == 2) {
                 cellIdentifier = @"string_descriptionCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
                 
                 StringrDetailDescriptionTableViewCell *descriptionTableVC = (StringrDetailDescriptionTableViewCell *)cell;
 
-                [descriptionTableVC setDescriptionForCell:self.stringDescription];
+                // Checks to see if a description exists and if not we add the filler text
+                if (![StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.stringDescription]) {
+                    self.stringDescription = @"Enter the description for your String";
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [descriptionTableVC setDescriptionForCell:self.stringDescription];
+                });
             }
             break;
         case 1:
@@ -179,8 +192,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -218,11 +232,11 @@
         if (indexPath.row == 0) { // locked
             self.selectedRow = 0;
             
-            [self.delegate setStringWriteAccess:NO];
+            [self.delegate setWriteAccessForString:NO];
         } else if (indexPath.row == 1) { // public
             self.selectedRow = 1;
             
-            [self.delegate setStringWriteAccess:YES];
+            [self.delegate setWriteAccessForString:YES];
         }
         
         NSArray *indexPaths = @[indexPath];
@@ -246,8 +260,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
+//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -259,8 +274,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrWriteAndEditTextView Delegate
+//*********************************************************************************/
 
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {

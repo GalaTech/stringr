@@ -7,24 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrPathImageView.h"
 
 @protocol StringrCommentsTableViewCellDelegate;
 
 @interface StringrCommentsTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet StringrPathImageView *commentsProfileImage;
-@property (weak, nonatomic) IBOutlet UILabel *commentsProfileDisplayName;
-@property (weak, nonatomic) IBOutlet UILabel *commentsUploadDateTime;
-@property (weak, nonatomic) IBOutlet UILabel *commentsTextComment;
-
 @property (weak, nonatomic) id<StringrCommentsTableViewCellDelegate> delegate;
+
+- (void)setObjectForCommentCell:(PFObject *)object;
+- (void)setRowForCommentCell:(NSUInteger)row;
 
 @end
 
 
 @protocol StringrCommentsTableViewCellDelegate <NSObject>
 
-- (void)tappedCommentorProfileImage:(NSInteger)index;
+- (void)tappedCommentorUserProfileImage:(PFUser *)user;
+- (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedUserHandleWithName:(NSString *)name;
+- (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedHashtagWithText:(NSString *)hashtag;
 
 @end

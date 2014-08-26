@@ -11,7 +11,9 @@
 
 @implementation StringCollectionViewCell
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,7 +32,6 @@
 - (void)dealloc
 {
     self.cellImage = nil;
-    NSLog(@"dealloc string image");
 }
 
 @end

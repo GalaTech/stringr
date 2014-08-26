@@ -18,7 +18,9 @@
 
 @implementation StringrWriteCommentViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -40,10 +42,8 @@
         
         NSString *forObjectKey = kStringrActivityStringKey;
         NSString *forObjectUserKey = kStringrStringUserKey;
-        //[self.objectToCommentOn incrementKey:kStringrStringNumberOfCommentsKey]; // cant save to a string or photo that will be read only...
         
         if ([self.objectToCommentOn.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            //[self.objectToCommentOn incrementKey:kStringrPhotoNumberOfCommentsKey]; // can't save to a string or photo that will be read only...
             forObjectKey = kStringrActivityPhotoKey;
             forObjectUserKey = kStringrPhotoUserKey;
         }
@@ -77,8 +77,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Custom Accessors
+//*********************************************************************************/
 
 - (PFObject *)comment
 {
@@ -93,7 +94,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)sendCommentPushNotification
 {
@@ -117,11 +120,12 @@
         if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
             NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                   alert, kAPNSAlertKey,
-                                  @"increment", kAPNSBadgeKey,
+                                  @"Increment", kAPNSBadgeKey,
                                   kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                   kStringrPushPayloadActivityCommentKey, kStringrPushPayloadActivityTypeKey,
                                   [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
                                   [self.objectToCommentOn objectId], kStringrPushPayloadStringObjectIDKey,
+                                  @"default", kAPNSSoundKey,
                                   nil];
             
             
@@ -138,11 +142,12 @@
         if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
             NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                   alert, kAPNSAlertKey,
-                                  @"increment", kAPNSBadgeKey,
+                                  @"Increment", kAPNSBadgeKey,
                                   kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                   kStringrPushPayloadActivityCommentKey, kStringrPushPayloadActivityTypeKey,
                                   [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
                                   [self.objectToCommentOn objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                  @"default", kAPNSSoundKey,
                                   nil];
             
             PFPush *likePhotoPushNotification = [[PFPush alloc] init];
@@ -153,9 +158,75 @@
     }
 }
 
+- (void)findAndSendNotificationToMentionsInComment:(PFObject *)objectForComment
+{
+    // Extracts all of the @mentions from the title and description of the comment
+    NSArray *commentMentions = [StringrUtility mentionsContainedWithinString:[self.comment objectForKey:kStringrActivityContentKey]];
+    
+    // Finds all users whose username matches these mentions.
+    PFQuery *mentionUsersQuery = [PFUser query];
+    [mentionUsersQuery whereKey:kStringrUserUsernameKey containedIn:commentMentions];
+    [mentionUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (!error) {
+            
+            // Create a new mention activity for all users who were mentioned in the comment
+            for (PFUser *user in users) {
+                if (![user.objectId isEqualToString:[PFUser currentUser].objectId]){
+                    PFObject *mentionActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+                    [mentionActivity setObject:kStringrActivityTypeMention forKey:kStringrActivityTypeKey];
+                    [mentionActivity setObject:kStringrActivityContentCommentKey forKey:kStringrActivityContentKey];
+                    [mentionActivity setObject:user forKey:kStringrActivityToUserKey];
+                    [mentionActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+                    
+                    if ([StringrUtility objectIsString:objectForComment]) {
+                        [mentionActivity setObject:objectForComment forKey:kStringrActivityStringKey];
+                    } else {
+                        [mentionActivity setObject:objectForComment forKey:kStringrActivityPhotoKey];
+                    }
+                    
+                    PFACL *mentionACL = [PFACL ACLWithUser:[PFUser currentUser]];
+                    [mentionACL setPublicReadAccess:YES];
+                    [mentionACL setPublicWriteAccess:YES];
+                    [mentionActivity setACL:mentionACL];
+                    
+                    [mentionActivity saveInBackground];
+                }
+            }
+            
+            // commented out because I don't want to delete all previous mentions for comments since there might be
+            // multiple comments that a user is mentioned in.
+            /*
+            // Finds any activities that might already exist for the mentioned usernames on this comment
+            PFQuery *activityMentionQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [activityMentionQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeMention];
+            
+            if ([StringrUtility objectIsString:objectForComment]) {
+                [activityMentionQuery whereKey:kStringrActivityStringKey equalTo:objectForComment];
+            } else {
+                [activityMentionQuery whereKey:kStringrActivityPhotoKey equalTo:objectForComment];
+            }
+            
+            [activityMentionQuery whereKey:kStringrActivityPhotoKey equalTo:objectForComment];
+            [activityMentionQuery whereKey:kStringrActivityToUserKey containedIn:users];
+            [activityMentionQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+            [activityMentionQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    // delete any activities that already existed so that there will not be duplicates
+                    for (PFObject *activity in activities) {
+                        [activity deleteInBackground];
+                    }
+                }
+            }];
+             */
+        }
+    }];
+}
 
 
+
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 - (void)postComment
 {
@@ -163,7 +234,10 @@
         [self dismissViewControllerAnimated:YES completion:^ {
             [self.comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
-                    [self.delegate reloadCommentTableView];
+                    if ([self.delegate respondsToSelector:@selector(commentViewController:didPostComment:)]) {
+                        [self.delegate commentViewController:self didPostComment:self.comment];
+                    }
+                    
                     [self sendCommentPushNotification];
                 } else if (error && error.code == kPFErrorObjectNotFound) {
                     [[StringrCache sharedCache] decrementCommentCountForObject:self.objectToCommentOn];
@@ -183,6 +257,8 @@
                     }
                 }];
             }
+            
+            [self findAndSendNotificationToMentionsInComment:self.objectToCommentOn];
         }];
     }
 }
@@ -195,8 +271,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UITextView Delegate
-
+//*********************************************************************************/
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
@@ -216,11 +293,17 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
+//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
+        if ([self.delegate respondsToSelector:@selector(commentViewControllerDidCancel:)]) {
+            [self.delegate commentViewControllerDidCancel:self];
+        }
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

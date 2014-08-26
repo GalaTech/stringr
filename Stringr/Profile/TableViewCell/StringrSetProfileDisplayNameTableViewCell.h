@@ -11,6 +11,5 @@
 @interface StringrSetProfileDisplayNameTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *setProfileDisplayNameTextField;
-@property (weak, nonatomic) IBOutlet UIButton *fieldErrorButton;
 
 @end

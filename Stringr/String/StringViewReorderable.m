@@ -10,7 +10,7 @@
 #import "StringEditCollectionView.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 
-@interface StringViewReorderable () <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
+@interface StringViewReorderable () //<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet StringEditCollectionView *stringLargeReorderableCollectionView;
 
@@ -27,6 +27,7 @@
 
 #pragma mark - Lifecycle
 
+/*
 - (void)awakeFromNib
 {
     [_stringLargeReorderableCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCell"];
@@ -134,12 +135,12 @@
     _stringDescription = stringDescription;
 }
 
-/*
+
 - (void)setStringWriteAccess:(BOOL)isPublic;
 {
     _stringWriteAccess = isPublic;
 }
- */
+ 
 
 - (BOOL)stringIsPreparedToPublish
 {
@@ -340,5 +341,6 @@
     //[defaults setObject:self.images forKey:kUserDefaultsWorkingStringSavedImagesKey];
     //[defaults synchronize];
 }
-
+ */
+ 
 @end

@@ -18,7 +18,9 @@
 
 @implementation StringrUserTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -64,7 +66,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Table View Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -129,7 +134,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Table View Delegate
+//*********************************************************************************/
 
 // Takes the user to the profile of the selected user cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,15 +169,22 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
     PFQuery *query = [self getQueryForTable];
     
+    
     if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        [query setCachePolicy:kPFCachePolicyNetworkElseCache];
+    }
+     
+    
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        query = [PFQuery queryWithClassName:@"no_class"];
     }
     
     return query;

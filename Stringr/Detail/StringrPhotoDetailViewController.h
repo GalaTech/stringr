@@ -13,10 +13,10 @@
 
 @interface StringrPhotoDetailViewController : StringrDetailViewController
 
-//@property (strong, nonatomic) NSArray *stringImages;
-//@property (strong, nonatomic) UIImage *currentImage;
-
+/// An array of photo objects that will be displayed in the photo pager.
 @property (strong, nonatomic) NSArray *photosToLoad;
+
+/// The index of the photo that was tapped by the user. This index is what sets the initial photo that is shown.
 @property (nonatomic) NSUInteger selectedPhotoIndex;
 
 /**
@@ -27,6 +27,8 @@
  * a set of liked photos.
  */
 @property (strong, nonatomic) PFObject *stringOwner;
+
+@property (nonatomic) BOOL isPublicPhoto;
 
 @property (weak, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegateForPhotoController;
 

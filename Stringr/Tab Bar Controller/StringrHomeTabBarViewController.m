@@ -10,14 +10,15 @@
 
 @implementation StringrHomeTabBarViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self.tabBar setTintColor:[StringrConstants kStringrBlueColor]];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -26,5 +27,11 @@
     
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if ([item.title isEqualToString:@"Activity"]) {
+        item.badgeValue = nil;
+    }
+}
 
 @end

@@ -10,8 +10,9 @@
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
+#import "StringCollectionView.h"
 
-@interface StringrMyStringsTableViewController () <UIActionSheetDelegate>
+@interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate>
 
 @property (nonatomic) BOOL editingStringsEnabled;
 
@@ -19,7 +20,9 @@
 
 @implementation StringrMyStringsTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -49,8 +52,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)editedStringSuccessfully
 {
@@ -76,9 +80,9 @@
 
 
 
-
-
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 // Handles the action of moving a user to edit the selected string.
 // This will eventually incorporate the selection of a specific string and then taking the user
@@ -99,8 +103,55 @@
 
 
 
+//*********************************************************************************/
+#pragma mark - UICollectionView Delegate
+//*********************************************************************************/
 
+- (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+    
+    if (stringPhotos) {
+        
+        if (self.editingStringsEnabled) {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+            [photoDetailVC setEditDetailsEnabled:YES];
+            
+            // Sets the photos to be displayed in the photo pager
+            [photoDetailVC setPhotosToLoad:stringPhotos];
+            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+            [photoDetailVC setDelegateForPhotoController:self]; // to delete from string directly
+            
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+            
+            [self presentViewController:navVC animated:YES completion:nil];
+        } else {
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+            [photoDetailVC setEditDetailsEnabled:NO];
+            
+            // Sets the photos to be displayed in the photo pager
+            [photoDetailVC setPhotosToLoad:stringPhotos];
+            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+            
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            [self.navigationController pushViewController:photoDetailVC animated:YES];
+        }
+
+    }
+}
+
+
+
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -116,53 +167,30 @@
     return NO;
 }
 
-
-
-
-#pragma mark - StringView Delegate
-
-- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
+- (void)objectsDidLoad:(NSError *)error
 {
-    if (photos)
-    {
-        if (self.editingStringsEnabled) {
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            
-            [photoDetailVC setEditDetailsEnabled:NO];
-            
-            // Sets the photos to be displayed in the photo pager
-            [photoDetailVC setPhotosToLoad:photos];
-            [photoDetailVC setSelectedPhotoIndex:index];
-            [photoDetailVC setStringOwner:string];
-            [photoDetailVC setEditDetailsEnabled:YES];
-            
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
-            
-            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
-            
-            [self presentViewController:navVC animated:YES completion:nil];
-        } else {
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            
-            [photoDetailVC setEditDetailsEnabled:NO];
-            
-            // Sets the photos to be displayed in the photo pager
-            [photoDetailVC setPhotosToLoad:photos];
-            [photoDetailVC setSelectedPhotoIndex:index];
-            [photoDetailVC setStringOwner:string];
-            
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
-            
-            [self.navigationController pushViewController:photoDetailVC animated:YES];
-        }
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You haven't uploaded any Strings!"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Upload your first String"];
+        [noContentHeaderView setDelegate:self];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        self.tableView.tableHeaderView = nil;
     }
+    
 }
 
 
 
+//*********************************************************************************/
 #pragma mark - StringrStringHeaderView Delegate
+//*********************************************************************************/
 
-- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
+- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
     if (self.editingStringsEnabled) {
         StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
@@ -194,6 +222,17 @@
         
         [self.navigationController pushViewController:detailVC animated:YES];
     }
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - StringrNoContentView Delegate
+//*********************************************************************************/
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
+{
+    [self addNewString];
 }
 
 @end

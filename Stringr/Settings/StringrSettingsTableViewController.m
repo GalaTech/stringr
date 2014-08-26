@@ -21,16 +21,18 @@
 #import <MessageUI/MessageUI.h>
 #import "AppDelegate.h"
 #import "PBWebViewController.h"
+#import "ZCImagePickerController.h"
 
-#import "StringView.h"
 
-@interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ZCImagePickerControllerDelegate>
 
 @end
 
 @implementation StringrSettingsTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -70,7 +72,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)showMenu
 {
@@ -112,7 +116,7 @@
      */
     
     PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
-    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"https://www.facebook.com/about/privacy/your-info"]];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"http://stringrapp.com/privacy-policy/"]];
 
     [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
     
@@ -130,7 +134,7 @@
 - (void)presentTermsOfService
 {
     PBWebViewController *privacyPolicyWebVC = [[PBWebViewController alloc] init];
-    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"https://www.facebook.com/legal/terms"]];
+    [privacyPolicyWebVC setURL:[NSURL URLWithString:@"http://stringrapp.com/terms-of-service/"]];
     
     [self.navigationController pushViewController:privacyPolicyWebVC animated:YES];
     
@@ -190,7 +194,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - UITableViewDataSource
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -312,7 +319,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - UITableViewDelegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -329,8 +339,15 @@
             }
         } else if (indexPath.row == 1) {
             
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[@"Come and check out the greatest app! \n Join Stringr https://itunes.apple.com/us/app/stringr/id878744492?ls=1&mt=8"] applicationActivities:nil];
+            [self presentViewController:activityVC animated:YES completion:^{
+                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }];
+            
+            /*
             StringrInviteFriendsTableViewController *inviteFriendsTableVC = [[StringrInviteFriendsTableViewController alloc] initWithStyle:UITableViewStylePlain];
             [self.navigationController pushViewController:inviteFriendsTableVC animated:YES];
+             */
         
         }
     }
@@ -370,9 +387,17 @@
         [PFQuery clearAllCachedResults];
         [[StringrCache sharedCache] clear];
         
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kNSUserDefaultsNumberOfActivitiesKey];
+        
         // Unsubscribe from push notifications for this installation
         [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
-        [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];
+        
+        PFObject *currentUserPrivateChannelKey = [[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey];
+        
+        if (currentUserPrivateChannelKey) {
+            [[PFInstallation currentInstallation] removeObject:currentUserPrivateChannelKey forKey:kStringrInstallationPrivateChannelsKey];
+        }
+        
         [[PFInstallation currentInstallation] saveEventually];
         
         [PFUser logOut];
@@ -393,6 +418,7 @@
             
             // forces the main content area to be blank with no content. That way if a user logs
             // back in we can easily reinstantiate the content area without any data remaining from the previous
+            // user
             UIViewController *blankVC = [[UIViewController alloc] init];
             [self.frostedViewController setContentViewController:blankVC];
             
@@ -457,7 +483,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - MFMailComposeViewControllerDelegate
+//*********************************************************************************/
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
@@ -467,10 +495,9 @@
 
 
 
-
-
-
+//*********************************************************************************/
 #pragma mark - StringrWriteAndEditViewControllerDelegate
+//*********************************************************************************/
 
 - (void)textWrittenAndSavedByUser:(NSString *)text withType:(StringrWrittenTextType)textType
 {
@@ -524,8 +551,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -547,16 +575,11 @@
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 1) {
-        
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+        ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
+        imagePickerController.imagePickerDelegate = self;
+        imagePickerController.maximumAllowsSelectionCount = 10;
+        imagePickerController.mediaType = ZCMediaAllPhotos;
+        [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
@@ -567,8 +590,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
 //delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -583,6 +607,42 @@
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - ZCImagePickerController Delegate
+//*********************************************************************************/
+
+- (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSDictionary *imageDict in info) {
+        UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [images addObject:image];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^ {
+        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
+        [newStringVC setEditDetailsEnabled:YES];
+        
+        if (images.count <= 1) {
+            [newStringVC setUserSelectedPhoto:images[0]];
+        } else {
+            [newStringVC setUserSelectedPhotos:images];
+        }
+        
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
+}
+
+- (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

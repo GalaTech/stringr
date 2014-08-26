@@ -34,11 +34,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Reachability.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-STTweetLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,7 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3DFCD68DBCB641778BCBEBE7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53998BA271864801BDABC7EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>683325CBC133422A83D04D78</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6A3B7A13BCC142D6897ECADD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8FA764A07A5A4092A74ACB47</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,12 +97,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>AF169C8BBB3444DE9957A4E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B7501CA91BCE47B7B14085BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C146C330DE134E93BB2A99E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C75C1C8268E84E71BD36E5A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EE98EF97A0B7482D88E64C32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F17F7C425B224BCD9644C33C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

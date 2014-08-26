@@ -12,10 +12,10 @@
 
 @interface StringrActivityTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) id<StringrActivityTableViewCellDelegate> delegate;
+
 - (void)setObjectForActivityCell:(PFObject *)object;
 - (void)setRowForActivityCell:(NSUInteger)row;
-
-@property (weak, nonatomic) id<StringrActivityTableViewCellDelegate> delegate;
 
 @end
 

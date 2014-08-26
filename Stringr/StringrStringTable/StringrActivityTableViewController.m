@@ -12,7 +12,8 @@
 #import "StringrNavigationController.h"
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
+#import "StringrLoadMoreTableViewCell.h"
 
 @interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
 
@@ -20,7 +21,9 @@
 
 @implementation StringrActivityTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,8 +41,8 @@
     if (self) {
         self.parseClassName = kStringrActivityClassKey;
         self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = YES;
-        self.objectsPerPage = 15;
+//        self.paginationEnabled = YES;
+        self.objectsPerPage = 30;
     }
     
     return self;
@@ -49,6 +52,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Activity";
     
     self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
 }
@@ -65,7 +69,10 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 + (NSString *)stringForActivityType:(NSString *)activityType
 {
@@ -75,6 +82,10 @@
         return kStringrActivityTypeComment;
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
         return kStringrActivityTypeFollow;
+    } else if ([activityType isEqualToString:kStringrActivityTypeMention]) {
+        return kStringrActivityTypeMention;
+    } else if ([activityType isEqualToString:kStringrActivityTypeAddedPhotoToPublicString]) {
+        return kStringrActivityTypeAddedPhotoToPublicString;
     } else {
         return nil;
     }
@@ -82,7 +93,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UITableViewController DataSource
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -91,35 +104,124 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+//    if (self.objects.count == self.objectsPerPage) {
+//        return self.objects.count + 1;
+//    }
+    
     return self.objects.count;
 }
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableViewController Delegate
+//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row];
+    if (indexPath.row == self.objects.count) [self loadNextPage];
+    
+    PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row]; // activity object
+    PFObject *stringToLoad = [objectForIndexPath objectForKey:kStringrActivityStringKey]; // string object
+    PFObject *photoToLoad = [objectForIndexPath objectForKey:kStringrActivityPhotoKey]; // photo object
+
     NSString *activityType = [objectForIndexPath objectForKey:kStringrActivityTypeKey];
     
-    if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) {
+    if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey] && [objectForIndexPath objectForKey:kStringrActivityStringKey]) { // added photo to public string
+        if (!stringToLoad) return;
         StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [stringDetailVC setStringToLoad:[objectForIndexPath objectForKey:kStringrActivityStringKey]];
+        stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        [stringDetailVC setStringToLoad:stringToLoad];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
-
-        [self.navigationController pushViewController:stringDetailVC animated:YES];
-    } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         
-        PFObject *photo = [objectForIndexPath objectForKey:kStringrActivityPhotoKey];
-        [photoDetailVC setPhotosToLoad:@[photo]];
-        [photoDetailVC setStringOwner:[photo objectForKey:kStringrPhotoStringKey]];
+        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+        photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        
+        [photoDetailVC setPhotosToLoad:@[photoToLoad]];
+        [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
         [photoDetailVC setHidesBottomBarWhenPushed:YES];
         
-        [self.navigationController pushViewController:photoDetailVC animated:YES];
-    } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
+        NSArray *currentViewControllers = self.navigationController.viewControllers;
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+        [viewControllers addObject:stringDetailVC];
+        [viewControllers addObject:photoDetailVC];
+        
+        [self.navigationController setViewControllers:viewControllers animated:YES];
+    } else if ([[objectForIndexPath objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) { // mentioned in comment
+        if (!stringToLoad) return;
+        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        [stringDetailVC setStringToLoad:stringToLoad];
+        [stringDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        [commentsVC setObjectForCommentThread:stringToLoad];
+        commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        
+        // Pushes both the String detail and comments onto the navVC
+        NSArray *currentViewControllers = self.navigationController.viewControllers;
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+        [viewControllers addObject:stringDetailVC];
+        [viewControllers addObject:commentsVC];
+        
+        [self.navigationController setViewControllers:viewControllers animated:YES];
+    } else if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) { // Activity on a string
+        if (!stringToLoad) return;
+        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) { // Commented on your string
+            StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+            stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            [stringDetailVC setStringToLoad:stringToLoad];
+            [stringDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            [commentsVC setObjectForCommentThread:stringToLoad];
+            commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            
+            // Pushes both the String detail and comments onto the navVC
+            NSArray *currentViewControllers = self.navigationController.viewControllers;
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+            [viewControllers addObject:stringDetailVC];
+            [viewControllers addObject:commentsVC];
+            
+            [self.navigationController setViewControllers:viewControllers animated:YES];
+        } else { // Liked Your String
+            StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+            [stringDetailVC setStringToLoad:stringToLoad];
+            [stringDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            [self.navigationController pushViewController:stringDetailVC animated:YES];
+        }
+    } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) { // Activity on a Photo
+        if (!photoToLoad) return;
+        if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) { // Commented on your photo
+            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            
+            [photoDetailVC setPhotosToLoad:@[photoToLoad]];
+            [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
+            [photoDetailVC setHidesBottomBarWhenPushed:YES];
+            
+            StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            [commentsVC setObjectForCommentThread:photoToLoad];
+            commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+            
+            // Pushes both the Photo detail and comments onto the navVC
+            NSArray *currentViewControllers = self.navigationController.viewControllers;
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:currentViewControllers];
+            [viewControllers addObject:photoDetailVC];
+            [viewControllers addObject:commentsVC];
+            
+            [self.navigationController setViewControllers:viewControllers animated:YES];
+        } else { // Liked your photo
+             StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            
+             [photoDetailVC setPhotosToLoad:@[photoToLoad]];
+             [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
+             [photoDetailVC setHidesBottomBarWhenPushed:YES];
+             
+             [self.navigationController pushViewController:photoDetailVC animated:YES];
+        }
+    } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) { // Follow activity action
         StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
         [profileVC setProfileReturnState:ProfileBackReturnState];
@@ -127,6 +229,11 @@
         
         [self.navigationController pushViewController:profileVC animated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 75.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -141,8 +248,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -164,6 +272,14 @@
     [activityQuery orderByDescending:@"createdAt"];
     
     // perform conditional to check if there is a network connection
+    if (self.objects.count == 0) {
+        [activityQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+    }
+    
+    
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        activityQuery = [PFQuery queryWithClassName:@"no_class"];
+    }
     
     return activityQuery;
 }
@@ -172,6 +288,15 @@
 {
     [super objectsDidLoad:error];
     
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You don't have any Activity"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Explore New Content"];
+        [noContentHeaderView setDelegate:self];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        self.tableView.tableHeaderView = nil;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
@@ -179,7 +304,11 @@
     static NSString *cellIdentifier = @"activityCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    if ([cell isKindOfClass:[StringrActivityTableViewCell class]]) {
+    if (indexPath.row == self.objects.count) {
+        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+        UITableViewCell *loadMoreCell = (StringrLoadMoreTableViewCell *)[self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+        return loadMoreCell;
+    } else if ([cell isKindOfClass:[StringrActivityTableViewCell class]]) {
         StringrActivityTableViewCell *activityCell = (StringrActivityTableViewCell *)cell;
         [activityCell setDelegate:self];
         [activityCell setObjectForActivityCell:object];
@@ -190,10 +319,22 @@
     return cell;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
+{
+    StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
+    
+    if (!loadMoreCell) {
+        loadMoreCell = [[StringrLoadMoreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"loadMoreCell"];
+    }
+    
+    return loadMoreCell;
+}
 
 
 
+//*********************************************************************************/
 #pragma mark - StringrActivityTableViewCell Delegate
+//*********************************************************************************/
 
 - (void)tappedActivityUserProfileImage:(PFUser *)user
 {
@@ -207,6 +348,20 @@
         
         [self presentViewController:navVC animated:YES completion:nil];
     }
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - StringrNoContentView Delegate
+//*********************************************************************************/
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
+{
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discover
+    
+    [self.frostedViewController setContentViewController:discoveryTabBarVC];
 }
 
 

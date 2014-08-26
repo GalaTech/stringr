@@ -8,22 +8,34 @@
 
 #import "AppDelegate.h"
 #import "StringrRootViewController.h"
-#import "StringrDiscoveryTabBarViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrMenuViewController.h"
+#import "StringrFollowingTableViewController.h"
+#import "Reachability.h"
+#import "StringrPopularTableViewController.h"
+#import "StringrDiscoveryTableViewController.h"
+#import "StringrNearYouTableViewController.h"
+
 
 @interface AppDelegate ()
 
 @property (weak, nonatomic) StringrRootViewController *rootVC;
+@property (nonatomic, strong) Reachability *hostReach;
+@property (nonatomic, strong) Reachability *internetReach;
+@property (nonatomic, strong) Reachability *wifiReach;
+@property (nonatomic) int networkStatus;
 
 @end
 
 @implementation AppDelegate
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Initialize app for Parse and Facebook
@@ -39,6 +51,7 @@
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];
     
+    [self monitorReachability];
 
     // setup and initialize the login controller
     self.rootVC = (StringrRootViewController *)[self.window rootViewController];
@@ -138,6 +151,7 @@
     // sets the app badge icon to 0
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
+        [[PFInstallation currentInstallation] setBadge:0];
         [[PFInstallation currentInstallation] saveEventually];
     }
 }
@@ -162,16 +176,15 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-
-
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setupLoggedInContent
 {
@@ -182,9 +195,54 @@
     [self.rootVC setContentViewController:[self setupHomeTabBarController]];
 }
 
+- (BOOL)isParseReachable
+{
+    BOOL isParseReachable = self.networkStatus != NotReachable;
+    
+    if (!isParseReachable) {
+        UIAlertView *checkInternetConnectionAlertView = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Unable to connect with the server. Check your internet connection and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [checkInternetConnectionAlertView show];
+    }
+    
+    return isParseReachable;
+}
 
 
+
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
+
+- (void)monitorReachability
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    self.hostReach = [Reachability reachabilityWithHostName: @"api.parse.com"];
+    [self.hostReach startNotifier];
+    
+    self.internetReach = [Reachability reachabilityForInternetConnection];
+    [self.internetReach startNotifier];
+    
+    self.wifiReach = [Reachability reachabilityForLocalWiFi];
+    [self.wifiReach startNotifier];
+}
+
+//Called by Reachability whenever status changes.
+- (void)reachabilityChanged:(NSNotification* )note
+{
+    Reachability *curReach = (Reachability *)[note object];
+    NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    NSLog(@"Reachability changed: %@", curReach);
+    self.networkStatus = [curReach currentReachabilityStatus];
+    
+    /*
+    if ([self isParseReachable] && [PFUser currentUser] && self.homeViewController.objects.count == 0) {
+        // Refresh home timeline on network restoration. Takes care of a freshly installed app that failed to load the main timeline under bad network conditions.
+        // In this case, they'd see the empty timeline placeholder and have no way of refreshing the timeline unless they followed someone.
+        [self.homeViewController loadObjects];
+    }
+     */
+}
 
 - (StringrHomeTabBarViewController *)setupHomeTabBarController
 {
@@ -192,57 +250,112 @@
     
     StringrHomeTabBarViewController *homeTabBarVC = [[StringrHomeTabBarViewController alloc] init];
     
-    StringrStringTableViewController *followingVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringTableID];
-    [followingVC setTitle:@"Following"];
-    
-    PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
-    [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-    [followingUsersQuery setLimit:1000];
-    
-    PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
-    
-    
-    PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
-    [query orderByDescending:@"createdAt"];
-    
-    [followingVC setQueryForTable:query];
-    
+    StringrFollowingTableViewController *followingVC = [[StringrFollowingTableViewController alloc] initWithStyle:UITableViewStylePlain];
     StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
     [followingNavVC setTabBarItem:followingTab];
     
     
     StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
-    [activityVC setTitle:@"Activity"];
-    
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
     UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
+    // Checks to see if there are any new activity notifications to display as a badge icon on the activity tab
+    PFQuery *activityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [activityQuery whereKey:kStringrActivityToUserKey equalTo:[PFUser currentUser]];
+    [activityQuery whereKey:kStringrActivityFromUserKey notEqualTo:[PFUser currentUser]];
+    [activityQuery whereKeyExists:kStringrActivityFromUserKey];
+    [activityQuery includeKey:kStringrActivityFromUserKey];
+    [activityQuery includeKey:kStringrActivityStringKey];
+    [activityQuery includeKey:kStringrActivityPhotoKey];
+    [activityQuery countObjectsInBackgroundWithBlock:^(int numberOfActivites, NSError *error) {
+        if (!error) {
+            NSNumber *numberOfPreviousActivitiesFromInstallation = [[PFUser currentUser] objectForKey:kStringrInstallationNumberOfPreviousActivitiesKey];
+           
+            NSInteger numberOfPreviousActivities = 0;
+            if (numberOfPreviousActivitiesFromInstallation) {
+                numberOfPreviousActivities = [numberOfPreviousActivitiesFromInstallation integerValue];
+            }
+            
+            NSInteger numberOfNewActivities = numberOfActivites - numberOfPreviousActivities;
+            
+            if (numberOfNewActivities > 0) {
+                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
+            }
+            
+            [[PFUser currentUser] setObject:@(numberOfActivites) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
+            [[PFUser currentUser] saveInBackground];
+        }
+    }];
     
     [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
     
     return homeTabBarVC;
 }
 
+- (StringrDiscoveryTabBarViewController *)setupDiscoveryTabBarController
+{
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [[StringrDiscoveryTabBarViewController alloc] init];
+    
+    StringrPopularTableViewController *popularVC = [[StringrPopularTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    StringrNavigationController *popularNavVC = [[StringrNavigationController alloc] initWithRootViewController:popularVC];
+    UITabBarItem *popularTab = [[UITabBarItem alloc] initWithTitle:@"Popular" image:[UIImage imageNamed:@"crown_icon"] tag:0];
+    [popularNavVC setTabBarItem:popularTab];
+    
+    StringrDiscoveryTableViewController *discoverVC = [[StringrDiscoveryTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    StringrNavigationController *discoverNavVC = [[StringrNavigationController alloc] initWithRootViewController:discoverVC];
+    UITabBarItem *discoverTab = [[UITabBarItem alloc] initWithTitle:@"Discover" image:[UIImage imageNamed:@"sailboat_icon"] tag:0];
+    [discoverNavVC setTabBarItem:discoverTab];
+    
+    StringrNearYouTableViewController *nearYouVC = [[StringrNearYouTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    StringrNavigationController *nearYouNavVC = [[StringrNavigationController alloc] initWithRootViewController:nearYouVC];
+    UITabBarItem *nearYouTab = [[UITabBarItem alloc] initWithTitle:@"Near You" image:[UIImage imageNamed:@"solarSystem_icon"] tag:0];
+    [nearYouNavVC setTabBarItem:nearYouTab];
+    
+    [discoveryTabBarVC setViewControllers:@[popularNavVC, discoverNavVC, nearYouNavVC]];
+    
+    return discoveryTabBarVC;
+}
 
 
 
+//*********************************************************************************/
 #pragma mark - StringrLoginViewControllerDelegate
+//*********************************************************************************/
 
 - (void)logInViewController:(StringrLoginViewController *)logInController didLogInUser:(PFUser *)user
 {
+    //[self setupLoggedInContent];
+    
     // Subscribe to private push channel
     if (user) {
-        // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
-        NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
-        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
-        [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
-        [[PFInstallation currentInstallation] saveEventually];
-        [user setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-        [user saveEventually];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        // checks for push enabled key first. If it exists we setup their channel based upon their preferences
+        // else we set it up regardless.
+        if ([defaults objectForKey:kNSUserDefaultsPushNotificationsEnabledKey]) {
+            BOOL pushEnabled = [defaults boolForKey:kNSUserDefaultsPushNotificationsEnabledKey];
+            if (pushEnabled) {
+                // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
+                NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
+                [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+                [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+                [[PFInstallation currentInstallation] saveEventually];
+            } else {
+                [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
+                [[PFInstallation currentInstallation] removeObject:[[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey] forKey:kStringrInstallationPrivateChannelsKey];
+                [[PFInstallation currentInstallation] saveEventually];
+            }
+        } else {
+            // Creates a unique channel name based off the users objectID and saves it to both the user and current installation
+            NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [user objectId]];
+            [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
+            [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
+            [[PFInstallation currentInstallation] saveEventually];
+            [user setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+            [user saveEventually];
+        }
     }
 }
 

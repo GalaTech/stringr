@@ -9,7 +9,6 @@
 #import "StringrDetailTableViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
 #import "StringrSearchTableViewController.h"
 
 @interface StringrDetailTableViewController () 
@@ -18,7 +17,9 @@
 
 @implementation StringrDetailTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,8 +52,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -78,8 +80,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - TableView Delegate
+//*********************************************************************************/
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -113,8 +116,9 @@
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - ParallaxView Delegate
+//*********************************************************************************/
 
 -(UIScrollView *)scrollViewForParallexController
 {
@@ -123,8 +127,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrFooterView Delegate
+//*********************************************************************************/
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
@@ -140,46 +145,18 @@
     }
 }
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object inSection:(NSUInteger)section
 {
-    /*
-    if (object) {
-        if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
-            [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        } else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            [StringrUtility likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        }
-    }
-     */
+
 }
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
-        
-        NSString *forObjectKey = kStringrActivityStringKey;
-        
-        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            forObjectKey = kStringrActivityPhotoKey;
-        }
-        
-        PFQuery *query = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [query whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
-        [query whereKey:forObjectKey equalTo:object];
-        [query whereKeyExists:kStringrActivityFromUserKey];
-        [query orderByDescending:@"createdAt"];
-        [commentsVC setQueryForTable:query];
-        
+        [commentsVC setDelegate:self];
+
         if (self.editDetailsEnabled) {
             [commentsVC setCommentsEditable:YES];
         }
@@ -192,8 +169,29 @@
 
 
 
+//*********************************************************************************/
+#pragma mark - StringrCommentsTableView Delegate
+//*********************************************************************************/
 
+- (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
+{
+    NSIndexPath *footerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *footerCell = [self.tableView cellForRowAtIndexPath:footerIndexPath];
+    
+    // finds the footer view inside of the footer table view cell and updates the comments/like amount
+    for (UIView *view in footerCell.contentView.subviews) {
+        if ([view isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *footerView = (StringrFooterView *)view;
+            [footerView refreshLikesAndComments];
+        }
+    }
+}
+
+
+
+//*********************************************************************************/
 #pragma mark - StringrDetailTableViewCell Delegate
+//*********************************************************************************/
 
 - (void)tableViewCell:(StringrDetailTableViewCell *)cell tappedUserHandleWithName:(NSString *)name
 {

@@ -10,8 +10,9 @@
 #import "StringrStringDetailViewController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrNavigationController.h"
+#import "ZCImagePickerController.h"
 
-@interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZCImagePickerControllerDelegate>
 
 @property (strong, nonatomic) PFQuery *providedQueryForTable;
 
@@ -19,7 +20,9 @@
 
 @implementation StringrTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -72,11 +75,25 @@
 - (void)dealloc
 {
     NSLog(@"dealloc table view");
+    
 }
 
 
 
+//*********************************************************************************/
+#pragma mark - Custom Accessors
+//*********************************************************************************/
+
+- (UIStoryboard *)mainStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+}
+
+
+
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setQueryForTable:(PFQuery *)queryForTable
 {
@@ -91,8 +108,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 // Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
@@ -107,7 +125,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 /*
 - (void)handlePushNotification:(NSNotification *)note
@@ -130,7 +150,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Table view data source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -155,20 +177,8 @@
     [newStringActionSheet addButtonWithTitle:@"Take Photo"];
     [newStringActionSheet addButtonWithTitle:@"Choose from Existing"];
     
-    /* Implement return to saved string
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     
-     
-     if (![defaults objectForKey:kUserDefaultsWorkingStringSavedImagesKey]) {
-     [newStringActionSheet addButtonWithTitle:@"Return to Saved String"];
-     [newStringActionSheet setDestructiveButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-     }
-     */
-    
     [newStringActionSheet addButtonWithTitle:@"Cancel"];
     [newStringActionSheet setCancelButtonIndex:[newStringActionSheet numberOfButtons] - 1];
-    
-    
     
     UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
     if ([window.subviews containsObject:self.view]) {
@@ -176,21 +186,19 @@
     } else {
         [newStringActionSheet showInView:window];
     }
-    
 }
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];
     } else if (buttonIndex == 0) {
-        
-        
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -198,25 +206,19 @@
             [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
         }
         
-        // image picker needs a delegate,
         [imagePickerController setDelegate:self];
         
-        // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 1) {
+        ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
+        imagePickerController.imagePickerDelegate = self;
+        imagePickerController.maximumAllowsSelectionCount = 10;
+        imagePickerController.mediaType = ZCMediaAllPhotos;
+        [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
         
-        
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }
@@ -224,22 +226,58 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
-//delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissViewControllerAnimated:YES completion:^ {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
         [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - ZCImagePickerController Delegate
+//*********************************************************************************/
+
+- (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSDictionary *imageDict in info) {
+        UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [images addObject:image];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^ {
+        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
+        [newStringVC setEditDetailsEnabled:YES];
+        
+        if (images.count <= 1) {
+            [newStringVC setUserSelectedPhoto:images[0]];
+        } else {
+            [newStringVC setUserSelectedPhotos:images];
+        }
+        
+        [newStringVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:newStringVC animated:YES];
+    }];
+}
+
+- (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

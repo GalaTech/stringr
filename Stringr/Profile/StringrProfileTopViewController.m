@@ -11,19 +11,23 @@
 #import "StringrEditProfileViewController.h"
 #import "StringrUserTableViewController.h"
 #import "StringrUserConnectionsTableViewController.h"
+#import "StringrPathImageView.h"
+#import "ACPButton.h"
 
 
 @interface StringrProfileTopViewController ()
 
 @property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
-@property (weak, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
+@property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
 @property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
 
 @end
 
 @implementation StringrProfileTopViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)dealloc
 {
@@ -76,7 +80,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)setupAnimatedProfileName
 {
@@ -242,9 +248,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Action Handler
-
+//*********************************************************************************/
 
 - (void)followButtonTouchHandler
 {
@@ -271,8 +277,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - IBActions
+//*********************************************************************************/
 
 - (IBAction)followUserButton:(UIButton *)sender
 {

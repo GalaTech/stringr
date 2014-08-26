@@ -8,30 +8,31 @@
 
 #import "StringrStringTableViewController.h"
 #import "StringrNavigationController.h"
-
+#import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
-
+#import "StringrCommentsTableViewController.h"
 #import "StringrMyStringsTableViewController.h"
 #import "StringrUserTableViewController.h"
-
 #import "StringTableViewCell.h"
+#import "StringCollectionViewCell.h"
 #import "StringrFooterView.h"
-
 #import "StringrLoadMoreTableViewCell.h"
+#import "NHBalancedFlowLayout.h"
 
-#import "StringrStringDetailViewController.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *stringPhotos;
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate>
+
+@property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
 @end
 
 @implementation StringrStringTableViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithCoder:(NSCoder *)aCoder
 {
@@ -46,9 +47,24 @@
     return self;
 }
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        self.parseClassName = kStringrStringClassKey;
+        self.pullToRefreshEnabled = YES;
+        self.paginationEnabled = NO;
+        self.objectsPerPage = 2;
+        
+    }
+    
+    return self;
+}
+
 - (void)dealloc
 {
     [PFQuery clearAllCachedResults];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterRefreshStringDetails object:nil];
     NSLog(@"dealloc string table");
 }
 
@@ -58,20 +74,21 @@
     [super viewDidLoad];
     
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"StringTableViewFooter"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.tableView setSeparatorColor:[UIColor clearColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshStringDetails) name:kNSNotificationCenterRefreshStringDetails object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog(@"disappear");
 }
 
 
@@ -82,11 +99,30 @@
 }
 
 
+//*********************************************************************************/
+#pragma mark - Action Handlers
+//*********************************************************************************/
+
+- (void)refreshStringDetails
+{
+    NSIndexPath *stringDetailsIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *stringDetailsCell = [self.tableView cellForRowAtIndexPath:stringDetailsIndexPath];
+    
+    for (UIView *detailsCellSubview in stringDetailsCell.contentView.subviews) {
+        if ([detailsCellSubview isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *stringDetailView = (StringrFooterView *)detailsCellSubview;
+            [stringDetailView refreshLikesAndComments];
+        }
+    }
+}
 
 
+
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
-- (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object
+- (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object inSection:(NSUInteger)section
 {
     static float const contentViewWidth = 320.0;
     static float const contentViewHeight = 41.5;
@@ -95,6 +131,7 @@
     float footerXLocation = (contentViewWidth - (contentViewWidth * contentFooterViewWidthPercentage)) / 2;
     CGRect footerRect = CGRectMake(footerXLocation, 0, contentViewWidth * contentFooterViewWidthPercentage, contentViewHeight);
     StringrFooterView *footerView = [[StringrFooterView alloc] initWithFrame:footerRect fullWidthCell:NO withObject:object];
+    [footerView setSection:section];
     [footerView setDelegate:self];
     
     return footerView;
@@ -109,8 +146,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UITableView DataSource
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -131,9 +169,9 @@
 
 
 
-
-
+//*********************************************************************************/
 #pragma mark - UITableView Delegate
+//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -159,7 +197,11 @@
             headerView = [[StringrStringHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
         }
         
-        [self configureHeader:headerView forSection:section withString:[self.objects objectAtIndex:section]];
+        PFObject *string = [self.objects objectAtIndex:section];
+        
+        if (string) {
+            [self configureHeader:headerView forSection:section withString:string];
+        }
 
         return headerView;
     }
@@ -183,54 +225,45 @@
     return 0.0f;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView willDisplayCell:(StringTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if ([cell isKindOfClass:[StringTableViewCell class]]) {
-        StringTableViewCell *stringCell = (StringTableViewCell *)cell;
-        [stringCell reloadString];
+    if (indexPath.row == 0) {
+        [cell setCollectionViewDataSourceDelegate:self index:indexPath.section];
+        
+        NSInteger index = cell.stringCollectionView.index;
+        
+        CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
+        [cell.stringCollectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
     }
-     
-    
 }
 
 
 
+//*********************************************************************************/
 #pragma mark - PFQueryTableViewController
+//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
     PFQuery *query = [self getQueryForTable];
     query.limit = 100;
     
+    
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyNetworkElseCache;
     }
+     
     
-    
-    
-    return query;
-    
-    /*
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        query = [PFQuery queryWithClassName:@"no_class"];
     }
     
-    [query orderByAscending:@"createdAt"];
-    
     return query;
-     */
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     PFObject *string = object;
-    
-    //NSArray *photos = [self.stringPhotos objectAtIndex:indexPath.row];
     
     // It's possible for this object to be of type statistic or activity. This just gets the string
     // value from either of those classes
@@ -240,41 +273,45 @@
         string = [object objectForKey:kStringrActivityStringKey];
     }
     
-    if (indexPath.section == self.objects.count) {
-        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
-        UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
-        return cell;
-    } else if (indexPath.row == 0) {
-        static NSString *cellIdentifier = @"StringTableViewCell";
-        StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if (!stringCell) {
-            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        }
-        
-        [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        [stringCell setStringViewDelegate:self];
-        [stringCell setStringObject:string];
+    if (string) {
+        if (indexPath.section == self.objects.count) {
+            // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+            UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+            return cell;
+        } else if (indexPath.row == 0) {
+            static NSString *cellIdentifier = @"StringTableViewCell";
+            StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            
+            if (!stringCell) {
+                stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                NSLog(@"cell for string row");
+            }
+            
+            [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
-        return stringCell;
-    } else if (indexPath.row == 1) {
-        static NSString *cellIdentifier = @"StringTableViewFooter";
-        
-        UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if (!footerCell) {
-            footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            return stringCell;
+        } else if (indexPath.row == 1) {
+            static NSString *cellIdentifier = @"StringTableViewFooter";
+            
+            UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            
+            if (!footerCell) {
+                footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            }
+            
+            [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+            [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
+                
+                [footerCell.contentView addSubview:footerView];
+            });
+
+            return footerCell;
+        } else {
+            return nil;
         }
-        
-        [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-        [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        StringrFooterView *footerView = [self addFooterViewToCellWithObject:string];
-        
-        [footerCell.contentView addSubview:footerView];
-        
-        return footerCell;
     } else {
         return nil;
     }
@@ -284,36 +321,45 @@
 {
     [super objectsDidLoad:error];
     
-    // instantiates string photos with blank objects of count self.objects
-    self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
-    for (int i = 0; i < self.objects.count; i++) {
-        [self.stringPhotos addObject:@""];
-    }
-    
-    // Querries all of the photos for the strings and puts them in an array
-    for (int i = 0; i < self.objects.count; i++) {
-        PFObject *string = [self.objects objectAtIndex:i];
+    if (self.objects.count > 0) {
+        // instantiates string photos with blank objects of count self.objects
+        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
+        for (int i = 0; i < self.objects.count; i++) {
+            [self.stringPhotos addObject:@""];
+        }
         
-        PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-        [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
-        [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
-        [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
-        [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
-            if (!error) {
-                [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
-                
-                NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-                [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        // Querries all of the photos for the strings and puts them in an array
+        for (int i = 0; i < self.objects.count; i++) {
+            PFObject *string = [self.objects objectAtIndex:i];
+            
+            if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+                string = [string objectForKey:kStringrStatisticsStringKey];
+            } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+                string = [string objectForKey:kStringrActivityStringKey];
             }
-        }];
+            
+            if (string) {
+                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+                    if (!error) {
+                        for (PFObject *photo in photos) {
+                            if (!photo) {
+                                return;
+                            }
+                        }
+                        
+                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+                        
+                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }
+                }];
+            }
+        }
     }
-}
-
-- (void)objectsWillLoad
-{
-    [super objectsWillLoad];
-    
-    // This method is called before a PFQuery is fired to get more objects
 }
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -345,79 +391,152 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UICollectionView Data Source
+//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(StringCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *stringPhotos = [self.stringPhotos objectAtIndex:section];
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
     
-    return stringPhotos.count;
+    if ([stringPhotos isKindOfClass:[NSArray class]]) {
+        return stringPhotos.count;
+    }
+
+    return 0;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(StringCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:StringCollectionViewCellIdentifier forIndexPath:indexPath];
     
-    return nil;
-}
-
-
-
-
-#pragma mark - UICollectionView Delegate
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //PFObject *string = [self.objects objectAtIndex:indexPath.section];
-    //NSArray *photos = [self.stringPhotos objectAtIndex:indexPath.section];
-    
-}
-
-
-
-
-#pragma mark - StringView Delegate
-
-- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string
-{
-    if (photos)
-    {
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+    if ([cell isKindOfClass:[StringCollectionViewCell class]]) {
         
-        [photoDetailVC setEditDetailsEnabled:NO];
+        NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+        PFObject *photo = stringPhotos[indexPath.item];
         
-        // Sets the photos to be displayed in the photo pager
-        [photoDetailVC setPhotosToLoad:photos];
-        [photoDetailVC setSelectedPhotoIndex:index];
-        [photoDetailVC setStringOwner:string];
+        StringCollectionViewCell *stringCell = (StringCollectionViewCell *)cell;
         
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        if (photo) {
+            [stringCell.loadingImageIndicator setHidden:NO];
+            [stringCell.loadingImageIndicator startAnimating];
+            
+            if ([photo isKindOfClass:[PFObject class]]) {
+                PFObject *photoObject = (PFObject *)photo;
+                
+                PFFile *imageFile = [photoObject objectForKey:kStringrPhotoPictureKey];
+                [stringCell.cellImage setFile:imageFile];
+                
+                [stringCell.cellImage loadInBackground:^(UIImage *image, NSError *error) {
+                    [stringCell.cellImage setContentMode:UIViewContentModeScaleAspectFill];
+                    [stringCell.loadingImageIndicator stopAnimating];
+                    [stringCell.loadingImageIndicator setHidden:YES];
+                }];
+            }
+        }
         
-        [self.navigationController pushViewController:photoDetailVC animated:YES];
-        
+        return stringCell;
+    } else {
+        return nil;
     }
 }
 
 
 
-#pragma mark - StringrHeaderViewView Delegate
+//*********************************************************************************/
+#pragma mark - UICollectionView Delegate
+//*********************************************************************************/
 
-- (void)headerView:(StringrStringHeaderView *)headerView pushToStringDetailViewWithString:(PFObject *)string
+- (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
     
+    if (stringPhotos) {
+        StringrPhotoDetailViewController *photoDetailVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+        
+        [photoDetailVC setEditDetailsEnabled:NO];
+        
+        // Sets the photos to be displayed in the photo pager
+        [photoDetailVC setPhotosToLoad:stringPhotos];
+        [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+        [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+        
+        [photoDetailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:photoDetailVC animated:YES];
+    }
+    
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - StringCollectionViewFlowLayout Delegate
+//*********************************************************************************/
+
+- (CGSize)collectionView:(StringCollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+    id photo = stringPhotos[indexPath.item];
+    
+    NSNumber *width = 0;
+    NSNumber *height = 0;
+    
+    if (photo && [photo isKindOfClass:[PFObject class]]) {
+        PFObject *photoObject = (PFObject *)photo;
+        
+        width = [photoObject objectForKey:kStringrPhotoPictureWidth];
+        height = [photoObject objectForKey:kStringrPhotoPictureHeight];
+    } else if (photo && [photo isKindOfClass:[UIImage class]]) {
+        UIImage *photoImage = (UIImage *)photo;
+        
+        width = [NSNumber numberWithInt:photoImage.size.width];
+        height = [NSNumber numberWithInt:photoImage.size.height];
+    }
+    
+    
+    return CGSizeMake([width floatValue], [height floatValue]);
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - UIScrollViewDelegate Methods
+//*********************************************************************************/
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (![scrollView isKindOfClass:[StringCollectionView class]]) return;
+    
+    CGFloat horizontalOffset = scrollView.contentOffset.x;
+    
+    StringCollectionView *collectionView = (StringCollectionView *)scrollView;
+    NSInteger index = collectionView.index;
+    self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - StringrHeaderViewView Delegate
+//*********************************************************************************/
+
+- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
+{
+    StringrStringDetailViewController *detailVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+    
+    // passes the appropriate string object based around what type of parse object has been querried
     if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
         string = [string objectForKey:kStringrStatisticsStringKey];
     } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
         string = [string objectForKey:kStringrActivityStringKey];
     }
     
-    // tag is set to the section number of each string
     [detailVC setStringToLoad:string];
     [detailVC setHidesBottomBarWhenPushed:YES];
     
@@ -425,12 +544,15 @@
 }
 
 
+
+//*********************************************************************************/
 #pragma mark - StringrFooterView Delegate
+//*********************************************************************************/
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     if (uploader) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
@@ -443,47 +565,40 @@
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
-    /*
-    if (object) {
-        if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
-            [StringrUtility likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        } else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            [StringrUtility likePhotoInBackground:object block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [footerView refreshLikesAndComments];
-                }
-            }];
-        }
-    }
-     */
+
 }
 
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object
+- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
 {
     if (object) {
-        StringrStringCommentsViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        StringrCommentsTableViewController *commentsVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:object];
-        
-        NSString *forObjectKey = kStringrActivityStringKey;
-        
-        if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-            forObjectKey = kStringrActivityPhotoKey;
-        }
-        
-        PFQuery *query = [PFQuery queryWithClassName:kStringrActivityClassKey];
-        [query whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeComment];
-        [query whereKey:forObjectKey equalTo:object];
-        [query whereKeyExists:kStringrActivityFromUserKey];
-        [query orderByDescending:@"createdAt"];
-        [commentsVC setQueryForTable:query];
-        
+        [commentsVC setSection:section];
+        [commentsVC setDelegate:self];
+
         [commentsVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:commentsVC animated:YES];
+    }
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - StringrCommentsTableView Delegate
+//*********************************************************************************/
+
+- (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
+{
+    NSIndexPath *footerIndexPath = [NSIndexPath indexPathForRow:1 inSection:section];
+    UITableViewCell *footerCell = [self.tableView cellForRowAtIndexPath:footerIndexPath];
+    
+    // finds the footer view inside of the footer table view cell and updates the comments/like amount
+    for (UIView *view in footerCell.contentView.subviews) {
+        if ([view isKindOfClass:[StringrFooterView class]]) {
+            StringrFooterView *footerView = (StringrFooterView *)view;
+            [footerView refreshLikesAndComments];
+        }
     }
 }
 

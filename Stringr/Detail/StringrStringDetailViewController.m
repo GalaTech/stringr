@@ -8,12 +8,17 @@
 
 #import "StringrStringDetailViewController.h"
 #import "StringrStringDetailTableViewController.h"
+#import "StringrStringDetailEditTableViewController.h"
 #import "StringrStringDetailTopViewController.h"
 #import "StringrStringDetailEditTopViewController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
+#import "StringrPhotoDetailViewController.h"
+#import "StringrNavigationController.h"
+#import "ZCImagePickerController.h"
+#import "StringrFlagContentHelper.h"
 
-@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate>
+@interface StringrStringDetailViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, StringrStringDetailEditTableViewControllerDelegate, StringrStringDetailEditTopViewControllerDelegate, ZCImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) StringrStringDetailTopViewController *stringTopVC;
 @property (weak, nonatomic) StringrStringDetailTableViewController *stringTableVC;
@@ -22,7 +27,9 @@
 
 @implementation StringrStringDetailViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -58,6 +65,7 @@
                 // notice that there is explicit casting for these classes.
                 self.stringTopVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditStringDetailTopViewID];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhoto:self.userSelectedPhoto];
+                [(StringrStringDetailEditTopViewController *)self.stringTopVC setUserSelectedPhotos:self.userSelectedPhotos];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setStringToLoad:self.stringToLoad];
                 [(StringrStringDetailEditTopViewController *)self.stringTopVC setDelegate:self];
                 
@@ -72,10 +80,17 @@
             } else {
                 self.title = @"String Details";
                 
+                NSMutableArray *rightNavigationItems = [NSMutableArray new];
+                
+                UIBarButtonItem *stringActionButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"options_button"] style:UIBarButtonItemStyleBordered target:self action:@selector(stringActionSheet)];
+                [rightNavigationItems addObject:stringActionButton];
+                
                 if ([self.stringToLoad.ACL getPublicWriteAccess]) {
                     UIBarButtonItem *addNewPhotoToPublicString = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewPhoto)];
-                    self.navigationItem.rightBarButtonItem = addNewPhotoToPublicString;
+                    [rightNavigationItems addObject:addNewPhotoToPublicString];
                 }
+                
+                [self.navigationItem setRightBarButtonItems:rightNavigationItems];
             }
             
             [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
@@ -108,8 +123,9 @@
 }
 
 
-
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 - (void)saveAndPublishString
 {
@@ -137,16 +153,27 @@
     [topVC cancelString];
 }
 
+- (void)stringActionSheet
+{
+    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"String Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Flag String", @"Cancel", nil];
+    
+    [photoOptionsActionSheet setCancelButtonIndex:1];
+    [photoOptionsActionSheet setDestructiveButtonIndex:0];
+    
+    [photoOptionsActionSheet showInView:self.view];
+}
 
 
 
+//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
+//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults removeObjectForKey:kUserDefaultsWorkingStringSavedImagesKey];
+        [defaults removeObjectForKey:kNSUserDefaultsWorkingStringSavedImagesKey];
         [defaults synchronize];
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -164,8 +191,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -183,22 +211,35 @@
         // Place image picker on the screen
         [self presentViewController:imagePickerController animated:YES completion:nil];
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Library"]) {
-        UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        // image picker needs a delegate so we can respond to its messages
-        [imagePickerController setDelegate:self];
-        
-        // Place image picker on the screen
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
+
+        if (self.editDetailsEnabled) {
+            ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
+            imagePickerController.imagePickerDelegate = self;
+            imagePickerController.maximumAllowsSelectionCount = 10;
+            imagePickerController.mediaType = ZCMediaAllPhotos;
+            [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
+            
+        } else {
+             UIImagePickerController *imagePickerController= [[UIImagePickerController alloc]init];
+             [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+             
+             // image picker needs a delegate so we can respond to its messages
+             [imagePickerController setDelegate:self];
+             
+             // Place image picker on the screen
+             [self presentViewController:imagePickerController animated:YES completion:nil];
+        }
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Flag String"]) {
+        [StringrFlagContentHelper flagContent:self.stringToLoad withFlaggingUser:[PFUser currentUser]];
     }
 }
 
 
 
-
+//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
+//*********************************************************************************/
 
 //delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -211,32 +252,70 @@
             [tableVC.tableView setUserInteractionEnabled:NO];
             
             StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
-            [topVC addNewImageToString:image withBlock:^(BOOL succeeded) {
-                if (succeeded) {
-                    [tableVC.tableView setUserInteractionEnabled:YES];
-                }
-            }];
-        } else {
+            [topVC setUserSelectedPhoto:image]; // proceeds to create and new PF photo object and presents photo edit view
+ 
+        } else { // Public
             StringrStringDetailTableViewController *tableVC = (StringrStringDetailTableViewController *)self.stringTableVC;
             [tableVC.tableView setUserInteractionEnabled:NO];
             
             StringrStringDetailTopViewController *topVC = (StringrStringDetailTopViewController *)self.stringTopVC;
-            [topVC addImageToPublicString:image withBlock:^(BOOL succeeded) {
+            [topVC addImageToString:image withBlock:^(BOOL succeeded, PFObject *photo, NSError *error) {
                 if (succeeded) {
-                    [tableVC.tableView setUserInteractionEnabled:YES];
+                    
+                    StringrPhotoDetailViewController *editPhotoVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+                    [editPhotoVC setEditDetailsEnabled:YES];
+                    [editPhotoVC setStringOwner:self.stringToLoad];
+                    [editPhotoVC setSelectedPhotoIndex:0];
+                    [editPhotoVC setPhotosToLoad:@[photo]];
+                    
+                    if ([self.stringToLoad.ACL getPublicWriteAccess]) {
+                        editPhotoVC.isPublicPhoto = YES;
+                    }
+                    
+                    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:editPhotoVC];
+                    
+                    [self presentViewController:navVC animated:YES completion:nil];
                 }
             }];
-            
-            
-            
         }
     }];
 }
 
 
+//*********************************************************************************/
+#pragma mark - ZCImagePickerController Delegate
+//*********************************************************************************/
+
+- (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSDictionary *imageDict in info) {
+        UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
+        
+        [images addObject:image];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^ {
+        StringrStringDetailEditTopViewController *topVC = (StringrStringDetailEditTopViewController *)self.stringTopVC;
+        
+        if (images.count <= 1) {
+            [topVC setUserSelectedPhoto:[images firstObject]]; //
+        } else {
+            [topVC setUserSelectedPhotos:images];
+        }
+    }];
+}
+
+- (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
+
+//*********************************************************************************/
 #pragma mark - StringrStringDetailEditTopViewController Delegate
+//*********************************************************************************/
 
 - (void)toggleActionEnabledOnTableView:(BOOL)enabled
 {
@@ -246,8 +325,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - Parallax Delegate
-
+//*********************************************************************************/
 
 /**
  * Callback when the top height changed
@@ -262,6 +342,7 @@
 {
     [self changeTopHeight:0.0f];
 }
+
 
 
 

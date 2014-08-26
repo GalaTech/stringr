@@ -20,9 +20,51 @@
 {
     [super viewDidLoad];
 	
-    self.title = self.tabBarController.tabBarItem.title;
+    self.title = @"Discovery";
 
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+#pragma mark - PFQueryTableViewController Delegate
+
+- (PFQuery *)queryForTable
+{
+    PFQuery *discoverQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [discoverQuery orderByDescending:@"updatedAt"];
+    
+    return discoverQuery;
+}
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count == 0) {
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Strings to Discover"];
+        [noContentHeaderView setTitleForExploreOptionButton:@"Why don't you add the first one?"];
+        [noContentHeaderView setDelegate:self];
+        
+        self.tableView.tableHeaderView = noContentHeaderView;
+    } else {
+        self.tableView.tableHeaderView = nil;
+    }
+}
+
+
+
+
+#pragma mark - StringrNoContentView Delegate
+
+- (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
+{
+    [self addNewString];
+}
 
 @end

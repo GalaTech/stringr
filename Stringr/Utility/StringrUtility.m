@@ -11,8 +11,9 @@
 
 @implementation StringrUtility
 
-
+//*********************************************************************************/
 #pragma mark - Like/Unlike Photo/String
+//*********************************************************************************/
 
 + (void)likeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
@@ -57,6 +58,7 @@
     [likeActivity setObject:photo forKey:kStringrActivityPhotoKey];
     
     PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setWriteAccess:YES forUser:[photo objectForKey:kStringrPhotoUserKey]];
     [likeACL setPublicReadAccess:YES];
     
     [likeActivity setACL:likeACL];
@@ -77,11 +79,11 @@
                 
                 NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSString stringWithFormat:@"%@ liked your photo!", currentUsernameFormatted], kAPNSAlertKey,
-                                      @"increment", kAPNSBadgeKey,
+                                      @"Increment", kAPNSBadgeKey,
                                       kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                       kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
                                       [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
-                                      [photo objectId], kStringrPushPayloadPhotoObjectIdKey,
+                                      [photo objectId], kStringrPushPayloadPhotoObjectIdKey, @"default", kAPNSSoundKey,
                                       nil];
                 
                 PFPush *likePhotoPushNotification = [[PFPush alloc] init];
@@ -127,6 +129,7 @@
     [likeActivity setObject:string forKey:kStringrActivityStringKey];
     
     PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [likeACL setWriteAccess:YES forUser:[string objectForKey:kStringrStringUserKey]];
     [likeACL setPublicReadAccess:YES];
     [likeActivity setACL:likeACL];
     
@@ -146,11 +149,11 @@
                     
                     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                           [NSString stringWithFormat:@"%@ liked your string!", currentUsernameFormatted], kAPNSAlertKey,
-                                          @"increment", kAPNSBadgeKey,
+                                          @"Increment", kAPNSBadgeKey,
                                           kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                                           kStringrPushPayloadActivityLikeKey, kStringrPushPayloadActivityTypeKey,
                                           [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
-                                          [string objectId], kStringrPushPayloadStringObjectIDKey,
+                                          [string objectId], kStringrPushPayloadStringObjectIDKey, @"default", kAPNSSoundKey,
                                           nil];
                     
                     PFPush *likeStringPushNotification = [[PFPush alloc] init];
@@ -210,8 +213,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Follow/Unfollow Users
+//*********************************************************************************/
 
 + (void)followUserInBackground:(PFUser *)user block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
@@ -225,6 +229,7 @@
     [followActivity setObject:kStringrActivityTypeFollow forKey:kStringrActivityTypeKey];
     
     PFACL *followACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [followACL setWriteAccess:YES forUser:user];
     [followACL setPublicReadAccess:YES];
     followActivity.ACL = followACL;
     
@@ -253,6 +258,7 @@
     [followActivity setObject:kStringrActivityTypeFollow forKey:kStringrActivityTypeKey];
     
     PFACL *followACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [followACL setWriteAccess:YES forUser:user];
     [followACL setPublicReadAccess:YES];
     followActivity.ACL = followACL;
     
@@ -306,28 +312,12 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Push Notification's
+//*********************************************************************************/
 
 + (void)sendFollowingPushNotification:(PFUser *)user
 {
-    /*
-    NSString *privateChannelName = [user objectForKey:kStringrUserPrivateChannelKey];
-    if (privateChannelName && privateChannelName.length != 0) {
-        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSString stringWithFormat:@"%@ is now following you!", [StringrUtility firstNameForDisplayName:[[PFUser currentUser] objectForKey:kPAPUserDisplayNameKey]]], kAPNSAlertKey,
-                              kPAPPushPayloadPayloadTypeActivityKey, kPAPPushPayloadPayloadTypeKey,
-                              kPAPPushPayloadActivityFollowKey, kPAPPushPayloadActivityTypeKey,
-                              [[PFUser currentUser] objectId], kPAPPushPayloadFromUserObjectIdKey,
-                              nil];
-        PFPush *push = [[PFPush alloc] init];
-        [push setChannel:privateChannelName];
-        [push setData:data];
-        [push sendPushInBackground];
-    }
-    */
-    
-    // TODO: set private channel to that of the parameter 'user'
     NSString *followedUserPrivatePushChannel = [user objectForKey:kStringrUserPrivateChannelKey];
     
     if (followedUserPrivatePushChannel && followedUserPrivatePushChannel.length != 0) {
@@ -335,10 +325,11 @@
         
         NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%@ is now following you!", currentUsernameFormatted], kAPNSAlertKey,
-                              @"increment", kAPNSBadgeKey,
+                              @"Increment", kAPNSBadgeKey,
                               kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                               kStringrPushPayloadActivityFollowKey, kStringrPushPayloadActivityTypeKey,
                               [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              @"default", kAPNSSoundKey,
                               nil];
         
         PFPush *likeStringPushNotification = [[PFPush alloc] init];
@@ -350,8 +341,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark Activities
+//*********************************************************************************/
 
 + (PFQuery *)queryForActivitiesOnObject:(PFObject *)object cachePolicy:(PFCachePolicy)cachePolicy
 {
@@ -409,7 +401,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UIImage Formatting
+//*********************************************************************************/
 
 + (UIImage *)formatPhotoImageForUpload:(UIImage *)image
 {
@@ -466,8 +460,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Menu
+//*********************************************************************************/
 
 + (void)showMenu:(REFrostedViewController *)menuViewController
 {
@@ -477,8 +472,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Text Parsing
+//*********************************************************************************/
 
 //static float const secondsRemovedFromDate = 240;
 + (NSString *)timeAgoFromDate:(NSDate *)date
@@ -589,6 +585,20 @@
     return NO;
 }
 
+// Trim the input string by removing leading and trailing white spaces
+// and return the result
++ (NSString *)stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:(NSString *)string
+{
+    NSString *leadingTrailingWhiteSpacesPattern = @"(?:^\\s+)|(?:\\s+$)";
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:leadingTrailingWhiteSpacesPattern options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    NSRange stringRange = NSMakeRange(0, string.length);
+    NSString *trimmedString = [regex stringByReplacingMatchesInString:string options:NSMatchingReportProgress range:stringRange withTemplate:@"$1"];
+    
+    return trimmedString;
+}
+
 + (BOOL)NSStringIsValidUsername:(NSString *)checkString
 {
     if ([self NSStringContainsCharactersWithoutWhiteSpace:checkString] && checkString.length > 0 && checkString.length <= 15) {
@@ -650,10 +660,25 @@
     return  cellHeight;
 }
 
++ (NSArray *)mentionsContainedWithinString:(NSString *)string
+{
+    NSMutableArray *mentionsInString = [[NSMutableArray alloc] init];
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"@(\\w+)" options:0 error:&error];
+    NSArray *matches = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange wordRange = [match rangeAtIndex:1];
+        NSString* word = [[string substringWithRange:wordRange] lowercaseString];
+        [mentionsInString addObject:word];
+    }
+    
+    return [mentionsInString copy];
+}
 
 
-
+//*********************************************************************************/
 #pragma mark - Login
+//*********************************************************************************/
 
 + (BOOL)facebookUserCanLogin:(PFUser *)facebookUser
 {

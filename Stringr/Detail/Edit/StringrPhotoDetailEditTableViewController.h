@@ -8,21 +8,13 @@
 
 #import "StringrPhotoDetailTableViewController.h"
 
-/*
-@protocol StringrPhotoDetailViewControllerDelegate <NSObject>
-
-** Sends a call to delete the given photo from the targeted String.
- *
- * @param photo The photo that will be removed from the targeted String.
- *
-- (void)deletePhotoFromString:(NSDictionary *)photo;
-
-@end
-*/
 @protocol StringrPhotoDetailEditTableViewControllerDelegate;
+
 @interface StringrPhotoDetailEditTableViewController : StringrPhotoDetailTableViewController
 
 @property (weak, nonatomic) id<StringrPhotoDetailEditTableViewControllerDelegate> delegate;
+
+- (BOOL)photoIsPreparedToSave;
 
 @end
 

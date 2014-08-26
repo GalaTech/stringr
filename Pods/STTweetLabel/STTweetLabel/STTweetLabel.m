@@ -179,6 +179,7 @@
 }
 
 - (void)determineLinks {
+    /*
     NSMutableString *tmpText = [[NSMutableString alloc] initWithString:_cleanText];
 
     NSError *regexError = nil;
@@ -196,6 +197,7 @@
             [_rangesOfHotWords addObject:@{@"hotWord": @(STTweetLink), @"protocol": protocol, @"range": [NSValue valueWithRange:result.range]}];
         }
     }];
+     */
 }
 
 - (void)updateText

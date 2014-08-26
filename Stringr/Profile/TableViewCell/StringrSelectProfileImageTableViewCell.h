@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrPathImageView.h"
+
+@class StringrPathImageView;
 
 @interface StringrSelectProfileImageTableViewCell : UITableViewCell
 

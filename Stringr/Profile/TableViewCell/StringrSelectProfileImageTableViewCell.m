@@ -7,6 +7,7 @@
 //
 
 #import "StringrSelectProfileImageTableViewCell.h"
+#import "StringrPathImageView.h"
 
 @implementation StringrSelectProfileImageTableViewCell
 

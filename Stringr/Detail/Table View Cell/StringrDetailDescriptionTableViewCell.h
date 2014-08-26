@@ -14,4 +14,6 @@
 - (void)setDescriptionForCell:(NSString *)description;
 - (NSDictionary *)getDescriptionTextAttributes;
 
+- (NSString *)getDescriptionText;
+
 @end

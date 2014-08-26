@@ -8,23 +8,31 @@
 
 #import "StringrProfileViewController.h"
 #import "StringrUtility.h"
-
+#import "StringrPathImageView.h"
 #import "StringrEditProfileViewController.h"
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileTableViewController.h"
 #import "StringrStringDetailViewController.h"
 
-
+/**
+ * Initialize's a user profile as a parallax view controller. The top half is a users information and
+ * the bottom is a tableView of their String's. You must provide a user for the profile in order for it to work
+ * as well as a profileReturnState. The return state refers to how the profile is being displayed: From the menu,
+ * as a modal presentation, or just pushed onto a nav controller. The return state provides information on what return
+ * navigation item will be displayed.
+ */
 @interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) StringrProfileTopViewController *topProfileVC;
-@property (weak, nonatomic) StringrProfileTableViewController *tableProfileVC;
+@property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
 
 @end
 
 @implementation StringrProfileViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)dealloc
 {
@@ -62,14 +70,9 @@
     // Sets the user for the currently accessed profile
     [self.topProfileVC setUserForProfile:self.userForProfile];
     
-    self.tableProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileTableViewID];
+    self.tableProfileVC = [[StringrProfileTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.tableProfileVC setUserForProfile:self.userForProfile];
     
-    // Querries all strings that are owned by the user for the specified profile
-    PFQuery *profileStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [profileStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
-    [profileStringsQuery orderByDescending:@"createdAt"];
-    [self.tableProfileVC setQueryForTable:profileStringsQuery];
-
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     
     //self.delegate = self; // prevents deallocation
@@ -103,8 +106,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Private
+//*********************************************************************************/
 
 - (void)showMenu
 {
@@ -113,8 +117,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 - (void)closeProfileVC
 {
@@ -140,7 +145,6 @@
     [editProfileVC setFillerProfileImage:topVC.profileImage];
     [editProfileVC setFillerProfileName:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
     [editProfileVC setFillerDescription:topVC.profileDescriptionLabel.text];
-    [editProfileVC setFillerUniversityName:topVC.profileUniversityLabel.text];
     
     [editProfileVC setDelegate:self];
     
@@ -149,8 +153,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrEditProfile Delegate
+//*********************************************************************************/
 
 - (void)setProfilePhoto:(UIImage *)profilePhoto
 {
@@ -167,14 +172,11 @@
     self.topProfileVC.profileDescriptionLabel.text = description;
 }
 
-- (void)setProfileUniversityName:(NSString *)universityName
-{
-    self.topProfileVC.profileUniversityLabel.text = universityName;
-}
 
 
-
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -193,8 +195,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Parallax Delegate Methods
+//*********************************************************************************/
 
 - (void)parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {

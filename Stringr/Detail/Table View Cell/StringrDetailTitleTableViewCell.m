@@ -17,6 +17,10 @@
 
 @implementation StringrDetailTitleTableViewCell
 
+//*********************************************************************************/
+#pragma mark - Lifecycle
+//*********************************************************************************/
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -41,12 +45,12 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (void)setTitleForCell:(NSString *)title
 {
-    [self.titleLabel setText:title];
     [self.titleLabel setNumberOfLines:200];
     
     UIColor *titleColor  = [UIColor darkGrayColor];
@@ -60,18 +64,21 @@
     [titleParagraphStyle setParagraphSpacingBefore:40.0f];
     
     NSDictionary *titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:titleColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, titleParagraphStyle, NSParagraphStyleAttributeName, nil];
-    [self.titleLabel setAttributes:titleAttributes];
-    
-    //[self.titleLabel setText:@"This is a cool label that can tell if there are any @mentions or #hashtags!\n"];
-    
     
     NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     NSDictionary *httpAttributes = [NSDictionary dictionaryWithObjectsAndKeys:titleColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     
-    [self.titleLabel setAttributes:handleAttributes hotWord:STTweetHandle];
-    [self.titleLabel setAttributes:hashtagAttributes hotWord:STTweetHashtag];
-    [self.titleLabel setAttributes:httpAttributes hotWord:STTweetLink];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.titleLabel setText:title];
+        
+        [self.titleLabel setAttributes:titleAttributes];
+        
+        [self.titleLabel setAttributes:handleAttributes hotWord:STTweetHandle];
+        [self.titleLabel setAttributes:hashtagAttributes hotWord:STTweetHashtag];
+        [self.titleLabel setAttributes:httpAttributes hotWord:STTweetLink];
+    });
+    
     
     [self.titleLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
         if (hotWord == STTweetHandle) {

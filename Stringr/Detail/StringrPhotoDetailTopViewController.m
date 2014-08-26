@@ -17,7 +17,9 @@
 
 @implementation StringrPhotoDetailTopViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,9 +42,25 @@
     NSLog(@"dealloc photo detail top");
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoRemovedFromPublicString:) name:kNSNotificationCenterRemovedPhotoFromPublicString object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterRemovedPhotoFromPublicString object:nil];
+}
 
 
+
+//*********************************************************************************/
 #pragma mark - Custom Acessors
+//*********************************************************************************/
 
 - (NSMutableArray *)photos
 {
@@ -55,8 +73,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Public
+//*********************************************************************************/
 
 - (UIImage *)photoAtIndex:(NSUInteger)index
 {
@@ -83,8 +102,92 @@
     return photo;
 }
 
+- (void)savePhoto:(PFObject *)photo
+{
+    [self findAndSendNotificationToMentionsInPhoto:photo];
+    [photo saveInBackground];
+}
 
+
+
+//*********************************************************************************/
+#pragma mark - Private
+//*********************************************************************************/
+
+- (void)findAndSendNotificationToMentionsInPhoto:(PFObject *)photo
+{
+    // Extracts all of the @mentions from the title and description of the photo
+    NSArray *titleMentions = [StringrUtility mentionsContainedWithinString:[photo objectForKey:kStringrPhotoCaptionKey]];
+    NSArray *descriptionMentions = [StringrUtility mentionsContainedWithinString:[photo objectForKey:kStringrPhotoDescriptionKey]];
+    
+    NSMutableSet *combinedMentionsSet = [NSMutableSet setWithArray:titleMentions];
+    [combinedMentionsSet addObjectsFromArray:descriptionMentions];
+    
+    NSArray *combinedMentionsArray = [combinedMentionsSet allObjects];
+    
+    // Finds all users whose username matches these mentions.
+    PFQuery *mentionUsersQuery = [PFUser query];
+    [mentionUsersQuery whereKey:kStringrUserUsernameKey containedIn:combinedMentionsArray];
+    [mentionUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (!error) {
+            // Finds any activities that might already exist for the mentioned usernames on this photo
+            PFQuery *activityMentionQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+            [activityMentionQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeMention];
+            [activityMentionQuery whereKey:kStringrActivityPhotoKey equalTo:photo];
+            [activityMentionQuery whereKey:kStringrActivityToUserKey containedIn:users];
+            [activityMentionQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+            [activityMentionQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+                if (!error) {
+                    // delete any activities that already existed so that there will not be duplicates
+                    for (PFObject *activity in activities) {
+                        [activity deleteInBackground];
+                    }
+                    
+                    // Create a new mention activity for all users who were mentioned in the photo
+                    for (PFUser *user in users) {
+                        if (![user.objectId isEqualToString:[PFUser currentUser].objectId]){
+                            PFObject *mentionActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
+                            [mentionActivity setObject:kStringrActivityTypeMention forKey:kStringrActivityTypeKey];
+                            [mentionActivity setObject:user forKey:kStringrActivityToUserKey];
+                            [mentionActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+                            [mentionActivity setObject:photo forKey:kStringrActivityPhotoKey];
+                            
+                            PFACL *mentionACL = [PFACL ACLWithUser:[PFUser currentUser]];
+                            [mentionACL setPublicReadAccess:YES];
+                            [mentionACL setPublicWriteAccess:YES];
+                            [mentionActivity setACL:mentionACL];
+                            
+                            [mentionActivity saveInBackground];
+                        }
+                    }
+                }
+            }];
+        }
+    }];
+}
+
+
+
+//*********************************************************************************/
+#pragma mark - Action Handlers
+//*********************************************************************************/
+
+- (void)photoRemovedFromPublicString:(NSNotification *)notification
+{
+    NSDictionary *notificationDictionary = [notification userInfo];
+    PFObject *photo = [notificationDictionary objectForKey:@"photo"];
+    
+    if (photo) {
+        //[photo deleteInBackground];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+
+
+//*********************************************************************************/
 #pragma mark - ParseImagePager DataSource
+//*********************************************************************************/
 
 - (NSArray *)arrayWithPhotoPFObjects
 {
@@ -98,7 +201,9 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - ParseImagePager Delegate
+//*********************************************************************************/
 
 - (void)imagePager:(ParseImagePager *)imagePager didLoadImage:(UIImage *)image atIndex:(NSUInteger)index
 {

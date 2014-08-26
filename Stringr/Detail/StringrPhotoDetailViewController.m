@@ -12,6 +12,7 @@
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrStringDetailViewController.h"
 #import "StringrNavigationController.h"
+#import "StringrFlagContentHelper.h"
 
 @interface StringrPhotoDetailViewController () <StringrPhotoDetailTopViewControllerImagePagerDelegate, StringrPhotoDetailEditTableViewControllerDelegate, UIActionSheetDelegate>
 
@@ -23,7 +24,9 @@
 
 @implementation StringrPhotoDetailViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -108,16 +111,19 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - Actions
+//*********************************************************************************/
 
 - (void)photoActionSheet
 {
-    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", nil];
+    UIActionSheet *photoOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Options" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Share Photo", @"String Owner", @"Flag Photo", nil];
+    
+    [photoOptionsActionSheet setDestructiveButtonIndex:2];
     
     PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
     
-    int cancelIndex = 2;
+    int cancelIndex = 3;
     
     if ([photo.ACL getWriteAccessForUser:[PFUser currentUser]]) {
         [photoOptionsActionSheet addButtonWithTitle:@"Edit Photo"];
@@ -175,21 +181,62 @@
 // only used on edit photo views
 - (void)savePhoto
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
-        [photo saveInBackground];
-    }];
+    PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+    StringrPhotoDetailTopViewController *topVC = (StringrPhotoDetailTopViewController *)self.topPhotoVC;
+   // StringrPhotoDetailEditTableViewController *editTableVC = (StringrPhotoDetailEditTableViewController *)self.tablePhotoVC;
+    
+    // only saves photo if title is set
+   // if ([editTableVC photoIsPreparedToSave]) {
+        [topVC savePhoto:photo];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    //}
 }
 
 - (void)cancelPhotoEdit
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.isPublicPhoto) {
+        [self dismissViewControllerAnimated:YES completion:^ {
+            // removes the new photo object from the current string and deletes the photo from server
+            PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+            
+            NSDictionary *detailsDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:photo, @"photo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterReloadPublicString object:nil userInfo:detailsDictionary];
+            
+            
+            [self removeActivityForPhoto:photo];
+            //[photo deleteInBackground];
+        }];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 
 
 
+//*********************************************************************************/
+#pragma mark - Private
+//*********************************************************************************/
+
+- (void)removeActivityForPhoto:(PFObject *)photo
+{
+    PFQuery *removeActivityFromPublicStringQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [removeActivityFromPublicStringQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [removeActivityFromPublicStringQuery whereKey:kStringrActivityPhotoKey equalTo:photo];
+    [removeActivityFromPublicStringQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeAddedPhotoToPublicString];
+    [removeActivityFromPublicStringQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *activity in objects) {
+                [activity deleteInBackground];
+            }
+        }
+    }];
+}
+
+
+//*********************************************************************************/
 #pragma mark - ParallaxController Delegate
+//*********************************************************************************/
 
 - (void) parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {
@@ -201,8 +248,9 @@
 
 
 
-
+//*********************************************************************************/
 #pragma mark - StringrPhotoDetailTopViewControllerImagePager Delegate
+//*********************************************************************************/
 
 - (void)photoViewer:(ParseImagePager *)photoViewer didScrollToIndex:(NSUInteger)index
 {
@@ -232,29 +280,25 @@
 
 
 
+//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
+//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share Photo"]) {
         [self sharePhoto];
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"String Owner"]) {
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"String Owner"]) {
         [self pushToStringOwner];
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Photo"]) {
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Flag Photo"]) {
+        PFObject *photo = [self.photosToLoad objectAtIndex:self.selectedPhotoIndex];
+        [StringrFlagContentHelper flagContent:photo withFlaggingUser:[PFUser currentUser]];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Photo"]) {
         [self pushToEditPhoto];
     }
-}
-
-
-
-#pragma mark - StringrPhotoDetailEditTableViewControllerDelegate
-
-- (void)deletePhotoFromString:(PFObject *)photo
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    [photo deleteEventually];
- 
 }
 
 

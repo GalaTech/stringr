@@ -8,7 +8,7 @@
 
 #import "StringrDetailViewController.h"
 #import "StringrProfileViewController.h"
-#import "StringrStringCommentsViewController.h"
+#import "StringrCommentsTableViewController.h"
 #import "StringrNavigationController.h"
 
 @interface StringrDetailViewController () <QMBParallaxScrollViewControllerDelegate>
@@ -17,7 +17,9 @@
 
 @implementation StringrDetailViewController
 
+//*********************************************************************************/
 #pragma mark - Lifecycle
+//*********************************************************************************/
 
 - (void)viewDidLoad
 {

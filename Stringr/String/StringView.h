@@ -15,14 +15,15 @@
  * This view contains a UICollectionView, which is used as the container for a Strings information.
  * The event for tapping on an item in the collection view is handled through the StringViewDelegate protocol.
  */
-@interface StringView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface StringView : UIView
 
+/*
 @property (weak, nonatomic) id<StringViewDelegate> delegate;
 
 @property (strong, nonatomic) PFObject *stringToLoad; // string PFObject
 @property (strong, nonatomic) NSMutableArray *collectionViewPhotos; // of Photo PFObjects
 @property (strong, nonatomic) NSMutableArray *stringPhotosToDelete; // of Photo PFObjects
-
+*/
 
 /** 
  * Sets the data for the collection view by providing a mutable array. The array
@@ -38,14 +39,14 @@
  * This is the string object whose photo data will be loaded.
  * @param string The string object whose photos will be loaded into the collection view.
  */
-- (void)setStringObject:(PFObject *)string;
+//- (void)setStringObject:(PFObject *)string;
 
 /**
  * Querries all photos from a provided query. The photos loaded from this query will be
  * displayed inside of the current string.
  * @param query The query that will be used to find photos.
  */
-- (void)queryPhotosFromQuery:(PFQuery *)query;
+//- (void)queryPhotosFromQuery:(PFQuery *)query;
 
 /**
  * Adds a given image to the end of the String. The image will be immediately
@@ -53,11 +54,11 @@
  * saved it will replace the original image.
  * @param image The image being added to the String.
  */
-- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock;
+//- (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock;
 
-- (void)removePhotoFromString:(PFObject *)photo;
+//- (void)removePhotoFromString:(PFObject *)photo;
 
-- (void)reloadString;
+//- (void)reloadString;
 
 
 @end
@@ -72,7 +73,7 @@
 @protocol StringViewDelegate <NSObject>
 
 @required
-- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string;
+//- (void)collectionView:(UICollectionView *)collectionView tappedPhotoAtIndex:(NSInteger)index inPhotos:(NSArray *)photos fromString:(PFObject *)string;
 
 @end
 
