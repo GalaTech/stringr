@@ -54,8 +54,9 @@
             if (numberOfNewActivities > 0) {
                 UITabBarItem *activityTab = [[self.viewControllers lastObject] tabBarItem];
                 [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
-                [[NSUserDefaults standardUserDefaults] setObject:@(numberOfActivities) forKey:kNSUserDefaultsNumberOfActivitiesKey];
             }
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@(numberOfActivities) forKey:kNSUserDefaultsNumberOfActivitiesKey];
         }
     }];
 }
