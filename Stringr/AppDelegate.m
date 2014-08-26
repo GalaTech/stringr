@@ -18,6 +18,7 @@
 #import "StringrPopularTableViewController.h"
 #import "StringrDiscoveryTableViewController.h"
 #import "StringrNearYouTableViewController.h"
+#import "StringrNetworkRequests+Activity.h"
 
 
 @interface AppDelegate ()
@@ -174,6 +175,11 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    id currentViewController = self.rootVC.contentViewController;
+    if ([currentViewController isKindOfClass:[StringrHomeTabBarViewController class]]) {
+        StringrHomeTabBarViewController *homeVC = (StringrHomeTabBarViewController *)currentViewController;
+        [homeVC updateActivityNotificationsTabValue];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -255,39 +261,10 @@
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
     [followingNavVC setTabBarItem:followingTab];
     
-    
     StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
     UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
-    
-    // Checks to see if there are any new activity notifications to display as a badge icon on the activity tab
-    PFQuery *activityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [activityQuery whereKey:kStringrActivityToUserKey equalTo:[PFUser currentUser]];
-    [activityQuery whereKey:kStringrActivityFromUserKey notEqualTo:[PFUser currentUser]];
-    [activityQuery whereKeyExists:kStringrActivityFromUserKey];
-    [activityQuery includeKey:kStringrActivityFromUserKey];
-    [activityQuery includeKey:kStringrActivityStringKey];
-    [activityQuery includeKey:kStringrActivityPhotoKey];
-    [activityQuery countObjectsInBackgroundWithBlock:^(int numberOfActivites, NSError *error) {
-        if (!error) {
-            NSNumber *numberOfPreviousActivitiesFromInstallation = [[PFUser currentUser] objectForKey:kStringrInstallationNumberOfPreviousActivitiesKey];
-           
-            NSInteger numberOfPreviousActivities = 0;
-            if (numberOfPreviousActivitiesFromInstallation) {
-                numberOfPreviousActivities = [numberOfPreviousActivitiesFromInstallation integerValue];
-            }
-            
-            NSInteger numberOfNewActivities = numberOfActivites - numberOfPreviousActivities;
-            
-            if (numberOfNewActivities > 0) {
-                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
-            }
-            
-            [[PFUser currentUser] setObject:@(numberOfActivites) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
-            [[PFUser currentUser] saveInBackground];
-        }
-    }];
     
     [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
     

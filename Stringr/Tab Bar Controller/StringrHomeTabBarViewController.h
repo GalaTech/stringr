@@ -11,4 +11,6 @@
 
 @interface StringrHomeTabBarViewController : StringrTabBarViewController
 
+- (void)updateActivityNotificationsTabValue;
+
 @end

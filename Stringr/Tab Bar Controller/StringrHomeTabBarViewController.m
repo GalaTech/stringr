@@ -7,6 +7,8 @@
 //
 
 #import "StringrHomeTabBarViewController.h"
+#import "StringrActivityTableViewController.h"
+#import "StringrNetworkRequests+Activity.h"
 
 @implementation StringrHomeTabBarViewController
 
@@ -27,11 +29,36 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateActivityNotificationsTabValue];
+}
+
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
     if ([item.title isEqualToString:@"Activity"]) {
         item.badgeValue = nil;
     }
 }
+
+- (void)updateActivityNotificationsTabValue
+{
+    [StringrNetworkRequests numberOfActivitesForUser:[PFUser currentUser] completionBlock:^(NSInteger numberOfActivities, BOOL success) {
+        if (success) {
+            NSInteger numberOfPreviousActivities = [[[NSUserDefaults standardUserDefaults] objectForKey:kNSUserDefaultsNumberOfActivitiesKey] integerValue];
+            
+            NSInteger numberOfNewActivities = numberOfActivities - numberOfPreviousActivities;
+            
+            if (numberOfNewActivities > 0) {
+                UITabBarItem *activityTab = [[self.viewControllers lastObject] tabBarItem];
+                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
+                [[NSUserDefaults standardUserDefaults] setObject:@(numberOfActivities) forKey:kNSUserDefaultsNumberOfActivitiesKey];
+            }
+        }
+    }];
+}
+
 
 @end
