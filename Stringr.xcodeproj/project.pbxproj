@@ -20,7 +20,9 @@
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
 		AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */; };
 		AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */; };
-		AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA181911A4BB00A9DFF9 /* Parse.framework */; };
+		AB29CC8019AC1287001177DD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB29CC7E19AC1287001177DD /* Parse.framework */; };
+		AB29CC8119AC1287001177DD /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB29CC7F19AC1287001177DD /* ParseFacebookUtils.framework */; };
+		AB29CC8319AC1299001177DD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB29CC8219AC1299001177DD /* Bolts.framework */; };
 		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
 		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
 		AB2CFA201911A68300A9DFF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1F1911A68300A9DFF9 /* Social.framework */; };
@@ -184,7 +186,9 @@
 		AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTableViewCell.m"; sourceTree = "<group>"; };
 		AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFlagContentHelper.h; path = Utility/StringrFlagContentHelper.h; sourceTree = "<group>"; };
 		AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFlagContentHelper.m; path = Utility/StringrFlagContentHelper.m; sourceTree = "<group>"; };
-		AB2CFA181911A4BB00A9DFF9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
+		AB29CC7E19AC1287001177DD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse.framework; sourceTree = "<group>"; };
+		AB29CC7F19AC1287001177DD /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = External/ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		AB29CC8219AC1299001177DD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = External/Bolts.framework; sourceTree = "<group>"; };
 		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AB2CFA1F1911A68300A9DFF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -404,7 +408,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2CFA1A1911A52400A9DFF9 /* Parse.framework in Frameworks */,
+				AB29CC8319AC1299001177DD /* Bolts.framework in Frameworks */,
+				AB29CC8019AC1287001177DD /* Parse.framework in Frameworks */,
+				AB29CC8119AC1287001177DD /* ParseFacebookUtils.framework in Frameworks */,
 				AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */,
 				AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */,
 				AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */,
@@ -1003,12 +1009,14 @@
 		BF8349CD18297FD600D15963 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB29CC8219AC1299001177DD /* Bolts.framework */,
+				AB29CC7E19AC1287001177DD /* Parse.framework */,
+				AB29CC7F19AC1287001177DD /* ParseFacebookUtils.framework */,
 				AB2CFA231911D31500A9DFF9 /* AdSupport.framework */,
 				AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */,
 				AB2CFA1F1911A68300A9DFF9 /* Social.framework */,
 				AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */,
 				AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */,
-				AB2CFA181911A4BB00A9DFF9 /* Parse.framework */,
 				AB6CB1C619058714008A8DB0 /* MessageUI.framework */,
 				AB50811C18B298D100DE933D /* FacebookSDK.framework */,
 				AB50811818B296C900DE933D /* SystemConfiguration.framework */,
