@@ -10,4 +10,9 @@
 
 @implementation StringrObject
 
++ (NSString *)parseClassName
+{
+    return @"Object";
+}
+
 @end

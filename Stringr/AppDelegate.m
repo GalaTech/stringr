@@ -20,6 +20,8 @@
 #import "StringrNearYouTableViewController.h"
 #import "StringrNetworkRequests+Activity.h"
 
+#import "StringrNetworkRequests.h"
+#import "StringrObject.h"
 
 @interface AppDelegate ()
 
@@ -267,6 +269,37 @@
     [activityNavVC setTabBarItem:activityTab];
     
     [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
+    
+    NSDate *date1 = [NSDate date];
+    
+    StringrObject *testObject = [StringrObject new];
+    testObject.name = @"Jonathan";
+    testObject.displayName = @"Jonathan Howard";
+    
+    [StringrNetworkRequests addObject:testObject];
+    
+    [StringrNetworkRequests getObjectWithName:@"Jonathan" completionBlock:^(StringrObject *object, BOOL success) {
+        NSLog(@"%@", object.name);
+        NSDate *date2 = [NSDate date];
+        NSLog(@"%f", [date2 timeIntervalSinceDate:date1]);
+    }];
+    
+    
+    NSDate *date3 = [NSDate date];
+    PFObject *testObject2 = [PFObject objectWithClassName:@"Object"];
+    testObject2[@"name"] = @"Jonathan";
+    testObject2[@"displayName"] = @"Jonathan Howard";
+    
+    [testObject2 saveInBackground];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Object"];
+    [query whereKey:@"name" equalTo:@"Jonathan"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"%@", [objects firstObject][@"name"]);
+        NSDate *date4 = [NSDate date];
+        NSLog(@"%f 2", [date4 timeIntervalSinceDate:date3]);
+    }];
+    
     
     return homeTabBarVC;
 }

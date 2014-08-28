@@ -8,6 +8,11 @@
 
 #import <Parse/Parse.h>
 
-@interface StringrObject : PFObject
+@interface StringrObject : NSObject
+
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *displayName;
+
++ (NSString *)parseClassName;
 
 @end
