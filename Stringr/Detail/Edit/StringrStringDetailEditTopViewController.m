@@ -323,7 +323,9 @@
             [self.stringToLoad setObject:self.stringDescription forKey:kStringrStringDescriptionKey];
             
             // sets the location for this newly created string
-            [self.stringToLoad setObject:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] forKey:kStringrStringLocationKey];
+            if ([[PFUser currentUser] objectForKey:kStringrUserLocationKey]) {
+                [self.stringToLoad setObject:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] forKey:kStringrStringLocationKey];
+            }
             
             [self.stringToLoad saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {

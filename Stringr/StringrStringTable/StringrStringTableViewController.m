@@ -269,7 +269,8 @@
     // value from either of those classes
     if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
         string = [object objectForKey:kStringrStatisticsStringKey];
-    } else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
+    }
+    else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
         string = [object objectForKey:kStringrActivityStringKey];
     }
     
@@ -278,9 +279,10 @@
             // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
             UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
             return cell;
-        } else if (indexPath.row == 0) {
+        }
+        else if (indexPath.row == 0) {
             static NSString *cellIdentifier = @"StringTableViewCell";
-            StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
             
             if (!stringCell) {
                 stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -290,10 +292,11 @@
             [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
             return stringCell;
-        } else if (indexPath.row == 1) {
+        }
+        else if (indexPath.row == 1) {
             static NSString *cellIdentifier = @"StringTableViewFooter";
             
-            UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
             
             if (!footerCell) {
                 footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -309,10 +312,12 @@
             });
 
             return footerCell;
-        } else {
+        }
+        else {
             return nil;
         }
-    } else {
+    }
+    else {
         return nil;
     }
 }
