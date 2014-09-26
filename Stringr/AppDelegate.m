@@ -18,7 +18,10 @@
 #import "StringrPopularTableViewController.h"
 #import "StringrDiscoveryTableViewController.h"
 #import "StringrNearYouTableViewController.h"
+#import "StringrNetworkRequests+Activity.h"
 
+#import "StringrNetworkRequests.h"
+#import "StringrObject.h"
 
 @interface AppDelegate ()
 
@@ -174,6 +177,11 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    id currentViewController = self.rootVC.contentViewController;
+    if ([currentViewController isKindOfClass:[StringrHomeTabBarViewController class]]) {
+        StringrHomeTabBarViewController *homeVC = (StringrHomeTabBarViewController *)currentViewController;
+        [homeVC updateActivityNotificationsTabValue];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -255,41 +263,43 @@
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
     [followingNavVC setTabBarItem:followingTab];
     
-    
     StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
     UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
-    // Checks to see if there are any new activity notifications to display as a badge icon on the activity tab
-    PFQuery *activityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [activityQuery whereKey:kStringrActivityToUserKey equalTo:[PFUser currentUser]];
-    [activityQuery whereKey:kStringrActivityFromUserKey notEqualTo:[PFUser currentUser]];
-    [activityQuery whereKeyExists:kStringrActivityFromUserKey];
-    [activityQuery includeKey:kStringrActivityFromUserKey];
-    [activityQuery includeKey:kStringrActivityStringKey];
-    [activityQuery includeKey:kStringrActivityPhotoKey];
-    [activityQuery countObjectsInBackgroundWithBlock:^(int numberOfActivites, NSError *error) {
-        if (!error) {
-            NSNumber *numberOfPreviousActivitiesFromInstallation = [[PFUser currentUser] objectForKey:kStringrInstallationNumberOfPreviousActivitiesKey];
-           
-            NSInteger numberOfPreviousActivities = 0;
-            if (numberOfPreviousActivitiesFromInstallation) {
-                numberOfPreviousActivities = [numberOfPreviousActivitiesFromInstallation integerValue];
-            }
-            
-            NSInteger numberOfNewActivities = numberOfActivites - numberOfPreviousActivities;
-            
-            if (numberOfNewActivities > 0) {
-                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
-            }
-            
-            [[PFUser currentUser] setObject:@(numberOfActivites) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
-            [[PFUser currentUser] saveInBackground];
-        }
+    [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
+    
+    NSDate *date1 = [NSDate date];
+    
+    StringrObject *testObject = [StringrObject new];
+    testObject.name = @"Jonathan";
+    testObject.displayName = @"Jonathan Howard";
+    
+    [StringrNetworkRequests addObject:testObject];
+    
+    [StringrNetworkRequests getObjectWithName:@"Jonathan" completionBlock:^(StringrObject *object, BOOL success) {
+        NSLog(@"%@", object.name);
+        NSDate *date2 = [NSDate date];
+        NSLog(@"%f", [date2 timeIntervalSinceDate:date1]);
     }];
     
-    [homeTabBarVC setViewControllers:@[followingNavVC, activityNavVC]];
+    
+    NSDate *date3 = [NSDate date];
+    PFObject *testObject2 = [PFObject objectWithClassName:@"Object"];
+    testObject2[@"name"] = @"Jonathan";
+    testObject2[@"displayName"] = @"Jonathan Howard";
+    
+    [testObject2 saveInBackground];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Object"];
+    [query whereKey:@"name" equalTo:@"Jonathan"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"%@", [objects firstObject][@"name"]);
+        NSDate *date4 = [NSDate date];
+        NSLog(@"%f 2", [date4 timeIntervalSinceDate:date3]);
+    }];
+    
     
     return homeTabBarVC;
 }
