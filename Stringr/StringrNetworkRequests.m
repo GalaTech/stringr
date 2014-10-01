@@ -13,8 +13,7 @@
 + (void)addObject:(StringrObject *)object
 {
     PFObject *objectTest = [PFObject objectWithClassName:[StringrObject parseClassName]];
-    objectTest[@"name"] = object.name;
-    objectTest[@"displayName"] = object.displayName;
+
     
     [objectTest saveInBackground];
 }
@@ -27,8 +26,7 @@
         if (!error) {
             if (completionBlock) {
                 StringrObject *object = [StringrObject new];
-                object.name = [objects firstObject][@"name"];
-                object.displayName = [objects firstObject][@"displayName"];
+
                 completionBlock(object, YES);
             }
         }

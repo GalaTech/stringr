@@ -274,7 +274,7 @@
         string = [object objectForKey:kStringrActivityStringKey];
     }
     
-    if (string) {
+//    if (string) {
         if (indexPath.section == self.objects.count) {
             // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
             UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
@@ -316,10 +316,10 @@
         else {
             return nil;
         }
-    }
-    else {
-        return nil;
-    }
+//    }
+//    else {
+//        return nil;
+//    }
 }
 
 - (void)objectsDidLoad:(NSError *)error
