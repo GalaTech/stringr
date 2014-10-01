@@ -147,7 +147,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[@"Come and check out the greatest app! \n Join Stringr https://itunes.apple.com/us/app/stringr/id878744492?ls=1&mt=8"] applicationActivities:nil];
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[@"Check out this cool new app!  Join Stringr! \n Join Stringr https://itunes.apple.com/us/app/stringr/id878744492?ls=1&mt=8"] applicationActivities:nil];
         [self presentViewController:activityVC animated:YES completion:^{
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }];

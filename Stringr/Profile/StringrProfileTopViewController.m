@@ -40,7 +40,11 @@
     
     [self.profileNameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]];
     
-    [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
+    NSString *test = [self.userForProfile objectForKey:kStringrUserDescriptionKey];
+    
+    if (![test isEqualToString:@"Edit your profile to set the description."]) {
+        [self.profileDescriptionLabel setText:[self.userForProfile objectForKey:kStringrUserDescriptionKey]];
+    }
 
     // Sets the circle image path properties
     [self.profileImage setImage:[UIImage imageNamed:@"stringr_icon_filler"]];
