@@ -7,32 +7,47 @@
 //
 
 @class StringrACL;
+@class StringrObject;
 
 typedef void (^StringrBooleanResultBlock)(BOOL succeeded, NSError *error);
+typedef void (^StringrResultBlock)(StringrObject *object, NSError *error);
+typedef void (^StringrArrayResultBlock)(NSArray *objects, NSError *error);
 
 @interface StringrObject : NSObject
 
-+ (NSString *)parseClassName;
++ (NSString *)className;
 
 
+@property (copy, nonatomic, readonly) NSString *parseClassName;
 @property (copy, nonatomic) NSString *objectID;
-@property (strong, nonatomic) NSDate *updatedAt;
-@property (strong, nonatomic) NSDate *createdAt;
+@property (strong, nonatomic, readonly) NSDate *updatedAt;
+@property (strong, nonatomic, readonly) NSDate *createdAt;
 @property (strong, nonatomic) StringrACL *ACL;
 
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *lastName;
+
+
+// Setting/Removing
 
 - (id)objectForKey:(NSString *)key;
 - (void)setStringrObject:(StringrObject *)object forKey:(NSString *)key;
 - (void)removeObjectForKey:(NSString *)key;
 
 
+// Increment/Decrement
+
 - (void)incrementKey:(NSString *)key;
 - (void)incrementKey:(NSString *)key byAmount:(NSNumber *)amount;
 
 
-- (PFObject *)bridgeToPFObject;
-- (StringrObject *)bridgePFObjectToStringrObject:(PFObject *)object;
+// Conversion
 
++ (PFObject *)bridgeStringrObjectToPFObject:(StringrObject *)object;
++ (StringrObject *)bridgePFObjectToStringrObject:(PFObject *)object;
+
+
+// Saving
 
 - (BOOL)save;
 - (void)saveInBackground;
@@ -43,101 +58,45 @@ typedef void (^StringrBooleanResultBlock)(BOOL succeeded, NSError *error);
 
 
 + (BOOL)saveAll:(NSArray *)objects;
-+ (BOOL)saveAll:(NSArray *)objects error:(NSError *)error;
++ (BOOL)saveAll:(NSArray *)objects error:(NSError **)error;
 + (void)saveAllInBackground:(NSArray *)objects;
 + (void)saveAllInBackground:(NSArray *)objects block:(StringrBooleanResultBlock)block;
 
 
+// Deletion
+
+- (BOOL)delete;
+- (BOOL)delete:(NSError **)error;
+- (void)deleteInBackground;
+- (void)deleteInBackgroundWithBlock:(StringrBooleanResultBlock)block;
+- (void)deleteEventually;
+
 + (BOOL)deleteAll:(NSArray *)objects;
-+ (BOOL)deleteAll:(NSArray *)objects error:(NSError *)error;
++ (BOOL)deleteAll:(NSArray *)objects error:(NSError **)error;
 + (void)deleteAllInBackground:(NSArray *)objects;
 + (void)deleteAllInBackground:(NSArray *)objects block:(StringrBooleanResultBlock)block;
 
 
-/*
- 
- Properties
- parseClassName
- objectID
- updatedAt
- createdAt
- ACL
- 
- 
- General
- 
- - objectForKey:
- - setObject:forKey:
- - removeObjectForKey:
- 
- - incrementKey:
- - ncrementKey:byAmount
- 
- - bridgeToPFObject
- - bridgeToStringrObject
- 
- 
- Saving single objects
- - save
- - saveInBackground
- - saveInBackgroundWithBlock:
- - saveInBackgroundWithTarget:selector:
- - saveEventually
- 
- 
- Saving many objects
- + saveAll:
- + SaveAll:error:
- + saveAllInBackground:
- + saveAllInBackground:block:
- 
- 
- 
- Deleting many objects
- + deleteAll:
- + deleteAll:error:
- + deleteAllInBackground:
- + deleteAllInBackground:block:
- 
- 
- 
- Getting an object from Parse
- 
- 
- * – isDataAvailable
- * – refresh
- * – refresh:
- * – refreshInBackgroundWithBlock:
- * – fetch
- * – fetch:
- * – fetchIfNeeded
- * – fetchIfNeeded:
- * – fetchInBackgroundWithBlock:
- * – fetchInBackgroundWithTarget:selector:
- * – fetchIfNeededInBackgroundWithBlock:
- 
- 
- Getting many objects from Parse
- 
- 
- 
- * + fetchAll:
- * + fetchAll:error:
- * + fetchAllIfNeeded:
- * + fetchAllIfNeeded:error:
- * + fetchAllInBackground:block:
- * + fetchAllIfNeededInBackground:block:
- 
- 
- Removing an object from Parse
- 
- 
- * – delete
- * – delete:
- * – deleteInBackground
- * – deleteInBackgroundWithBlock:
- * – deleteEventually
-*/
+// Retrieving
+
+- (BOOL)isDataAvailable;
+- (void)refresh;
+- (void)refresh:(NSError **)error;
+- (void)refreshInBackgroundWithBlock:(StringrResultBlock)block;
+
+- (void)fetch;
+- (void)fetch:(NSError **)error;
+- (void)fetchInBackgroundWithBlock:(StringrResultBlock)block;
+- (StringrObject *)fetchIfNeeded;
+- (StringrObject *)fetchIfNeeded:(NSError **)error;
+- (void)fetchIfNeededinBackgroundWithBlock:(StringrResultBlock)block;
+
++ (void)fetchAll:(NSArray *)objects;
++ (void)fetchAll:(NSArray *)objects error:(NSError **)error;
++ (void)fetchAllInBackground:(NSArray *)objects block:(StringrArrayResultBlock)block;
++ (void)fetchAllIfNeeded:(NSArray *)objects;
++ (void)fetchAllIfNeeded:(NSArray *)objects error:(NSError **)error;
++ (void)fetchAllIfNeededInBackground:(NSArray *)objects block:(StringrArrayResultBlock)block;
 
 
 @end
