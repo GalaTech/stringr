@@ -135,8 +135,21 @@
     }
      */
     
+    NSLog(@"%@", userInfo);
     
-    [PFPush handlePush:userInfo];
+    if (application.applicationState == UIApplicationStateActive)
+    {
+        NSString *alert = userInfo[@"aps"][@"alert"];
+        
+        if ([alert containsString:@"is now following you"])
+        {
+            [PFPush handlePush:userInfo];
+        }
+    }
+    else if (application.applicationState == UIApplicationStateInactive)
+    {
+        [self setupLoggedInContent];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation

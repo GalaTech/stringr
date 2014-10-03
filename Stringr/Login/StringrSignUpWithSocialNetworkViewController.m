@@ -13,7 +13,7 @@
 #import "StringrPathImageView.h"
 #import "AppDelegate.h"
 
-@interface StringrSignUpWithSocialNetworkViewController ()
+@interface StringrSignUpWithSocialNetworkViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -97,7 +97,10 @@
         
         if (userIsValidForSignup == 3) {
             [newUser setObject:@(YES) forKey:kStringrUserSocialNetworkSignupCompleteKey];
-            [newUser setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
+            [newUser setObject:@"" forKey:kStringrUserDescriptionKey];
+            
+            NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+            [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
             
             [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
@@ -110,15 +113,17 @@
                                 
                                 [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                 
-                                NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
-                                [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-                                
-                                [[PFUser currentUser] saveInBackground];
                                 
                                 [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
                                 [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
                                 [[PFInstallation currentInstallation] saveEventually];
                             }
+                            else
+                            {
+
+                            }
+                            
+                            [[PFUser currentUser] saveInBackground];
                         }];
                     }];
                 } else if (error.code == 202) { // 202 = username taken
@@ -138,6 +143,21 @@
         [invalidUserLogin show];
     }
 }
+
+
+- (void)cleanupSignup
+{
+    NSString *usernameCaseSensitive = [[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive];
+    BOOL socialNetworkVerified = [[[PFUser currentUser] objectForKey:kStringrUserSocialNetworkSignupCompleteKey] boolValue];
+    
+    if (!usernameCaseSensitive && !socialNetworkVerified)
+    {
+        [[PFUser currentUser] deleteInBackground];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)changeProfileImage
 {
@@ -382,6 +402,17 @@
     self.userProfileImage = profileImage;
     NSIndexPath *profileImageIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView reloadRowsAtIndexPaths:@[profileImageIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == !alertView.cancelButtonIndex)
+    {
+        [self cleanupSignup];
+    }
 }
 
 @end

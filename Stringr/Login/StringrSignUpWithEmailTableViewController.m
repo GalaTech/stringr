@@ -18,7 +18,7 @@
 #import "PBWebViewController.h"
 
 
-@interface StringrSignUpWithEmailTableViewController () 
+@interface StringrSignUpWithEmailTableViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) PFFile *profileImageFile;
 @property (strong, nonatomic) PFFile *profileThumbnailImageFile;
@@ -54,6 +54,10 @@
     
     UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(signupWithUserInformation)];
     [self.navigationItem setRightBarButtonItem:signupNavigationItem];
+    
+    UIBarButtonItem *cancelSignupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelSignup)];
+    [self.navigationItem setLeftBarButtonItem:cancelSignupNavigationItem];
+    
     self.userProfileImage = [UIImage imageNamed:@"stringr_icon_filler"];
 }
 
@@ -83,6 +87,26 @@
 - (void)selectProfileImage
 {
     NSLog(@"touched button");
+}
+
+
+- (void)cancelSignup
+{
+    UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Signup" message:@"Are you sure you want to cancel your signup?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [cancelAlert show];
+}
+
+- (void)cleanupSignup
+{
+    NSString *usernameCaseSensitive = [[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive];
+    BOOL emailVerified = [[[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey] boolValue];
+    
+    if (!usernameCaseSensitive && !emailVerified)
+    {
+        [[PFUser currentUser] deleteInBackground];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -199,8 +223,6 @@
                  
             }
             
-            
-            
             [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     
@@ -208,6 +230,9 @@
                     [PFUser becomeInBackground:newUser.sessionToken];
                     
                     NSNumber *emailIsVerified = [[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey];
+                    
+                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
                     
                     if ([emailIsVerified boolValue]) {
                         // instantiates the main logged in content area
@@ -218,15 +243,16 @@
                                 if (!error) {
                                     [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                     
-                                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
-                                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-                                    
-                                    [[PFUser currentUser] saveInBackground];
-                                    
                                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
                                     [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
                                     [[PFInstallation currentInstallation] saveEventually];
                                 }
+                                else
+                                {
+                                    
+                                }
+                                
+                                [[PFUser currentUser] saveInBackground];
                             }];
                         }];
                     } else {
@@ -565,6 +591,16 @@
     }];
 }
 
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == !alertView.cancelButtonIndex)
+    {
+        [self cleanupSignup];
+    }
+}
 
 
 @end
