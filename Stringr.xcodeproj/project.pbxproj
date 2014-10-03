@@ -16,9 +16,6 @@
 		AB04A2AD19D522E50030C241 /* StringrPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2AC19D522E50030C241 /* StringrPushNotification.m */; };
 		AB04A2B019D522F50030C241 /* StringrLike.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2AF19D522F50030C241 /* StringrLike.m */; };
 		AB04A2B319D523050030C241 /* StringrStringStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2B219D523050030C241 /* StringrStringStatistics.m */; };
-		AB04A2C219DBBFBE0030C241 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB04A2BF19DBBFBE0030C241 /* Bolts.framework */; };
-		AB04A2C319DBBFBE0030C241 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB04A2C019DBBFBE0030C241 /* Parse.framework */; };
-		AB04A2C419DBBFBE0030C241 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB04A2C119DBBFBE0030C241 /* ParseFacebookUtils.framework */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
 		AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */; };
 		AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */; };
@@ -49,6 +46,9 @@
 		AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */; };
 		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
 		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
+		AB37EBEB19DC4B6A00E66580 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB37EBE819DC4B6A00E66580 /* Bolts.framework */; };
+		AB37EBEC19DC4B6A00E66580 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB37EBE919DC4B6A00E66580 /* Parse.framework */; };
+		AB37EBED19DC4B6A00E66580 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB37EBEA19DC4B6A00E66580 /* ParseFacebookUtils.framework */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
 		AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */; };
 		AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */; };
@@ -196,9 +196,6 @@
 		AB04A2AF19D522F50030C241 /* StringrLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLike.m; path = "Stringr Objects/StringrLike.m"; sourceTree = "<group>"; };
 		AB04A2B119D523050030C241 /* StringrStringStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringStatistics.h; path = "Stringr Objects/StringrStringStatistics.h"; sourceTree = "<group>"; };
 		AB04A2B219D523050030C241 /* StringrStringStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringStatistics.m; path = "Stringr Objects/StringrStringStatistics.m"; sourceTree = "<group>"; };
-		AB04A2BF19DBBFBE0030C241 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "External/Parse Framework/Bolts.framework"; sourceTree = "<group>"; };
-		AB04A2C019DBBFBE0030C241 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "External/Parse Framework/Parse.framework"; sourceTree = "<group>"; };
-		AB04A2C119DBBFBE0030C241 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "External/Parse Framework/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
 		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
 		AB0F531F1908458800A29E59 /* StringrInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrInviteFriendsTableViewController.h; path = Settings/StringrInviteFriendsTableViewController.h; sourceTree = "<group>"; };
@@ -253,6 +250,10 @@
 		AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoadMoreTableViewCell.h; path = StringrStringTable/StringrLoadMoreTableViewCell.h; sourceTree = "<group>"; };
 		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
 		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
+		AB37EBE819DC4B6A00E66580 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "External/Parse Framework/Bolts.framework"; sourceTree = "<group>"; };
+		AB37EBE919DC4B6A00E66580 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "External/Parse Framework/Parse.framework"; sourceTree = "<group>"; };
+		AB37EBEA19DC4B6A00E66580 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "External/Parse Framework/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
+		AB37EBEF19DCA74500E66580 /* StringrModelObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrModelObjects.h; path = "Stringr Objects/StringrModelObjects.h"; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		AB4FF07D18C0019E000F550F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -444,7 +445,7 @@
 		BF8349D218297FD600D15963 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BF8349D618297FD600D15963 /* Stringr-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stringr-Info.plist"; sourceTree = "<group>"; };
 		BF8349D818297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "/Users/Jonathan/Documents/Programming/Git/Client Projects/Stringr/Stringr/main.m"; sourceTree = "<absolute>"; };
+		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = /Users/Jonathan/Documents/iOS/Personal/Git/Stringr/Stringr/main.m; sourceTree = "<absolute>"; };
 		BF8349DC18297FD600D15963 /* Stringr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stringr-Prefix.pch"; sourceTree = "<group>"; };
 		BF8349DD18297FD600D15963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF8349DE18297FD600D15963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -462,9 +463,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB04A2C219DBBFBE0030C241 /* Bolts.framework in Frameworks */,
-				AB04A2C319DBBFBE0030C241 /* Parse.framework in Frameworks */,
-				AB04A2C419DBBFBE0030C241 /* ParseFacebookUtils.framework in Frameworks */,
+				AB37EBEB19DC4B6A00E66580 /* Bolts.framework in Frameworks */,
+				AB37EBEC19DC4B6A00E66580 /* Parse.framework in Frameworks */,
+				AB37EBED19DC4B6A00E66580 /* ParseFacebookUtils.framework in Frameworks */,
 				AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */,
 				AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */,
 				AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */,
@@ -1122,9 +1123,9 @@
 		BF8349CD18297FD600D15963 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AB04A2BF19DBBFBE0030C241 /* Bolts.framework */,
-				AB04A2C019DBBFBE0030C241 /* Parse.framework */,
-				AB04A2C119DBBFBE0030C241 /* ParseFacebookUtils.framework */,
+				AB37EBE819DC4B6A00E66580 /* Bolts.framework */,
+				AB37EBE919DC4B6A00E66580 /* Parse.framework */,
+				AB37EBEA19DC4B6A00E66580 /* ParseFacebookUtils.framework */,
 				AB2CFA231911D31500A9DFF9 /* AdSupport.framework */,
 				AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */,
 				AB2CFA1F1911A68300A9DFF9 /* Social.framework */,
@@ -1181,6 +1182,7 @@
 				BF8349D718297FD600D15963 /* InfoPlist.strings */,
 				BF8349DA18297FD600D15963 /* main.m */,
 				BF8349DC18297FD600D15963 /* Stringr-Prefix.pch */,
+				AB37EBEF19DCA74500E66580 /* StringrModelObjects.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1634,6 +1636,8 @@
 					Framework,
 					"$(PROJECT_DIR)/External/Parse",
 					Framework,
+					"$(PROJECT_DIR)/External/Parse",
+					Framework,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
@@ -1654,6 +1658,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/External",
+					"$(PROJECT_DIR)/External/Parse",
+					Framework,
 					"$(PROJECT_DIR)/External/Parse",
 					Framework,
 					"$(PROJECT_DIR)/External/Parse",

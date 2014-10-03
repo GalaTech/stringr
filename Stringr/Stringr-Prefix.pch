@@ -15,6 +15,7 @@
     #import <Foundation/Foundation.h>
     #import <Parse/Parse.h>
     #import <ParseFacebookUtils/PFFacebookUtils.h>
+    #import "StringrModelObjects.h"
     #import "StringrCache.h"
     #import "StringrConstants.h"
     #import "StringrUtility.h"

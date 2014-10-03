@@ -10,29 +10,29 @@
 	<string>Stringr</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>707BB4A1-1429-4369-8AED-853CAB56F679</key>
+		<key>C1DF051392F649FA8E323F5784A3515D74151AC6</key>
 		<string>https://github.com/GalaTech/stringr</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Stringr.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>707BB4A1-1429-4369-8AED-853CAB56F679</key>
+		<key>C1DF051392F649FA8E323F5784A3515D74151AC6</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/GalaTech/stringr</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>707BB4A1-1429-4369-8AED-853CAB56F679</string>
+	<string>C1DF051392F649FA8E323F5784A3515D74151AC6</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>707BB4A1-1429-4369-8AED-853CAB56F679</string>
+			<string>C1DF051392F649FA8E323F5784A3515D74151AC6</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Stringr</string>
 		</dict>

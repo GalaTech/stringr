@@ -11,4 +11,6 @@
 
 @interface StringrUser : StringrObject
 
+@property (strong, nonatomic, readonly) PFUser *PFUser;
+
 @end
