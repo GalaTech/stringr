@@ -8,7 +8,7 @@
 
 #import "StringrMenuViewController.h"
 #import "StringrNavigationController.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 
 #import "StringrProfileViewController.h"
 #import "StringrMyStringsTableViewController.h"

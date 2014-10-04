@@ -13,7 +13,7 @@
 #import "StringrPathImageView.h"
 #import "StringrPrivacyPolicyTermsOfServiceViewController.h"
 #import "UIImage+Resize.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 #import "AppDelegate.h"
 #import "PBWebViewController.h"
 

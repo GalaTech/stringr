@@ -8,6 +8,6 @@
 
 #import "REFrostedViewController.h"
 
-@interface StringrRootViewController : REFrostedViewController
+@interface StringrAppController : REFrostedViewController
 
 @end

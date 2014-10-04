@@ -9,7 +9,7 @@
 #import "StringrEmailVerificationViewController.h"
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 #import "AppDelegate.h"
 
 @interface StringrEmailVerificationViewController ()

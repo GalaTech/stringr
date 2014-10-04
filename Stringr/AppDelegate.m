@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 #import "StringrNavigationController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrActivityTableViewController.h"
@@ -25,7 +25,6 @@
 
 @interface AppDelegate ()
 
-@property (weak, nonatomic) StringrRootViewController *rootVC;
 @property (nonatomic, strong) Reachability *hostReach;
 @property (nonatomic, strong) Reachability *internetReach;
 @property (nonatomic, strong) Reachability *wifiReach;
@@ -57,7 +56,7 @@
     [self monitorReachability];
 
     // setup and initialize the login controller
-    self.rootVC = (StringrRootViewController *)[self.window rootViewController];
+    self.rootViewController = (StringrAppController *)[self.window rootViewController];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
     [loginVC setDelegate:self];
@@ -68,7 +67,7 @@
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.rootVC presentViewController:loginNavVC animated:YES completion:nil];
+        [self.rootViewController presentViewController:loginNavVC animated:YES completion:nil];
     });
     
     return YES;
@@ -190,7 +189,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    id currentViewController = self.rootVC.contentViewController;
+    id currentViewController = self.rootViewController.contentViewController;
     if ([currentViewController isKindOfClass:[StringrHomeTabBarViewController class]]) {
         StringrHomeTabBarViewController *homeVC = (StringrHomeTabBarViewController *)currentViewController;
         [homeVC updateActivityNotificationsTabValue];
@@ -209,11 +208,11 @@
 
 - (void)setupLoggedInContent
 {
-    StringrMenuViewController *menuVC = (StringrMenuViewController *)self.rootVC.menuViewController;
+    StringrMenuViewController *menuVC = (StringrMenuViewController *)self.rootViewController.menuViewController;
     // Forces the menu table view controller to be scrolled to the top upon logging in
     menuVC.tableView.contentOffset = CGPointMake(0, 0 - menuVC.tableView.contentInset.top);
     
-    [self.rootVC setContentViewController:[self setupHomeTabBarController]];
+    [self.rootViewController setContentViewController:[self setupHomeTabBarController]];
 }
 
 - (BOOL)isParseReachable

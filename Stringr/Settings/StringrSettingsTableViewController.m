@@ -10,7 +10,7 @@
 #import "StringrNavigationController.h"
 #import "StringrLoginViewController.h"
 #import "StringrUtility.h"
-#import "StringrRootviewController.h"
+#import "StringrAppController.h"
 #import "StringrFindAndInviteFriendsTableViewController.h"
 #import "StringrPrivacyPolicyTermsOfServiceViewController.h"
 #import "StringrFBFriendPickerViewController.h"
@@ -408,7 +408,7 @@
         
         // I needed to get the direct root view controller in order to present a VC.
         UIWindow *window = [[[UIApplication sharedApplication] windows] firstObject];
-        StringrRootViewController *rootVC = (StringrRootViewController *)[window rootViewController];
+        StringrAppController *rootVC = (StringrAppController *)[window rootViewController];
         
         AppDelegate *stringrAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];

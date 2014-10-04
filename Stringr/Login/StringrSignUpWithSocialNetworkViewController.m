@@ -9,7 +9,7 @@
 #import "StringrSignUpWithSocialNetworkViewController.h"
 #import "StringrSelectProfileImageTableViewCell.h"
 #import "StringrSetProfileDisplayNameTableViewCell.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 #import "StringrPathImageView.h"
 #import "AppDelegate.h"
 

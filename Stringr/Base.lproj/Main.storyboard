@@ -528,7 +528,7 @@
         <!--Liked Strings-->
         <scene sceneID="VVi-cb-kts">
             <objects>
-                <viewController storyboardIdentifier="rootVC" id="TYo-jH-Mhx" customClass="StringrRootViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="rootVC" id="TYo-jH-Mhx" customClass="StringrAppController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9Ch-hR-fgT"/>
                         <viewControllerLayoutGuide type="bottom" id="8MS-df-5Ne"/>

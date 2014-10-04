@@ -16,6 +16,9 @@
 		AB04A2AD19D522E50030C241 /* StringrPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2AC19D522E50030C241 /* StringrPushNotification.m */; };
 		AB04A2B019D522F50030C241 /* StringrLike.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2AF19D522F50030C241 /* StringrLike.m */; };
 		AB04A2B319D523050030C241 /* StringrStringStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2B219D523050030C241 /* StringrStringStatistics.m */; };
+		AB04A2CD19DFCCE20030C241 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395219DF01F20073B626 /* Bolts.framework */; };
+		AB04A2CE19DFCCE20030C241 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395319DF01F20073B626 /* Parse.framework */; };
+		AB04A2CF19DFCCE20030C241 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395419DF01F20073B626 /* ParseFacebookUtils.framework */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
 		AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */; };
 		AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */; };
@@ -77,9 +80,6 @@
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
 		AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */; };
-		AB80395519DF01F20073B626 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395219DF01F20073B626 /* Bolts.framework */; };
-		AB80395619DF01F20073B626 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395319DF01F20073B626 /* Parse.framework */; };
-		AB80395719DF01F20073B626 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395419DF01F20073B626 /* ParseFacebookUtils.framework */; };
 		AB919C4A189EF23A00D40FD5 /* StringViewReorderable.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C49189EF23A00D40FD5 /* StringViewReorderable.m */; };
 		AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB919C4E18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib */; };
 		AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */; };
@@ -136,7 +136,7 @@
 		BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */; };
 		BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */; };
 		BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD5183AADCB0071E047 /* StringrConstants.m */; };
-		BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */; };
+		BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */; };
 		BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF1183D92330071E047 /* StringrNavigationController.m */; };
 		BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */; };
 		BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */; };
@@ -407,8 +407,8 @@
 		BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTableViewController.h; path = Profile/StringrProfileTableViewController.h; sourceTree = "<group>"; };
 		BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTableViewController.m; path = Profile/StringrProfileTableViewController.m; sourceTree = "<group>"; };
 		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConstants.m; path = Utility/StringrConstants.m; sourceTree = "<group>"; };
-		BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrRootViewController.h; path = Menu/StringrRootViewController.h; sourceTree = "<group>"; };
-		BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrRootViewController.m; path = Menu/StringrRootViewController.m; sourceTree = "<group>"; };
+		BF3EDDD7183D8EAD0071E047 /* StringrAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrAppController.h; path = Menu/StringrAppController.h; sourceTree = "<group>"; };
+		BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrAppController.m; path = Menu/StringrAppController.m; sourceTree = "<group>"; };
 		BF3EDDF0183D92330071E047 /* StringrNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigationController.h; path = Menu/StringrNavigationController.h; sourceTree = "<group>"; };
 		BF3EDDF1183D92330071E047 /* StringrNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigationController.m; path = Menu/StringrNavigationController.m; sourceTree = "<group>"; };
 		BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMenuViewController.h; path = Menu/StringrMenuViewController.h; sourceTree = "<group>"; };
@@ -445,7 +445,7 @@
 		BF8349D218297FD600D15963 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BF8349D618297FD600D15963 /* Stringr-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stringr-Info.plist"; sourceTree = "<group>"; };
 		BF8349D818297FD600D15963 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = /Users/Jonathan/Documents/iOS/Personal/Git/Stringr/Stringr/main.m; sourceTree = "<absolute>"; };
+		BF8349DA18297FD600D15963 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Stringr/main.m; sourceTree = SOURCE_ROOT; };
 		BF8349DC18297FD600D15963 /* Stringr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stringr-Prefix.pch"; sourceTree = "<group>"; };
 		BF8349DD18297FD600D15963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF8349DE18297FD600D15963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -463,9 +463,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB80395519DF01F20073B626 /* Bolts.framework in Frameworks */,
-				AB80395619DF01F20073B626 /* Parse.framework in Frameworks */,
-				AB80395719DF01F20073B626 /* ParseFacebookUtils.framework in Frameworks */,
+				AB04A2CD19DFCCE20030C241 /* Bolts.framework in Frameworks */,
+				AB04A2CE19DFCCE20030C241 /* Parse.framework in Frameworks */,
+				AB04A2CF19DFCCE20030C241 /* ParseFacebookUtils.framework in Frameworks */,
 				AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */,
 				AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */,
 				AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */,
@@ -969,8 +969,8 @@
 		BF3EDDCB183AAC900071E047 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				BF3EDDD7183D8EAD0071E047 /* StringrRootViewController.h */,
-				BF3EDDD8183D8EAD0071E047 /* StringrRootViewController.m */,
+				BF3EDDD7183D8EAD0071E047 /* StringrAppController.h */,
+				BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */,
 				BF3EDDF0183D92330071E047 /* StringrNavigationController.h */,
 				BF3EDDF1183D92330071E047 /* StringrNavigationController.m */,
 				BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */,
@@ -1424,7 +1424,7 @@
 				ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */,
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
-				BF3EDDD9183D8EAD0071E047 /* StringrRootViewController.m in Sources */,
+				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				AB04A2A719D522C40030C241 /* StringrFollow.m in Sources */,
@@ -1642,6 +1642,8 @@
 					Framework,
 					"$(PROJECT_DIR)/External/Parse",
 					Framework,
+					"$(PROJECT_DIR)/External/Parse",
+					Framework,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
@@ -1662,6 +1664,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/External",
+					"$(PROJECT_DIR)/External/Parse",
+					Framework,
 					"$(PROJECT_DIR)/External/Parse",
 					Framework,
 					"$(PROJECT_DIR)/External/Parse",
