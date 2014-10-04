@@ -23,15 +23,6 @@
 #pragma mark - Lifecycle
 //*********************************************************************************/
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -63,7 +54,7 @@
 
 - (void)signUpWithSocialNetwork
 {
-    if (self.username && self.displayName && self.password) {
+    if (self.username && self.displayName && self.password && self.reenteredPassword) {
         // used as an incremental boolean value. Every time a field is correct we increment it.
         // at the end we know how many field's should be correct so we can assess if the value
         // is equal to that value. The value should be 3 if all are correct
@@ -76,7 +67,8 @@
             [newUser setObject:self.username forKey:kStringrUserUsernameCaseSensitive];
             [newUser setUsername:[self.username lowercaseString]];
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = @"The username you entered is not valid!\n";
         }
         
@@ -84,18 +76,27 @@
             [newUser setObject:self.displayName forKey:kStringrUserDisplayNameKey];
 
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];
         }
         
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.password]) {
             [newUser setPassword:self.password];
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = [NSString stringWithFormat:@"%@The password you entered is not valid!\n", errorString];
         }
         
-        if (userIsValidForSignup == 3) {
+        if ([self.password isEqualToString:self.reenteredPassword]) {
+            userIsValidForSignup++;
+        }
+        else {
+            errorString = [NSString stringWithFormat:@"%@The passwords you entered do not match!", errorString];
+        }
+        
+        if (userIsValidForSignup == 4) {
             [newUser setObject:@(YES) forKey:kStringrUserSocialNetworkSignupCompleteKey];
             [newUser setObject:@"" forKey:kStringrUserDescriptionKey];
             
@@ -214,7 +215,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -234,11 +235,13 @@
             
             return selectProfileImageCell;
         }
-    } else if (indexPath.row == 1) {
+    }
+    else if (indexPath.row == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
         [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         
-    } else if (indexPath.row == 2) {
+    }
+    else if (indexPath.row == 2) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"username_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -255,7 +258,8 @@
             
             return displayNameCell;
         }
-    } else if (indexPath.row == 3) {
+    }
+    else if (indexPath.row == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"displayName_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -273,10 +277,12 @@
             
             return displayNameCell;
         }
-    } else if (indexPath.row == 4) {
+    }
+    else if (indexPath.row == 4) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
         [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    } else if (indexPath.row == 5) {
+    }
+    else if (indexPath.row == 5) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"password_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -287,7 +293,20 @@
             
             return displayNameCell;
         }
-    } else {
+    }
+    else if (indexPath.row == 6) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"password_cell" forIndexPath:indexPath];
+        
+        if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
+            StringrSetProfileDisplayNameTableViewCell *displayNameCell = (StringrSetProfileDisplayNameTableViewCell *)cell;
+            
+            [displayNameCell.setProfileDisplayNameTextField setPlaceholder:@"Re-enter password..."];
+            [displayNameCell.setProfileDisplayNameTextField setTag:5];
+            
+            return displayNameCell;
+        }
+    }
+    else {
         return nil;
     }
     
@@ -349,10 +368,15 @@
     // the text field's are associated via tag
     if (textField.tag == 1) {
         self.username = textField.text;
-    } else if (textField.tag == 2) {
+    }
+    else if (textField.tag == 2) {
         self.displayName = textField.text;
-    } else if (textField.tag == 4) {
+    }
+    else if (textField.tag == 4) {
         self.password = textField.text;
+    }
+    else if (textField.tag == 5) {
+        self.reenteredPassword = textField.text;
     }
 }
 
@@ -361,10 +385,16 @@
     if (textField.tag == 1) {
         UITextField *nextTextField = (UITextField *)[self.view viewWithTag:2];
         [nextTextField becomeFirstResponder];
-    } else if (textField.tag == 2) {
+    }
+    else if (textField.tag == 2) {
         UITextField *nextTextField = (UITextField *)[self.view viewWithTag:4];
         [nextTextField becomeFirstResponder];
-    } else if (textField.tag == 4) {
+    }
+    else if (textField.tag == 4) {
+        UITextField *nextTextField = (UITextField *)[self.view viewWithTag:5];
+        [nextTextField becomeFirstResponder];
+    }
+    else if (textField.tag == 5) {
         [textField resignFirstResponder];
     }
     

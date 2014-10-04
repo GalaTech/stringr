@@ -11,9 +11,10 @@
 @interface StringrSignUpWithEmailTableViewController : UITableViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UIImage *userProfileImage;
-@property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) NSString *displayName;
-@property (strong, nonatomic) NSString *emailAddress;
-@property (strong, nonatomic) NSString *password;
+@property (copy, nonatomic) NSString *username;
+@property (copy, nonatomic) NSString *displayName;
+@property (copy, nonatomic) NSString *emailAddress;
+@property (copy, nonatomic) NSString *password;
+@property (copy, nonatomic) NSString *reenteredPassword;
 
 @end
