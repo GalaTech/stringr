@@ -212,10 +212,9 @@
     } else if (buttonIndex == 1) {
         ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
         imagePickerController.imagePickerDelegate = self;
-        imagePickerController.maximumAllowsSelectionCount = 10;
+        imagePickerController.maximumAllowsSelectionCount = 50;
         imagePickerController.mediaType = ZCMediaAllPhotos;
         [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
-        
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
         StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
@@ -256,6 +255,8 @@
     for (NSDictionary *imageDict in info) {
         UIImage *image = [imageDict objectForKey:UIImagePickerControllerOriginalImage];
         
+        NSLog(@"%@", [imageDict description]);
+        
         [images addObject:image];
     }
     
@@ -264,9 +265,11 @@
         [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
         [newStringVC setEditDetailsEnabled:YES];
         
-        if (images.count <= 1) {
+        if (images && images.count <= 1)
+        {
             [newStringVC setUserSelectedPhoto:images[0]];
-        } else {
+        } else if (images)
+        {
             [newStringVC setUserSelectedPhotos:images];
         }
         

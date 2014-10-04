@@ -18,7 +18,7 @@
 #import "PBWebViewController.h"
 
 
-@interface StringrSignUpWithEmailTableViewController () 
+@interface StringrSignUpWithEmailTableViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) PFFile *profileImageFile;
 @property (strong, nonatomic) PFFile *profileThumbnailImageFile;
@@ -32,12 +32,18 @@
 #pragma mark - Lifecycle
 //*********************************************************************************/
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithStyle:style];
+    self = [super initWithCoder:aDecoder];
+    
     if (self) {
-        // Custom initialization
+        _username = @"";
+        _displayName = @"";
+        _emailAddress = @"";
+        _password = @"";
+        _reenteredPassword = @"";
     }
+    
     return self;
 }
 
@@ -54,6 +60,10 @@
     
     UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(signupWithUserInformation)];
     [self.navigationItem setRightBarButtonItem:signupNavigationItem];
+    
+    UIBarButtonItem *cancelSignupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelSignup)];
+    [self.navigationItem setLeftBarButtonItem:cancelSignupNavigationItem];
+    
     self.userProfileImage = [UIImage imageNamed:@"stringr_icon_filler"];
 }
 
@@ -83,6 +93,26 @@
 - (void)selectProfileImage
 {
     NSLog(@"touched button");
+}
+
+
+- (void)cancelSignup
+{
+    UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Signup" message:@"Are you sure you want to cancel your signup?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [cancelAlert show];
+}
+
+- (void)cleanupSignup
+{
+    NSString *usernameCaseSensitive = [[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive];
+    BOOL emailVerified = [[[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey] boolValue];
+    
+    if (!usernameCaseSensitive && !emailVerified)
+    {
+        [[PFUser currentUser] deleteInBackground];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -135,7 +165,7 @@
 
 - (void)signupWithUserInformation
 {
-    if (self.username && self.displayName && self.emailAddress && self.password) {
+    if (self.username && self.displayName && self.emailAddress && self.password && self.reenteredPassword) {
         // used as an incremental boolean value. Every time a field is correct we increment it.
         // at the end we know how many field's should be correct so we can assess if the value
         // is equal to that value. The value should be 4 if all are correct
@@ -148,7 +178,8 @@
             [newUser setObject:self.username forKey:kStringrUserUsernameCaseSensitive];
             [newUser setUsername:[self.username lowercaseString]];
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = @"The username you entered is not valid!\n";
         }
         
@@ -158,27 +189,37 @@
             //NSString *lowercaseName = [self.displayName lowercaseString];
             //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = [NSString stringWithFormat:@"%@The display name that you entered is not valid!\n", errorString];
         }
         
         if ([StringrUtility NSStringIsValidEmail:self.emailAddress]) {
             [newUser setEmail:self.emailAddress];
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = [NSString stringWithFormat:@"%@The email address you entered is not valid!\n", errorString];
         }
         
         if ([StringrUtility NSStringContainsCharactersWithoutWhiteSpace:self.password]) {
             [newUser setPassword:self.password];
             userIsValidForSignup++;
-        } else {
+        }
+        else {
             errorString = [NSString stringWithFormat:@"%@The password you entered is not valid!\n", errorString];
         }
         
-        if (userIsValidForSignup == 4) {
+        if ([self.password isEqualToString:self.reenteredPassword]) {
+            userIsValidForSignup++;
+        }
+        else {
+            errorString = [NSString stringWithFormat:@"%@The passwords you entered do not match!", errorString];
+        }
+        
+        if (userIsValidForSignup == 5) {
             [newUser setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
-            [newUser setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
+            [newUser setObject:@"" forKey:kStringrUserDescriptionKey];
             if (self.profileImageFile && self.profileThumbnailImageFile) {
                 [newUser setObject:self.profileImageFile forKey:kStringrUserProfilePictureKey];
                 [newUser setObject:self.profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
@@ -199,8 +240,6 @@
                  
             }
             
-            
-            
             [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     
@@ -208,6 +247,9 @@
                     [PFUser becomeInBackground:newUser.sessionToken];
                     
                     NSNumber *emailIsVerified = [[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey];
+                    
+                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
                     
                     if ([emailIsVerified boolValue]) {
                         // instantiates the main logged in content area
@@ -218,15 +260,16 @@
                                 if (!error) {
                                     [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
                                     
-                                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
-                                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-                                    
-                                    [[PFUser currentUser] saveInBackground];
-                                    
                                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
                                     [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
                                     [[PFInstallation currentInstallation] saveEventually];
                                 }
+                                else
+                                {
+                                    
+                                }
+                                
+                                [[PFUser currentUser] saveInBackground];
                             }];
                         }];
                     } else {
@@ -273,14 +316,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 7;
+    return 8;
 }
 
 
@@ -301,11 +342,13 @@
             
             return selectProfileImageCell;
         }
-    } else if (indexPath.row == 1) {
+    }
+    else if (indexPath.row == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
         [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
         
-    } else if (indexPath.row == 2) {
+    }
+    else if (indexPath.row == 2) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"username_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -316,7 +359,8 @@
             
             return displayNameCell;
         }
-    } else if (indexPath.row == 3) {
+    }
+    else if (indexPath.row == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"displayName_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -327,10 +371,12 @@
             
             return displayNameCell;
         }
-    } else if (indexPath.row == 4) {
+    }
+    else if (indexPath.row == 4) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
         [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    } else if (indexPath.row == 5) {
+    }
+    else if (indexPath.row == 5) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"email_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -341,7 +387,8 @@
             
             return displayNameCell;
         }
-    } else if (indexPath.row == 6) {
+    }
+    else if (indexPath.row == 6) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"password_cell" forIndexPath:indexPath];
         
         if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
@@ -352,7 +399,20 @@
             
             return displayNameCell;
         }
-    } else {
+    }
+    else if (indexPath.row == 7) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"password_cell" forIndexPath:indexPath];
+        
+        if ([cell isKindOfClass:[StringrSetProfileDisplayNameTableViewCell class]]) {
+            StringrSetProfileDisplayNameTableViewCell *displayNameCell = (StringrSetProfileDisplayNameTableViewCell *)cell;
+            
+            [displayNameCell.setProfileDisplayNameTextField setPlaceholder:@"Re-enter password..."];
+            [displayNameCell.setProfileDisplayNameTextField setTag:5];
+            
+            return displayNameCell;
+        }
+    }
+    else {
         return nil;
     }
     
@@ -460,12 +520,18 @@
     // the text field's are associated via tag
     if (textField.tag == 1) {
         self.username = textField.text;
-    } else if (textField.tag == 2) {
+    }
+    else if (textField.tag == 2) {
         self.displayName = textField.text;
-    } else if (textField.tag == 3) {
+    }
+    else if (textField.tag == 3) {
         self.emailAddress = textField.text;
-    } else if (textField.tag == 4) {
+    }
+    else if (textField.tag == 4) {
         self.password = textField.text;
+    }
+    else if (textField.tag == 5) {
+        self.reenteredPassword = textField.text;
     }
 }
 
@@ -474,13 +540,20 @@
     if (textField.tag == 1) {
         UITextField *nextTextField = (UITextField *)[self.view viewWithTag:2];
         [nextTextField becomeFirstResponder];
-    } else if (textField.tag == 2) {
+    }
+    else if (textField.tag == 2) {
         UITextField *nextTextField = (UITextField *)[self.view viewWithTag:3];
         [nextTextField becomeFirstResponder];
-    } else if (textField.tag == 3) {
+    }
+    else if (textField.tag == 3) {
         UITextField *nextTextField = (UITextField *)[self.view viewWithTag:4];
         [nextTextField becomeFirstResponder];
-    } else if (textField.tag == 4) {
+    }
+    else if (textField.tag == 4) {
+        UITextField *nextTextField = (UITextField *)[self.view viewWithTag:5];
+        [nextTextField becomeFirstResponder];
+    }
+    else if (textField.tag == 5) {
         [textField resignFirstResponder];
     }
     
@@ -565,6 +638,16 @@
     }];
 }
 
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == !alertView.cancelButtonIndex)
+    {
+        [self cleanupSignup];
+    }
+}
 
 
 @end

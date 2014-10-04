@@ -352,64 +352,36 @@
 {
     FBRequest *request = [FBRequest requestForMe];
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        // handle response
-        if (!error) {
-            // Parse the data received
+        if (!error)
+        {
             NSDictionary *userData = (NSDictionary *)result;
             
             NSString *facebookID = userData[@"id"];
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
-            // If it's a new user we go through the setup of loading all their facebook info
-            //if ([[PFUser currentUser] isNew]) {
-                if (facebookID) {
-                    [[PFUser currentUser] setObject:facebookID forKey:kStringrUserFacebookIDKey];
-                    //userProfile[@"facebookId"] = facebookID;
-                }
+            if (facebookID)
+            {
+                [[PFUser currentUser] setObject:facebookID forKey:kStringrUserFacebookIDKey];
+            }
+        
+            if (userData[@"name"])
+            {
+                [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
+            }
             
-                if (userData[@"name"]) {
-                    [[PFUser currentUser] setObject:userData[@"name"] forKey:kStringrUserDisplayNameKey];
-                    
-                    //NSString *lowercaseName = [userData[@"name"] lowercaseString];
-                    //[[PFUser currentUser] setObject:lowercaseName forKey:kStringrUserDisplayNameCaseInsensitiveKey];
-                }
-                
-                if ([pictureURL absoluteString]) {
-                    [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:kStringrUserProfilePictureURLKey];
-                    [self downloadProfileImage];
-                }
-            
-                [[PFUser currentUser] setObject:@"Edit your profile to set the description." forKey:kStringrUserDescriptionKey];
-                [[PFUser currentUser] setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
-            //}
-
-            
-            // I might just add the addition of geo location when a user attempts to select a location based page
-            /*
-            [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
-                if (!error) {
-                    [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
-                    
-                    // Saves the user after we have ensured they are a valid college student
-                    [[PFUser currentUser] saveInBackground];
-                }
-            }];
-             */
-             
-             // Saves the user after we have ensured they are a valid college student
-             [[PFUser currentUser] saveInBackground];
-            
-            
-            
-        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"]) {
-            
-            // Since the request failed, we can check if it was due to an invalid session
+            if ([pictureURL absoluteString])
+            {
+                [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:kStringrUserProfilePictureURLKey];
+                [self downloadProfileImage];
+            }
+        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"])
+        {
             NSLog(@"The facebook session was invalidated");
-        } else {
+        } else
+        {
             NSLog(@"Some other error: %@", error);
         }
     }];
-    
 }
 
 - (void)userTwitterLoginData

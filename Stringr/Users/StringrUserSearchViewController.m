@@ -68,11 +68,14 @@
         // of a word. Also looks at the end of word to match for last names.
         //NSString *usernameSearchRegexPattern = [NSString stringWithFormat:@"^%@|%@$", modifiedSearchText, modifiedSearchText];
         
+        // I check for username case sensitive on both just to make sure the user is completed in sign-up. This will be corrected.
         PFQuery *userUsernameQuery = [PFUser query];
         [userUsernameQuery whereKey:kStringrUserUsernameKey matchesRegex:modifiedSearchText modifiers:@"i"];
+        [userUsernameQuery whereKeyExists:kStringrUserUsernameCaseSensitive];
         
         PFQuery *userDisplaynameQuery = [PFUser query];
         [userDisplaynameQuery whereKey:kStringrUserDisplayNameKey matchesRegex:modifiedSearchText modifiers:@"i"];
+        [userDisplaynameQuery whereKeyExists:kStringrUserUsernameCaseSensitive];
         
         PFQuery *userQuery = [PFQuery orQueryWithSubqueries:@[userUsernameQuery, userDisplaynameQuery]];
         [userQuery orderByAscending:kStringrUserUsernameKey];

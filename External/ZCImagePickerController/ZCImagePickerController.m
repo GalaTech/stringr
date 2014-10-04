@@ -25,7 +25,7 @@
         
         // maximum allow selection default value
         // setting the default value below
-        self.maximumAllowsSelectionCount = 10;
+        self.maximumAllowsSelectionCount = 50;
         
         self.assetsLibrary = [[ALAssetsLibrary alloc] init];
         
