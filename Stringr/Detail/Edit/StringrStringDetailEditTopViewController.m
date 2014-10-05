@@ -10,7 +10,6 @@
 #import "StringCollectionView.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrPhotoDetailEditTableViewController.h"
-#import "StringViewReorderable.h"
 #import "StringrNavigationController.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 
@@ -20,7 +19,6 @@
 
 @property (strong, nonatomic) StringCollectionView *stringCollectionView;
 @property (strong, nonatomic) NSMutableArray *stringPhotosToDelete;
-@property (weak, nonatomic) StringViewReorderable *stringReorderableCollectionView;
 @property (strong, nonatomic) NSString *stringTitle;
 @property (strong, nonatomic) NSString *stringDescription;
 @property (nonatomic) BOOL stringWriteAccess;
