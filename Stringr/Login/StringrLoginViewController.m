@@ -8,7 +8,7 @@
 
 #import "StringrLoginViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 #import "UIImage+Resize.h"
 #import "StringrSignUpWithEmailTableViewController.h"
 #import "StringrSignUpWithSocialNetworkViewController.h"
@@ -20,7 +20,7 @@
 #import "StringrActivityTableViewController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrMenuViewController.h"
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 
 //#import "StringrProfileViewController.h"
 
@@ -111,7 +111,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc login");
+
 }
 
 
@@ -176,8 +176,8 @@
 
 - (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
 {
-    // First checks internet to ensure that the user is connected
-    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.rootViewController isParseReachable]) {
         //[self presentCheckYourInternetConnectionAlertView];
         return;
     }
@@ -210,7 +210,7 @@
             
             if ([StringrUtility facebookUserCanLogin:user]) {
                 // instantiates the main logged in content area
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate logInViewController:self didLogInUser:user];
@@ -227,7 +227,8 @@
 
 - (IBAction)loginWithTwitterButtonTouchHandler:(UIButton *)sender
 {
-    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.rootViewController isParseReachable]) {
         //[self presentCheckYourInternetConnectionAlertView];
         return;
     }
@@ -253,7 +254,7 @@
             
             if ([StringrUtility twitterUserCanLogin:user]) {
                 // instantiates the main logged in content area
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate logInViewController:self didLogInUser:user];
@@ -299,8 +300,8 @@
 // logs in the user after the refresh is complete on the current user
 - (void)loginUserFromRefresh
 {
-    // First checks internet to ensure that the user is connected
-    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.rootViewController isParseReachable]) {
         //[self presentCheckYourInternetConnectionAlertView];
         return;
     }
@@ -321,7 +322,7 @@
         
         // Check if user is cached and linked to Facebook, twitter, or email, if so, bypass login
         if ([StringrUtility facebookUserCanLogin:[PFUser currentUser]] || [StringrUtility twitterUserCanLogin:[PFUser currentUser]] || [StringrUtility usernameUserCanLogin:[PFUser currentUser]]) { // if the user is a facebook user
-            [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+            [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
             [self.loginActivityIndicator stopAnimating];
             [self dismissViewControllerAnimated:YES completion:^ {
                 [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
@@ -496,8 +497,8 @@
 {
     [self.loginActivityIndicator stopAnimating];
     
-    // First checks internet to ensure that the user is connected
-    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.rootViewController isParseReachable]) {
         //[self presentCheckYourInternetConnectionAlertView];
         return;
     }
@@ -511,7 +512,7 @@
         [noPasswordEntered show];
     } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
         // instantiates the main logged in content area
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+        [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
         //[self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self dismissViewControllerAnimated:YES completion:^ {

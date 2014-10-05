@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 #import "StringrNoContentView.h"
 
 @interface StringrTableViewController : PFQueryTableViewController <StringrNoContentViewDelegate>

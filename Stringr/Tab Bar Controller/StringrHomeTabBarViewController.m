@@ -8,13 +8,42 @@
 
 #import "StringrHomeTabBarViewController.h"
 #import "StringrActivityTableViewController.h"
-#import "StringrNetworkRequests+Activity.h"
+#import "StringrNetworkRequest+Activity.h"
+
+#import "StringrNavigationController.h"
+#import "StringrFollowingTableViewController.h"
+
+#import "StringrActivityManager.h"
 
 @implementation StringrHomeTabBarViewController
 
 //*********************************************************************************/
 #pragma mark - Lifecycle
 //*********************************************************************************/
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        StringrFollowingTableViewController *followingVC = [[StringrFollowingTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
+        UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
+        [followingNavVC setTabBarItem:followingTab];
+        
+        StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
+        StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
+        UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
+        [activityNavVC setTabBarItem:activityTab];
+        
+        [self setViewControllers:@[followingNavVC, activityNavVC]];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateActivityNotificationsTabValue) name:@"currentUserHasNewActivities" object:nil];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -33,7 +62,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self updateActivityNotificationsTabValue];
+    [StringrNetworkRequest activitiesForUser:[PFUser currentUser] completionBlock:nil];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
@@ -45,20 +74,12 @@
 
 - (void)updateActivityNotificationsTabValue
 {
-    [StringrNetworkRequests numberOfActivitesForUser:[PFUser currentUser] completionBlock:^(NSInteger numberOfActivities, BOOL success) {
-        if (success) {
-            NSInteger numberOfPreviousActivities = [[[NSUserDefaults standardUserDefaults] objectForKey:kNSUserDefaultsNumberOfActivitiesKey] integerValue];
-            
-            NSInteger numberOfNewActivities = numberOfActivities - numberOfPreviousActivities;
-            
-            if (numberOfNewActivities > 0) {
-                UITabBarItem *activityTab = [[self.viewControllers lastObject] tabBarItem];
-                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
-            }
-            
-            [[NSUserDefaults standardUserDefaults] setObject:@(numberOfActivities) forKey:kNSUserDefaultsNumberOfActivitiesKey];
-        }
-    }];
+    NSInteger numberOfNewActivities = [[StringrActivityManager sharedManager] numberOfNewActivitiesForCurrentUser];
+    
+    if (numberOfNewActivities > 0) {
+        UITabBarItem *activityTab = [[self.viewControllers lastObject] tabBarItem];
+        [activityTab setBadgeValue:[NSString stringWithFormat:@"%ld", (long)numberOfNewActivities]];
+    }
 }
 
 

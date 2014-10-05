@@ -7,7 +7,7 @@
 //
 
 #import "StringrNoContentView.h"
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 
 @interface StringrNoContentView ()
 

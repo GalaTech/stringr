@@ -220,9 +220,9 @@
     if (self.objects.count == 0) {
         [query setCachePolicy:kPFCachePolicyNetworkOnly];
     }
-     
     
-    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.rootViewController isParseReachable]) {
         query = [PFQuery queryWithClassName:@"no_class"];
     }
     

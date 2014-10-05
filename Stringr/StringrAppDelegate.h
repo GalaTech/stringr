@@ -7,18 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrAppController.h"
 #import "StringrLoginViewController.h"
 #import "StringrHomeTabBarViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, StringrLoginViewControllerDelegate>
+@interface StringrAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, readonly) int networkStatus;
+@property (strong, nonatomic) StringrAppController *rootViewController;
 
 - (void)setupLoggedInContent;
-- (StringrHomeTabBarViewController *)setupHomeTabBarController;
-- (StringrDiscoveryTabBarViewController *)setupDiscoveryTabBarController;
-- (BOOL)isParseReachable;
 
 @end

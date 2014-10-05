@@ -11,6 +11,10 @@
 #import "StringrNavigationController.h"
 #import "StringrUtility.h"
 
+#import "StringrPopularTableViewController.h"
+#import "StringrDiscoveryTableViewController.h"
+#import "StringrNearYouTableViewController.h"
+
 @interface StringrDiscoveryTabBarViewController ()
 
 @end
@@ -20,6 +24,32 @@
 //*********************************************************************************/
 #pragma mark - Lifecycle
 //*********************************************************************************/
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        StringrPopularTableViewController *popularVC = [[StringrPopularTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        StringrNavigationController *popularNavVC = [[StringrNavigationController alloc] initWithRootViewController:popularVC];
+        UITabBarItem *popularTab = [[UITabBarItem alloc] initWithTitle:@"Popular" image:[UIImage imageNamed:@"crown_icon"] tag:0];
+        [popularNavVC setTabBarItem:popularTab];
+        
+        StringrDiscoveryTableViewController *discoverVC = [[StringrDiscoveryTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        StringrNavigationController *discoverNavVC = [[StringrNavigationController alloc] initWithRootViewController:discoverVC];
+        UITabBarItem *discoverTab = [[UITabBarItem alloc] initWithTitle:@"Discover" image:[UIImage imageNamed:@"sailboat_icon"] tag:0];
+        [discoverNavVC setTabBarItem:discoverTab];
+        
+        StringrNearYouTableViewController *nearYouVC = [[StringrNearYouTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        StringrNavigationController *nearYouNavVC = [[StringrNavigationController alloc] initWithRootViewController:nearYouVC];
+        UITabBarItem *nearYouTab = [[UITabBarItem alloc] initWithTitle:@"Near You" image:[UIImage imageNamed:@"solarSystem_icon"] tag:0];
+        [nearYouNavVC setTabBarItem:nearYouTab];
+        
+        [self setViewControllers:@[popularNavVC, discoverNavVC, nearYouNavVC]];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad
 {

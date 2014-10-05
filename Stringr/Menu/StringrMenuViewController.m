@@ -8,7 +8,7 @@
 
 #import "StringrMenuViewController.h"
 #import "StringrNavigationController.h"
-#import "StringrRootViewController.h"
+#import "StringrAppController.h"
 
 #import "StringrProfileViewController.h"
 #import "StringrMyStringsTableViewController.h"
@@ -33,7 +33,7 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "StringrPathImageView.h"
 
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 
 #import "StringrLikedPhotosTableViewController.h"
 
@@ -300,7 +300,7 @@
     //UINavigationController *navigationController = (UINavigationController *)self.frostedViewController.contentViewController;
     
     if (indexPath.row == 0) {
-        StringrHomeTabBarViewController *homeTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupHomeTabBarController];
+        StringrHomeTabBarViewController *homeTabBarVC = [StringrHomeTabBarViewController new];
         
         [self.frostedViewController setContentViewController:homeTabBarVC];
     } else if (indexPath.row == 1) {
@@ -321,7 +321,7 @@
     } else if (indexPath.row == 3) {
         [self.frostedViewController setContentViewController:[self setupLikedTabBarController]];
     } else if (indexPath.row == 4) {
-        StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+        StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
         [self.frostedViewController setContentViewController:discoveryTabBarVC];
         
     } else if (indexPath.row == 5) {

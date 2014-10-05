@@ -9,8 +9,8 @@
 #import "StringrEmailVerificationViewController.h"
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
-#import "StringrRootViewController.h"
-#import "AppDelegate.h"
+#import "StringrAppController.h"
+#import "StringrAppDelegate.h"
 
 @interface StringrEmailVerificationViewController ()
 
@@ -97,7 +97,7 @@
                     [self.verifedLabel setTextColor:[UIColor greenColor]];
                     
                     // instantiates the main logged in content area
-                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                    [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                     
                     [self dismissViewControllerAnimated:YES completion:^ {
                         [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {

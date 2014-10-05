@@ -82,7 +82,7 @@ float const kStringrPFObjectDetailTableViewCellHeight = 41.5;
 
 NSString * const kNSUserDefaultsWorkingStringSavedImagesKey = @"co.galatech.Stringr.userDefaults.workingString.savedImagesKey";
 NSString * const kNSUserDefaultsPushNotificationsEnabledKey = @"co.galatech.Stringr.userDefaults.pushNotificationsEnabledKey";
-NSString * const kNSUserDefaultsNumberOfActivitiesKey = @"co.galatech.Stringr.userDefaults.numberOfActivitiesKey";
+NSString * const kNSUserDefaultsNumberOfNewActivitiesKey = @"co.galatech.Stringr.userDefaults.numberOfNewActivitiesKey";
 
 
 //*********************************************************************************/
