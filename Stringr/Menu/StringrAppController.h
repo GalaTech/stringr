@@ -7,7 +7,12 @@
 //
 
 #import "REFrostedViewController.h"
+#import "StringrLoginViewController.h"
 
-@interface StringrAppController : REFrostedViewController
+@interface StringrAppController : REFrostedViewController <StringrLoginViewControllerDelegate>
+
+- (void)launchSequence:(NSDictionary *)launchOptions;
+
+- (BOOL)isParseReachable;
 
 @end

@@ -10,11 +10,36 @@
 #import "StringrActivityTableViewController.h"
 #import "StringrNetworkRequests+Activity.h"
 
+#import "StringrNavigationController.h"
+#import "StringrFollowingTableViewController.h"
+
 @implementation StringrHomeTabBarViewController
 
 //*********************************************************************************/
 #pragma mark - Lifecycle
 //*********************************************************************************/
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        StringrFollowingTableViewController *followingVC = [[StringrFollowingTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
+        UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
+        [followingNavVC setTabBarItem:followingTab];
+        
+        StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
+        StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
+        UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
+        [activityNavVC setTabBarItem:activityTab];
+        
+        [self setViewControllers:@[followingNavVC, activityNavVC]];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad
 {

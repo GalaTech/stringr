@@ -19,7 +19,7 @@
 #import "StringrPushNotificationsTableViewController.h"
 #import "StringrStringDetailViewController.h"
 #import <MessageUI/MessageUI.h>
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 #import "PBWebViewController.h"
 #import "ZCImagePickerController.h"
 
@@ -410,7 +410,7 @@
         UIWindow *window = [[[UIApplication sharedApplication] windows] firstObject];
         StringrAppController *rootVC = (StringrAppController *)[window rootViewController];
         
-        AppDelegate *stringrAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        StringrAppDelegate *stringrAppDelegate = (StringrAppDelegate *)[[UIApplication sharedApplication] delegate];
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
         [loginVC setDelegate:stringrAppDelegate];
         

@@ -14,7 +14,7 @@
 #import "StringrPrivacyPolicyTermsOfServiceViewController.h"
 #import "UIImage+Resize.h"
 #import "StringrAppController.h"
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 #import "PBWebViewController.h"
 
 
@@ -253,7 +253,7 @@
                     
                     if ([emailIsVerified boolValue]) {
                         // instantiates the main logged in content area
-                        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                        [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                         
                         [self dismissViewControllerAnimated:YES completion:^ {
                             [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {

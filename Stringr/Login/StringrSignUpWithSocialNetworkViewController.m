@@ -11,7 +11,7 @@
 #import "StringrSetProfileDisplayNameTableViewCell.h"
 #import "StringrAppController.h"
 #import "StringrPathImageView.h"
-#import "AppDelegate.h"
+#import "StringrAppDelegate.h"
 
 @interface StringrSignUpWithSocialNetworkViewController () <UIAlertViewDelegate>
 
@@ -106,7 +106,7 @@
             [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     // instantiates the main logged in content area
-                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                    [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
                     
                     [self dismissViewControllerAnimated:YES completion:^ {
                         [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {

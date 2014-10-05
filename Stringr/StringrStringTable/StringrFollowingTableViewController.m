@@ -76,7 +76,7 @@
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
     
     [self.frostedViewController setContentViewController:discoveryTabBarVC];
 }

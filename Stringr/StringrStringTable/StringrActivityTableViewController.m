@@ -276,8 +276,8 @@
         [activityQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
     }
     
-    
-    if (![(AppDelegate *)[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.rootViewController isParseReachable]) {
         activityQuery = [PFQuery queryWithClassName:@"no_class"];
     }
     
@@ -358,7 +358,7 @@
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] setupDiscoveryTabBarController];
+    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
     [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discover
     
     [self.frostedViewController setContentViewController:discoveryTabBarVC];
