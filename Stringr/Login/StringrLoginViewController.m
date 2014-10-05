@@ -111,7 +111,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc login");
+
 }
 
 

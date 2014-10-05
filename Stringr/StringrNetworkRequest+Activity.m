@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrNetworkRequests+Activity.h"
+#import "StringrNetworkRequest+Activity.h"
+#import "StringrActivityManager.h"
 
-@implementation StringrNetworkRequests (Activity)
-
+@implementation StringrNetworkRequest (Activity)
 
 + (void)numberOfActivitesForUser:(PFUser *)user completionBlock:(void (^)(NSInteger numberOfActivities, BOOL success))completionBlock
 {
@@ -21,11 +21,25 @@
             if (completionBlock) {
                 completionBlock(numberOfActivites, YES);
             }
+            
+            if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                [self saveNumberActivitiesForCurrentUser:(NSInteger)numberOfActivites];
+            }
         }
         else {
             if (completionBlock) {
                 completionBlock(0, NO);
             }
+        }
+    }];
+}
+
+
++ (void)saveNumberActivitiesForCurrentUser:(NSInteger)numberOfActivities
+{
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [[StringrActivityManager sharedManager] setNumberOfActivitiesForCurrentUser:numberOfActivities];
         }
     }];
 }

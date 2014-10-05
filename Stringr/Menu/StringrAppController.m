@@ -13,6 +13,7 @@
 #import "StringrStringTableViewController.h"
 #import "StringrHomeTabBarViewController.h"
 #import "StringrActivityTableViewController.h"
+#import "StringrUpdateEngine.h"
 
 #import "Reachability.h"
 
@@ -58,16 +59,6 @@
     [super viewDidLoad];
     
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardMenuID];
-
-    self.liveBlur = YES;
-    // makes the menu thinner than the default
-    self.menuViewSize = CGSizeMake(250, CGRectGetHeight(self.view.frame));
-    
-    // Sets the navigation bar title to a lighter font variant throughout the app.
-    [[UINavigationBar appearance] setTitleTextAttributes: @{
-                                                            NSForegroundColorAttributeName: [UIColor grayColor],
-                                                            NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
-                                                            }];
 }
 
 
@@ -84,6 +75,7 @@
     [self setupParse];
     [self setupLoginController];
     [self monitorReachability];
+    [self setupAppearance];
 }
 
 
@@ -101,6 +93,21 @@
 
 
 #pragma mark - Private
+
+- (void)setupAppearance
+{
+    self.liveBlur = YES;
+    
+    // makes the menu thinner than the default
+    self.menuViewSize = CGSizeMake(250, CGRectGetHeight(self.view.frame));
+    
+    // Sets the navigation bar title to a lighter font variant throughout the app.
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor grayColor],
+                                                            NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
+                                                            }];
+}
+
 
 - (void)setupLoginController
 {

@@ -43,6 +43,8 @@
         self.pullToRefreshEnabled = YES;
 //        self.paginationEnabled = YES;
         self.objectsPerPage = 30;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshActivity) name:@"currentUserHasNewActivities" object:nil];
     }
     
     return self;
@@ -89,6 +91,12 @@
     } else {
         return nil;
     }
+}
+
+
+- (void)refreshActivity
+{
+    [self loadObjects];
 }
 
 

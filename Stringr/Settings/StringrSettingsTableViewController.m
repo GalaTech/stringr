@@ -20,6 +20,7 @@
 #import "StringrStringDetailViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "StringrAppDelegate.h"
+#import "StringrActivityManager.h"
 #import "PBWebViewController.h"
 #import "ZCImagePickerController.h"
 
@@ -387,9 +388,9 @@
         [PFQuery clearAllCachedResults];
         [[StringrCache sharedCache] clear];
         
-        [[PFInstallation currentInstallation] setObject:[[NSUserDefaults standardUserDefaults] objectForKey:kNSUserDefaultsNumberOfActivitiesKey] forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
+        [[PFInstallation currentInstallation] setObject:@([[StringrActivityManager sharedManager] numberOfNewActivitiesForCurrentUser]) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
         
-        [[NSUserDefaults standardUserDefaults] setObject:@(0) forKey:kNSUserDefaultsNumberOfActivitiesKey];
+        [[NSUserDefaults standardUserDefaults] setObject:@(0) forKey:kNSUserDefaultsNumberOfNewActivitiesKey];
         
         // Unsubscribe from push notifications for this installation
         [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
@@ -412,7 +413,7 @@
         
         StringrAppDelegate *stringrAppDelegate = (StringrAppDelegate *)[[UIApplication sharedApplication] delegate];
         StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
-        [loginVC setDelegate:stringrAppDelegate];
+        [loginVC setDelegate:stringrAppDelegate.rootViewController];
         
         StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];
         

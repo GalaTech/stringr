@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrNetworkRequests : NSObject
+@interface StringrNetworkRequest : NSObject
 
-+ (void)addObject:(StringrObject *)object;
-+ (void)getObjectWithName:(NSString *)name completionBlock:(void (^)(StringrObject *object, BOOL success))completionBlock;
 
 @end

@@ -18,6 +18,9 @@
 		AB04A2CD19DFCCE20030C241 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395219DF01F20073B626 /* Bolts.framework */; };
 		AB04A2CE19DFCCE20030C241 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395319DF01F20073B626 /* Parse.framework */; };
 		AB04A2CF19DFCCE20030C241 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80395419DF01F20073B626 /* ParseFacebookUtils.framework */; };
+		AB04A2DE19E0CFCD0030C241 /* StringrUpdateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2DD19E0CFCD0030C241 /* StringrUpdateEngine.m */; };
+		AB04A2E419E10ECF0030C241 /* StringrSharedData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2E319E10ECF0030C241 /* StringrSharedData.m */; };
+		AB04A2E719E1167E0030C241 /* StringrActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2E619E1167E0030C241 /* StringrActivityManager.m */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
 		AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */; };
 		AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */; };
@@ -29,9 +32,9 @@
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
 		AB1FDF3819AC1F9F0059338B /* StringrNetworkUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */; };
-		AB1FDF3C19AC20A60059338B /* StringrNetworkRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3B19AC20A60059338B /* StringrNetworkRequests.m */; };
-		AB1FDF3F19AC20D00059338B /* StringrNetworkRequests+User.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3E19AC20D00059338B /* StringrNetworkRequests+User.m */; };
-		AB1FDF4219AC22310059338B /* StringrNetworkRequests+Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4119AC22310059338B /* StringrNetworkRequests+Activity.m */; };
+		AB1FDF3C19AC20A60059338B /* StringrNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3B19AC20A60059338B /* StringrNetworkRequest.m */; };
+		AB1FDF3F19AC20D00059338B /* StringrNetworkRequest+User.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3E19AC20D00059338B /* StringrNetworkRequest+User.m */; };
+		AB1FDF4219AC22310059338B /* StringrNetworkRequest+Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4119AC22310059338B /* StringrNetworkRequest+Activity.m */; };
 		AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4419AC37DA0059338B /* StringrUser.m */; };
 		AB1FDF4919AC388B0059338B /* StringrObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4819AC388B0059338B /* StringrObject.m */; };
 		AB1FDF4C19AC38A90059338B /* StringrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4B19AC38A90059338B /* StringrPhoto.m */; };
@@ -189,6 +192,12 @@
 		AB04A2AF19D522F50030C241 /* StringrLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLike.m; path = "Stringr Objects/StringrLike.m"; sourceTree = "<group>"; };
 		AB04A2B119D523050030C241 /* StringrStringStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringStatistics.h; path = "Stringr Objects/StringrStringStatistics.h"; sourceTree = "<group>"; };
 		AB04A2B219D523050030C241 /* StringrStringStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringStatistics.m; path = "Stringr Objects/StringrStringStatistics.m"; sourceTree = "<group>"; };
+		AB04A2DC19E0CFCD0030C241 /* StringrUpdateEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUpdateEngine.h; path = "Data Backend/StringrUpdateEngine.h"; sourceTree = "<group>"; };
+		AB04A2DD19E0CFCD0030C241 /* StringrUpdateEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUpdateEngine.m; path = "Data Backend/StringrUpdateEngine.m"; sourceTree = "<group>"; };
+		AB04A2E219E10ECF0030C241 /* StringrSharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSharedData.h; path = "Data Backend/StringrSharedData.h"; sourceTree = "<group>"; };
+		AB04A2E319E10ECF0030C241 /* StringrSharedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSharedData.m; path = "Data Backend/StringrSharedData.m"; sourceTree = "<group>"; };
+		AB04A2E519E1167E0030C241 /* StringrActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActivityManager.h; path = "Data Backend/StringrActivityManager.h"; sourceTree = "<group>"; };
+		AB04A2E619E1167E0030C241 /* StringrActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityManager.m; path = "Data Backend/StringrActivityManager.m"; sourceTree = "<group>"; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
 		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
 		AB0F531F1908458800A29E59 /* StringrInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrInviteFriendsTableViewController.h; path = Settings/StringrInviteFriendsTableViewController.h; sourceTree = "<group>"; };
@@ -211,12 +220,12 @@
 		AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterView.m; path = Footer/StringrFooterView.m; sourceTree = "<group>"; };
 		AB1FDF3619AC1F9F0059338B /* StringrNetworkUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrNetworkUtility.h; sourceTree = "<group>"; };
 		AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrNetworkUtility.m; sourceTree = "<group>"; };
-		AB1FDF3A19AC20A60059338B /* StringrNetworkRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrNetworkRequests.h; sourceTree = "<group>"; };
-		AB1FDF3B19AC20A60059338B /* StringrNetworkRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrNetworkRequests.m; sourceTree = "<group>"; };
-		AB1FDF3D19AC20D00059338B /* StringrNetworkRequests+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StringrNetworkRequests+User.h"; sourceTree = "<group>"; };
-		AB1FDF3E19AC20D00059338B /* StringrNetworkRequests+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StringrNetworkRequests+User.m"; sourceTree = "<group>"; };
-		AB1FDF4019AC22310059338B /* StringrNetworkRequests+Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StringrNetworkRequests+Activity.h"; sourceTree = "<group>"; };
-		AB1FDF4119AC22310059338B /* StringrNetworkRequests+Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StringrNetworkRequests+Activity.m"; sourceTree = "<group>"; };
+		AB1FDF3A19AC20A60059338B /* StringrNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrNetworkRequest.h; sourceTree = "<group>"; };
+		AB1FDF3B19AC20A60059338B /* StringrNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrNetworkRequest.m; sourceTree = "<group>"; };
+		AB1FDF3D19AC20D00059338B /* StringrNetworkRequest+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StringrNetworkRequest+User.h"; sourceTree = "<group>"; };
+		AB1FDF3E19AC20D00059338B /* StringrNetworkRequest+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StringrNetworkRequest+User.m"; sourceTree = "<group>"; };
+		AB1FDF4019AC22310059338B /* StringrNetworkRequest+Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StringrNetworkRequest+Activity.h"; sourceTree = "<group>"; };
+		AB1FDF4119AC22310059338B /* StringrNetworkRequest+Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StringrNetworkRequest+Activity.m"; sourceTree = "<group>"; };
 		AB1FDF4319AC37DA0059338B /* StringrUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUser.h; path = "Stringr Objects/StringrUser.h"; sourceTree = "<group>"; };
 		AB1FDF4419AC37DA0059338B /* StringrUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUser.m; path = "Stringr Objects/StringrUser.m"; sourceTree = "<group>"; };
 		AB1FDF4719AC388B0059338B /* StringrObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrObject.h; path = "Stringr Objects/StringrObject.h"; sourceTree = "<group>"; };
@@ -590,8 +599,14 @@
 		AB04A2DB19E0CE940030C241 /* Data Backend */ = {
 			isa = PBXGroup;
 			children = (
+				AB04A2DC19E0CFCD0030C241 /* StringrUpdateEngine.h */,
+				AB04A2DD19E0CFCD0030C241 /* StringrUpdateEngine.m */,
 				AB0BDFD418E4929A006FAB57 /* StringrCache.h */,
 				AB0BDFD518E4929A006FAB57 /* StringrCache.m */,
+				AB04A2E519E1167E0030C241 /* StringrActivityManager.h */,
+				AB04A2E619E1167E0030C241 /* StringrActivityManager.m */,
+				AB04A2E219E10ECF0030C241 /* StringrSharedData.h */,
+				AB04A2E319E10ECF0030C241 /* StringrSharedData.m */,
 			);
 			name = "Data Backend";
 			sourceTree = "<group>";
@@ -629,12 +644,12 @@
 		AB1FDF3919AC1FA40059338B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				AB1FDF3A19AC20A60059338B /* StringrNetworkRequests.h */,
-				AB1FDF3B19AC20A60059338B /* StringrNetworkRequests.m */,
-				AB1FDF3D19AC20D00059338B /* StringrNetworkRequests+User.h */,
-				AB1FDF3E19AC20D00059338B /* StringrNetworkRequests+User.m */,
-				AB1FDF4019AC22310059338B /* StringrNetworkRequests+Activity.h */,
-				AB1FDF4119AC22310059338B /* StringrNetworkRequests+Activity.m */,
+				AB1FDF3A19AC20A60059338B /* StringrNetworkRequest.h */,
+				AB1FDF3B19AC20A60059338B /* StringrNetworkRequest.m */,
+				AB1FDF3D19AC20D00059338B /* StringrNetworkRequest+User.h */,
+				AB1FDF3E19AC20D00059338B /* StringrNetworkRequest+User.m */,
+				AB1FDF4019AC22310059338B /* StringrNetworkRequest+Activity.h */,
+				AB1FDF4119AC22310059338B /* StringrNetworkRequest+Activity.m */,
 				AB1FDF3619AC1F9F0059338B /* StringrNetworkUtility.h */,
 				AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */,
 			);
@@ -1418,9 +1433,10 @@
 				ABA2F06E1922BB430004A806 /* ZCImagePickerController.m in Sources */,
 				AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
-				AB1FDF3C19AC20A60059338B /* StringrNetworkRequests.m in Sources */,
+				AB1FDF3C19AC20A60059338B /* StringrNetworkRequest.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
 				ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */,
+				AB04A2E419E10ECF0030C241 /* StringrSharedData.m in Sources */,
 				AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */,
 				ABA2F06A1922BB430004A806 /* ZCAsset.m in Sources */,
 				AB04A2AA19D522D70030C241 /* StringrGeoPoint.m in Sources */,
@@ -1442,6 +1458,7 @@
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				AB04A2A719D522C40030C241 /* StringrFollow.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
+				AB04A2DE19E0CFCD0030C241 /* StringrUpdateEngine.m in Sources */,
 				ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */,
 				AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
@@ -1458,6 +1475,7 @@
 				AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */,
 				BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */,
 				BF3EDE3018445AF10071E047 /* StringrStringDetailViewController.m in Sources */,
+				AB04A2E719E1167E0030C241 /* StringrActivityManager.m in Sources */,
 				ABDB7CB118D3C1FA0047691B /* StringrDetailDescriptionTableViewCell.m in Sources */,
 				AB6CB1D01906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m in Sources */,
 				AB04A2B319D523050030C241 /* StringrStringStatistics.m in Sources */,
@@ -1489,11 +1507,11 @@
 				ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */,
 				ABF0555C192D81D400BB08A7 /* StringrNearYouTableViewController.m in Sources */,
 				AB1FDF5219AC38C70059338B /* StringrComment.m in Sources */,
-				AB1FDF4219AC22310059338B /* StringrNetworkRequests+Activity.m in Sources */,
+				AB1FDF4219AC22310059338B /* StringrNetworkRequest+Activity.m in Sources */,
 				AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */,
 				AB04A2B019D522F50030C241 /* StringrLike.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
-				AB1FDF3F19AC20D00059338B /* StringrNetworkRequests+User.m in Sources */,
+				AB1FDF3F19AC20D00059338B /* StringrNetworkRequest+User.m in Sources */,
 				ABDB7E5218D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m in Sources */,
 				ABA2F0691922BB430004A806 /* ZCAlbumPickerController.m in Sources */,
 				ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */,

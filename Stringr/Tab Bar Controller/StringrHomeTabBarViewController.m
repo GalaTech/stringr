@@ -8,10 +8,12 @@
 
 #import "StringrHomeTabBarViewController.h"
 #import "StringrActivityTableViewController.h"
-#import "StringrNetworkRequests+Activity.h"
+#import "StringrNetworkRequest+Activity.h"
 
 #import "StringrNavigationController.h"
 #import "StringrFollowingTableViewController.h"
+
+#import "StringrActivityManager.h"
 
 @implementation StringrHomeTabBarViewController
 
@@ -36,6 +38,8 @@
         [activityNavVC setTabBarItem:activityTab];
         
         [self setViewControllers:@[followingNavVC, activityNavVC]];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateActivityNotificationsTabValue) name:@"currentUserHasNewActivities" object:nil];
     }
     
     return self;
@@ -58,7 +62,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self updateActivityNotificationsTabValue];
+    [StringrNetworkRequest activitiesForUser:[PFUser currentUser] completionBlock:nil];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
@@ -70,20 +74,12 @@
 
 - (void)updateActivityNotificationsTabValue
 {
-    [StringrNetworkRequests numberOfActivitesForUser:[PFUser currentUser] completionBlock:^(NSInteger numberOfActivities, BOOL success) {
-        if (success) {
-            NSInteger numberOfPreviousActivities = [[[NSUserDefaults standardUserDefaults] objectForKey:kNSUserDefaultsNumberOfActivitiesKey] integerValue];
-            
-            NSInteger numberOfNewActivities = numberOfActivities - numberOfPreviousActivities;
-            
-            if (numberOfNewActivities > 0) {
-                UITabBarItem *activityTab = [[self.viewControllers lastObject] tabBarItem];
-                [activityTab setBadgeValue:[NSString stringWithFormat:@"%d", numberOfNewActivities]];
-            }
-            
-            [[NSUserDefaults standardUserDefaults] setObject:@(numberOfActivities) forKey:kNSUserDefaultsNumberOfActivitiesKey];
-        }
-    }];
+    NSInteger numberOfNewActivities = [[StringrActivityManager sharedManager] numberOfNewActivitiesForCurrentUser];
+    
+    if (numberOfNewActivities > 0) {
+        UITabBarItem *activityTab = [[self.viewControllers lastObject] tabBarItem];
+        [activityTab setBadgeValue:[NSString stringWithFormat:@"%ld", (long)numberOfNewActivities]];
+    }
 }
 
 

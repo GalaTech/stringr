@@ -18,9 +18,10 @@
 #import "StringrPopularTableViewController.h"
 #import "StringrDiscoveryTableViewController.h"
 #import "StringrNearYouTableViewController.h"
-#import "StringrNetworkRequests+Activity.h"
+#import "StringrNetworkRequest+Activity.h"
+#import "StringrUpdateEngine.h"
 
-#import "StringrNetworkRequests.h"
+#import "StringrNetworkRequest.h"
 #import "StringrObject.h"
 
 @interface StringrAppDelegate ()
@@ -39,6 +40,8 @@
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];
+    
+//    [application registerForRemoteNotifications];
     
     // setup and initialize the login controller
     self.rootViewController = (StringrAppController *)[self.window rootViewController];
@@ -134,17 +137,21 @@
     
     [PFQuery clearAllCachedResults];
     [[StringrCache sharedCache] clear];
+    
+    [[StringrUpdateEngine sharedEngine] stop];
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    id currentViewController = self.rootViewController.contentViewController;
-    if ([currentViewController isKindOfClass:[StringrHomeTabBarViewController class]]) {
-        StringrHomeTabBarViewController *homeVC = (StringrHomeTabBarViewController *)currentViewController;
-        [homeVC updateActivityNotificationsTabValue];
-    }
+//    id currentViewController = self.rootViewController.contentViewController;
+//    if ([currentViewController isKindOfClass:[StringrHomeTabBarViewController class]]) {
+//        StringrHomeTabBarViewController *homeVC = (StringrHomeTabBarViewController *)currentViewController;
+//        [homeVC updateActivityNotificationsTabValue];
+//    }
+    
+    [[StringrUpdateEngine sharedEngine] start];
 }
 
 
@@ -165,6 +172,7 @@
     menuVC.tableView.contentOffset = CGPointMake(0, 0 - menuVC.tableView.contentInset.top);
     
     [self.rootViewController setContentViewController:[StringrHomeTabBarViewController new]];
+    [[StringrUpdateEngine sharedEngine] start];
 }
 
 

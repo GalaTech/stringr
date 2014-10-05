@@ -41,7 +41,7 @@ extern float const kStringrPFObjectDetailTableViewCellHeight;
 
 extern NSString * const kNSUserDefaultsWorkingStringSavedImagesKey;
 extern NSString * const kNSUserDefaultsPushNotificationsEnabledKey;
-extern NSString * const kNSUserDefaultsNumberOfActivitiesKey;
+extern NSString * const kNSUserDefaultsNumberOfNewActivitiesKey;
 
 
 //*********************************************************************************/

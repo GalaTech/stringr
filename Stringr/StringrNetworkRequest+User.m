@@ -1,13 +1,14 @@
 //
-//  StringrNetworkRequests+User.h
+//  StringrNetworkRequests+User.m
 //  Stringr
 //
 //  Created by Jonathan Howard on 8/25/14.
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrNetworkRequests.h"
+#import "StringrNetworkRequest+User.h"
 
-@interface StringrNetworkRequests (User)
+@implementation StringrNetworkRequest (User)
+
 
 @end
