@@ -7,6 +7,7 @@
 //
 
 #import "StringrWriteCommentViewController.h"
+#import "StringrNetworkTask+PushNotification.h"
 
 @interface StringrWriteCommentViewController () <UITextViewDelegate, UIAlertViewDelegate>
 
@@ -135,7 +136,8 @@
             [likePhotoPushNotification setData:data];
             [likePhotoPushNotification sendPushInBackground];
         }
-    } else if (![[[self.objectToCommentOn objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]] && ![StringrUtility objectIsString:self.objectToCommentOn]) {
+    }
+    else if (![[[self.objectToCommentOn objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]] && ![StringrUtility objectIsString:self.objectToCommentOn]) {
        
         photoUploaderPrivatePushChannel = [[self.objectToCommentOn objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
         
@@ -192,32 +194,6 @@
                     [mentionActivity saveInBackground];
                 }
             }
-            
-            // commented out because I don't want to delete all previous mentions for comments since there might be
-            // multiple comments that a user is mentioned in.
-            /*
-            // Finds any activities that might already exist for the mentioned usernames on this comment
-            PFQuery *activityMentionQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-            [activityMentionQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeMention];
-            
-            if ([StringrUtility objectIsString:objectForComment]) {
-                [activityMentionQuery whereKey:kStringrActivityStringKey equalTo:objectForComment];
-            } else {
-                [activityMentionQuery whereKey:kStringrActivityPhotoKey equalTo:objectForComment];
-            }
-            
-            [activityMentionQuery whereKey:kStringrActivityPhotoKey equalTo:objectForComment];
-            [activityMentionQuery whereKey:kStringrActivityToUserKey containedIn:users];
-            [activityMentionQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-            [activityMentionQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                if (!error) {
-                    // delete any activities that already existed so that there will not be duplicates
-                    for (PFObject *activity in activities) {
-                        [activity deleteInBackground];
-                    }
-                }
-            }];
-             */
         }
     }];
 }
@@ -238,7 +214,7 @@
                         [self.delegate commentViewController:self didPostComment:self.comment];
                     }
                     
-                    [self sendCommentPushNotification];
+                    [StringrNetworkTask sendCommentPushNotification:self.objectToCommentOn comment:self.comment];
                 } else if (error && error.code == kPFErrorObjectNotFound) {
                     [[StringrCache sharedCache] decrementCommentCountForObject:self.objectToCommentOn];
                 }

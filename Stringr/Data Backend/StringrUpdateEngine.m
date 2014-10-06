@@ -7,7 +7,7 @@
 //
 
 #import "StringrUpdateEngine.h"
-#import "StringrNetworkRequest+Activity.h"
+#import "StringrNetworkTask+Activity.h"
 
 @interface StringrUpdateEngine ()
 
@@ -70,7 +70,7 @@
 
 - (void)refreshAll
 {
-    [StringrNetworkRequest numberOfActivitesForUser:[PFUser currentUser] completionBlock:nil];
+    [StringrNetworkTask numberOfActivitesForUser:[PFUser currentUser] completionBlock:nil];
 }
 
 
