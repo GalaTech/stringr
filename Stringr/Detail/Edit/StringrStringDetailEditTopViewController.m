@@ -12,6 +12,7 @@
 #import "StringrPhotoDetailEditTableViewController.h"
 #import "StringrNavigationController.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
+#import "StringrNetworkTask+PushNotification.h"
 
 @interface StringrStringDetailEditTopViewController () <StringrPhotoDetailEditTableViewControllerDelegate, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
@@ -413,7 +414,9 @@
                             [mentionACL setPublicWriteAccess:YES];
                             [mentionActivity setACL:mentionACL];
                             
-                            [mentionActivity saveInBackground];
+                            [mentionActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                [StringrNetworkTask sendMentionPushNotificationToUser:user withObject:string];
+                            }];
                         }
                     }
                 }

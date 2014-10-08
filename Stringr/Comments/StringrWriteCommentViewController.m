@@ -191,7 +191,9 @@
                     [mentionACL setPublicWriteAccess:YES];
                     [mentionActivity setACL:mentionACL];
                     
-                    [mentionActivity saveInBackground];
+                    [mentionActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        [StringrNetworkTask sendMentionPushNotificationToUser:user withObject:self.comment];
+                    }];
                 }
             }
         }

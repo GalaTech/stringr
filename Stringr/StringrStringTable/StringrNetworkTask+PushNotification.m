@@ -76,7 +76,6 @@
         [likeStringPushNotification setData:data];
         [likeStringPushNotification sendPushInBackground];
     }
-
 }
 
 
@@ -101,7 +100,6 @@
         [likePhotoPushNotification setData:data];
         [likePhotoPushNotification sendPushInBackground];
     }
-
 }
 
 
@@ -111,21 +109,24 @@
 {
     NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
     
-    // String with the commenters name and the comment
-    NSString *alert = [NSString stringWithFormat:@"%@: %@", currentUsernameFormatted, [comment objectForKey:kStringrActivityContentKey]];
-    
-    // make sure to leave enough space for payload overhead
-    if (alert.length > 100) {
-        alert = [alert substringToIndex:89];
-        alert = [alert stringByAppendingString:@"…"];
-    }
+    NSString *alert = @"";
+//    // String with the commenters name and the comment
+//    NSString *alert = [NSString stringWithFormat:@"%@: %@", currentUsernameFormatted, [comment objectForKey:kStringrActivityContentKey]];
+//    
+//    // make sure to leave enough space for payload overhead
+//    if (alert.length > 100) {
+//        alert = [alert substringToIndex:89];
+//        alert = [alert stringByAppendingString:@"…"];
+//    }
     
     StringrObjectType objectType = [self objectType:object];
     
     if (objectType == StringrStringType) {
+        alert = [NSString stringWithFormat:@"%@ commented on your String!", currentUsernameFormatted];
         [self sendStringCommentPushNotification:object alert:alert];
     }
     else if (objectType == StringrPhotoType) {
+        alert = [NSString stringWithFormat:@"%@ commented on your photo!", currentUsernameFormatted];
         [self sendPhotoCommentPushNotification:object alert:alert];
     }
 }
@@ -185,17 +186,138 @@
 
 #pragma mark - Mention
 
-+ (void)sendMentionPushNotification:(PFObject *)object
++ (void)sendMentionPushNotificationToUser:(PFUser *)user withObject:(PFObject *)object
 {
+    StringrObjectType objectType = [self objectType:object];
+    
+    if (objectType == StringrStringType) {
+        [self sendMentionPushNotificationToUser:user withString:object];
+    }
+    else if (objectType == StringrPhotoType) {
+        [self sendMentionPushNotificationToUser:user withPhoto:object];
+    }
+    else if (objectType == StringrCommentType) {
+        [self sendMentionPushNotificationToUser:user withComment:object];
+    }
+}
 
+
++ (void)sendMentionPushNotificationToUser:(PFUser *)user withString:(PFObject *)string
+{
+    NSString *uploaderPrivatePushChannel = [user objectForKey:kStringrUserPrivateChannelKey];
+    
+    if (uploaderPrivatePushChannel && uploaderPrivatePushChannel.length != 0) {
+        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%@ mentioned you in their String!", currentUsernameFormatted], kAPNSAlertKey,
+                              @"Increment", kAPNSBadgeKey,
+                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                              kStringrActivityTypeMention, kStringrPushPayloadActivityTypeKey,
+                              [user objectId], kStringrPushPayloadToUserObjectIdKey,
+                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              [string objectId], kStringrPushPayloadPhotoObjectIdKey,
+                              @"default", kAPNSSoundKey,
+                              nil];
+        
+        PFPush *stringMentionPushNotification = [[PFPush alloc] init];
+        [stringMentionPushNotification setChannel:uploaderPrivatePushChannel];
+        [stringMentionPushNotification setData:data];
+        [stringMentionPushNotification sendPushInBackground];
+    }
+}
+
+
++ (void)sendMentionPushNotificationToUser:(PFUser *)user withPhoto:(PFObject *)photo
+{
+    NSString *photoUploaderPrivatePushChannel = [user objectForKey:kStringrUserPrivateChannelKey];
+    
+    if (photoUploaderPrivatePushChannel && photoUploaderPrivatePushChannel.length != 0) {
+        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%@ mentioned you in their photo!", currentUsernameFormatted], kAPNSAlertKey,
+                              @"Increment", kAPNSBadgeKey,
+                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                              kStringrActivityTypeMention, kStringrPushPayloadActivityTypeKey,
+                              [user objectId], kStringrPushPayloadToUserObjectIdKey,
+                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              [photo objectId], kStringrPushPayloadPhotoObjectIdKey,
+                              @"default", kAPNSSoundKey,
+                              nil];
+        
+        PFPush *photoMentionPushNotification = [[PFPush alloc] init];
+        [photoMentionPushNotification setChannel:photoUploaderPrivatePushChannel];
+        [photoMentionPushNotification setData:data];
+        [photoMentionPushNotification sendPushInBackground];
+    }
+}
+
+
++ (void)sendMentionPushNotificationToUser:(PFUser *)user withComment:(PFObject *)comment
+{
+    PFUser *commentedObjectUser;
+    
+    if ([comment objectForKey:kStringrActivityStringKey]) {
+        PFObject *commentedString = [comment objectForKey:kStringrActivityStringKey];
+        commentedObjectUser = [commentedString objectForKey:kStringrStringUserKey];
+    }
+    else if ([comment objectForKey:kStringrActivityPhotoKey]) {
+        PFObject *commentedPhoto = [comment objectForKey:kStringrActivityPhotoKey];
+        commentedObjectUser = [commentedPhoto objectForKey:kStringrPhotoUserKey];
+    }
+    
+    if ([user.objectId isEqualToString:commentedObjectUser.objectId]) return;
+    
+    NSString *uploaderPrivatePushChannel = [user objectForKey:kStringrUserPrivateChannelKey];
+    
+    if (uploaderPrivatePushChannel && uploaderPrivatePushChannel.length != 0) {
+        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%@ mentioned you in their comment!", currentUsernameFormatted], kAPNSAlertKey,
+                              @"Increment", kAPNSBadgeKey,
+                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                              kStringrActivityTypeMention, kStringrPushPayloadActivityTypeKey,
+                              [user objectId], kStringrPushPayloadToUserObjectIdKey,
+                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              [comment objectId], kStringrPushPayloadCommentObjectIDKey,
+                              @"default", kAPNSSoundKey,
+                              nil];
+        
+        PFPush *commentMentionPushNotification = [[PFPush alloc] init];
+        [commentMentionPushNotification setChannel:uploaderPrivatePushChannel];
+        [commentMentionPushNotification setData:data];
+        [commentMentionPushNotification sendPushInBackground];
+    }
 }
 
 
 #pragma mark - Contributed
 
-+ (void)sendContributedPushNotification:(PFObject *)object
++ (void)sendContributedToStringPushNotification:(PFObject *)string withPhoto:(PFObject *)photo
 {
+    NSString *uploaderPrivatePushChannel = [[string objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
     
+    if (uploaderPrivatePushChannel && uploaderPrivatePushChannel.length != 0) {
+        NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%@ added a photo to your String!", currentUsernameFormatted], kAPNSAlertKey,
+                              @"Increment", kAPNSBadgeKey,
+                              kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
+                              kStringrActivityTypeAddedPhotoToPublicString, kStringrPushPayloadActivityTypeKey,
+                              [[PFUser currentUser] objectId], kStringrPushPayloadFromUserObjectIdKey,
+                              [photo objectId], kStringrPushPayloadPhotoObjectIdKey,
+                              [string objectId], kStringrPushPayloadStringObjectIDKey,
+                              @"default", kAPNSSoundKey,
+                              nil];
+        
+        PFPush *contributedToStringPushNotification = [[PFPush alloc] init];
+        [contributedToStringPushNotification setChannel:uploaderPrivatePushChannel];
+        [contributedToStringPushNotification setData:data];
+        [contributedToStringPushNotification sendPushInBackground];
+    }
 }
 
 

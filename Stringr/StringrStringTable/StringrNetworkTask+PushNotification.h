@@ -13,7 +13,7 @@
 + (void)sendFollowingPushNotification:(PFUser *)user;
 + (void)sendLikedPushNotification:(PFObject *)object;
 + (void)sendCommentPushNotification:(PFObject *)object comment:(PFObject *)comment;
-+ (void)sendMentionPushNotification:(PFObject *)object;
-+ (void)sendContributedPushNotification:(PFObject *)object;
++ (void)sendMentionPushNotificationToUser:(PFUser *)user withObject:(PFObject *)object;
++ (void)sendContributedToStringPushNotification:(PFObject *)string withPhoto:(PFObject *)photo;
 
 @end
