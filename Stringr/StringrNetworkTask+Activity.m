@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrNetworkRequest+Activity.h"
+#import "StringrNetworkTask+Activity.h"
 #import "StringrActivityManager.h"
 
-@implementation StringrNetworkRequest (Activity)
+@implementation StringrNetworkTask (Activity)
 
 + (void)numberOfActivitesForUser:(PFUser *)user completionBlock:(void (^)(NSInteger numberOfActivities, BOOL success))completionBlock
 {

@@ -272,6 +272,7 @@ NSString * const kStringrPushPayloadFromUserObjectIdKey = @"fu";
 NSString * const kStringrPushPayloadToUserObjectIdKey = @"tu";
 NSString * const kStringrPushPayloadPhotoObjectIdKey = @"pid";
 NSString * const kStringrPushPayloadStringObjectIDKey = @"sid";
+NSString * const kStringrPushPayloadCommentObjectIDKey = @"cid";
 
 
 //*********************************************************************************/

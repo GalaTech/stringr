@@ -224,6 +224,7 @@ extern NSString * const kStringrPushPayloadFromUserObjectIdKey;
 extern NSString * const kStringrPushPayloadToUserObjectIdKey;
 extern NSString * const kStringrPushPayloadPhotoObjectIdKey;
 extern NSString * const kStringrPushPayloadStringObjectIDKey;
+extern NSString * const kStringrPushPayloadCommentObjectIDKey;
 
 
 //*********************************************************************************/

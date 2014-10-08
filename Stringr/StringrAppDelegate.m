@@ -18,10 +18,10 @@
 #import "StringrPopularTableViewController.h"
 #import "StringrDiscoveryTableViewController.h"
 #import "StringrNearYouTableViewController.h"
-#import "StringrNetworkRequest+Activity.h"
+#import "StringrNetworkTask+Activity.h"
 #import "StringrUpdateEngine.h"
 
-#import "StringrNetworkRequest.h"
+#import "StringrNetworkTask.h"
 #import "StringrObject.h"
 
 @interface StringrAppDelegate ()
@@ -145,11 +145,6 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-//    id currentViewController = self.rootViewController.contentViewController;
-//    if ([currentViewController isKindOfClass:[StringrHomeTabBarViewController class]]) {
-//        StringrHomeTabBarViewController *homeVC = (StringrHomeTabBarViewController *)currentViewController;
-//        [homeVC updateActivityNotificationsTabValue];
-//    }
     
     [[StringrUpdateEngine sharedEngine] start];
 }

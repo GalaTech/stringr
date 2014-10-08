@@ -8,6 +8,7 @@
 
 #import "StringrUtility.h"
 #import "UIImage+Resize.h"
+#import "StringrNetworkTask+PushNotification.h"
 
 @implementation StringrUtility
 
@@ -70,7 +71,9 @@
         }
         
         if (succeeded && ![[[photo objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            [StringrNetworkTask sendLikedPushNotification:photo];
             
+            /*
             // TODO: Set private channel to that of the photo uploader
             NSString *photoUploaderPrivatePushChannel = [[photo objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
             
@@ -91,6 +94,7 @@
                 [likePhotoPushNotification setData:data];
                 [likePhotoPushNotification sendPushInBackground];
             }
+             */
         }
     }];
     
@@ -140,7 +144,9 @@
         
         if (succeeded && ![[[string objectForKey:kStringrStringUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
             if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+                [StringrNetworkTask sendLikedPushNotification:string];
                 
+                /*
                 // TODO: Set private channel to that of the string uploader
                 NSString *stringUploaderPrivatePushChannel = [[string objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
                 
@@ -161,6 +167,7 @@
                     [likeStringPushNotification setData:data];
                     [likeStringPushNotification sendPushInBackground];
                 }
+                 */
             }
         }
     }];

@@ -13,6 +13,7 @@
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrFooterView.h"
+#import "StringrNetworkTask+PushNotification.h"
 
 @interface StringrStringDetailTopViewController () <NHBalancedFlowLayoutDelegate, StringrPhotoDetailEditTableViewControllerDelegate>
 
@@ -236,7 +237,9 @@
     [addPhotoACL setPublicWriteAccess:YES];
     [addPhotoToPublicStringActivity setACL:addPhotoACL];
     
-    [addPhotoToPublicStringActivity saveInBackground];
+    [addPhotoToPublicStringActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [StringrNetworkTask sendContributedToStringPushNotification:self.stringToLoad withPhoto:photo];
+    }];
 }
 
 

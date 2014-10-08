@@ -8,7 +8,7 @@
 
 #import "StringrHomeTabBarViewController.h"
 #import "StringrActivityTableViewController.h"
-#import "StringrNetworkRequest+Activity.h"
+#import "StringrNetworkTask+Activity.h"
 
 #import "StringrNavigationController.h"
 #import "StringrFollowingTableViewController.h"
@@ -62,7 +62,7 @@
 {
     [super viewWillAppear:animated];
     
-    [StringrNetworkRequest activitiesForUser:[PFUser currentUser] completionBlock:nil];
+    [StringrNetworkTask activitiesForUser:[PFUser currentUser] completionBlock:nil];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
