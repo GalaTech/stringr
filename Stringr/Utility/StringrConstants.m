@@ -129,6 +129,7 @@ NSString * const kStringrActivityToUserKey = @"toUser";
 NSString * const kStringrActivityContentKey = @"content";
 NSString * const kStringrActivityStringKey = @"string";
 NSString * const kStringrActivityPhotoKey = @"photo";
+NSString * const kStringrActivityCommentKey = @"comment";
 
 // Type values
 NSString * const kStringrActivityTypeLike = @"like";

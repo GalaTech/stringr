@@ -158,12 +158,21 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         PFObject *commentToRemove = [self.objects objectAtIndex:indexPath.row];
-        [commentToRemove deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                [self.objectForCommentThread saveInBackground];
-                [self loadObjects];
-            }
+        
+        PFQuery *commentMentionsQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+        [commentMentionsQuery whereKey:kStringrActivityCommentKey equalTo:commentToRemove];
+        [commentMentionsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            [PFObject deleteAllInBackground:objects];
+            
+            [commentToRemove deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [self.objectForCommentThread saveInBackground];
+                    [self loadObjects];
+                }
+            }];
         }];
+        
+        
         
         [[StringrCache sharedCache] decrementCommentCountForObject:self.objectForCommentThread];
         

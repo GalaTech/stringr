@@ -179,6 +179,7 @@
                     [mentionActivity setObject:kStringrActivityContentCommentKey forKey:kStringrActivityContentKey];
                     [mentionActivity setObject:user forKey:kStringrActivityToUserKey];
                     [mentionActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
+                    [mentionActivity setObject:self.comment forKey:kStringrActivityCommentKey];
                     
                     if ([StringrUtility objectIsString:objectForComment]) {
                         [mentionActivity setObject:objectForComment forKey:kStringrActivityStringKey];
