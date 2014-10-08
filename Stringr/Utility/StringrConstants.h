@@ -83,6 +83,7 @@ extern NSString * const kStringrActivityToUserKey;
 extern NSString * const kStringrActivityContentKey;
 extern NSString * const kStringrActivityStringKey; // gives you a String PFObject
 extern NSString * const kStringrActivityPhotoKey; // gives you a photo PFObject
+extern NSString * const kStringrActivityCommentKey;
 
 // Type values
 extern NSString * const kStringrActivityTypeLike;
