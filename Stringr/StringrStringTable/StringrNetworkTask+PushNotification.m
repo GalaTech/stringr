@@ -24,7 +24,7 @@
         NSString *currentUsernameFormatted = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
         
         NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSString stringWithFormat:@"%@ is now following you!", currentUsernameFormatted], kAPNSAlertKey,
+                              [NSString stringWithFormat:@"%@ followed you!", currentUsernameFormatted], kAPNSAlertKey,
                               @"Increment", kAPNSBadgeKey,
                               kStringrPushPayloadPayloadTypeActivityKey, kStringrPushPayloadPayloadTypeKey,
                               kStringrPushPayloadActivityFollowKey, kStringrPushPayloadActivityTypeKey,
