@@ -66,7 +66,7 @@ extern NSString * const kNSNotificationCenterRefreshStringDetails;
 
 extern NSString * const kStringrInstallationUserKey;
 extern NSString * const kStringrInstallationPrivateChannelsKey;
-extern NSString * const kStringrInstallationNumberOfPreviousActivitiesKey;
+extern NSString * const kStringrUserNumberOfPreviousActivitiesKey;
 
 
 //*********************************************************************************/
