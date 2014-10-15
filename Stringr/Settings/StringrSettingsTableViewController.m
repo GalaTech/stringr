@@ -23,6 +23,7 @@
 #import "StringrActivityManager.h"
 #import "PBWebViewController.h"
 #import "ZCImagePickerController.h"
+#import "StringrUpdateEngine.h"
 
 
 @interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ZCImagePickerControllerDelegate>
@@ -388,10 +389,6 @@
         [PFQuery clearAllCachedResults];
         [[StringrCache sharedCache] clear];
         
-        [[PFInstallation currentInstallation] setObject:@([[StringrActivityManager sharedManager] numberOfNewActivitiesForCurrentUser]) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:@(0) forKey:kNSUserDefaultsNumberOfNewActivitiesKey];
-        
         // Unsubscribe from push notifications for this installation
         [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
         
@@ -404,6 +401,8 @@
         [[PFInstallation currentInstallation] saveEventually];
         
         [PFUser logOut];
+        
+        [[StringrUpdateEngine sharedEngine] stop];
         
         [self.navigationController popToRootViewControllerAnimated:NO];
         

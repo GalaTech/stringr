@@ -34,8 +34,8 @@
     self = [super init];
     
     if (self) {
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:kStringrInstallationNumberOfPreviousActivitiesKey]) {
-            _numberOfPreviousActivities = [[[NSUserDefaults standardUserDefaults] objectForKey:kStringrInstallationNumberOfPreviousActivitiesKey] integerValue];
+        if ([[PFUser currentUser] objectForKey:kStringrUserNumberOfPreviousActivitiesKey]) {
+            _numberOfPreviousActivities = [[[PFUser currentUser] objectForKey:kStringrUserNumberOfPreviousActivitiesKey] integerValue];
         }
         else {
             _numberOfPreviousActivities = 0;
@@ -68,7 +68,9 @@
 
 - (void)updateUserDefaults
 {
-    [[NSUserDefaults standardUserDefaults] setObject:@(self.numberOfActivities) forKey:kStringrInstallationNumberOfPreviousActivitiesKey];
+    [[PFUser currentUser] setObject:@(self.numberOfActivities) forKey:kStringrUserNumberOfPreviousActivitiesKey];
+    [[PFUser currentUser] saveInBackground];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"currentUserHasNewActivities" object:nil];
 }
 

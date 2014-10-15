@@ -170,7 +170,6 @@
     [mentionUsersQuery whereKey:kStringrUserUsernameKey containedIn:commentMentions];
     [mentionUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (!error) {
-            
             // Create a new mention activity for all users who were mentioned in the comment
             for (PFUser *user in users) {
                 if (![user.objectId isEqualToString:[PFUser currentUser].objectId]){
@@ -218,6 +217,7 @@
                     }
                     
                     [StringrNetworkTask sendCommentPushNotification:self.objectToCommentOn comment:self.comment];
+                    [self findAndSendNotificationToMentionsInComment:self.objectToCommentOn];
                 } else if (error && error.code == kPFErrorObjectNotFound) {
                     [[StringrCache sharedCache] decrementCommentCountForObject:self.objectToCommentOn];
                 }
@@ -236,8 +236,6 @@
                     }
                 }];
             }
-            
-            [self findAndSendNotificationToMentionsInComment:self.objectToCommentOn];
         }];
     }
 }

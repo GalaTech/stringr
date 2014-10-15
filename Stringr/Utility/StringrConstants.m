@@ -111,7 +111,7 @@ NSString * const kNSNotificationCenterRefreshStringDetails = @"co.galatech.Strin
 
 NSString * const kStringrInstallationUserKey = @"user";
 NSString * const kStringrInstallationPrivateChannelsKey = @"channels";
-NSString * const kStringrInstallationNumberOfPreviousActivitiesKey = @"numberOfPreviousActivites";
+NSString * const kStringrUserNumberOfPreviousActivitiesKey = @"numberOfPreviousActivites";
 
 
 //*********************************************************************************/
