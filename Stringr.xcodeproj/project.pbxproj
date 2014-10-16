@@ -18,6 +18,12 @@
 		AB04A2DE19E0CFCD0030C241 /* StringrUpdateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2DD19E0CFCD0030C241 /* StringrUpdateEngine.m */; };
 		AB04A2E719E1167E0030C241 /* StringrActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2E619E1167E0030C241 /* StringrActivityManager.m */; };
 		AB04A2F019E2330B0030C241 /* StringrNetworkTask+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2EF19E2330B0030C241 /* StringrNetworkTask+PushNotification.m */; };
+		AB04A2F519EF4EC70030C241 /* StringTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB04A2F419EF4EC70030C241 /* StringTable.storyboard */; };
+		AB04A2F819EF55900030C241 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2F719EF55900030C241 /* TestTableViewController.m */; };
+		AB04A2FE19EF68CF0030C241 /* TestTableViewFooterTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */; };
+		AB04A30119EF6BD50030C241 /* TestTableViewFooterActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */; };
+		AB04A30719EF6F140030C241 /* TestTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30619EF6F140030C241 /* TestTableViewHeader.m */; };
+		AB04A30A19EF7E210030C241 /* TestTableViewStringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
 		AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */; };
 		AB0F532419098F9E00A29E59 /* StringrPushNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F532319098F9E00A29E59 /* StringrPushNotificationsTableViewController.m */; };
@@ -198,6 +204,17 @@
 		AB04A2E619E1167E0030C241 /* StringrActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityManager.m; path = "Data Backend/StringrActivityManager.m"; sourceTree = "<group>"; };
 		AB04A2EE19E2330B0030C241 /* StringrNetworkTask+PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+PushNotification.h"; path = "StringrStringTable/StringrNetworkTask+PushNotification.h"; sourceTree = "<group>"; };
 		AB04A2EF19E2330B0030C241 /* StringrNetworkTask+PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+PushNotification.m"; path = "StringrStringTable/StringrNetworkTask+PushNotification.m"; sourceTree = "<group>"; };
+		AB04A2F419EF4EC70030C241 /* StringTable.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringTable.storyboard; path = String/StringTable.storyboard; sourceTree = "<group>"; };
+		AB04A2F619EF55900030C241 /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewController.h; path = TestVC/TestTableViewController.h; sourceTree = "<group>"; };
+		AB04A2F719EF55900030C241 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewController.m; path = TestVC/TestTableViewController.m; sourceTree = "<group>"; };
+		AB04A2FC19EF68CF0030C241 /* TestTableViewFooterTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewFooterTitleCell.h; path = TestVC/TestTableViewFooterTitleCell.h; sourceTree = "<group>"; };
+		AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewFooterTitleCell.m; path = TestVC/TestTableViewFooterTitleCell.m; sourceTree = "<group>"; };
+		AB04A2FF19EF6BD50030C241 /* TestTableViewFooterActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewFooterActionCell.h; path = TestVC/TestTableViewFooterActionCell.h; sourceTree = "<group>"; };
+		AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewFooterActionCell.m; path = TestVC/TestTableViewFooterActionCell.m; sourceTree = "<group>"; };
+		AB04A30519EF6F140030C241 /* TestTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewHeader.h; path = TestVC/TestTableViewHeader.h; sourceTree = "<group>"; };
+		AB04A30619EF6F140030C241 /* TestTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewHeader.m; path = TestVC/TestTableViewHeader.m; sourceTree = "<group>"; };
+		AB04A30819EF7E210030C241 /* TestTableViewStringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewStringCell.h; path = TestVC/TestTableViewStringCell.h; sourceTree = "<group>"; };
+		AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewStringCell.m; path = TestVC/TestTableViewStringCell.m; sourceTree = "<group>"; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
 		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
 		AB0F531F1908458800A29E59 /* StringrInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrInviteFriendsTableViewController.h; path = Settings/StringrInviteFriendsTableViewController.h; sourceTree = "<group>"; };
@@ -607,6 +624,49 @@
 				AB04A2E619E1167E0030C241 /* StringrActivityManager.m */,
 			);
 			name = "Data Backend";
+			sourceTree = "<group>";
+		};
+		AB04A2F919EF559A0030C241 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				AB04A2FB19EF68AE0030C241 /* TableView */,
+				AB2CFA2519142D7E00A9DFF9 /* TestViewViewController.h */,
+				AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
+		AB04A2FA19EF68A70030C241 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AB04A30819EF7E210030C241 /* TestTableViewStringCell.h */,
+				AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */,
+				AB04A2FC19EF68CF0030C241 /* TestTableViewFooterTitleCell.h */,
+				AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */,
+				AB04A2FF19EF6BD50030C241 /* TestTableViewFooterActionCell.h */,
+				AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		AB04A2FB19EF68AE0030C241 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				AB04A2F619EF55900030C241 /* TestTableViewController.h */,
+				AB04A2F719EF55900030C241 /* TestTableViewController.m */,
+				AB04A30219EF6ECD0030C241 /* Header */,
+				AB04A2FA19EF68A70030C241 /* Cells */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		AB04A30219EF6ECD0030C241 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				AB04A30519EF6F140030C241 /* TestTableViewHeader.h */,
+				AB04A30619EF6F140030C241 /* TestTableViewHeader.m */,
+			);
+			name = Header;
 			sourceTree = "<group>";
 		};
 		AB0F5325190AF14E00A29E59 /* String TableViewCell */ = {
@@ -1059,6 +1119,7 @@
 		BF3EDE07183E98910071E047 /* String Tables */ = {
 			isa = PBXGroup;
 			children = (
+				AB04A2F419EF4EC70030C241 /* StringTable.storyboard */,
 				BF3EDE1D183EA4F10071E047 /* StringrStringTableViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringTableViewController.m */,
 				ABCEFA4C1919FEAA0018C547 /* Header */,
@@ -1197,8 +1258,7 @@
 				BF8349E018297FD600D15963 /* Main.storyboard */,
 				BF8349DD18297FD600D15963 /* StringrAppDelegate.h */,
 				BF8349DE18297FD600D15963 /* StringrAppDelegate.m */,
-				AB2CFA2519142D7E00A9DFF9 /* TestViewViewController.h */,
-				AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */,
+				AB04A2F919EF559A0030C241 /* Test */,
 				BF834A491829978300D15963 /* Resources */,
 				BF8349D518297FD600D15963 /* Supporting Files */,
 			);
@@ -1347,6 +1407,7 @@
 				ABA2F0621922BB430004A806 /* ZCLocalized.strings in Resources */,
 				ABA2F0651922BB430004A806 /* SelectionOverlay~iOS7.png in Resources */,
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
+				AB04A2F519EF4EC70030C241 /* StringTable.storyboard in Resources */,
 				ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */,
 				AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */,
 				ABA2F0671922BB430004A806 /* VideoOverlay.png in Resources */,
@@ -1448,12 +1509,14 @@
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
+				AB04A30119EF6BD50030C241 /* TestTableViewFooterActionCell.m in Sources */,
 				AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */,
 				ABA2F06B1922BB430004A806 /* ZCAssetCell.m in Sources */,
 				ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */,
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,
+				AB04A30719EF6F140030C241 /* TestTableViewHeader.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				AB04A2A719D522C40030C241 /* StringrFollow.m in Sources */,
@@ -1483,6 +1546,8 @@
 				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
+				AB04A30A19EF7E210030C241 /* TestTableViewStringCell.m in Sources */,
+				AB04A2FE19EF68CF0030C241 /* TestTableViewFooterTitleCell.m in Sources */,
 				AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */,
 				ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
@@ -1490,6 +1555,7 @@
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
 				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
+				AB04A2F819EF55900030C241 /* TestTableViewController.m in Sources */,
 				AB11C4B718F7337300D406D8 /* StringrWriteAndEditTextViewController.m in Sources */,
 				ABDB7CB718D3D4360047691B /* StringrDetailTagsTableViewCell.m in Sources */,
 				AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */,

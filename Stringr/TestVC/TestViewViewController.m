@@ -9,6 +9,8 @@
 #import "TestViewViewController.h"
 #import "STTweetLabel.h"
 
+static NSString * const StringrStringTableViewController = @"StringTable";
+
 @interface TestViewViewController ()
 
 @property (weak, nonatomic) IBOutlet STTweetLabel *testSTTweetLabel;
@@ -26,6 +28,14 @@
     }
     return self;
 }
+
+
++ (instancetype)viewController
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewController bundle:nil];
+    return (TestViewViewController *)[storyboard instantiateInitialViewController];
+}
+
 
 - (void)viewDidLoad
 {

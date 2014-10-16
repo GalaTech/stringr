@@ -10,4 +10,6 @@
 
 @interface TestViewViewController : UIViewController
 
++ (TestViewViewController *)viewController;
+
 @end

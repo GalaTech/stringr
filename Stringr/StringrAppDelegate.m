@@ -24,6 +24,8 @@
 #import "StringrNetworkTask.h"
 #import "StringrObject.h"
 
+#import "TestTableViewController.h"
+
 @interface StringrAppDelegate ()
 
 @end
@@ -36,16 +38,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Registers the app for notification types via in app alert view
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-     UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
+//    // Registers the app for notification types via in app alert view
+//    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+//     UIRemoteNotificationTypeAlert|
+//     UIRemoteNotificationTypeSound];
+//    
+////    [application registerForRemoteNotifications];
+//    
+//    // setup and initialize the login controller
+//    self.rootViewController = (StringrAppController *)[self.window rootViewController];
+//    [self.rootViewController launchSequence:launchOptions];
     
-//    [application registerForRemoteNotifications];
-    
-    // setup and initialize the login controller
-    self.rootViewController = (StringrAppController *)[self.window rootViewController];
-    [self.rootViewController launchSequence:launchOptions];
+    [self testLaunchSequence];
     
     return YES;
 }
@@ -168,6 +172,18 @@
     
     [self.rootViewController setContentViewController:[StringrHomeTabBarViewController new]];
     [[StringrUpdateEngine sharedEngine] start];
+}
+
+
+#pragma mark - Private
+
+- (void)testLaunchSequence
+{
+    TestTableViewController *testVC = [TestTableViewController viewController];
+    
+    self.window.rootViewController = testVC;
+    
+    [self.window makeKeyAndVisible];
 }
 
 
