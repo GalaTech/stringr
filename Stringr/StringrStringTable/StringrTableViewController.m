@@ -24,6 +24,11 @@
 #pragma mark - Lifecycle
 //*********************************************************************************/
 
++ (instancetype)viewController
+{
+    return nil;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

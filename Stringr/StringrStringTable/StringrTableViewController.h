@@ -12,6 +12,8 @@
 
 @interface StringrTableViewController : PFQueryTableViewController <StringrNoContentViewDelegate>
 
++ (instancetype)viewController;
+
 @property (strong, nonatomic, readonly) UIStoryboard *mainStoryboard;
 
 - (void)setQueryForTable:(PFQuery *)queryForTable;

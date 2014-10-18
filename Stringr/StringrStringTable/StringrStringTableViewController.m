@@ -20,7 +20,7 @@
 #import "StringrLoadMoreTableViewCell.h"
 #import "NHBalancedFlowLayout.h"
 
-
+static NSString * const StringrStringTableViewController2 = @"StringTable";
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate>
 
@@ -33,6 +33,14 @@
 //*********************************************************************************/
 #pragma mark - Lifecycle
 //*********************************************************************************/
+
++ (StringrStringTableViewController *)viewController
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewController2 bundle:nil];
+    
+    return (StringrStringTableViewController *)[storyboard instantiateInitialViewController];
+}
+
 
 - (id)initWithCoder:(NSCoder *)aCoder
 {
