@@ -9,7 +9,7 @@
 #import "TestTableViewController.h"
 #import "TestTableViewHeader.h"
 
-static NSString * const StringrStringTableViewController = @"StringTable";
+static NSString * const StringrStringTableViewController2 = @"StringTable";
 
 @interface TestTableViewController ()
 
@@ -20,7 +20,7 @@ static NSString * const StringrStringTableViewController = @"StringTable";
 
 + (TestTableViewController *)viewController
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewController bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewController2 bundle:nil];
     return (TestTableViewController *)[storyboard instantiateInitialViewController];
 }
 

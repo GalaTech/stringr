@@ -20,7 +20,9 @@
 #import "StringrLoadMoreTableViewCell.h"
 #import "NHBalancedFlowLayout.h"
 
-static NSString * const StringrStringTableViewController2 = @"StringTable";
+#import "TestTableViewHeader.h"
+
+static NSString * const StringrStringTableViewControllerStoryboard = @"StringTable";
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate>
 
@@ -36,9 +38,9 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
 
 + (StringrStringTableViewController *)viewController
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewController2 bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewControllerStoryboard bundle:nil];
     
-    return (StringrStringTableViewController *)[storyboard instantiateInitialViewController];
+    return (StringrStringTableViewController *)[storyboard instantiateViewControllerWithIdentifier:StringrStringTableViewControllerStoryboard];
 }
 
 
@@ -167,12 +169,13 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
      */
     
     return self.objects.count;
+//    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // One of the rows is for the footer view
-    return 2;
+    return 3;
 }
 
 
@@ -181,6 +184,7 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
 #pragma mark - UITableView Delegate
 //*********************************************************************************/
 
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section < self.objects.count) {
@@ -189,12 +193,29 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     
     return 0.0f;
 }
+*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 45.0f;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.0f;
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), [self tableView:tableView heightForHeaderInSection:section]);
+    
+    TestTableViewHeader *headerView = [[TestTableViewHeader alloc] initWithFrame:frame];
+    
+    return headerView;
+}
+
+/*
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -216,8 +237,9 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     
     return nil;
 }
+ */
 
-
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section < self.objects.count) {
@@ -230,6 +252,22 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
         }
     }
         
+    return 0.0f;
+}
+*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return 270.0f;
+    }
+    else if (indexPath.row == 1) {
+        return 47.0f;
+    }
+    else if (indexPath.row ==2) {
+        return 55.0f;
+    }
+    
     return 0.0f;
 }
 
@@ -256,22 +294,40 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     PFQuery *query = [self getQueryForTable];
     query.limit = 100;
     
-    
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyNetworkElseCache;
     }
-     
     
     StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
     if (![appDelegate.rootViewController isParseReachable]) {
         query = [PFQuery queryWithClassName:@"no_class"];
     }
-    
+
     return query;
+}
+
+- (UITableViewCell *)testTableViewCells:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    
+    if (indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"StringCell" forIndexPath:indexPath];
+    }
+    else if (indexPath.row == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+    }
+    else if (indexPath.row ==2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+    }
+    
+    return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
+    return [self testTableViewCells:tableView indexPath:indexPath];
+    
+    /*
     PFObject *string = object;
     
     // It's possible for this object to be of type statistic or activity. This just gets the string
@@ -329,6 +385,7 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
 //    else {
 //        return nil;
 //    }
+     */
 }
 
 - (void)objectsDidLoad:(NSError *)error
