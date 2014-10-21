@@ -67,6 +67,8 @@
 		AB50811718B296C200DE933D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811618B296C200DE933D /* StoreKit.framework */; };
 		AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811818B296C900DE933D /* SystemConfiguration.framework */; };
 		AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811C18B298D100DE933D /* FacebookSDK.framework */; };
+		AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */; };
+		AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
 		AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */; };
@@ -287,6 +289,8 @@
 		AB50811618B296C200DE933D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AB50811818B296C900DE933D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AB50811C18B298D100DE933D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = External/FacebookSDK.framework; sourceTree = "<group>"; };
+		AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterActionCell.xib; path = TestVC/TestTableViewFooterActionCell.xib; sourceTree = "<group>"; };
+		AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterTitleCell.xib; path = TestVC/TestTableViewFooterTitleCell.xib; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
 		AB5B5941189AC86700790510 /* StringrDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTopViewController.h; path = Detail/StringrDetailTopViewController.h; sourceTree = "<group>"; };
@@ -643,8 +647,10 @@
 				AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */,
 				AB04A2FC19EF68CF0030C241 /* TestTableViewFooterTitleCell.h */,
 				AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */,
+				AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */,
 				AB04A2FF19EF6BD50030C241 /* TestTableViewFooterActionCell.h */,
 				AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */,
+				AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1410,12 +1416,14 @@
 				AB04A2F519EF4EC70030C241 /* StringTable.storyboard in Resources */,
 				ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */,
 				AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */,
+				AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */,
 				ABA2F0671922BB430004A806 /* VideoOverlay.png in Resources */,
 				ABA2F0681922BB430004A806 /* VideoOverlay@2x.png in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
 				BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */,
+				AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

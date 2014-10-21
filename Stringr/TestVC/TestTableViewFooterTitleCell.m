@@ -25,7 +25,6 @@
     // Configure the view for the selected state
 }
 
-
 - (void)setFrame:(CGRect)frame
 {
     CGFloat inset = 4.0f;

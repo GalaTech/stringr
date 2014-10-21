@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TestTableViewFooterActionCell">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bs-bO-tUy">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Like">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcm-Ml-UWk">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Action">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p5-Vo-IEn">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Comment">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="1p5-Vo-IEn" firstAttribute="leading" secondItem="0bs-bO-tUy" secondAttribute="trailing" constant="71" id="2gI-ok-gLF"/>
+                <constraint firstAttribute="centerX" secondItem="1p5-Vo-IEn" secondAttribute="centerX" id="5fr-Gk-VqK"/>
+                <constraint firstItem="Fcm-Ml-UWk" firstAttribute="baseline" secondItem="1p5-Vo-IEn" secondAttribute="baseline" id="7QY-Yt-hqk"/>
+                <constraint firstItem="Fcm-Ml-UWk" firstAttribute="leading" secondItem="1p5-Vo-IEn" secondAttribute="trailing" constant="57" id="F89-g7-pPl"/>
+                <constraint firstAttribute="trailing" secondItem="Fcm-Ml-UWk" secondAttribute="trailing" constant="65" id="GXr-kp-X3F"/>
+                <constraint firstItem="Fcm-Ml-UWk" firstAttribute="baseline" secondItem="0bs-bO-tUy" secondAttribute="baseline" id="JTg-0N-olq"/>
+                <constraint firstItem="1p5-Vo-IEn" firstAttribute="baseline" secondItem="0bs-bO-tUy" secondAttribute="baseline" id="Q4Q-8Z-FYm"/>
+                <constraint firstItem="0bs-bO-tUy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="SB6-Qz-RX0"/>
+                <constraint firstAttribute="centerY" secondItem="1p5-Vo-IEn" secondAttribute="centerY" id="X71-r7-hBI"/>
+                <constraint firstItem="1p5-Vo-IEn" firstAttribute="baseline" secondItem="Fcm-Ml-UWk" secondAttribute="baseline" id="tKn-K5-aqf"/>
+                <constraint firstItem="1p5-Vo-IEn" firstAttribute="leading" secondItem="0bs-bO-tUy" secondAttribute="trailing" constant="71" id="yHD-vO-U1X"/>
+                <constraint firstItem="Fcm-Ml-UWk" firstAttribute="leading" secondItem="1p5-Vo-IEn" secondAttribute="trailing" constant="57" id="zy8-rL-NOb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="0bs-bO-tUy"/>
+                    <exclude reference="Fcm-Ml-UWk"/>
+                    <exclude reference="1p5-Vo-IEn"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="SB6-Qz-RX0"/>
+                    <exclude reference="2gI-ok-gLF"/>
+                    <exclude reference="5fr-Gk-VqK"/>
+                    <exclude reference="Q4Q-8Z-FYm"/>
+                    <exclude reference="X71-r7-hBI"/>
+                    <exclude reference="tKn-K5-aqf"/>
+                    <exclude reference="yHD-vO-U1X"/>
+                    <exclude reference="7QY-Yt-hqk"/>
+                    <exclude reference="F89-g7-pPl"/>
+                    <exclude reference="GXr-kp-X3F"/>
+                    <exclude reference="JTg-0N-olq"/>
+                    <exclude reference="zy8-rL-NOb"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="0bs-bO-tUy"/>
+                    <include reference="Fcm-Ml-UWk"/>
+                    <include reference="1p5-Vo-IEn"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="SB6-Qz-RX0"/>
+                    <exclude reference="2gI-ok-gLF"/>
+                    <include reference="5fr-Gk-VqK"/>
+                    <include reference="Q4Q-8Z-FYm"/>
+                    <include reference="X71-r7-hBI"/>
+                    <include reference="tKn-K5-aqf"/>
+                    <include reference="yHD-vO-U1X"/>
+                    <exclude reference="7QY-Yt-hqk"/>
+                    <include reference="F89-g7-pPl"/>
+                    <exclude reference="GXr-kp-X3F"/>
+                    <exclude reference="JTg-0N-olq"/>
+                    <exclude reference="zy8-rL-NOb"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

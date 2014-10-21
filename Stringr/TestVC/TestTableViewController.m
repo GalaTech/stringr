@@ -8,6 +8,9 @@
 
 #import "TestTableViewController.h"
 #import "TestTableViewHeader.h"
+#import "TestTableViewFooterActionCell.h"
+#import "TestTableViewFooterTitleCell.h"
+#import "TestTableViewStringCell.h"
 
 static NSString * const StringrStringTableViewController2 = @"StringTable";
 
@@ -24,11 +27,35 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     return (TestTableViewController *)[storyboard instantiateInitialViewController];
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        
+    }
+    
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     UIColor *veryLightGrayColor = [UIColor colorWithWhite:0.89f alpha:1.0f];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.allowsSelection = NO;
     
     self.tableView.backgroundColor = veryLightGrayColor;
 }
@@ -56,12 +83,23 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     UITableViewCell *cell;
     
     if (indexPath.row == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"StringCell" forIndexPath:indexPath];
+//        [tableView registerClass:[TestTableViewStringCell class] forCellReuseIdentifier:@"StringCell"];
+//        cell = [tableView dequeueReusableCellWithIdentifier:@"StringCell"];
+        
+//        if (!cell) {
+            cell = [TestTableViewStringCell new];
+//        }
     }
     else if (indexPath.row == 1) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+        [tableView registerClass:[TestTableViewFooterTitleCell class] forCellReuseIdentifier:@"StringFooterTitleCell"];
+//        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+        
+//        if (!cell) {
+            cell = [TestTableViewFooterTitleCell new];
+//        }
     }
     else if (indexPath.row ==2) {
+        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
     }
     

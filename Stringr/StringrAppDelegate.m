@@ -38,18 +38,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Registers the app for notification types via in app alert view
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-     UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
+//    // Registers the app for notification types via in app alert view
+//    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+//     UIRemoteNotificationTypeAlert|
+//     UIRemoteNotificationTypeSound];
+//    
+////    [application registerForRemoteNotifications];
+//    
+//    // setup and initialize the login controller
+//    self.rootViewController = (StringrAppController *)[self.window rootViewController];
+//    [self.rootViewController launchSequence:launchOptions];
     
-//    [application registerForRemoteNotifications];
-    
-    // setup and initialize the login controller
-    self.rootViewController = (StringrAppController *)[self.window rootViewController];
-    [self.rootViewController launchSequence:launchOptions];
-    
-//    [self testLaunchSequence];
+    [self testLaunchSequence];
     
     return YES;
 }
@@ -179,7 +179,7 @@
 
 - (void)testLaunchSequence
 {
-    TestTableViewController *testVC = [TestTableViewController viewController];
+    TestTableViewController *testVC = [TestTableViewController new];
     
     self.window.rootViewController = testVC;
     

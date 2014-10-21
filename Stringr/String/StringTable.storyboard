@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c8R-aF-E6d">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Stringr String Table View Controller-->
+        <!--View Controller-->
+        <scene sceneID="kOr-LV-hX6">
+            <objects>
+                <viewController id="jek-jx-1Wr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1QX-of-tky"/>
+                        <viewControllerLayoutGuide type="bottom" id="ehx-Qk-t8w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ueo-Mn-FWC">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DVY-0A-HtN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tgL-z2-qsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4690.5" y="353.25"/>
+        </scene>
+        <!--Table View Controller-->
         <scene sceneID="cEO-N2-Vfx">
             <objects>
-                <tableViewController storyboardIdentifier="StringTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z98-BR-jvx" customClass="StringrStringTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="StringTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z98-BR-jvx" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4vG-uo-BtJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StringCell" rowHeight="318" id="23C-Aq-VxS" customClass="StringTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="318" id="23C-Aq-VxS" customClass="TestTableViewStringCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="23C-Aq-VxS" id="4EP-bG-c6I">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.94553172829999999" green="0.3561544492" blue="0.34817832189999998" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StringFooterTitleCell" id="zRK-ay-HKP" customClass="TestTableViewFooterTitleCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="zRK-ay-HKP" customClass="TestTableViewFooterTitleCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zRK-ay-HKP" id="uq9-TA-E5u">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -68,7 +85,7 @@
                                     <outlet property="TestTitle" destination="nTj-4A-8Ma" id="XIN-lP-MxL"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StringFooterActionCell" rowHeight="65" id="Cta-zl-SUG" customClass="TestTableViewFooterActionCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="65" id="Cta-zl-SUG" customClass="TestTableViewFooterActionCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cta-zl-SUG" id="B3r-uI-b57">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -79,15 +96,15 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBz-n8-fjD">
-                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                            <state key="normal" title="Action">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYa-fB-vbe">
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                             <state key="normal" title="Comment">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBz-n8-fjD">
+                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <state key="normal" title="Action">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -111,8 +128,8 @@
                                     <variation key="default">
                                         <mask key="subviews">
                                             <exclude reference="w99-IJ-Jbf"/>
-                                            <exclude reference="hBz-n8-fjD"/>
                                             <exclude reference="HYa-fB-vbe"/>
+                                            <exclude reference="hBz-n8-fjD"/>
                                         </mask>
                                         <mask key="constraints">
                                             <exclude reference="2ms-jx-99V"/>
@@ -132,8 +149,8 @@
                                     <variation key="heightClass=regular-widthClass=compact">
                                         <mask key="subviews">
                                             <include reference="w99-IJ-Jbf"/>
-                                            <include reference="hBz-n8-fjD"/>
                                             <include reference="HYa-fB-vbe"/>
+                                            <include reference="hBz-n8-fjD"/>
                                         </mask>
                                         <mask key="constraints">
                                             <include reference="2ms-jx-99V"/>
@@ -162,7 +179,44 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4m4-q7-vDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3120" y="353.25"/>
+            <point key="canvasLocation" x="5352" y="353.25"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="B8A-F4-HFT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eMR-J7-wHJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="kvB-bq-tz9"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IRG-eu-ex9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jek-jx-1Wr" kind="relationship" relationship="rootViewController" id="Gw1-7d-5sO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tos-fF-oTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4038" y="353.25"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="1yV-OS-Uep">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="c8R-aF-E6d" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="YsO-Rb-qAP">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="eMR-J7-wHJ" kind="relationship" relationship="viewControllers" id="ywU-Rm-qWc"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CCG-dz-uBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3360" y="353.25"/>
         </scene>
     </scenes>
 </document>
