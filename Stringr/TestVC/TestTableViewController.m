@@ -38,17 +38,6 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        
-    }
-    
-    return self;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,30 +69,34 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    
     if (indexPath.row == 0) {
-//        [tableView registerClass:[TestTableViewStringCell class] forCellReuseIdentifier:@"StringCell"];
-//        cell = [tableView dequeueReusableCellWithIdentifier:@"StringCell"];
+        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewStringCell" bundle:nil] forCellReuseIdentifier:@"StringCell"];
+        TestTableViewStringCell *stringCell = [tableView dequeueReusableCellWithIdentifier:@"StringCell" forIndexPath:indexPath];
         
-//        if (!cell) {
-            cell = [TestTableViewStringCell new];
-//        }
+        if (!stringCell) {
+            stringCell = [TestTableViewStringCell new];
+        }
+        
+        return stringCell;
     }
     else if (indexPath.row == 1) {
-        [tableView registerClass:[TestTableViewFooterTitleCell class] forCellReuseIdentifier:@"StringFooterTitleCell"];
-//        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterTitleCell" bundle:nil] forCellReuseIdentifier:@"StringFooterTitleCell"];
+       TestTableViewFooterTitleCell *footerCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
         
-//        if (!cell) {
-            cell = [TestTableViewFooterTitleCell new];
-//        }
+        if (!footerCell) {
+            footerCell = [TestTableViewFooterTitleCell new];
+        }
+        
+        return footerCell;
     }
-    else if (indexPath.row ==2) {
+    else if (indexPath.row == 2) {
         [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+        TestTableViewFooterActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+        
+        return actionCell;
     }
     
-    return cell;
+    return nil;
 }
 
 

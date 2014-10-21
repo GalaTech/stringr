@@ -33,14 +33,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="318" id="23C-Aq-VxS" customClass="TestTableViewStringCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="318" id="23C-Aq-VxS">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="23C-Aq-VxS" id="4EP-bG-c6I">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.94553172829999999" green="0.3561544492" blue="0.34817832189999998" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="zRK-ay-HKP" customClass="TestTableViewFooterTitleCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="zRK-ay-HKP">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zRK-ay-HKP" id="uq9-TA-E5u">
                                     <autoresizingMask key="autoresizingMask"/>

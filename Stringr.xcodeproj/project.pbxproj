@@ -69,6 +69,7 @@
 		AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811C18B298D100DE933D /* FacebookSDK.framework */; };
 		AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */; };
 		AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */; };
+		AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
 		AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */; };
@@ -291,6 +292,7 @@
 		AB50811C18B298D100DE933D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = External/FacebookSDK.framework; sourceTree = "<group>"; };
 		AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterActionCell.xib; path = TestVC/TestTableViewFooterActionCell.xib; sourceTree = "<group>"; };
 		AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterTitleCell.xib; path = TestVC/TestTableViewFooterTitleCell.xib; sourceTree = "<group>"; };
+		AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewStringCell.xib; path = TestVC/TestTableViewStringCell.xib; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
 		AB5B5941189AC86700790510 /* StringrDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTopViewController.h; path = Detail/StringrDetailTopViewController.h; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 			children = (
 				AB04A30819EF7E210030C241 /* TestTableViewStringCell.h */,
 				AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */,
+				AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */,
 				AB04A2FC19EF68CF0030C241 /* TestTableViewFooterTitleCell.h */,
 				AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */,
 				AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */,
@@ -1424,6 +1427,7 @@
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
 				BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */,
+				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
