@@ -16,6 +16,8 @@
 @property (strong, nonatomic) PFUser *userForProfile;
 @property (weak, nonatomic) id<StringrProfileTableViewControllerDelegate> delegate;
 
+- (instancetype)initWithUser:(PFUser *)user;
+
 @end
 
 

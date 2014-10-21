@@ -70,8 +70,7 @@
     // Sets the user for the currently accessed profile
     [self.topProfileVC setUserForProfile:self.userForProfile];
     
-    self.tableProfileVC = [[StringrProfileTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.tableProfileVC setUserForProfile:self.userForProfile];
+    self.tableProfileVC = [[StringrProfileTableViewController alloc] initWithUser:self.userForProfile];
     
     [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
     

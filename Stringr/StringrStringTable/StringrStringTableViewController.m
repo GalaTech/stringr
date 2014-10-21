@@ -21,6 +21,9 @@
 #import "NHBalancedFlowLayout.h"
 
 #import "TestTableViewHeader.h"
+#import "TestTableViewStringCell.h"
+#import "TestTableViewFooterTitleCell.h"
+#import "TestTableViewFooterActionCell.h"
 
 static NSString * const StringrStringTableViewControllerStoryboard = @"StringTable";
 
@@ -60,12 +63,12 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
+    
     if (self) {
         self.parseClassName = kStringrStringClassKey;
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = NO;
         self.objectsPerPage = 2;
-        
     }
     
     return self;
@@ -86,7 +89,8 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"StringTableViewFooter"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    [self.tableView setSeparatorColor:[UIColor clearColor]];
+    self.tableView.allowsSelection = NO;
+    self.tableView.separatorColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -174,6 +178,8 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    /// If I returned 1 for the load more section would this work correctly?
+    
     // One of the rows is for the footer view
     return 3;
 }
@@ -271,6 +277,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     return 0.0f;
 }
 
+/*
 -(void)tableView:(UITableView *)tableView willDisplayCell:(StringTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
@@ -282,6 +289,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         [cell.stringCollectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
     }
 }
+ */
 
 
 
@@ -308,19 +316,34 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (UITableViewCell *)testTableViewCells:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    
     if (indexPath.row == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"StringCell" forIndexPath:indexPath];
+        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewStringCell" bundle:nil] forCellReuseIdentifier:@"StringCell"];
+        TestTableViewStringCell *stringCell = [tableView dequeueReusableCellWithIdentifier:@"StringCell" forIndexPath:indexPath];
+        
+        if (!stringCell) {
+            stringCell = [TestTableViewStringCell new];
+        }
+        
+        return stringCell;
     }
     else if (indexPath.row == 1) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterTitleCell" bundle:nil] forCellReuseIdentifier:@"StringFooterTitleCell"];
+        TestTableViewFooterTitleCell *footerCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+        
+        if (!footerCell) {
+            footerCell = [TestTableViewFooterTitleCell new];
+        }
+        
+        return footerCell;
     }
-    else if (indexPath.row ==2) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+    else if (indexPath.row == 2) {
+        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
+        TestTableViewFooterActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+        
+        return actionCell;
     }
     
-    return cell;
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
@@ -388,6 +411,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
      */
 }
 
+/*
 - (void)objectsDidLoad:(NSError *)error
 {
     [super objectsDidLoad:error];
@@ -432,6 +456,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         }
     }
 }
+*/
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -441,7 +466,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     } else {
         return nil;
     }
-    
 }
 
 /*
@@ -541,7 +565,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
-    
 }
 
 

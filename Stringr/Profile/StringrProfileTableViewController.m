@@ -18,6 +18,17 @@
 #pragma mark - LifeCycle
 //*********************************************************************************/
 
+- (instancetype)initWithUser:(PFUser *)user
+{
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        _userForProfile = user;
+    }
+    
+    return self;
+}
+
 - (void)dealloc
 {
     NSLog(@"dealloc profile table");
