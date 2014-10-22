@@ -53,7 +53,6 @@
 		AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA231911D31500A9DFF9 /* AdSupport.framework */; };
 		AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */; };
 		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
-		AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
 		AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */; };
 		AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */; };
@@ -70,6 +69,7 @@
 		AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */; };
 		AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */; };
 		AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */; };
+		AB5AFBEE19F76C86002F88B9 /* TestTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
 		AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */; };
@@ -87,7 +87,6 @@
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
 		AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */; };
-		AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB919C4E18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib */; };
 		AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */; };
 		AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */; };
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
@@ -139,7 +138,6 @@
 		BF170EC3184BEB100056ECE7 /* StringTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EC2184BEB100056ECE7 /* StringTableViewCell.m */; };
 		BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EC5184BEB310056ECE7 /* StringCollectionViewCell.m */; };
 		BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF170ECC184BEC400056ECE7 /* StringCollectionViewCell.xib */; };
-		BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF170ECE184BEC5D0056ECE7 /* StringView.xib */; };
 		BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */; };
 		BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */; };
 		BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD5183AADCB0071E047 /* StringrConstants.m */; };
@@ -271,7 +269,6 @@
 		AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestViewViewController.m; path = TestVC/TestViewViewController.m; sourceTree = "<group>"; };
 		AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoadMoreTableViewCell.h; path = StringrStringTable/StringrLoadMoreTableViewCell.h; sourceTree = "<group>"; };
 		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
-		AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeCollectionView.xib; path = String/StringLargeCollectionView.xib; sourceTree = "<group>"; };
 		AB37EBEF19DCA74500E66580 /* StringrModelObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrModelObjects.h; path = "Stringr Objects/StringrModelObjects.h"; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -293,6 +290,7 @@
 		AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterActionCell.xib; path = TestVC/TestTableViewFooterActionCell.xib; sourceTree = "<group>"; };
 		AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterTitleCell.xib; path = TestVC/TestTableViewFooterTitleCell.xib; sourceTree = "<group>"; };
 		AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewStringCell.xib; path = TestVC/TestTableViewStringCell.xib; sourceTree = "<group>"; };
+		AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewHeader.xib; path = TestVC/TestTableViewHeader.xib; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
 		AB5B5941189AC86700790510 /* StringrDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTopViewController.h; path = Detail/StringrDetailTopViewController.h; sourceTree = "<group>"; };
@@ -326,7 +324,6 @@
 		AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDiscoveryTableViewController.m; path = StringrStringTable/StringrDiscoveryTableViewController.m; sourceTree = "<group>"; };
 		AB7D345218BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSelectProfileImageTableViewCell.h; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.h; sourceTree = "<group>"; };
 		AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectProfileImageTableViewCell.m; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.m; sourceTree = "<group>"; };
-		AB919C4E18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringLargeReorderableCollectionView.xib; path = String/StringLargeReorderableCollectionView.xib; sourceTree = "<group>"; };
 		AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrWriteCommentViewController.h; path = Comments/StringrWriteCommentViewController.h; sourceTree = "<group>"; };
 		AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrWriteCommentViewController.m; path = Comments/StringrWriteCommentViewController.m; sourceTree = "<group>"; };
 		AB9D74001891A7CA003BB2B8 /* UIImage+Decompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Decompression.h"; sourceTree = "<group>"; };
@@ -418,7 +415,6 @@
 		BF170EC4184BEB310056ECE7 /* StringCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionViewCell.h; path = String/StringCollectionViewCell.h; sourceTree = "<group>"; };
 		BF170EC5184BEB310056ECE7 /* StringCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionViewCell.m; path = String/StringCollectionViewCell.m; sourceTree = "<group>"; };
 		BF170ECC184BEC400056ECE7 /* StringCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringCollectionViewCell.xib; path = String/StringCollectionViewCell.xib; sourceTree = "<group>"; };
-		BF170ECE184BEC5D0056ECE7 /* StringView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringView.xib; path = String/StringView.xib; sourceTree = "<group>"; };
 		BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTopViewController.h; path = Profile/StringrProfileTopViewController.h; sourceTree = "<group>"; };
 		BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTopViewController.m; path = Profile/StringrProfileTopViewController.m; sourceTree = "<group>"; };
 		BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTableViewController.h; path = Profile/StringrProfileTableViewController.h; sourceTree = "<group>"; };
@@ -674,6 +670,7 @@
 			children = (
 				AB04A30519EF6F140030C241 /* TestTableViewHeader.h */,
 				AB04A30619EF6F140030C241 /* TestTableViewHeader.m */,
+				AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -1048,9 +1045,6 @@
 				ABB7F76A18908BA0006B32AB /* StringCollectionView.m */,
 				BF170EC4184BEB310056ECE7 /* StringCollectionViewCell.h */,
 				BF170EC5184BEB310056ECE7 /* StringCollectionViewCell.m */,
-				BF170ECE184BEC5D0056ECE7 /* StringView.xib */,
-				AB30250D189B1F75000DBF70 /* StringLargeCollectionView.xib */,
-				AB919C4E18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib */,
 				BF170ECC184BEC400056ECE7 /* StringCollectionViewCell.xib */,
 			);
 			name = String;
@@ -1410,7 +1404,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABA2F0661922BB430004A806 /* SelectionOverlay~iOS7@2x.png in Resources */,
-				AB30250E189B1F75000DBF70 /* StringLargeCollectionView.xib in Resources */,
 				ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */,
 				ABA2F0631922BB430004A806 /* SelectionOverlay.png in Resources */,
 				ABA2F0621922BB430004A806 /* ZCLocalized.strings in Resources */,
@@ -1418,14 +1411,13 @@
 				BF8349E718297FD600D15963 /* Images.xcassets in Resources */,
 				AB04A2F519EF4EC70030C241 /* StringTable.storyboard in Resources */,
 				ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */,
-				AB919C4F18A01F4F00D40FD5 /* StringLargeReorderableCollectionView.xib in Resources */,
 				AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */,
 				ABA2F0671922BB430004A806 /* VideoOverlay.png in Resources */,
 				ABA2F0681922BB430004A806 /* VideoOverlay@2x.png in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
-				BF170ECF184BEC5D0056ECE7 /* StringView.xib in Resources */,
+				AB5AFBEE19F76C86002F88B9 /* TestTableViewHeader.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */,
 				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,

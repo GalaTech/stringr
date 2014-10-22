@@ -43,7 +43,7 @@
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];
     
-    [application registerForRemoteNotifications];
+//    [application registerForRemoteNotifications];
     
     // setup and initialize the login controller
     self.rootViewController = (StringrAppController *)[self.window rootViewController];

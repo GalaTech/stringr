@@ -21,7 +21,7 @@
         self.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
         self.layer.shadowOpacity = 0.5f;
         //        self.layer.shadowPath = shadowPath.CGPath;
-        self.backgroundColor = [UIColor blackColor];
+        
     }
     
     return self;

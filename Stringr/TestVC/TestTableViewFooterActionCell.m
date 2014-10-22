@@ -8,26 +8,49 @@
 
 #import "TestTableViewFooterActionCell.h"
 
+@interface TestTableViewFooterActionCell ()
+
+@property (nonatomic) CGRect cellBounds;
+
+@end
+
 @implementation TestTableViewFooterActionCell
 
-- (void)awakeFromNib {
-    // Initialization code
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+//    self.cellBounds = self.frame;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
-}
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    
+//    CGFloat inset = 4.0f;
+//    
+//    CGRect bounds = self.cellBounds;
+//    CGRect boundsWithInsets = CGRectMake(bounds.origin.x + inset,
+//                                         bounds.origin.y,
+//                                         bounds.size.width - (2 * inset),
+//                                         bounds.size.height - (inset * 3));
+//    [super setBounds:boundsWithInsets];
+//}
+
 
 - (void)setFrame:(CGRect)frame
 {
     CGFloat inset = 4.0f;
     frame.origin.x += inset;
-    frame.size.width -= 2 * inset;
-    frame.size.height -= inset * 3;
+    frame.size.width = self.superview.frame.size.width - 2 * inset;
+    
+    
+    
+    frame.size.height = FooterActionCellHeight - (inset * 3);
     
     [super setFrame:frame];
 }
+
 
 @end

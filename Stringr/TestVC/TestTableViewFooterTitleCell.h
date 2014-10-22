@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static CGFloat FooterTitleCellHeight = 47.0f;
+
 @interface TestTableViewFooterTitleCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *TestTitle;

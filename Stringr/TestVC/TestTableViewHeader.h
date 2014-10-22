@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class StringrPathImageView;
+
 @interface TestTableViewHeader : UITableViewHeaderFooterView
+
+@property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
 
 @end

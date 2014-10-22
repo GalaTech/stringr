@@ -112,6 +112,8 @@
     [self.cameraButton setImage:[UIImage imageNamed:@"camera_button"] forState:UIControlStateNormal];
     [self.cameraButton addTarget:self action:@selector(cameraButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    
     UIImageView *settingsImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [settingsImage setImage:[UIImage imageNamed:@"settings_button"]];
     
@@ -123,7 +125,7 @@
     [view addSubview:self.settingsButton];
     [view addSubview:self.profileImageView];
     [view addSubview:self.profileNameLabel];
-    
+
     self.tableView.tableHeaderView = view;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserProfileImage:) name:kNSNotificationCenterUpdateMenuProfileImage object:nil];

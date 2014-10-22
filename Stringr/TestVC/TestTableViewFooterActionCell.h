@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static CGFloat FooterActionCellHeight = 55.0f;
+
 @interface TestTableViewFooterActionCell : UITableViewCell
 
 @end

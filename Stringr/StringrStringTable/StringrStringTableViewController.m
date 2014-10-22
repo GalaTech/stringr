@@ -39,27 +39,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 #pragma mark - Lifecycle
 //*********************************************************************************/
 
-+ (StringrStringTableViewController *)viewController
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewControllerStoryboard bundle:nil];
-    
-    return (StringrStringTableViewController *)[storyboard instantiateViewControllerWithIdentifier:StringrStringTableViewControllerStoryboard];
-}
-
-
-- (id)initWithCoder:(NSCoder *)aCoder
-{
-    self = [super initWithCoder:aCoder];
-    if (self) {
-        self.parseClassName = kStringrStringClassKey;
-        self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = NO;
-        self.objectsPerPage = 2;
-    }
-    
-    return self;
-}
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -86,7 +65,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"StringTableViewFooter"];
     [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
     self.tableView.allowsSelection = NO;
@@ -166,11 +144,11 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    /*
+    
     if (self.objects.count == self.objectsPerPage) {
         return self.objects.count + 1;
     }
-     */
+     
     
     return self.objects.count;
 //    return 2;
@@ -180,6 +158,9 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 {
     /// If I returned 1 for the load more section would this work correctly?
     
+//    if (self.objects.count - 1 == self.objectsPerPage) {
+//        return 1;
+//    }
     // One of the rows is for the footer view
     return 3;
 }
@@ -214,9 +195,21 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), [self tableView:tableView heightForHeaderInSection:section]);
+    PFObject *string = self.objects[section];
     
-    TestTableViewHeader *headerView = [[TestTableViewHeader alloc] initWithFrame:frame];
+    // It's possible for this object to be of type statistic or activity. This just gets the string
+    // value from either of those classes
+    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [string objectForKey:kStringrStatisticsStringKey];
+    }
+    else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [string objectForKey:kStringrActivityStringKey];
+    }
+    
+    TestTableViewHeader *headerView = [[NSBundle mainBundle] loadNibNamed:@"TestTableViewHeader" owner:self options:nil][0];
+    // set file for profile image
+//    [headerView.stringProfileUploader setText:[[string objectForKey:kStringrStringUserKey] objectForKey:kStringrUserUsernameCaseSensitive]];
+    
     
     return headerView;
 }
@@ -264,23 +257,25 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        return 270.0f;
-    }
-    else if (indexPath.row == 1) {
-        return 47.0f;
-    }
-    else if (indexPath.row ==2) {
-        return 55.0f;
+    if (indexPath.section < self.objects.count) {
+        if (indexPath.row == 0) {
+            return 270.0f;
+        }
+        else if (indexPath.row == 1) {
+            return FooterTitleCellHeight;
+        }
+        else if (indexPath.row == 2) {
+            return FooterActionCellHeight;
+        }
     }
     
-    return 0.0f;
+    return 44.0f;
 }
 
-/*
+
 -(void)tableView:(UITableView *)tableView willDisplayCell:(StringTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0 && [cell isKindOfClass:[StringTableViewCell class]]) {
         [cell setCollectionViewDataSourceDelegate:self index:indexPath.section];
         
         NSInteger index = cell.stringCollectionView.index;
@@ -289,7 +284,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         [cell.stringCollectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
     }
 }
- */
 
 
 
@@ -314,15 +308,34 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     return query;
 }
 
-- (UITableViewCell *)testTableViewCells:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
+    PFObject *string = object;
+    
+    // It's possible for this object to be of type statistic or activity. This just gets the string
+    // value from either of those classes
+    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [object objectForKey:kStringrStatisticsStringKey];
+    }
+    else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [object objectForKey:kStringrActivityStringKey];
+    }
+    
+//    if (indexPath.section == self.objects.count) {
+//        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+//        UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+//        return cell;
+//    }
     if (indexPath.row == 0) {
-        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewStringCell" bundle:nil] forCellReuseIdentifier:@"StringCell"];
-        TestTableViewStringCell *stringCell = [tableView dequeueReusableCellWithIdentifier:@"StringCell" forIndexPath:indexPath];
+        [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
+        StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:StringTableViewCellIdentifier forIndexPath:indexPath];
         
         if (!stringCell) {
-            stringCell = [TestTableViewStringCell new];
+            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringTableViewCellIdentifier];
         }
+        
+        [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return stringCell;
     }
@@ -334,6 +347,8 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
             footerCell = [TestTableViewFooterTitleCell new];
         }
         
+        [footerCell.TestTitle setText:[string objectForKey:kStringrStringTitleKey]];
+        
         return footerCell;
     }
     else if (indexPath.row == 2) {
@@ -344,11 +359,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     }
     
     return nil;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
-{
-    return [self testTableViewCells:tableView indexPath:indexPath];
     
     /*
     PFObject *string = object;
@@ -411,7 +421,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
      */
 }
 
-/*
+
 - (void)objectsDidLoad:(NSError *)error
 {
     [super objectsDidLoad:error];
@@ -449,14 +459,15 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
                         [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
                         
                         NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                     }
                 }];
             }
         }
     }
 }
-*/
+ 
+
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -468,7 +479,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     }
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
     //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
@@ -482,7 +493,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     
     return loadMoreCell;
 }
- */
+ 
 
 
 

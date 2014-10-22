@@ -8,6 +8,7 @@
 
 #import "StringCollectionView.h"
 
+static NSString *StringTableViewCellIdentifier = @"StringTableViewCell";
 static NSString *StringCollectionViewCellIdentifier = @"StringCollectionViewCellIdentifier";
 
 @interface StringTableViewCell : UITableViewCell

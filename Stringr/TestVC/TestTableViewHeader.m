@@ -18,9 +18,9 @@
 }
 */
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithCoder:aDecoder];
     
     if (self) {
         UIView * view = [[UIView alloc] initWithFrame:self.bounds];
