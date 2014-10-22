@@ -7,16 +7,21 @@
 //
 
 #import "TestTableViewHeader.h"
+#import "StringrPathImageView.h"
+
+@interface TestTableViewHeader ()
+
+@property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
+@property (weak, nonatomic) IBOutlet UILabel *stringUploadDate;
+
+@property (strong, nonatomic) PFObject *headerString;
+
+@end
 
 @implementation TestTableViewHeader
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+#pragma mark - Lifecycle
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
@@ -26,9 +31,20 @@
         UIView * view = [[UIView alloc] initWithFrame:self.bounds];
         view.backgroundColor = [UIColor whiteColor];
         self.backgroundView = view;
+        
+        
     }
     
     return self;
+}
+
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [self.stringProfileImage setupImageWithDefaultConfiguration];
+    
 }
 
 
@@ -41,5 +57,45 @@
     [super setFrame:frame];
 }
 
+
+#pragma mark - Public
+
+- (void)configureHeaderWithString:(PFObject *)string
+{
+    self.headerString = string;
+    
+    PFUser *user = self.headerString[kStringrStringUserKey];
+    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        [self configureProfileImageViewWithUser:(PFUser *)object];
+        [self configureProfileUploaderLabelWithUser:(PFUser *)object];
+    }];
+}
+
+
+#pragma mark - Private
+
+- (void)configureProfileImageViewWithUser:(PFUser *)user
+{
+    [self.stringProfileImage setFile:user[kStringrUserProfilePictureThumbnailKey]];
+    [self.stringProfileImage loadInBackgroundWithIndicator];
+}
+
+
+- (void)configureProfileUploaderLabelWithUser:(PFUser *)user
+{
+    NSString *formattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:user[kStringrUserUsernameCaseSensitive]];
+    self.stringProfileUploader.text = formattedUsername;
+}
+
+
+- (void)configureUploadDateLabel
+{
+    if (self.headerString) {
+        NSString *uploadTime = [StringrUtility timeAgoFromDate:self.headerString.createdAt];
+        [self.stringUploadDate setText:uploadTime];
+    } else {
+        [self.stringUploadDate setText:@"Now"];
+    }
+}
 
 @end

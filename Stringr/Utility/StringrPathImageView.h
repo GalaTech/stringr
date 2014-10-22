@@ -35,6 +35,8 @@
  */
 - (void)setImageToCirclePath;
 
+- (void)setupImageWithDefaultConfiguration;
+
 - (void)loadInBackgroundWithIndicator;
 
 

@@ -12,7 +12,6 @@
 
 @interface TestTableViewHeader : UITableViewHeaderFooterView
 
-@property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
-@property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
+- (void)configureHeaderWithString:(PFObject *)string;
 
 @end

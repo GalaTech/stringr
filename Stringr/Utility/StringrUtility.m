@@ -707,4 +707,26 @@
     return usernameUser && [[usernameUser objectForKey:kStringrUserEmailVerifiedKey] boolValue] == NO && [PFFacebookUtils isLinkedWithUser:usernameUser] == NO && [PFTwitterUtils isLinkedWithUser:usernameUser] == NO;
 }
 
+
+#pragma mark - String Checking
+
++ (PFObject *)stringFromObject:(PFObject *)object
+{
+    PFObject *string = object;
+    
+    // It's possible for this object to be of type statistic or activity. This just gets the string
+    // value from either of those classes
+    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        string = [object objectForKey:kStringrStatisticsStringKey];
+    }
+    else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
+        string = [object objectForKey:kStringrActivityStringKey];
+    }
+    else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
+        string = [object objectForKey:kStringrPhotoStringKey];
+    }
+    
+    return string;
+}
+
 @end

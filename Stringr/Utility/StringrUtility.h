@@ -59,16 +59,10 @@
 + (BOOL)objectIsString:(PFObject *)object;
 
 
-
-
-
 // UIImage Formatting
 + (UIImage *)formatPhotoImageForUpload:(UIImage *)image;
 + (UIImage *)formatProfileImageForUpload:(UIImage *)image;
 + (UIImage *)formatProfileThumbnailImageForUpload:(UIImage *)image;
-
-
-
 
 
 // Menu
@@ -135,5 +129,8 @@
 + (BOOL)twitterUserCanLogin:(PFUser *)twitterUser;
 + (BOOL)usernameUserCanLogin:(PFUser *)usernameUser;
 + (BOOL)usernameUserNeedsToVerifyEmail:(PFUser *)usernameUser;
+
+
++ (PFObject *)stringFromObject:(PFObject *)object;
 
 @end

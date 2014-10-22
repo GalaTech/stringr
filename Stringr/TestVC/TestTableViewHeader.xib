@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,34 +11,74 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y3v-Ia-LhE" customClass="StringrPathImageView">
+                    <rect key="frame" x="569" y="11" width="23" height="23"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="23" id="A5z-vw-Eqm"/>
+                        <constraint firstAttribute="height" constant="23" id="GQV-bH-z9Z"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbH-TR-Vmw">
+                    <rect key="frame" x="54" y="4" width="284" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="284" id="7pG-7r-1G9"/>
+                        <constraint firstAttribute="width" constant="254" id="FMx-NF-BBp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="FMx-NF-BBp"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37L-n7-Yn1">
+                    <rect key="frame" x="54" y="24" width="284" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="254" id="uAC-30-cw9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="uAC-30-cw9"/>
+                        </mask>
+                    </variation>
+                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ocd-Jk-6wp" customClass="StringrPathImageView">
                     <rect key="frame" x="8" y="4" width="38" height="38"/>
-                    <color key="backgroundColor" red="0.94553172829999999" green="0.3561544492" blue="0.34817832189999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.95993768601190477" green="0.95993768601190477" blue="0.95993768601190477" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="38" id="PGK-ih-wdi"/>
                         <constraint firstAttribute="height" constant="38" id="Ugb-4d-nLo"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbH-TR-Vmw">
-                    <rect key="frame" x="54" y="12" width="254" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="254" id="FMx-NF-BBp"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Ocd-Jk-6wp" secondAttribute="bottom" constant="3" id="1bM-gg-CXo"/>
+                <constraint firstItem="y3v-Ia-LhE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="11" id="1ti-Gs-g29"/>
+                <constraint firstItem="37L-n7-Yn1" firstAttribute="leading" secondItem="Ocd-Jk-6wp" secondAttribute="trailing" constant="8" id="AWo-bI-qD2"/>
+                <constraint firstAttribute="trailing" secondItem="y3v-Ia-LhE" secondAttribute="trailing" constant="8" id="D0Y-uR-nYI"/>
                 <constraint firstItem="fbH-TR-Vmw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="Jkg-yU-05n"/>
                 <constraint firstItem="Ocd-Jk-6wp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Mol-JY-xLe"/>
+                <constraint firstItem="37L-n7-Yn1" firstAttribute="width" secondItem="fbH-TR-Vmw" secondAttribute="width" id="N1W-c3-tdQ"/>
+                <constraint firstAttribute="bottom" secondItem="37L-n7-Yn1" secondAttribute="bottom" constant="3" id="RmI-Pc-r1W"/>
+                <constraint firstItem="37L-n7-Yn1" firstAttribute="bottom" secondItem="Ocd-Jk-6wp" secondAttribute="bottom" id="aYf-FL-r3a"/>
                 <constraint firstAttribute="bottom" secondItem="Ocd-Jk-6wp" secondAttribute="bottom" constant="3" id="cgQ-JT-6bd"/>
+                <constraint firstItem="y3v-Ia-LhE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="11" id="e1G-qm-5by"/>
                 <constraint firstItem="Ocd-Jk-6wp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="grd-Kn-JMw"/>
+                <constraint firstItem="Ocd-Jk-6wp" firstAttribute="top" secondItem="fbH-TR-Vmw" secondAttribute="top" id="lEL-gI-zMw"/>
                 <constraint firstItem="fbH-TR-Vmw" firstAttribute="leading" secondItem="Ocd-Jk-6wp" secondAttribute="trailing" constant="8" id="lpW-8f-83n"/>
+                <constraint firstItem="y3v-Ia-LhE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="mtG-hg-6IL"/>
+                <constraint firstItem="37L-n7-Yn1" firstAttribute="top" secondItem="fbH-TR-Vmw" secondAttribute="bottom" constant="2" id="pCs-bV-U0u"/>
+                <constraint firstAttribute="trailing" secondItem="y3v-Ia-LhE" secondAttribute="trailing" constant="8" id="rGs-xu-6pB"/>
                 <constraint firstItem="Ocd-Jk-6wp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="rM1-WH-TdM"/>
                 <constraint firstAttribute="bottom" secondItem="fbH-TR-Vmw" secondAttribute="bottom" constant="12" id="uz2-e0-qWl"/>
+                <constraint firstItem="37L-n7-Yn1" firstAttribute="top" secondItem="fbH-TR-Vmw" secondAttribute="bottom" constant="2" id="zIS-uF-zmL"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -47,11 +88,19 @@
                 <mask key="constraints">
                     <exclude reference="1bM-gg-CXo"/>
                     <exclude reference="rM1-WH-TdM"/>
+                    <exclude reference="Jkg-yU-05n"/>
+                    <exclude reference="uz2-e0-qWl"/>
+                    <exclude reference="RmI-Pc-r1W"/>
+                    <exclude reference="pCs-bV-U0u"/>
+                    <exclude reference="1ti-Gs-g29"/>
+                    <exclude reference="mtG-hg-6IL"/>
+                    <exclude reference="rGs-xu-6pB"/>
                 </mask>
             </variation>
             <connections>
                 <outlet property="stringProfileImage" destination="Ocd-Jk-6wp" id="YBT-EO-eii"/>
                 <outlet property="stringProfileUploader" destination="fbH-TR-Vmw" id="e62-s9-alc"/>
+                <outlet property="stringUploadDate" destination="37L-n7-Yn1" id="0Q9-et-9f1"/>
             </connections>
             <point key="canvasLocation" x="355" y="526.5"/>
         </view>

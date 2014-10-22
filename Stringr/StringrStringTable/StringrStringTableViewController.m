@@ -57,7 +57,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 {
     [PFQuery clearAllCachedResults];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterRefreshStringDetails object:nil];
-    NSLog(@"dealloc string table");
 }
 
 
@@ -195,21 +194,10 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    PFObject *string = self.objects[section];
-    
-    // It's possible for this object to be of type statistic or activity. This just gets the string
-    // value from either of those classes
-    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [string objectForKey:kStringrStatisticsStringKey];
-    }
-    else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [string objectForKey:kStringrActivityStringKey];
-    }
+    PFObject *string = [StringrUtility stringFromObject:self.objects[section]];
     
     TestTableViewHeader *headerView = [[NSBundle mainBundle] loadNibNamed:@"TestTableViewHeader" owner:self options:nil][0];
-    // set file for profile image
-//    [headerView.stringProfileUploader setText:[[string objectForKey:kStringrStringUserKey] objectForKey:kStringrUserUsernameCaseSensitive]];
-    
+    [headerView configureHeaderWithString:string];
     
     return headerView;
 }
@@ -311,16 +299,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    PFObject *string = object;
-    
-    // It's possible for this object to be of type statistic or activity. This just gets the string
-    // value from either of those classes
-    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [object objectForKey:kStringrStatisticsStringKey];
-    }
-    else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [object objectForKey:kStringrActivityStringKey];
-    }
+    PFObject *string = [StringrUtility stringFromObject:object];
     
 //    if (indexPath.section == self.objects.count) {
 //        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
@@ -435,13 +414,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         
         // Querries all of the photos for the strings and puts them in an array
         for (int i = 0; i < self.objects.count; i++) {
-            PFObject *string = [self.objects objectAtIndex:i];
-            
-            if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-                string = [string objectForKey:kStringrStatisticsStringKey];
-            } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-                string = [string objectForKey:kStringrActivityStringKey];
-            }
+            PFObject *string = [StringrUtility stringFromObject:self.objects[i]];
             
             if (string) {
                 PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];

@@ -94,6 +94,13 @@
 }
 
 
+- (void)setupImageWithDefaultConfiguration
+{
+    [self setImageToCirclePath];
+    
+    self.pathColor = [UIColor darkGrayColor];
+    self.pathWidth = 1.0f;
+}
 
 
 #pragma mark - Private
