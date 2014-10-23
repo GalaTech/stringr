@@ -28,7 +28,7 @@
 
 static NSString * const StringrStringTableViewControllerStoryboard = @"StringTable";
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -333,6 +333,8 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     else if (indexPath.row == 2) {
         [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
         TestTableViewFooterActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+        [actionCell configureActionCellWithString:string];
+        actionCell.delegate = self;
         
         return actionCell;
     }
@@ -695,6 +697,36 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
         [self presentViewController:navVC animated:YES completion:nil];
     }
+}
+
+
+#pragma mark - StringrTableViewFooterAction Delegate
+
+- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button withBlock:(void (^)(BOOL))block
+{
+    block(YES);
+}
+
+
+- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedCommentButton:(UIButton *)button
+{
+    if (cell.string) {
+        StringrCommentsTableViewController *commentsVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        [commentsVC setObjectForCommentThread:cell.string];
+        [commentsVC setDelegate:self];
+        
+        [commentsVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:commentsVC animated:YES];
+    }
+}
+
+
+- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedActionButton:(UIButton *)button
+{
+    UIActionSheet *stringActionSheet = [[UIActionSheet alloc] initWithTitle:@"String Actions" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share", @"Flag", nil];
+    
+    [stringActionSheet showInView:self.view];
 }
 
 

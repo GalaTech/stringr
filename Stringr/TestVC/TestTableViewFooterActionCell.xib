@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,18 +29,51 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-8D-P6k">
+                    <rect key="frame" x="65" y="7" width="30" height="30"/>
+                    <state key="normal" title="Like">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tappedLikeButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="xBl-2d-rbe"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLo-iL-3hM">
+                    <rect key="frame" x="166" y="7" width="68" height="30"/>
+                    <state key="normal" title="Comment">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tappedCommentButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="IEO-jL-RtK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ae2-Lq-WQK">
+                    <rect key="frame" x="291" y="7" width="44" height="30"/>
+                    <state key="normal" title="Action">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tappedActionButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="AVb-r0-5ag"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="kLo-iL-3hM" firstAttribute="baseline" secondItem="6OE-8D-P6k" secondAttribute="baseline" id="2Ag-gp-vIG"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="leading" secondItem="0bs-bO-tUy" secondAttribute="trailing" constant="71" id="2gI-ok-gLF"/>
                 <constraint firstAttribute="centerX" secondItem="1p5-Vo-IEn" secondAttribute="centerX" id="5fr-Gk-VqK"/>
                 <constraint firstItem="Fcm-Ml-UWk" firstAttribute="baseline" secondItem="1p5-Vo-IEn" secondAttribute="baseline" id="7QY-Yt-hqk"/>
+                <constraint firstAttribute="centerX" secondItem="kLo-iL-3hM" secondAttribute="centerX" id="9M4-QL-Xqb"/>
+                <constraint firstItem="kLo-iL-3hM" firstAttribute="baseline" secondItem="ae2-Lq-WQK" secondAttribute="baseline" id="BXY-Xf-eZG"/>
                 <constraint firstItem="Fcm-Ml-UWk" firstAttribute="leading" secondItem="1p5-Vo-IEn" secondAttribute="trailing" constant="57" id="F89-g7-pPl"/>
                 <constraint firstAttribute="trailing" secondItem="Fcm-Ml-UWk" secondAttribute="trailing" constant="65" id="GXr-kp-X3F"/>
                 <constraint firstItem="Fcm-Ml-UWk" firstAttribute="baseline" secondItem="0bs-bO-tUy" secondAttribute="baseline" id="JTg-0N-olq"/>
+                <constraint firstItem="ae2-Lq-WQK" firstAttribute="leading" secondItem="kLo-iL-3hM" secondAttribute="trailing" constant="57" id="KQC-To-KWI"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="baseline" secondItem="0bs-bO-tUy" secondAttribute="baseline" id="Q4Q-8Z-FYm"/>
                 <constraint firstItem="0bs-bO-tUy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="SB6-Qz-RX0"/>
                 <constraint firstAttribute="centerY" secondItem="1p5-Vo-IEn" secondAttribute="centerY" id="X71-r7-hBI"/>
+                <constraint firstItem="kLo-iL-3hM" firstAttribute="leading" secondItem="6OE-8D-P6k" secondAttribute="trailing" constant="71" id="aWJ-J6-V6X"/>
+                <constraint firstAttribute="centerY" secondItem="kLo-iL-3hM" secondAttribute="centerY" id="lKT-95-nxm"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="baseline" secondItem="Fcm-Ml-UWk" secondAttribute="baseline" id="tKn-K5-aqf"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="leading" secondItem="0bs-bO-tUy" secondAttribute="trailing" constant="71" id="yHD-vO-U1X"/>
                 <constraint firstItem="Fcm-Ml-UWk" firstAttribute="leading" secondItem="1p5-Vo-IEn" secondAttribute="trailing" constant="57" id="zy8-rL-NOb"/>
@@ -90,6 +124,11 @@
                     <exclude reference="zy8-rL-NOb"/>
                 </mask>
             </variation>
+            <connections>
+                <outlet property="actionButton" destination="ae2-Lq-WQK" id="7bW-QR-c4v"/>
+                <outlet property="commentButton" destination="kLo-iL-3hM" id="5tz-Nd-kU9"/>
+                <outlet property="likeButton" destination="6OE-8D-P6k" id="fES-v0-ZXZ"/>
+            </connections>
         </view>
     </objects>
 </document>

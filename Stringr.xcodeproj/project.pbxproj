@@ -80,6 +80,7 @@
 		AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B594F189AE30300790510 /* StringrStringDetailEditTopViewController.m */; };
 		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
 		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
+		AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */; };
 		AB6CB1C719058714008A8DB0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6CB1C619058714008A8DB0 /* MessageUI.framework */; };
 		AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */; };
 		AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */; };
@@ -313,6 +314,8 @@
 		AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrEmailVerificationViewController.m; path = Login/StringrEmailVerificationViewController.m; sourceTree = "<group>"; };
 		AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSignUpWithSocialNetworkViewController.h; path = Login/StringrSignUpWithSocialNetworkViewController.h; sourceTree = "<group>"; };
 		AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSignUpWithSocialNetworkViewController.m; path = Login/StringrSignUpWithSocialNetworkViewController.m; sourceTree = "<group>"; };
+		AB6243AE19F9440500BA231D /* PFUser+StringrAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFUser+StringrAdditions.h"; path = "Network/PFUser+StringrAdditions.h"; sourceTree = "<group>"; };
+		AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PFUser+StringrAdditions.m"; path = "Network/PFUser+StringrAdditions.m"; sourceTree = "<group>"; };
 		AB6CB1C619058714008A8DB0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AB6CB1C819059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFindAndInviteFriendsTableViewController.h; path = Settings/StringrFindAndInviteFriendsTableViewController.h; sourceTree = "<group>"; };
 		AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFindAndInviteFriendsTableViewController.m; path = Settings/StringrFindAndInviteFriendsTableViewController.m; sourceTree = "<group>"; };
@@ -724,6 +727,8 @@
 				AB04A2EF19E2330B0030C241 /* StringrNetworkTask+PushNotification.m */,
 				AB1FDF3619AC1F9F0059338B /* StringrNetworkUtility.h */,
 				AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */,
+				AB6243AE19F9440500BA231D /* PFUser+StringrAdditions.h */,
+				AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1606,6 +1611,7 @@
 				ABA2F0691922BB430004A806 /* ZCAlbumPickerController.m in Sources */,
 				ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */,
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
+				AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */,
 				AB1FDF4C19AC38A90059338B /* StringrPhoto.m in Sources */,
 				ABA2F06C1922BB430004A806 /* ZCAssetTablePicker.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,

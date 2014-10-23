@@ -10,6 +10,7 @@
 #import "StringrPathImageView.h"
 #import "UIFont+StringrFonts.h"
 #import "UIColor+StringrColors.h"
+#import "PFUser+StringrAdditions.h"
 
 @interface TestTableViewHeader ()
 
@@ -66,9 +67,10 @@
     self.headerString = string;
     
     PFUser *user = self.headerString[kStringrStringUserKey];
-    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        [self configureProfileImageViewWithUser:(PFUser *)object];
-        [self configureProfileUploaderLabelWithUser:(PFUser *)object];
+    
+    [user fetchUserIfNeededInBackgroundWithBlock:^(PFUser *user, NSError *error) {
+        [self configureProfileImageViewWithUser:user];
+        [self configureProfileUploaderLabelWithUser:user];
     }];
     
     [self configureUploadDateLabel];
