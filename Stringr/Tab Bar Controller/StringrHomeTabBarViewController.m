@@ -14,6 +14,7 @@
 #import "StringrFollowingTableViewController.h"
 
 #import "StringrActivityManager.h"
+#import "UIColor+StringrColors.h"
 
 @implementation StringrHomeTabBarViewController
 
@@ -49,7 +50,7 @@
 {
     [super viewDidLoad];
     
-    [self.tabBar setTintColor:[StringrConstants kStringrBlueColor]];
+    [self.tabBar setTintColor:[UIColor stringrLogoBlueColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated

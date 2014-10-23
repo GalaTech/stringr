@@ -13,6 +13,7 @@
 #import "StringrProfileTopViewController.h"
 #import "StringrProfileTableViewController.h"
 #import "StringrStringDetailViewController.h"
+#import "UIColor+StringrColors.h"
 
 /**
  * Initialize's a user profile as a parallax view controller. The top half is a users information and
@@ -78,7 +79,7 @@
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
     
-    [self.view setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.view setBackgroundColor:[UIColor stringrLightGrayColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

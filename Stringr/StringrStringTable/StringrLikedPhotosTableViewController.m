@@ -11,6 +11,7 @@
 #import "StringrPhotoDetailViewController.h"
 #import "NHBalancedFlowLayout.h"
 #import "StringCollectionViewCell.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrLikedPhotosTableViewController () <NHBalancedFlowLayoutDelegate>
 
@@ -38,7 +39,7 @@
     [super viewDidLoad];
     
     self.title = @"Liked Photos";
-    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
 }
 

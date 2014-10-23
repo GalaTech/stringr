@@ -8,6 +8,7 @@
 
 #import "StringrActivityTableViewCell.h"
 #import "StringrPathImageView.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrActivityTableViewCell ()
 
@@ -40,7 +41,7 @@
     [self.activityCellProfileImage setPathColor:[UIColor darkGrayColor]];
     [self.activityCellProfileImage setPathWidth:1.0f];
     [self.activityCellProfileImage setImageToCirclePath];
-    [self.activityCellProfileImage setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.activityCellProfileImage setBackgroundColor:[UIColor stringrLightGrayColor]];
     [self.activityCellProfileImage setContentMode:UIViewContentModeScaleAspectFill];
     
     CGFloat xPoint = CGRectGetMinX(self.activityCellProfileImage.frame);

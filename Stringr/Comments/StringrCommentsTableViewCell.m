@@ -10,6 +10,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrPathImageView.h"
 #import "STTweetLabel.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrCommentsTableViewCell ()
 
@@ -137,8 +138,8 @@
     NSDictionary *commentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:commentColor, NSForegroundColorAttributeName, commentFont, NSFontAttributeName, commentParagraphStyle, NSParagraphStyleAttributeName, nil];
     [self.commentsTextComment setAttributes:commentAttributes];
     
-    NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
-    NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor stringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
+    NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor stringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     NSDictionary *httpAttributes = [NSDictionary dictionaryWithObjectsAndKeys:commentColor, NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f], NSFontAttributeName, nil];
     
     [self.commentsTextComment setAttributes:handleAttributes hotWord:STTweetHandle];
@@ -163,7 +164,7 @@
 - (UIView *)commentSeperatorView
 {
     UIView *commentCellSeperator = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.frame) - 3, CGRectGetWidth(self.frame), 3)];
-    [commentCellSeperator setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [commentCellSeperator setBackgroundColor:[UIColor stringrLightGrayColor]];
     
     UIColor *countourLineColor = [UIColor colorWithWhite:0.78 alpha:1.0];
     UIColor *lightContourLineColor = [UIColor colorWithWhite:0.85 alpha:1.0];

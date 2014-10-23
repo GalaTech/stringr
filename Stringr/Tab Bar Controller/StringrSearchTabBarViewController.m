@@ -8,6 +8,7 @@
 
 #import "StringrSearchTabBarViewController.h"
 #import "StringrUtility.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrSearchTabBarViewController ()
 
@@ -24,7 +25,7 @@
     [super viewDidLoad];
 
     
-    self.tabBar.tintColor = [StringrConstants kStringrTurquoiseColor];
+    self.tabBar.tintColor = [UIColor stringrLogoTurquoiseColor];
 }
 
 

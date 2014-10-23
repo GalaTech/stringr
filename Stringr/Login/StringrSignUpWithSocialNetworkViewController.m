@@ -12,6 +12,7 @@
 #import "StringrAppController.h"
 #import "StringrPathImageView.h"
 #import "StringrAppDelegate.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrSignUpWithSocialNetworkViewController () <UIAlertViewDelegate>
 
@@ -238,7 +239,7 @@
     }
     else if (indexPath.row == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
-        [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [cell setBackgroundColor:[UIColor stringrLightGrayColor]];
         
     }
     else if (indexPath.row == 2) {
@@ -280,7 +281,7 @@
     }
     else if (indexPath.row == 4) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
-        [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [cell setBackgroundColor:[UIColor stringrLightGrayColor]];
     }
     else if (indexPath.row == 5) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"password_cell" forIndexPath:indexPath];

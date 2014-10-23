@@ -8,6 +8,8 @@
 
 #import "TestTableViewHeader.h"
 #import "StringrPathImageView.h"
+#import "UIFont+StringrFonts.h"
+#import "UIColor+StringrColors.h"
 
 @interface TestTableViewHeader ()
 
@@ -29,7 +31,7 @@
     
     if (self) {
         UIView * view = [[UIView alloc] initWithFrame:self.bounds];
-        view.backgroundColor = [UIColor whiteColor];
+        view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.93];
         self.backgroundView = view;
         
         
@@ -43,8 +45,7 @@
 {
     [super awakeFromNib];
     
-    [self.stringProfileImage setupImageWithDefaultConfiguration];
-    
+    [self setupAppearance];
 }
 
 
@@ -69,15 +70,33 @@
         [self configureProfileImageViewWithUser:(PFUser *)object];
         [self configureProfileUploaderLabelWithUser:(PFUser *)object];
     }];
+    
+    [self configureUploadDateLabel];
 }
 
 
 #pragma mark - Private
 
+- (void)setupAppearance
+{
+    [self.stringProfileImage setupImageWithDefaultConfiguration];
+    [self.stringProfileImage setContentMode:UIViewContentModeScaleAspectFill];
+    
+    self.stringProfileUploader.font = [UIFont stringrHeaderPrimaryLabelFont];
+    self.stringProfileUploader.textColor = [UIColor stringrPrimaryLabelColor];
+    
+    self.stringUploadDate.font = [UIFont stringrHeaderSecondaryLabelFont];
+    self.stringUploadDate.textColor = [UIColor stringrSecondaryLabelColor];
+}
+
 - (void)configureProfileImageViewWithUser:(PFUser *)user
 {
     [self.stringProfileImage setFile:user[kStringrUserProfilePictureThumbnailKey]];
     [self.stringProfileImage loadInBackgroundWithIndicator];
+    
+    UIButton *profileImageButton = [[UIButton alloc] initWithFrame:self.stringProfileImage.frame];
+    [profileImageButton addTarget:self action:@selector(profileImageTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:profileImageButton];
 }
 
 
@@ -85,6 +104,13 @@
 {
     NSString *formattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:user[kStringrUserUsernameCaseSensitive]];
     self.stringProfileUploader.text = formattedUsername;
+    
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.stringProfileUploader.alpha = 1.0f;
+    } completion:nil];
 }
 
 
@@ -95,6 +121,23 @@
         [self.stringUploadDate setText:uploadTime];
     } else {
         [self.stringUploadDate setText:@"Now"];
+    }
+    
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.stringUploadDate.alpha = 1.0f;
+    } completion:nil];
+}
+
+
+#pragma mark - Actions
+
+- (void)profileImageTapped
+{
+    if ([self.delegate respondsToSelector:@selector(profileImageTappedForUser:)]) {
+        [self.delegate profileImageTappedForUser:self.headerString[kStringrStringUserKey]];
     }
 }
 

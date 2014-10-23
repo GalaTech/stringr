@@ -13,6 +13,7 @@
 #import "StringrSetProfileDescriptionTableViewCell.h"
 #import "StringrPathImageView.h"
 #import "UIImage+Resize.h"
+#import "UIColor+StringrColors.h"
 
 
 @interface StringrEditProfileViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
@@ -229,7 +230,7 @@
     // The section for changing profile image does not have a section header
     if (section > 0) {
          headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20)];
-        [headerView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [headerView setBackgroundColor:[UIColor stringrLightGrayColor]];
         
         UILabel *headerText = [[UILabel alloc] initWithFrame:CGRectMake(10, 2.5, 200, 15)];
         

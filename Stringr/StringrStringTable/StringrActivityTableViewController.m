@@ -14,6 +14,7 @@
 #import "StringrPhotoDetailViewController.h"
 #import "StringrCommentsTableViewController.h"
 #import "StringrLoadMoreTableViewCell.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
 
@@ -56,7 +57,7 @@
     // Do any additional setup after loading the view.
     self.title = @"Activity";
     
-    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
 }
 
 - (void)didReceiveMemoryWarning

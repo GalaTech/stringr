@@ -70,6 +70,8 @@
 		AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */; };
 		AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */; };
 		AB5AFBEE19F76C86002F88B9 /* TestTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */; };
+		AB5AFBF119F87FB6002F88B9 /* UIColor+StringrColors.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */; };
+		AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
 		AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */; };
@@ -291,6 +293,10 @@
 		AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterTitleCell.xib; path = TestVC/TestTableViewFooterTitleCell.xib; sourceTree = "<group>"; };
 		AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewStringCell.xib; path = TestVC/TestTableViewStringCell.xib; sourceTree = "<group>"; };
 		AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewHeader.xib; path = TestVC/TestTableViewHeader.xib; sourceTree = "<group>"; };
+		AB5AFBEF19F87FB6002F88B9 /* UIColor+StringrColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+StringrColors.h"; path = "Utility/UIColor+StringrColors.h"; sourceTree = "<group>"; };
+		AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+StringrColors.m"; path = "Utility/UIColor+StringrColors.m"; sourceTree = "<group>"; };
+		AB5AFBFE19F8B3A9002F88B9 /* UIFont+StringrFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+StringrFonts.h"; path = "Utility/UIFont+StringrFonts.h"; sourceTree = "<group>"; };
+		AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+StringrFonts.m"; path = "Utility/UIFont+StringrFonts.m"; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
 		AB5B5941189AC86700790510 /* StringrDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTopViewController.h; path = Detail/StringrDetailTopViewController.h; sourceTree = "<group>"; };
@@ -764,6 +770,7 @@
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
 				AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */,
 				AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */,
+				AB5AFBF219F87FBF002F88B9 /* Categories */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -784,6 +791,17 @@
 				AB4FF07D18C0019E000F550F /* UIImage+Resize.m */,
 			);
 			path = "UIImage+Resize";
+			sourceTree = "<group>";
+		};
+		AB5AFBF219F87FBF002F88B9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				AB5AFBEF19F87FB6002F88B9 /* UIColor+StringrColors.h */,
+				AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */,
+				AB5AFBFE19F8B3A9002F88B9 /* UIFont+StringrFonts.h */,
+				AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		AB5B5947189AC9BD00790510 /* String Detail */ = {
@@ -1533,6 +1551,7 @@
 				AB1FDF4919AC388B0059338B /* StringrObject.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
 				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
+				AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
 				AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */,
@@ -1581,6 +1600,7 @@
 				AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */,
 				AB04A2B019D522F50030C241 /* StringrLike.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
+				AB5AFBF119F87FB6002F88B9 /* UIColor+StringrColors.m in Sources */,
 				AB1FDF3F19AC20D00059338B /* StringrNetworkTask+User.m in Sources */,
 				ABDB7E5218D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m in Sources */,
 				ABA2F0691922BB430004A806 /* ZCAlbumPickerController.m in Sources */,

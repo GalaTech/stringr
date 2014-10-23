@@ -10,6 +10,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrCommentsTableViewController.h"
 #import "StringrNavigationController.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrDetailViewController () <QMBParallaxScrollViewControllerDelegate>
 
@@ -27,7 +28,7 @@
     
     [self setDelegate:self];
     
-    [self.view setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.view setBackgroundColor:[UIColor stringrLightGrayColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

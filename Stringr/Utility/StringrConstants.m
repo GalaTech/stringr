@@ -8,67 +8,6 @@
 
 #import "StringrConstants.h"
 
-@implementation StringrConstants
-
-+ (UIColor *)kStringTableViewBackgroundColor
-{
-    return [UIColor colorWithWhite:0.9 alpha:1.0];
-}
-
-+ (UIColor *)kStringCollectionViewBackgroundColor
-{
-    return [UIColor colorWithWhite:0.85 alpha:1.0];
-}
-
-+ (UIColor *)kStringrRedColor
-{
-    return [UIColor colorWithRed:254.0f / 255.0f green:17.0f / 255.0f blue:0.0f / 255.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrOrangeColor
-{
-    return [UIColor colorWithRed:255.0f / 255.0f green:107.0f / 255.0f blue:1.0f / 255.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrYellowColor
-{
-    return [UIColor colorWithRed:255.0f / 255.0f green:185.0f / 255.0f blue:0.0f / 255.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrGreenColor
-{
-    return [UIColor colorWithRed:67.0f / 255.0f green:167.0f / 255.0f blue:41.0f / 255.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrTurquoiseColor
-{
-    return [UIColor colorWithRed:1.0f / 255.0f green:152.0f / 255.0f blue:147.0f / 255.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrBlueColor
-{
-    return [UIColor colorWithRed:10.0f / 255.0f green:81.0f / 255.0f blue:147.0f / 161.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrPurpleColor
-{
-    return [UIColor colorWithRed:71.0f / 255.0f green:12.0f / 255.0f blue:128.0f / 255.0f alpha:1.0f];
-}
-
-+ (UIColor *)kStringrHandleColor
-{
-    return [UIColor colorWithRed:208.0/255.0f green:76.0/255.0f blue:76.0/255.0f alpha:1.0];
-}
-
-+ (UIColor *)kStringrHashtagColor
-{
-    return [UIColor colorWithRed:123.0/255.0f green:162.0/255.0f blue:214.0/255.0f alpha:1.0];
-}
-
-@end
-
-
-
 //*********************************************************************************/
 #pragma mark - Constant Numerical Values
 //*********************************************************************************/

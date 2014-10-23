@@ -10,6 +10,7 @@
 #import "StringCollectionViewCell.h"
 #import "StringrPathImageView.h"
 #import "NHBalancedFlowLayout.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringTableViewCell ()
 
@@ -37,7 +38,7 @@
         
         self.stringCollectionView = [[StringCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:balancedLayout];
         [self.stringCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([StringCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:StringCollectionViewCellIdentifier];
-        [self.stringCollectionView setBackgroundColor:[StringrConstants kStringCollectionViewBackgroundColor]];
+        [self.stringCollectionView setBackgroundColor:[UIColor stringCollectionViewBackgroundColor]];
         self.stringCollectionView.showsHorizontalScrollIndicator = NO;
         self.stringCollectionView.scrollsToTop = NO;
         [self.contentView addSubview:self.stringCollectionView];

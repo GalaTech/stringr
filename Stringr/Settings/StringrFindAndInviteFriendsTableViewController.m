@@ -13,6 +13,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrPathImageView.h"
 #import "UIImage+Resize.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrFindAndInviteFriendsTableViewController () <FBFriendPickerDelegate>
 
@@ -57,7 +58,7 @@
     [super viewDidLoad];
     
     self.title = @"Find Friends";
-    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];

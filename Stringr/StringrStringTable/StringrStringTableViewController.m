@@ -19,6 +19,7 @@
 #import "StringrFooterView.h"
 #import "StringrLoadMoreTableViewCell.h"
 #import "NHBalancedFlowLayout.h"
+#import "UIColor+StringrColors.h"
 
 #import "TestTableViewHeader.h"
 #import "TestTableViewStringCell.h"
@@ -27,7 +28,7 @@
 
 static NSString * const StringrStringTableViewControllerStoryboard = @"StringTable";
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -65,7 +66,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     [super viewDidLoad];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"StringTableViewFooter"];
-    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
     self.tableView.allowsSelection = NO;
     self.tableView.separatorColor = [UIColor clearColor];
 }
@@ -144,13 +145,11 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    if (self.objects.count == self.objectsPerPage) {
-        return self.objects.count + 1;
-    }
-     
+//    if (self.objects.count == self.objectsPerPage) {
+//        return self.objects.count + 1;
+//    }
     
     return self.objects.count;
-//    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -198,6 +197,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     
     TestTableViewHeader *headerView = [[NSBundle mainBundle] loadNibNamed:@"TestTableViewHeader" owner:self options:nil][0];
     [headerView configureHeaderWithString:string];
+    headerView.delegate = self;
     
     return headerView;
 }
@@ -263,7 +263,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(StringTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0 && [cell isKindOfClass:[StringTableViewCell class]]) {
+    if (indexPath.row == 0) {
         [cell setCollectionViewDataSourceDelegate:self index:indexPath.section];
         
         NSInteger index = cell.stringCollectionView.index;
@@ -379,7 +379,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
                 footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
             
-            [footerCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+            [footerCell setBackgroundColor:[UIColor stringrLightGrayColor]];
             [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -456,7 +456,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath
 {
     //PFTableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"loadMore"];
-    //[loadCell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    //[loadCell setBackgroundColor:[UIColor stringrLightGrayColor]];
     
     StringrLoadMoreTableViewCell *loadMoreCell = [tableView dequeueReusableCellWithIdentifier:@"loadMoreCell"];
     
@@ -677,6 +677,23 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
             StringrFooterView *footerView = (StringrFooterView *)view;
             [footerView refreshLikesAndComments];
         }
+    }
+}
+
+
+#pragma mark - StringrTableViewHeader Delegate
+
+- (void)profileImageTappedForUser:(PFUser *)user
+{
+    if (user) {
+        StringrProfileViewController *profileVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        
+        [profileVC setUserForProfile:user];
+        [profileVC setProfileReturnState:ProfileModalReturnState];
+        [profileVC setHidesBottomBarWhenPushed:YES];
+        
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+        [self presentViewController:navVC animated:YES completion:nil];
     }
 }
 

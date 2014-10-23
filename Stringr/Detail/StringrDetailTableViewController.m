@@ -10,6 +10,7 @@
 #import "StringrNavigationController.h"
 #import "StringrProfileViewController.h"
 #import "StringrSearchTableViewController.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrDetailTableViewController () 
 
@@ -34,7 +35,7 @@
 {
     [super viewDidLoad];
 
-    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
     
     [self.tableView setScrollEnabled:NO];
     
@@ -87,7 +88,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20)];
-    [headerView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [headerView setBackgroundColor:[UIColor stringrLightGrayColor]];
     
     UILabel *headerText = [[UILabel alloc] initWithFrame:CGRectMake(10, 2.5, 50, 15)];
     

@@ -8,6 +8,7 @@
 
 #import "TestViewViewController.h"
 #import "STTweetLabel.h"
+#import "UIColor+StringrColors.h"
 
 static NSString * const StringrStringTableViewController = @"StringTable";
 
@@ -44,8 +45,8 @@ static NSString * const StringrStringTableViewController = @"StringTable";
     
     [self.testSTTweetLabel setText:@"This is a cool label that can tell if there are any @mentions or #hashtags!"];
     
-    NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f], NSFontAttributeName, nil];
-    NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[StringrConstants kStringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f], NSFontAttributeName, nil];
+    NSDictionary *handleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor stringrHandleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f], NSFontAttributeName, nil];
+    NSDictionary *hashtagAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor stringrHashtagColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f], NSFontAttributeName, nil];
     
     [self.testSTTweetLabel setAttributes:handleAttributes hotWord:STTweetHandle];
     [self.testSTTweetLabel setAttributes:hashtagAttributes hotWord:STTweetHashtag];

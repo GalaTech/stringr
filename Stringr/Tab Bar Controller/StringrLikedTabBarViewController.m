@@ -7,6 +7,7 @@
 //
 
 #import "StringrLikedTabBarViewController.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrLikedTabBarViewController ()
 
@@ -27,7 +28,7 @@
 {
     [super viewDidLoad];
     
-    [self.tabBar setTintColor:[StringrConstants kStringrPurpleColor]];
+    [self.tabBar setTintColor:[UIColor stringrLogoPurpleColor]];
 }
 
 - (void)didReceiveMemoryWarning

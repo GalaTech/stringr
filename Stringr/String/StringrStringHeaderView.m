@@ -7,6 +7,7 @@
 //
 
 #import "StringrStringHeaderView.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrStringHeaderView ()
 
@@ -81,7 +82,7 @@ static float const contentViewWidthPercentage = .93;
 
 - (void)setStringEditingEnabled:(BOOL)stringEditingEnabled
 {
-    UIColor *editingEnabledRedColor = [StringrConstants kStringrHandleColor];
+    UIColor *editingEnabledRedColor = [UIColor stringrHandleColor];
     if (stringEditingEnabled) {
         [self.headerButton setTitleColor:editingEnabledRedColor forState:UIControlStateNormal];
     } else {

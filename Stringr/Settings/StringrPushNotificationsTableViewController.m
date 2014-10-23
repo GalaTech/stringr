@@ -7,6 +7,7 @@
 //
 
 #import "StringrPushNotificationsTableViewController.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrPushNotificationsTableViewController ()
 
@@ -26,7 +27,7 @@
     if (self) {
         // Custom initialization
         self.title = @"Push Notifications";
-        self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+        self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
         
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell_identifier"];
     }

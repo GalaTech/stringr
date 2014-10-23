@@ -14,6 +14,7 @@
 #import "StringrNavigationController.h"
 #import "StringrFooterView.h"
 #import "StringrNetworkTask+PushNotification.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrStringDetailTopViewController () <NHBalancedFlowLayoutDelegate, StringrPhotoDetailEditTableViewControllerDelegate>
 
@@ -37,14 +38,14 @@
     
     self.stringCollectionView = [[StringCollectionView alloc] initWithFrame:self.stringView.bounds collectionViewLayout:balancedLayout];
     [self.stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCellIdentifier"];
-    [self.stringCollectionView setBackgroundColor:[StringrConstants kStringCollectionViewBackgroundColor]];
+    [self.stringCollectionView setBackgroundColor:[UIColor stringCollectionViewBackgroundColor]];
     self.stringCollectionView.showsHorizontalScrollIndicator = NO;
     self.stringCollectionView.scrollsToTop = NO;
     self.stringCollectionView.dataSource = self;
     self.stringCollectionView.delegate = self;
     [self.stringView addSubview:self.stringCollectionView];
 
-    self.view.backgroundColor = [StringrConstants kStringCollectionViewBackgroundColor];
+    self.view.backgroundColor = [UIColor stringCollectionViewBackgroundColor];
     
     [self queryPhotosFromString];
 }

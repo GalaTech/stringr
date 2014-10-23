@@ -15,6 +15,7 @@
 #import "StringrLoadMoreTableViewCell.h"
 #import "StringrWriteAndEditTextViewController.h"
 #import "StringrSearchTableViewController.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrCommentsTableViewController () <UINavigationControllerDelegate, StringrCommentsTableViewCellDelegate, StringrWriteCommentDelegate>
 
@@ -54,7 +55,7 @@
 	self.title = @"Comments";
     
     [self.tableView setScrollsToTop:YES];
-    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writeComment)];
     self.navigationItem.leftBarButtonItem = nil;

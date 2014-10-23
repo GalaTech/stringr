@@ -10,7 +10,15 @@
 
 @class StringrPathImageView;
 
+@protocol TestTableViewHeaderDelegate <NSObject>
+
+- (void)profileImageTappedForUser:(PFUser *)user;
+
+@end
+
 @interface TestTableViewHeader : UITableViewHeaderFooterView
+
+@property (weak, nonatomic) id<TestTableViewHeaderDelegate> delegate;
 
 - (void)configureHeaderWithString:(PFObject *)string;
 

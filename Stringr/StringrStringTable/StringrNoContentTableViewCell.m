@@ -7,6 +7,7 @@
 //
 
 #import "StringrNoContentTableViewCell.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrNoContentTableViewCell ()
 
@@ -36,7 +37,7 @@
         [self.noContentTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
         [self.contentView addSubview:self.noContentTextLabel];
         
-        [self setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [self setBackgroundColor:[UIColor stringrLightGrayColor]];
     }
     
     return self;

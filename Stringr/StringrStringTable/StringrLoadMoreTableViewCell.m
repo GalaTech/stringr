@@ -7,6 +7,7 @@
 //
 
 #import "StringrLoadMoreTableViewCell.h"
+#import "UIColor+StringrColors.h"
 
 @implementation StringrLoadMoreTableViewCell
 
@@ -31,7 +32,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        [self setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [self setBackgroundColor:[UIColor stringrLightGrayColor]];
         
         NSString *loadMoreText = @"Load More";
         

@@ -8,6 +8,7 @@
 
 #import "StringrFooterView.h"
 #import "StringrPathImageView.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrFooterView ()
 
@@ -319,7 +320,7 @@ static float const contentViewWidth = 320.0;
                                                                   image:nil
                                                               pathColor:[UIColor darkGrayColor]
                                                               pathWidth:1.0];
-    [self.profileImageView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.profileImageView setBackgroundColor:[UIColor stringrLightGrayColor]];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     //[self.profileImageView setUserInteractionEnabled:YES];
     

@@ -11,6 +11,7 @@
 #import "ACPButton.h"
 #import "StringrAppController.h"
 #import "StringrAppDelegate.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrEmailVerificationViewController ()
 
@@ -56,7 +57,7 @@
     [self.userProfileImageView setPathWidth:1.0f];
     
     // Adds custom design to follow user button
-    [self.checkAgainButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.checkAgainButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor stringrLightGrayColor]];
     [self.checkAgainButton setLabelTextColor:[UIColor grayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.checkAgainButton setCornerRadius:15];
     [self.checkAgainButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
@@ -140,25 +141,25 @@
         UIColor *blockColor = [[UIColor alloc] init];
         switch (i) {
             case 0:
-                blockColor = [StringrConstants kStringrRedColor];
+                blockColor = [UIColor stringrLogoRedColor];
                 break;
             case 1:
-                blockColor = [StringrConstants kStringrOrangeColor];
+                blockColor = [UIColor stringrLogoOrangeColor];
                 break;
             case 2:
-                blockColor = [StringrConstants kStringrYellowColor];
+                blockColor = [UIColor stringrLogoYellowColor];
                 break;
             case 3:
-                blockColor = [StringrConstants kStringrGreenColor];
+                blockColor = [UIColor stringrLogoGreenColor];
                 break;
             case 4:
-                blockColor = [StringrConstants kStringrTurquoiseColor];
+                blockColor = [UIColor stringrLogoTurquoiseColor];
                 break;
             case 5:
-                blockColor = [StringrConstants kStringrBlueColor];
+                blockColor = [UIColor stringrLogoBlueColor];
                 break;
             case 6:
-                blockColor = [StringrConstants kStringrPurpleColor];
+                blockColor = [UIColor stringrLogoPurpleColor];
                 break;
             default:
                 break;

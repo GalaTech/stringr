@@ -24,6 +24,7 @@
 #import "PBWebViewController.h"
 #import "ZCImagePickerController.h"
 #import "StringrUpdateEngine.h"
+#import "UIColor+StringrColors.h"
 
 
 @interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ZCImagePickerControllerDelegate>
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     
     self.title = @"Settings";
-	self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+	self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
     // Creates the navigation item to access the menu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -444,7 +445,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 35.0)];
-    [headerView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [headerView setBackgroundColor:[UIColor stringrLightGrayColor]];
     
     UILabel *headerSectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 80, 16)];
     

@@ -16,6 +16,7 @@
 #import "StringrAppController.h"
 #import "StringrAppDelegate.h"
 #import "PBWebViewController.h"
+#import "UIColor+StringrColors.h"
 
 
 @interface StringrSignUpWithEmailTableViewController () <UIAlertViewDelegate>
@@ -55,8 +56,8 @@
     //[self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     //self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
-    [self.tableView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
-    [self.agreementView setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
+    [self.agreementView setBackgroundColor:[UIColor stringrLightGrayColor]];
     
     UIBarButtonItem *signupNavigationItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(signupWithUserInformation)];
     [self.navigationItem setRightBarButtonItem:signupNavigationItem];
@@ -345,7 +346,7 @@
     }
     else if (indexPath.row == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
-        [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [cell setBackgroundColor:[UIColor stringrLightGrayColor]];
         
     }
     else if (indexPath.row == 2) {
@@ -374,7 +375,7 @@
     }
     else if (indexPath.row == 4) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"seperator_cell" forIndexPath:indexPath];
-        [cell setBackgroundColor:[StringrConstants kStringTableViewBackgroundColor]];
+        [cell setBackgroundColor:[UIColor stringrLightGrayColor]];
     }
     else if (indexPath.row == 5) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"email_cell" forIndexPath:indexPath];
@@ -460,25 +461,25 @@
         UIColor *blockColor = [[UIColor alloc] init];
         switch (i) {
             case 0:
-                blockColor = [StringrConstants kStringrRedColor];
+                blockColor = [UIColor stringrLogoRedColor];
                 break;
             case 1:
-                blockColor = [StringrConstants kStringrOrangeColor];
+                blockColor = [UIColor stringrLogoOrangeColor];
                 break;
             case 2:
-                blockColor = [StringrConstants kStringrYellowColor];
+                blockColor = [UIColor stringrLogoYellowColor];
                 break;
             case 3:
-                blockColor = [StringrConstants kStringrGreenColor];
+                blockColor = [UIColor stringrLogoGreenColor];
                 break;
             case 4:
-                blockColor = [StringrConstants kStringrTurquoiseColor];
+                blockColor = [UIColor stringrLogoTurquoiseColor];
                 break;
             case 5:
-                blockColor = [StringrConstants kStringrBlueColor];
+                blockColor = [UIColor stringrLogoBlueColor];
                 break;
             case 6:
-                blockColor = [StringrConstants kStringrPurpleColor];
+                blockColor = [UIColor stringrLogoPurpleColor];
                 break;
             default:
                 break;

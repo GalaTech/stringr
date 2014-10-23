@@ -8,6 +8,7 @@
 
 #import "StringrInviteFriendsTableViewController.h"
 #import "StringrFBFriendPickerViewController.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrInviteFriendsTableViewController () <UIAlertViewDelegate>
 
@@ -25,7 +26,7 @@
     if (self) {
         // Custom initialization
         self.title = @"Invite Friends";
-        self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+        self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
         
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell_identifier"];
     }

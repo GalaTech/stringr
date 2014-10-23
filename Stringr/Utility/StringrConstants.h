@@ -7,26 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface StringrConstants : NSObject
-
-//*********************************************************************************/
-#pragma mark - Colors
-//*********************************************************************************/
-
-+ (UIColor *)kStringrRedColor;
-+ (UIColor *)kStringrOrangeColor;
-+ (UIColor *)kStringrYellowColor;
-+ (UIColor *)kStringrGreenColor;
-+ (UIColor *)kStringrTurquoiseColor;
-+ (UIColor *)kStringrBlueColor;
-+ (UIColor *)kStringrPurpleColor;
-+ (UIColor *)kStringrHashtagColor;
-+ (UIColor *)kStringrHandleColor;
-+ (UIColor *)kStringTableViewBackgroundColor;
-+ (UIColor *)kStringCollectionViewBackgroundColor;
-
-@end
-
 
 //*********************************************************************************/
 #pragma mark - Constant Numerical Values

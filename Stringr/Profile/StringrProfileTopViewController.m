@@ -13,6 +13,7 @@
 #import "StringrUserConnectionsTableViewController.h"
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
+#import "UIColor+StringrColors.h"
 
 
 @interface StringrProfileTopViewController ()
@@ -51,9 +52,7 @@
     [self.profileImage setFile:[self.userForProfile objectForKey:kStringrUserProfilePictureKey]];
     [self.profileImage loadInBackgroundWithIndicator];
     
-    [self.profileImage setImageToCirclePath];
-    [self.profileImage setPathWidth:1.0];
-    [self.profileImage setPathColor:[UIColor darkGrayColor]];
+    [self.profileImage setupImageWithDefaultConfiguration];
     [self.profileImage setContentMode:UIViewContentModeScaleAspectFill];
     
     // sets up the number of followers, following, and strings a user has.
@@ -211,10 +210,10 @@
     } else {
         // button setup for when it's the current users profile
         [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
-        [self.followUserButton setLabelTextColor:[StringrConstants kStringTableViewBackgroundColor] highlightedColor:nil disableColor:nil];
+        [self.followUserButton setLabelTextColor:[UIColor stringrLightGrayColor] highlightedColor:nil disableColor:nil];
         [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
         [self.followUserButton setCornerRadius:15];
-        [self.followUserButton setBorderStyle:[StringrConstants kStringTableViewBackgroundColor] andInnerColor:nil];
+        [self.followUserButton setBorderStyle:[UIColor stringrLightGrayColor] andInnerColor:nil];
         [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
         [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         [self.followUserButton setEnabled:NO];
@@ -227,7 +226,7 @@
     [self.followUserButton addTarget:self action:@selector(followButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
     
     // Adds custom design to follow user button
-    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[StringrConstants kStringTableViewBackgroundColor]];
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor stringrLightGrayColor]];
     [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followUserButton setCornerRadius:15];
@@ -241,7 +240,7 @@
     [self.followUserButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
     [self.followUserButton addTarget:self action:@selector(unfollowButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.followUserButton setStyle:[StringrConstants kStringTableViewBackgroundColor] andBottomColor:[UIColor whiteColor]];
+    [self.followUserButton setStyle:[UIColor stringrLightGrayColor] andBottomColor:[UIColor whiteColor]];
     [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followUserButton setCornerRadius:15];

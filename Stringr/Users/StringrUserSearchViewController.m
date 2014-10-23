@@ -8,6 +8,7 @@
 
 #import "StringrUserSearchViewController.h"
 #import "StringrUtility.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrUserSearchViewController ()
 
@@ -34,7 +35,7 @@
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
     
-    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
 }
 
 

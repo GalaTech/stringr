@@ -10,6 +10,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrUserTableViewCell.h"
 #import "StringrPathImageView.h"
+#import "UIColor+StringrColors.h"
 
 @interface StringrUserConnectionsTableViewController ()
 
@@ -40,7 +41,7 @@
 {
     [super viewDidLoad];
 	
-    self.tableView.backgroundColor = [StringrConstants kStringTableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
     
     self.navigationItem.leftBarButtonItem = nil;
