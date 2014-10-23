@@ -93,8 +93,7 @@
     {
         NSString *alert = userInfo[@"aps"][@"alert"];
         
-        if ([alert containsString:@"is now following you"])
-        {
+        if ([alert rangeOfString:@"is now following you"].location != NSNotFound) {
             [PFPush handlePush:userInfo];
         }
     }
