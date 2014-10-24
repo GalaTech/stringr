@@ -20,7 +20,6 @@
 #import "StringrNearYouTableViewController.h"
 #import "StringrNetworkTask+Activity.h"
 #import "StringrUpdateEngine.h"
-
 #import "StringrNetworkTask.h"
 #import "StringrObject.h"
 

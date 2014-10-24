@@ -72,6 +72,10 @@
 		AB5AFBEE19F76C86002F88B9 /* TestTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */; };
 		AB5AFBF119F87FB6002F88B9 /* UIColor+StringrColors.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */; };
 		AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */; };
+		AB5AFC0419F9C849002F88B9 /* NSString+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFC0319F9C849002F88B9 /* NSString+StringrAdditions.m */; };
+		AB5AFC0819F9C920002F88B9 /* UIDevice+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFC0719F9C920002F88B9 /* UIDevice+StringrAdditions.m */; };
+		AB5AFC1619F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFC1519F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m */; };
+		AB5AFC1919F9CD1A002F88B9 /* NSDate+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFC1819F9CD1A002F88B9 /* NSDate+StringrAdditions.m */; };
 		AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B593F1899DCD500790510 /* StringrDetailViewController.m */; };
 		AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5942189AC86700790510 /* StringrDetailTopViewController.m */; };
 		AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5945189AC88B00790510 /* StringrDetailTableViewController.m */; };
@@ -298,6 +302,14 @@
 		AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+StringrColors.m"; path = "Utility/UIColor+StringrColors.m"; sourceTree = "<group>"; };
 		AB5AFBFE19F8B3A9002F88B9 /* UIFont+StringrFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+StringrFonts.h"; path = "Utility/UIFont+StringrFonts.h"; sourceTree = "<group>"; };
 		AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+StringrFonts.m"; path = "Utility/UIFont+StringrFonts.m"; sourceTree = "<group>"; };
+		AB5AFC0219F9C849002F88B9 /* NSString+StringrAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+StringrAdditions.h"; path = "Utility/NSString+StringrAdditions.h"; sourceTree = "<group>"; };
+		AB5AFC0319F9C849002F88B9 /* NSString+StringrAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+StringrAdditions.m"; path = "Utility/NSString+StringrAdditions.m"; sourceTree = "<group>"; };
+		AB5AFC0619F9C920002F88B9 /* UIDevice+StringrAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+StringrAdditions.h"; path = "Utility/UIDevice+StringrAdditions.h"; sourceTree = "<group>"; };
+		AB5AFC0719F9C920002F88B9 /* UIDevice+StringrAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+StringrAdditions.m"; path = "Utility/UIDevice+StringrAdditions.m"; sourceTree = "<group>"; };
+		AB5AFC1419F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+LikeActivity.h"; path = "Network/StringrNetworkTask+LikeActivity.h"; sourceTree = "<group>"; };
+		AB5AFC1519F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+LikeActivity.m"; path = "Network/StringrNetworkTask+LikeActivity.m"; sourceTree = "<group>"; };
+		AB5AFC1719F9CD1A002F88B9 /* NSDate+StringrAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+StringrAdditions.h"; path = "Utility/NSDate+StringrAdditions.h"; sourceTree = "<group>"; };
+		AB5AFC1819F9CD1A002F88B9 /* NSDate+StringrAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+StringrAdditions.m"; path = "Utility/NSDate+StringrAdditions.m"; sourceTree = "<group>"; };
 		AB5B593E1899DCD500790510 /* StringrDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailViewController.h; path = Detail/StringrDetailViewController.h; sourceTree = "<group>"; };
 		AB5B593F1899DCD500790510 /* StringrDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailViewController.m; path = Detail/StringrDetailViewController.m; sourceTree = "<group>"; };
 		AB5B5941189AC86700790510 /* StringrDetailTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTopViewController.h; path = Detail/StringrDetailTopViewController.h; sourceTree = "<group>"; };
@@ -725,6 +737,8 @@
 				AB1FDF4119AC22310059338B /* StringrNetworkTask+Activity.m */,
 				AB04A2EE19E2330B0030C241 /* StringrNetworkTask+PushNotification.h */,
 				AB04A2EF19E2330B0030C241 /* StringrNetworkTask+PushNotification.m */,
+				AB5AFC1419F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.h */,
+				AB5AFC1519F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m */,
 				AB1FDF3619AC1F9F0059338B /* StringrNetworkUtility.h */,
 				AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */,
 				AB6243AE19F9440500BA231D /* PFUser+StringrAdditions.h */,
@@ -801,12 +815,34 @@
 		AB5AFBF219F87FBF002F88B9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				AB5AFC0119F9C834002F88B9 /* UI */,
+				AB5AFC0519F9C84D002F88B9 /* NS */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		AB5AFC0119F9C834002F88B9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
 				AB5AFBEF19F87FB6002F88B9 /* UIColor+StringrColors.h */,
 				AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */,
 				AB5AFBFE19F8B3A9002F88B9 /* UIFont+StringrFonts.h */,
 				AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */,
+				AB5AFC0619F9C920002F88B9 /* UIDevice+StringrAdditions.h */,
+				AB5AFC0719F9C920002F88B9 /* UIDevice+StringrAdditions.m */,
 			);
-			name = Categories;
+			name = UI;
+			sourceTree = "<group>";
+		};
+		AB5AFC0519F9C84D002F88B9 /* NS */ = {
+			isa = PBXGroup;
+			children = (
+				AB5AFC0219F9C849002F88B9 /* NSString+StringrAdditions.h */,
+				AB5AFC0319F9C849002F88B9 /* NSString+StringrAdditions.m */,
+				AB5AFC1719F9CD1A002F88B9 /* NSDate+StringrAdditions.h */,
+				AB5AFC1819F9CD1A002F88B9 /* NSDate+StringrAdditions.m */,
+			);
+			name = NS;
 			sourceTree = "<group>";
 		};
 		AB5B5947189AC9BD00790510 /* String Detail */ = {
@@ -1524,6 +1560,7 @@
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				AB1FDF3C19AC20A60059338B /* StringrNetworkTask.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
+				AB5AFC0819F9C920002F88B9 /* UIDevice+StringrAdditions.m in Sources */,
 				ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */,
 				AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */,
 				ABA2F06A1922BB430004A806 /* ZCAsset.m in Sources */,
@@ -1533,6 +1570,7 @@
 				AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */,
 				AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */,
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
+				AB5AFC1619F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m in Sources */,
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
@@ -1560,6 +1598,7 @@
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
 				AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */,
+				AB5AFC0419F9C849002F88B9 /* NSString+StringrAdditions.m in Sources */,
 				AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */,
 				BF170EC3184BEB100056ECE7 /* StringTableViewCell.m in Sources */,
 				AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */,
@@ -1602,6 +1641,7 @@
 				ABF0555C192D81D400BB08A7 /* StringrNearYouTableViewController.m in Sources */,
 				AB1FDF5219AC38C70059338B /* StringrComment.m in Sources */,
 				AB1FDF4219AC22310059338B /* StringrNetworkTask+Activity.m in Sources */,
+				AB5AFC1919F9CD1A002F88B9 /* NSDate+StringrAdditions.m in Sources */,
 				AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */,
 				AB04A2B019D522F50030C241 /* StringrLike.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,

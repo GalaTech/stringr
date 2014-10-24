@@ -36,6 +36,7 @@
 #import "StringrAppDelegate.h"
 
 #import "StringrLikedPhotosTableViewController.h"
+#import "NSString+StringrAdditions.h"
 
 
 @interface StringrMenuViewController () <UIActionSheetDelegate>
@@ -96,7 +97,7 @@
     self.profileNameLabel.minimumScaleFactor = 0.5f;
     
     // parse user profile name
-    self.profileNameLabel.text = [StringrUtility usernameFormattedWithMentionSymbol:[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive]];
+    self.profileNameLabel.text = [(NSString *)[[PFUser currentUser] objectForKey:kStringrUserUsernameCaseSensitive] usernameFormattedWithMentionSymbol];
     
     
     self.profileNameLabel.backgroundColor = [UIColor clearColor];

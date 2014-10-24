@@ -10,4 +10,9 @@
 
 @interface StringrNetworkTask (User)
 
++ (BOOL)facebookUserCanLogin:(PFUser *)facebookUser;
++ (BOOL)twitterUserCanLogin:(PFUser *)twitterUser;
++ (BOOL)usernameUserCanLogin:(PFUser *)usernameUser;
++ (BOOL)usernameUserNeedsToVerifyEmail:(PFUser *)usernameUser;
+
 @end
