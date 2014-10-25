@@ -7,6 +7,7 @@
 //
 
 #import "TestTableViewFooterActionCell.h"
+#import "StringrImageAndTextButton.h"
 
 @interface TestTableViewFooterActionCell ()
 
@@ -16,21 +17,30 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
+@property (strong, nonatomic) StringrImageAndTextButton *likeButtonView;
+
+@property (weak, nonatomic) IBOutlet UIView *test;
+
 @end
 
 @implementation TestTableViewFooterActionCell
 
-#pragma mark - Lifecycle
+#pragma mark - LifecycleÇ
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
+    self.likeButtonView = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
+    [self.likeButtonView.socialButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.test addSubview:self.likeButtonView];
 }
 
 
 - (void)setFrame:(CGRect)frame
 {
+    // Adds inset to the cell size so that it doesn't fill the full screen width
     CGFloat inset = 4.0f;
     frame.origin.x += inset;
     frame.size.width = self.superview.frame.size.width - 2 * inset;
@@ -45,6 +55,8 @@
 - (void)configureActionCellWithString:(PFObject *)string
 {
     self.string = string;
+    
+    self.likeButtonView.socialCountLabel.text = @"10";
 }
 
 

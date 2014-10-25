@@ -56,6 +56,10 @@
                         <action selector="tappedActionButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="AVb-r0-5ag"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ug1-sK-Dxg">
+                    <rect key="frame" x="186" y="7" width="129" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -128,6 +132,7 @@
                 <outlet property="actionButton" destination="ae2-Lq-WQK" id="7bW-QR-c4v"/>
                 <outlet property="commentButton" destination="kLo-iL-3hM" id="5tz-Nd-kU9"/>
                 <outlet property="likeButton" destination="6OE-8D-P6k" id="fES-v0-ZXZ"/>
+                <outlet property="test" destination="Ug1-sK-Dxg" id="cEy-VE-2Dq"/>
             </connections>
         </view>
     </objects>
