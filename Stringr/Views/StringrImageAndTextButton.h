@@ -11,6 +11,10 @@
 @interface StringrImageAndTextButton : UIView
 
 @property (weak, nonatomic, readonly) IBOutlet UIButton *socialButton;
-@property (weak, nonatomic, readonly) IBOutlet UILabel *socialCountLabel;
+
+- (void)setSocialCount:(NSUInteger)count;
+- (void)setSocialCountText:(NSString *)text;
+
+- (void)setImageForSocialButton:(UIImage *)image;
 
 @end

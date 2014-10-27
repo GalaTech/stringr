@@ -11,7 +11,7 @@
 @interface StringrImageAndTextButton ()
 
 @property (weak, nonatomic, readwrite) IBOutlet UIButton *socialButton;
-@property (weak, nonatomic, readwrite) IBOutlet UILabel *socialCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *socialCountLabel;
 
 @end
 
@@ -21,8 +21,26 @@
 {
     [super awakeFromNib];
     
-    NSLog(@"test");
 }
 
+
+- (void)setImageForSocialButton:(UIImage *)image
+{
+    self.socialButton.imageView.image = image;
+}
+
+
+- (void)setSocialCountText:(NSString *)text
+{
+    self.socialCountLabel.text = text;
+}
+
+
+- (void)setSocialCount:(NSUInteger)count
+{
+    NSString *countText = [NSString stringWithFormat:@"%ld", count];
+    
+    self.socialCountLabel.text = countText;
+}
 
 @end

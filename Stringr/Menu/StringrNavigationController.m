@@ -29,7 +29,6 @@
     
     self.navigationBar.tintColor = [UIColor grayColor];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,7 +41,6 @@
 {
     NSLog(@"dealloc navigation controller");
 }
-
 
 
 //*********************************************************************************/

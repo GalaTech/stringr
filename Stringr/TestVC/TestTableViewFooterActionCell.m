@@ -32,6 +32,7 @@
     [super awakeFromNib];
     
     self.likeButtonView = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
+    [self.likeButtonView setImageForSocialButton:[UIImage imageNamed:@"like_button_selected"]];
     [self.likeButtonView.socialButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.test addSubview:self.likeButtonView];
@@ -56,7 +57,7 @@
 {
     self.string = string;
     
-    self.likeButtonView.socialCountLabel.text = @"10";
+    [self.likeButtonView setSocialCount:10];
 }
 
 
@@ -64,7 +65,6 @@
 
 - (IBAction)tappedLikeButton:(UIButton *)sender
 {
-    // change selected state of like button.
     sender.selected = !sender.selected;
     
     if ([self.delegate respondsToSelector:@selector(actionCell:tappedLikeButton:withBlock:)]) {

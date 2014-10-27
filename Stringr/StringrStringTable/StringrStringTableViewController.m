@@ -601,7 +601,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
 //*********************************************************************************/
 #pragma mark - StringrHeaderViewView Delegate
 //*********************************************************************************/
