@@ -11,6 +11,7 @@
 @interface UIFont (StringrFonts)
 
 + (UIFont *)stringrPrimaryLabelFontWithSize:(CGFloat)size;
++ (UIFont *)stringrPrimaryLabelMediumFontWithSize:(CGFloat)size;
 
 + (UIFont *)stringrPrimaryLabelFont;
 + (UIFont *)stringrPrimaryLabelMediumFont;

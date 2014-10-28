@@ -17,6 +17,12 @@
     return [UIFont fontWithName:@"HelveticaNeue-Light" size:size];
 }
 
+
++ (UIFont *)stringrPrimaryLabelMediumFontWithSize:(CGFloat)size
+{
+    return [UIFont fontWithName:@"HelveticaNeue-Medium" size:size];
+}
+
 #pragma mark - Primary Label Fonts
 + (UIFont *)stringrPrimaryLabelFont
 {

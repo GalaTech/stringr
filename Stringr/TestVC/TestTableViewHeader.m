@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
 @property (weak, nonatomic) IBOutlet UILabel *stringUploadDate;
+@property (weak, nonatomic) IBOutlet UIImageView *stringPrivacySettings;
 
 @property (strong, nonatomic) PFObject *headerString;
 
@@ -74,6 +75,7 @@
     }];
     
     [self configureUploadDateLabel];
+    [self configurePrivacyButton];
 }
 
 
@@ -131,6 +133,17 @@
                      animations:^{
                          self.stringUploadDate.alpha = 1.0f;
     } completion:nil];
+}
+
+
+- (void)configurePrivacyButton
+{
+    if ([self.headerString.ACL getPublicWriteAccess]) {
+        self.stringPrivacySettings.image = [UIImage imageNamed:@"unlock_button"];
+    }
+    else {
+        self.stringPrivacySettings.image = [UIImage imageNamed:@"lock_button"];
+    }
 }
 
 

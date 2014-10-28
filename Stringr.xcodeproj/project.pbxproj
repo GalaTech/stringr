@@ -82,6 +82,7 @@
 		AB5B594A189ADAA100790510 /* StringrPhotoDetailEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B5949189ADAA100790510 /* StringrPhotoDetailEditTableViewController.m */; };
 		AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B594C189ADEA700790510 /* StringrStringDetailEditTableViewController.m */; };
 		AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B594F189AE30300790510 /* StringrStringDetailEditTopViewController.m */; };
+		AB5C7E5319FF58B5005AFED0 /* StringrActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5C7E5219FF58B5005AFED0 /* StringrActionSheet.m */; };
 		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
 		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
 		AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */; };
@@ -324,6 +325,8 @@
 		AB5B594C189ADEA700790510 /* StringrStringDetailEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringDetailEditTableViewController.m; path = Edit/StringrStringDetailEditTableViewController.m; sourceTree = "<group>"; };
 		AB5B594E189AE30300790510 /* StringrStringDetailEditTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringDetailEditTopViewController.h; path = Edit/StringrStringDetailEditTopViewController.h; sourceTree = "<group>"; };
 		AB5B594F189AE30300790510 /* StringrStringDetailEditTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringDetailEditTopViewController.m; path = Edit/StringrStringDetailEditTopViewController.m; sourceTree = "<group>"; };
+		AB5C7E5119FF58B5005AFED0 /* StringrActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActionSheet.h; path = Utility/StringrActionSheet.h; sourceTree = "<group>"; };
+		AB5C7E5219FF58B5005AFED0 /* StringrActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActionSheet.m; path = Utility/StringrActionSheet.m; sourceTree = "<group>"; };
 		AB5F56B718E0B98F00D27372 /* StringrEmailVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrEmailVerificationViewController.h; path = Login/StringrEmailVerificationViewController.h; sourceTree = "<group>"; };
 		AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrEmailVerificationViewController.m; path = Login/StringrEmailVerificationViewController.m; sourceTree = "<group>"; };
 		AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSignUpWithSocialNetworkViewController.h; path = Login/StringrSignUpWithSocialNetworkViewController.h; sourceTree = "<group>"; };
@@ -788,6 +791,7 @@
 		AB29CC74199FD8C6001177DD /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				AB5C7E5019FF589A005AFED0 /* Apple Subclasses */,
 				BF3EDDFD183E89A60071E047 /* StringrUtility.h */,
 				BF3EDDFE183E89A60071E047 /* StringrUtility.m */,
 				AB4614F9187CC63D00956FF3 /* StringrConstants.h */,
@@ -883,6 +887,15 @@
 				AB5B594C189ADEA700790510 /* StringrStringDetailEditTableViewController.m */,
 			);
 			name = Edit;
+			sourceTree = "<group>";
+		};
+		AB5C7E5019FF589A005AFED0 /* Apple Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				AB5C7E5119FF58B5005AFED0 /* StringrActionSheet.h */,
+				AB5C7E5219FF58B5005AFED0 /* StringrActionSheet.m */,
+			);
+			name = "Apple Subclasses";
 			sourceTree = "<group>";
 		};
 		AB6FDA3918EB729D003A6831 /* Filler TableViewCell */ = {
@@ -1595,6 +1608,7 @@
 				AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */,
 				ABA2F06B1922BB430004A806 /* ZCAssetCell.m in Sources */,
 				ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */,
+				AB5C7E5319FF58B5005AFED0 /* StringrActionSheet.m in Sources */,
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,

@@ -21,6 +21,8 @@
 #import "NHBalancedFlowLayout.h"
 #import "UIColor+StringrColors.h"
 #import "StringrNetworkTask+LikeActivity.h"
+#import "StringrFlagContentHelper.h"
+#import "StringrActionSheet.h"
 
 #import "TestTableViewHeader.h"
 #import "TestTableViewStringCell.h"
@@ -29,7 +31,7 @@
 
 static NSString * const StringrStringTableViewControllerStoryboard = @"StringTable";
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StringrFooterViewDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -115,6 +117,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 #pragma mark - Private
 //*********************************************************************************/
 
+/*
 - (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object inSection:(NSUInteger)section
 {
     static float const contentViewWidth = 320.0;
@@ -129,6 +132,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     
     return footerView;
 }
+*/
 
 - (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
 {
@@ -737,9 +741,27 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 - (void)actionCell:(TestTableViewFooterActionCell *)cell tappedActionButton:(UIButton *)button
 {
-    UIActionSheet *stringActionSheet = [[UIActionSheet alloc] initWithTitle:@"String Actions" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share", @"Flag", nil];
+    StringrActionSheet *stringActionSheet = [[StringrActionSheet alloc] initWithTitle:@"String Actions" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share", @"Flag", nil];
+    stringActionSheet.object = cell.string;
     
     [stringActionSheet showInView:self.view];
+}
+
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(StringrActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        [actionSheet resignFirstResponder];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share"]) {
+        NSLog(@"Share String!");
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Flag"]) {
+        [StringrFlagContentHelper flagContent:actionSheet.object withFlaggingUser:[PFUser currentUser]];
+    }
 }
 
 

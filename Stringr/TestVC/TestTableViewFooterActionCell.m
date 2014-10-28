@@ -13,12 +13,13 @@
 
 @property (strong, nonatomic, readwrite) PFObject *string;
 
-@property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
 @property (weak, nonatomic) IBOutlet UIView *likeButtonView;
 @property (strong, nonatomic) StringrImageAndTextButton *likeButton;
 
+@property (weak, nonatomic) IBOutlet UIView *commentButtonView;
+@property (strong, nonatomic) StringrImageAndTextButton *commentButton;
 
 
 @end
@@ -66,6 +67,12 @@
     [self.likeButton.socialButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.likeButton setSocialCount:0];
     [self.likeButtonView addSubview:self.likeButton];
+    
+    self.commentButton = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
+    [self.commentButton setImageForSocialButton:[UIImage imageNamed:@"comment_button"]];
+    [self.commentButton.socialButton addTarget:self action:@selector(tappedCommentButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.commentButton setSocialCount:0];
+    [self.commentButtonView addSubview:self.commentButton];
 }
 
 
@@ -80,12 +87,12 @@
             NSInteger likeCount = [[[StringrCache sharedCache] likeCountForObject:object] integerValue];
             [self.likeButton setSocialCount:likeCount];
             
-//            int commentCount = [[[StringrCache sharedCache] commentCountForObject:object] intValue];
-//            [self.commentsTextLabel setText:[NSString stringWithFormat:@"%d", commentCount]];
+            NSInteger commentCount = [[[StringrCache sharedCache] commentCountForObject:object] integerValue];
+            [self.commentButton setSocialCount:commentCount];
         } else {
             // set alpha to 0 so that they can later fade in
             [self.likeButton setSocialLabelAlpha:0.0f];
-//            [self.commentsTextLabel setAlpha:0.0f];
+            [self.commentButton setSocialLabelAlpha:0.0f];
             
             @synchronized(self) {
                 PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:object cachePolicy:kPFCachePolicyNetworkOnly];
@@ -128,8 +135,8 @@
                         [self.likeButton setSocialLabelAlpha:1.0f];
                         [self.likeButton setSocialCount:likers.count];
                         
-//                        [self.commentsTextLabel setAlpha:1.0f];
-//                        [self.commentsTextLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)commentors.count]];
+                        [self.commentButton setSocialLabelAlpha:1.0f];
+                        [self.commentButton setSocialCount:commentors.count];
                     }];
                     
                 }];

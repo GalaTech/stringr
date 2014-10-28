@@ -10,7 +10,7 @@
 #import "StringrAppDelegate.h"
 #import "StringrNoContentView.h"
 
-@interface StringrTableViewController : PFQueryTableViewController <StringrNoContentViewDelegate>
+@interface StringrTableViewController : PFQueryTableViewController <StringrNoContentViewDelegate, UIActionSheetDelegate>
 
 + (instancetype)viewController;
 

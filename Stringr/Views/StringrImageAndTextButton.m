@@ -7,6 +7,8 @@
 //
 
 #import "StringrImageAndTextButton.h"
+#import "UIColor+StringrColors.h"
+#import "UIFont+StringrFonts.h"
 
 @interface StringrImageAndTextButton ()
 
@@ -21,10 +23,12 @@
 {
     [super awakeFromNib];
     
-    self.socialCountLabel.alpha = 0.0f;
     self.backgroundColor = [UIColor clearColor];
     self.socialButton.backgroundColor = [UIColor clearColor];
+    
     self.socialCountLabel.backgroundColor = [UIColor clearColor];
+    self.socialCountLabel.textColor = [UIColor stringrSecondaryLabelColor];
+    self.socialCountLabel.font = [UIFont stringrPrimaryLabelMediumFontWithSize:14.0f];
 }
 
 

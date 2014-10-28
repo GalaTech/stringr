@@ -12,7 +12,7 @@
 #import "StringrNavigationController.h"
 #import "ZCImagePickerController.h"
 
-@interface StringrTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZCImagePickerControllerDelegate>
+@interface StringrTableViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZCImagePickerControllerDelegate>
 
 @property (strong, nonatomic) PFQuery *providedQueryForTable;
 @property (nonatomic) CGFloat previousScrollViewYOffset;
@@ -229,28 +229,24 @@
 {
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];
-    } else if (buttonIndex == 0) {
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
         }
         
         [imagePickerController setDelegate:self];
         
         [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Existing"]) {
         ZCImagePickerController *imagePickerController = [[ZCImagePickerController alloc] init];
         imagePickerController.imagePickerDelegate = self;
         imagePickerController.maximumAllowsSelectionCount = 50;
         imagePickerController.mediaType = ZCMediaAllPhotos;
         [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
-    } else if (buttonIndex == 2) { // supposed to be for returning to saved string
-        
-        StringrStringDetailViewController *newStringVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:newStringVC animated:YES];
     }
 }
 

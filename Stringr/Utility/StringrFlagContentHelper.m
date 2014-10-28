@@ -17,6 +17,14 @@
 
 + (void)flagContent:(PFObject *)content withFlaggingUser:(PFUser *)user completionHandler:(void (^)(BOOL success, NSError *))completionHandler
 {
+    if (!content) {
+        if (completionHandler) {
+            completionHandler(NO, nil);
+        }
+        
+        return;
+    }
+    
     NSString *flaggedContentType = kStringrFlaggedPhotoKey;
     if ([StringrUtility objectIsString:content]) {
         flaggedContentType = kStringrFlaggedStringKey;

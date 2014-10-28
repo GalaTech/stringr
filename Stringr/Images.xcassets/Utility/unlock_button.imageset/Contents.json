@@ -7,12 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "menu_button.png"
+      "filename" : "unlock_button.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "menu_button-1.png"
+      "filename" : "unlock_button-1.png"
     }
   ],
   "info" : {
