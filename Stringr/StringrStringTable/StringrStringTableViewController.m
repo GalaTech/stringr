@@ -744,6 +744,8 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     StringrActionSheet *stringActionSheet = [[StringrActionSheet alloc] initWithTitle:@"String Actions" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share", @"Flag", nil];
     stringActionSheet.object = cell.string;
     
+    
+    
     [stringActionSheet showInView:self.view];
 }
 
@@ -753,6 +755,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 - (void)actionSheet:(StringrActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
+    
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];
     }

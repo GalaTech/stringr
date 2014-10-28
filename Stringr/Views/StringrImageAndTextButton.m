@@ -28,7 +28,10 @@
     
     self.socialCountLabel.backgroundColor = [UIColor clearColor];
     self.socialCountLabel.textColor = [UIColor stringrSecondaryLabelColor];
-    self.socialCountLabel.font = [UIFont stringrPrimaryLabelMediumFontWithSize:14.0f];
+    self.socialCountLabel.font = [UIFont stringrPrimaryLabelMediumFontWithSize:14.5f];
+    
+    self.socialButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    self.socialButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 }
 
 

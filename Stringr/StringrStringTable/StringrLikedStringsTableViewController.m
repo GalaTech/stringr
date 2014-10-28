@@ -47,8 +47,7 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-    
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You do not have any liked Strings"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You do not have any liked Strings"];
         [noContentHeaderView setTitleForExploreOptionButton:@"Explore Strings to Like"];
         [noContentHeaderView setDelegate:self];
         

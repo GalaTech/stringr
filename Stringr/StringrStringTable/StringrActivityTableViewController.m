@@ -298,7 +298,7 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You don't have any Activity"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You don't have any Activity"];
         [noContentHeaderView setTitleForExploreOptionButton:@"Explore New Content"];
         [noContentHeaderView setDelegate:self];
         

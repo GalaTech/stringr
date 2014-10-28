@@ -51,7 +51,7 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no Popular Strings"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"There are no Popular Strings"];
         [noContentHeaderView setTitleForExploreOptionButton:@"Why don't you add the first one?"];
         [noContentHeaderView setDelegate:self];
         

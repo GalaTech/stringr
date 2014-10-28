@@ -79,7 +79,7 @@
             } else {
                 NSString *currentUserProfileName = [self.userForConnections objectForKey:kStringrUserUsernameCaseSensitive];
                 NSString *usernameWithMention = [StringrUtility usernameFormattedWithMentionSymbol:currentUserProfileName];
-                StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:[NSString stringWithFormat:@"%@ is not following any users", usernameWithMention]];
+                StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:[NSString stringWithFormat:@"%@ is not following any users", usernameWithMention]];
                 [noContentHeaderView setDelegate:self];
                 
                 self.tableView.tableHeaderView = noContentHeaderView;
@@ -107,7 +107,7 @@
             } else {
                 NSString *currentUserProfileName = [self.userForConnections objectForKey:kStringrUserUsernameCaseSensitive];
                 NSString *usernameWithMention = [StringrUtility usernameFormattedWithMentionSymbol:currentUserProfileName];
-                StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:[NSString stringWithFormat:@"%@ does not have any followers", usernameWithMention]];
+                StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:[NSString stringWithFormat:@"%@ does not have any followers", usernameWithMention]];
                 [noContentHeaderView setDelegate:self];
                 
                 self.tableView.tableHeaderView = noContentHeaderView;

@@ -172,8 +172,7 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"You haven't uploaded any Strings!"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You haven't uploaded any Strings!"];
         [noContentHeaderView setTitleForExploreOptionButton:@"Upload your first String"];
         [noContentHeaderView setDelegate:self];
         

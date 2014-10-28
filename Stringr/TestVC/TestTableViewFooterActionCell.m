@@ -73,6 +73,9 @@
     [self.commentButton.socialButton addTarget:self action:@selector(tappedCommentButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.commentButton setSocialCount:0];
     [self.commentButtonView addSubview:self.commentButton];
+    
+    self.actionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    self.actionButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 }
 
 

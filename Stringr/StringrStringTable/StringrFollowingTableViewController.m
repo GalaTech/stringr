@@ -58,8 +58,7 @@
     [super objectsDidLoad:error];
     
     if (self.objects.count == 0) {
-        
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, 0, 640, 200) andNoContentText:@"There are no strings from users you're following"];
+        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"There are no strings from users you're following"];
         [noContentHeaderView setTitleForExploreOptionButton:@"Discover People to Follow"];
         [noContentHeaderView setDelegate:self];
         

@@ -35,8 +35,6 @@
         UIView * view = [[UIView alloc] initWithFrame:self.bounds];
         view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.93];
         self.backgroundView = view;
-        
-        
     }
     
     return self;
