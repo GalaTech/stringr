@@ -14,7 +14,11 @@
 
 - (void)setSocialCount:(NSUInteger)count;
 - (void)setSocialCountText:(NSString *)text;
+- (NSUInteger)socialCount;
 
 - (void)setImageForSocialButton:(UIImage *)image;
+- (void)setSelectedImageForSocialButton:(UIImage *)image;
+
+- (void)setSocialLabelAlpha:(CGFloat)alpha;
 
 @end

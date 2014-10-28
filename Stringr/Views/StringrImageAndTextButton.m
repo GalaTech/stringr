@@ -21,12 +21,22 @@
 {
     [super awakeFromNib];
     
+    self.socialCountLabel.alpha = 0.0f;
+    self.backgroundColor = [UIColor clearColor];
+    self.socialButton.backgroundColor = [UIColor clearColor];
+    self.socialCountLabel.backgroundColor = [UIColor clearColor];
 }
 
 
 - (void)setImageForSocialButton:(UIImage *)image
 {
-    self.socialButton.imageView.image = image;
+    [self.socialButton setImage:image forState:UIControlStateNormal];
+}
+
+
+- (void)setSelectedImageForSocialButton:(UIImage *)image
+{
+    [self.socialButton setImage:image forState:UIControlStateSelected];
 }
 
 
@@ -41,6 +51,18 @@
     NSString *countText = [NSString stringWithFormat:@"%ld", count];
     
     self.socialCountLabel.text = countText;
+}
+
+
+- (NSUInteger)socialCount
+{
+    return [self.socialCountLabel.text integerValue];
+}
+
+
+- (void)setSocialLabelAlpha:(CGFloat)alpha
+{
+    self.socialCountLabel.alpha = alpha;
 }
 
 @end

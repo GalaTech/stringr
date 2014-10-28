@@ -291,12 +291,6 @@ static float const contentViewWidth = 320.0;
             }
         }
     }
-    /*
-    else {
-        [self.likesButton setEnabled:NO];
-        [self.likesTextLabel setText:@"0"];
-    }
-     */
 }
 
 

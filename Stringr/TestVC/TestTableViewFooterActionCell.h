@@ -23,7 +23,7 @@ static CGFloat FooterActionCellHeight = 55.0f;
 
 @protocol TestTableViewFooterActionDelegate <NSObject>
 
-- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button withBlock:(void (^)(BOOL success))block;
+- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button liked:(BOOL)liked withBlock:(void (^)(BOOL success))block;
 - (void)actionCell:(TestTableViewFooterActionCell *)cell tappedCommentButton:(UIButton *)button;
 - (void)actionCell:(TestTableViewFooterActionCell *)cell tappedActionButton:(UIButton *)button;
 

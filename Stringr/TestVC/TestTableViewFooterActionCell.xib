@@ -29,15 +29,6 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-8D-P6k">
-                    <rect key="frame" x="65" y="7" width="30" height="30"/>
-                    <state key="normal" title="Like">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="tappedLikeButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="xBl-2d-rbe"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLo-iL-3hM">
                     <rect key="frame" x="166" y="7" width="68" height="30"/>
                     <state key="normal" title="Comment">
@@ -57,13 +48,12 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ug1-sK-Dxg">
-                    <rect key="frame" x="186" y="7" width="129" height="30"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="8" y="7" width="100" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="kLo-iL-3hM" firstAttribute="baseline" secondItem="6OE-8D-P6k" secondAttribute="baseline" id="2Ag-gp-vIG"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="leading" secondItem="0bs-bO-tUy" secondAttribute="trailing" constant="71" id="2gI-ok-gLF"/>
                 <constraint firstAttribute="centerX" secondItem="1p5-Vo-IEn" secondAttribute="centerX" id="5fr-Gk-VqK"/>
                 <constraint firstItem="Fcm-Ml-UWk" firstAttribute="baseline" secondItem="1p5-Vo-IEn" secondAttribute="baseline" id="7QY-Yt-hqk"/>
@@ -76,7 +66,6 @@
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="baseline" secondItem="0bs-bO-tUy" secondAttribute="baseline" id="Q4Q-8Z-FYm"/>
                 <constraint firstItem="0bs-bO-tUy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="SB6-Qz-RX0"/>
                 <constraint firstAttribute="centerY" secondItem="1p5-Vo-IEn" secondAttribute="centerY" id="X71-r7-hBI"/>
-                <constraint firstItem="kLo-iL-3hM" firstAttribute="leading" secondItem="6OE-8D-P6k" secondAttribute="trailing" constant="71" id="aWJ-J6-V6X"/>
                 <constraint firstAttribute="centerY" secondItem="kLo-iL-3hM" secondAttribute="centerY" id="lKT-95-nxm"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="baseline" secondItem="Fcm-Ml-UWk" secondAttribute="baseline" id="tKn-K5-aqf"/>
                 <constraint firstItem="1p5-Vo-IEn" firstAttribute="leading" secondItem="0bs-bO-tUy" secondAttribute="trailing" constant="71" id="yHD-vO-U1X"/>
@@ -131,8 +120,7 @@
             <connections>
                 <outlet property="actionButton" destination="ae2-Lq-WQK" id="7bW-QR-c4v"/>
                 <outlet property="commentButton" destination="kLo-iL-3hM" id="5tz-Nd-kU9"/>
-                <outlet property="likeButton" destination="6OE-8D-P6k" id="fES-v0-ZXZ"/>
-                <outlet property="test" destination="Ug1-sK-Dxg" id="cEy-VE-2Dq"/>
+                <outlet property="likeButtonView" destination="Ug1-sK-Dxg" id="0re-tY-j2C"/>
             </connections>
         </view>
     </objects>

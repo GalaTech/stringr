@@ -20,6 +20,7 @@
 #import "StringrLoadMoreTableViewCell.h"
 #import "NHBalancedFlowLayout.h"
 #import "UIColor+StringrColors.h"
+#import "StringrNetworkTask+LikeActivity.h"
 
 #import "TestTableViewHeader.h"
 #import "TestTableViewStringCell.h"
@@ -701,9 +702,22 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 #pragma mark - StringrTableViewFooterAction Delegate
 
-- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button withBlock:(void (^)(BOOL))block
+- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button liked:(BOOL)liked withBlock:(void (^)(BOOL))block
 {
-    block(YES);
+    if (liked) {
+        [StringrNetworkTask likeObjectInBackground:cell.string block:^(BOOL succeeded, NSError *error) {
+            if (block) {
+                block(succeeded);
+            }
+        }];
+    }
+    else {
+        [StringrNetworkTask unlikeObjectInBackground:cell.string block:^(BOOL succeeded, NSError *error) {
+            if (block) {
+                block(succeeded);
+            }
+        }];
+    }
 }
 
 
