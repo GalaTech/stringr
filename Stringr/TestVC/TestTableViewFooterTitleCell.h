@@ -14,4 +14,6 @@ static CGFloat FooterTitleCellHeight = 47.0f;
 
 @property (weak, nonatomic) IBOutlet UILabel *TestTitle;
 
+- (void)configureFooterCellWithString:(PFObject *)string;
+
 @end

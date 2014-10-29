@@ -29,8 +29,6 @@
 #import "TestTableViewFooterTitleCell.h"
 #import "TestTableViewFooterActionCell.h"
 
-static NSString * const StringrStringTableViewControllerStoryboard = @"StringTable";
-
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
@@ -39,9 +37,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
 @implementation StringrStringTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -56,6 +52,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     
     return self;
 }
+
 
 - (void)dealloc
 {
@@ -73,6 +70,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     self.tableView.allowsSelection = NO;
     self.tableView.separatorColor = [UIColor clearColor];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -94,9 +92,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-//*********************************************************************************/
 #pragma mark - Action Handlers
-//*********************************************************************************/
 
 - (void)refreshStringDetails
 {
@@ -112,10 +108,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 /*
 - (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object inSection:(NSUInteger)section
@@ -142,10 +135,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - UITableView DataSource
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -156,6 +146,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     
     return self.objects.count;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -169,10 +160,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - UITableView Delegate
-//*********************************************************************************/
 
 /*
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -185,10 +173,12 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 */
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 45.0f;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -206,6 +196,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     
     return headerView;
 }
+
 
 /*
 
@@ -231,6 +222,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
  */
 
+
 /*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -247,6 +239,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     return 0.0f;
 }
 */
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -279,10 +272,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - PFQueryTableViewController
-//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -331,7 +321,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
             footerCell = [TestTableViewFooterTitleCell new];
         }
         
-        [footerCell.TestTitle setText:[string objectForKey:kStringrStringTitleKey]];
+        [footerCell configureFooterCellWithString:string];
         footerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return footerCell;
@@ -450,7 +440,6 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
  
 
-
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
 {
     // returns the object for every collection string and footer cell
@@ -477,16 +466,13 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
  
 
-
-
-//*********************************************************************************/
 #pragma mark - UICollectionView Data Source
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
+
 
 - (NSInteger)collectionView:(StringCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -498,6 +484,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 
     return 0;
 }
+
 
 - (UICollectionViewCell *)collectionView:(StringCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -535,10 +522,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - UICollectionView Delegate
-//*********************************************************************************/
 
 - (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -561,10 +545,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - StringCollectionViewFlowLayout Delegate
-//*********************************************************************************/
 
 - (CGSize)collectionView:(StringCollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -591,10 +572,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - UIScrollViewDelegate Methods
-//*********************************************************************************/
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -608,9 +586,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-//*********************************************************************************/
 #pragma mark - StringrHeaderViewView Delegate
-//*********************************************************************************/
 
 - (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
@@ -630,10 +606,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - StringrFooterView Delegate
-//*********************************************************************************/
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
@@ -649,10 +622,12 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
     }
 }
 
+
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
 {
 
 }
+
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
 {
@@ -669,10 +644,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - StringrCommentsTableView Delegate
-//*********************************************************************************/
 
 - (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
 {
