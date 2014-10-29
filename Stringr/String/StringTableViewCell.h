@@ -10,6 +10,7 @@
 
 static NSString *StringTableViewCellIdentifier = @"StringTableViewCell";
 static NSString *StringCollectionViewCellIdentifier = @"StringCollectionViewCellIdentifier";
+static CGFloat StringTableCellHeight = 270.0f;
 
 @interface StringTableViewCell : UITableViewCell
 

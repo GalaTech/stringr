@@ -245,7 +245,7 @@
 {
     if (indexPath.section < self.objects.count) {
         if (indexPath.row == 0) {
-            return 270.0f;
+            return StringTableCellHeight;
         }
         else if (indexPath.row == 1) {
             return FooterTitleCellHeight;
