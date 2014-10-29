@@ -332,6 +332,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         }
         
         [footerCell.TestTitle setText:[string objectForKey:kStringrStringTitleKey]];
+        footerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return footerCell;
     }
@@ -340,6 +341,7 @@ static NSString * const StringrStringTableViewControllerStoryboard = @"StringTab
         TestTableViewFooterActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
         [actionCell configureActionCellWithString:string];
         actionCell.delegate = self;
+        actionCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return actionCell;
     }

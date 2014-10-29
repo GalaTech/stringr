@@ -61,6 +61,8 @@
 
 - (void)setupAppearance
 {
+    self.contentView.userInteractionEnabled = NO;
+    
     self.likeButton = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
     [self.likeButton setImageForSocialButton:[UIImage imageNamed:@"like_button"]];
     [self.likeButton setSelectedImageForSocialButton:[UIImage imageNamed:@"like_button_selected"]];
