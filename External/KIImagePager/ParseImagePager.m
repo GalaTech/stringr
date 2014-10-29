@@ -286,7 +286,7 @@
 #pragma mark - ScrollView Delegate;
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    int currentPage = lround((float)scrollView.contentOffset.x / scrollView.frame.size.width);
+    long currentPage = lround((float)scrollView.contentOffset.x / scrollView.frame.size.width);
     
     // Makes sure that you don't reload unless you go to a different page
     if (currentPage != _pageControl.currentPage) {

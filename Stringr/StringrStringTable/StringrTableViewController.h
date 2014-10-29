@@ -12,13 +12,10 @@
 
 @interface StringrTableViewController : PFQueryTableViewController <StringrNoContentViewDelegate, UIActionSheetDelegate>
 
-+ (instancetype)viewController;
-
 @property (strong, nonatomic, readonly) UIStoryboard *mainStoryboard;
 
 - (void)setQueryForTable:(PFQuery *)queryForTable;
 - (PFQuery *)getQueryForTable;
 - (void)addNewString;
-
 
 @end

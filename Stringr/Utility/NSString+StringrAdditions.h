@@ -10,13 +10,14 @@
 
 @interface NSString (StringrAdditions)
 
-- (BOOL)NSStringIsValidUsername;
-- (BOOL)NSStringIsValidEmail;
-- (BOOL)NSStringContainsCharactersWithoutWhiteSpace;
+- (BOOL)isValidUsername;
+- (BOOL)isValidEmail;
+- (BOOL)containsCharactersWithoutWhiteSpace;
 
-- (NSString *)stringTrimmedForLeadingAndTrailingWhiteSpacesFromString;
+- (NSString *)trimLeadingAndTrailingWhiteSpace;
 - (NSString *)usernameFormattedWithMentionSymbol;
+- (NSString *)formattedWithDecimalPlaceValue;
 
-+ (NSString *)randomStringWithLength:(int)length;
++ (NSString *)randomStringWithLength:(NSInteger)length;
 
 @end

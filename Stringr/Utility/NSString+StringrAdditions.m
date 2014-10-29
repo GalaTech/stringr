@@ -11,9 +11,9 @@
 
 @implementation NSString (StringrAdditions)
 
-- (BOOL)NSStringIsValidUsername
+- (BOOL)isValidUsername
 {
-    if ([self NSStringContainsCharactersWithoutWhiteSpace] && self.length > 0 && self.length <= 15) {
+    if ([self containsCharactersWithoutWhiteSpace] && self.length > 0 && self.length <= 15) {
         // This string dictates what characters are valid to use for creating a username.
         // This uses some set expressions and regular expression operators. http://userguide.icu-project.org/strings/regexp
         NSString *validCharacters = @"[A-Z0-9a-z._-]+?";
@@ -26,7 +26,7 @@
 }
 
 
-- (BOOL)NSStringIsValidEmail
+- (BOOL)isValidEmail
 {
     BOOL stricterFilter = YES;
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
@@ -38,7 +38,7 @@
 }
 
 
-- (BOOL)NSStringContainsCharactersWithoutWhiteSpace
+- (BOOL)containsCharactersWithoutWhiteSpace
 {
     NSCharacterSet *noCharacters = [NSCharacterSet whitespaceCharacterSet];
     NSArray *textWords = [self componentsSeparatedByCharactersInSet:noCharacters];
@@ -52,7 +52,7 @@
 }
 
 
-- (NSString *)stringTrimmedForLeadingAndTrailingWhiteSpacesFromString
+- (NSString *)trimLeadingAndTrailingWhiteSpace
 {
     NSString *leadingTrailingWhiteSpacesPattern = @"(?:^\\s+)|(?:\\s+$)";
     
@@ -71,7 +71,18 @@
 }
 
 
-+ (NSString *)randomStringWithLength:(int)length
+- (NSString *)formattedWithDecimalPlaceValue
+{
+    NSNumber *stringValue = @([self integerValue]);
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+    return [numberFormatter stringFromNumber:stringValue];
+}
+
+
++ (NSString *)randomStringWithLength:(NSInteger)length
 {
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [[NSMutableString alloc] initWithCapacity:length];

@@ -792,13 +792,13 @@
 			isa = PBXGroup;
 			children = (
 				AB5C7E5019FF589A005AFED0 /* Apple Subclasses */,
+				AB5AFBF219F87FBF002F88B9 /* Categories */,
 				BF3EDDFD183E89A60071E047 /* StringrUtility.h */,
 				BF3EDDFE183E89A60071E047 /* StringrUtility.m */,
 				AB4614F9187CC63D00956FF3 /* StringrConstants.h */,
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
 				AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */,
 				AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */,
-				AB5AFBF219F87FBF002F88B9 /* Categories */,
 			);
 			name = Helper;
 			sourceTree = "<group>";

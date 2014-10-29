@@ -21,23 +21,17 @@
 
 @implementation StringrTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
-
-+ (instancetype)viewController
-{
-    return nil;
-}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -48,6 +42,7 @@
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -64,6 +59,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewString) name:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -72,23 +68,21 @@
    // [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterApplicationDidReceiveRemoteNotification object:nil];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)dealloc
 {
-    NSLog(@"dealloc table view");
     
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - Custom Accessors
-//*********************************************************************************/
 
 - (UIStoryboard *)mainStoryboard
 {
@@ -96,10 +90,7 @@
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)setQueryForTable:(PFQuery *)queryForTable
 {
@@ -113,10 +104,7 @@
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 // Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
@@ -130,10 +118,7 @@
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - Actions
-//*********************************************************************************/
 
 /*
 - (void)handlePushNotification:(NSNotification *)note
@@ -180,10 +165,7 @@
  */
 
 
-
-//*********************************************************************************/
 #pragma mark - Table view data source
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -220,10 +202,7 @@
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
-//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -257,10 +236,7 @@
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
-//*********************************************************************************/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -277,10 +253,7 @@
 }
 
 
-
-//*********************************************************************************/
 #pragma mark - ZCImagePickerController Delegate
-//*********************************************************************************/
 
 - (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
 {

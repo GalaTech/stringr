@@ -11,12 +11,14 @@
     },
     {
       "idiom" : "iphone",
+      "filename" : "pre_logged_in_filler_750x1334.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "pre_logged_in_filler_1242x2208.png"
     },
     {
       "idiom" : "ipad",

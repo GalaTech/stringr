@@ -93,7 +93,7 @@
                 [self.navigationItem setRightBarButtonItems:rightNavigationItems];
             }
             
-            [self setupWithTopViewController:self.stringTopVC andTopHeight:283 andBottomViewController:self.stringTableVC];
+            [self setupWithTopViewController:self.stringTopVC andTopHeight:219 andBottomViewController:self.stringTableVC];
             
             self.maxHeightBorder = CGRectGetHeight(self.view.frame);
             [self enableTapGestureTopView:NO];

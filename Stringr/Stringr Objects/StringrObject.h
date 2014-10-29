@@ -37,8 +37,8 @@ typedef void (^StringrArrayResultBlock)(NSArray *objects, NSError *error);
 
 // Increment/Decrement
 
-- (void)incrementKey:(NSString *)key;
-- (void)incrementKey:(NSString *)key byAmount:(NSNumber *)amount;
+//- (void)incrementKey:(NSString *)key;
+//- (void)incrementKey:(NSString *)key byAmount:(NSNumber *)amount;
 
 
 // Conversion

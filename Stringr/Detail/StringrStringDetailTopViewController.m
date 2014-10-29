@@ -25,9 +25,7 @@
 
 @implementation StringrStringDetailTopViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -36,7 +34,10 @@
     // This is of type NHBalancedFlowLayout
     UICollectionViewLayout *balancedLayout = [self layoutForCollectionView];
     
-    self.stringCollectionView = [[StringCollectionView alloc] initWithFrame:self.stringView.bounds collectionViewLayout:balancedLayout];
+    CGRect stringCollectionViewRect = self.stringView.bounds;
+    stringCollectionViewRect.size.width = [UIScreen mainScreen].bounds.size.width;
+    
+    self.stringCollectionView = [[StringCollectionView alloc] initWithFrame:stringCollectionViewRect collectionViewLayout:balancedLayout];
     [self.stringCollectionView registerNib:[UINib nibWithNibName:@"StringCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StringCollectionViewCellIdentifier"];
     [self.stringCollectionView setBackgroundColor:[UIColor stringCollectionViewBackgroundColor]];
     self.stringCollectionView.showsHorizontalScrollIndicator = NO;
@@ -73,7 +74,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterReloadPublicString object:nil];
     
-    NSLog(@"dealloc string detail top");
 }
 
 
