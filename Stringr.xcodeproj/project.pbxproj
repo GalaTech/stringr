@@ -90,7 +90,6 @@
 		AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */; };
 		AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */; };
 		AB6CB1D01906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */; };
-		AB6FDA3818EB7041003A6831 /* StringrNoContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA418874CF300D32917 /* StringrTabBarViewController.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
@@ -227,7 +226,7 @@
 		AB04A30819EF7E210030C241 /* TestTableViewStringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewStringCell.h; path = TestVC/TestTableViewStringCell.h; sourceTree = "<group>"; };
 		AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewStringCell.m; path = TestVC/TestTableViewStringCell.m; sourceTree = "<group>"; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
-		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; };
+		AB0BDFD518E4929A006FAB57 /* StringrCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = StringrCache.m; path = Utility/StringrCache.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AB0F531F1908458800A29E59 /* StringrInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrInviteFriendsTableViewController.h; path = Settings/StringrInviteFriendsTableViewController.h; sourceTree = "<group>"; };
 		AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrInviteFriendsTableViewController.m; path = Settings/StringrInviteFriendsTableViewController.m; sourceTree = "<group>"; };
 		AB0F532219098F9E00A29E59 /* StringrPushNotificationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPushNotificationsTableViewController.h; path = Settings/StringrPushNotificationsTableViewController.h; sourceTree = "<group>"; };
@@ -340,8 +339,6 @@
 		AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrInviteUserTableViewCell.m; path = TableViewCell/StringrInviteUserTableViewCell.m; sourceTree = "<group>"; };
 		AB6CB1CE1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFBFriendPickerViewController.h; path = Settings/StringrFBFriendPickerViewController.h; sourceTree = "<group>"; };
 		AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFBFriendPickerViewController.m; path = Settings/StringrFBFriendPickerViewController.m; sourceTree = "<group>"; };
-		AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentTableViewCell.h; path = StringrStringTable/StringrNoContentTableViewCell.h; sourceTree = "<group>"; };
-		AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentTableViewCell.m; path = StringrStringTable/StringrNoContentTableViewCell.m; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
 		AB757AA318874CF300D32917 /* StringrTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTabBarViewController.h; path = "Tab Bar Controller/StringrTabBarViewController.h"; sourceTree = "<group>"; };
@@ -428,7 +425,7 @@
 		ABFBE5FF18D8C67A0026BCC1 /* StringrHomeTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrHomeTabBarViewController.h; path = "Tab Bar Controller/StringrHomeTabBarViewController.h"; sourceTree = "<group>"; };
 		ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrHomeTabBarViewController.m; path = "Tab Bar Controller/StringrHomeTabBarViewController.m"; sourceTree = "<group>"; };
 		ABFBE60218D8C7CA0026BCC1 /* StringrActivityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActivityTableViewController.h; path = StringrStringTable/StringrActivityTableViewController.h; sourceTree = "<group>"; };
-		ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivityTableViewController.m; path = StringrStringTable/StringrActivityTableViewController.m; sourceTree = "<group>"; };
+		ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = StringrActivityTableViewController.m; path = StringrStringTable/StringrActivityTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPrivacyPolicyTermsOfServiceViewController.h; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.h; sourceTree = "<group>"; };
 		ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPrivacyPolicyTermsOfServiceViewController.m; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.m; sourceTree = "<group>"; };
 		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
@@ -633,15 +630,6 @@
 				BF3EDDF1183D92330071E047 /* StringrNavigationController.m */,
 			);
 			name = "Navigation Controller";
-			sourceTree = "<group>";
-		};
-		AB04A2DA19E0CE5C0030C241 /* No Content */ = {
-			isa = PBXGroup;
-			children = (
-				AB6FDA3918EB729D003A6831 /* Filler TableViewCell */,
-				ABF0554E1929665F00BB08A7 /* No Content View */,
-			);
-			name = "No Content";
 			sourceTree = "<group>";
 		};
 		AB04A2DB19E0CE940030C241 /* Data Backend */ = {
@@ -898,15 +886,6 @@
 			name = "Apple Subclasses";
 			sourceTree = "<group>";
 		};
-		AB6FDA3918EB729D003A6831 /* Filler TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				AB6FDA3618EB7041003A6831 /* StringrNoContentTableViewCell.h */,
-				AB6FDA3718EB7041003A6831 /* StringrNoContentTableViewCell.m */,
-			);
-			name = "Filler TableViewCell";
-			sourceTree = "<group>";
-		};
 		AB757A89187F173F00D32917 /* Image Path  */ = {
 			isa = PBXGroup;
 			children = (
@@ -1142,7 +1121,7 @@
 			children = (
 				ABC8883B19FA94BA00218F62 /* Button */,
 				BF170EBD184BEA9D0056ECE7 /* String */,
-				AB04A2DA19E0CE5C0030C241 /* No Content */,
+				ABF0554E1929665F00BB08A7 /* No Content View */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1575,7 +1554,6 @@
 				BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */,
 				BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */,
 				BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */,
-				AB6FDA3818EB7041003A6831 /* StringrNoContentTableViewCell.m in Sources */,
 				AB5B5943189AC86700790510 /* StringrDetailTopViewController.m in Sources */,
 				BF3EDE0A183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m in Sources */,
 				BF3EDE17183E9FD40071E047 /* StringrSettingsTableViewController.m in Sources */,

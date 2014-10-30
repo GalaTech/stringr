@@ -30,10 +30,7 @@
 
 @implementation StringrAppController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
-
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
@@ -44,7 +41,8 @@
         UIViewController *backgroundVC = [[UIViewController alloc] init];
         
         UIImage *fillerImage = [UIImage imageNamed:@"pre_logged_in_filler"];
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:fillerImage];
+        UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds))];
+        backgroundImageView.image = fillerImage;
         [backgroundVC.view addSubview:backgroundImageView];
         
         self.contentViewController = backgroundVC;
