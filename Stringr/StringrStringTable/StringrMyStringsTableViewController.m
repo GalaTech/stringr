@@ -11,8 +11,9 @@
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
 #import "StringCollectionView.h"
+#import "TestTableViewHeader.h"
 
-@interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate>
+@interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate, TestTableViewHeaderDelegate>
 
 @property (nonatomic) BOOL editingStringsEnabled;
 
@@ -58,18 +59,20 @@
 }
 
 
-- (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
+- (void)configureHeader:(TestTableViewHeader *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
 {
-    headerView.section = section;
-    headerView.stringForHeader = string;
-    headerView.stringEditingEnabled = self.editingStringsEnabled;
+    [UIView animateWithDuration:0.33 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        headerView.editingEnabled = self.editingStringsEnabled;
+        [headerView configureHeaderWithString:string];
+    } completion:nil];
+    
     headerView.delegate = self;
 }
 
 - (void)reloadHeaders {
     for (NSInteger i = 0; i < [self numberOfSectionsInTableView:self.tableView]; i++) {
-        StringrStringHeaderView *header = (StringrStringHeaderView *)[self.tableView headerViewForSection:i];
-        PFObject *string = header.stringForHeader;
+        TestTableViewHeader *header = (TestTableViewHeader *)[self.tableView headerViewForSection:i];
+        PFObject *string = header.string;
         [self configureHeader:header forSection:i withString:string];
     }
 }
@@ -218,6 +221,45 @@
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
     [self addNewString];
+}
+
+
+#pragma mark - StringTableViewHeader Delegate
+
+- (void)testTableViewHeader:(TestTableViewHeader *)tableViewHeader tappedInfoButton:(UIButton *)infoButton
+{
+    PFObject *string = tableViewHeader.string;
+    
+    if (self.editingStringsEnabled) {
+        StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        
+        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+            string = [string objectForKey:kStringrStatisticsStringKey];
+        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+            string = [string objectForKey:kStringrActivityStringKey];
+        }
+        
+        // tag is set to the section number of each string
+        [detailVC setStringToLoad:string];
+        [detailVC setEditDetailsEnabled:YES];
+        [detailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
+    } else {
+        StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        
+        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+            string = [string objectForKey:kStringrStatisticsStringKey];
+        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
+            string = [string objectForKey:kStringrActivityStringKey];
+        }
+        
+        // tag is set to the section number of each string
+        [detailVC setStringToLoad:string];
+        [detailVC setHidesBottomBarWhenPushed:YES];
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 
 @end

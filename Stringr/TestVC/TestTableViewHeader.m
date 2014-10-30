@@ -18,8 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
 @property (weak, nonatomic) IBOutlet UILabel *stringUploadDate;
 @property (weak, nonatomic) IBOutlet UIImageView *stringPrivacySettings;
+@property (strong, nonatomic) IBOutlet UIButton *stringInfoButton;
 
-@property (strong, nonatomic) PFObject *headerString;
+@property (strong, nonatomic, readwrite) PFObject *string;
 
 @end
 
@@ -63,9 +64,9 @@
 
 - (void)configureHeaderWithString:(PFObject *)string
 {
-    self.headerString = string;
+    self.string = string;
     
-    PFUser *user = self.headerString[kStringrStringUserKey];
+    PFUser *user = self.string[kStringrStringUserKey];
     
     [user fetchUserIfNeededInBackgroundWithBlock:^(PFUser *user, NSError *error) {
         [self configureProfileImageViewWithUser:user];
@@ -73,6 +74,7 @@
     }];
     
     [self configureUploadDateLabel];
+    [self configureStringInfoButton];
     [self configurePrivacyButton];
 }
 
@@ -89,6 +91,8 @@
     
     self.stringUploadDate.font = [UIFont stringrHeaderSecondaryLabelFont];
     self.stringUploadDate.textColor = [UIColor stringrSecondaryLabelColor];
+    
+    self.stringInfoButton.hidden = !self.editingEnabled;
 }
 
 - (void)configureProfileImageViewWithUser:(PFUser *)user
@@ -118,8 +122,8 @@
 
 - (void)configureUploadDateLabel
 {
-    if (self.headerString) {
-        NSString *uploadTime = [StringrUtility timeAgoFromDate:self.headerString.createdAt];
+    if (self.string) {
+        NSString *uploadTime = [StringrUtility timeAgoFromDate:self.string.createdAt];
         [self.stringUploadDate setText:uploadTime];
     } else {
         [self.stringUploadDate setText:@"Now"];
@@ -134,9 +138,15 @@
 }
 
 
+- (void)configureStringInfoButton
+{
+    self.stringInfoButton.hidden = !self.editingEnabled;
+}
+
+
 - (void)configurePrivacyButton
 {
-    if ([self.headerString.ACL getPublicWriteAccess]) {
+    if ([self.string.ACL getPublicWriteAccess]) {
         self.stringPrivacySettings.image = [UIImage imageNamed:@"unlock_button"];
     }
     else {
@@ -145,12 +155,27 @@
 }
 
 
+#pragma mark - IBActions
+
+- (IBAction)tappedInfoButton:(UIButton *)sender
+{
+    [self infoButtonTapped];
+}
+
 #pragma mark - Actions
 
 - (void)profileImageTapped
 {
     if ([self.delegate respondsToSelector:@selector(profileImageTappedForUser:)]) {
-        [self.delegate profileImageTappedForUser:self.headerString[kStringrStringUserKey]];
+        [self.delegate profileImageTappedForUser:self.string[kStringrStringUserKey]];
+    }
+}
+
+
+- (void)infoButtonTapped
+{
+    if ([ self.delegate respondsToSelector:@selector(testTableViewHeader:tappedInfoButton:)]) {
+        [self.delegate testTableViewHeader:self tappedInfoButton:self.stringInfoButton];
     }
 }
 

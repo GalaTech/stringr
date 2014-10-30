@@ -9,15 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @class StringrPathImageView;
+@class TestTableViewHeader;
 
 @protocol TestTableViewHeaderDelegate <NSObject>
 
+@optional
 - (void)profileImageTappedForUser:(PFUser *)user;
+- (void)testTableViewHeader:(TestTableViewHeader *)tableViewHeader tappedInfoButton:(UIButton *)infoButton;
 
 @end
 
 @interface TestTableViewHeader : UITableViewHeaderFooterView
 
+@property (strong, nonatomic, readonly) PFObject *string;
+@property (nonatomic) BOOL editingEnabled;
 @property (weak, nonatomic) id<TestTableViewHeaderDelegate> delegate;
 
 - (void)configureHeaderWithString:(PFObject *)string;

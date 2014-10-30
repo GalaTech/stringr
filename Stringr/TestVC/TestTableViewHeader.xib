@@ -66,6 +66,16 @@
                         </mask>
                     </variation>
                 </imageView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x59-0C-ggI">
+                    <rect key="frame" x="539" y="12" width="22" height="22"/>
+                    <color key="tintColor" red="0.84144810270000003" green="0.84144810270000003" blue="0.84144810270000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tappedInfoButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="pn9-5c-3g4"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Ocd-Jk-6wp" secondAttribute="bottom" constant="3" id="1bM-gg-CXo"/>
@@ -86,10 +96,12 @@
                 <constraint firstAttribute="centerY" secondItem="y3v-Ia-LhE" secondAttribute="centerY" id="eXf-z4-ch1"/>
                 <constraint firstItem="Ocd-Jk-6wp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="grd-Kn-JMw"/>
                 <constraint firstItem="37L-n7-Yn1" firstAttribute="leading" secondItem="Ocd-Jk-6wp" secondAttribute="trailing" constant="10" id="hmm-Po-RFr"/>
+                <constraint firstItem="y3v-Ia-LhE" firstAttribute="leading" secondItem="x59-0C-ggI" secondAttribute="trailing" constant="8" id="i62-fD-Ne4"/>
                 <constraint firstItem="fbH-TR-Vmw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="j2c-iR-5l8"/>
                 <constraint firstItem="Ocd-Jk-6wp" firstAttribute="top" secondItem="fbH-TR-Vmw" secondAttribute="top" id="lEL-gI-zMw"/>
                 <constraint firstItem="fbH-TR-Vmw" firstAttribute="leading" secondItem="Ocd-Jk-6wp" secondAttribute="trailing" constant="8" id="lpW-8f-83n"/>
                 <constraint firstItem="y3v-Ia-LhE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="mtG-hg-6IL"/>
+                <constraint firstAttribute="centerY" secondItem="x59-0C-ggI" secondAttribute="centerY" constant="-0.5" id="o60-j7-dWX"/>
                 <constraint firstItem="37L-n7-Yn1" firstAttribute="top" secondItem="fbH-TR-Vmw" secondAttribute="bottom" constant="2" id="pCs-bV-U0u"/>
                 <constraint firstAttribute="trailing" secondItem="y3v-Ia-LhE" secondAttribute="trailing" constant="8" id="rGs-xu-6pB"/>
                 <constraint firstItem="Ocd-Jk-6wp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="rM1-WH-TdM"/>
@@ -126,6 +138,7 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="stringInfoButton" destination="x59-0C-ggI" id="eCj-9i-ioC"/>
                 <outlet property="stringPrivacySettings" destination="y3v-Ia-LhE" id="AO8-7d-Cb8"/>
                 <outlet property="stringProfileImage" destination="Ocd-Jk-6wp" id="YBT-EO-eii"/>
                 <outlet property="stringProfileUploader" destination="fbH-TR-Vmw" id="e62-s9-alc"/>
