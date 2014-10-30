@@ -78,9 +78,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Custom Accessors
-//*********************************************************************************/
 
 - (NSMutableArray *)stringPhotos
 {
@@ -93,9 +91,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Action Handlers
-//*********************************************************************************/
 
 - (void)photoRemovedFromPublicString:(NSNotification *)notification
 {
@@ -117,9 +113,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)queryPhotosFromString
 {
@@ -204,9 +198,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (UICollectionViewLayout *)layoutForCollectionView
 {
@@ -245,9 +237,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UICollectionView Data Source
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -296,9 +286,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UICollectionView Delegate
-//*********************************************************************************/
 
 - (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -321,9 +309,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringCollectionViewFlowLayout Delegate
-//*********************************************************************************/
 
 - (CGSize)collectionView:(StringCollectionView *)collectionView layout:(NHBalancedFlowLayout *)collectionViewLayout preferredSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {

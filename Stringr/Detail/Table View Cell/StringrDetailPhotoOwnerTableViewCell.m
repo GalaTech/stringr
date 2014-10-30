@@ -16,9 +16,7 @@
 
 @implementation StringrDetailPhotoOwnerTableViewCell
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -42,9 +40,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)setStringOwnerNameForCell:(NSString *)ownerName
 {

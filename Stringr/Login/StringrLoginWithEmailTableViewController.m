@@ -14,9 +14,7 @@
 
 @implementation StringrLoginWithEmailTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,9 +46,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Table view data source
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -77,9 +73,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - TableView Delegate
-//*********************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

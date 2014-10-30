@@ -27,9 +27,7 @@
 
 @implementation StringrStringDetailViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -123,9 +121,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - Actions
-//*********************************************************************************/
 
 - (void)saveAndPublishString
 {
@@ -165,9 +161,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
-//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -191,9 +185,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
-//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -237,9 +229,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
-//*********************************************************************************/
 
 //delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -282,9 +272,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - ZCImagePickerController Delegate
-//*********************************************************************************/
 
 - (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
 {
@@ -313,9 +301,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrStringDetailEditTopViewController Delegate
-//*********************************************************************************/
 
 - (void)toggleActionEnabledOnTableView:(BOOL)enabled
 {
@@ -325,9 +311,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Parallax Delegate
-//*********************************************************************************/
 
 /**
  * Callback when the top height changed

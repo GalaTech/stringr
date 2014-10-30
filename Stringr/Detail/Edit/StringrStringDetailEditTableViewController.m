@@ -19,9 +19,7 @@
 
 @implementation StringrStringDetailEditTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -47,9 +45,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Custom Accessors
-//*********************************************************************************/
 
 @synthesize stringTitle = _stringTitle;
 @synthesize stringDescription = _stringDescription;
@@ -85,9 +81,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - TableView Data Source
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -192,9 +186,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - TableView Delegate
-//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -260,9 +252,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIAlertView Delegate
-//*********************************************************************************/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -274,9 +264,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrWriteAndEditTextView Delegate
-//*********************************************************************************/
 
 - (void)reloadTextAtIndexPath:(NSIndexPath *)indexPath withText:(NSString *)text
 {

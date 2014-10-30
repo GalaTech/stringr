@@ -54,9 +54,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)setUserToInviteDisplayName:(NSString *)name
 {
@@ -75,9 +73,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)downloadProfileImage:(NSURL *)facebookProfilePictureURL
 {
@@ -97,9 +93,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - NSURLConnection Delegate
-//*********************************************************************************/
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // As chuncks of the image are received, we build our data file
@@ -108,9 +102,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - NSURLConnectionDataDelegate
-//*********************************************************************************/
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {

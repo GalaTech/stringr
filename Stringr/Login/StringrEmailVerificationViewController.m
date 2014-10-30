@@ -23,9 +23,7 @@
 
 @implementation StringrEmailVerificationViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,9 +81,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - IBAction's
-//*********************************************************************************/
 
 - (IBAction)checkAgainButtonTouchHandler:(UIButton *)sender
 {
@@ -125,9 +121,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)addStringrColoredHeaderToView
 {

@@ -19,9 +19,7 @@
 
 @implementation StringTableViewCell
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -65,9 +63,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 -(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index
 {

@@ -20,9 +20,7 @@
 
 @implementation StringrMyStringsTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -52,9 +50,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)editedStringSuccessfully
 {
@@ -80,9 +76,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Actions
-//*********************************************************************************/
 
 // Handles the action of moving a user to edit the selected string.
 // This will eventually incorporate the selection of a specific string and then taking the user
@@ -103,9 +97,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UICollectionView Delegate
-//*********************************************************************************/
 
 - (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -149,9 +141,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
-//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -185,9 +175,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrStringHeaderView Delegate
-//*********************************************************************************/
 
 - (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
 {
@@ -225,9 +213,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrNoContentView Delegate
-//*********************************************************************************/
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {

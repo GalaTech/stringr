@@ -15,9 +15,7 @@
 
 @implementation StringrTabBarViewController
 
-//*********************************************************************************/
 #pragma mark - LifeCycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -51,9 +49,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 // Handles the action of displaying the menu when the menu nav item is pressed
 - (void)showMenu
@@ -63,9 +59,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITabBar Delegate
-//*********************************************************************************/
 
 /*
 // Sets the title for the navigation controller to be that of the tab bar item we are one

@@ -27,9 +27,7 @@
 
 @implementation StringrFindAndInviteFriendsTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,9 +70,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)findFacebookFriends
 {
@@ -130,9 +126,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - PFQueryTableViewControllerDelegate
-//*********************************************************************************/
 
 - (void)objectsWillLoad
 {
@@ -147,9 +141,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewControllerDataSource
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -212,9 +204,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewControllerDelegate
-//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

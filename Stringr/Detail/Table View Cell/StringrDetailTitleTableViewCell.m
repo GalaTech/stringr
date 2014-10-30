@@ -18,9 +18,7 @@
 
 @implementation StringrDetailTitleTableViewCell
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -46,9 +44,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)setTitleForCell:(NSString *)title
 {

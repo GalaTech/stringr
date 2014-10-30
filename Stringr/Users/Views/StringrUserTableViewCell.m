@@ -11,9 +11,7 @@
 
 @implementation StringrUserTableViewCell
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 /** Allows you to initialize a cell with the users profile thumbnail image and all accompanying information.
  *
@@ -68,9 +66,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

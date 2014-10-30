@@ -33,9 +33,7 @@
 
 @implementation StringrSettingsTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -75,9 +73,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)showMenu
 {
@@ -198,9 +194,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewDataSource
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -323,9 +317,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewDelegate
-//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -486,9 +478,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - MFMailComposeViewControllerDelegate
-//*********************************************************************************/
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
@@ -498,9 +488,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrWriteAndEditViewControllerDelegate
-//*********************************************************************************/
 
 - (void)textWrittenAndSavedByUser:(NSString *)text withType:(StringrWrittenTextType)textType
 {
@@ -554,9 +542,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
-//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -593,9 +579,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIImagePicker Delegate
-//*********************************************************************************/
 
 //delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -614,9 +598,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - ZCImagePickerController Delegate
-//*********************************************************************************/
 
 - (void)zcImagePickerController:(ZCImagePickerController *)imagePickerController didFinishPickingMediaWithInfo:(NSArray *)info
 {

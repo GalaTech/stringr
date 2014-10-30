@@ -14,9 +14,7 @@
 
 @implementation StringrFollowingTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -33,9 +31,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
-//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -69,9 +65,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - StringrNoContentView Delegate
-//*********************************************************************************/
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {

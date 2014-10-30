@@ -28,9 +28,7 @@
 
 @implementation StringrStringDetailEditTopViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -58,9 +56,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Custom Accessors
-//*********************************************************************************/
 
 - (NSMutableArray *)stringPhotosToDelete
 {
@@ -112,9 +108,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)addImageToString:(UIImage *)image withBlock:(void (^)(BOOL succeeded, PFObject *photo, NSError *error))completionBlock
 {
@@ -233,9 +227,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (UICollectionViewLayout *)layoutForCollectionView
 {
@@ -426,9 +418,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - UICollectionView Delegate
-//*********************************************************************************/
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -459,9 +449,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrStringDetailEditTableViewController Delegate
-//*********************************************************************************/
 
 - (void)setTitleForString:(NSString *)title
 {
@@ -537,9 +525,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrPhotoDetailEditTableViewController Delegate
-//*********************************************************************************/
 
 - (void)deletePhotoFromString:(PFObject *)photo
 {
@@ -548,9 +534,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - ReorderableCollectionView DataSource
-//*********************************************************************************/
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
@@ -572,9 +556,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - ReorderableCollectionView Delegate
-//*********************************************************************************/
 
 - (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -19,9 +19,7 @@
 
 @implementation StringrPrivacyPolicyTermsOfServiceViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,9 +54,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Custom Accessor's
-//*********************************************************************************/
 
 - (NSString *)privacyPolicyText
 {

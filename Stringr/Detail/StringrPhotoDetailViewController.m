@@ -24,9 +24,7 @@
 
 @implementation StringrPhotoDetailViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -111,9 +109,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Actions
-//*********************************************************************************/
 
 - (void)photoActionSheet
 {
@@ -214,9 +210,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)removeActivityForPhoto:(PFObject *)photo
 {
@@ -234,9 +228,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - ParallaxController Delegate
-//*********************************************************************************/
 
 - (void) parallaxScrollViewController:(QMBParallaxScrollViewController *)controller didChangeState:(QMBParallaxState)state
 {
@@ -248,9 +240,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrPhotoDetailTopViewControllerImagePager Delegate
-//*********************************************************************************/
 
 - (void)photoViewer:(ParseImagePager *)photoViewer didScrollToIndex:(NSUInteger)index
 {
@@ -280,9 +270,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
-//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {

@@ -22,9 +22,7 @@
 
 @implementation StringrDiscoveryTabBarViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (instancetype)init
 {

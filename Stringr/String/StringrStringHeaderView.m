@@ -19,9 +19,7 @@
 
 @implementation StringrStringHeaderView
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 // Percentage for the width of the content header view
 static float const contentViewWidthPercentage = .93;
@@ -62,9 +60,7 @@ static float const contentViewWidthPercentage = .93;
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)setStringForHeader:(PFObject *)stringForHeader
 {

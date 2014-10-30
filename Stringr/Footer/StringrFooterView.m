@@ -34,9 +34,7 @@
 
 @implementation StringrFooterView
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 static float const contentViewWidth = 320.0;
 
@@ -83,9 +81,7 @@ static float const contentViewWidth = 320.0;
 
 
 
-//*********************************************************************************/
 #pragma mark - Public
-//*********************************************************************************/
 
 - (void)setupFooterViewWithObject:(PFObject *)object
 {
@@ -103,9 +99,7 @@ static float const contentViewWidth = 320.0;
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)setUploaderProfileInformation
 {

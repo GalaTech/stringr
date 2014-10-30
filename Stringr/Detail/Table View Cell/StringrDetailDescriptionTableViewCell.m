@@ -19,9 +19,7 @@
 
 @implementation StringrDetailDescriptionTableViewCell
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -48,9 +46,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - Custom Accessors
-//*********************************************************************************/
 
 - (NSDictionary *)textAttributes
 {

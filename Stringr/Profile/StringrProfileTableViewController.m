@@ -15,9 +15,7 @@
 
 @implementation StringrProfileTableViewController
 
-//*********************************************************************************/
 #pragma mark - LifeCycle
-//*********************************************************************************/
 
 - (instancetype)initWithUser:(PFUser *)user
 {
@@ -54,9 +52,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
-//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -81,9 +77,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - ParallaxScrollViewController Delegate
-//*********************************************************************************/
 
 - (UIScrollView *)scrollViewForParallexController
 {

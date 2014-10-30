@@ -31,9 +31,7 @@
 
 @implementation StringrCommentsTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -88,9 +86,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Custom Accessors
-//*********************************************************************************/
 
 - (NSMutableArray *)commentUsers
 {
@@ -103,9 +99,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Actions
-//*********************************************************************************/
 
 - (void)writeComment
 {
@@ -120,9 +114,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - TableView DataSource
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -141,9 +133,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - TableView Delegate
-//*********************************************************************************/
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -206,9 +196,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - PFQueryTableView DataSource
-//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {   
@@ -290,9 +278,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrCommentsTableViewCell Delegate
-//*********************************************************************************/
 
 - (void)tappedCommentorUserProfileImage:(PFUser *)user
 {
@@ -341,9 +327,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrWriteComment Delegate
-//*********************************************************************************/
 
 - (void)commentViewController:(StringrWriteCommentViewController *)commentView didPostComment:(PFObject *)comment
 {
@@ -361,9 +345,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrNoContentView Delegate
-//*********************************************************************************/
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {

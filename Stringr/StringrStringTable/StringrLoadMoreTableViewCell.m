@@ -11,9 +11,7 @@
 
 @implementation StringrLoadMoreTableViewCell
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithFrame:(CGRect)frame
 {

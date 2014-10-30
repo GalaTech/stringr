@@ -22,9 +22,7 @@
 
 @implementation StringrActivityTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,9 +71,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 + (NSString *)stringForActivityType:(NSString *)activityType
 {
@@ -102,9 +98,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewController DataSource
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -122,9 +116,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewController Delegate
-//*********************************************************************************/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -257,9 +249,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - PFQueryTableViewController Delegate
-//*********************************************************************************/
 
 - (PFQuery *)queryForTable
 {
@@ -341,9 +331,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrActivityTableViewCell Delegate
-//*********************************************************************************/
 
 - (void)tappedActivityUserProfileImage:(PFUser *)user
 {
@@ -361,9 +349,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrNoContentView Delegate
-//*********************************************************************************/
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {

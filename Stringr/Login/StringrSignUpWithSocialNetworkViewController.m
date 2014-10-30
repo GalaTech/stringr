@@ -20,9 +20,7 @@
 
 @implementation StringrSignUpWithSocialNetworkViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -49,9 +47,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 - (void)signUpWithSocialNetwork
 {
@@ -205,9 +201,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewDataSource
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -316,9 +310,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITableViewDelegate
-//*********************************************************************************/
 
 /*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -360,9 +352,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITextField Delegate
-//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -404,9 +394,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIActionSheet Delegate
-//*********************************************************************************/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -424,9 +412,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrLoginViewDownloadingSocialNetworkInfoDelegate
-//*********************************************************************************/
 
 - (void)socialNetworkProfileImageDidFinishDownloading:(UIImage *)profileImage
 {

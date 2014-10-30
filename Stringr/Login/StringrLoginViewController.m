@@ -53,9 +53,7 @@
 
 @implementation StringrLoginViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (void)viewDidLoad
 {
@@ -116,9 +114,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Action Handlers
-//*********************************************************************************/
 
 - (void)changeBackgroundImage
 {
@@ -170,9 +166,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - IBActions
-//*********************************************************************************/
 
 - (IBAction)loginWithFacebookButtonTouchHandler:(UIButton *)sender
 {
@@ -293,9 +287,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Private
-//*********************************************************************************/
 
 // logs in the user after the refresh is complete on the current user
 - (void)loginUserFromRefresh
@@ -543,9 +535,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - NSURLConnection Delegate
-//*********************************************************************************/
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // As chuncks of the image are received, we build our data file
@@ -554,9 +544,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - NSURLConnectionDataDelegate
-//*********************************************************************************/
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -584,9 +572,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UITextField Delegate
-//*********************************************************************************/
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {

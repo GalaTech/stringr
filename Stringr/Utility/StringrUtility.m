@@ -12,9 +12,7 @@
 
 @implementation StringrUtility
 
-//*********************************************************************************/
 #pragma mark - Like/Unlike Photo/String
-//*********************************************************************************/
 
 + (void)likeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
@@ -220,9 +218,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Follow/Unfollow Users
-//*********************************************************************************/
 
 + (void)followUserInBackground:(PFUser *)user block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
@@ -319,9 +315,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Push Notification's
-//*********************************************************************************/
 
 + (void)sendFollowingPushNotification:(PFUser *)user
 {
@@ -348,9 +342,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark Activities
-//*********************************************************************************/
 
 + (PFQuery *)queryForActivitiesOnObject:(PFObject *)object cachePolicy:(PFCachePolicy)cachePolicy
 {
@@ -408,9 +400,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - UIImage Formatting
-//*********************************************************************************/
 
 + (UIImage *)formatPhotoImageForUpload:(UIImage *)image
 {
@@ -467,9 +457,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Menu
-//*********************************************************************************/
 
 + (void)showMenu:(REFrostedViewController *)menuViewController
 {
@@ -479,9 +467,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Text Parsing
-//*********************************************************************************/
 
 //static float const secondsRemovedFromDate = 240;
 + (NSString *)timeAgoFromDate:(NSDate *)date
@@ -683,9 +669,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - Login
-//*********************************************************************************/
 
 + (BOOL)facebookUserCanLogin:(PFUser *)facebookUser
 {

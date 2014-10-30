@@ -18,9 +18,7 @@
 
 @implementation StringrDetailTableViewController
 
-//*********************************************************************************/
 #pragma mark - Lifecycle
-//*********************************************************************************/
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -53,9 +51,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - Table view data source
-//*********************************************************************************/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -81,9 +77,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - TableView Delegate
-//*********************************************************************************/
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -117,9 +111,7 @@
 }
 
 
-//*********************************************************************************/
 #pragma mark - ParallaxView Delegate
-//*********************************************************************************/
 
 -(UIScrollView *)scrollViewForParallexController
 {
@@ -128,9 +120,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrFooterView Delegate
-//*********************************************************************************/
 
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
@@ -170,9 +160,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrCommentsTableView Delegate
-//*********************************************************************************/
 
 - (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
 {
@@ -190,9 +178,7 @@
 
 
 
-//*********************************************************************************/
 #pragma mark - StringrDetailTableViewCell Delegate
-//*********************************************************************************/
 
 - (void)tableViewCell:(StringrDetailTableViewCell *)cell tappedUserHandleWithName:(NSString *)name
 {
