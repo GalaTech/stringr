@@ -66,9 +66,9 @@
                         </mask>
                     </variation>
                 </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x59-0C-ggI">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x59-0C-ggI">
                     <rect key="frame" x="539" y="12" width="22" height="22"/>
-                    <color key="tintColor" red="0.84144810270000003" green="0.84144810270000003" blue="0.84144810270000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="0.94553172829999999" green="0.3561544492" blue="0.34817832189999998" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
