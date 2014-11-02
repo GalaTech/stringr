@@ -23,6 +23,8 @@
 #import "StringrNetworkTask.h"
 #import "StringrObject.h"
 
+#import "NSString+StringrAdditions.h"
+
 #import "TestTableViewController.h"
 
 @interface StringrAppDelegate ()

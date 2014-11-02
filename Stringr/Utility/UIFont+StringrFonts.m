@@ -14,7 +14,7 @@
 
 + (UIFont *)stringrPrimaryLabelFontWithSize:(CGFloat)size
 {
-    return [UIFont fontWithName:@"HelveticaNeue-Light" size:size];
+    return [UIFont fontWithName:@"Avenir" size:size];
 }
 
 
@@ -42,15 +42,21 @@
 }
 
 
++ (UIFont *)stringrPrimaryStringTitleLabelFont
+{
+    return [UIFont fontWithName:@"Avenir Light" size:15];
+}
+
+
 + (UIFont *)stringrHeaderPrimaryLabelFont
 {
-    return [UIFont fontWithName:@"HelveticaNeue" size:16.5];
+    return [UIFont fontWithName:@"Avenir" size:16.5];
 }
 
 
 + (UIFont *)stringrHeaderSecondaryLabelFont
 {
-    return [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5];
+    return [UIFont fontWithName:@"Avenir" size:12.5];
 }
 
 
@@ -78,7 +84,7 @@
 
 + (UIFont *)stringrProfileNameFont
 {
-    return [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    return [UIFont fontWithName:@"Avenir" size:18];
 }
 
 @end

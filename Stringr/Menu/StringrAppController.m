@@ -14,6 +14,7 @@
 #import "StringrHomeTabBarViewController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrUpdateEngine.h"
+#import "UIFont+StringrFonts.h"
 
 #import "Reachability.h"
 
@@ -102,7 +103,7 @@
     // Sets the navigation bar title to a lighter font variant throughout the app.
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                                             NSForegroundColorAttributeName: [UIColor grayColor],
-                                                            NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:18.0f]
+                                                            NSFontAttributeName: [UIFont stringrPrimaryLabelFontWithSize:18.0f]
                                                             }];
 }
 

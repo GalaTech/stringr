@@ -71,9 +71,9 @@
     [user fetchUserIfNeededInBackgroundWithBlock:^(PFUser *user, NSError *error) {
         [self configureProfileImageViewWithUser:user];
         [self configureProfileUploaderLabelWithUser:user];
+        [self configureUploadDateLabel];
     }];
     
-    [self configureUploadDateLabel];
     [self configureStringInfoButton];
     [self configurePrivacyButton];
 }
@@ -88,9 +88,11 @@
     
     self.stringProfileUploader.font = [UIFont stringrHeaderPrimaryLabelFont];
     self.stringProfileUploader.textColor = [UIColor stringrPrimaryLabelColor];
+    self.stringProfileUploader.alpha = 0.0f;
     
     self.stringUploadDate.font = [UIFont stringrHeaderSecondaryLabelFont];
     self.stringUploadDate.textColor = [UIColor stringrSecondaryLabelColor];
+    self.stringUploadDate.alpha = 0.0f;
     
     self.stringInfoButton.hidden = !self.editingEnabled;
 }
@@ -109,12 +111,12 @@
 - (void)configureProfileUploaderLabelWithUser:(PFUser *)user
 {
     NSString *formattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:user[kStringrUserUsernameCaseSensitive]];
-    self.stringProfileUploader.text = formattedUsername;
     
-    [UIView animateWithDuration:0.25
+    [UIView animateWithDuration:0.33
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
+                         self.stringProfileUploader.text = formattedUsername;
                          self.stringProfileUploader.alpha = 1.0f;
     } completion:nil];
 }
@@ -122,17 +124,17 @@
 
 - (void)configureUploadDateLabel
 {
-    if (self.string) {
-        NSString *uploadTime = [StringrUtility timeAgoFromDate:self.string.createdAt];
-        [self.stringUploadDate setText:uploadTime];
-    } else {
-        [self.stringUploadDate setText:@"Now"];
-    }
-    
-    [UIView animateWithDuration:0.25
+    [UIView animateWithDuration:0.33
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
+                         if (self.string) {
+                             NSString *uploadTime = [StringrUtility timeAgoFromDate:self.string.createdAt];
+                             [self.stringUploadDate setText:uploadTime];
+                         } else {
+                             [self.stringUploadDate setText:@"Now"];
+                         }
+                         
                          self.stringUploadDate.alpha = 1.0f;
     } completion:nil];
 }
@@ -140,7 +142,13 @@
 
 - (void)configureStringInfoButton
 {
-    self.stringInfoButton.hidden = !self.editingEnabled;
+    [UIView animateWithDuration:0.33
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.stringInfoButton.hidden = !self.editingEnabled;
+                         self.stringInfoButton.alpha = self.stringInfoButton.hidden ? 0.0f : 1.0f;
+    } completion:nil];
 }
 
 

@@ -39,4 +39,7 @@
 // CollectionView
 + (UIColor *)stringCollectionViewBackgroundColor;
 
+
++ (UIColor *)stringrLikedGreenColor;
+
 @end

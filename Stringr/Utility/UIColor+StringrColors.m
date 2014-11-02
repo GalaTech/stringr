@@ -109,4 +109,13 @@
     return [self colorwithRed:181.0f green:181.0f blue:181.0f];
 }
 
+
+
+#pragma mark - Liked
+
++ (UIColor *)stringrLikedGreenColor
+{
+    return [self colorwithRed:109.0f green:159.0f blue:96.0f];
+}
+
 @end

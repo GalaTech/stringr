@@ -24,6 +24,8 @@
 + (UIFont *)stringrHeaderPrimaryLabelFont;
 + (UIFont *)stringrHeaderSecondaryLabelFont;
 
++ (UIFont *)stringrPrimaryStringTitleLabelFont;
+
 + (UIFont *)stringrProfileNameFont;
 
 @end

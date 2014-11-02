@@ -8,11 +8,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Wbp-fu-MLD" customClass="TestTableViewFooterTitleCell">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="47"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="30"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="384" placeholderIntrinsicHeight="28" text="Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s42-Yy-vXS">
-                    <rect key="frame" x="8" y="8" width="384" height="31"/>
+                    <rect key="frame" x="8" y="8" width="384" height="14"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -32,7 +32,7 @@
             <connections>
                 <outlet property="TestTitle" destination="s42-Yy-vXS" id="LTe-5P-oJv"/>
             </connections>
-            <point key="canvasLocation" x="132" y="425"/>
+            <point key="canvasLocation" x="132" y="416"/>
         </view>
     </objects>
 </document>

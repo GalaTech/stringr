@@ -17,6 +17,7 @@
 - (NSString *)trimLeadingAndTrailingWhiteSpace;
 - (NSString *)usernameFormattedWithMentionSymbol;
 - (NSString *)formattedWithDecimalPlaceValue;
++ (NSString *)formattedFromInteger:(NSUInteger)value;
 
 + (NSString *)randomStringWithLength:(NSInteger)length;
 

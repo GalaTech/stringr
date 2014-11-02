@@ -37,7 +37,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc navigation controller");
+
 }
 
 

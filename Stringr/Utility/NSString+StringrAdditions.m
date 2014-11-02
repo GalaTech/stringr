@@ -52,6 +52,14 @@
 }
 
 
++ (NSString *)formattedFromInteger:(NSUInteger)value
+{
+    NSString *countText = [NSString stringWithFormat:@"%ld", value];
+    
+    return [countText formattedWithDecimalPlaceValue];
+}
+
+
 - (NSString *)trimLeadingAndTrailingWhiteSpace
 {
     NSString *leadingTrailingWhiteSpacesPattern = @"(?:^\\s+)|(?:\\s+$)";

@@ -8,18 +8,25 @@
 
 #import "TestTableViewFooterActionCell.h"
 #import "StringrImageAndTextButton.h"
+#import "NSString+StringrAdditions.h"
+#import "UIColor+StringrColors.h"
+#import "UIFont+StringrFonts.h"
 
 @interface TestTableViewFooterActionCell ()
 
 @property (strong, nonatomic, readwrite) PFObject *string;
 
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
-@property (weak, nonatomic) IBOutlet UIView *likeButtonView;
-@property (strong, nonatomic) StringrImageAndTextButton *likeButton;
+@property (weak, nonatomic) IBOutlet UILabel *likesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentsLabel;
+//@property (weak, nonatomic) IBOutlet UIView *likeButtonView;
+//@property (strong, nonatomic) StringrImageAndTextButton *likeButton;
 
-@property (weak, nonatomic) IBOutlet UIView *commentButtonView;
-@property (strong, nonatomic) StringrImageAndTextButton *commentButton;
+//@property (weak, nonatomic) IBOutlet UIView *commentButtonView;
+//@property (strong, nonatomic) StringrImageAndTextButton *commentButton;
 
 
 @end
@@ -42,7 +49,7 @@
     CGFloat inset = 4.0f;
     frame.origin.x += inset;
     frame.size.width = self.superview.frame.size.width - 2 * inset;
-    frame.size.height = FooterActionCellHeight - (inset * 3);
+    frame.size.height = FooterActionCellHeight - (inset * 3.5);
     
     [super setFrame:frame];
 }
@@ -63,21 +70,22 @@
 {
     self.contentView.userInteractionEnabled = NO;
     
-    self.likeButton = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
-    [self.likeButton setImageForSocialButton:[UIImage imageNamed:@"like_button"]];
-    [self.likeButton setSelectedImageForSocialButton:[UIImage imageNamed:@"like_button_selected"]];
-    [self.likeButton.socialButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.likeButton setSocialCount:0];
-    [self.likeButtonView addSubview:self.likeButton];
+//    self.likeButton = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
+    [self.likeButton setImage:[UIImage imageNamed:@"like_button"] forState:UIControlStateNormal];
+    [self.likeButton setImage:[UIImage imageNamed:@"like_button_selected"] forState:UIControlStateSelected];
+    [self.likeButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.commentButton = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
-    [self.commentButton setImageForSocialButton:[UIImage imageNamed:@"comment_button"]];
-    [self.commentButton.socialButton addTarget:self action:@selector(tappedCommentButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.commentButton setSocialCount:0];
-    [self.commentButtonView addSubview:self.commentButton];
+    [self.commentButton setImage:[UIImage imageNamed:@"comment_button"] forState:UIControlStateNormal];
+    [self.commentButton addTarget:self action:@selector(tappedCommentButton:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.actionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    self.actionButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+//    self.actionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+//    self.actionButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+    
+    self.likesLabel.textColor = [UIColor stringrSecondaryLabelColor];
+    self.likesLabel.font = [UIFont stringrPrimaryLabelFontWithSize:12.0f];
+    
+    self.commentsLabel.textColor = [UIColor stringrSecondaryLabelColor];
+    self.likesLabel.font = [UIFont stringrPrimaryLabelFontWithSize:12.0f];
 }
 
 
@@ -90,14 +98,17 @@
             [self setLikesButtonState:[[StringrCache sharedCache] isObjectLikedByCurrentUser:object]];
             
             NSInteger likeCount = [[[StringrCache sharedCache] likeCountForObject:object] integerValue];
-            [self.likeButton setSocialCount:likeCount];
+            NSString *decimalLikeCountString = [NSString formattedFromInteger:likeCount];
+            self.likesLabel.text = [NSString stringWithFormat:@"Likes %@", decimalLikeCountString];
             
             NSInteger commentCount = [[[StringrCache sharedCache] commentCountForObject:object] integerValue];
-            [self.commentButton setSocialCount:commentCount];
+            NSString *decimalCommentCountString = [NSString formattedFromInteger:commentCount];
+            self.commentsLabel.text = [NSString stringWithFormat:@"Comments %@", decimalCommentCountString];
         } else {
             // set alpha to 0 so that they can later fade in
-            [self.likeButton setSocialLabelAlpha:0.0f];
-            [self.commentButton setSocialLabelAlpha:0.0f];
+            self.likeButton.alpha = 1.0f;
+            self.likesLabel.alpha = 0.0f;
+            self.commentsLabel.alpha = 0.0f;
             
             @synchronized(self) {
                 PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:object cachePolicy:kPFCachePolicyNetworkOnly];
@@ -136,12 +147,15 @@
                     
                     [self setLikesButtonState:isLikedByCurrentUser];
                     
-                    [UIView animateWithDuration:0.5 animations:^ {
-                        [self.likeButton setSocialLabelAlpha:1.0f];
-                        [self.likeButton setSocialCount:likers.count];
+                    [UIView animateWithDuration:0.33 animations:^ {
+                        self.likeButton.alpha = 1.0f;
+                        self.likesLabel.alpha = 1.0f;
+                        NSString *decimalLikeCountString = [NSString formattedFromInteger:likers.count];
+                        self.likesLabel.text = [NSString stringWithFormat:@"Likes %@", decimalLikeCountString];
                         
-                        [self.commentButton setSocialLabelAlpha:1.0f];
-                        [self.commentButton setSocialCount:commentors.count];
+                        self.commentsLabel.alpha = 1.0f;
+                        NSString *decimalCommentCountString = [NSString formattedFromInteger:commentors.count];
+                        self.commentsLabel.text = [NSString stringWithFormat:@"Comments %@", decimalCommentCountString];
                     }];
                     
                 }];
@@ -154,9 +168,13 @@
 - (void)setLikesButtonState:(BOOL)selected
 {
     if (selected) {
-        [self.likeButton.socialButton setSelected:YES];
+        [UIView animateWithDuration:0.33 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.likesLabel.textColor = [UIColor stringrLikedGreenColor];
+        } completion:nil];
+        [self.likeButton setSelected:YES];
     } else {
-        [self.likeButton.socialButton setSelected:NO];
+        [self.likeButton setSelected:NO];
+        self.likesLabel.textColor = [UIColor stringrSecondaryLabelColor];
     }
 }
 
@@ -164,9 +182,9 @@
 - (void)shouldEnableLikeButton:(BOOL)enable
 {
     if (enable) {
-        [self.likeButton.socialButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.likeButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [self.likeButton.socialButton removeTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.likeButton removeTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -181,14 +199,19 @@
         BOOL liked = !sender.selected;
         [self setLikesButtonState:liked];
         
-        NSUInteger likeCount = [self.likeButton socialCount];
+        NSString *likeCountString = [self.likesLabel.text stringByReplacingOccurrencesOfString:@"Likes " withString:@""];
+        NSUInteger likeCount = [likeCountString integerValue];
+        NSUInteger newLikeCount = likeCount;
         
         if (liked) {
-            [self.likeButton setSocialCount:likeCount + 1];
+            newLikeCount++;
         }
         else {
-            [self.likeButton setSocialCount:likeCount - 1];
+            newLikeCount--;
         }
+        
+        NSString *decimalLikeCountString = [NSString formattedFromInteger:newLikeCount];
+        self.likesLabel.text = [NSString stringWithFormat:@"Likes %@", decimalLikeCountString];
         
         if ([self.delegate respondsToSelector:@selector(actionCell:tappedLikeButton:liked:withBlock:)]) {
             [self.delegate actionCell:self tappedLikeButton:sender liked:liked withBlock:^(BOOL success) {

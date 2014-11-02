@@ -7,6 +7,8 @@
 //
 
 #import "TestTableViewFooterTitleCell.h"
+#import "UIColor+StringrColors.h"
+#import "UIFont+StringrFonts.h"
 
 @interface TestTableViewFooterTitleCell ()
 
@@ -25,9 +27,17 @@
      */
     
 //    self.cellBounds = self.bounds;
+    [self setupAppearance];
     
     [self setNeedsUpdateConstraints];
 
+}
+
+
+- (void)setupAppearance
+{
+    self.TestTitle.textColor = [UIColor stringrPrimaryLabelColor];
+    self.TestTitle.font = [UIFont stringrPrimaryStringTitleLabelFont];
 }
 
 
@@ -43,29 +53,13 @@
     // Configure the view for the selected state
 }
 
-/*
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    CGFloat inset = 4.0f;
-    
-    CGRect bounds = self.cellBounds;
-    CGRect boundsWithInsets = CGRectMake(bounds.origin.x + inset,
-                                         bounds.origin.y,
-                                         bounds.size.width - 2 * inset,
-                                         bounds.size.height - inset);
-    [super setBounds:boundsWithInsets];
-}
-*/
-
 
 - (void)setFrame:(CGRect)frame
 {
     CGFloat inset = 4.0f;
     frame.origin.x += inset;
     frame.size.width = self.superview.frame.size.width - 2 * inset;
-    frame.size.height = FooterTitleCellHeight - inset;
+//    frame.size.height = FooterTitleCellHeight - inset;
     
     [super setFrame:frame];
 }
