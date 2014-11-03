@@ -70,7 +70,6 @@
 {
     self.contentView.userInteractionEnabled = NO;
     
-//    self.likeButton = [[[NSBundle mainBundle] loadNibNamed:@"StringrImageAndTextButton" owner:self options:nil] objectAtIndex:0];
     [self.likeButton setImage:[UIImage imageNamed:@"like_button"] forState:UIControlStateNormal];
     [self.likeButton setImage:[UIImage imageNamed:@"like_button_selected"] forState:UIControlStateSelected];
     [self.likeButton addTarget:self action:@selector(tappedLikeButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -78,14 +77,13 @@
     [self.commentButton setImage:[UIImage imageNamed:@"comment_button"] forState:UIControlStateNormal];
     [self.commentButton addTarget:self action:@selector(tappedCommentButton:) forControlEvents:UIControlEventTouchUpInside];
     
-//    self.actionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-//    self.actionButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
-    
     self.likesLabel.textColor = [UIColor stringrSecondaryLabelColor];
     self.likesLabel.font = [UIFont stringrPrimaryLabelFontWithSize:12.0f];
     
     self.commentsLabel.textColor = [UIColor stringrSecondaryLabelColor];
     self.likesLabel.font = [UIFont stringrPrimaryLabelFontWithSize:12.0f];
+    
+    self.actionButton.hidden = NO;
 }
 
 

@@ -69,6 +69,8 @@
     [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
     self.tableView.allowsSelection = NO;
     self.tableView.separatorColor = [UIColor clearColor];
+    
+    [self registerCellsForTableView];
 }
 
 
@@ -110,28 +112,11 @@
 
 #pragma mark - Private
 
-/*
-- (StringrFooterView *)addFooterViewToCellWithObject:(PFObject *)object inSection:(NSUInteger)section
+- (void)registerCellsForTableView
 {
-    static float const contentViewWidth = 320.0;
-    static float const contentViewHeight = 41.5;
-    static float const contentFooterViewWidthPercentage = .93;
-    
-    float footerXLocation = (contentViewWidth - (contentViewWidth * contentFooterViewWidthPercentage)) / 2;
-    CGRect footerRect = CGRectMake(footerXLocation, 0, contentViewWidth * contentFooterViewWidthPercentage, contentViewHeight);
-    StringrFooterView *footerView = [[StringrFooterView alloc] initWithFrame:footerRect fullWidthCell:NO withObject:object];
-    [footerView setSection:section];
-    [footerView setDelegate:self];
-    
-    return footerView;
-}
-*/
-
-- (void)configureHeader:(StringrStringHeaderView *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
-{
-    headerView.section = section;
-    headerView.stringForHeader = string;
-    headerView.delegate = self;
+    [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterTitleCell" bundle:nil] forCellReuseIdentifier:@"StringFooterTitleCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
 }
 
 
@@ -162,18 +147,6 @@
 
 #pragma mark - UITableView Delegate
 
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section < self.objects.count) {
-        return 23.5f;
-    }
-    
-    return 0.0f;
-}
-*/
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 45.0f;
@@ -198,50 +171,7 @@
 }
 
 
-/*
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section < self.objects.count) {
-        StringrStringHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headerView"];
-        
-        if (!headerView) {
-            headerView = [[StringrStringHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
-        }
-        
-        PFObject *string = [self.objects objectAtIndex:section];
-        
-        if (string) {
-            [self configureHeader:headerView forSection:section withString:string];
-        }
-
-        return headerView;
-    }
-    
-    return nil;
-}
- */
-
-
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section < self.objects.count) {
-        if (indexPath.row == 0) {
-            // string view
-            return 157.0f;
-        } else if (indexPath.row == 1) {
-            // footer view
-            return 52.0f;
-        }
-    }
-        
-    return 0.0f;
-}
-*/
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section < self.objects.count) {
         if (indexPath.row == 0) {
@@ -256,6 +186,50 @@
     }
     
     return 44.0f;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return StringTableCellHeight;
+    }
+    else if (indexPath.row == 1) {
+        return [self heightForTitleCellAtIndexPath:indexPath];
+    }
+    else if (indexPath.row == 2) {
+        return FooterActionCellHeight;
+    }
+    
+    return 0.0f;
+}
+
+
+- (CGFloat)heightForTitleCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    static TestTableViewFooterTitleCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell"];
+    });
+    
+    PFObject *string = [StringrUtility stringFromObject:self.objects[indexPath.section]];
+    
+    [self configureTitleCell:sizingCell atIndexPath:indexPath string:string];
+    
+    return [self calculateHeightForConfiguredSizingCell:sizingCell];
+}
+
+
+- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell
+{
+//    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), 0.0f);
+    
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
 }
 
 
@@ -302,101 +276,76 @@
 //        return cell;
 //    }
     if (indexPath.row == 0) {
-        [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
-        StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:StringTableViewCellIdentifier forIndexPath:indexPath];
-        
-        if (!stringCell) {
-            stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringTableViewCellIdentifier];
-        }
-        
-        [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        return stringCell;
+        return [self stringCellAtIndexPath:indexPath string:string];
     }
     else if (indexPath.row == 1) {
-        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterTitleCell" bundle:nil] forCellReuseIdentifier:@"StringFooterTitleCell"];
-        TestTableViewFooterTitleCell *footerCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
-        
-        if (!footerCell) {
-            footerCell = [TestTableViewFooterTitleCell new];
-        }
-        
-        [footerCell configureFooterCellWithString:string];
-        footerCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return footerCell;
+        return [self titleCellAtIndexPath:indexPath string:string];
     }
     else if (indexPath.row == 2) {
-        [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
-        TestTableViewFooterActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
-        [actionCell configureActionCellWithString:string];
-        actionCell.delegate = self;
-        actionCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return actionCell;
+        return [self actionCellAtIndexPath:indexPath string:string];
     }
     
     return nil;
-    
-    /*
-    PFObject *string = object;
-    
-    // It's possible for this object to be of type statistic or activity. This just gets the string
-    // value from either of those classes
-    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [object objectForKey:kStringrStatisticsStringKey];
-    }
-    else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [object objectForKey:kStringrActivityStringKey];
-    }
-    
-//    if (string) {
-        if (indexPath.section == self.objects.count) {
-            // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
-            UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
-            return cell;
-        }
-        else if (indexPath.row == 0) {
-            static NSString *cellIdentifier = @"StringTableViewCell";
-            StringTableViewCell *stringCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-            
-            if (!stringCell) {
-                stringCell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                NSLog(@"cell for string row");
-            }
-            
-            [stringCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
 
-            return stringCell;
-        }
-        else if (indexPath.row == 1) {
-            static NSString *cellIdentifier = @"StringTableViewFooter";
-            
-            UITableViewCell *footerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-            
-            if (!footerCell) {
-                footerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            }
-            
-            [footerCell setBackgroundColor:[UIColor stringrLightGrayColor]];
-            [footerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                StringrFooterView *footerView = [self addFooterViewToCellWithObject:string inSection:indexPath.section];
-                
-                [footerCell.contentView addSubview:footerView];
-            });
 
-            return footerCell;
-        }
-        else {
-            return nil;
-        }
-//    }
-//    else {
-//        return nil;
-//    }
-     */
+- (StringTableViewCell *)stringCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+{
+    
+    StringTableViewCell *stringCell = [self.tableView dequeueReusableCellWithIdentifier:StringTableViewCellIdentifier forIndexPath:indexPath];
+    
+    [self configureStringCell:stringCell atIndexPath:indexPath string:string];
+    
+    return stringCell;
+}
+
+
+- (void)configureStringCell:(StringTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+{
+    if (!cell) {
+        cell = [[StringTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StringTableViewCellIdentifier];
+    }
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
+
+
+- (TestTableViewFooterTitleCell *)titleCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+{
+    TestTableViewFooterTitleCell *footerCell = [self.tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+    
+    [self configureTitleCell:footerCell atIndexPath:indexPath string:string];
+    
+    return footerCell;
+}
+
+
+- (void)configureTitleCell:(TestTableViewFooterTitleCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+{
+    if (!cell) {
+        cell = [TestTableViewFooterTitleCell new];
+    }
+    
+    [cell configureFooterCellWithString:string];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+
+- (TestTableViewFooterActionCell *)actionCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+{
+    TestTableViewFooterActionCell *actionCell = [self.tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+    
+    [self configureActionCell:actionCell atIndexPath:indexPath string:string];
+    
+    return actionCell;
+}
+
+
+- (void)configureActionCell:(TestTableViewFooterActionCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+{
+    [cell configureActionCellWithString:string];
+    cell.delegate = self;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 
