@@ -42,10 +42,10 @@
 
 - (void)setFrame:(CGRect)frame
 {
+    // Adds inset to the cell size so that it doesn't fill the full screen width
     CGFloat inset = 4.0f;
     frame.origin.x += inset;
     frame.size.width = self.superview.frame.size.width - 2 * inset;
-//    frame.size.height = FooterTitleCellHeight - inset;
     
     [super setFrame:frame];
 }
