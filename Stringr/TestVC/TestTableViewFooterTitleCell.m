@@ -12,8 +12,6 @@
 
 @interface TestTableViewFooterTitleCell ()
 
-@property (nonatomic) CGRect cellBounds;
-
 @end
 
 @implementation TestTableViewFooterTitleCell
@@ -31,15 +29,14 @@
 
 - (void)setupAppearance
 {
-    self.TestTitle.textColor = [UIColor stringrPrimaryLabelColor];
-    self.TestTitle.font = [UIFont stringrPrimaryStringTitleLabelFont];
+    self.stringTitle.textColor = [UIColor stringrPrimaryLabelColor];
+    self.stringTitle.font = [UIFont stringrPrimaryStringTitleLabelFont];
 }
 
 
 - (void)configureFooterCellWithString:(PFObject *)string
 {
-//    self.TestTitle.text = string[kStringrStringTitleKey];
-    self.TestTitle.text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+    self.stringTitle.text = string[kStringrStringTitleKey];
 }
 
 

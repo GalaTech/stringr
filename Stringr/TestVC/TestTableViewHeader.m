@@ -60,6 +60,15 @@
 }
 
 
+- (void)prepareForReuse
+{
+    self.stringProfileImage.image = nil;
+    self.stringProfileUploader.text = nil;
+    self.stringUploadDate.text = nil;
+    self.stringPrivacySettings.image = nil;
+}
+
+
 #pragma mark - Public
 
 - (void)configureHeaderWithString:(PFObject *)string

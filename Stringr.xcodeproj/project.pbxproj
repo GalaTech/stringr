@@ -117,6 +117,7 @@
 		ABA3D04119EED77A00AD0EB8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03E19EED77A00AD0EB8 /* Parse.framework */; };
 		ABA3D04219EED77A00AD0EB8 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
+		ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB9A0F31A087461003B9C5F /* StringrLabel.m */; };
 		ABC8883E19FA957100218F62 /* StringrImageAndTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC8883D19FA957100218F62 /* StringrImageAndTextButton.m */; };
 		ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC8883F19FA958B00218F62 /* StringrImageAndTextButton.xib */; };
 		ABCEFA081919783B0018C547 /* StringrStringHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCEFA071919783B0018C547 /* StringrStringHeaderView.m */; };
@@ -385,6 +386,8 @@
 		ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "External/Parse Framework/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
+		ABB9A0F21A087461003B9C5F /* StringrLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLabel.h; path = Utility/StringrLabel.h; sourceTree = "<group>"; };
+		ABB9A0F31A087461003B9C5F /* StringrLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLabel.m; path = Utility/StringrLabel.m; sourceTree = "<group>"; };
 		ABC8883C19FA957100218F62 /* StringrImageAndTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrImageAndTextButton.h; path = Views/StringrImageAndTextButton.h; sourceTree = "<group>"; };
 		ABC8883D19FA957100218F62 /* StringrImageAndTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrImageAndTextButton.m; path = Views/StringrImageAndTextButton.m; sourceTree = "<group>"; };
 		ABC8883F19FA958B00218F62 /* StringrImageAndTextButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringrImageAndTextButton.xib; path = Views/StringrImageAndTextButton.xib; sourceTree = "<group>"; };
@@ -882,6 +885,8 @@
 			children = (
 				AB5C7E5119FF58B5005AFED0 /* StringrActionSheet.h */,
 				AB5C7E5219FF58B5005AFED0 /* StringrActionSheet.m */,
+				ABB9A0F21A087461003B9C5F /* StringrLabel.h */,
+				ABB9A0F31A087461003B9C5F /* StringrLabel.m */,
 			);
 			name = "Apple Subclasses";
 			sourceTree = "<group>";
@@ -1580,6 +1585,7 @@
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
 				AB5AFC1619F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m in Sources */,
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
+				ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
 				AB04A30119EF6BD50030C241 /* TestTableViewFooterActionCell.m in Sources */,

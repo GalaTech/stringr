@@ -22,12 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentsLabel;
-//@property (weak, nonatomic) IBOutlet UIView *likeButtonView;
-//@property (strong, nonatomic) StringrImageAndTextButton *likeButton;
-
-//@property (weak, nonatomic) IBOutlet UIView *commentButtonView;
-//@property (strong, nonatomic) StringrImageAndTextButton *commentButton;
-
 
 @end
 
@@ -68,7 +62,7 @@
 
 - (void)setupAppearance
 {
-    self.contentView.userInteractionEnabled = NO;
+//    self.contentView.userInteractionEnabled = NO;
     
     [self.likeButton setImage:[UIImage imageNamed:@"like_button"] forState:UIControlStateNormal];
     [self.likeButton setImage:[UIImage imageNamed:@"like_button_selected"] forState:UIControlStateSelected];
@@ -82,8 +76,6 @@
     
     self.commentsLabel.textColor = [UIColor stringrSecondaryLabelColor];
     self.likesLabel.font = [UIFont stringrPrimaryLabelFontWithSize:12.0f];
-    
-    self.actionButton.hidden = NO;
 }
 
 

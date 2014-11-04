@@ -15,7 +15,6 @@
 @interface StringrTableViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZCImagePickerControllerDelegate>
 
 @property (strong, nonatomic) PFQuery *providedQueryForTable;
-@property (nonatomic) CGFloat previousScrollViewYOffset;
 
 @end
 

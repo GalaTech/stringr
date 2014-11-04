@@ -13,8 +13,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lTv-Yu-g6o" id="jjA-RC-KOh">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="28" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="hWi-Ri-JQR">
-                        <rect key="frame" x="8" y="0.0" width="304" height="29"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="28" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="hWi-Ri-JQR" customClass="StringrLabel">
+                        <rect key="frame" x="8" y="8" width="304" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -22,16 +22,16 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="hWi-Ri-JQR" firstAttribute="top" secondItem="jjA-RC-KOh" secondAttribute="top" id="MKD-Lh-dvq"/>
                     <constraint firstItem="hWi-Ri-JQR" firstAttribute="leading" secondItem="jjA-RC-KOh" secondAttribute="leading" constant="8" id="Wbt-e7-jL1"/>
+                    <constraint firstAttribute="bottom" secondItem="hWi-Ri-JQR" secondAttribute="bottom" id="Wop-HF-RzO"/>
                     <constraint firstAttribute="trailing" secondItem="hWi-Ri-JQR" secondAttribute="trailing" constant="8" id="bFw-ua-1Up"/>
-                    <constraint firstAttribute="bottom" secondItem="hWi-Ri-JQR" secondAttribute="bottom" id="t6W-WR-gxK"/>
+                    <constraint firstItem="hWi-Ri-JQR" firstAttribute="top" secondItem="jjA-RC-KOh" secondAttribute="top" constant="8" id="gzu-hm-523"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="TestTitle" destination="hWi-Ri-JQR" id="cXs-lf-rp4"/>
+                <outlet property="stringTitle" destination="hWi-Ri-JQR" id="TE9-B7-Zl2"/>
             </connections>
-            <point key="canvasLocation" x="279" y="675"/>
+            <point key="canvasLocation" x="279" y="672"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

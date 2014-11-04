@@ -11,7 +11,7 @@
 #import "REFrostedViewController.h"
 #import "StringrStringHeaderView.h"
 
-@interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate, StringrStringHeaderViewDelegate>
+@interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *stringPhotos;
 

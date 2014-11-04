@@ -94,6 +94,18 @@
 }
 
 
+#pragma mark - Accessors
+
+- (NSMutableDictionary *)contentOffsetDictionary
+{
+    if (!_contentOffsetDictionary) {
+        _contentOffsetDictionary = [NSMutableDictionary new];
+    }
+    
+    return _contentOffsetDictionary;
+}
+
+
 #pragma mark - Action Handlers
 
 - (void)refreshStringDetails
@@ -223,7 +235,7 @@
 
 - (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell
 {
-//    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), 0.0f);
+    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), 0.0f);
     
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
@@ -266,6 +278,47 @@
 }
 
 
+
+- (void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    if (self.objects.count > 0) {
+        // instantiates string photos with blank objects of count self.objects
+        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
+        for (int i = 0; i < self.objects.count; i++) {
+            [self.stringPhotos addObject:@""];
+        }
+        
+        // Querries all of the photos for the strings and puts them in an array
+        for (int i = 0; i < self.objects.count; i++) {
+            PFObject *string = [StringrUtility stringFromObject:self.objects[i]];
+            
+            if (string) {
+                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+                    if (!error) {
+                        for (PFObject *photo in photos) {
+                            if (!photo) {
+                                return;
+                            }
+                        }
+                        
+                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+                        
+                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    }
+                }];
+            }
+        }
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
     PFObject *string = [StringrUtility stringFromObject:object];
@@ -291,7 +344,6 @@
 
 - (StringTableViewCell *)stringCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
 {
-    
     StringTableViewCell *stringCell = [self.tableView dequeueReusableCellWithIdentifier:StringTableViewCellIdentifier forIndexPath:indexPath];
     
     [self configureStringCell:stringCell atIndexPath:indexPath string:string];
@@ -346,46 +398,6 @@
     [cell configureActionCellWithString:string];
     cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (self.objects.count > 0) {
-        // instantiates string photos with blank objects of count self.objects
-        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
-        for (int i = 0; i < self.objects.count; i++) {
-            [self.stringPhotos addObject:@""];
-        }
-        
-        // Querries all of the photos for the strings and puts them in an array
-        for (int i = 0; i < self.objects.count; i++) {
-            PFObject *string = [StringrUtility stringFromObject:self.objects[i]];
-            
-            if (string) {
-                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
-                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
-                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
-                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
-                    if (!error) {
-                        for (PFObject *photo in photos) {
-                            if (!photo) {
-                                return;
-                            }
-                        }
-                        
-                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
-                        
-                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    }
-                }];
-            }
-        }
-    }
 }
  
 
@@ -535,64 +547,6 @@
 }
 
 
-#pragma mark - StringrHeaderViewView Delegate
-
-- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
-{
-    StringrStringDetailViewController *detailVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-    
-    // passes the appropriate string object based around what type of parse object has been querried
-    if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [string objectForKey:kStringrStatisticsStringKey];
-    } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [string objectForKey:kStringrActivityStringKey];
-    }
-    
-    [detailVC setStringToLoad:string];
-    [detailVC setHidesBottomBarWhenPushed:YES];
-    
-    [self.navigationController pushViewController:detailVC animated:YES];
-}
-
-
-#pragma mark - StringrFooterView Delegate
-
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
-{
-    if (uploader) {
-        StringrProfileViewController *profileVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
-        
-        [profileVC setUserForProfile:uploader];
-        [profileVC setProfileReturnState:ProfileModalReturnState];
-        [profileVC setHidesBottomBarWhenPushed:YES];
-
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-        [self presentViewController:navVC animated:YES completion:nil];
-    }
-}
-
-
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapLikeButton:(UIButton *)sender objectToLike:(PFObject *)object
-{
-
-}
-
-
-- (void)stringrFooterView:(StringrFooterView *)footerView didTapCommentButton:(UIButton *)sender objectToCommentOn:(PFObject *)object inSection:(NSUInteger)section
-{
-    if (object) {
-        StringrCommentsTableViewController *commentsVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
-        [commentsVC setObjectForCommentThread:object];
-        [commentsVC setSection:section];
-        [commentsVC setDelegate:self];
-
-        [commentsVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:commentsVC animated:YES];
-    }
-}
-
-
 #pragma mark - StringrCommentsTableView Delegate
 
 - (void)commentsTableView:(StringrCommentsTableViewController *)commentsTableView didChangeCommentCountInSection:(NSUInteger)section
@@ -627,7 +581,7 @@
 }
 
 
-#pragma mark - StringrTableViewFooterAction Delegate
+#pragma mark - StringrTableViewActionFooter Delegate
 
 - (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button liked:(BOOL)liked withBlock:(void (^)(BOOL))block
 {
@@ -667,8 +621,6 @@
     StringrActionSheet *stringActionSheet = [[StringrActionSheet alloc] initWithTitle:@"String Actions" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share", @"Flag", nil];
     stringActionSheet.object = cell.string;
     
-    
-    
     [stringActionSheet showInView:self.view];
 }
 
@@ -689,6 +641,5 @@
         [StringrFlagContentHelper flagContent:actionSheet.object withFlaggingUser:[PFUser currentUser]];
     }
 }
-
 
 @end

@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrLabel.h"
 
 static CGFloat FooterTitleCellHeight = 30.0f;
 
 @interface TestTableViewFooterTitleCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *TestTitle;
+@property (weak, nonatomic) IBOutlet StringrLabel *stringTitle;
 
 - (void)configureFooterCellWithString:(PFObject *)string;
 
