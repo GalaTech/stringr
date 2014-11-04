@@ -11,7 +11,7 @@
 @class StringrPathImageView;
 @class TestTableViewHeader;
 
-@protocol TestTableViewHeaderDelegate <NSObject>
+@protocol StringTableViewHeaderDelegate <NSObject>
 
 @optional
 - (void)profileImageTappedForUser:(PFUser *)user;
@@ -23,7 +23,7 @@
 
 @property (strong, nonatomic, readonly) PFObject *string;
 @property (nonatomic) BOOL editingEnabled;
-@property (weak, nonatomic) id<TestTableViewHeaderDelegate> delegate;
+@property (weak, nonatomic) id<StringTableViewHeaderDelegate> delegate;
 
 - (void)configureHeaderWithString:(PFObject *)string;
 

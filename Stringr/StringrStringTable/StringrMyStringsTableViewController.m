@@ -13,7 +13,7 @@
 #import "StringCollectionView.h"
 #import "TestTableViewHeader.h"
 
-@interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate, TestTableViewHeaderDelegate>
+@interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate, StringTableViewHeaderDelegate>
 
 @property (nonatomic) BOOL editingStringsEnabled;
 

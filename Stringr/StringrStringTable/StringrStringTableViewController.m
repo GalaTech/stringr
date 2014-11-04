@@ -29,7 +29,7 @@
 #import "TestTableViewFooterTitleCell.h"
 #import "TestTableViewFooterActionCell.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, TestTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -564,7 +564,7 @@
 }
 
 
-#pragma mark - StringrTableViewHeader Delegate
+#pragma mark - StringrTableViewHeaderDelegate
 
 - (void)profileImageTappedForUser:(PFUser *)user
 {
