@@ -1,18 +1,18 @@
 //
-//  TestTableViewHeader.m
+//  StringTableViewHeader.m
 //  Stringr
 //
 //  Created by Jonathan Howard on 10/15/14.
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "TestTableViewHeader.h"
+#import "StringTableViewHeader.h"
 #import "StringrPathImageView.h"
 #import "UIFont+StringrFonts.h"
 #import "UIColor+StringrColors.h"
 #import "PFUser+StringrAdditions.h"
 
-@interface TestTableViewHeader ()
+@interface StringTableViewHeader ()
 
 @property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation TestTableViewHeader
+@implementation StringTableViewHeader
 
 #pragma mark - Lifecycle
 
@@ -191,8 +191,8 @@
 
 - (void)infoButtonTapped
 {
-    if ([ self.delegate respondsToSelector:@selector(testTableViewHeader:tappedInfoButton:)]) {
-        [self.delegate testTableViewHeader:self tappedInfoButton:self.stringInfoButton];
+    if ([ self.delegate respondsToSelector:@selector(stringTableViewHeader:tappedInfoButton:)]) {
+        [self.delegate stringTableViewHeader:self tappedInfoButton:self.stringInfoButton];
     }
 }
 

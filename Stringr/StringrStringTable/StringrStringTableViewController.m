@@ -24,7 +24,7 @@
 #import "StringrFlagContentHelper.h"
 #import "StringrActionSheet.h"
 
-#import "TestTableViewHeader.h"
+#import "StringTableViewHeader.h"
 #import "TestTableViewStringCell.h"
 #import "TestTableViewFooterTitleCell.h"
 #import "TestTableViewFooterActionCell.h"
@@ -175,7 +175,7 @@
 {
     PFObject *string = [StringrUtility stringFromObject:self.objects[section]];
     
-    TestTableViewHeader *headerView = [[NSBundle mainBundle] loadNibNamed:@"TestTableViewHeader" owner:self options:nil][0];
+    StringTableViewHeader *headerView = [[NSBundle mainBundle] loadNibNamed:@"StringTableViewHeader" owner:self options:nil][0];
     [headerView configureHeaderWithString:string];
     headerView.delegate = self;
     

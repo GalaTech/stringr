@@ -7,7 +7,7 @@
 //
 
 #import "TestTableViewController.h"
-#import "TestTableViewHeader.h"
+#import "StringTableViewHeader.h"
 #import "TestTableViewFooterActionCell.h"
 #import "TestTableViewFooterTitleCell.h"
 #import "TestTableViewStringCell.h"
@@ -132,7 +132,7 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
 {
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), [self tableView:tableView heightForHeaderInSection:section]);
     
-    TestTableViewHeader *headerView = [[TestTableViewHeader alloc] initWithFrame:frame];
+    StringTableViewHeader *headerView = [[StringTableViewHeader alloc] initWithFrame:frame];
     
     return headerView;
 }

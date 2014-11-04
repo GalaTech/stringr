@@ -22,7 +22,7 @@
 		AB04A2F819EF55900030C241 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2F719EF55900030C241 /* TestTableViewController.m */; };
 		AB04A2FE19EF68CF0030C241 /* TestTableViewFooterTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */; };
 		AB04A30119EF6BD50030C241 /* TestTableViewFooterActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */; };
-		AB04A30719EF6F140030C241 /* TestTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30619EF6F140030C241 /* TestTableViewHeader.m */; };
+		AB04A30719EF6F140030C241 /* StringTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30619EF6F140030C241 /* StringTableViewHeader.m */; };
 		AB04A30A19EF7E210030C241 /* TestTableViewStringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */; };
 		AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BDFD518E4929A006FAB57 /* StringrCache.m */; };
 		AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0F53201908458800A29E59 /* StringrInviteFriendsTableViewController.m */; };
@@ -69,7 +69,7 @@
 		AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */; };
 		AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */; };
 		AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */; };
-		AB5AFBEE19F76C86002F88B9 /* TestTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */; };
+		AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBED19F76C86002F88B9 /* StringTableViewHeader.xib */; };
 		AB5AFBF119F87FB6002F88B9 /* UIColor+StringrColors.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */; };
 		AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */; };
 		AB5AFC0419F9C849002F88B9 /* NSString+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFC0319F9C849002F88B9 /* NSString+StringrAdditions.m */; };
@@ -222,8 +222,8 @@
 		AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewFooterTitleCell.m; path = TestVC/TestTableViewFooterTitleCell.m; sourceTree = "<group>"; };
 		AB04A2FF19EF6BD50030C241 /* TestTableViewFooterActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewFooterActionCell.h; path = TestVC/TestTableViewFooterActionCell.h; sourceTree = "<group>"; };
 		AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewFooterActionCell.m; path = TestVC/TestTableViewFooterActionCell.m; sourceTree = "<group>"; };
-		AB04A30519EF6F140030C241 /* TestTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewHeader.h; path = TestVC/TestTableViewHeader.h; sourceTree = "<group>"; };
-		AB04A30619EF6F140030C241 /* TestTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewHeader.m; path = TestVC/TestTableViewHeader.m; sourceTree = "<group>"; };
+		AB04A30519EF6F140030C241 /* StringTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTableViewHeader.h; path = TestVC/StringTableViewHeader.h; sourceTree = "<group>"; };
+		AB04A30619EF6F140030C241 /* StringTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringTableViewHeader.m; path = TestVC/StringTableViewHeader.m; sourceTree = "<group>"; };
 		AB04A30819EF7E210030C241 /* TestTableViewStringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewStringCell.h; path = TestVC/TestTableViewStringCell.h; sourceTree = "<group>"; };
 		AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewStringCell.m; path = TestVC/TestTableViewStringCell.m; sourceTree = "<group>"; };
 		AB0BDFD418E4929A006FAB57 /* StringrCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCache.h; path = Utility/StringrCache.h; sourceTree = "<group>"; };
@@ -300,7 +300,7 @@
 		AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterActionCell.xib; path = TestVC/TestTableViewFooterActionCell.xib; sourceTree = "<group>"; };
 		AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterTitleCell.xib; path = TestVC/TestTableViewFooterTitleCell.xib; sourceTree = "<group>"; };
 		AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewStringCell.xib; path = TestVC/TestTableViewStringCell.xib; sourceTree = "<group>"; };
-		AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewHeader.xib; path = TestVC/TestTableViewHeader.xib; sourceTree = "<group>"; };
+		AB5AFBED19F76C86002F88B9 /* StringTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringTableViewHeader.xib; path = TestVC/StringTableViewHeader.xib; sourceTree = "<group>"; };
 		AB5AFBEF19F87FB6002F88B9 /* UIColor+StringrColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+StringrColors.h"; path = "Utility/UIColor+StringrColors.h"; sourceTree = "<group>"; };
 		AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+StringrColors.m"; path = "Utility/UIColor+StringrColors.m"; sourceTree = "<group>"; };
 		AB5AFBFE19F8B3A9002F88B9 /* UIFont+StringrFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+StringrFonts.h"; path = "Utility/UIFont+StringrFonts.h"; sourceTree = "<group>"; };
@@ -688,9 +688,9 @@
 		AB04A30219EF6ECD0030C241 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				AB04A30519EF6F140030C241 /* TestTableViewHeader.h */,
-				AB04A30619EF6F140030C241 /* TestTableViewHeader.m */,
-				AB5AFBED19F76C86002F88B9 /* TestTableViewHeader.xib */,
+				AB04A30519EF6F140030C241 /* StringTableViewHeader.h */,
+				AB04A30619EF6F140030C241 /* StringTableViewHeader.m */,
+				AB5AFBED19F76C86002F88B9 /* StringTableViewHeader.xib */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -1490,7 +1490,7 @@
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
 				ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */,
-				AB5AFBEE19F76C86002F88B9 /* TestTableViewHeader.xib in Resources */,
+				AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */,
 				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
@@ -1596,7 +1596,7 @@
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,
-				AB04A30719EF6F140030C241 /* TestTableViewHeader.m in Sources */,
+				AB04A30719EF6F140030C241 /* StringTableViewHeader.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				AB04A2A719D522C40030C241 /* StringrFollow.m in Sources */,

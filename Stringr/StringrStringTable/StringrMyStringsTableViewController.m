@@ -11,7 +11,7 @@
 #import "StringrPhotoDetailViewController.h"
 #import "StringrNavigationController.h"
 #import "StringCollectionView.h"
-#import "TestTableViewHeader.h"
+#import "StringTableViewHeader.h"
 
 @interface StringrMyStringsTableViewController () <UIActionSheetDelegate, StringrPhotoDetailEditTableViewControllerDelegate, StringTableViewHeaderDelegate>
 
@@ -59,7 +59,7 @@
 }
 
 
-- (void)configureHeader:(TestTableViewHeader *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
+- (void)configureHeader:(StringTableViewHeader *)headerView forSection:(NSUInteger)section withString:(PFObject *)string
 {
     [UIView animateWithDuration:0.33 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         headerView.editingEnabled = self.editingStringsEnabled;
@@ -71,7 +71,7 @@
 
 - (void)reloadHeaders {
     for (NSInteger i = 0; i < [self numberOfSectionsInTableView:self.tableView]; i++) {
-        TestTableViewHeader *header = (TestTableViewHeader *)[self.tableView headerViewForSection:i];
+        StringTableViewHeader *header = (StringTableViewHeader *)[self.tableView headerViewForSection:i];
         PFObject *string = header.string;
         [self configureHeader:header forSection:i withString:string];
     }
@@ -226,7 +226,7 @@
 
 #pragma mark - StringTableViewHeader Delegate
 
-- (void)testTableViewHeader:(TestTableViewHeader *)tableViewHeader tappedInfoButton:(UIButton *)infoButton
+- (void)stringTableViewHeader:(StringTableViewHeader *)tableViewHeader tappedInfoButton:(UIButton *)infoButton
 {
     PFObject *string = tableViewHeader.string;
     
