@@ -16,8 +16,8 @@
 
 @implementation StringTableViewTitleCell
 
-- (void)awakeFromNib {
-    // Initialization code
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     
     [self setupAppearance];

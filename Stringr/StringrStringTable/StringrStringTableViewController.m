@@ -27,9 +27,9 @@
 #import "StringTableViewHeader.h"
 #import "TestTableViewStringCell.h"
 #import "StringTableViewTitleCell.h"
-#import "TestTableViewFooterActionCell.h"
+#import "StringTableViewActionCell.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
+@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -126,9 +126,9 @@
 
 - (void)registerCellsForTableView
 {
-    [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
+    [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:StringTableViewCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"StringTableViewTitleCell" bundle:nil] forCellReuseIdentifier:StringTableViewTitleCellIdentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"StringTableViewActionCell" bundle:nil] forCellReuseIdentifier:StringTableViewActionCellIdentifier];
 }
 
 
@@ -383,9 +383,9 @@
 }
 
 
-- (TestTableViewFooterActionCell *)actionCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+- (StringTableViewActionCell *)actionCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
 {
-    TestTableViewFooterActionCell *actionCell = [self.tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+    StringTableViewActionCell *actionCell = [self.tableView dequeueReusableCellWithIdentifier:StringTableViewActionCellIdentifier forIndexPath:indexPath];
     
     [self configureActionCell:actionCell atIndexPath:indexPath string:string];
     
@@ -393,7 +393,7 @@
 }
 
 
-- (void)configureActionCell:(TestTableViewFooterActionCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+- (void)configureActionCell:(StringTableViewActionCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
 {
     [cell configureActionCellWithString:string];
     cell.delegate = self;
@@ -583,7 +583,7 @@
 
 #pragma mark - StringrTableViewActionFooter Delegate
 
-- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedLikeButton:(UIButton *)button liked:(BOOL)liked withBlock:(void (^)(BOOL))block
+- (void)actionCell:(StringTableViewActionCell *)cell tappedLikeButton:(UIButton *)button liked:(BOOL)liked withBlock:(void (^)(BOOL))block
 {
     if (liked) {
         [StringrNetworkTask likeObjectInBackground:cell.string block:^(BOOL succeeded, NSError *error) {
@@ -602,7 +602,7 @@
 }
 
 
-- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedCommentButton:(UIButton *)button
+- (void)actionCell:(StringTableViewActionCell *)cell tappedCommentButton:(UIButton *)button
 {
     if (cell.string) {
         StringrCommentsTableViewController *commentsVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
@@ -616,7 +616,7 @@
 }
 
 
-- (void)actionCell:(TestTableViewFooterActionCell *)cell tappedActionButton:(UIButton *)button
+- (void)actionCell:(StringTableViewActionCell *)cell tappedActionButton:(UIButton *)button
 {
     StringrActionSheet *stringActionSheet = [[StringrActionSheet alloc] initWithTitle:@"String Actions" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share", @"Flag", nil];
     stringActionSheet.object = cell.string;

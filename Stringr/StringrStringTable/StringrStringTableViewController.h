@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "StringrTableViewController.h"
 #import "REFrostedViewController.h"
-#import "StringrStringHeaderView.h"
 
 @interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 

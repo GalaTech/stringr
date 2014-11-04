@@ -177,45 +177,6 @@
 }
 
 
-
-#pragma mark - StringrStringHeaderView Delegate
-
-- (void)headerView:(StringrStringHeaderView *)headerView tappedHeaderInSection:(NSUInteger)section withString:(PFObject *)string
-{
-    if (self.editingStringsEnabled) {
-        StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        
-        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-            string = [string objectForKey:kStringrStatisticsStringKey];
-        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-            string = [string objectForKey:kStringrActivityStringKey];
-        }
-        
-        // tag is set to the section number of each string
-        [detailVC setStringToLoad:string];
-        [detailVC setEditDetailsEnabled:YES];
-        [detailVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:detailVC animated:YES];
-    } else {
-        StringrStringDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        
-        if ([string.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-            string = [string objectForKey:kStringrStatisticsStringKey];
-        } else if ([string.parseClassName isEqualToString:kStringrActivityClassKey]) {
-            string = [string objectForKey:kStringrActivityStringKey];
-        }
-        
-        // tag is set to the section number of each string
-        [detailVC setStringToLoad:string];
-        [detailVC setHidesBottomBarWhenPushed:YES];
-        
-        [self.navigationController pushViewController:detailVC animated:YES];
-    }
-}
-
-
-
 #pragma mark - StringrNoContentView Delegate
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton

@@ -8,7 +8,7 @@
 
 #import "TestTableViewController.h"
 #import "StringTableViewHeader.h"
-#import "TestTableViewFooterActionCell.h"
+#import "StringTableViewActionCell.h"
 #import "StringTableViewTitleCell.h"
 #import "TestTableViewStringCell.h"
 
@@ -91,7 +91,7 @@ static NSString * const StringrStringTableViewController2 = @"StringTable";
     }
     else if (indexPath.row == 2) {
         [tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
-        TestTableViewFooterActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
+        StringTableViewActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"StringFooterActionCell" forIndexPath:indexPath];
         
         return actionCell;
     }

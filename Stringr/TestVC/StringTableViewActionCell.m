@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "TestTableViewFooterActionCell.h"
+#import "StringTableViewActionCell.h"
 #import "StringrImageAndTextButton.h"
 #import "NSString+StringrAdditions.h"
 #import "UIColor+StringrColors.h"
 #import "UIFont+StringrFonts.h"
 
-@interface TestTableViewFooterActionCell ()
+@interface StringTableViewActionCell ()
 
 @property (strong, nonatomic, readwrite) PFObject *string;
 
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation TestTableViewFooterActionCell
+@implementation StringTableViewActionCell
 
 #pragma mark - Lifecycle
 
