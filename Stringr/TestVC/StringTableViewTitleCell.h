@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "StringrLabel.h"
 
+static NSString *StringTableViewTitleCellIdentifier = @"StringTableViewTitleCell";
 static CGFloat FooterTitleCellHeight = 30.0f;
 
-@interface TestTableViewFooterTitleCell : UITableViewCell
+@interface StringTableViewTitleCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet StringrLabel *stringTitle;
 

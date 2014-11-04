@@ -20,7 +20,7 @@
 		AB04A2F019E2330B0030C241 /* StringrNetworkTask+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2EF19E2330B0030C241 /* StringrNetworkTask+PushNotification.m */; };
 		AB04A2F519EF4EC70030C241 /* StringTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB04A2F419EF4EC70030C241 /* StringTable.storyboard */; };
 		AB04A2F819EF55900030C241 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2F719EF55900030C241 /* TestTableViewController.m */; };
-		AB04A2FE19EF68CF0030C241 /* TestTableViewFooterTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */; };
+		AB04A2FE19EF68CF0030C241 /* StringTableViewTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A2FD19EF68CF0030C241 /* StringTableViewTitleCell.m */; };
 		AB04A30119EF6BD50030C241 /* TestTableViewFooterActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */; };
 		AB04A30719EF6F140030C241 /* StringTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30619EF6F140030C241 /* StringTableViewHeader.m */; };
 		AB04A30A19EF7E210030C241 /* TestTableViewStringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */; };
@@ -67,7 +67,7 @@
 		AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811818B296C900DE933D /* SystemConfiguration.framework */; };
 		AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811C18B298D100DE933D /* FacebookSDK.framework */; };
 		AB5AFBE819F617ED002F88B9 /* TestTableViewFooterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */; };
-		AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */; };
+		AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBE919F617FB002F88B9 /* StringTableViewTitleCell.xib */; };
 		AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */; };
 		AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5AFBED19F76C86002F88B9 /* StringTableViewHeader.xib */; };
 		AB5AFBF119F87FB6002F88B9 /* UIColor+StringrColors.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */; };
@@ -218,8 +218,8 @@
 		AB04A2F419EF4EC70030C241 /* StringTable.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringTable.storyboard; path = String/StringTable.storyboard; sourceTree = "<group>"; };
 		AB04A2F619EF55900030C241 /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewController.h; path = TestVC/TestTableViewController.h; sourceTree = "<group>"; };
 		AB04A2F719EF55900030C241 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewController.m; path = TestVC/TestTableViewController.m; sourceTree = "<group>"; };
-		AB04A2FC19EF68CF0030C241 /* TestTableViewFooterTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewFooterTitleCell.h; path = TestVC/TestTableViewFooterTitleCell.h; sourceTree = "<group>"; };
-		AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewFooterTitleCell.m; path = TestVC/TestTableViewFooterTitleCell.m; sourceTree = "<group>"; };
+		AB04A2FC19EF68CF0030C241 /* StringTableViewTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTableViewTitleCell.h; path = TestVC/StringTableViewTitleCell.h; sourceTree = "<group>"; };
+		AB04A2FD19EF68CF0030C241 /* StringTableViewTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringTableViewTitleCell.m; path = TestVC/StringTableViewTitleCell.m; sourceTree = "<group>"; };
 		AB04A2FF19EF6BD50030C241 /* TestTableViewFooterActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestTableViewFooterActionCell.h; path = TestVC/TestTableViewFooterActionCell.h; sourceTree = "<group>"; };
 		AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestTableViewFooterActionCell.m; path = TestVC/TestTableViewFooterActionCell.m; sourceTree = "<group>"; };
 		AB04A30519EF6F140030C241 /* StringTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTableViewHeader.h; path = TestVC/StringTableViewHeader.h; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		AB50811818B296C900DE933D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AB50811C18B298D100DE933D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = External/FacebookSDK.framework; sourceTree = "<group>"; };
 		AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterActionCell.xib; path = TestVC/TestTableViewFooterActionCell.xib; sourceTree = "<group>"; };
-		AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewFooterTitleCell.xib; path = TestVC/TestTableViewFooterTitleCell.xib; sourceTree = "<group>"; };
+		AB5AFBE919F617FB002F88B9 /* StringTableViewTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringTableViewTitleCell.xib; path = TestVC/StringTableViewTitleCell.xib; sourceTree = "<group>"; };
 		AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTableViewStringCell.xib; path = TestVC/TestTableViewStringCell.xib; sourceTree = "<group>"; };
 		AB5AFBED19F76C86002F88B9 /* StringTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringTableViewHeader.xib; path = TestVC/StringTableViewHeader.xib; sourceTree = "<group>"; };
 		AB5AFBEF19F87FB6002F88B9 /* UIColor+StringrColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+StringrColors.h"; path = "Utility/UIColor+StringrColors.h"; sourceTree = "<group>"; };
@@ -664,9 +664,9 @@
 				AB04A30819EF7E210030C241 /* TestTableViewStringCell.h */,
 				AB04A30919EF7E210030C241 /* TestTableViewStringCell.m */,
 				AB5AFBEB19F62296002F88B9 /* TestTableViewStringCell.xib */,
-				AB04A2FC19EF68CF0030C241 /* TestTableViewFooterTitleCell.h */,
-				AB04A2FD19EF68CF0030C241 /* TestTableViewFooterTitleCell.m */,
-				AB5AFBE919F617FB002F88B9 /* TestTableViewFooterTitleCell.xib */,
+				AB04A2FC19EF68CF0030C241 /* StringTableViewTitleCell.h */,
+				AB04A2FD19EF68CF0030C241 /* StringTableViewTitleCell.m */,
+				AB5AFBE919F617FB002F88B9 /* StringTableViewTitleCell.xib */,
 				AB04A2FF19EF6BD50030C241 /* TestTableViewFooterActionCell.h */,
 				AB04A30019EF6BD50030C241 /* TestTableViewFooterActionCell.m */,
 				AB5AFBE719F617ED002F88B9 /* TestTableViewFooterActionCell.xib */,
@@ -1491,7 +1491,7 @@
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
 				ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */,
 				AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */,
-				AB5AFBEA19F617FB002F88B9 /* TestTableViewFooterTitleCell.xib in Resources */,
+				AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */,
 				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 			);
@@ -1630,7 +1630,7 @@
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
 				AB04A30A19EF7E210030C241 /* TestTableViewStringCell.m in Sources */,
-				AB04A2FE19EF68CF0030C241 /* TestTableViewFooterTitleCell.m in Sources */,
+				AB04A2FE19EF68CF0030C241 /* StringTableViewTitleCell.m in Sources */,
 				AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */,
 				ABDB7CB418D3C3310047691B /* StringrDetailPhotoOwnerTableViewCell.m in Sources */,
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,

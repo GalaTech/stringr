@@ -26,7 +26,7 @@
 
 #import "StringTableViewHeader.h"
 #import "TestTableViewStringCell.h"
-#import "TestTableViewFooterTitleCell.h"
+#import "StringTableViewTitleCell.h"
 #import "TestTableViewFooterActionCell.h"
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, TestTableViewFooterActionDelegate>
@@ -127,7 +127,7 @@
 - (void)registerCellsForTableView
 {
     [self.tableView registerClass:[StringTableViewCell class] forCellReuseIdentifier:@"StringTableViewCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterTitleCell" bundle:nil] forCellReuseIdentifier:@"StringFooterTitleCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"StringTableViewTitleCell" bundle:nil] forCellReuseIdentifier:StringTableViewTitleCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"TestTableViewFooterActionCell" bundle:nil] forCellReuseIdentifier:@"StringFooterActionCell"];
 }
 
@@ -219,10 +219,10 @@
 
 - (CGFloat)heightForTitleCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    static TestTableViewFooterTitleCell *sizingCell = nil;
+    static StringTableViewTitleCell *sizingCell = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell"];
+        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:StringTableViewTitleCellIdentifier];
     });
     
     PFObject *string = [StringrUtility stringFromObject:self.objects[indexPath.section]];
@@ -362,9 +362,9 @@
 }
 
 
-- (TestTableViewFooterTitleCell *)titleCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+- (StringTableViewTitleCell *)titleCellAtIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
 {
-    TestTableViewFooterTitleCell *footerCell = [self.tableView dequeueReusableCellWithIdentifier:@"StringFooterTitleCell" forIndexPath:indexPath];
+    StringTableViewTitleCell *footerCell = [self.tableView dequeueReusableCellWithIdentifier:StringTableViewTitleCellIdentifier forIndexPath:indexPath];
     
     [self configureTitleCell:footerCell atIndexPath:indexPath string:string];
     
@@ -372,10 +372,10 @@
 }
 
 
-- (void)configureTitleCell:(TestTableViewFooterTitleCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
+- (void)configureTitleCell:(StringTableViewTitleCell *)cell atIndexPath:(NSIndexPath *)indexPath string:(PFObject *)string
 {
     if (!cell) {
-        cell = [TestTableViewFooterTitleCell new];
+        cell = [StringTableViewTitleCell new];
     }
     
     [cell configureFooterCellWithString:string];

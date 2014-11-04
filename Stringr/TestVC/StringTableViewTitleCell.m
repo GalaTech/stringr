@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "TestTableViewFooterTitleCell.h"
+#import "StringTableViewTitleCell.h"
 #import "UIColor+StringrColors.h"
 #import "UIFont+StringrFonts.h"
 
-@interface TestTableViewFooterTitleCell ()
+@interface StringTableViewTitleCell ()
 
 @end
 
-@implementation TestTableViewFooterTitleCell
+@implementation StringTableViewTitleCell
 
 - (void)awakeFromNib {
     // Initialization code
