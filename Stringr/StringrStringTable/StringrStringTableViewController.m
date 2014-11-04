@@ -7,6 +7,7 @@
 //
 
 #import "StringrStringTableViewController.h"
+
 #import "StringrNavigationController.h"
 #import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
@@ -14,20 +15,21 @@
 #import "StringrCommentsTableViewController.h"
 #import "StringrMyStringsTableViewController.h"
 #import "StringrUserTableViewController.h"
-#import "StringTableViewCell.h"
-#import "StringCollectionViewCell.h"
-#import "StringrFooterView.h"
-#import "StringrLoadMoreTableViewCell.h"
-#import "NHBalancedFlowLayout.h"
-#import "UIColor+StringrColors.h"
-#import "StringrNetworkTask+LikeActivity.h"
-#import "StringrFlagContentHelper.h"
-#import "StringrActionSheet.h"
 
 #import "StringTableViewHeader.h"
-#import "TestTableViewStringCell.h"
+#import "StringTableViewCell.h"
 #import "StringTableViewTitleCell.h"
 #import "StringTableViewActionCell.h"
+#import "StringrLoadMoreTableViewCell.h"
+
+#import "StringCollectionViewCell.h"
+#import "NHBalancedFlowLayout.h"
+
+#import "StringrNetworkTask+LikeActivity.h"
+
+#import "UIColor+StringrColors.h"
+#import "StringrFlagContentHelper.h"
+#import "StringrActionSheet.h"
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
 
@@ -564,7 +566,7 @@
 }
 
 
-#pragma mark - StringrTableViewHeaderDelegate
+#pragma mark - StringTableViewHeaderDelegate
 
 - (void)profileImageTappedForUser:(PFUser *)user
 {
@@ -581,7 +583,7 @@
 }
 
 
-#pragma mark - StringrTableViewActionFooter Delegate
+#pragma mark - StringTableViewActionCell Delegate
 
 - (void)actionCell:(StringTableViewActionCell *)cell tappedLikeButton:(UIButton *)button liked:(BOOL)liked withBlock:(void (^)(BOOL))block
 {

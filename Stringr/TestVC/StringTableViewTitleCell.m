@@ -12,6 +12,8 @@
 
 @interface StringTableViewTitleCell ()
 
+@property (strong, nonatomic, readwrite) PFObject *string;
+
 @end
 
 @implementation StringTableViewTitleCell
@@ -21,9 +23,6 @@
     [super awakeFromNib];
     
     [self setupAppearance];
-    
-    [self setNeedsUpdateConstraints];
-
 }
 
 
@@ -36,14 +35,8 @@
 
 - (void)configureFooterCellWithString:(PFObject *)string
 {
+    self.string = string;
     self.stringTitle.text = string[kStringrStringTitleKey];
-}
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 

@@ -14,13 +14,13 @@
 
 @interface StringTableViewHeader ()
 
+@property (strong, nonatomic, readwrite) PFObject *string;
+
 @property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
 @property (weak, nonatomic) IBOutlet UILabel *stringUploadDate;
 @property (weak, nonatomic) IBOutlet UIImageView *stringPrivacySettings;
 @property (strong, nonatomic) IBOutlet UIButton *stringInfoButton;
-
-@property (strong, nonatomic, readwrite) PFObject *string;
 
 @end
 

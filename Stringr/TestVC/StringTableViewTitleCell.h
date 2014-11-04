@@ -10,10 +10,11 @@
 #import "StringrLabel.h"
 
 static NSString *StringTableViewTitleCellIdentifier = @"StringTableViewTitleCell";
-static CGFloat FooterTitleCellHeight = 30.0f;
+static CGFloat FooterTitleCellHeight = 28.0f;
 
 @interface StringTableViewTitleCell : UITableViewCell
 
+@property (strong, nonatomic, readonly) PFObject *string;
 @property (weak, nonatomic) IBOutlet StringrLabel *stringTitle;
 
 - (void)configureFooterCellWithString:(PFObject *)string;
