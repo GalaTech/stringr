@@ -23,6 +23,9 @@
     [super awakeFromNib];
     
     [self setupAppearance];
+    
+    // silenced breaking constraints warnings in console
+    [self.contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 }
 
 

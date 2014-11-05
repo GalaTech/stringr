@@ -31,6 +31,8 @@
 #import "StringrFlagContentHelper.h"
 #import "StringrActionSheet.h"
 
+#import "StringrString.h"
+
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
@@ -97,6 +99,11 @@
 
 
 #pragma mark - Accessors
+
+- (void)setStrings:(NSMutableArray *)strings
+{
+    _strings = [StringrString stringsFromArray:strings];
+}
 
 - (NSMutableDictionary *)contentOffsetDictionary
 {
@@ -332,6 +339,24 @@
 //    }
     if (indexPath.row == 0) {
         return [self stringCellAtIndexPath:indexPath string:string];
+    }
+    else if (indexPath.row == 1) {
+        return [self titleCellAtIndexPath:indexPath string:string];
+    }
+    else if (indexPath.row == 2) {
+        return [self actionCellAtIndexPath:indexPath string:string];
+    }
+    
+    return nil;
+    
+//    return [self tableView:tableView cellForRowAtIndexPath:indexPath string:[StringrString stringWithObject:object]];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath string:(StringrString *)string
+{
+    if (indexPath.row == 0) {
+        return [self stringCellAtIndexPath:indexPath string:string.string];
     }
     else if (indexPath.row == 1) {
         return [self titleCellAtIndexPath:indexPath string:string];

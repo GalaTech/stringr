@@ -12,6 +12,7 @@
 
 @interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (strong, nonatomic) NSMutableArray *strings;
 @property (strong, nonatomic) NSMutableArray *stringPhotos;
 
 @end

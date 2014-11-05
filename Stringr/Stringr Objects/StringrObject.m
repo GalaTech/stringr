@@ -30,8 +30,6 @@
 {
     PFObject *bridgedPFObject = [PFObject objectWithClassName:[self className]];
     bridgedPFObject.objectId = object.objectID;
-    bridgedPFObject[@"name"] = object.name;
-    bridgedPFObject[@"lastName"] = object.lastName;
     
     // bridge to ACL
     

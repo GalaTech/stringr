@@ -73,20 +73,20 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="WwC-aE-KWe" firstAttribute="top" secondItem="lbJ-JJ-0EL" secondAttribute="top" id="8MI-mr-Z8E"/>
-                    <constraint firstItem="WwC-aE-KWe" firstAttribute="trailing" secondItem="CeJ-nL-Bac" secondAttribute="trailingMargin" id="EZ9-Uf-GB5"/>
+                    <constraint firstItem="WwC-aE-KWe" firstAttribute="trailing" secondItem="CeJ-nL-Bac" secondAttribute="trailingMargin" priority="750" id="EZ9-Uf-GB5"/>
                     <constraint firstItem="lbJ-JJ-0EL" firstAttribute="height" secondItem="WwC-aE-KWe" secondAttribute="height" id="QIQ-z7-uOi"/>
                     <constraint firstItem="lbJ-JJ-0EL" firstAttribute="top" secondItem="CeJ-nL-Bac" secondAttribute="top" constant="6" id="TCc-cJ-6bu"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Km5-BY-iPV" secondAttribute="bottom" constant="-9" id="VZO-rT-zsV"/>
                     <constraint firstAttribute="trailing" secondItem="Yxj-mA-t83" secondAttribute="trailing" id="YPO-O1-Fgm"/>
-                    <constraint firstItem="lbJ-JJ-0EL" firstAttribute="leading" secondItem="CeJ-nL-Bac" secondAttribute="leading" constant="8" id="ZYN-Ae-QaX"/>
+                    <constraint firstItem="lbJ-JJ-0EL" firstAttribute="leading" secondItem="CeJ-nL-Bac" secondAttribute="leading" priority="750" constant="8" id="ZYN-Ae-QaX"/>
                     <constraint firstItem="9gO-05-Qsx" firstAttribute="leading" secondItem="Km5-BY-iPV" secondAttribute="trailing" constant="61" id="Zu8-HI-sAd"/>
                     <constraint firstItem="Yxj-mA-t83" firstAttribute="top" secondItem="lbJ-JJ-0EL" secondAttribute="bottom" constant="8" id="cFf-aw-WxC"/>
                     <constraint firstItem="Km5-BY-iPV" firstAttribute="leading" secondItem="Oyo-T4-6ha" secondAttribute="trailing" constant="61" id="dGK-rf-jnt"/>
                     <constraint firstItem="Yxj-mA-t83" firstAttribute="leading" secondItem="CeJ-nL-Bac" secondAttribute="leading" id="f7m-rW-9bY"/>
                     <constraint firstAttribute="centerX" secondItem="Km5-BY-iPV" secondAttribute="centerX" id="ge2-hn-UfK"/>
-                    <constraint firstAttribute="centerX" secondItem="lbJ-JJ-0EL" secondAttribute="trailing" id="hrz-ej-Pqs"/>
+                    <constraint firstAttribute="centerX" secondItem="lbJ-JJ-0EL" secondAttribute="trailing" priority="750" id="hrz-ej-Pqs"/>
                     <constraint firstItem="Oyo-T4-6ha" firstAttribute="bottom" secondItem="Km5-BY-iPV" secondAttribute="bottom" id="xEy-Le-Byk"/>
-                    <constraint firstItem="WwC-aE-KWe" firstAttribute="leading" secondItem="CeJ-nL-Bac" secondAttribute="centerX" id="yZP-Fm-rAn"/>
+                    <constraint firstItem="WwC-aE-KWe" firstAttribute="leading" secondItem="CeJ-nL-Bac" secondAttribute="centerX" priority="750" id="yZP-Fm-rAn"/>
                     <constraint firstItem="9gO-05-Qsx" firstAttribute="bottom" secondItem="Km5-BY-iPV" secondAttribute="bottom" id="z7m-AX-wge"/>
                 </constraints>
             </tableViewCellContentView>
@@ -102,8 +102,8 @@
     </objects>
     <resources>
         <image name="action_button" width="33" height="21"/>
-        <image name="comment_button" width="20" height="18"/>
-        <image name="like_button" width="20" height="18"/>
+        <image name="comment_button" width="32" height="21"/>
+        <image name="like_button" width="33" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

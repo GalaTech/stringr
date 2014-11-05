@@ -15,11 +15,17 @@
 @property (copy, nonatomic) NSString *title;
 @property (strong, nonatomic) PFUser *uploader;
 @property (copy, nonatomic) NSString *category;
-@property (copy, nonatomic) NSString *uploadDate;
-@property (copy, nonatomic) NSString *updatedDate;
 
 @property (strong, nonatomic) NSArray *photos;
 @property (strong, nonatomic) NSArray *comments;
 @property (strong, nonatomic) NSArray *likers;
+
+- (instancetype)initWithObject:(PFObject *)object;
+- (instancetype)init __attribute__ ((unavailable("[-init] is not allowed, use [-initWithObject:]")));
+
++ (instancetype)stringWithObject:(PFObject *)object;
++ (instancetype)new __attribute__ ((unavailable("[+new] is not allowed, use [+stringWithObject:]")));
+
++ (NSMutableArray *)stringsFromArray:(NSArray *)array;
 
 @end

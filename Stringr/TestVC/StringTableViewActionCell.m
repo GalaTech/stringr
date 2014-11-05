@@ -96,7 +96,6 @@
             self.commentsLabel.text = [NSString stringWithFormat:@"Comments %@", decimalCommentCountString];
         } else {
             // set alpha to 0 so that they can later fade in
-            self.likeButton.alpha = 1.0f;
             self.likesLabel.alpha = 0.0f;
             self.commentsLabel.alpha = 0.0f;
             
@@ -138,7 +137,6 @@
                     [self setLikesButtonState:isLikedByCurrentUser];
                     
                     [UIView animateWithDuration:0.33 animations:^ {
-                        self.likeButton.alpha = 1.0f;
                         self.likesLabel.alpha = 1.0f;
                         NSString *decimalLikeCountString = [NSString formattedFromInteger:likers.count];
                         self.likesLabel.text = [NSString stringWithFormat:@"Likes %@", decimalLikeCountString];

@@ -10,4 +10,74 @@
 
 @implementation StringrString
 
+#pragma mark - Lifecycle
+
+- (instancetype)initWithObject:(PFObject *)object
+{
+    self = [super init];
+    
+    if (self) {
+        _string = object;
+    }
+    
+    return self;
+}
+
+
++(instancetype)stringWithObject:(PFObject *)object
+{
+    return [[StringrString alloc] initWithObject:object];
+}
+
+
+#pragma mark - Accessors - Setters
+
+- (void)setString:(PFObject *)string
+{
+    _string = [StringrUtility stringFromObject:string];
+}
+
+
+#pragma mark - Accessors - Getters
+
+- (PFUser *)uploader
+{
+    return self.string[kStringrStringUserKey];
+}
+
+
+- (NSString *)title
+{
+    return self.string[kStringrStringTitleKey];
+}
+
+
+- (NSDate *)createdAt
+{
+    return self.string.createdAt;
+}
+
+
+- (NSDate *)updatedAt
+{
+    return self.string.updatedAt;
+}
+
+
+#pragma mark - Public
+
++ (NSMutableArray *)stringsFromArray:(NSArray *)array
+{
+    NSMutableArray *stringsArray = [[NSMutableArray alloc] initWithCapacity:array.count];
+    
+    for (id object in array) {
+        if ([object isKindOfClass:[PFObject class]]) {
+            StringrString *string = [StringrString stringWithObject:object];
+            [stringsArray addObject:string];
+        }
+    }
+    
+    return [stringsArray copy];
+}
+
 @end

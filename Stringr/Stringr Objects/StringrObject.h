@@ -15,18 +15,17 @@ typedef void (^StringrArrayResultBlock)(NSArray *objects, NSError *error);
 
 @interface StringrObject : NSObject
 
-+ (NSString *)className;
-
-
 @property (copy, nonatomic, readonly) NSString *parseClassName;
 @property (copy, nonatomic) NSString *objectID;
 @property (strong, nonatomic, readonly) NSDate *updatedAt;
 @property (strong, nonatomic, readonly) NSDate *createdAt;
 @property (strong, nonatomic) StringrACL *ACL;
 
+
+/*
+
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *lastName;
-
 
 // Setting/Removing
 
@@ -97,6 +96,6 @@ typedef void (^StringrArrayResultBlock)(NSArray *objects, NSError *error);
 + (void)fetchAllIfNeeded:(NSArray *)objects;
 + (void)fetchAllIfNeeded:(NSArray *)objects error:(NSError **)error;
 + (void)fetchAllIfNeededInBackground:(NSArray *)objects block:(StringrArrayResultBlock)block;
-
+*/
 
 @end

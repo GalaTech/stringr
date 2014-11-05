@@ -14,7 +14,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="28" restorationIdentifier="StringrTitleLabel" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="hWi-Ri-JQR" customClass="StringrLabel">
-                        <rect key="frame" x="8" y="6" width="304" height="21"/>
+                        <rect key="frame" x="8" y="6" width="304" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -23,7 +23,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="hWi-Ri-JQR" firstAttribute="leading" secondItem="jjA-RC-KOh" secondAttribute="leading" constant="8" id="Wbt-e7-jL1"/>
-                    <constraint firstAttribute="bottom" secondItem="hWi-Ri-JQR" secondAttribute="bottom" id="Wop-HF-RzO"/>
+                    <constraint firstAttribute="bottom" secondItem="hWi-Ri-JQR" secondAttribute="bottom" priority="750" id="Wop-HF-RzO"/>
                     <constraint firstAttribute="trailing" secondItem="hWi-Ri-JQR" secondAttribute="trailing" constant="8" id="bFw-ua-1Up"/>
                     <constraint firstItem="hWi-Ri-JQR" firstAttribute="top" secondItem="jjA-RC-KOh" secondAttribute="top" constant="6" id="gzu-hm-523"/>
                 </constraints>

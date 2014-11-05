@@ -695,22 +695,23 @@
 #pragma mark - String Checking
 
 + (PFObject *)stringFromObject:(PFObject *)object
-{
-    PFObject *string = object;
-    
+{   
     // It's possible for this object to be of type statistic or activity. This just gets the string
     // value from either of those classes
-    if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
-        string = [object objectForKey:kStringrStatisticsStringKey];
+    if ([object.parseClassName isEqualToString:kStringrStringClassKey]) {
+        return object;
+    }
+    else if ([object.parseClassName isEqualToString:kStringrStatisticsClassKey]) {
+        return [object objectForKey:kStringrStatisticsStringKey];
     }
     else if ([object.parseClassName isEqualToString:kStringrActivityClassKey]) {
-        string = [object objectForKey:kStringrActivityStringKey];
+        return [object objectForKey:kStringrActivityStringKey];
     }
     else if ([object.parseClassName isEqualToString:kStringrPhotoClassKey]) {
-        string = [object objectForKey:kStringrPhotoStringKey];
+        return [object objectForKey:kStringrPhotoStringKey];
     }
     
-    return string;
+    return nil;
 }
 
 @end
