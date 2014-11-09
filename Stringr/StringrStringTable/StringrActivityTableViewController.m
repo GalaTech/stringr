@@ -16,6 +16,8 @@
 #import "StringrLoadMoreTableViewCell.h"
 #import "UIColor+StringrColors.h"
 
+static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivityTableViewStoryboard";
+
 @interface StringrActivityTableViewController () <StringrActivityTableViewCellDelegate>
 
 @end
@@ -23,6 +25,12 @@
 @implementation StringrActivityTableViewController
 
 #pragma mark - Lifecycle
+
++ (StringrActivityTableViewController *)viewController
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrActivityTableViewStoryboardName bundle:nil];
+    return (StringrActivityTableViewController *)[storyboard instantiateInitialViewController];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

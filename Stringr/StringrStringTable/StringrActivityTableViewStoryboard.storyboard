@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1yZ-Yf-yeN">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6250"/>
+    </dependencies>
+    <scenes>
+        <!--Activity-->
+        <scene sceneID="ytF-bO-2Hf">
+            <objects>
+                <tableViewController storyboardIdentifier="activityVC" title="Activity" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1yZ-Yf-yeN" customClass="StringrActivityTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="lnn-M8-Sbk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="activityCell" rowHeight="75" id="xHn-xH-7Fj" customClass="StringrActivityTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xHn-xH-7Fj" id="YyY-jV-8Xb">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="74"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stringr_icon_filler" translatesAutoresizingMaskIntoConstraints="NO" id="NFO-w9-mHz" customClass="StringrPathImageView">
+                                            <rect key="frame" x="9" y="15" width="39" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="39" id="Mrr-Lo-sse"/>
+                                                <constraint firstAttribute="height" constant="40" id="PRE-3K-Jpp"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 min ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="w6H-qJ-5YS">
+                                            <rect key="frame" x="56" y="5" width="211" height="14"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="14" id="mke-qJ-GA3"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="200" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="211" translatesAutoresizingMaskIntoConstraints="NO" id="0yt-di-Onw">
+                                            <rect key="frame" x="56" y="15" width="211" height="40"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="0yt-di-Onw" secondAttribute="bottom" constant="19" id="0pA-jL-oKM"/>
+                                        <constraint firstItem="0yt-di-Onw" firstAttribute="top" secondItem="w6H-qJ-5YS" secondAttribute="bottom" constant="-4" id="F6R-38-Zoj"/>
+                                        <constraint firstAttribute="trailing" secondItem="0yt-di-Onw" secondAttribute="trailing" constant="20" id="Ml9-me-fKo"/>
+                                        <constraint firstItem="0yt-di-Onw" firstAttribute="leading" secondItem="NFO-w9-mHz" secondAttribute="trailing" constant="8" id="PAB-5d-EDI"/>
+                                        <constraint firstItem="w6H-qJ-5YS" firstAttribute="leading" secondItem="NFO-w9-mHz" secondAttribute="trailing" constant="8" id="YhT-6U-i3r"/>
+                                        <constraint firstAttribute="trailing" secondItem="w6H-qJ-5YS" secondAttribute="trailing" constant="20" id="gqP-XK-WaT"/>
+                                        <constraint firstAttribute="centerY" secondItem="NFO-w9-mHz" secondAttribute="centerY" constant="2" id="h1K-Cu-bgf"/>
+                                        <constraint firstItem="NFO-w9-mHz" firstAttribute="leading" secondItem="YyY-jV-8Xb" secondAttribute="leading" constant="9" id="hih-46-vKL"/>
+                                        <constraint firstItem="w6H-qJ-5YS" firstAttribute="top" secondItem="YyY-jV-8Xb" secondAttribute="top" constant="5" id="k5P-fE-Pi8"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="activityCellDateLabel" destination="w6H-qJ-5YS" id="gDy-b3-DNu"/>
+                                    <outlet property="activityCellProfileImage" destination="NFO-w9-mHz" id="8Z5-HZ-kL0"/>
+                                    <outlet property="activityCellTextLabel" destination="0yt-di-Onw" id="vaB-i3-MZu"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1yZ-Yf-yeN" id="n8j-WK-zfh"/>
+                            <outlet property="delegate" destination="1yZ-Yf-yeN" id="ymC-Wt-Ygw"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="University Talk" id="vZN-Y7-Q0j"/>
+                    <navigationItem key="navigationItem" id="gPb-xX-0w1"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fP-YK-L7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-628.79999999999995" y="-3524.4400000000001"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="stringr_icon_filler" width="256" height="256"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

@@ -31,7 +31,7 @@
         UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
         [followingNavVC setTabBarItem:followingTab];
         
-        StringrActivityTableViewController *activityVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardActivityTableID];
+        StringrActivityTableViewController *activityVC = [StringrActivityTableViewController viewController];
         StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
         UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
         [activityNavVC setTabBarItem:activityTab];
