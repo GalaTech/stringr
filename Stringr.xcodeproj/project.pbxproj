@@ -95,6 +95,7 @@
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
 		AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */; };
 		AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */; };
+		AB9240161A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */; };
 		AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */; };
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
 		AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */; };
@@ -349,6 +350,7 @@
 		AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSelectProfileImageTableViewCell.m; path = Profile/TableViewCell/StringrSelectProfileImageTableViewCell.m; sourceTree = "<group>"; };
 		AB919C5018A09DEF00D40FD5 /* StringrWriteCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrWriteCommentViewController.h; path = Comments/StringrWriteCommentViewController.h; sourceTree = "<group>"; };
 		AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrWriteCommentViewController.m; path = Comments/StringrWriteCommentViewController.m; sourceTree = "<group>"; };
+		AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrLoginViewStoryboard.storyboard; path = Login/StringrLoginViewStoryboard.storyboard; sourceTree = "<group>"; };
 		AB9D74001891A7CA003BB2B8 /* UIImage+Decompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Decompression.h"; sourceTree = "<group>"; };
 		AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Decompression.m"; sourceTree = "<group>"; };
 		AB9D74251892D657003BB2B8 /* StringrPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoDetailViewController.h; path = Detail/StringrPhotoDetailViewController.h; sourceTree = "<group>"; };
@@ -1164,6 +1166,7 @@
 			children = (
 				BF3EDDF9183E842A0071E047 /* StringrLoginViewController.h */,
 				BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */,
+				AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */,
 				ABDB7E5418D7ED330047691B /* StringrLoginWithEmailTableViewController.h */,
 				ABDB7E5518D7ED330047691B /* StringrLoginWithEmailTableViewController.m */,
 				AB5F56B718E0B98F00D27372 /* StringrEmailVerificationViewController.h */,
@@ -1472,6 +1475,7 @@
 			files = (
 				ABA2F0661922BB430004A806 /* SelectionOverlay~iOS7@2x.png in Resources */,
 				ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */,
+				AB9240161A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard in Resources */,
 				ABA2F0631922BB430004A806 /* SelectionOverlay.png in Resources */,
 				ABA2F0621922BB430004A806 /* ZCLocalized.strings in Resources */,
 				ABA2F0651922BB430004A806 /* SelectionOverlay~iOS7.png in Resources */,

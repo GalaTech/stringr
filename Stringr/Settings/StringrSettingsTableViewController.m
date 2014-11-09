@@ -404,7 +404,7 @@
         StringrAppController *rootVC = (StringrAppController *)[window rootViewController];
         
         StringrAppDelegate *stringrAppDelegate = (StringrAppDelegate *)[[UIApplication sharedApplication] delegate];
-        StringrLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
+        StringrLoginViewController *loginVC = [StringrLoginViewController viewController];
         [loginVC setDelegate:stringrAppDelegate.rootViewController];
         
         StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];

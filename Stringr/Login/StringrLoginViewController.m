@@ -24,7 +24,7 @@
 
 //#import "StringrProfileViewController.h"
 
-
+static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
 
 @interface StringrLoginViewController () <UIAlertViewDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -54,6 +54,12 @@
 @implementation StringrLoginViewController
 
 #pragma mark - Lifecycle
+
++ (StringrLoginViewController *)viewController
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrLoginStoryboard bundle:nil];
+    return (StringrLoginViewController *)[storyboard instantiateInitialViewController];
+}
 
 - (void)viewDidLoad
 {

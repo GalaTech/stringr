@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) id<StringrLoginViewControllerDelegate>delegate;
 
++ (StringrLoginViewController *)viewController;
+
 @end
 
 

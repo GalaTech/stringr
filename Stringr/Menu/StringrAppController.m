@@ -110,8 +110,7 @@
 
 - (void)setupLoginController
 {
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    StringrLoginViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardLoginID];
+    StringrLoginViewController *loginVC = [StringrLoginViewController viewController];
     [loginVC setDelegate:self];
     [loginVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     UINavigationController *loginNavVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
