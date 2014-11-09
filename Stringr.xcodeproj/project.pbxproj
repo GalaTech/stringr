@@ -97,6 +97,7 @@
 		AB919C5218A09DEF00D40FD5 /* StringrWriteCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */; };
 		AB9240161A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */; };
 		AB9240181A0FFB0D00395DAA /* StringrActivityTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240171A0FFB0D00395DAA /* StringrActivityTableViewStoryboard.storyboard */; };
+		AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240191A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard */; };
 		AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */; };
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
 		AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */; };
@@ -142,7 +143,7 @@
 		ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */; };
 		ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */; };
 		ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */; };
-		BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */; };
+		BF170EA3184917F30056ECE7 /* StringrConnectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA2184917F30056ECE7 /* StringrConnectionsTableViewController.m */; };
 		BF170EA6184920980056ECE7 /* StringrMyStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */; };
 		BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EA81849213C0056ECE7 /* StringrLikedStringsTableViewController.m */; };
 		BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF170EB9184930930056ECE7 /* StringrSearchTableViewController.m */; };
@@ -353,6 +354,7 @@
 		AB919C5118A09DEF00D40FD5 /* StringrWriteCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrWriteCommentViewController.m; path = Comments/StringrWriteCommentViewController.m; sourceTree = "<group>"; };
 		AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrLoginViewStoryboard.storyboard; path = Login/StringrLoginViewStoryboard.storyboard; sourceTree = "<group>"; };
 		AB9240171A0FFB0D00395DAA /* StringrActivityTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrActivityTableViewStoryboard.storyboard; path = StringrStringTable/StringrActivityTableViewStoryboard.storyboard; sourceTree = "<group>"; };
+		AB9240191A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrConnectionsTableViewStoryboard.storyboard; path = Users/StringrConnectionsTableViewStoryboard.storyboard; sourceTree = "<group>"; };
 		AB9D74001891A7CA003BB2B8 /* UIImage+Decompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Decompression.h"; sourceTree = "<group>"; };
 		AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Decompression.m"; sourceTree = "<group>"; };
 		AB9D74251892D657003BB2B8 /* StringrPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoDetailViewController.h; path = Detail/StringrPhotoDetailViewController.h; sourceTree = "<group>"; };
@@ -432,8 +434,8 @@
 		ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = StringrActivityTableViewController.m; path = StringrStringTable/StringrActivityTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPrivacyPolicyTermsOfServiceViewController.h; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.h; sourceTree = "<group>"; };
 		ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPrivacyPolicyTermsOfServiceViewController.m; path = Settings/StringrPrivacyPolicyTermsOfServiceViewController.m; sourceTree = "<group>"; };
-		BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserConnectionsTableViewController.h; path = Users/StringrUserConnectionsTableViewController.h; sourceTree = "<group>"; };
-		BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserConnectionsTableViewController.m; path = Users/StringrUserConnectionsTableViewController.m; sourceTree = "<group>"; };
+		BF170EA1184917F30056ECE7 /* StringrConnectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConnectionsTableViewController.h; path = Users/StringrConnectionsTableViewController.h; sourceTree = "<group>"; };
+		BF170EA2184917F30056ECE7 /* StringrConnectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConnectionsTableViewController.m; path = Users/StringrConnectionsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA4184920980056ECE7 /* StringrMyStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMyStringsTableViewController.h; path = StringrStringTable/StringrMyStringsTableViewController.h; sourceTree = "<group>"; };
 		BF170EA5184920980056ECE7 /* StringrMyStringsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrMyStringsTableViewController.m; path = StringrStringTable/StringrMyStringsTableViewController.m; sourceTree = "<group>"; };
 		BF170EA71849213C0056ECE7 /* StringrLikedStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLikedStringsTableViewController.h; path = StringrStringTable/StringrLikedStringsTableViewController.h; sourceTree = "<group>"; };
@@ -604,8 +606,9 @@
 		AB04A2D419E0C6AF0030C241 /* Connections */ = {
 			isa = PBXGroup;
 			children = (
-				BF170EA1184917F30056ECE7 /* StringrUserConnectionsTableViewController.h */,
-				BF170EA2184917F30056ECE7 /* StringrUserConnectionsTableViewController.m */,
+				BF170EA1184917F30056ECE7 /* StringrConnectionsTableViewController.h */,
+				BF170EA2184917F30056ECE7 /* StringrConnectionsTableViewController.m */,
+				AB9240191A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard */,
 			);
 			name = Connections;
 			sourceTree = "<group>";
@@ -1495,6 +1498,7 @@
 				ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */,
 				AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */,
+				AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */,
 				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 			);
@@ -1646,7 +1650,7 @@
 				AB0F53211908458800A29E59 /* StringrInviteFriendsTableViewController.m in Sources */,
 				AB0F532C190B1DEB00A29E59 /* StringrLikedPhotosTableViewController.m in Sources */,
 				ABF05552192BCE3500BB08A7 /* Reachability.m in Sources */,
-				BF170EA3184917F30056ECE7 /* StringrUserConnectionsTableViewController.m in Sources */,
+				BF170EA3184917F30056ECE7 /* StringrConnectionsTableViewController.m in Sources */,
 				ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */,
 				BF732192184914FB00A4D9AA /* StringrUserSearchViewController.m in Sources */,
 				AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */,

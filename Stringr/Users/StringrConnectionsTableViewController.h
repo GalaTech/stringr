@@ -13,9 +13,11 @@ typedef enum {
     UserConnectionFollowersType
 } UserConnectionType;
 
-@interface StringrUserConnectionsTableViewController : StringrTableViewController
+@interface StringrConnectionsTableViewController : StringrTableViewController
 
 @property (strong, nonatomic) PFUser *userForConnections;
 @property (nonatomic) UserConnectionType connectionType;
+
++ (StringrConnectionsTableViewController *)viewController;
 
 @end

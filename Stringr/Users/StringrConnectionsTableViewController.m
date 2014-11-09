@@ -6,21 +6,29 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrUserConnectionsTableViewController.h"
+#import "StringrConnectionsTableViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrUserTableViewCell.h"
 #import "StringrPathImageView.h"
 #import "UIColor+StringrColors.h"
 
-@interface StringrUserConnectionsTableViewController ()
+static NSString * const StringrConnectionsTableViewStoryboardName = @"StringrConnectionsTableViewStoryboard";
+
+@interface StringrConnectionsTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *connectionUsers;
 
 @end
 
-@implementation StringrUserConnectionsTableViewController
+@implementation StringrConnectionsTableViewController
 
 #pragma mark - Lifecycle
+
++ (StringrConnectionsTableViewController *)viewController
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrConnectionsTableViewStoryboardName bundle:nil];
+    return (StringrConnectionsTableViewController *)[storyboard instantiateInitialViewController];
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -121,10 +129,12 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.connectionUsers.count;
 }
+
 
 - (void)objectsWillLoad
 {
@@ -134,6 +144,7 @@
         [self queryForFollowerUsers];
     }
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -168,7 +179,6 @@
 }
 
 
-
 #pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -176,7 +186,8 @@
     PFUser *userAtIndex = [self.connectionUsers objectAtIndex:indexPath.row];
     
     if (userAtIndex) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        StringrProfileViewController *profileVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
         [profileVC setUserForProfile:userAtIndex];
         [profileVC setProfileReturnState:ProfileBackReturnState];
             
@@ -184,10 +195,12 @@
     }
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.1f;
 }
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {

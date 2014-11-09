@@ -10,7 +10,7 @@
 #import "StringrProfileViewController.h"
 #import "StringrEditProfileViewController.h"
 #import "StringrUserTableViewController.h"
-#import "StringrUserConnectionsTableViewController.h"
+#import "StringrConnectionsTableViewController.h"
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
 #import "UIColor+StringrColors.h"
@@ -290,7 +290,7 @@
 
 - (IBAction)accessFollowers:(UIButton *)sender
 {
-    StringrUserConnectionsTableViewController *followersVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileConnectionsID];
+    StringrConnectionsTableViewController *followersVC = [StringrConnectionsTableViewController viewController];
     followersVC.title = @"Followers";
     followersVC.userForConnections = self.userForProfile;
     followersVC.connectionType = UserConnectionFollowersType;
@@ -301,7 +301,7 @@
 
 - (IBAction)accessFollowing:(UIButton *)sender
 {
-    StringrUserConnectionsTableViewController *followingVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileConnectionsID];
+    StringrConnectionsTableViewController *followingVC = [StringrConnectionsTableViewController viewController];
     followingVC.title = @"Following";
     followingVC.userForConnections = self.userForProfile;
     followingVC.connectionType = UserConnectionFollowingType;
@@ -309,9 +309,5 @@
     [self.navigationController pushViewController:followingVC animated:YES];
 }
 
-
-
-
- 
 
 @end

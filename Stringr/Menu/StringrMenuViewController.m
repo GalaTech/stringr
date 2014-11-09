@@ -68,6 +68,7 @@
     [self setClearsSelectionOnViewWillAppear:NO];
     
     [self.tableView setShowsVerticalScrollIndicator:NO];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,9 +83,6 @@
                                                               pathWidth:1.0];
     
     // loads user profile image in background
-    [self.profileImageView setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
-    [self.profileImageView loadInBackgroundWithIndicator];
-    
     [self.profileImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     
@@ -139,6 +137,17 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNSNotificationCenterUpdateMenuProfileName object:nil];
 }
 
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.profileImageView setFile:[[PFUser currentUser] objectForKey:kStringrUserProfilePictureKey]];
+    [self.profileImageView loadInBackgroundWithIndicator];
+}
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -147,7 +156,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc menu");
+    
 }
 
 
@@ -208,7 +217,7 @@
 {
     StringrLikedTabBarViewController *likedTabBarVC = [[StringrLikedTabBarViewController alloc] init];
     
-    StringrLikedStringsTableViewController *likedStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardLikedStringsID];
+    StringrLikedStringsTableViewController *likedStringsVC = [StringrLikedStringsTableViewController new];
     StringrNavigationController *likedStringsNavVC = [[StringrNavigationController alloc] initWithRootViewController:likedStringsVC];
     UITabBarItem *likedStringsTab = [[UITabBarItem alloc] initWithTitle:@"Strings" image:[UIImage imageNamed:@"liked_strings_icon"] tag:0];
     [likedStringsNavVC setTabBarItem:likedStringsTab];
@@ -304,8 +313,7 @@
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.row == 2) {
-        StringrMyStringsTableViewController *myStringsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardMyStringsID];
-        [myStringsVC setTitle:@"My Strings"];
+        StringrMyStringsTableViewController *myStringsVC = [StringrMyStringsTableViewController new];
 
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:myStringsVC];
         [self.frostedViewController setContentViewController:navVC];
