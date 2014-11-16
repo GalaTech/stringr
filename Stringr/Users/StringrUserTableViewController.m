@@ -136,12 +136,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Creates a new instance of a user profile
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+    StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
 
-    
     // Gets the cell that the user tapped on
     StringrUserTableViewCell *currentCell = (StringrUserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    
     
     if (currentCell) {
         // Sets the title of the profile vc being pushed to that of the username on the cell being tapped

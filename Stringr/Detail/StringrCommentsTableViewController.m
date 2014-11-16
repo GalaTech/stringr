@@ -282,7 +282,7 @@
 
 - (void)tappedCommentorUserProfileImage:(PFUser *)user
 {
-    StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+    StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
     
     [profileVC setUserForProfile:user];
     [profileVC setProfileReturnState:ProfileModalReturnState];
@@ -301,7 +301,7 @@
             if (users.count > 0) {
                 PFUser *user = [users firstObject];
                 
-                StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+                StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
                 [profileVC setUserForProfile:user];
                 [profileVC setProfileReturnState:ProfileModalReturnState];
                 

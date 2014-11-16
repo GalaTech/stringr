@@ -187,7 +187,7 @@ static NSString * const StringrConnectionsTableViewStoryboardName = @"StringrCon
     
     if (userAtIndex) {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        StringrProfileViewController *profileVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         [profileVC setUserForProfile:userAtIndex];
         [profileVC setProfileReturnState:ProfileBackReturnState];
             

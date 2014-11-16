@@ -596,7 +596,7 @@
 - (void)profileImageTappedForUser:(PFUser *)user
 {
     if (user) {
-        StringrProfileViewController *profileVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         
         [profileVC setUserForProfile:user];
         [profileVC setProfileReturnState:ProfileModalReturnState];

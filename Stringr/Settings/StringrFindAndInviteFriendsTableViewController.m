@@ -212,7 +212,7 @@
         PFUser *userForProfile = [self.friendUsers objectAtIndex:indexPath.row];
         
         if (userForProfile) {
-            StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+            StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
             [profileVC setUserForProfile:userForProfile];
             [profileVC setProfileReturnState:ProfileBackReturnState];
             

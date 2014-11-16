@@ -30,7 +30,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc profile table");
+
 }
 
 - (void)viewDidLoad

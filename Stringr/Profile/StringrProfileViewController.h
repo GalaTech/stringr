@@ -21,4 +21,6 @@ typedef enum{
 @property (strong, nonatomic) PFUser *userForProfile;
 @property (nonatomic) ProfileReturnState profileReturnState;
 
++ (StringrProfileViewController *)viewController;
+
 @end

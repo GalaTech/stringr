@@ -304,7 +304,7 @@
         
         [self.frostedViewController setContentViewController:homeTabBarVC];
     } else if (indexPath.row == 1) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         
         [profileVC setUserForProfile:[PFUser currentUser]];
         [profileVC setProfileReturnState:ProfileMenuReturnState];

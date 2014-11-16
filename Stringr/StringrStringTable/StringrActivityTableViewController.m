@@ -231,7 +231,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
              [self.navigationController pushViewController:photoDetailVC animated:YES];
         }
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) { // Follow activity action
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
         [profileVC setProfileReturnState:ProfileBackReturnState];
         [profileVC setHidesBottomBarWhenPushed:YES];
@@ -344,7 +344,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
 - (void)tappedActivityUserProfileImage:(PFUser *)user
 {
     if (user) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         
         [profileVC setUserForProfile:user];
         [profileVC setProfileReturnState:ProfileModalReturnState];

@@ -12,10 +12,6 @@
 
 @interface StringrProfileTopViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *followingButton;
-@property (weak, nonatomic) IBOutlet UILabel *followingLabel;
-@property (weak, nonatomic) IBOutlet UIButton *followersButton;
-@property (weak, nonatomic) IBOutlet UILabel *followersLabel;
 @property (weak, nonatomic) IBOutlet StringrPathImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileDescriptionLabel;

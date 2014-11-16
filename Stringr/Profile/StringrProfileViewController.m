@@ -14,6 +14,10 @@
 #import "StringrProfileTableViewController.h"
 #import "StringrStringDetailViewController.h"
 #import "UIColor+StringrColors.h"
+#import "UIDevice+StringrAdditions.h"
+#import "StringrFollowingTableViewController.h"
+
+static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
 
 /**
  * Initialize's a user profile as a parallax view controller. The top half is a users information and
@@ -33,9 +37,16 @@
 
 #pragma mark - Lifecycle
 
++ (StringrProfileViewController *)viewController
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrProfileStoryboardName bundle:nil];
+    
+    return (StringrProfileViewController *)[storyboard instantiateInitialViewController];
+}
+
 - (void)dealloc
 {
-    NSLog(@"profile dealloc");
+
 }
 
 - (void)viewDidLoad
@@ -66,18 +77,28 @@
     }
     // Instantiates the parallax VC with a top and bottom VC.
     self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileTopViewID];
-    // Sets the user for the currently accessed profile
+    
     [self.topProfileVC setUserForProfile:self.userForProfile];
     
     self.tableProfileVC = [[StringrProfileTableViewController alloc] initWithUser:self.userForProfile];
     
-    [self setupWithTopViewController:self.topProfileVC andTopHeight:325 andBottomViewController:self.tableProfileVC];
+    CGFloat topHeight = 231.0f;
+    
+    if ([[UIDevice currentDevice] isAtLeastiOS8]) {
+        topHeight += 64.0f;
+    }
+    
+    [self setupWithTopViewController:self.topProfileVC andTopHeight:345.0f andBottomViewController:self.tableProfileVC];
     
     //self.delegate = self; // prevents deallocation
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
     
     [self.view setBackgroundColor:[UIColor stringrLightGrayColor]];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(executeStuff) userInfo:nil repeats:NO];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -102,6 +123,21 @@
     
 }
 
+- (void)executeStuff
+{
+//    [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        [self changeTopHeight:350.0f];
+//    } completion:nil];
+    
+    StringrFollowingTableViewController *followingVC = [StringrFollowingTableViewController new];
+    
+//    [UIView animateWithDuration:0.33 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [self reloadWithBottomViewController:followingVC];
+        
+        self.maxHeightBorder = CGRectGetHeight(self.view.frame);
+    [self enableTapGestureTopView:NO];
+//    } completion:nil];
+}
 
 
 #pragma mark - Private

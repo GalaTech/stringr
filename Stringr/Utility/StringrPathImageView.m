@@ -98,8 +98,8 @@
 {
     [self setImageToCirclePath];
     
-    self.pathColor = [UIColor darkGrayColor];
-    self.pathWidth = 1.0f;
+//    self.pathColor = [UIColor darkGrayColor];
+//    self.pathWidth = 1.0f;
 }
 
 

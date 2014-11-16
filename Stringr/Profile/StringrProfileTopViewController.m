@@ -14,11 +14,17 @@
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
 #import "UIColor+StringrColors.h"
+#import "UIFont+StringrFonts.h"
 
 
 @interface StringrProfileTopViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *profileTopContainerView;
+
+@property (weak, nonatomic) IBOutlet ACPButton *followingButton;
+@property (weak, nonatomic) IBOutlet ACPButton *followersButton;
 @property (weak, nonatomic) IBOutlet ACPButton *followUserButton;
+
 @property (strong, nonatomic) UIActivityIndicatorView *followUserButtonLoadingIndicator;
 @property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
 
@@ -30,7 +36,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc profile top");
+    
 }
 
 - (void)viewDidLoad
@@ -53,6 +59,8 @@
     [self.profileImage setupImageWithDefaultConfiguration];
     [self.profileImage setContentMode:UIViewContentModeScaleAspectFill];
     
+    [self configureFollowingAndFollowersButton];
+    
     // sets up the number of followers, following, and strings a user has.
     // It will query for those number the first time, but will then retrieve them
     // from cache in future requests
@@ -61,11 +69,13 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -73,12 +83,12 @@
     [self.usernameAndDisplayNameAnimationTimer invalidate];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     
 }
-
 
 
 #pragma mark - Private
@@ -101,6 +111,7 @@
                     } completion:nil];
 }
 
+
 - (void)queryAndSetupUserProfileDetails
 {
     NSDictionary *userAttributes = [[StringrCache sharedCache] attributesForUser:self.userForProfile];
@@ -110,10 +121,10 @@
     // Sets via cache if available and querries if not
     if (userAttributes) {
         NSNumber *currentUserFollowingCount = [[StringrCache sharedCache] followingCountForUser:self.userForProfile];
-        self.followingLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowingCount intValue]];
+        [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [currentUserFollowingCount intValue]] forState:UIControlStateNormal];
         
         NSNumber *currentUserFollowerCount = [[StringrCache sharedCache] followerCountForUser:self.userForProfile];
-        self.followersLabel.text = [NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]];
+        [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]] forState:UIControlStateNormal];
         
         NSNumber *numberOfStrings = [[StringrCache sharedCache] stringCountForUser:self.userForProfile];
         NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", [numberOfStrings intValue]];
@@ -128,7 +139,7 @@
             [followingUserActivityQuery whereKey:kStringrActivityFromUserKey equalTo:self.userForProfile];
             [followingUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error ) {
                 if (!error) {
-                    self.followingLabel.text = [NSString stringWithFormat:@"%d", number];
+                    [self.followingButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
                     [[StringrCache sharedCache] setFollowingCount:@(number) forUser:self.userForProfile];
                 }
             }];
@@ -138,7 +149,7 @@
             [followersUserActivityQuery whereKey:kStringrActivityToUserKey equalTo:self.userForProfile];
             [followersUserActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                 if (!error) {
-                    self.followersLabel.text = [NSString stringWithFormat:@"%d", number];
+                    [self.followersButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
                     [[StringrCache sharedCache] setFollowerCount:@(number) forUser:self.userForProfile];
                 }
             }];
@@ -216,33 +227,55 @@
     }
 }
 
+
 - (void)configureFollowButton
 {
     [self.followUserButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
     [self.followUserButton addTarget:self action:@selector(followButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
     
     // Adds custom design to follow user button
-    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor stringrLightGrayColor]];
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
     [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followUserButton setCornerRadius:15];
-    [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followUserButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
     [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
     [self.followUserButton setTitle:@"Follow" forState:UIControlStateNormal];
 }
+
 
 - (void)configureUnfollowButton
 {
     [self.followUserButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
     [self.followUserButton addTarget:self action:@selector(unfollowButtonTouchHandler) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.followUserButton setStyle:[UIColor stringrLightGrayColor] andBottomColor:[UIColor whiteColor]];
+    [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
     [self.followUserButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followUserButton setCornerRadius:15];
-    [self.followUserButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followUserButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
     [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
     [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+}
+
+
+- (void)configureFollowingAndFollowersButton
+{
+    [self.followingButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
+    [self.followingButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+    [self.followingButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+    [self.followingButton setCornerRadius:CGRectGetWidth(self.followingButton.frame) / 2];
+    [self.followingButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
+    [self.followingButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f]];
+    [self.followingButton setTitle:@"0" forState:UIControlStateNormal];
+    
+    [self.followersButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
+    [self.followersButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+    [self.followersButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+    [self.followersButton setCornerRadius:CGRectGetWidth(self.followersButton.frame) / 2];
+    [self.followersButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
+    [self.followersButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f]];
+    [self.followersButton setTitle:@"0" forState:UIControlStateNormal];
 }
 
 

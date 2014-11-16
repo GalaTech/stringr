@@ -125,7 +125,7 @@
 - (void)stringrFooterView:(StringrFooterView *)footerView didTapUploaderProfileImageButton:(UIButton *)sender uploader:(PFUser *)uploader
 {
     if (uploader) {
-        StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         [profileVC setUserForProfile:uploader];
         [profileVC setProfileReturnState:ProfileModalReturnState];
         
@@ -189,7 +189,7 @@
             if (users.count > 0) {
                 PFUser *user = [users firstObject];
                 
-                StringrProfileViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileID];
+                StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
                 [profileVC setUserForProfile:user];
                 [profileVC setProfileReturnState:ProfileModalReturnState];
                 
