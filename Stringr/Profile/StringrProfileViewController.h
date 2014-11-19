@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
-#import "QMBParallaxScrollViewController.h"
 
 typedef enum{
     ProfileModalReturnState = 0,
@@ -16,7 +15,7 @@ typedef enum{
     ProfileBackReturnState = 2
 } ProfileReturnState;
 
-@interface StringrProfileViewController : QMBParallaxScrollViewController<QMBParallaxScrollViewControllerDelegate>
+@interface StringrProfileViewController : UIViewController
 
 @property (strong, nonatomic) PFUser *userForProfile;
 @property (nonatomic) ProfileReturnState profileReturnState;

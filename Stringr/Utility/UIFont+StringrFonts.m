@@ -80,11 +80,17 @@
 }
 
 
-#pragma mark - Header Fonts
+#pragma mark - Profile
 
 + (UIFont *)stringrProfileNameFont
 {
-    return [UIFont fontWithName:@"Avenir" size:18];
+    return [UIFont fontWithName:@"Avenir Next" size:20.0f];
+}
+
+
++ (UIFont *)stringrProfileDescriptionFont
+{
+    return [UIFont fontWithName:@"Avenir Next" size:14.0f];
 }
 
 @end
