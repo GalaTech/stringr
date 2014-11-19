@@ -49,6 +49,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -75,6 +76,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     } else if (self.profileReturnState == ProfileBackReturnState) {
         
     }
+    /*
     // Instantiates the parallax VC with a top and bottom VC.
     self.topProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardProfileTopViewID];
     
@@ -93,13 +95,11 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     //self.delegate = self; // prevents deallocation
     self.maxHeightBorder = CGRectGetHeight(self.view.frame);
     [self enableTapGestureTopView:NO];
-    
+    */
+     
     [self.view setBackgroundColor:[UIColor stringrLightGrayColor]];
-    
-    [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(executeStuff) userInfo:nil repeats:NO];
-    
-    
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -121,22 +121,6 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     [super didReceiveMemoryWarning];
     
-}
-
-- (void)executeStuff
-{
-//    [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        [self changeTopHeight:350.0f];
-//    } completion:nil];
-    
-    StringrFollowingTableViewController *followingVC = [StringrFollowingTableViewController new];
-    
-//    [UIView animateWithDuration:0.33 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        [self reloadWithBottomViewController:followingVC];
-        
-        self.maxHeightBorder = CGRectGetHeight(self.view.frame);
-    [self enableTapGestureTopView:NO];
-//    } completion:nil];
 }
 
 

@@ -9,6 +9,7 @@
 #import "StringrActivityTableViewCell.h"
 #import "StringrPathImageView.h"
 #import "UIColor+StringrColors.h"
+#import "NSDate+StringrAdditions.h"
 
 @interface StringrActivityTableViewCell ()
 
@@ -118,7 +119,7 @@
             }
         }];
         
-        NSString *activityUploadDate = [StringrUtility timeAgoFromDate:object.createdAt];
+        NSString *activityUploadDate = [object.createdAt timeAgoFromDate];
         [self.activityCellDateLabel setText:activityUploadDate];
         
     } else if ([activityType isEqualToString:kStringrActivityTypeComment]) {
@@ -146,7 +147,7 @@
             }
         }];
         
-        NSString *activityUploadDate = [StringrUtility timeAgoFromDate:object.createdAt];
+        NSString *activityUploadDate = [object.createdAt timeAgoFromDate];
         [self.activityCellDateLabel setText:activityUploadDate];
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) {
         PFUser *activityUser = [object objectForKey:kStringrActivityFromUserKey];

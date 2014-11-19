@@ -11,6 +11,7 @@
 #import "StringrPathImageView.h"
 #import "STTweetLabel.h"
 #import "UIColor+StringrColors.h"
+#import "NSDate+StringrAdditions.h"
 
 @interface StringrCommentsTableViewCell ()
 
@@ -105,7 +106,7 @@
     NSString *commentorUsername = [StringrUtility usernameFormattedWithMentionSymbol:[_commentUser objectForKey:kStringrUserUsernameCaseSensitive]];
     [self.commentsProfileDisplayName setText:commentorUsername];
     
-    [self.commentsUploadDateTime setText:[StringrUtility timeAgoFromDate:object.createdAt]];
+    [self.commentsUploadDateTime setText:[object.createdAt timeAgoFromDate]];
     [self setupCommentTextWithText:[object objectForKey:kStringrActivityContentKey]];
     
     PFFile *profileImageFile = [_commentUser objectForKey:kStringrUserProfilePictureThumbnailKey];

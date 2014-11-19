@@ -11,6 +11,7 @@
 #import "UIFont+StringrFonts.h"
 #import "UIColor+StringrColors.h"
 #import "PFUser+StringrAdditions.h"
+#import "NSDate+StringrAdditions.h"
 
 @interface StringTableViewHeader ()
 
@@ -138,7 +139,7 @@
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          if (self.string) {
-                             NSString *uploadTime = [StringrUtility timeAgoFromDate:self.string.createdAt];
+                             NSString *uploadTime = [self.string.createdAt timeAgoFromDate];
                              [self.stringUploadDate setText:uploadTime];
                          } else {
                              [self.stringUploadDate setText:@"Now"];
