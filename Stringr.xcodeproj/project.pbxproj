@@ -135,6 +135,7 @@
 		ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6518CFC1E000682EDD /* KICamera.png */; };
 		ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */; };
 		ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */; };
+		ABE305311A10362B00FAC83B /* StringrProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABE305301A10362B00FAC83B /* StringrProfileHeaderView.xib */; };
 		ABF0554D192962C000BB08A7 /* StringrNoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF0554C192962C000BB08A7 /* StringrNoContentView.m */; };
 		ABF05552192BCE3500BB08A7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05551192BCE3500BB08A7 /* Reachability.m */; };
 		ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */; };
@@ -418,6 +419,7 @@
 		ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		ABDFDE6718CFC1E000682EDD /* ParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseImagePager.h; sourceTree = "<group>"; };
 		ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
+		ABE305301A10362B00FAC83B /* StringrProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringrProfileHeaderView.xib; path = Profile/StringrProfileHeaderView.xib; sourceTree = "<group>"; };
 		ABF0554B192962C000BB08A7 /* StringrNoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentView.h; path = StringrStringTable/StringrNoContentView.h; sourceTree = "<group>"; };
 		ABF0554C192962C000BB08A7 /* StringrNoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentView.m; path = StringrStringTable/StringrNoContentView.m; sourceTree = "<group>"; };
 		ABF05550192BCE3500BB08A7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -1185,6 +1187,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
+				ABE305301A10362B00FAC83B /* StringrProfileHeaderView.xib */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
 				BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */,
 				BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */,
@@ -1492,6 +1495,7 @@
 				ABA2F0671922BB430004A806 /* VideoOverlay.png in Resources */,
 				ABA2F0681922BB430004A806 /* VideoOverlay@2x.png in Resources */,
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
+				ABE305311A10362B00FAC83B /* StringrProfileHeaderView.xib in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
 				ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */,
