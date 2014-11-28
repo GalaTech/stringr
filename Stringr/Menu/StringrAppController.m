@@ -105,6 +105,8 @@
                                                             NSForegroundColorAttributeName: [UIColor grayColor],
                                                             NSFontAttributeName: [UIFont stringrPrimaryLabelFontWithSize:18.0f]
                                                             }];
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 }
 
 

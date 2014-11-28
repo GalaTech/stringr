@@ -42,4 +42,9 @@
 
 + (UIColor *)stringrLikedGreenColor;
 
+
+// 3rd Party Social Networks
++ (UIColor *)facebookBlueColor;
++ (UIColor *)twitterBlueColor;
+
 @end

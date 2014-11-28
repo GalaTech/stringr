@@ -135,6 +135,8 @@
 		ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6518CFC1E000682EDD /* KICamera.png */; };
 		ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */; };
 		ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */; };
+		ABE9DE811A27DB8C00B228F5 /* StringrColoredView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */; };
+		ABE9DE841A28026E00B228F5 /* StringrSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DE831A28026E00B228F5 /* StringrSegmentedView.m */; };
 		ABF0554D192962C000BB08A7 /* StringrNoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF0554C192962C000BB08A7 /* StringrNoContentView.m */; };
 		ABF05552192BCE3500BB08A7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05551192BCE3500BB08A7 /* Reachability.m */; };
 		ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */; };
@@ -418,6 +420,10 @@
 		ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		ABDFDE6718CFC1E000682EDD /* ParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseImagePager.h; sourceTree = "<group>"; };
 		ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
+		ABE9DE7F1A27DB8C00B228F5 /* StringrColoredView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrColoredView.h; path = Views/StringrColoredView.h; sourceTree = "<group>"; };
+		ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrColoredView.m; path = Views/StringrColoredView.m; sourceTree = "<group>"; };
+		ABE9DE821A28026E00B228F5 /* StringrSegmentedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSegmentedView.h; path = Views/StringrSegmentedView.h; sourceTree = "<group>"; };
+		ABE9DE831A28026E00B228F5 /* StringrSegmentedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSegmentedView.m; path = Views/StringrSegmentedView.m; sourceTree = "<group>"; };
 		ABF0554B192962C000BB08A7 /* StringrNoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentView.h; path = StringrStringTable/StringrNoContentView.h; sourceTree = "<group>"; };
 		ABF0554C192962C000BB08A7 /* StringrNoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentView.m; path = StringrStringTable/StringrNoContentView.m; sourceTree = "<group>"; };
 		ABF05550192BCE3500BB08A7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -1127,6 +1133,10 @@
 		BF3EDDC9183AAC630071E047 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ABE9DE7F1A27DB8C00B228F5 /* StringrColoredView.h */,
+				ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */,
+				ABE9DE821A28026E00B228F5 /* StringrSegmentedView.h */,
+				ABE9DE831A28026E00B228F5 /* StringrSegmentedView.m */,
 				ABC8883B19FA94BA00218F62 /* Button */,
 				BF170EBD184BEA9D0056ECE7 /* String */,
 				ABF0554E1929665F00BB08A7 /* No Content View */,
@@ -1591,6 +1601,7 @@
 				AB9D742E1892DAB5003BB2B8 /* StringrPhotoDetailTableViewController.m in Sources */,
 				BF3EDE4C1847C05D0071E047 /* StringrUserTableViewCell.m in Sources */,
 				AB5AFC1619F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m in Sources */,
+				ABE9DE841A28026E00B228F5 /* StringrSegmentedView.m in Sources */,
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
@@ -1599,6 +1610,7 @@
 				AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */,
 				ABA2F06B1922BB430004A806 /* ZCAssetCell.m in Sources */,
 				AB5C7E5319FF58B5005AFED0 /* StringrActionSheet.m in Sources */,
+				ABE9DE811A27DB8C00B228F5 /* StringrColoredView.m in Sources */,
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,

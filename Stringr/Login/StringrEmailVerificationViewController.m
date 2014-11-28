@@ -12,6 +12,7 @@
 #import "StringrAppController.h"
 #import "StringrAppDelegate.h"
 #import "UIColor+StringrColors.h"
+#import "StringrColoredView.h"
 
 @interface StringrEmailVerificationViewController ()
 
@@ -39,7 +40,7 @@
     [super viewDidLoad];
     self.title = @"Email Verification";
     
-    [self addStringrColoredHeaderToView];
+    [self.view addSubview:[StringrColoredView defaultColoredView]];
     
     // load profile image from property or user info
     if (self.userProfileImage) {
@@ -117,53 +118,6 @@
             }
         }];
     }
-}
-
-
-
-#pragma mark - Private
-
-- (void)addStringrColoredHeaderToView
-{
-    UIView *headerViewColoredLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 4.0f)];
-    
-    CGSize colorBlockSize = CGSizeMake(CGRectGetWidth(headerViewColoredLine.frame) / 7, 3.0f);
-    
-    for (int i = 0; i < 7; i++) {
-        UIImageView *colorBlock = [[UIImageView alloc] initWithFrame:CGRectMake(i * colorBlockSize.width, 0, colorBlockSize.width, colorBlockSize.height)];
-        
-        UIColor *blockColor = [[UIColor alloc] init];
-        switch (i) {
-            case 0:
-                blockColor = [UIColor stringrLogoRedColor];
-                break;
-            case 1:
-                blockColor = [UIColor stringrLogoOrangeColor];
-                break;
-            case 2:
-                blockColor = [UIColor stringrLogoYellowColor];
-                break;
-            case 3:
-                blockColor = [UIColor stringrLogoGreenColor];
-                break;
-            case 4:
-                blockColor = [UIColor stringrLogoTurquoiseColor];
-                break;
-            case 5:
-                blockColor = [UIColor stringrLogoBlueColor];
-                break;
-            case 6:
-                blockColor = [UIColor stringrLogoPurpleColor];
-                break;
-            default:
-                break;
-        }
-        
-        [colorBlock setBackgroundColor:blockColor];
-        [headerViewColoredLine addSubview:colorBlock];
-    }
-    
-    [self.view addSubview:headerViewColoredLine];
 }
 
 

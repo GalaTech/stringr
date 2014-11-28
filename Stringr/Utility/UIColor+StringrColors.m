@@ -118,4 +118,20 @@
     return [self colorwithRed:109.0f green:159.0f blue:96.0f];
 }
 
+
+#pragma mark - Twitter
+
++ (UIColor *)twitterBlueColor
+{
+    return [UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0];
+}
+
+
+#pragma mark - Facebook
+
++ (UIColor *)facebookBlueColor
+{
+    return [UIColor colorWithRed:59/255.0f green:89/255.0f blue:152/255.0f alpha:1.0];
+}
+
 @end

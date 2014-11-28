@@ -76,7 +76,7 @@ static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
     [[PFUser currentUser] refreshInBackgroundWithTarget:self selector:@selector(loginUserFromRefresh)];
 
     // changes the modal transition from a cross-fade
-    [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -505,10 +505,12 @@ static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
         // The login failed. Check error to see why.
         UIAlertView *invalidLoginCredentials = [[UIAlertView alloc] initWithTitle:@"Unable to Login" message:@"We cannot log you in with that username and password combination!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [invalidLoginCredentials show];
-    } else if (error.code == 201) { // 201 = no password entered
+    }
+    else if (error.code == 201) { // 201 = no password entered
         UIAlertView *noPasswordEntered = [[UIAlertView alloc] initWithTitle:@"Invalid Password" message:@"Please enter your password!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [noPasswordEntered show];
-    } else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
+    }
+    else if ( [StringrUtility usernameUserCanLogin:user] || [StringrUtility facebookUserCanLogin:user] || [StringrUtility twitterUserCanLogin:user] ) {
         // instantiates the main logged in content area
         [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
         
@@ -526,7 +528,8 @@ static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
         
         // alert delegate that we logged in with user
         [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
-    } else if ([StringrUtility usernameUserNeedsToVerifyEmail:user]) {
+    }
+    else if ([StringrUtility usernameUserNeedsToVerifyEmail:user]) {
         [self.userNeedsToVerifyEmailButton setHidden:NO];
         StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
         [self.navigationController pushViewController:emailVerificationVC animated:YES];

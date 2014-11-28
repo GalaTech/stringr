@@ -8,6 +8,7 @@
 
 #import "StringrNoContentView.h"
 #import "StringrAppDelegate.h"
+#import "StringrColoredView.h"
 #import "UIColor+StringrColors.h"
 
 @interface StringrNoContentView ()
@@ -67,7 +68,7 @@
         [self.exploreOptionButton setUserInteractionEnabled:NO]; // Is set to yes when a title is set for the button
         [self addSubview:self.exploreOptionButton];
 
-        [self addSubview:[self setupColoredHeaderRibbon]];
+        [self addSubview:[StringrColoredView defaultColoredView]];
         [self setBackgroundColor:[UIColor stringrLightGrayColor]];
     }
     
@@ -106,51 +107,5 @@
     [self.exploreOptionButton setUserInteractionEnabled:YES];
 }
 
-
-
-#pragma mark - Private
-
-- (UIView *)setupColoredHeaderRibbon
-{
-    UIView *headerViewColoredLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame) / 2, 2.0f)];
-    
-    CGSize colorBlockSize = CGSizeMake(CGRectGetWidth(headerViewColoredLine.frame) / 7, 2.0f);
-    
-    for (int i = 0; i < 7; i++) {
-        UIImageView *colorBlock = [[UIImageView alloc] initWithFrame:CGRectMake(i * colorBlockSize.width, 0, colorBlockSize.width, colorBlockSize.height)];
-        
-        UIColor *blockColor = [[UIColor alloc] init];
-        switch (i) {
-            case 0:
-                blockColor = [UIColor stringrLogoRedColor];
-                break;
-            case 1:
-                blockColor = [UIColor stringrLogoOrangeColor];
-                break;
-            case 2:
-                blockColor = [UIColor stringrLogoYellowColor];
-                break;
-            case 3:
-                blockColor = [UIColor stringrLogoGreenColor];
-                break;
-            case 4:
-                blockColor = [UIColor stringrLogoTurquoiseColor];
-                break;
-            case 5:
-                blockColor = [UIColor stringrLogoBlueColor];
-                break;
-            case 6:
-                blockColor = [UIColor stringrLogoPurpleColor];
-                break;
-            default:
-                break;
-        }
-        
-        [colorBlock setBackgroundColor:blockColor];
-        [headerViewColoredLine addSubview:colorBlock];
-    }
-    
-    return headerViewColoredLine;
-}
 
 @end

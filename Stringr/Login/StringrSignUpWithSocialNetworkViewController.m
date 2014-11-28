@@ -13,6 +13,7 @@
 #import "StringrPathImageView.h"
 #import "StringrAppDelegate.h"
 #import "UIColor+StringrColors.h"
+#import "StringrColoredView.h"
 
 @interface StringrSignUpWithSocialNetworkViewController () <UIAlertViewDelegate>
 
@@ -309,47 +310,20 @@
 }
 
 
-
 #pragma mark - UITableViewDelegate
-
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    switch (indexPath.row) {
-        case 0:
-            return 128.0f;
-            break;
-        case 1:
-            return 3.0f;
-            break;
-        case 4:
-            return 3.0f;
-            break;
-        default:
-            return 46.0f;
-            break;
-    }
-}
-*/
  
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerViewColoredLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 4.0f)];
-    
     if (self.networkType == FacebookNetworkType) {
-        UIImageView *facebookBarColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(headerViewColoredLine.frame), CGRectGetHeight(headerViewColoredLine.frame))];
-        [facebookBarColorImageView setBackgroundColor:[UIColor colorWithRed:59/255.0f green:89/255.0f blue:152/255.0f alpha:1.0]];
-        [headerViewColoredLine addSubview:facebookBarColorImageView];
-    } else if (self.networkType == TwitterNetworkType) {
-        UIImageView *twitterBarColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(headerViewColoredLine.frame), CGRectGetHeight(headerViewColoredLine.frame))];
-        [twitterBarColorImageView setBackgroundColor:[UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0]];
-        [headerViewColoredLine addSubview:twitterBarColorImageView];
+        return [StringrColoredView coloredViewWithColors:@[[UIColor facebookBlueColor]]];
+        
+    }
+    else if (self.networkType == TwitterNetworkType) {
+        return [StringrColoredView coloredViewWithColors:@[[UIColor twitterBlueColor]]];
     }
     
-    return headerViewColoredLine;
+    return [StringrColoredView defaultColoredView];
 }
-
 
 
 #pragma mark - UITextField Delegate
@@ -370,6 +344,7 @@
         self.reenteredPassword = textField.text;
     }
 }
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -393,7 +368,6 @@
 }
 
 
-
 #pragma mark - UIActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -409,7 +383,6 @@
     UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:profileImageIndexPath];
     [selectedCell setSelected:NO animated:YES];
 }
-
 
 
 #pragma mark - StringrLoginViewDownloadingSocialNetworkInfoDelegate
@@ -431,5 +404,6 @@
         [self cleanupSignup];
     }
 }
+
 
 @end
