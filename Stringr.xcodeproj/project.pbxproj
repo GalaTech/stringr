@@ -137,6 +137,7 @@
 		ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */; };
 		ABE9DE811A27DB8C00B228F5 /* StringrColoredView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */; };
 		ABE9DE841A28026E00B228F5 /* StringrSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DE831A28026E00B228F5 /* StringrSegmentedView.m */; };
+		ABE9DEDD1A29463F00B228F5 /* UIImage+StringrImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DEDC1A29463F00B228F5 /* UIImage+StringrImageAdditions.m */; };
 		ABF0554D192962C000BB08A7 /* StringrNoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF0554C192962C000BB08A7 /* StringrNoContentView.m */; };
 		ABF05552192BCE3500BB08A7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05551192BCE3500BB08A7 /* Reachability.m */; };
 		ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */; };
@@ -424,6 +425,8 @@
 		ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrColoredView.m; path = Views/StringrColoredView.m; sourceTree = "<group>"; };
 		ABE9DE821A28026E00B228F5 /* StringrSegmentedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSegmentedView.h; path = Views/StringrSegmentedView.h; sourceTree = "<group>"; };
 		ABE9DE831A28026E00B228F5 /* StringrSegmentedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSegmentedView.m; path = Views/StringrSegmentedView.m; sourceTree = "<group>"; };
+		ABE9DEDB1A29463F00B228F5 /* UIImage+StringrImageAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+StringrImageAdditions.h"; path = "Utility/UIImage+StringrImageAdditions.h"; sourceTree = "<group>"; };
+		ABE9DEDC1A29463F00B228F5 /* UIImage+StringrImageAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+StringrImageAdditions.m"; path = "Utility/UIImage+StringrImageAdditions.m"; sourceTree = "<group>"; };
 		ABF0554B192962C000BB08A7 /* StringrNoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNoContentView.h; path = StringrStringTable/StringrNoContentView.h; sourceTree = "<group>"; };
 		ABF0554C192962C000BB08A7 /* StringrNoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNoContentView.m; path = StringrStringTable/StringrNoContentView.m; sourceTree = "<group>"; };
 		ABF05550192BCE3500BB08A7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 				AB5AFBFF19F8B3A9002F88B9 /* UIFont+StringrFonts.m */,
 				AB5AFC0619F9C920002F88B9 /* UIDevice+StringrAdditions.h */,
 				AB5AFC0719F9C920002F88B9 /* UIDevice+StringrAdditions.m */,
+				ABE9DEDB1A29463F00B228F5 /* UIImage+StringrImageAdditions.h */,
+				ABE9DEDC1A29463F00B228F5 /* UIImage+StringrImageAdditions.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1643,6 +1648,7 @@
 				AB6CB1D01906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m in Sources */,
 				ABC8883E19FA957100218F62 /* StringrImageAndTextButton.m in Sources */,
 				AB04A2B319D523050030C241 /* StringrStringStatistics.m in Sources */,
+				ABE9DEDD1A29463F00B228F5 /* UIImage+StringrImageAdditions.m in Sources */,
 				ABF0554D192962C000BB08A7 /* StringrNoContentView.m in Sources */,
 				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
 				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,

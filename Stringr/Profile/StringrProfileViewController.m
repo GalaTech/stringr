@@ -19,6 +19,7 @@
 #import "StringrFollowingTableViewController.h"
 #import "ACPButton.h"
 #import "StringrConnectionsTableViewController.h"
+#import "StringrSegmentedView.h"
 
 static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
 
@@ -29,7 +30,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
  * as a modal presentation, or just pushed onto a nav controller. The return state provides information on what return
  * navigation item will be displayed.
  */
-@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate>
+@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, StringrSegmentedViewDelegate>
 
 @property (weak, nonatomic) StringrProfileTopViewController *topProfileVC;
 @property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
@@ -45,6 +46,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 @property (strong, nonatomic) IBOutlet UILabel *followersLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *profileDescriptionLabel;
+
+@property (strong, nonatomic) IBOutlet StringrSegmentedView *segmentedControl;
 
 @property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
 
@@ -95,7 +98,6 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         
     }
     
-    [self setupAppearance];
     [self loadProfile];
 }
 
@@ -103,6 +105,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self setupAppearance];
     
     // Sets the back button to have no text, just the <
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
@@ -141,6 +145,11 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     
     self.profileDescriptionLabel.font = [UIFont stringrProfileDescriptionFont];
     self.profileDescriptionLabel.textColor = [UIColor stringrSecondaryLabelColor];
+    
+    self.segmentedControl.delegate = self;
+    StringrSegment *segment = [[StringrSegment alloc] initWithTitle:@"148" image:[UIImage imageNamed:@"liked_strings_icon"]];
+    
+    self.segmentedControl.segments = @[segment, segment, segment, segment];
     
     [self configureFollowingAndFollowersButton];
 }
@@ -427,5 +436,12 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     }
 }
 
+
+#pragma mark - StringrSegmentedView Delegate
+
+- (void)segmentedView:(StringrSegmentedView *)segmentedView didSelectItemAtIndex:(NSUInteger)index
+{
+    NSLog(@"tapped %ld", index);
+}
 
 @end

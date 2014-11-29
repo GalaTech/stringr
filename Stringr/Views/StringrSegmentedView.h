@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol StringrSegmentedViewDelegate;
+
 @interface StringrSegmentedView : UIView
 
-@property (strong, nonatomic, readonly) NSArray *segments;
+@property (strong, nonatomic) NSArray *segments;
+@property (weak, nonatomic) id<StringrSegmentedViewDelegate> delegate;
 
 /**
  * Creates a new segmented control with the specified frame and segments.
@@ -22,6 +25,12 @@
 
 @end
 
+@protocol StringrSegmentedViewDelegate <NSObject>
+
+- (void)segmentedView:(StringrSegmentedView *)segmentedView didSelectItemAtIndex:(NSUInteger)index;
+
+@end
+
 
 @interface StringrSegment : NSObject
 
@@ -29,5 +38,10 @@
 @property (strong, nonatomic) UIImage *image;
 
 - (instancetype)initWithTitle:(NSString *)title image:(UIImage *)image;
+
+@end
+
+
+@interface StringrSegmentContainer : UIView
 
 @end
