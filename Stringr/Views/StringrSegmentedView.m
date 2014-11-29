@@ -108,6 +108,7 @@
             [segmentButton setImage:segmentImage forState:UIControlStateNormal];
             segmentButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
             segmentButton.tintColor = [UIColor lightGrayColor];
+            segmentButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -3.0, 12.0, -3.0f);
             
             [segmentContainer addSubview:segmentButton];
             [segmentContainer bringSubviewToFront:segmentButton];
