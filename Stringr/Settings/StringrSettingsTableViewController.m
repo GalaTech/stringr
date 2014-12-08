@@ -27,6 +27,8 @@
 #import "UIColor+StringrColors.h"
 
 
+static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettingsTableViewStoryboard";
+
 @interface StringrSettingsTableViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, StringrWriteAndEditTextViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ZCImagePickerControllerDelegate>
 
 @end
@@ -34,6 +36,12 @@
 @implementation StringrSettingsTableViewController
 
 #pragma mark - Lifecycle
+
++ (StringrSettingsTableViewController *)viewController
+{
+    UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:StringrSettingsTableViewStoryboardName bundle:nil];
+    return (StringrSettingsTableViewController *)[settingsStoryboard instantiateInitialViewController];
+}
 
 - (void)viewDidLoad
 {
@@ -43,7 +51,7 @@
 	self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
     // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"cancel_button"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStyleDone target:self
                                                                             action:@selector(showMenu)];
 }
@@ -77,7 +85,8 @@
 
 - (void)showMenu
 {
-    [StringrUtility showMenu:self.frostedViewController];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [StringrUtility showMenu:self.frostedViewController];
 }
 
 - (void)composeSupportEmail

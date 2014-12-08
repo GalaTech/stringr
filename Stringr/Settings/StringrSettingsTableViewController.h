@@ -11,5 +11,6 @@
 
 @interface StringrSettingsTableViewController : UITableViewController
 
++ (StringrSettingsTableViewController *)viewController;
 
 @end

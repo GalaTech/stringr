@@ -22,6 +22,9 @@
 #import "StringrSegmentedView.h"
 #import "StringrFollowingTableViewController.h"
 #import "StringrNavigateCommand.h"
+#import "StringrSettingsTableViewController.h"
+#import "StringrNavigationController.h"
+
 
 static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
 
@@ -82,10 +85,12 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     // Guarantee's that if the passed in user is the current user we provide the ability to edit that profile
     if ([self.userForProfile.username isEqualToString:[[PFUser currentUser] username]]) {
         self.title = @"My Profile";
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                                  style:UIBarButtonItemStyleBordered
-                                                                                 target:self
-                                                                                 action:@selector(pushToEditProfile)];
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+//                                                                                  style:UIBarButtonItemStyleBordered
+//                                                                                 target:self
+//                                                                                 action:@selector(pushToEditProfile)];
+        UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings_button"] style:UIBarButtonItemStylePlain target:self action:@selector(pushToEditProfile)];
+        self.navigationItem.rightBarButtonItem = settingsButton;
     }
     
     // Sets the 'return' button based off of what state the profile is in. Modal, Menu, or Back.
@@ -112,14 +117,12 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     [super viewWillAppear:animated];
     
-    
-    
     // Sets the back button to have no text, just the <
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     [self.navigationItem setBackBarButtonItem:backButton];
     
-    self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
+    self.usernameAndDisplayNameAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(setupAnimatedProfileName) userInfo:nil repeats:YES];
 }
 
 
@@ -150,6 +153,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 
 - (NSArray *)profileViewControllers
 {
+    // Lazily instantiate the array of container view controllers.
+    // Each one object creates a command, which then lazily instantiates the vc itself
     if (!_profileViewControllers) {
         NSArray *controllerNames = @[@"StringrFollowingTableViewController", @"StringrPopularTableViewController", @"StringrDiscoveryTableViewController", @"StringrFollowingTableViewController"];
         
@@ -282,19 +287,19 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
                 }
             }];
             
-            PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-            [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
-            [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int numberOfStrings, NSError *error) {
-                if (!error) {
-                    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
-                    if (numberOfStrings == 1) {
-                        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
-                    }
-                    
-//                    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
-                    [[StringrCache sharedCache] setStringCount:@(numberOfStrings) forUser:self.userForProfile];
-                }
-            }];
+//            PFQuery *numberOfStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+//            [numberOfStringsQuery whereKey:kStringrStringUserKey equalTo:self.userForProfile];
+//            [numberOfStringsQuery countObjectsInBackgroundWithBlock:^(int numberOfStrings, NSError *error) {
+//                if (!error) {
+//                    NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", numberOfStrings];
+//                    if (numberOfStrings == 1) {
+//                        numberOfStringsText = [NSString stringWithFormat:@"%d String", numberOfStrings];
+//                    }
+//                    
+////                    [self.profileNumberOfStringsLabel setText:numberOfStringsText];
+//                    [[StringrCache sharedCache] setStringCount:@(numberOfStrings) forUser:self.userForProfile];
+//                }
+//            }];
         }
 //    }
     
@@ -356,12 +361,6 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
-
-
 - (void)configureFollowingAndFollowersButton
 {
     [self.followButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
@@ -393,13 +392,19 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
-
 #pragma mark - Actions
 
 - (void)closeProfileVC
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+- (IBAction)showMenu
+{
+    [StringrUtility showMenu:self.frostedViewController];
+}
+
 
 - (void)addNewString
 {
@@ -415,6 +420,10 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 
 - (void)pushToEditProfile
 {
+    StringrSettingsTableViewController *settingsVC = [StringrSettingsTableViewController viewController];
+    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
+    
+    [self presentViewController:navVC animated:YES completion:nil];
     /*
     StringrEditProfileViewController *editProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditProfileID];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;

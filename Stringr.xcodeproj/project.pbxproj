@@ -120,6 +120,7 @@
 		ABA3D04019EED77A00AD0EB8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03D19EED77A00AD0EB8 /* Bolts.framework */; };
 		ABA3D04119EED77A00AD0EB8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03E19EED77A00AD0EB8 /* Parse.framework */; };
 		ABA3D04219EED77A00AD0EB8 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */; };
+		ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB9A0F31A087461003B9C5F /* StringrLabel.m */; };
 		ABC8883E19FA957100218F62 /* StringrImageAndTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC8883D19FA957100218F62 /* StringrImageAndTextButton.m */; };
@@ -395,6 +396,7 @@
 		ABA3D03D19EED77A00AD0EB8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "External/Parse Framework/Bolts.framework"; sourceTree = "<group>"; };
 		ABA3D03E19EED77A00AD0EB8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "External/Parse Framework/Parse.framework"; sourceTree = "<group>"; };
 		ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "External/Parse Framework/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
+		ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrSettingsTableViewStoryboard.storyboard; path = StringrStringTable/StringrSettingsTableViewStoryboard.storyboard; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
 		ABB9A0F21A087461003B9C5F /* StringrLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLabel.h; path = Utility/StringrLabel.h; sourceTree = "<group>"; };
@@ -1242,6 +1244,7 @@
 			children = (
 				BF3EDE15183E9FD40071E047 /* StringrSettingsTableViewController.h */,
 				BF3EDE16183E9FD40071E047 /* StringrSettingsTableViewController.m */,
+				ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */,
 				ABFBE60918D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.h */,
 				ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */,
 				AB6CB1C819059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.h */,
@@ -1519,6 +1522,7 @@
 				AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */,
 				AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */,
 				AB3C1DE41A126ABB00ACED69 /* StringrProfileStoryboard.storyboard in Resources */,
+				ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */,
 				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
 				BF8349E218297FD600D15963 /* Main.storyboard in Resources */,
 			);

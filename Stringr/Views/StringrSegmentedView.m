@@ -197,8 +197,6 @@ static CGFloat const StringrSegmentDividerHeightPercentage = 0.75f;
     
     previouslySelectedButton.backgroundColor = [UIColor clearColor];
     
-//    selectedView.backgroundColor = [UIColor grayColor];
-    
     self.selectedSegmentIndex = selectedView.tag;
 }
 
