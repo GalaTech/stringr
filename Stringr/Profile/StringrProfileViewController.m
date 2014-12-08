@@ -423,7 +423,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     StringrSettingsTableViewController *settingsVC = [StringrSettingsTableViewController viewController];
     StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
     
-    [self presentViewController:navVC animated:YES completion:nil];
+    [self.navigationController pushViewController:settingsVC animated:YES];
     /*
     StringrEditProfileViewController *editProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditProfileID];
     StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;

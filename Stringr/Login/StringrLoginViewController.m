@@ -75,9 +75,7 @@ static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
     
     [[PFUser currentUser] refreshInBackgroundWithTarget:self selector:@selector(loginUserFromRefresh)];
 
-    // changes the modal transition from a cross-fade
     [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self

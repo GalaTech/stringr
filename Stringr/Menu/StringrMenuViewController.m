@@ -109,17 +109,7 @@
     [self.cameraButton setImage:[UIImage imageNamed:@"camera_button"] forState:UIControlStateNormal];
     [self.cameraButton addTarget:self action:@selector(cameraButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
-    UIImageView *settingsImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [settingsImage setImage:[UIImage imageNamed:@"settings_button"]];
-    
-    self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(18, 26.5, 30, 30)];
-    [self.settingsButton setImage:[UIImage imageNamed:@"settings_button"] forState:UIControlStateNormal];
-    [self.settingsButton addTarget:self action:@selector(settingsButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
-    
     [view addSubview:self.cameraButton];
-    [view addSubview:self.settingsButton];
     [view addSubview:self.profileImageView];
     [view addSubview:self.profileNameLabel];
 
@@ -184,16 +174,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNSNotificationCenterUploadNewStringKey object:nil];
 }
 
-- (void)settingsButtonTouchHandler:(UIButton *)sender
-{
-    StringrSettingsTableViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSettingsID];
-    
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
-    
-    [self.frostedViewController setContentViewController:navVC];
-    
-    [self.frostedViewController hideMenuViewController];
-}
 
 // loaded from editing user profile
 - (void)updateUserProfileImage:(NSNotification *)notification

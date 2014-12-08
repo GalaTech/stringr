@@ -59,7 +59,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="PnL-Lw-NaG" userLabel="Profile Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hku-gY-Yrc" userLabel="Following Button" customClass="ACPButton">
                                         <rect key="frame" x="192" y="37" width="35" height="35"/>
@@ -127,8 +127,7 @@
                                         <color key="textColor" red="0.2113196332" green="0.2113196332" blue="0.2113196332" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="3" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhy-ew-9b4" userLabel="Description Label">
-                                        <rect key="frame" x="10" y="106" width="300" height="3"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="0.0" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhy-ew-9b4" userLabel="Description Label">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
@@ -163,7 +162,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="DSY-jG-mlE" customClass="StringrSegmentedView">
-                                        <rect key="frame" x="0.0" y="117" width="320" height="51"/>
+                                        <rect key="frame" x="0.0" y="114" width="320" height="51"/>
                                         <color key="backgroundColor" red="0.593094711" green="1" blue="0.9159656504" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="Vkx-xE-WgZ"/>
@@ -182,7 +181,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXC-tZ-2pu" userLabel="Stringr Colored View" customClass="StringrColoredView">
-                                        <rect key="frame" x="0.0" y="167" width="320" height="1"/>
+                                        <rect key="frame" x="0.0" y="164" width="320" height="1"/>
                                         <color key="backgroundColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="lIP-e8-UQC"/>
@@ -237,7 +236,7 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byb-d1-SqW">
-                                <rect key="frame" x="0.0" y="168" width="320" height="400"/>
+                                <rect key="frame" x="0.0" y="165" width="320" height="403"/>
                                 <connections>
                                     <segue destination="PBn-6d-MWG" kind="embed" identifier="profilePageViewSegue" id="Drf-q8-Z6z"/>
                                 </connections>

@@ -51,9 +51,9 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
 	self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
     // Creates the navigation item to access the menu
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"cancel_button"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                             style:UIBarButtonItemStyleDone target:self
-                                                                            action:@selector(showMenu)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"cancel_button"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                                                                             style:UIBarButtonItemStyleDone target:self
+//                                                                            action:@selector(showMenu)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -415,11 +415,11 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
         StringrAppDelegate *stringrAppDelegate = (StringrAppDelegate *)[[UIApplication sharedApplication] delegate];
         StringrLoginViewController *loginVC = [StringrLoginViewController viewController];
         [loginVC setDelegate:stringrAppDelegate.rootViewController];
+        [loginVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
         
         StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];
         
         [rootVC presentViewController:loginNavVC animated:YES completion:^{
-            
             // forces the main content area to be blank with no content. That way if a user logs
             // back in we can easily reinstantiate the content area without any data remaining from the previous
             // user
