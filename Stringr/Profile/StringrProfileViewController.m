@@ -20,6 +20,8 @@
 #import "ACPButton.h"
 #import "StringrConnectionsTableViewController.h"
 #import "StringrSegmentedView.h"
+#import "StringrFollowingTableViewController.h"
+#import "StringrNavigateCommand.h"
 
 static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
 
@@ -30,10 +32,10 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
  * as a modal presentation, or just pushed onto a nav controller. The return state provides information on what return
  * navigation item will be displayed.
  */
-@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, StringrSegmentedViewDelegate>
+@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property (weak, nonatomic) StringrProfileTopViewController *topProfileVC;
-@property (strong, nonatomic) StringrProfileTableViewController *tableProfileVC;
+@property (strong, nonatomic) NSArray *profileViewControllers;
+@property (strong, nonatomic) UIPageViewController *pageViewController;
 
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet StringrPathImageView *profileImage;
@@ -98,7 +100,11 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         
     }
     
+    [self setupAppearance];
     [self loadProfile];
+    
+    StringrNavigateCommand *command = self.profileViewControllers[0];
+    [command execute];
 }
 
 
@@ -106,7 +112,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     [super viewWillAppear:animated];
     
-    [self setupAppearance];
+    
     
     // Sets the back button to have no text, just the <
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
@@ -132,6 +138,40 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"profilePageViewSegue"]) {
+        self.pageViewController = segue.destinationViewController;
+    }
+}
+
+
+#pragma mark - Accessors
+
+- (NSArray *)profileViewControllers
+{
+    if (!_profileViewControllers) {
+        NSArray *controllerNames = @[@"StringrFollowingTableViewController", @"StringrPopularTableViewController", @"StringrDiscoveryTableViewController", @"StringrFollowingTableViewController"];
+        
+        NSMutableArray *profileViewControllers = [[NSMutableArray alloc] initWithCapacity:controllerNames.count];
+        
+        for (NSString *name in controllerNames) {
+            StringrNavigateCommand *command = [[StringrNavigateCommand alloc] initWithViewControllerClass:NSClassFromString(name) delegate:self];
+            
+            command.segmentDisplayBlock = ^(UIViewController *viewController) {
+                [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+            };
+                 
+            [profileViewControllers addObject:command];
+        }
+        
+        _profileViewControllers = profileViewControllers;
+    }
+    
+    return _profileViewControllers;
+}
+
+
 #pragma mark - Private
 
 - (void)setupAppearance
@@ -146,10 +186,16 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     self.profileDescriptionLabel.font = [UIFont stringrProfileDescriptionFont];
     self.profileDescriptionLabel.textColor = [UIColor stringrSecondaryLabelColor];
     
-    self.segmentedControl.delegate = self;
-    StringrSegment *segment = [[StringrSegment alloc] initWithTitle:@"148" image:[UIImage imageNamed:@"liked_strings_icon"]];
+    StringrSegment *primarySegment = [StringrSegment new];
+    primarySegment.title = @"207";
+    primarySegment.imageName = @"liked_strings_icon";
+
+    StringrSegment *segment = [StringrSegment new];
+    segment.title = @"149";
+    segment.imageName = @"liked_strings_icon";
     
-    self.segmentedControl.segments = @[segment, segment, segment, segment];
+    self.segmentedControl.segments = @[primarySegment, segment, segment, segment];
+    [self.segmentedControl addTarget:self action:@selector(segmentedControlIndexDidChange:) forControlEvents:UIControlEventValueChanged];
     
     [self configureFollowingAndFollowersButton];
 }
@@ -167,10 +213,15 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     }
     
     [UIView transitionWithView:self.usernameLabel
-                      duration:1.0 options:UIViewAnimationOptionTransitionFlipFromTop
+                      duration:0.5 options:UIViewAnimationOptionCurveEaseOut
                     animations:^{
-                        [self.usernameLabel setText:nameToDisplay];
-                    } completion:nil];
+                        self.usernameLabel.alpha = 0.0f;
+                    } completion:^(BOOL finished) {
+                        [UIView transitionWithView:self.usernameLabel duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            [self.usernameLabel setText:nameToDisplay];
+                            self.usernameLabel.alpha = 1.0f;
+                        } completion:nil];
+                    }];
 }
 
 
@@ -194,20 +245,22 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     
     // sets the number of following/followers/number of Strings text for the users profile
     // Sets via cache if available and querries if not
-    if (userAttributes) {
-        NSNumber *currentUserFollowingCount = [[StringrCache sharedCache] followingCountForUser:self.userForProfile];
-        [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [currentUserFollowingCount intValue]] forState:UIControlStateNormal];
-        
-        NSNumber *currentUserFollowerCount = [[StringrCache sharedCache] followerCountForUser:self.userForProfile];
-        [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]] forState:UIControlStateNormal];
-        
-        NSNumber *numberOfStrings = [[StringrCache sharedCache] stringCountForUser:self.userForProfile];
-        NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", [numberOfStrings intValue]];
-        if ([numberOfStrings intValue] == 1) {
-            numberOfStringsText = [NSString stringWithFormat:@"%d String", [numberOfStrings intValue]];
-        }
-//        [self.profileNumberOfStringsLabel setText:numberOfStringsText];
-    } else {
+//    if (userAttributes) {
+//        NSNumber *currentUserFollowingCount = [[StringrCache sharedCache] followingCountForUser:self.userForProfile];
+//        [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [currentUserFollowingCount intValue]] forState:UIControlStateNormal];
+//        
+//        NSNumber *currentUserFollowerCount = [[StringrCache sharedCache] followerCountForUser:self.userForProfile];
+//        [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [currentUserFollowerCount intValue]] forState:UIControlStateNormal];
+//        
+//        NSNumber *numberOfStrings = [[StringrCache sharedCache] stringCountForUser:self.userForProfile];
+//        NSString *numberOfStringsText = [NSString stringWithFormat:@"%d Strings", [numberOfStrings intValue]];
+//        if ([numberOfStrings intValue] == 1) {
+//            numberOfStringsText = [NSString stringWithFormat:@"%d String", [numberOfStrings intValue]];
+//        }
+////        [self.profileNumberOfStringsLabel setText:numberOfStringsText];
+//    }
+//    
+//    else {
         @synchronized(self) {
             PFQuery *followingUserActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
             [followingUserActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
@@ -243,7 +296,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
                 }
             }];
         }
-    }
+//    }
     
     // loads follow button and determines the status of the current user following the profile user
 //    self.followUserButtonLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -315,8 +368,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     [self.followButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followButton setCornerRadius:CGRectGetWidth(self.followingButton.frame) / 2];
-    [self.followButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
-    [self.followButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:19.0f]];
+    [self.followButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:16.0f]];
     [self.followButton setTitle:@"0" forState:UIControlStateNormal];
     [self.followButton.titleLabel setTextColor:[UIColor darkGrayColor]];
     
@@ -324,8 +377,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     [self.followingButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followingButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followingButton setCornerRadius:CGRectGetWidth(self.followingButton.frame) / 2];
-    [self.followingButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
-    [self.followingButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:19.0f]];
+    [self.followingButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followingButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:16.0f]];
     [self.followingButton setTitle:@"0" forState:UIControlStateNormal];
     [self.followingButton.titleLabel setTextColor:[UIColor darkGrayColor]];
     
@@ -333,8 +386,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     [self.followersButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followersButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followersButton setCornerRadius:CGRectGetWidth(self.followersButton.frame) / 2];
-    [self.followersButton setBorderStyle:[UIColor darkGrayColor] andInnerColor:nil];
-    [self.followersButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:19.0f]];
+    [self.followersButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
+    [self.followersButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:16.0f]];
     [self.followersButton setTitle:@"0" forState:UIControlStateNormal];
     [self.followersButton.titleLabel setTextColor:[UIColor darkGrayColor]];
 }
@@ -399,24 +452,62 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
+- (IBAction)segmentedControlIndexDidChange:(StringrSegmentedView *)segmentedView
+{
+    NSInteger currentIndex = segmentedView.selectedSegmentIndex;
+    
+    StringrNavigateCommand *command = self.profileViewControllers[currentIndex];
+    [command execute];
+}
+
+
 
 #pragma mark - StringrEditProfile Delegate
 
 - (void)setProfilePhoto:(UIImage *)profilePhoto
 {
-    [self.topProfileVC.profileImage setImage:profilePhoto];
+//    [self.topProfileVC.profileImage setImage:profilePhoto];
 }
 
 - (void)setProfileName:(NSString *)name
 {
-    self.topProfileVC.profileNameLabel.text = name;
+//    self.topProfileVC.profileNameLabel.text = name;
 }
 
 - (void)setProfileDescription:(NSString *)description
 {
-    self.topProfileVC.profileDescriptionLabel.text = description;
+//    self.topProfileVC.profileDescriptionLabel.text = description;
 }
 
+
+#pragma mark - UIPageViewController DataSource
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
+    NSInteger index = self.segmentedControl.selectedSegmentIndex;
+    
+    if (index == self.profileViewControllers.count - 1) {
+        return nil;
+    }
+    
+    StringrNavigateCommand *command = self.profileViewControllers[--index];
+    
+    return command.viewController;
+}
+
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSInteger index = self.segmentedControl.selectedSegmentIndex;
+    
+    if (index == 0) {
+        return nil;
+    }
+    
+    StringrNavigateCommand *command = self.profileViewControllers[++index];
+    
+    return command.viewController;
+}
 
 
 #pragma mark - UIActionSheet Delegate
@@ -436,12 +527,5 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     }
 }
 
-
-#pragma mark - StringrSegmentedView Delegate
-
-- (void)segmentedView:(StringrSegmentedView *)segmentedView didSelectItemAtIndex:(NSUInteger)index
-{
-    NSLog(@"tapped %ld", index);
-}
 
 @end

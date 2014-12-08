@@ -599,11 +599,12 @@
         StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         
         [profileVC setUserForProfile:user];
-        [profileVC setProfileReturnState:ProfileModalReturnState];
+        [profileVC setProfileReturnState:ProfileBackReturnState];
         [profileVC setHidesBottomBarWhenPushed:YES];
         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-        [self presentViewController:navVC animated:YES completion:nil];
+//        [self presentViewController:navVC animated:YES completion:nil];
+        [self.navigationController pushViewController:profileVC animated:YES];
     }
 }
 

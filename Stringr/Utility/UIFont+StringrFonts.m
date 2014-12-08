@@ -84,13 +84,19 @@
 
 + (UIFont *)stringrProfileNameFont
 {
-    return [UIFont fontWithName:@"Avenir Next" size:20.0f];
+    return [UIFont fontWithName:@"Avenir Next" size:18.0f];
 }
 
 
 + (UIFont *)stringrProfileDescriptionFont
 {
-    return [UIFont fontWithName:@"Avenir Next" size:14.0f];
+    return [UIFont fontWithName:@"Avenir Next" size:12.5f];
+}
+
+
++ (UIFont *)stringrProfileSegmentFont
+{
+    return [self stringrPrimaryLabelFontWithSize:11.0f];
 }
 
 @end

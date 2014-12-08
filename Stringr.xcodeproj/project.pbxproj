@@ -44,6 +44,7 @@
 		AB1FDF5219AC38C70059338B /* StringrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF5119AC38C70059338B /* StringrComment.m */; };
 		AB1FDF5519AC38D40059338B /* StringrActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF5419AC38D40059338B /* StringrActivity.m */; };
 		AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */; };
+		AB27124B1A35283700B6D52D /* StringrNavigateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = AB27124A1A35283700B6D52D /* StringrNavigateCommand.m */; };
 		AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */; };
 		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
 		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
@@ -272,6 +273,8 @@
 		AB1FDF5419AC38D40059338B /* StringrActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActivity.m; path = "Stringr Objects/StringrActivity.m"; sourceTree = "<group>"; };
 		AB20142A1916DEBA0097FD10 /* StringrDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDetailTableViewCell.h; path = "Detail/Table View Cell/StringrDetailTableViewCell.h"; sourceTree = "<group>"; };
 		AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTableViewCell.m"; sourceTree = "<group>"; };
+		AB2712491A35283700B6D52D /* StringrNavigateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigateCommand.h; path = Menu/StringrNavigateCommand.h; sourceTree = "<group>"; };
+		AB27124A1A35283700B6D52D /* StringrNavigateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigateCommand.m; path = Menu/StringrNavigateCommand.m; sourceTree = "<group>"; };
 		AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFlagContentHelper.h; path = Utility/StringrFlagContentHelper.h; sourceTree = "<group>"; };
 		AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFlagContentHelper.m; path = Utility/StringrFlagContentHelper.m; sourceTree = "<group>"; };
 		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -636,6 +639,8 @@
 			children = (
 				BF3EDDD7183D8EAD0071E047 /* StringrAppController.h */,
 				BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */,
+				AB2712491A35283700B6D52D /* StringrNavigateCommand.h */,
+				AB27124A1A35283700B6D52D /* StringrNavigateCommand.m */,
 			);
 			name = "App Controller";
 			sourceTree = "<group>";
@@ -1660,6 +1665,7 @@
 				BF3EDE29184449C80071E047 /* StringrUserTableViewController.m in Sources */,
 				AB1FDF5519AC38D40059338B /* StringrActivity.m in Sources */,
 				AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */,
+				AB27124B1A35283700B6D52D /* StringrNavigateCommand.m in Sources */,
 				ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */,
 				AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */,
 				AB04A2F819EF55900030C241 /* TestTableViewController.m in Sources */,

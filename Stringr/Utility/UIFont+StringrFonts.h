@@ -28,5 +28,6 @@
 
 + (UIFont *)stringrProfileNameFont;
 + (UIFont *)stringrProfileDescriptionFont;
++ (UIFont *)stringrProfileSegmentFont;
 
 @end
