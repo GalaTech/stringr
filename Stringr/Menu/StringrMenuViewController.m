@@ -156,7 +156,7 @@
 - (NSArray *)menuRowTitles
 {
     if (!_menuRowTitles) {
-        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"My Strings", @"Liked", @"Explore", @"Search", nil];
+        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"Explore", @"Search", nil];
     }
     
     return _menuRowTitles;
@@ -292,18 +292,11 @@
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
         
         [self.frostedViewController setContentViewController:navVC];
-    } else if (indexPath.row == 2) {
-        StringrMyStringsTableViewController *myStringsVC = [StringrMyStringsTableViewController new];
-
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:myStringsVC];
-        [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.row == 3) {
-        [self.frostedViewController setContentViewController:[self setupLikedTabBarController]];
-    } else if (indexPath.row == 4) {
         StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
         [self.frostedViewController setContentViewController:discoveryTabBarVC];
         
-    } else if (indexPath.row == 5) {
+    } else if (indexPath.row == 4) {
          [self.frostedViewController setContentViewController:[self setupSearchTabBarController]];
     }
     

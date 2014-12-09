@@ -421,21 +421,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 - (void)pushToEditProfile
 {
     StringrSettingsTableViewController *settingsVC = [StringrSettingsTableViewController viewController];
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:settingsVC];
     
     [self.navigationController pushViewController:settingsVC animated:YES];
-    /*
-    StringrEditProfileViewController *editProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEditProfileID];
-    StringrProfileTopViewController *topVC = (StringrProfileTopViewController *)self.topViewController;
-    
-    [editProfileVC setFillerProfileImage:topVC.profileImage];
-    [editProfileVC setFillerProfileName:[self.userForProfile objectForKey:kStringrUserDisplayNameKey]];
-    [editProfileVC setFillerDescription:topVC.profileDescriptionLabel.text];
-    
-    [editProfileVC setDelegate:self];
-    
-    [self.navigationController pushViewController:editProfileVC animated:YES];
-     */
 }
 
 
