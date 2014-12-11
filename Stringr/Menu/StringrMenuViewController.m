@@ -292,11 +292,11 @@
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
         
         [self.frostedViewController setContentViewController:navVC];
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 2) {
         StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
         [self.frostedViewController setContentViewController:discoveryTabBarVC];
         
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 3) {
          [self.frostedViewController setContentViewController:[self setupSearchTabBarController]];
     }
     

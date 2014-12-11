@@ -25,6 +25,8 @@
 #import "StringrSettingsTableViewController.h"
 #import "StringrNavigationController.h"
 
+#import "StringrStringProfileTableViewController.h"
+#import "StringrContainerScrollViewDelegate.h"
 
 static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
 
@@ -35,7 +37,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
  * as a modal presentation, or just pushed onto a nav controller. The return state provides information on what return
  * navigation item will be displayed.
  */
-@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, StringrContainerScrollViewDelegate>
 
 @property (strong, nonatomic) NSArray *profileViewControllers;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
@@ -55,6 +57,9 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 @property (strong, nonatomic) IBOutlet StringrSegmentedView *segmentedControl;
 
 @property (strong, nonatomic) NSTimer *usernameAndDisplayNameAnimationTimer;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *profileContainerHeightConstraint;
+@property (strong, nonatomic) IBOutlet UIView *profileContainerView;
 
 @end
 
@@ -234,6 +239,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     [self.profileImage setFile:[self.userForProfile objectForKey:kStringrUserProfilePictureKey]];
     [self.profileImage loadInBackgroundWithIndicator];
+    
+    self.profileContainerHeightConstraint.constant += 15.;
     
     [self.usernameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]];
     
@@ -456,6 +463,60 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     [command execute];
 }
 
+
+#pragma mark - Stringr Container ScrollView Delegate
+
+- (void)containerViewDidScroll:(UIScrollView *)scrollView
+{
+    /*
+    UIEdgeInsets currentScrollViewInset = scrollView.contentInset;
+    CGPoint currentScrollViewOffset = scrollView.contentOffset;
+    
+    // Since we have an inset the initial scrollViewOffset y value is a positive value that is decreasing
+    // because the content is not at the frame's 0,0 position.
+    NSInteger dy = -(NSInteger)(currentScrollViewInset.top + currentScrollViewOffset.y);
+    
+    if (dy < 0 && currentScrollViewInset.top >= 0) {
+        UIEdgeInsets newInsets = currentScrollViewInset;
+        newInsets.top = MAX(currentScrollViewInset.top + dy, 0.);
+        scrollView.contentInset = newInsets;
+        
+        CGRect topViewRect = self.profileContainerView.frame;
+        topViewRect.origin.y = -(165 - newInsets.top);
+        self.profileContainerView.frame = topViewRect;
+    }
+    else if (dy > 0 && currentScrollViewInset.top <= 165) {
+        UIEdgeInsets newInsets = currentScrollViewInset;
+        newInsets.top = MIN(currentScrollViewInset.top + dy, 165);
+        scrollView.contentInset = newInsets;
+        
+        CGRect topViewRect = self.profileContainerView.frame;
+        topViewRect.origin.y = -(60 - newInsets.top);
+        self.profileContainerView.frame = topViewRect;
+    }
+    */
+    
+    /*
+    CGPoint currentScrollViewOffset = scrollView.contentOffset;
+    NSInteger dy = -(NSInteger)currentScrollViewOffset.y;
+    
+    if (dy < 0 && self.profileContainerHeightConstraint.constant > 0.) {
+        self.profileContainerHeightConstraint.constant = MAX(self.profileContainerHeightConstraint.constant + dy, 0.);
+        
+        // work around so that you can set the content offset
+        CGRect scrollBounds = scrollView.bounds;
+        scrollBounds.origin = CGPointMake(0, 0);
+        scrollView.bounds = scrollBounds;
+    }
+    else if (dy > 0 && self.profileContainerHeightConstraint.constant < 180.0) {
+        self.profileContainerHeightConstraint.constant = MIN(self.profileContainerHeightConstraint.constant + dy, 180.);
+        
+        CGRect scrollBounds = scrollView.bounds;
+        scrollBounds.origin = CGPointMake(0, 0);
+        scrollView.bounds = scrollBounds;
+    }
+    */
+}
 
 
 #pragma mark - StringrEditProfile Delegate

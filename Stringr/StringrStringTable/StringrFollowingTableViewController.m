@@ -7,6 +7,7 @@
 //
 
 #import "StringrFollowingTableViewController.h"
+#import "StringrContainerScrollViewDelegate.h"
 
 @interface StringrFollowingTableViewController ()
 
@@ -30,6 +31,12 @@
 }
 
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.delegate containerViewDidScroll:scrollView];
+    
+//    [super scrollViewDidScroll:scrollView];
+}
 
 #pragma mark - PFQueryTableViewController Delegate
 

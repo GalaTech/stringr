@@ -1,8 +1,8 @@
 //
-//  StringrFollowingTableViewController.h
+//  StringrStringProfileTableViewController.h
 //  Stringr
 //
-//  Created by Jonathan Howard on 5/21/14.
+//  Created by Jonathan Howard on 12/10/14.
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @protocol StringrContainerScrollViewDelegate;
 
-@interface StringrFollowingTableViewController : StringrStringTableViewController
+@interface StringrStringProfileTableViewController : StringrStringTableViewController
 
 @property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
 

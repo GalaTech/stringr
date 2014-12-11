@@ -55,6 +55,10 @@
     if ([viewController isKindOfClass:[StringrFollowingTableViewController class]]) {
         StringrFollowingTableViewController *followingVC = (StringrFollowingTableViewController *)viewController;
         
+        if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
+            followingVC.delegate = self.delegate;
+        }
+        
         return followingVC;
     }
     else if ([viewController isKindOfClass:[StringrPopularTableViewController class]]) {

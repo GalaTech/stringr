@@ -33,6 +33,7 @@
 		AB1B0C87188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C86188DAE5D0063EAC5 /* StringrStringDetailTableViewController.m */; };
 		AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */; };
 		AB1B0C8D188DEE0C0063EAC5 /* StringrFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */; };
+		AB1C02931A39696F000AF42D /* StringrStringProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1C02921A39696F000AF42D /* StringrStringProfileTableViewController.m */; };
 		AB1FDF3819AC1F9F0059338B /* StringrNetworkUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */; };
 		AB1FDF3C19AC20A60059338B /* StringrNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3B19AC20A60059338B /* StringrNetworkTask.m */; };
 		AB1FDF3F19AC20D00059338B /* StringrNetworkTask+User.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3E19AC20D00059338B /* StringrNetworkTask+User.m */; };
@@ -252,6 +253,9 @@
 		AB1B0C89188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrStringDetailTopViewController.m; sourceTree = "<group>"; };
 		AB1B0C8B188DEE0C0063EAC5 /* StringrFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFooterView.h; path = Footer/StringrFooterView.h; sourceTree = "<group>"; };
 		AB1B0C8C188DEE0C0063EAC5 /* StringrFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFooterView.m; path = Footer/StringrFooterView.m; sourceTree = "<group>"; };
+		AB1C02901A396824000AF42D /* StringrContainerScrollViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrContainerScrollViewDelegate.h; path = Profile/StringrContainerScrollViewDelegate.h; sourceTree = "<group>"; };
+		AB1C02911A39696F000AF42D /* StringrStringProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringProfileTableViewController.h; path = Profile/StringrStringProfileTableViewController.h; sourceTree = "<group>"; };
+		AB1C02921A39696F000AF42D /* StringrStringProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringProfileTableViewController.m; path = Profile/StringrStringProfileTableViewController.m; sourceTree = "<group>"; };
 		AB1FDF3619AC1F9F0059338B /* StringrNetworkUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrNetworkUtility.h; sourceTree = "<group>"; };
 		AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrNetworkUtility.m; sourceTree = "<group>"; };
 		AB1FDF3A19AC20A60059338B /* StringrNetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrNetworkTask.h; sourceTree = "<group>"; };
@@ -1208,6 +1212,9 @@
 			children = (
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
+				AB1C02911A39696F000AF42D /* StringrStringProfileTableViewController.h */,
+				AB1C02921A39696F000AF42D /* StringrStringProfileTableViewController.m */,
+				AB1C02901A396824000AF42D /* StringrContainerScrollViewDelegate.h */,
 				BF29E422184CFE9D007607CB /* StringrProfileTopViewController.h */,
 				BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */,
 				BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */,
@@ -1644,6 +1651,7 @@
 				AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
+				AB1C02931A39696F000AF42D /* StringrStringProfileTableViewController.m in Sources */,
 				AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */,
 				AB5AFC0419F9C849002F88B9 /* NSString+StringrAdditions.m in Sources */,
 				AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */,

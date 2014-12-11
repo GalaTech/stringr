@@ -51,9 +51,9 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
 	self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
     
     // Creates the navigation item to access the menu
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"cancel_button"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                                                                             style:UIBarButtonItemStyleDone target:self
-//                                                                            action:@selector(showMenu)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"upload_button"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                             style:UIBarButtonItemStyleDone target:self
+                                                                            action:@selector(showMenu)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -455,13 +455,13 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
     [headerSectionTitleLabel setTextColor:[UIColor darkGrayColor]];
     
     switch (section) {
-        case 1:
+        case 0:
             headerSectionTitleLabel.text = @"Account";
             break;
-        case 2:
+        case 1:
             headerSectionTitleLabel.text = @"Support";
             break;
-        case 3:
+        case 2:
             headerSectionTitleLabel.text = @"Preferences";
             break;
             
