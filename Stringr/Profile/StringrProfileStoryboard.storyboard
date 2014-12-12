@@ -58,6 +58,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byb-d1-SqW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <connections>
+                                    <segue destination="PBn-6d-MWG" kind="embed" identifier="profilePageViewSegue" id="Drf-q8-Z6z"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="PnL-Lw-NaG" userLabel="Profile Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                 <subviews>
@@ -232,23 +238,17 @@
                                     <constraint firstItem="esM-0s-llr" firstAttribute="width" secondItem="Sbi-s4-Q0Y" secondAttribute="width" id="xhC-KL-V5X"/>
                                     <constraint firstItem="Hku-gY-Yrc" firstAttribute="leading" secondItem="Sbi-s4-Q0Y" secondAttribute="trailing" id="yTl-29-8VF"/>
                                     <constraint firstItem="cCu-gZ-vQk" firstAttribute="leading" secondItem="PnL-Lw-NaG" secondAttribute="leading" constant="8" id="yuc-6u-xfE"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="162" id="zx4-hm-aGA"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="157" id="zx4-hm-aGA"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byb-d1-SqW">
-                                <rect key="frame" x="0.0" y="165" width="320" height="403"/>
-                                <connections>
-                                    <segue destination="PBn-6d-MWG" kind="embed" identifier="profilePageViewSegue" id="Drf-q8-Z6z"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WCK-KO-lpd" firstAttribute="top" secondItem="byb-d1-SqW" secondAttribute="bottom" id="0FT-Gf-ytD"/>
-                            <constraint firstItem="PnL-Lw-NaG" firstAttribute="top" secondItem="cg3-Gz-3jz" secondAttribute="top" id="27T-bE-F5V"/>
-                            <constraint firstItem="byb-d1-SqW" firstAttribute="top" secondItem="PnL-Lw-NaG" secondAttribute="bottom" id="F33-3H-3IQ"/>
+                            <constraint firstItem="PnL-Lw-NaG" firstAttribute="top" secondItem="cg3-Gz-3jz" secondAttribute="top" priority="750" id="27T-bE-F5V"/>
                             <constraint firstAttribute="trailing" secondItem="byb-d1-SqW" secondAttribute="trailing" id="FTh-Gw-1SR"/>
                             <constraint firstItem="byb-d1-SqW" firstAttribute="leading" secondItem="cg3-Gz-3jz" secondAttribute="leading" id="HiE-4D-BIc"/>
+                            <constraint firstItem="byb-d1-SqW" firstAttribute="top" secondItem="cg3-Gz-3jz" secondAttribute="top" id="SO4-QL-bd3"/>
                             <constraint firstAttribute="trailing" secondItem="PnL-Lw-NaG" secondAttribute="trailing" id="UBz-il-W0l"/>
                             <constraint firstItem="PnL-Lw-NaG" firstAttribute="leading" secondItem="cg3-Gz-3jz" secondAttribute="leading" id="Zt5-cY-i5x"/>
                         </constraints>
@@ -261,6 +261,9 @@
                         <outlet property="followersLabel" destination="4Jc-90-8ID" id="8qF-eD-SEb"/>
                         <outlet property="followingButton" destination="Hku-gY-Yrc" id="l50-sV-7e2"/>
                         <outlet property="followingLabel" destination="zY3-5W-Kgz" id="dgS-fc-Szd"/>
+                        <outlet property="profileContainerHeightConstraint" destination="zx4-hm-aGA" id="cl0-is-Cjk"/>
+                        <outlet property="profileContainerSegmentTopConstraint" destination="27T-bE-F5V" id="rEx-mf-OCG"/>
+                        <outlet property="profileContainerView" destination="PnL-Lw-NaG" id="OFL-Wp-eQQ"/>
                         <outlet property="profileDescriptionLabel" destination="vhy-ew-9b4" id="gfj-AF-qzR"/>
                         <outlet property="profileImage" destination="cCu-gZ-vQk" id="Yvu-pm-5ax"/>
                         <outlet property="segmentedControl" destination="DSY-jG-mlE" id="kVM-67-Wm9"/>

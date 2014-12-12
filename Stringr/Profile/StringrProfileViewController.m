@@ -61,6 +61,10 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *profileContainerHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIView *profileContainerView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileContainerSegmentTopConstraint;
+
+@property (nonatomic) BOOL isScrollingContainerView;
+
 @end
 
 @implementation StringrProfileViewController
@@ -113,8 +117,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     [self setupAppearance];
     [self loadProfile];
     
-    StringrNavigateCommand *command = self.profileViewControllers[0];
-    [command execute];
+    
 }
 
 
@@ -154,6 +157,17 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    if (self.isScrollingContainerView) return;
+    
+    StringrNavigateCommand *command = self.profileViewControllers[0];
+    [command execute];
+}
+
+
 #pragma mark - Accessors
 
 - (NSArray *)profileViewControllers
@@ -168,7 +182,9 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         for (NSString *name in controllerNames) {
             StringrNavigateCommand *command = [[StringrNavigateCommand alloc] initWithViewControllerClass:NSClassFromString(name) delegate:self];
             
-            command.segmentDisplayBlock = ^(UIViewController *viewController) {
+            command.segmentDisplayBlock = ^(UIViewController <StringrContainerScrollViewDelegate>*viewController) {
+                [viewController adjustScrollViewTopInset:self.profileContainerView.frame.size.height];
+                
                 [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
             };
                  
@@ -239,8 +255,6 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     [self.profileImage setFile:[self.userForProfile objectForKey:kStringrUserProfilePictureKey]];
     [self.profileImage loadInBackgroundWithIndicator];
-    
-    self.profileContainerHeightConstraint.constant += 15.;
     
     [self.usernameLabel setText:[StringrUtility usernameFormattedWithMentionSymbol:[self.userForProfile objectForKey:kStringrUserUsernameCaseSensitive]]];
     
@@ -468,7 +482,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 
 - (void)containerViewDidScroll:(UIScrollView *)scrollView
 {
-    /*
+    self.isScrollingContainerView = YES;
+    
     UIEdgeInsets currentScrollViewInset = scrollView.contentInset;
     CGPoint currentScrollViewOffset = scrollView.contentOffset;
     
@@ -476,46 +491,32 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     // because the content is not at the frame's 0,0 position.
     NSInteger dy = -(NSInteger)(currentScrollViewInset.top + currentScrollViewOffset.y);
     
-    if (dy < 0 && currentScrollViewInset.top >= 0) {
+    if (dy < 0 && currentScrollViewInset.top > 0) {
         UIEdgeInsets newInsets = currentScrollViewInset;
         newInsets.top = MAX(currentScrollViewInset.top + dy, 0.);
         scrollView.contentInset = newInsets;
         
-        CGRect topViewRect = self.profileContainerView.frame;
-        topViewRect.origin.y = -(165 - newInsets.top);
-        self.profileContainerView.frame = topViewRect;
+        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
     }
-    else if (dy > 0 && currentScrollViewInset.top <= 165) {
+    else if (dy > 0 && currentScrollViewInset.top < self.profileContainerView.frame.size.height) {
         UIEdgeInsets newInsets = currentScrollViewInset;
-        newInsets.top = MIN(currentScrollViewInset.top + dy, 165);
+        newInsets.top = MIN(currentScrollViewInset.top + dy, self.profileContainerView.frame.size.height);
         scrollView.contentInset = newInsets;
         
-        CGRect topViewRect = self.profileContainerView.frame;
-        topViewRect.origin.y = -(60 - newInsets.top);
-        self.profileContainerView.frame = topViewRect;
+        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
     }
-    */
-    
-    /*
-    CGPoint currentScrollViewOffset = scrollView.contentOffset;
-    NSInteger dy = -(NSInteger)currentScrollViewOffset.y;
-    
-    if (dy < 0 && self.profileContainerHeightConstraint.constant > 0.) {
-        self.profileContainerHeightConstraint.constant = MAX(self.profileContainerHeightConstraint.constant + dy, 0.);
-        
-        // work around so that you can set the content offset
-        CGRect scrollBounds = scrollView.bounds;
-        scrollBounds.origin = CGPointMake(0, 0);
-        scrollView.bounds = scrollBounds;
-    }
-    else if (dy > 0 && self.profileContainerHeightConstraint.constant < 180.0) {
-        self.profileContainerHeightConstraint.constant = MIN(self.profileContainerHeightConstraint.constant + dy, 180.);
-        
-        CGRect scrollBounds = scrollView.bounds;
-        scrollBounds.origin = CGPointMake(0, 0);
-        scrollView.bounds = scrollBounds;
-    }
-    */
+}
+
+
+- (void)containerViewDidScrollDidEndDecelerating:(UIScrollView *)scrollView
+{
+    self.isScrollingContainerView = NO;
+}
+
+
+- (void)containerViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    self.isScrollingContainerView = NO;
 }
 
 

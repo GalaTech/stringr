@@ -11,6 +11,8 @@
 @protocol StringrContainerScrollViewDelegate <NSObject>
 
 @optional
+- (void)adjustScrollViewTopInset:(CGFloat)inset;
+
 - (void)containerViewDidScroll:(UIScrollView *)scrollView;
 - (void)containerViewDidScrollToTop:(UIScrollView *)scrollView;
 - (void)containerViewDidScrollDidEndDecelerating:(UIScrollView *)scrollView;

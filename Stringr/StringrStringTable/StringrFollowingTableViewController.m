@@ -33,10 +33,19 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.delegate containerViewDidScroll:scrollView];
+    [super scrollViewDidScroll:scrollView];
     
-//    [super scrollViewDidScroll:scrollView];
+    [self.delegate containerViewDidScroll:scrollView];
 }
+
+
+- (void)adjustScrollViewTopInset:(CGFloat)inset
+{
+    UIEdgeInsets newInsets = self.tableView.contentInset;
+    newInsets.top = inset;
+    self.tableView.contentInset = newInsets;
+}
+
 
 #pragma mark - PFQueryTableViewController Delegate
 
