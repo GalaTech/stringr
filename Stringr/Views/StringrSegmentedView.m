@@ -156,19 +156,21 @@ static CGFloat const StringrSegmentDividerHeightPercentage = 0.75f;
             [segmentContainer addSubview:segmentLabel];
             
             UIImage *segmentImage = [UIImage imageNamed:segment.imageName];
-            UIImage *segmentImageHighlighted = [UIImage imageNamed:[NSString stringWithFormat:@"%@_highlighted", segmentImage]];
+            UIImage *segmentImageHighlighted = [UIImage imageNamed:[NSString stringWithFormat:@"liked_strings_icon"]];
 
             UIButton *segmentButton = [[UIButton alloc] initWithFrame:segmentFrame];
             [segmentButton addTarget:self action:@selector(segmentTouchedUpInside:)  forControlEvents:UIControlEventTouchUpInside];
             [segmentButton setImage:segmentImage forState:UIControlStateNormal];
-            [segmentButton setImage:segmentImageHighlighted forState:UIControlStateHighlighted];
+            [segmentButton setImage:segmentImageHighlighted forState:UIControlStateSelected];
             segmentButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
             
             if (index == self.selectedSegmentIndex) {
 //                segmentButton.backgroundColor = [UIColor grayColor];
+                segmentButton.selected = YES;
             }
             else {
                 segmentButton.backgroundColor = [UIColor clearColor];
+                segmentButton.selected = NO;
             }
             segmentButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -3.0, 15.0, -3.0f);
             segmentButton.tag = index;
@@ -196,6 +198,9 @@ static CGFloat const StringrSegmentDividerHeightPercentage = 0.75f;
     }
     
     previouslySelectedButton.backgroundColor = [UIColor clearColor];
+    previouslySelectedButton.selected = NO;
+    
+    selectedView.selected = YES;
     
     self.selectedSegmentIndex = selectedView.tag;
 }

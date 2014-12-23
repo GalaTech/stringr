@@ -207,15 +207,15 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     self.usernameLabel.textColor = [UIColor darkGrayColor];
     
     self.profileDescriptionLabel.font = [UIFont stringrProfileDescriptionFont];
-    self.profileDescriptionLabel.textColor = [UIColor stringrSecondaryLabelColor];
+    self.profileDescriptionLabel.textColor = [UIColor stringrPrimaryLabelColor];
     
     StringrSegment *primarySegment = [StringrSegment new];
     primarySegment.title = @"207";
-    primarySegment.imageName = @"liked_strings_icon";
+    primarySegment.imageName = @"StringIcon";
 
     StringrSegment *segment = [StringrSegment new];
     segment.title = @"149";
-    segment.imageName = @"liked_strings_icon";
+    segment.imageName = @"StringIcon";
     
     self.segmentedControl.segments = @[primarySegment, segment, segment, segment];
     [self.segmentedControl addTarget:self action:@selector(segmentedControlIndexDidChange:) forControlEvents:UIControlEventValueChanged];
