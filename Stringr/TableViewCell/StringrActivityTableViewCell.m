@@ -37,9 +37,9 @@
 
 - (void)awakeFromNib
 {
-    [self.activityCellProfileImage setPathColor:[UIColor darkGrayColor]];
-    [self.activityCellProfileImage setPathWidth:1.0f];
-    [self.activityCellProfileImage setImageToCirclePath];
+//    [self.activityCellProfileImage setPathColor:[UIColor darkGrayColor]];
+//    [self.activityCellProfileImage setPathWidth:1.0f];
+    [self.activityCellProfileImage setupImageWithDefaultConfiguration];
     [self.activityCellProfileImage setBackgroundColor:[UIColor stringrLightGrayColor]];
     [self.activityCellProfileImage setContentMode:UIViewContentModeScaleAspectFill];
     

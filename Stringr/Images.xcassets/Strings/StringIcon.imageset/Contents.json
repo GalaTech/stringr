@@ -7,12 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "lock_button@2x.png"
+      "filename" : "StringIcon.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "lock_button-1.png"
+      "filename" : "StringIconLight@3x.png"
     }
   ],
   "info" : {

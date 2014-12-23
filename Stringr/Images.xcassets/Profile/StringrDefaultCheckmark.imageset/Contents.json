@@ -7,12 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "unlock_button@2x.png"
+      "filename" : "StringrDefaultCheckmark@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "unlock_button-1.png"
+      "filename" : "StringrDefaultCheckmark@3x.png"
     }
   ],
   "info" : {

@@ -336,9 +336,9 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
             BOOL currentUserIsFollowingProfileUser = [[StringrCache sharedCache] followStatusForUser:self.userForProfile];
             
             if (currentUserIsFollowingProfileUser) {
-//                [self configureUnfollowButton];
+                [self configureUnfollowButton];
             } else {
-//                [self configureFollowButton];
+                [self configureFollowButton];
             }
             
 //            [self.followUserButtonLoadingIndicator stopAnimating];
@@ -355,11 +355,11 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
                     } else {
 //                        [self.followUserButtonLoadingIndicator stopAnimating];
                         if (number == 0) {
-//                            [self configureFollowButton];
-                            [[StringrCache sharedCache] setFollowStatus:NO forUser:self.userForProfile];
+                            [self configureFollowButton];
+//                            [[StringrCache sharedCache] setFollowStatus:NO forUser:self.userForProfile];
                         } else {
-//                            [self configureUnfollowButton];
-                            [[StringrCache sharedCache] setFollowStatus:YES forUser:self.userForProfile];
+                            [self configureUnfollowButton];
+//                            [[StringrCache sharedCache] setFollowStatus:YES forUser:self.userForProfile];
                         }
                     }
                 }];
@@ -367,28 +367,52 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         }
     } else {
         // button setup for when it's the current users profile
-//        [self.followUserButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
-//        [self.followUserButton setLabelTextColor:[UIColor stringrLightGrayColor] highlightedColor:nil disableColor:nil];
-//        [self.followUserButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
-//        [self.followUserButton setCornerRadius:15];
-//        [self.followUserButton setBorderStyle:[UIColor stringrLightGrayColor] andInnerColor:nil];
-//        [self.followUserButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
-//        [self.followUserButton setTitle:@"Unfollow" forState:UIControlStateNormal];
-//        [self.followUserButton setEnabled:NO];
+        [self.followButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
+        [self.followButton setLabelTextColor:[UIColor stringrLightGrayColor] highlightedColor:nil disableColor:nil];
+        [self.followButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+        [self.followButton setCornerRadius:15];
+        [self.followButton setBorderStyle:[UIColor stringrLightGrayColor] andInnerColor:nil];
+        self.followButton.tintColor = [UIColor lightGrayColor];
+        [self.followButton setEnabled:NO];
+        
+        self.followLabel.textColor = [UIColor lightGrayColor];
     }
 }
 
 
-- (void)configureFollowingAndFollowersButton
+- (void)configureFollowButton
 {
     [self.followButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
     [self.followButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
     [self.followButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
     [self.followButton setCornerRadius:CGRectGetWidth(self.followingButton.frame) / 2];
     [self.followButton setBorderStyle:[UIColor lightGrayColor] andInnerColor:nil];
-    [self.followButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:16.0f]];
-    [self.followButton setTitle:@"0" forState:UIControlStateNormal];
-    [self.followButton.titleLabel setTextColor:[UIColor darkGrayColor]];
+    [self.followButton setImage:[UIImage imageNamed:@"StringrDefaultCheckmark"] forState:UIControlStateNormal];
+    self.followButton.tintColor = [UIColor lightGrayColor];
+    
+    self.followLabel.textColor = [UIColor darkGrayColor];
+    self.followLabel.text = @"Follow";
+}
+
+
+- (void)configureUnfollowButton
+{
+    [self.followButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
+    [self.followButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
+    [self.followButton setLabelTextShadow:CGSizeMake(0, 0) normalColor:nil highlightedColor:nil disableColor:nil];
+    [self.followButton setCornerRadius:CGRectGetWidth(self.followingButton.frame) / 2];
+    [self.followButton setBorderStyle:[UIColor stringrLikedGreenColor] andInnerColor:nil];
+    [self.followButton setImage:[UIImage imageNamed:@"StringrDefaultCheckmark"] forState:UIControlStateNormal];
+    self.followButton.tintColor = [UIColor stringrLikedGreenColor];
+    
+    self.followLabel.textColor = [UIColor stringrLikedGreenColor];
+    self.followLabel.text = @"Unfollow";
+}
+
+
+- (void)configureFollowingAndFollowersButton
+{
+    [self configureFollowButton];
     
     [self.followingButton setStyle:[UIColor whiteColor] andBottomColor:[UIColor whiteColor]];
     [self.followingButton setLabelTextColor:[UIColor darkGrayColor] highlightedColor:[UIColor darkTextColor] disableColor:nil];
