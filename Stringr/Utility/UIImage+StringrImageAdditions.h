@@ -12,4 +12,6 @@
 
 - (UIImage *)tintedImageUsingColor:(UIColor *)tintColor;
 
++ (UIImage *)imageWithColor:(UIColor *)color;
+
 @end

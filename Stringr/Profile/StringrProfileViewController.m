@@ -21,7 +21,7 @@
 #import "StringrConnectionsTableViewController.h"
 #import "StringrSegmentedView.h"
 #import "StringrFollowingTableViewController.h"
-#import "StringrNavigateCommand.h"
+#import "StringrNavigateProfileCommand.h"
 #import "StringrSettingsTableViewController.h"
 #import "StringrNavigationController.h"
 
@@ -64,6 +64,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileContainerSegmentTopConstraint;
 
 @property (nonatomic) BOOL isScrollingContainerView;
+@property (nonatomic) CGFloat currentScrollViewTopInset;
 
 @end
 
@@ -79,12 +80,6 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
-- (void)dealloc
-{
-
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -92,14 +87,14 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     self.title = @"Profile";
     
     // Guarantee's that if the passed in user is the current user we provide the ability to edit that profile
-    if ([self.userForProfile.username isEqualToString:[[PFUser currentUser] username]]) {
+    if (self.isDashboardProfile) {
         self.title = @"My Profile";
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-//                                                                                  style:UIBarButtonItemStyleBordered
-//                                                                                 target:self
-//                                                                                 action:@selector(pushToEditProfile)];
+        
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings_button"] style:UIBarButtonItemStylePlain target:self action:@selector(pushToEditProfile)];
-        self.navigationItem.rightBarButtonItem = settingsButton;
+        
+        UIBarButtonItem *editStringsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"liked_strings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(adjustScrollView)];
+        
+        self.navigationItem.rightBarButtonItems = @[settingsButton, editStringsButton];
     }
     
     // Sets the 'return' button based off of what state the profile is in. Modal, Menu, or Back.
@@ -110,13 +105,12 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                                  style:UIBarButtonItemStyleDone target:self
                                                                                 action:@selector(showMenu)];
-    } else if (self.profileReturnState == ProfileBackReturnState) {
-        
     }
     
     [self setupAppearance];
     [self loadProfile];
-    
+//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panTopProfileView:)];
+//    [self.profileContainerView addGestureRecognizer:panGesture];
     
 }
 
@@ -163,7 +157,9 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     
     if (self.isScrollingContainerView) return;
     
-    StringrNavigateCommand *command = self.profileViewControllers[0];
+    self.currentScrollViewTopInset = self.profileContainerView.frame.size.height;
+    
+    StringrNavigateProfileCommand *command = self.profileViewControllers[0];
     [command execute];
 }
 
@@ -175,15 +171,16 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     // Lazily instantiate the array of container view controllers.
     // Each one object creates a command, which then lazily instantiates the vc itself
     if (!_profileViewControllers) {
-        NSArray *controllerNames = @[@"StringrFollowingTableViewController", @"StringrPopularTableViewController", @"StringrDiscoveryTableViewController", @"StringrFollowingTableViewController"];
+        NSArray *controllerNames = @[@"StringrProfileTableViewController", @"StringrProfileTableViewController", @"StringrProfileTableViewController", @"StringrProfileTableViewController"];
         
         NSMutableArray *profileViewControllers = [[NSMutableArray alloc] initWithCapacity:controllerNames.count];
         
         for (NSString *name in controllerNames) {
-            StringrNavigateCommand *command = [[StringrNavigateCommand alloc] initWithViewControllerClass:NSClassFromString(name) delegate:self];
+            StringrNavigateProfileCommand *command = [[StringrNavigateProfileCommand alloc] initWithViewControllerClass:NSClassFromString(name) delegate:self];
+            command.user = self.userForProfile;
             
             command.segmentDisplayBlock = ^(UIViewController <StringrContainerScrollViewDelegate>*viewController) {
-                [viewController adjustScrollViewTopInset:self.profileContainerView.frame.size.height];
+                [viewController adjustScrollViewTopInset:self.currentScrollViewTopInset];
                 
                 [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
             };
@@ -473,10 +470,58 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     NSInteger currentIndex = segmentedView.selectedSegmentIndex;
     
-    StringrNavigateCommand *command = self.profileViewControllers[currentIndex];
+    StringrNavigateProfileCommand *command = self.profileViewControllers[currentIndex];
     [command execute];
+    
+    if (currentIndex != 0) {
+        // hide edit strings tab bar button
+    }
 }
 
+
+- (void)panTopProfileView:(UIPanGestureRecognizer *)gesture
+{
+    CGPoint translation = [gesture translationInView:gesture.view];
+    
+    UIScrollView *scrollView = [self currentProfileScrollView];
+    
+    self.isScrollingContainerView = YES;
+    
+    UIEdgeInsets currentScrollViewInset = scrollView.contentInset;
+    CGPoint currentScrollViewOffset = scrollView.contentOffset;
+    
+    // Since we have an inset the initial scrollViewOffset y value is a positive value that is decreasing
+    // because the content is not at the frame's 0,0 position.
+    NSInteger dy = (NSInteger)(currentScrollViewInset.top + translation.y);
+    
+    if (dy < 0 && currentScrollViewInset.top > 0) {
+        UIEdgeInsets newInsets = currentScrollViewInset;
+        newInsets.top = MAX(currentScrollViewInset.top + dy, 0.);
+        scrollView.contentInset = newInsets;
+        
+        
+        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
+    }
+    else if (dy > 0 && currentScrollViewInset.top < self.profileContainerView.frame.size.height) {
+        UIEdgeInsets newInsets = currentScrollViewInset;
+        newInsets.top = MIN(currentScrollViewInset.top + dy, self.profileContainerView.frame.size.height);
+        scrollView.contentInset = newInsets;
+        
+        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
+    }
+    
+    self.currentScrollViewTopInset = scrollView.contentInset.top;
+}
+
+
+- (UIScrollView *)currentProfileScrollView
+{
+    StringrNavigateProfileCommand *command = self.profileViewControllers[self.segmentedControl.selectedSegmentIndex];
+    
+    UIViewController <StringrContainerScrollViewDelegate>*viewController = command.viewController;
+    
+    return viewController.containerScrollView;
+}
 
 #pragma mark - Stringr Container ScrollView Delegate
 
@@ -496,6 +541,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         newInsets.top = MAX(currentScrollViewInset.top + dy, 0.);
         scrollView.contentInset = newInsets;
         
+        
         self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
     }
     else if (dy > 0 && currentScrollViewInset.top < self.profileContainerView.frame.size.height) {
@@ -505,6 +551,8 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         
         self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
     }
+    
+    self.currentScrollViewTopInset = scrollView.contentInset.top;
 }
 
 
@@ -517,6 +565,32 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 - (void)containerViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     self.isScrollingContainerView = NO;
+}
+
+
+- (BOOL)containerViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    UIEdgeInsets newInsets = scrollView.contentInset;
+    newInsets.top = self.profileContainerView.frame.size.height;
+    scrollView.contentInset = newInsets;
+
+    return YES;
+}
+
+
+- (void)adjustScrollView
+{
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        StringrNavigateProfileCommand *command = self.profileViewControllers[self.segmentedControl.selectedSegmentIndex];
+        
+        self.profileContainerSegmentTopConstraint.constant = -self.profileContainerView.frame.size.height;
+        [self.view setNeedsUpdateConstraints];
+        
+        [UIView animateWithDuration:0.33 animations:^{
+            [command.viewController adjustScrollViewTopInset:0.0f];
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 
@@ -548,7 +622,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         return nil;
     }
     
-    StringrNavigateCommand *command = self.profileViewControllers[--index];
+    StringrNavigateProfileCommand *command = self.profileViewControllers[--index];
     
     return command.viewController;
 }
@@ -562,7 +636,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
         return nil;
     }
     
-    StringrNavigateCommand *command = self.profileViewControllers[++index];
+    StringrNavigateProfileCommand *command = self.profileViewControllers[++index];
     
     return command.viewController;
 }

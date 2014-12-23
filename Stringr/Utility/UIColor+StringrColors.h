@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+struct StringrRGBValue {
+    CGFloat red;
+    CGFloat green;
+    CGFloat blue;
+};
+
 @interface UIColor (StringrColors)
 
 // General
@@ -46,5 +52,8 @@
 // 3rd Party Social Networks
 + (UIColor *)facebookBlueColor;
 + (UIColor *)twitterBlueColor;
+
+
++ (UIColor *)randomColor;
 
 @end

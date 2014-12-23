@@ -16,4 +16,10 @@
     [self.delegate containerViewDidScroll:scrollView];
 }
 
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    return [self.delegate containerViewShouldScrollToTop:scrollView];
+}
+
 @end

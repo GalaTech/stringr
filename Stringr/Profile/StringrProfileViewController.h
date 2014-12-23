@@ -10,14 +10,16 @@
 #import "REFrostedViewController.h"
 
 typedef enum{
-    ProfileModalReturnState = 0,
-    ProfileMenuReturnState = 1,
-    ProfileBackReturnState = 2
+    ProfileModalReturnState = 1,
+    ProfileMenuReturnState = 2,
+    ProfileBackReturnState = 3
 } ProfileReturnState;
 
 @interface StringrProfileViewController : UIViewController
 
 @property (strong, nonatomic) PFUser *userForProfile;
+@property (nonatomic) BOOL isDashboardProfile;
+
 @property (nonatomic) ProfileReturnState profileReturnState;
 
 + (StringrProfileViewController *)viewController;

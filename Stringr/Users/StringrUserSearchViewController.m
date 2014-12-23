@@ -10,6 +10,8 @@
 #import "StringrUtility.h"
 #import "UIColor+StringrColors.h"
 
+#import "StringrNetworkTask+Search.h"
+
 @interface StringrUserSearchViewController ()
 
 @property (strong, nonatomic) NSString *searchText;

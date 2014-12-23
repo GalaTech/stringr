@@ -7,16 +7,16 @@
 //
 
 #import "StringrStringTableViewController.h"
-#import "QMBParallaxScrollViewController.h"
+#import "StringrContainerScrollViewDelegate.h"
 
 @protocol StringrProfileTableViewControllerDelegate;
 
-@interface StringrProfileTableViewController : StringrStringTableViewController<QMBParallaxScrollViewHolder>
+@interface StringrProfileTableViewController : StringrStringTableViewController<StringrContainerScrollViewDelegate>
 
 @property (strong, nonatomic) PFUser *userForProfile;
-@property (weak, nonatomic) id<StringrProfileTableViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
+//@property (weak, nonatomic) id<StringrProfileTableViewControllerDelegate> delegate;
 
-- (instancetype)initWithUser:(PFUser *)user;
 
 @end
 

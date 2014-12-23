@@ -8,10 +8,6 @@
 
 #import "StringrStringTableViewController.h"
 
-@protocol StringrContainerScrollViewDelegate;
-
 @interface StringrFollowingTableViewController : StringrStringTableViewController
-
-@property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
 
 @end

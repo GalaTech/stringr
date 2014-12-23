@@ -88,6 +88,15 @@
 		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
 		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
 		AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */; };
+		AB6C4AF21A3F5A4000CBA63C /* StringrExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4AF11A3F5A4000CBA63C /* StringrExploreViewController.m */; };
+		AB6C4AF71A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB6C4AF61A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard */; };
+		AB6C4AFA1A3F6BD100CBA63C /* StringrExploreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4AF91A3F6BD100CBA63C /* StringrExploreTableViewCell.m */; };
+		AB6C4AFE1A3F874100CBA63C /* StringrNavigateProfileCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4AFD1A3F874100CBA63C /* StringrNavigateProfileCommand.m */; };
+		AB6C4B011A42426C00CBA63C /* StringrNetworkTask+Explore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4B001A42426C00CBA63C /* StringrNetworkTask+Explore.m */; };
+		AB6C4B041A4242D800CBA63C /* StringrExploreCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4B031A4242D800CBA63C /* StringrExploreCategory.m */; };
+		AB6C4B0A1A42937300CBA63C /* StringrTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4B091A42937300CBA63C /* StringrTableSection.m */; };
+		AB6C4B0D1A43660400CBA63C /* StringrNetworkTask+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4B0C1A43660400CBA63C /* StringrNetworkTask+Search.m */; };
+		AB6C4BAE1A4A057A00CBA63C /* StringrNetworkTask+Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4BAD1A4A057A00CBA63C /* StringrNetworkTask+Profile.m */; };
 		AB6CB1C719058714008A8DB0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6CB1C619058714008A8DB0 /* MessageUI.framework */; };
 		AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */; };
 		AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */; };
@@ -346,6 +355,23 @@
 		AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSignUpWithSocialNetworkViewController.m; path = Login/StringrSignUpWithSocialNetworkViewController.m; sourceTree = "<group>"; };
 		AB6243AE19F9440500BA231D /* PFUser+StringrAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFUser+StringrAdditions.h"; path = "Network/PFUser+StringrAdditions.h"; sourceTree = "<group>"; };
 		AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PFUser+StringrAdditions.m"; path = "Network/PFUser+StringrAdditions.m"; sourceTree = "<group>"; };
+		AB6C4AF01A3F5A4000CBA63C /* StringrExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrExploreViewController.h; path = Explore/StringrExploreViewController.h; sourceTree = "<group>"; };
+		AB6C4AF11A3F5A4000CBA63C /* StringrExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrExploreViewController.m; path = Explore/StringrExploreViewController.m; sourceTree = "<group>"; };
+		AB6C4AF61A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrExploreStoryboard.storyboard; path = Explore/StringrExploreStoryboard.storyboard; sourceTree = "<group>"; };
+		AB6C4AF81A3F6BD100CBA63C /* StringrExploreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrExploreTableViewCell.h; path = Explore/StringrExploreTableViewCell.h; sourceTree = "<group>"; };
+		AB6C4AF91A3F6BD100CBA63C /* StringrExploreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrExploreTableViewCell.m; path = Explore/StringrExploreTableViewCell.m; sourceTree = "<group>"; };
+		AB6C4AFC1A3F874100CBA63C /* StringrNavigateProfileCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigateProfileCommand.h; path = Profile/StringrNavigateProfileCommand.h; sourceTree = "<group>"; };
+		AB6C4AFD1A3F874100CBA63C /* StringrNavigateProfileCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigateProfileCommand.m; path = Profile/StringrNavigateProfileCommand.m; sourceTree = "<group>"; };
+		AB6C4AFF1A42426C00CBA63C /* StringrNetworkTask+Explore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+Explore.h"; path = "Stringr Objects/StringrNetworkTask+Explore.h"; sourceTree = "<group>"; };
+		AB6C4B001A42426C00CBA63C /* StringrNetworkTask+Explore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+Explore.m"; path = "Stringr Objects/StringrNetworkTask+Explore.m"; sourceTree = "<group>"; };
+		AB6C4B021A4242D800CBA63C /* StringrExploreCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrExploreCategory.h; path = "Stringr Objects/StringrExploreCategory.h"; sourceTree = "<group>"; };
+		AB6C4B031A4242D800CBA63C /* StringrExploreCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrExploreCategory.m; path = "Stringr Objects/StringrExploreCategory.m"; sourceTree = "<group>"; };
+		AB6C4B081A42937300CBA63C /* StringrTableSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrTableSection.h; path = StringrStringTable/StringrTableSection.h; sourceTree = "<group>"; };
+		AB6C4B091A42937300CBA63C /* StringrTableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrTableSection.m; path = StringrStringTable/StringrTableSection.m; sourceTree = "<group>"; };
+		AB6C4B0B1A43660400CBA63C /* StringrNetworkTask+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+Search.h"; path = "Network/StringrNetworkTask+Search.h"; sourceTree = "<group>"; };
+		AB6C4B0C1A43660400CBA63C /* StringrNetworkTask+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+Search.m"; path = "Network/StringrNetworkTask+Search.m"; sourceTree = "<group>"; };
+		AB6C4BAC1A4A057A00CBA63C /* StringrNetworkTask+Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+Profile.h"; path = "Network/StringrNetworkTask+Profile.h"; sourceTree = "<group>"; };
+		AB6C4BAD1A4A057A00CBA63C /* StringrNetworkTask+Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+Profile.m"; path = "Network/StringrNetworkTask+Profile.m"; sourceTree = "<group>"; };
 		AB6CB1C619058714008A8DB0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AB6CB1C819059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFindAndInviteFriendsTableViewController.h; path = Settings/StringrFindAndInviteFriendsTableViewController.h; sourceTree = "<group>"; };
 		AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFindAndInviteFriendsTableViewController.m; path = Settings/StringrFindAndInviteFriendsTableViewController.m; sourceTree = "<group>"; };
@@ -568,6 +594,11 @@
 		AB04A2D019E0C6240030C241 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				AB6C4AF01A3F5A4000CBA63C /* StringrExploreViewController.h */,
+				AB6C4AF11A3F5A4000CBA63C /* StringrExploreViewController.m */,
+				AB6C4AF81A3F6BD100CBA63C /* StringrExploreTableViewCell.h */,
+				AB6C4AF91A3F6BD100CBA63C /* StringrExploreTableViewCell.m */,
+				AB6C4AF61A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard */,
 				BF3EDE08183E9BB90071E047 /* StringrDiscoveryTabBarViewController.h */,
 				BF3EDE09183E9BB90071E047 /* StringrDiscoveryTabBarViewController.m */,
 				AB0F5327190AF1FF00A29E59 /* StringrPopularTableViewController.h */,
@@ -731,6 +762,8 @@
 			children = (
 				ABDB7E4D18D63C620047691B /* StringrTableViewController.h */,
 				ABDB7E4E18D63C620047691B /* StringrTableViewController.m */,
+				AB6C4B081A42937300CBA63C /* StringrTableSection.h */,
+				AB6C4B091A42937300CBA63C /* StringrTableSection.m */,
 				BF3EDE07183E98910071E047 /* String Tables */,
 				BF3EDE2A184449CE0071E047 /* User Tables */,
 				AB2E0C5F18EF359A00B5681A /* Load More TableViewCell */,
@@ -760,6 +793,12 @@
 				AB04A2EF19E2330B0030C241 /* StringrNetworkTask+PushNotification.m */,
 				AB5AFC1419F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.h */,
 				AB5AFC1519F9CB2B002F88B9 /* StringrNetworkTask+LikeActivity.m */,
+				AB6C4AFF1A42426C00CBA63C /* StringrNetworkTask+Explore.h */,
+				AB6C4B001A42426C00CBA63C /* StringrNetworkTask+Explore.m */,
+				AB6C4B0B1A43660400CBA63C /* StringrNetworkTask+Search.h */,
+				AB6C4B0C1A43660400CBA63C /* StringrNetworkTask+Search.m */,
+				AB6C4BAC1A4A057A00CBA63C /* StringrNetworkTask+Profile.h */,
+				AB6C4BAD1A4A057A00CBA63C /* StringrNetworkTask+Profile.m */,
 				AB1FDF3619AC1F9F0059338B /* StringrNetworkUtility.h */,
 				AB1FDF3719AC1F9F0059338B /* StringrNetworkUtility.m */,
 				AB6243AE19F9440500BA231D /* PFUser+StringrAdditions.h */,
@@ -783,6 +822,8 @@
 				AB1FDF4B19AC38A90059338B /* StringrPhoto.m */,
 				AB04A29F19D5228E0030C241 /* StringrACL.h */,
 				AB04A2A019D5228E0030C241 /* StringrACL.m */,
+				AB6C4B021A4242D800CBA63C /* StringrExploreCategory.h */,
+				AB6C4B031A4242D800CBA63C /* StringrExploreCategory.m */,
 				AB1FDF5319AC38D40059338B /* StringrActivity.h */,
 				AB1FDF5419AC38D40059338B /* StringrActivity.m */,
 				AB1FDF5019AC38C70059338B /* StringrComment.h */,
@@ -1212,6 +1253,8 @@
 			children = (
 				BF3EDE00183E92340071E047 /* StringrProfileViewController.h */,
 				BF3EDE01183E92340071E047 /* StringrProfileViewController.m */,
+				AB6C4AFC1A3F874100CBA63C /* StringrNavigateProfileCommand.h */,
+				AB6C4AFD1A3F874100CBA63C /* StringrNavigateProfileCommand.m */,
 				AB1C02911A39696F000AF42D /* StringrStringProfileTableViewController.h */,
 				AB1C02921A39696F000AF42D /* StringrStringProfileTableViewController.m */,
 				AB1C02901A396824000AF42D /* StringrContainerScrollViewDelegate.h */,
@@ -1528,6 +1571,7 @@
 				AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */,
 				AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */,
+				AB6C4AF71A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard in Resources */,
 				AB3C1DE41A126ABB00ACED69 /* StringrProfileStoryboard.storyboard in Resources */,
 				ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */,
 				AB5AFBEC19F62296002F88B9 /* TestTableViewStringCell.xib in Resources */,
@@ -1604,13 +1648,16 @@
 				AB1FDF3819AC1F9F0059338B /* StringrNetworkUtility.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
 				ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */,
+				AB6C4B041A4242D800CBA63C /* StringrExploreCategory.m in Sources */,
 				AB1FDF4F19AC38B40059338B /* StringrString.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
 				ABA2F06E1922BB430004A806 /* ZCImagePickerController.m in Sources */,
 				AB9D782B18FDA99500E84015 /* StringrActivityTableViewCell.m in Sources */,
 				AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */,
 				AB1FDF3C19AC20A60059338B /* StringrNetworkTask.m in Sources */,
+				AB6C4AFE1A3F874100CBA63C /* StringrNavigateProfileCommand.m in Sources */,
 				ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */,
+				AB6C4B0A1A42937300CBA63C /* StringrTableSection.m in Sources */,
 				AB5AFC0819F9C920002F88B9 /* UIDevice+StringrAdditions.m in Sources */,
 				ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */,
 				AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */,
@@ -1627,6 +1674,7 @@
 				ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
+				AB6C4B0D1A43660400CBA63C /* StringrNetworkTask+Search.m in Sources */,
 				AB04A30119EF6BD50030C241 /* StringTableViewActionCell.m in Sources */,
 				AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */,
 				ABA2F06B1922BB430004A806 /* ZCAssetCell.m in Sources */,
@@ -1634,6 +1682,7 @@
 				ABE9DE811A27DB8C00B228F5 /* StringrColoredView.m in Sources */,
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
+				AB6C4AF21A3F5A4000CBA63C /* StringrExploreViewController.m in Sources */,
 				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,
 				AB04A30719EF6F140030C241 /* StringTableViewHeader.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
@@ -1649,6 +1698,7 @@
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
 				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
 				AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */,
+				AB6C4BAE1A4A057A00CBA63C /* StringrNetworkTask+Profile.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
 				AB1C02931A39696F000AF42D /* StringrStringProfileTableViewController.m in Sources */,
@@ -1701,12 +1751,14 @@
 				AB1FDF4219AC22310059338B /* StringrNetworkTask+Activity.m in Sources */,
 				AB5AFC1919F9CD1A002F88B9 /* NSDate+StringrAdditions.m in Sources */,
 				AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */,
+				AB6C4AFA1A3F6BD100CBA63C /* StringrExploreTableViewCell.m in Sources */,
 				AB04A2B019D522F50030C241 /* StringrLike.m in Sources */,
 				AB757AA518874CF300D32917 /* StringrTabBarViewController.m in Sources */,
 				AB5AFBF119F87FB6002F88B9 /* UIColor+StringrColors.m in Sources */,
 				AB1FDF3F19AC20D00059338B /* StringrNetworkTask+User.m in Sources */,
 				ABDB7E5218D7EAB30047691B /* StringrSignUpWithEmailTableViewController.m in Sources */,
 				ABA2F0691922BB430004A806 /* ZCAlbumPickerController.m in Sources */,
+				AB6C4B011A42426C00CBA63C /* StringrNetworkTask+Explore.m in Sources */,
 				ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */,
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
 				AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */,

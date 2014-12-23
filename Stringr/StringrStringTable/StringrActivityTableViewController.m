@@ -128,6 +128,8 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
     if (indexPath.row == self.objects.count) [self loadNextPage];
     
     PFObject *objectForIndexPath = [self.objects objectAtIndex:indexPath.row]; // activity object
@@ -138,12 +140,12 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
     
     if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey] && [objectForIndexPath objectForKey:kStringrActivityStringKey]) { // added photo to public string
         if (!stringToLoad) return;
-        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         [stringDetailVC setStringToLoad:stringToLoad];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
-        StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+        StringrPhotoDetailViewController *photoDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         
         [photoDetailVC setPhotosToLoad:@[photoToLoad]];
@@ -158,12 +160,12 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
         [self.navigationController setViewControllers:viewControllers animated:YES];
     } else if ([[objectForIndexPath objectForKey:kStringrActivityContentKey] isEqualToString:kStringrActivityContentCommentKey]) { // mentioned in comment
         if (!stringToLoad) return;
-        StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+        StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         [stringDetailVC setStringToLoad:stringToLoad];
         [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
-        StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+        StringrCommentsTableViewController *commentsVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:stringToLoad];
         commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         
@@ -177,12 +179,12 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
     } else if ([objectForIndexPath objectForKey:kStringrActivityStringKey]) { // Activity on a string
         if (!stringToLoad) return;
         if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) { // Commented on your string
-            StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+            StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
             stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             [stringDetailVC setStringToLoad:stringToLoad];
             [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
-            StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            StringrCommentsTableViewController *commentsVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
             [commentsVC setObjectForCommentThread:stringToLoad];
             commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
@@ -194,7 +196,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
             
             [self.navigationController setViewControllers:viewControllers animated:YES];
         } else { // Liked Your String
-            StringrStringDetailViewController *stringDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
+            StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
             [stringDetailVC setStringToLoad:stringToLoad];
             [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
@@ -203,14 +205,14 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
     } else if ([objectForIndexPath objectForKey:kStringrActivityPhotoKey]) { // Activity on a Photo
         if (!photoToLoad) return;
         if ([[objectForIndexPath objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment]) { // Commented on your photo
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+            StringrPhotoDetailViewController *photoDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
             [photoDetailVC setPhotosToLoad:@[photoToLoad]];
             [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
             [photoDetailVC setHidesBottomBarWhenPushed:YES];
             
-            StringrCommentsTableViewController *commentsVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
+            StringrCommentsTableViewController *commentsVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
             [commentsVC setObjectForCommentThread:photoToLoad];
             commentsVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             
@@ -222,7 +224,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
             
             [self.navigationController setViewControllers:viewControllers animated:YES];
         } else { // Liked your photo
-             StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+             StringrPhotoDetailViewController *photoDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
             
              [photoDetailVC setPhotosToLoad:@[photoToLoad]];
              [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
@@ -233,7 +235,6 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) { // Follow activity action
         StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
-        [profileVC setProfileReturnState:ProfileBackReturnState];
         [profileVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:profileVC animated:YES];
@@ -347,11 +348,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
         StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         
         [profileVC setUserForProfile:user];
-        [profileVC setProfileReturnState:ProfileModalReturnState];
-        
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-        
-        [self presentViewController:navVC animated:YES completion:nil];
+        [self.navigationController pushViewController:profileVC animated:YES];
     }
 }
 

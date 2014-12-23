@@ -17,29 +17,10 @@
 
 #pragma mark - LifeCycle
 
-- (instancetype)initWithUser:(PFUser *)user
-{
-    self = [super initWithStyle:UITableViewStylePlain];
-    
-    if (self) {
-        _userForProfile = user;
-    }
-    
-    return self;
-}
-
-- (void)dealloc
-{
-
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.tableView setScrollEnabled:NO];
-    // Enables scroll to top for the parallax view
-    [self.tableView setScrollsToTop:NO];
     [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
     [self.tableView reloadData];
 }
@@ -50,6 +31,35 @@
     
 }
 
+
+#pragma mark - Stringr Container ScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [super scrollViewDidScroll:scrollView];
+    
+    [self.delegate containerViewDidScroll:scrollView];
+}
+
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    return [self.delegate containerViewShouldScrollToTop:scrollView];
+}
+
+
+- (void)adjustScrollViewTopInset:(CGFloat)inset
+{
+    UIEdgeInsets newInsets = self.tableView.contentInset;
+    newInsets.top = inset;
+    self.tableView.contentInset = newInsets;
+}
+
+
+- (UIScrollView *)containerScrollView
+{
+    return self.tableView;
+}
 
 
 #pragma mark - PFQueryTableViewController Delegate
@@ -74,16 +84,5 @@
         self.tableView.tableHeaderView = noContentHeaderView;
     }
 }
-
-
-
-#pragma mark - ParallaxScrollViewController Delegate
-
-- (UIScrollView *)scrollViewForParallexController
-{
-    return self.tableView;
-}
-
-
 
 @end

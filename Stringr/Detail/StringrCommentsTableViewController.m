@@ -283,13 +283,9 @@
 - (void)tappedCommentorUserProfileImage:(PFUser *)user
 {
     StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
-    
     [profileVC setUserForProfile:user];
-    [profileVC setProfileReturnState:ProfileModalReturnState];
-
-    StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
     
-    [self presentViewController:navVC animated:YES completion:nil];
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 - (void)tableViewCell:(StringrCommentsTableViewCell *)commentsCell tappedUserHandleWithName:(NSString *)name
@@ -303,10 +299,8 @@
                 
                 StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
                 [profileVC setUserForProfile:user];
-                [profileVC setProfileReturnState:ProfileModalReturnState];
                 
-                StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-                [self presentViewController:navVC animated:YES completion:nil];
+                [self.navigationController pushViewController:profileVC animated:YES];
             } else {
                 NSLog(@"No user with that name was found!");
             }

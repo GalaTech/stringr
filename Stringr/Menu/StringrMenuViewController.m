@@ -38,6 +38,8 @@
 #import "StringrLikedPhotosTableViewController.h"
 #import "NSString+StringrAdditions.h"
 
+#import "StringrExploreViewController.h"
+
 
 @interface StringrMenuViewController () <UIActionSheetDelegate>
 
@@ -156,7 +158,7 @@
 - (NSArray *)menuRowTitles
 {
     if (!_menuRowTitles) {
-        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"Explore", @"Search", nil];
+        _menuRowTitles = [[NSArray alloc] initWithObjects:@"Home", @"My Profile", @"Explore", nil];
     }
     
     return _menuRowTitles;
@@ -285,19 +287,21 @@
         [self.frostedViewController setContentViewController:homeTabBarVC];
     } else if (indexPath.row == 1) {
         StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
-        
-        [profileVC setUserForProfile:[PFUser currentUser]];
-        [profileVC setProfileReturnState:ProfileMenuReturnState];
+        profileVC.userForProfile = [PFUser currentUser];
+        profileVC.isDashboardProfile = YES;
+        profileVC.profileReturnState = ProfileMenuReturnState;
         
         StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
         
         [self.frostedViewController setContentViewController:navVC];
     } else if (indexPath.row == 2) {
-        StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
-        [self.frostedViewController setContentViewController:discoveryTabBarVC];
+        StringrExploreViewController *exploreVC = [StringrExploreViewController viewController];
         
-    } else if (indexPath.row == 3) {
-         [self.frostedViewController setContentViewController:[self setupSearchTabBarController]];
+        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:exploreVC];
+        
+//        StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
+        [self.frostedViewController setContentViewController:navVC];
+        
     }
     
     // Closes the menu after a user selects an item

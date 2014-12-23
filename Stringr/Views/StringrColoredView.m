@@ -39,7 +39,7 @@
 
 + (instancetype)defaultColoredView
 {
-    CGRect coloredRect = CGRectMake(0.0, 0.0, CGRectGetWidth([UIScreen mainScreen].bounds), 2.0f);
+    CGRect coloredRect = CGRectMake(0.0, 0.0, CGRectGetWidth([UIScreen mainScreen].bounds), 1.0f);
     StringrColoredView *coloredView = [[StringrColoredView alloc] initWithFrame:coloredRect colors:[self defaultColors]];
     
     return coloredView;
@@ -48,7 +48,7 @@
 
 + (instancetype)coloredViewWithColors:(NSArray *)colors
 {
-    CGRect coloredRect = CGRectMake(0.0, 0.0, CGRectGetWidth([UIScreen mainScreen].bounds), 2.0f);
+    CGRect coloredRect = CGRectMake(0.0, 0.0, CGRectGetWidth([UIScreen mainScreen].bounds), 1.0f);
     StringrColoredView *coloredView = [[StringrColoredView alloc] initWithFrame:coloredRect colors:colors];
     
     return coloredView;

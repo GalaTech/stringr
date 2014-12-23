@@ -20,7 +20,8 @@
 {
     [super viewDidLoad];
 	
-    self.title = @"Discovery";
+    self.title = @"Discover";
+    self.navigationItem.leftBarButtonItem = nil;
 
 }
 

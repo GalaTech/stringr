@@ -134,4 +134,16 @@
     return [UIColor colorWithRed:59/255.0f green:89/255.0f blue:152/255.0f alpha:1.0];
 }
 
+
+#pragma mark - Utility
+
++ (UIColor *)randomColor
+{
+    CGFloat red = (arc4random() % 255);
+    CGFloat green = (arc4random() % 255);
+    CGFloat blue = (arc4random() % 255);
+    
+    return [UIColor colorWithRed:red / 255.0f green:green / 255.0f blue:blue / 255.0f alpha:1.0f];
+}
+
 @end

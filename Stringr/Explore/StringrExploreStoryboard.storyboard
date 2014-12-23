@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2Xc-R0-066">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <scenes>
+        <!--Stringr Explore View Controller-->
+        <scene sceneID="7ML-bk-DuF">
+            <objects>
+                <viewController storyboardIdentifier="ExploreVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2Xc-R0-066" customClass="StringrExploreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qqi-H7-8P3"/>
+                        <viewControllerLayoutGuide type="bottom" id="FbC-m5-gPI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aF8-yx-PK3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sg5-eu-XEF">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="cse-Dz-yZq">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="2Xc-R0-066" id="q1G-c4-Cfg"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="ExploreCell" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ExploreCell" rowHeight="60" id="1If-Ha-a6X" customClass="StringrExploreTableViewCell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1If-Ha-a6X" id="YB8-pW-qkX">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLq-ab-kIy">
+                                                    <rect key="frame" x="68" y="19" width="244" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTf-Cq-IC6">
+                                                    <rect key="frame" x="15" y="11" width="38" height="38"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="38" id="81H-ga-UfM"/>
+                                                        <constraint firstAttribute="width" constant="38" id="SrW-uw-ghf"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eTf-Cq-IC6" firstAttribute="leading" secondItem="YB8-pW-qkX" secondAttribute="leading" constant="15" id="3tA-ZM-e7g"/>
+                                                <constraint firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" constant="-0.5" id="Se5-EI-Tee"/>
+                                                <constraint firstItem="qLq-ab-kIy" firstAttribute="leading" secondItem="eTf-Cq-IC6" secondAttribute="trailing" constant="15" id="f47-zE-mQj"/>
+                                                <constraint firstAttribute="trailing" secondItem="qLq-ab-kIy" secondAttribute="trailing" constant="8" id="fHN-OS-pPI"/>
+                                                <constraint firstItem="qLq-ab-kIy" firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" constant="-0.5" id="lay-Kj-V2p"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="categoryImageView" destination="eTf-Cq-IC6" id="zzZ-ec-C90"/>
+                                            <outlet property="categoryLabel" destination="qLq-ab-kIy" id="EEf-gL-Nek"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2Xc-R0-066" id="VWs-ca-AAR"/>
+                                    <outlet property="delegate" destination="2Xc-R0-066" id="iW6-P6-VuN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sg5-eu-XEF" firstAttribute="leading" secondItem="aF8-yx-PK3" secondAttribute="leading" id="Y5W-JP-6rF"/>
+                            <constraint firstAttribute="trailing" secondItem="sg5-eu-XEF" secondAttribute="trailing" id="kbd-oY-m0c"/>
+                            <constraint firstItem="sg5-eu-XEF" firstAttribute="top" secondItem="aF8-yx-PK3" secondAttribute="top" id="r4z-L6-84h"/>
+                            <constraint firstItem="FbC-m5-gPI" firstAttribute="top" secondItem="sg5-eu-XEF" secondAttribute="bottom" id="wxG-wP-53c"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="enM-38-Rf6" id="2VC-pB-r8P"/>
+                        <outlet property="tableView" destination="sg5-eu-XEF" id="28r-mE-sMC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h0o-MD-KVt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="enM-38-Rf6">
+                    <connections>
+                        <outlet property="delegate" destination="2Xc-R0-066" id="aKF-LQ-cG3"/>
+                        <outlet property="searchBar" destination="cse-Dz-yZq" id="qqA-Vx-lvj"/>
+                        <outlet property="searchContentsController" destination="2Xc-R0-066" id="0eV-d7-QNC"/>
+                        <outlet property="searchResultsDataSource" destination="2Xc-R0-066" id="edJ-Xs-dbV"/>
+                        <outlet property="searchResultsDelegate" destination="2Xc-R0-066" id="AbE-nA-Ify"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="445" y="415"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

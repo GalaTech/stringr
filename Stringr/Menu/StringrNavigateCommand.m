@@ -50,28 +50,6 @@
 
 - (UIViewController *)commandViewController
 {
-    id viewController = [self.viewControllerClass new];
-    
-    if ([viewController isKindOfClass:[StringrFollowingTableViewController class]]) {
-        StringrFollowingTableViewController *followingVC = (StringrFollowingTableViewController *)viewController;
-        
-        if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
-            followingVC.delegate = self.delegate;
-        }
-        
-        return followingVC;
-    }
-    else if ([viewController isKindOfClass:[StringrPopularTableViewController class]]) {
-        StringrPopularTableViewController *popularVC = (StringrPopularTableViewController *)viewController;
-        
-        return popularVC;
-    }
-    else if ([viewController isKindOfClass:[StringrDiscoveryTableViewController class]]) {
-        StringrDiscoveryTableViewController *discoverVC = (StringrDiscoveryTableViewController *)viewController;
-        
-        return discoverVC;
-    }
-    
     return [UIViewController new];
 }
 
