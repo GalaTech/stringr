@@ -91,7 +91,7 @@
         // fetches the photos associated String object for future photo owner functionality
         PFObject *string = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
         if (string) {
-            [string fetchInBackgroundWithBlock:nil];
+            [string fetchIfNeeded];
         }
     }
     
@@ -103,7 +103,16 @@
 
 + (void)publicPhotosForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion
 {
-    
+    PFQuery *publicPhotosQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [publicPhotosQuery whereKey:kStringrActivityFromUserKey equalTo:user];
+    [publicPhotosQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeAddedPhotoToPublicString];
+    [publicPhotosQuery whereKeyExists:kStringrActivityPhotoKey];
+    [publicPhotosQuery includeKey:kStringrActivityPhotoKey];
+    [publicPhotosQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (completion) {
+            completion([self likedPhotosFromActivityArray:objects], error);
+        }
+    }];
 }
 
 @end
