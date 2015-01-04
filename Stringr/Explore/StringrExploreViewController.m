@@ -22,6 +22,8 @@
 
 #import "UIImage+StringrImageAdditions.h"
 
+#import "StringrPhotoCollectionViewController.h"
+
 @interface StringrExploreViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -164,9 +166,16 @@
     StringrExploreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExploreCell"];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        PFUser *user = self.filteredSearchResults[indexPath.row];
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"Search: %@, %@", user[kStringrUserUsernameKey], user[kStringrUserDisplayNameKey]];
+        if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+            PFUser *user = self.filteredSearchResults[indexPath.row];
+            
+            cell.textLabel.text = [NSString stringWithFormat:@"Search: %@, %@", user[kStringrUserUsernameKey], user[kStringrUserDisplayNameKey]];
+        }
+        else {
+            PFObject *tag = self.filteredSearchResults[indexPath.row];
+            
+            cell.textLabel.text = [NSString stringWithFormat:@"#%@", tag[@"Hashtag"]];
+        }
     }
     else {
         StringrTableSection *tableSection = self.categorySections[indexPath.section];
@@ -204,6 +213,10 @@
     else if ([category.name isEqualToString:@"Near You"]) {
         StringrNearYouTableViewController *nearYouVC = [StringrNearYouTableViewController new];
         [self.navigationController pushViewController:nearYouVC animated:YES];
+    }
+    else {
+        StringrPhotoCollectionViewController *photosVC = [StringrPhotoCollectionViewController viewController];
+        [self.navigationController pushViewController:photosVC animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -280,11 +293,24 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
 {
+    NSString *searchString = controller.searchBar.text;
+    self.filteredSearchResults = nil;
+    
     if (searchOption == 0) {
         controller.searchBar.placeholder = @"Search Users";
+        
+        [StringrNetworkTask searchForUser:searchString completion:^(NSArray *users, NSError *error) {
+            self.filteredSearchResults = [users copy];
+            [controller.searchResultsTableView reloadData];
+        }];
     }
     else {
         controller.searchBar.placeholder = @"Search Tags";
+        
+        [StringrNetworkTask searchForTag:searchString completion:^(NSArray *tags, NSError *error) {
+            self.filteredSearchResults = [tags copy];
+            [controller.searchResultsTableView reloadData];
+        }];
     }
     
     return YES;
@@ -300,7 +326,10 @@
         }];
     }
     else {
-        NSLog(@"Search tags");
+        [StringrNetworkTask searchForTag:searchString completion:^(NSArray *tags, NSError *error) {
+            self.filteredSearchResults = [tags copy];
+            [controller.searchResultsTableView reloadData];
+        }];
     }
     
     return YES;

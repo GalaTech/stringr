@@ -49,7 +49,7 @@
     [self.rootViewController launchSequence:launchOptions];
     
 //    [self testLaunchSequence];
-    
+
     return YES;
 }
 

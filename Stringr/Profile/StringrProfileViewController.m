@@ -26,6 +26,7 @@
 #import "StringrNavigationController.h"
 
 #import "StringrStringProfileTableViewController.h"
+#import "StringrPhotoCollectionViewController.h"
 #import "StringrContainerScrollViewDelegate.h"
 
 static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
@@ -171,12 +172,16 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     // Lazily instantiate the array of container view controllers.
     // Each one object creates a command, which then lazily instantiates the vc itself
     if (!_profileViewControllers) {
-        NSArray *controllerNames = @[@"StringrProfileTableViewController", @"StringrProfileTableViewController", @"StringrProfileTableViewController", @"StringrProfileTableViewController"];
+        NSArray *controllerCommandTypes = @[@(ProfileCommandUserStrings), @(ProfileCommandLikedStrings), @(ProfileCommandLikedPhotos), @(ProfileCommandPublicPhotos)];
         
-        NSMutableArray *profileViewControllers = [[NSMutableArray alloc] initWithCapacity:controllerNames.count];
+        NSMutableArray *profileViewControllers = [[NSMutableArray alloc] initWithCapacity:controllerCommandTypes.count];
         
-        for (NSString *name in controllerNames) {
-            StringrNavigateProfileCommand *command = [[StringrNavigateProfileCommand alloc] initWithViewControllerClass:NSClassFromString(name) delegate:self];
+        for (NSNumber *commandNumber in controllerCommandTypes) {
+            ProfileCommandType commandType = [commandNumber intValue];
+            
+            StringrNavigateProfileCommand *command = [StringrNavigateProfileCommand new];
+            command.commandType = commandType;
+            command.delegate = self;
             command.user = self.userForProfile;
             
             command.segmentDisplayBlock = ^(UIViewController <StringrContainerScrollViewDelegate>*viewController) {

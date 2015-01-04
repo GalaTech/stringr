@@ -20,8 +20,25 @@ typedef enum {
     StringrNoType
 } StringrObjectType;
 
+typedef enum {
+    StringrFollowingNetworkTask = 0,
+    StringrMyStringrNetworkTask
+} StringrNetworkStringTaskType;
+
+typedef enum {
+    StringrUserPhotosNetworkTask = 0,
+    StringrUserPublicPhotosNetworkTask
+} StringrNetworkPhotoTaskType;
+
+typedef void (^StringrStringsBlock)(NSArray *strings, NSError *error);
+typedef void (^StringrPhotosBlock)(NSArray *photos, NSError *error);
+
 @interface StringrNetworkTask : NSObject
 
 + (StringrObjectType)objectType:(PFObject *)object;
+
++ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion;
+
++ (void)photosForDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user completion:(StringrPhotosBlock)completion;
 
 @end

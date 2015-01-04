@@ -37,10 +37,48 @@
         
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (completion) {
-                completion(objects, error);
+                completion([objects copy], error);
             }
         }];
     }
+}
+
+
++ (void)searchForTag:(NSString *)searchText completion:(void (^)(NSArray *tags, NSError *error))completion
+{
+    NSString *tagSearchRegexPattern = [NSString stringWithFormat:@"^%@", searchText];
+    
+    PFQuery *tagQuery = [PFQuery queryWithClassName:@"Hashtags"];
+    [tagQuery whereKey:@"Hashtag" matchesRegex:tagSearchRegexPattern modifiers:@"i"];
+    [tagQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (completion) {
+            completion([objects copy], error);
+        }
+    }];
+}
+
+
++ (void)stringsForTag:(PFObject *)tag completion:(void (^)(NSArray *strings, NSError *error))completion
+{
+    PFRelation *tagStringRelation = [tag relationForKey:@"Strings"];
+    
+    [[tagStringRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (completion) {
+            completion([objects copy], error);
+        }
+    }];
+}
+
+
++ (void)photosForTag:(PFObject *)tag completion:(void (^)(NSArray *photos, NSError *error))completion
+{
+    PFRelation *tagPhotoRelation = [tag relationForKey:@"Photos"];
+    
+    [[tagPhotoRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (completion) {
+            completion([objects copy], error);
+        }
+    }];
 }
 
 @end

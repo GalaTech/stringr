@@ -9,22 +9,18 @@
 #import "StringrNavigateProfileCommand.h"
 #import "StringrFollowingTableViewController.h"
 #import "StringrProfileTableViewController.h"
+#import "StringrPhotoCollectionViewController.h"
 #import "StringrPopularTableViewController.h"
 #import "StringrDiscoveryTableViewController.h"
+
+#import "StringrNetworkTask.h"
 
 @implementation StringrNavigateProfileCommand
 
 - (UIViewController *)commandViewController
 {
-    id viewController = [self.viewControllerClass new];
-    
-    if ([viewController isKindOfClass:[StringrFollowingTableViewController class]]) {
-        StringrFollowingTableViewController *followingVC = (StringrFollowingTableViewController *)viewController;
-        
-        return followingVC;
-    }
-    else if ([viewController isKindOfClass:[StringrProfileTableViewController class]]) {
-        StringrProfileTableViewController *myStringsVC = (StringrProfileTableViewController *)viewController;
+    if (self.commandType == ProfileCommandUserStrings) {
+        StringrProfileTableViewController *myStringsVC = [StringrProfileTableViewController new];
         myStringsVC.userForProfile = self.user;
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
@@ -33,15 +29,33 @@
         
         return myStringsVC;
     }
-    else if ([viewController isKindOfClass:[StringrPopularTableViewController class]]) {
-        StringrPopularTableViewController *popularVC = (StringrPopularTableViewController *)viewController;
+    else if (self.commandType == ProfileCommandLikedStrings) {
+        StringrProfileTableViewController *myStringsVC = [StringrProfileTableViewController new];
+        myStringsVC.userForProfile = self.user;
         
-        return popularVC;
+        if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
+            myStringsVC.delegate = self.delegate;
+        }
+        
+        return myStringsVC;
     }
-    else if ([viewController isKindOfClass:[StringrDiscoveryTableViewController class]]) {
-        StringrDiscoveryTableViewController *discoverVC = (StringrDiscoveryTableViewController *)viewController;
+    else if (self.commandType == ProfileCommandLikedPhotos) {
+        StringrPhotoCollectionViewController *photoCollectionVC = [[StringrPhotoCollectionViewController alloc] initWithDataType:StringrUserPhotosNetworkTask user:self.user];
         
-        return discoverVC;
+        if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
+            photoCollectionVC.delegate = self.delegate;
+        }
+        
+        return photoCollectionVC;
+    }
+    else if (self.commandType == ProfileCommandPublicPhotos) {
+        StringrPhotoCollectionViewController *photoCollectionVC = [[StringrPhotoCollectionViewController alloc] initWithDataType:StringrUserPublicPhotosNetworkTask user:self.user];
+        
+        if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
+            photoCollectionVC.delegate = self.delegate;
+        }
+        
+        return photoCollectionVC;
     }
     
     return [UIViewController new];

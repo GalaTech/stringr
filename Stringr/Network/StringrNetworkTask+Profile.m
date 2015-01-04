@@ -65,7 +65,7 @@
 {
     PFQuery *likePhotosActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [likePhotosActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
-    [likePhotosActivityQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [likePhotosActivityQuery whereKey:kStringrActivityFromUserKey equalTo:user];
     [likePhotosActivityQuery whereKeyExists:kStringrActivityPhotoKey];
     [likePhotosActivityQuery includeKey:kStringrActivityPhotoKey];
     [likePhotosActivityQuery orderByDescending:@"createdAt"];
@@ -91,7 +91,7 @@
         // fetches the photos associated String object for future photo owner functionality
         PFObject *string = [[activityObject objectForKey:kStringrActivityPhotoKey] objectForKey:kStringrPhotoStringKey];
         if (string) {
-            [string fetchIfNeeded];
+            [string fetchIfNeededInBackgroundWithBlock:nil];
         }
     }
     

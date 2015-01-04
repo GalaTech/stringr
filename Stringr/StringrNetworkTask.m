@@ -8,6 +8,8 @@
 
 #import "StringrNetworkTask.h"
 
+#import "StringrNetworkTask+Profile.h"
+
 @implementation StringrNetworkTask
 
 + (StringrObjectType)objectType:(PFObject *)object
@@ -43,6 +45,37 @@
     }
     
     return StringrNoType;
+}
+
+
++ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion
+{
+    if (completion) {
+        switch (dataType) {
+            case StringrMyStringrNetworkTask:
+                [StringrNetworkTask stringsForUser:[PFUser currentUser] completion:completion];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
++ (void)photosForDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user completion:(StringrPhotosBlock)completion
+{
+    if (completion) {
+        switch (dataType) {
+            case StringrUserPhotosNetworkTask:
+                [StringrNetworkTask likedPhotosForUser:user completion:completion];
+                break;
+            case StringrUserPublicPhotosNetworkTask:
+                [StringrNetworkTask publicPhotosForUser:user completion:completion];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 @end
