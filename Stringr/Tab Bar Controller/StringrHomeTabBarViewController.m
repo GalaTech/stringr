@@ -13,6 +13,9 @@
 #import "StringrNavigationController.h"
 #import "StringrFollowingTableViewController.h"
 
+#import "StringrProfileViewController.h"
+#import "StringrExploreViewController.h"
+
 #import "StringrActivityManager.h"
 #import "UIColor+StringrColors.h"
 
@@ -25,18 +28,33 @@
     self = [super init];
     
     if (self) {
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         StringrFollowingTableViewController *followingVC = [StringrFollowingTableViewController new];
         StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
         UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:@"Following" image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
         [followingNavVC setTabBarItem:followingTab];
+        
+        StringrExploreViewController *exploreVC = [StringrExploreViewController viewController];
+        StringrNavigationController *exploreNavVC = [[StringrNavigationController alloc] initWithRootViewController:exploreVC];
+        UITabBarItem *exploreTab = [[UITabBarItem alloc] initWithTitle:@"Explore" image:[UIImage imageNamed:@"sailboat_icon"] tag:0];
+        [exploreVC setTabBarItem:exploreTab];
+        
+        UIViewController *cameraVC = [UIViewController new];
+        UITabBarItem *cameraTab = [[UITabBarItem alloc] initWithTitle:@"Camera" image:[UIImage imageNamed:@"camera_button"] tag:0];
+        [cameraVC setTabBarItem:cameraTab];
         
         StringrActivityTableViewController *activityVC = [StringrActivityTableViewController viewController];
         StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
         UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:@"Activity" image:[UIImage imageNamed:@"activity_icon"] tag:0];
         [activityNavVC setTabBarItem:activityTab];
         
-        [self setViewControllers:@[followingNavVC, activityNavVC]];
+        StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
+        profileVC.userForProfile = [PFUser currentUser];
+        profileVC.isDashboardProfile = YES;
+        StringrNavigationController *profileNavVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
+        UITabBarItem *profileTab = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"users_icon"] tag:0];
+        [profileVC setTabBarItem:profileTab];
+        
+        [self setViewControllers:@[followingNavVC, exploreNavVC, cameraVC, activityNavVC, profileNavVC]];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateActivityNotificationsTabValue) name:@"currentUserHasNewActivities" object:nil];
     }

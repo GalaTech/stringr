@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TYo-jH-Mhx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -237,25 +237,6 @@
             </objects>
             <point key="canvasLocation" x="-2525" y="-5993"/>
         </scene>
-        <!--App Controller-->
-        <scene sceneID="VVi-cb-kts">
-            <objects>
-                <viewController storyboardIdentifier="rootVC" title="App Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TYo-jH-Mhx" customClass="StringrAppController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9Ch-hR-fgT"/>
-                        <viewControllerLayoutGuide type="bottom" id="8MS-df-5Ne"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Nt0-s3-QvB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Liked Strings" id="J70-Ya-mcb"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zFM-kg-gef" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1394" y="-4631"/>
-        </scene>
         <!--Stringr Comments Table View Controller-->
         <scene sceneID="YEM-zs-tD1">
             <objects>
@@ -393,35 +374,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f6M-II-QND" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1351" y="-5941"/>
-        </scene>
-        <!--Stringr Menu View Controller-->
-        <scene sceneID="Jfe-ib-NFI">
-            <objects>
-                <tableViewController storyboardIdentifier="StringrMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5Fr-nH-dfu" customClass="StringrMenuViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CgK-hO-rk2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuCell" id="yi2-NV-cTe">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yi2-NV-cTe" id="3Nk-eL-d7j">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="5Fr-nH-dfu" id="wZJ-hT-K9P"/>
-                            <outlet property="delegate" destination="5Fr-nH-dfu" id="cee-Jg-XHs"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZDu-Qv-KMP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-963" y="-4631"/>
         </scene>
         <!--Find People-->
         <scene sceneID="2jQ-IL-q75">

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "683325CBC133422A83D04D78"
+               BlueprintIdentifier = "F1C0E58DA8F4F993EEA71BFE"
                BuildableName = "libPods-ACPButton.a"
                BlueprintName = "Pods-ACPButton"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -70,7 +70,9 @@
 
 - (void)refreshAll
 {
-    [StringrNetworkTask numberOfActivitesForUser:[PFUser currentUser] completionBlock:nil];
+    if ([PFUser currentUser]) {
+        [StringrNetworkTask numberOfActivitesForUser:[PFUser currentUser] completionBlock:nil];
+    }
 }
 
 

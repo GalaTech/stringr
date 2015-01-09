@@ -50,17 +50,6 @@
 }
 
 
-
-#pragma mark - Private
-
-// Handles the action of displaying the menu when the menu nav item is pressed
-- (void)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
-
-
-
 #pragma mark - UITabBar Delegate
 
 /*

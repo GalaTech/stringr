@@ -455,18 +455,6 @@
 }
 
 
-
-
-#pragma mark - Menu
-
-+ (void)showMenu:(REFrostedViewController *)menuViewController
-{
-    [menuViewController presentMenuViewController];
-}
-
-
-
-
 #pragma mark - Text Parsing
 
 //static float const secondsRemovedFromDate = 240;

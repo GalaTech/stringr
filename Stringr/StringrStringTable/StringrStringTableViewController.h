@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "StringrTableViewController.h"
-#import "REFrostedViewController.h"
 
 @interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 

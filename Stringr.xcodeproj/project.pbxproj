@@ -46,6 +46,7 @@
 		AB1FDF5519AC38D40059338B /* StringrActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF5419AC38D40059338B /* StringrActivity.m */; };
 		AB20142C1916DEBA0097FD10 /* StringrDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */; };
 		AB27124B1A35283700B6D52D /* StringrNavigateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = AB27124A1A35283700B6D52D /* StringrNavigateCommand.m */; };
+		AB2973351A5F9948007DE1E8 /* StringrLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2973341A5F9948007DE1E8 /* StringrLaunchViewController.m */; };
 		AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */; };
 		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
 		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
@@ -159,6 +160,9 @@
 		ABF05555192D607C00BB08A7 /* StringrFollowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF05554192D607C00BB08A7 /* StringrFollowingTableViewController.m */; };
 		ABF0555C192D81D400BB08A7 /* StringrNearYouTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF0555B192D81D400BB08A7 /* StringrNearYouTableViewController.m */; };
 		ABF121F1189C14810029177A /* StringrCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */; };
+		ABF6133E1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF6133D1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.m */; };
+		ABF613401A5D89FA001655DE /* StringrAppControllerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABF6133F1A5D89FA001655DE /* StringrAppControllerStoryboard.storyboard */; };
+		ABF613431A5D8CB3001655DE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABF613421A5D8CB3001655DE /* MainWindow.xib */; };
 		ABFBE60118D8C67A0026BCC1 /* StringrHomeTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */; };
 		ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60318D8C7CA0026BCC1 /* StringrActivityTableViewController.m */; };
 		ABFBE60B18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE60A18D922700026BCC1 /* StringrPrivacyPolicyTermsOfServiceViewController.m */; };
@@ -172,9 +176,8 @@
 		BF29E424184CFE9D007607CB /* StringrProfileTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E423184CFE9D007607CB /* StringrProfileTopViewController.m */; };
 		BF29E427184CFEDE007607CB /* StringrProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */; };
 		BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD5183AADCB0071E047 /* StringrConstants.m */; };
-		BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */; };
+		BF3EDDD9183D8EAD0071E047 /* StringrAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDD8183D8EAD0071E047 /* StringrAppViewController.m */; };
 		BF3EDDF2183D92330071E047 /* StringrNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF1183D92330071E047 /* StringrNavigationController.m */; };
-		BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */; };
 		BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */; };
 		BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDDFE183E89A60071E047 /* StringrUtility.m */; };
 		BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EDE01183E92340071E047 /* StringrProfileViewController.m */; };
@@ -214,8 +217,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2202500216664CDF90947ED9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		39B54354D5E0D0F26318AEA9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		792BDC5C21374F12A2D410CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BF6B201D8EB4F07255B9EFF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AB04A29F19D5228E0030C241 /* StringrACL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrACL.h; path = "Stringr Objects/StringrACL.h"; sourceTree = "<group>"; };
 		AB04A2A019D5228E0030C241 /* StringrACL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrACL.m; path = "Stringr Objects/StringrACL.m"; sourceTree = "<group>"; };
 		AB04A2A219D522B60030C241 /* StringrFlagged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFlagged.h; path = "Stringr Objects/StringrFlagged.h"; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 		AB20142B1916DEBA0097FD10 /* StringrDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrDetailTableViewCell.m; path = "Detail/Table View Cell/StringrDetailTableViewCell.m"; sourceTree = "<group>"; };
 		AB2712491A35283700B6D52D /* StringrNavigateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigateCommand.h; path = Menu/StringrNavigateCommand.h; sourceTree = "<group>"; };
 		AB27124A1A35283700B6D52D /* StringrNavigateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigateCommand.m; path = Menu/StringrNavigateCommand.m; sourceTree = "<group>"; };
+		AB2973331A5F9948007DE1E8 /* StringrLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLaunchViewController.h; path = Login/StringrLaunchViewController.h; sourceTree = "<group>"; };
+		AB2973341A5F9948007DE1E8 /* StringrLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLaunchViewController.m; path = Login/StringrLaunchViewController.m; sourceTree = "<group>"; };
 		AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFlagContentHelper.h; path = Utility/StringrFlagContentHelper.h; sourceTree = "<group>"; };
 		AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFlagContentHelper.m; path = Utility/StringrFlagContentHelper.m; sourceTree = "<group>"; };
 		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -483,6 +489,11 @@
 		ABF0555B192D81D400BB08A7 /* StringrNearYouTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNearYouTableViewController.m; path = StringrStringTable/StringrNearYouTableViewController.m; sourceTree = "<group>"; };
 		ABF121EF189C14810029177A /* StringrCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrCommentsTableViewCell.h; path = Comments/StringrCommentsTableViewCell.h; sourceTree = "<group>"; };
 		ABF121F0189C14810029177A /* StringrCommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrCommentsTableViewCell.m; path = Comments/StringrCommentsTableViewCell.m; sourceTree = "<group>"; };
+		ABF6133C1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+StringrAdditions.h"; path = "Utility/NSLayoutConstraint+StringrAdditions.h"; sourceTree = "<group>"; };
+		ABF6133D1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+StringrAdditions.m"; path = "Utility/NSLayoutConstraint+StringrAdditions.m"; sourceTree = "<group>"; };
+		ABF6133F1A5D89FA001655DE /* StringrAppControllerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrAppControllerStoryboard.storyboard; path = Profile/StringrAppControllerStoryboard.storyboard; sourceTree = "<group>"; };
+		ABF613421A5D8CB3001655DE /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = Menu/MainWindow.xib; sourceTree = "<group>"; };
+		ABF613451A5D9BA1001655DE /* StringrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrViewController.h; path = Menu/StringrViewController.h; sourceTree = "<group>"; };
 		ABFBE5FF18D8C67A0026BCC1 /* StringrHomeTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrHomeTabBarViewController.h; path = "Tab Bar Controller/StringrHomeTabBarViewController.h"; sourceTree = "<group>"; };
 		ABFBE60018D8C67A0026BCC1 /* StringrHomeTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrHomeTabBarViewController.m; path = "Tab Bar Controller/StringrHomeTabBarViewController.m"; sourceTree = "<group>"; };
 		ABFBE60218D8C7CA0026BCC1 /* StringrActivityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrActivityTableViewController.h; path = StringrStringTable/StringrActivityTableViewController.h; sourceTree = "<group>"; };
@@ -507,12 +518,10 @@
 		BF29E425184CFEDE007607CB /* StringrProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrProfileTableViewController.h; path = Profile/StringrProfileTableViewController.h; sourceTree = "<group>"; };
 		BF29E426184CFEDE007607CB /* StringrProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrProfileTableViewController.m; path = Profile/StringrProfileTableViewController.m; sourceTree = "<group>"; };
 		BF3EDDD5183AADCB0071E047 /* StringrConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConstants.m; path = Utility/StringrConstants.m; sourceTree = "<group>"; };
-		BF3EDDD7183D8EAD0071E047 /* StringrAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrAppController.h; path = Menu/StringrAppController.h; sourceTree = "<group>"; };
-		BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrAppController.m; path = Menu/StringrAppController.m; sourceTree = "<group>"; };
+		BF3EDDD7183D8EAD0071E047 /* StringrAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrAppViewController.h; path = Menu/StringrAppViewController.h; sourceTree = "<group>"; };
+		BF3EDDD8183D8EAD0071E047 /* StringrAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrAppViewController.m; path = Menu/StringrAppViewController.m; sourceTree = "<group>"; };
 		BF3EDDF0183D92330071E047 /* StringrNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrNavigationController.h; path = Menu/StringrNavigationController.h; sourceTree = "<group>"; };
 		BF3EDDF1183D92330071E047 /* StringrNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrNavigationController.m; path = Menu/StringrNavigationController.m; sourceTree = "<group>"; };
-		BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrMenuViewController.h; path = Menu/StringrMenuViewController.h; sourceTree = "<group>"; };
-		BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrMenuViewController.m; path = Menu/StringrMenuViewController.m; sourceTree = "<group>"; };
 		BF3EDDF9183E842A0071E047 /* StringrLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoginViewController.h; path = Login/StringrLoginViewController.h; sourceTree = "<group>"; };
 		BF3EDDFA183E842A0071E047 /* StringrLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoginViewController.m; path = Login/StringrLoginViewController.m; sourceTree = "<group>"; };
 		BF3EDDFD183E89A60071E047 /* StringrUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUtility.h; path = Utility/StringrUtility.h; sourceTree = "<group>"; };
@@ -602,6 +611,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B7D556F788D39A2D9C2BE4C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7BF6B201D8EB4F07255B9EFF /* Pods.debug.xcconfig */,
+				39B54354D5E0D0F26318AEA9 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		AB04A2D019E0C6240030C241 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,8 +703,9 @@
 		AB04A2D619E0C7CC0030C241 /* App Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BF3EDDD7183D8EAD0071E047 /* StringrAppController.h */,
-				BF3EDDD8183D8EAD0071E047 /* StringrAppController.m */,
+				BF3EDDD7183D8EAD0071E047 /* StringrAppViewController.h */,
+				BF3EDDD8183D8EAD0071E047 /* StringrAppViewController.m */,
+				ABF6133F1A5D89FA001655DE /* StringrAppControllerStoryboard.storyboard */,
 				AB2712491A35283700B6D52D /* StringrNavigateCommand.h */,
 				AB27124A1A35283700B6D52D /* StringrNavigateCommand.m */,
 			);
@@ -857,6 +876,15 @@
 			name = "Stringr Objects";
 			sourceTree = "<group>";
 		};
+		AB2973321A5F992E007DE1E8 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				AB2973331A5F9948007DE1E8 /* StringrLaunchViewController.h */,
+				AB2973341A5F9948007DE1E8 /* StringrLaunchViewController.m */,
+			);
+			name = Launch;
+			sourceTree = "<group>";
+		};
 		AB29CC74199FD8C6001177DD /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -917,6 +945,8 @@
 		AB5AFC0519F9C84D002F88B9 /* NS */ = {
 			isa = PBXGroup;
 			children = (
+				ABF6133C1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.h */,
+				ABF6133D1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.m */,
 				AB5AFC0219F9C849002F88B9 /* NSString+StringrAdditions.h */,
 				AB5AFC0319F9C849002F88B9 /* NSString+StringrAdditions.m */,
 				AB5AFC1719F9CD1A002F88B9 /* NSDate+StringrAdditions.h */,
@@ -1200,6 +1230,24 @@
 			name = "Comments TableViewCell";
 			sourceTree = "<group>";
 		};
+		ABF613411A5D8C9D001655DE /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				BF8349DD18297FD600D15963 /* StringrAppDelegate.h */,
+				BF8349DE18297FD600D15963 /* StringrAppDelegate.m */,
+				ABF613421A5D8CB3001655DE /* MainWindow.xib */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		ABF613441A5D9B83001655DE /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				ABF613451A5D9BA1001655DE /* StringrViewController.h */,
+			);
+			name = Abstract;
+			sourceTree = "<group>";
+		};
 		BF170EBD184BEA9D0056ECE7 /* String */ = {
 			isa = PBXGroup;
 			children = (
@@ -1230,13 +1278,14 @@
 			isa = PBXGroup;
 			children = (
 				AB04A2D619E0C7CC0030C241 /* App Controller */,
+				ABF613441A5D9B83001655DE /* Abstract */,
 				AB04A2D719E0C7E80030C241 /* Navigation Controller */,
 				AB1B0C84188DADE20063EAC5 /* TableView Controllers */,
 				AB6C4BAF1A4A7D5A00CBA63C /* CollectionView Controllers */,
 				BF3EDE0B183E9BC10071E047 /* TabBar Controllers */,
 				BF3EDDFC183E842F0071E047 /* Login */,
 				ABA1DD0619608DCF00D1C280 /* SignUp */,
-				BF3EDDCB183AAC900071E047 /* Menu */,
+				AB2973321A5F992E007DE1E8 /* Launch */,
 				AB04A2D319E0C6920030C241 /* Home */,
 				BF3EDE03183E92380071E047 /* Profile */,
 				AB04A2D519E0C6E70030C241 /* My Strings */,
@@ -1249,15 +1298,6 @@
 				BF3EDE18183E9FD80071E047 /* Settings */,
 			);
 			name = Controllers;
-			sourceTree = "<group>";
-		};
-		BF3EDDCB183AAC900071E047 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				BF3EDDF3183D92E50071E047 /* StringrMenuViewController.h */,
-				BF3EDDF4183D92E50071E047 /* StringrMenuViewController.m */,
-			);
-			name = Menu;
 			sourceTree = "<group>";
 		};
 		BF3EDDFC183E842F0071E047 /* Login */ = {
@@ -1380,7 +1420,7 @@
 				BF8349F318297FD600D15963 /* StringrTests */,
 				BF8349CD18297FD600D15963 /* Frameworks */,
 				BF8349CC18297FD600D15963 /* Products */,
-				2202500216664CDF90947ED9 /* Pods.xcconfig */,
+				8B7D556F788D39A2D9C2BE4C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1430,12 +1470,11 @@
 				AB1FDF4619AC37E10059338B /* Stringr Objects */,
 				AB1FDF3919AC1FA40059338B /* Network */,
 				BF3EDDC9183AAC630071E047 /* Views */,
+				ABF613411A5D8C9D001655DE /* App Delegate */,
 				BF3EDDCA183AAC6A0071E047 /* Controllers */,
 				AB29CC74199FD8C6001177DD /* Helper */,
 				AB04A2DB19E0CE940030C241 /* Data Backend */,
 				BF8349E018297FD600D15963 /* Main.storyboard */,
-				BF8349DD18297FD600D15963 /* StringrAppDelegate.h */,
-				BF8349DE18297FD600D15963 /* StringrAppDelegate.m */,
 				AB04A2F919EF559A0030C241 /* Test */,
 				BF834A491829978300D15963 /* Resources */,
 				BF8349D518297FD600D15963 /* Supporting Files */,
@@ -1593,7 +1632,9 @@
 				BF8349D918297FD600D15963 /* InfoPlist.strings in Resources */,
 				BF170ECD184BEC400056ECE7 /* StringCollectionViewCell.xib in Resources */,
 				ABA2F0641922BB430004A806 /* SelectionOverlay@2x.png in Resources */,
+				ABF613401A5D89FA001655DE /* StringrAppControllerStoryboard.storyboard in Resources */,
 				ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */,
+				ABF613431A5D8CB3001655DE /* MainWindow.xib in Resources */,
 				AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */,
 				AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */,
@@ -1644,7 +1685,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1675,6 +1716,7 @@
 				AB1FDF3819AC1F9F0059338B /* StringrNetworkUtility.m in Sources */,
 				BF170EBA184930930056ECE7 /* StringrSearchTableViewController.m in Sources */,
 				AB6C4BB21A4A7FD200CBA63C /* StringrPhotoCollectionViewController.m in Sources */,
+				AB2973351A5F9948007DE1E8 /* StringrLaunchViewController.m in Sources */,
 				ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */,
 				AB6C4B041A4242D800CBA63C /* StringrExploreCategory.m in Sources */,
 				AB1FDF4F19AC38B40059338B /* StringrString.m in Sources */,
@@ -1712,7 +1754,7 @@
 				AB0F5329190AF1FF00A29E59 /* StringrPopularTableViewController.m in Sources */,
 				BF170EA91849213C0056ECE7 /* StringrLikedStringsTableViewController.m in Sources */,
 				AB6C4AF21A3F5A4000CBA63C /* StringrExploreViewController.m in Sources */,
-				BF3EDDD9183D8EAD0071E047 /* StringrAppController.m in Sources */,
+				BF3EDDD9183D8EAD0071E047 /* StringrAppViewController.m in Sources */,
 				AB04A30719EF6F140030C241 /* StringTableViewHeader.m in Sources */,
 				BF3EDE14183E9EFF0071E047 /* StringrSearchTabBarViewController.m in Sources */,
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
@@ -1747,7 +1789,6 @@
 				ABE9DEDD1A29463F00B228F5 /* UIImage+StringrImageAdditions.m in Sources */,
 				ABF0554D192962C000BB08A7 /* StringrNoContentView.m in Sources */,
 				AB0BDFD618E4929A006FAB57 /* StringrCache.m in Sources */,
-				BF3EDDF5183D92E50071E047 /* StringrMenuViewController.m in Sources */,
 				BF3EDE26183EDF700071E047 /* StringrEditProfileViewController.m in Sources */,
 				AB04A30A19EF7E210030C241 /* TestTableViewStringCell.m in Sources */,
 				AB04A2FE19EF68CF0030C241 /* StringTableViewTitleCell.m in Sources */,
@@ -1793,6 +1834,7 @@
 				BF170EC6184BEB310056ECE7 /* StringCollectionViewCell.m in Sources */,
 				AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */,
 				AB1FDF4C19AC38A90059338B /* StringrPhoto.m in Sources */,
+				ABF6133E1A5D8557001655DE /* NSLayoutConstraint+StringrAdditions.m in Sources */,
 				ABA2F06C1922BB430004A806 /* ZCAssetTablePicker.m in Sources */,
 				BF3EDDFF183E89A60071E047 /* StringrUtility.m in Sources */,
 			);
@@ -1928,7 +1970,7 @@
 		};
 		BF8349FE18297FD600D15963 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2202500216664CDF90947ED9 /* Pods.xcconfig */;
+			baseConfigurationReference = 7BF6B201D8EB4F07255B9EFF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1947,7 +1989,7 @@
 		};
 		BF8349FF18297FD600D15963 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2202500216664CDF90947ED9 /* Pods.xcconfig */;
+			baseConfigurationReference = 39B54354D5E0D0F26318AEA9 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -9,7 +9,7 @@
 #import "StringrSignUpWithSocialNetworkViewController.h"
 #import "StringrSelectProfileImageTableViewCell.h"
 #import "StringrSetProfileDisplayNameTableViewCell.h"
-#import "StringrAppController.h"
+#import "StringrAppViewController.h"
 #import "StringrPathImageView.h"
 #import "StringrAppDelegate.h"
 #import "UIColor+StringrColors.h"
@@ -103,28 +103,7 @@
             
             [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    // instantiates the main logged in content area
-                    [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
-                    
-                    [self dismissViewControllerAnimated:YES completion:^ {
-                        [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
-                            if (!error) {
-                                
-                                [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
-                                
-                                
-                                [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
-                                [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
-                                [[PFInstallation currentInstallation] saveEventually];
-                            }
-                            else
-                            {
-
-                            }
-                            
-                            [[PFUser currentUser] saveInBackground];
-                        }];
-                    }];
+                    [[UIApplication appDelegate].appViewController signup];
                 } else if (error.code == 202) { // 202 = username taken
                     UIAlertView *usernameTakenAlert = [[UIAlertView alloc] initWithTitle:@"Username Taken" message:@"The username you entered has already been taken!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
                     [usernameTakenAlert show];

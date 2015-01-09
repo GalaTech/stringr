@@ -276,7 +276,7 @@
     StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
     [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discovery
     
-    [self.frostedViewController setContentViewController:discoveryTabBarVC];
+    // need to deep link to explore content
 }
 
 @end

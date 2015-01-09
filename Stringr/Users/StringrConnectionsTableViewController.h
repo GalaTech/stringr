@@ -7,17 +7,16 @@
 //
 
 #import "StringrUserTableViewController.h"
+#import "StringrViewController.h"
 
 typedef enum {
     UserConnectionFollowingType = 0,
     UserConnectionFollowersType
 } UserConnectionType;
 
-@interface StringrConnectionsTableViewController : StringrTableViewController
+@interface StringrConnectionsTableViewController : StringrTableViewController <StringrViewController>
 
 @property (strong, nonatomic) PFUser *userForConnections;
 @property (nonatomic) UserConnectionType connectionType;
-
-+ (StringrConnectionsTableViewController *)viewController;
 
 @end

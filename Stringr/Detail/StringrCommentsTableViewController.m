@@ -220,7 +220,7 @@
     }
     
     StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
-    if (![appDelegate.rootViewController isParseReachable]) {
+    if (![appDelegate.appViewController isParseReachable]) {
         query = [PFQuery queryWithClassName:@"no_class"];
     }
     

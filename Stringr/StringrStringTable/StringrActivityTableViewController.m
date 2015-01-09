@@ -285,7 +285,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
     }
     
     StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
-    if (![appDelegate.rootViewController isParseReachable]) {
+    if (![appDelegate.appViewController isParseReachable]) {
         activityQuery = [PFQuery queryWithClassName:@"no_class"];
     }
     
@@ -361,7 +361,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
     StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
     [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discover
     
-    [self.frostedViewController setContentViewController:discoveryTabBarVC];
+    //Need to implement a deep linking for explore buttons
 }
 
 

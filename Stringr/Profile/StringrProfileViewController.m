@@ -102,10 +102,7 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
     if (self.profileReturnState == ProfileModalReturnState) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel_button"] style:UIBarButtonItemStyleBordered target:self action:@selector(closeProfileVC)];
     } else if (self.profileReturnState == ProfileMenuReturnState) {
-        // Creates the navigation item to access the menu
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"menuButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                                 style:UIBarButtonItemStyleDone target:self
-                                                                                action:@selector(showMenu)];
+        
     }
     
     [self setupAppearance];
@@ -444,12 +441,6 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 - (void)closeProfileVC
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (IBAction)showMenu
-{
-    [StringrUtility showMenu:self.frostedViewController];
 }
 
 

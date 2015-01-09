@@ -279,7 +279,7 @@
     }
     
     StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
-    if (![appDelegate.rootViewController isParseReachable]) {
+    if (![appDelegate.appViewController isParseReachable]) {
         query = [PFQuery queryWithClassName:@"no_class"];
     }
 
@@ -355,15 +355,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath string:(StringrString *)string
 {
-    if (indexPath.row == 0) {
-        return [self stringCellAtIndexPath:indexPath string:string.string];
-    }
-    else if (indexPath.row == 1) {
-        return [self titleCellAtIndexPath:indexPath string:string];
-    }
-    else if (indexPath.row == 2) {
-        return [self actionCellAtIndexPath:indexPath string:string];
-    }
+//    if (indexPath.row == 0) {
+//        return [self stringCellAtIndexPath:indexPath string:string.string];
+//    }
+//    else if (indexPath.row == 1) {
+//        return [self titleCellAtIndexPath:indexPath string:string];
+//    }
+//    else if (indexPath.row == 2) {
+//        return [self actionCellAtIndexPath:indexPath string:string];
+//    }
     
     return nil;
 }
@@ -601,9 +601,7 @@
         [profileVC setUserForProfile:user];
         [profileVC setProfileReturnState:ProfileBackReturnState];
         [profileVC setHidesBottomBarWhenPushed:YES];
-        
-        StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:profileVC];
-//        [self presentViewController:navVC animated:YES completion:nil];
+
         [self.navigationController pushViewController:profileVC animated:YES];
     }
 }

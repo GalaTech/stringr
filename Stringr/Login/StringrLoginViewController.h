@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "REFrostedViewController.h"
+#import "StringrViewController.h"
 
 @protocol StringrLoginViewControllerDelegate;
 
-@interface StringrLoginViewController : UIViewController
+@interface StringrLoginViewController : UIViewController <StringrViewController>
 
 @property (weak, nonatomic) id<StringrLoginViewControllerDelegate>delegate;
-
-+ (StringrLoginViewController *)viewController;
 
 @end
 

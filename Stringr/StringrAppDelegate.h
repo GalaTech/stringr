@@ -7,16 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrAppController.h"
+#import "StringrAppViewController.h"
 #import "StringrLoginViewController.h"
 #import "StringrHomeTabBarViewController.h"
 #import "StringrDiscoveryTabBarViewController.h"
 
 @interface StringrAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) StringrAppController *rootViewController;
+@property (strong, nonatomic) IBOutlet UIWindow *window;
+@property (strong, nonatomic) StringrAppViewController *appViewController;
 
-- (void)setupLoggedInContent;
+@end
+
+
+@interface UIApplication (StringrAppDelegate)
+
++ (StringrAppDelegate *)appDelegate;
 
 @end

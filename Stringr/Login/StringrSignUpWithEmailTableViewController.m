@@ -13,7 +13,7 @@
 #import "StringrPathImageView.h"
 #import "StringrPrivacyPolicyTermsOfServiceViewController.h"
 #import "UIImage+Resize.h"
-#import "StringrAppController.h"
+#import "StringrAppViewController.h"
 #import "StringrAppDelegate.h"
 #import "PBWebViewController.h"
 #import "UIColor+StringrColors.h"
@@ -246,26 +246,7 @@
                     [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
                     
                     if ([emailIsVerified boolValue]) {
-                        // instantiates the main logged in content area
-                        [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
-                        
-                        [self dismissViewControllerAnimated:YES completion:^ {
-                            [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
-                                if (!error) {
-                                    [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
-                                    
-                                    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
-                                    [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
-                                    [[PFInstallation currentInstallation] saveEventually];
-                                }
-                                else
-                                {
-                                    
-                                }
-                                
-                                [[PFUser currentUser] saveInBackground];
-                            }];
-                        }];
+                        [[UIApplication appDelegate].appViewController signup];
                     } else {
                         StringrEmailVerificationViewController *emailVerifyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
                         [emailVerifyVC setUserProfileImage:self.userProfileImage];

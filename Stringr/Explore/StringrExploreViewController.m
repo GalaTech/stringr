@@ -64,8 +64,6 @@
     
     self.title = @"Explore";
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuButton"] style:UIBarButtonItemStyleDone target:self action:@selector(showMenu:)];
-    
     [self setupSearchDisplayAppearance];
 }
 
@@ -126,14 +124,6 @@
 
 #pragma mark - Accessors
 
-
-
-#pragma mark - Actions
-
-- (IBAction)showMenu:(id)sender
-{
-    [StringrUtility showMenu:self.frostedViewController];
-}
 
 
 #pragma mark - Table View Data Source

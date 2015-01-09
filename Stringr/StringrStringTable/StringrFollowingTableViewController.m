@@ -71,7 +71,7 @@
 {
     StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
     
-    [self.frostedViewController setContentViewController:discoveryTabBarVC];
+    //Need to implement a deep linking for explore buttons
 }
 
 @end

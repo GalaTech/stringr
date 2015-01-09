@@ -4,7 +4,6 @@ PODS:
   - LXReorderableCollectionViewFlowLayout (0.1.1)
   - NHBalancedFlowLayout (0.2)
   - PBWebViewController (0.2)
-  - REFrostedViewController (2.4.5)
   - STTweetLabel (3.1.11)
 
 DEPENDENCIES:
@@ -13,7 +12,6 @@ DEPENDENCIES:
   - LXReorderableCollectionViewFlowLayout (~> 0.1.1)
   - NHBalancedFlowLayout (~> 0.2)
   - PBWebViewController (~> 0.2)
-  - REFrostedViewController (~> 2.4.2)
   - STTweetLabel (~> 3.1)
 
 SPEC CHECKSUMS:
@@ -22,7 +20,6 @@ SPEC CHECKSUMS:
   LXReorderableCollectionViewFlowLayout: b4e25543263e27d4c147109ae5ead01cc9119f23
   NHBalancedFlowLayout: be3c297b54f74c27607aaa04563270ecbd2d8e38
   PBWebViewController: 4ce33129c0f0adfce9cec105be4d48c7c9b70026
-  REFrostedViewController: 93c85bf09c95c8166fc5314aa6811fb33611afb7
   STTweetLabel: 281d2af49a512f6894ec684ef72f0ea33c5d6fdc
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.34.4

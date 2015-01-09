@@ -7,12 +7,11 @@
 //
 
 #import "StringrAppDelegate.h"
-#import "StringrAppController.h"
+#import "StringrAppViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrStringTableViewController.h"
-#import "StringrMenuViewController.h"
 #import "StringrFollowingTableViewController.h"
 #import "Reachability.h"
 #import "StringrPopularTableViewController.h"
@@ -45,8 +44,11 @@
 //    [application registerForRemoteNotifications];
     
     // setup and initialize the login controller
-    self.rootViewController = (StringrAppController *)[self.window rootViewController];
-    [self.rootViewController launchSequence:launchOptions];
+    StringrAppViewController *appController = [StringrAppViewController viewController];
+    self.appViewController = appController;
+    [self.appViewController launchSequence:launchOptions];
+    self.window.rootViewController = self.appViewController;
+    [self.window makeKeyAndVisible];
     
 //    [self testLaunchSequence];
 
@@ -98,7 +100,7 @@
     }
     else if (application.applicationState == UIApplicationStateInactive)
     {
-        [self setupLoggedInContent];
+        // deep link to dashboard
     }
 }
 
@@ -158,19 +160,6 @@
 }
 
 
-#pragma mark - Public
-
-- (void)setupLoggedInContent
-{
-    StringrMenuViewController *menuVC = (StringrMenuViewController *)self.rootViewController.menuViewController;
-    // Forces the menu table view controller to be scrolled to the top upon logging in
-    menuVC.tableView.contentOffset = CGPointMake(0, 0 - menuVC.tableView.contentInset.top);
-    
-    [self.rootViewController setContentViewController:[StringrHomeTabBarViewController new]];
-    [[StringrUpdateEngine sharedEngine] start];
-}
-
-
 #pragma mark - Private
 
 - (void)testLaunchSequence
@@ -182,5 +171,15 @@
     [self.window makeKeyAndVisible];
 }
 
+
+@end
+
+
+@implementation UIApplication (StringrAppDelegate)
+
++ (StringrAppDelegate *)appDelegate
+{
+    return (StringrAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
 @end

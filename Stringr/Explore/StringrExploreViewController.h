@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrViewController.h"
 
-@interface StringrExploreViewController : UIViewController
-
-+ (StringrExploreViewController *)viewController;
+@interface StringrExploreViewController : UIViewController <StringrViewController>
 
 @end

@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrViewController.h"
 #import "StringrContainerScrollViewDelegate.h"
 
 #import "StringrNetworkTask.h"
 
 @protocol StringrContainerScrollViewDelegate;
 
-@interface StringrPhotoCollectionViewController : UIViewController
+@interface StringrPhotoCollectionViewController : UIViewController <StringrViewController>
 
-+ (StringrPhotoCollectionViewController *)viewController;
 - (instancetype)initWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user;
 
 @property (strong, nonatomic) NSArray *photos;

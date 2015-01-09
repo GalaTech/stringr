@@ -9,7 +9,7 @@
 #import "StringrEmailVerificationViewController.h"
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
-#import "StringrAppController.h"
+#import "StringrAppViewController.h"
 #import "StringrAppDelegate.h"
 #import "UIColor+StringrColors.h"
 #import "StringrColoredView.h"
@@ -94,10 +94,9 @@
                     [self.verifedLabel setText:@"Verified"];
                     [self.verifedLabel setTextColor:[UIColor greenColor]];
                     
-                    // instantiates the main logged in content area
-                    [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
+                    [[UIApplication appDelegate].appViewController transitionToDashboardViewController:YES];
                     
-                    [self dismissViewControllerAnimated:YES completion:^ {
+//                    [self dismissViewControllerAnimated:YES completion:^ {
                         [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
                             if (!error) {
                                 [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
@@ -113,7 +112,7 @@
                                 [[PFInstallation currentInstallation] saveEventually];
                             }
                         }];
-                    }];
+//                    }];
                 }
             }
         }];

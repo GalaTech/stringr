@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "REFrostedViewController.h"
 
 @interface StringrUtility : NSObject
 
@@ -63,16 +62,6 @@
 + (UIImage *)formatPhotoImageForUpload:(UIImage *)image;
 + (UIImage *)formatProfileImageForUpload:(UIImage *)image;
 + (UIImage *)formatProfileThumbnailImageForUpload:(UIImage *)image;
-
-
-// Menu
-/**
- * Presents the REFrostedMenu from the left side of the screen. 
- * @param menuViewController The instance of the menu that will be displayed
- */
-+ (void)showMenu:(REFrostedViewController *)menuViewController;
-
-
 
 
 // Text Parsing

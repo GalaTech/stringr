@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StringrViewController.h"
 #import "StringrTableViewController.h"
 
-@interface StringrSettingsTableViewController : UITableViewController
-
-+ (StringrSettingsTableViewController *)viewController;
+@interface StringrSettingsTableViewController : UITableViewController <StringrViewController>
 
 @end

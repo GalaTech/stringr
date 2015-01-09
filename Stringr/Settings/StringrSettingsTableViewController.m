@@ -10,7 +10,7 @@
 #import "StringrNavigationController.h"
 #import "StringrLoginViewController.h"
 #import "StringrUtility.h"
-#import "StringrAppController.h"
+#import "StringrAppViewController.h"
 #import "StringrFindAndInviteFriendsTableViewController.h"
 #import "StringrPrivacyPolicyTermsOfServiceViewController.h"
 #import "StringrFBFriendPickerViewController.h"
@@ -25,6 +25,7 @@
 #import "ZCImagePickerController.h"
 #import "StringrUpdateEngine.h"
 #import "UIColor+StringrColors.h"
+#import "StringrAppDelegate.h"
 
 
 static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettingsTableViewStoryboard";
@@ -384,49 +385,13 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
         } else if (indexPath.row == 2) {
             [self presentTermsOfService];
         }
-    } else if (indexPath.section == 2 && indexPath.row == 0) {
+    }
+     else if (indexPath.section == 2 && indexPath.row == 0) {
         StringrPushNotificationsTableViewController *pushNotificationsVC = [[StringrPushNotificationsTableViewController alloc] initWithStyle:UITableViewStylePlain];
         [self.navigationController pushViewController:pushNotificationsVC animated:YES];
-    } else if (indexPath.section == 3 && indexPath.row == 0) {
-        [PFQuery clearAllCachedResults];
-        [[StringrCache sharedCache] clear];
-        
-        // Unsubscribe from push notifications for this installation
-        [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
-        
-        PFObject *currentUserPrivateChannelKey = [[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey];
-        
-        if (currentUserPrivateChannelKey) {
-            [[PFInstallation currentInstallation] removeObject:currentUserPrivateChannelKey forKey:kStringrInstallationPrivateChannelsKey];
-        }
-        
-        [[PFInstallation currentInstallation] saveEventually];
-        
-        [PFUser logOut];
-        
-        [[StringrUpdateEngine sharedEngine] stop];
-        
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        
-        // I needed to get the direct root view controller in order to present a VC.
-        UIWindow *window = [[[UIApplication sharedApplication] windows] firstObject];
-        StringrAppController *rootVC = (StringrAppController *)[window rootViewController];
-        
-        StringrAppDelegate *stringrAppDelegate = (StringrAppDelegate *)[[UIApplication sharedApplication] delegate];
-        StringrLoginViewController *loginVC = [StringrLoginViewController viewController];
-        [loginVC setDelegate:stringrAppDelegate.rootViewController];
-        [loginVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-        
-        StringrNavigationController *loginNavVC = [[StringrNavigationController alloc] initWithRootViewController:loginVC];
-        
-        [rootVC presentViewController:loginNavVC animated:YES completion:^{
-            // forces the main content area to be blank with no content. That way if a user logs
-            // back in we can easily reinstantiate the content area without any data remaining from the previous
-            // user
-            UIViewController *blankVC = [[UIViewController alloc] init];
-            [self.frostedViewController setContentViewController:blankVC];
-            
-        }];
+    }
+    else if (indexPath.section == 3 && indexPath.row == 0) {
+        [[UIApplication appDelegate].appViewController logout];
     }
 }
 

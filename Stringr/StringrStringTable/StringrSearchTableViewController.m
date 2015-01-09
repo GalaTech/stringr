@@ -31,14 +31,6 @@
 }
 
 
-- (void)showMenu
-{
-    [self.searchBar resignFirstResponder];
-    [StringrUtility showMenu:self.frostedViewController];
-}
-
-
-
 #pragma mark - Public
 
 - (void)searchStringsWithText:(NSString *)searchText

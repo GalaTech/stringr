@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "REFrostedViewController.h"
+#import "StringrViewController.h"
 
 typedef enum{
     ProfileModalReturnState = 1,
@@ -15,13 +15,11 @@ typedef enum{
     ProfileBackReturnState = 3
 } ProfileReturnState;
 
-@interface StringrProfileViewController : UIViewController
+@interface StringrProfileViewController : UIViewController <StringrViewController>
 
 @property (strong, nonatomic) PFUser *userForProfile;
 @property (nonatomic) BOOL isDashboardProfile;
 
 @property (nonatomic) ProfileReturnState profileReturnState;
-
-+ (StringrProfileViewController *)viewController;
 
 @end

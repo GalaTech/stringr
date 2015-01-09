@@ -1,0 +1,6 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ACPButton" "${PODS_ROOT}/Headers/Public/ILTranslucentView" "${PODS_ROOT}/Headers/Public/LXReorderableCollectionViewFlowLayout" "${PODS_ROOT}/Headers/Public/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/Public/PBWebViewController" "${PODS_ROOT}/Headers/Public/STTweetLabel"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ACPButton" -isystem "${PODS_ROOT}/Headers/Public/ILTranslucentView" -isystem "${PODS_ROOT}/Headers/Public/LXReorderableCollectionViewFlowLayout" -isystem "${PODS_ROOT}/Headers/Public/NHBalancedFlowLayout" -isystem "${PODS_ROOT}/Headers/Public/PBWebViewController" -isystem "${PODS_ROOT}/Headers/Public/STTweetLabel"
+OTHER_LDFLAGS = -ObjC -l"Pods-ACPButton" -l"Pods-ILTranslucentView" -l"Pods-LXReorderableCollectionViewFlowLayout" -l"Pods-NHBalancedFlowLayout" -l"Pods-PBWebViewController" -l"Pods-STTweetLabel" -framework "CoreGraphics" -framework "UIKit"
+OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+PODS_ROOT = ${SRCROOT}/Pods
