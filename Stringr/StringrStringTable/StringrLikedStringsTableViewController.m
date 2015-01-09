@@ -64,9 +64,7 @@
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-//    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
-    
-    //Need to implement a deep linking for explore buttons
+    [[UIApplication appDelegate].appViewController transitionToDashboardTabIndex:DashboardExploreIndex];
 }
 
 

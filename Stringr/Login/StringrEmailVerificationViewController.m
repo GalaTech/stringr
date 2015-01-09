@@ -94,25 +94,7 @@
                     [self.verifedLabel setText:@"Verified"];
                     [self.verifedLabel setTextColor:[UIColor greenColor]];
                     
-                    [[UIApplication appDelegate].appViewController transitionToDashboardViewController:YES];
-                    
-//                    [self dismissViewControllerAnimated:YES completion:^ {
-                        [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
-                            if (!error) {
-                                [[PFUser currentUser] setObject:geoPoint forKey:@"geoLocation"];
-                                
-                                NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
-                                [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-                                
-                                [[PFUser currentUser] saveInBackground];
-                                
-                                
-                                [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kStringrInstallationUserKey];
-                                [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:kStringrInstallationPrivateChannelsKey];
-                                [[PFInstallation currentInstallation] saveEventually];
-                            }
-                        }];
-//                    }];
+                    [[UIApplication appDelegate].appViewController signup];
                 }
             }
         }];

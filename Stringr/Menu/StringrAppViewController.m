@@ -17,7 +17,7 @@
 
 #import "Reachability.h"
 
-@interface StringrAppViewController ()
+@interface StringrAppViewController () <StringrLoginViewControllerDelegate>
 
 @property (strong, nonatomic, readwrite) UIViewController *currentContentViewController;
 @property (strong, nonatomic) IBOutlet UIView *contentContainerView;
@@ -249,6 +249,9 @@
     [containerView addConstraints:[NSLayoutConstraint constraintsToFillSuperviewWithView:viewController.view]];
 }
 
+
+#pragma mark - Public Navigation Transitions
+
 - (void)transitionToLoginViewController:(BOOL)animated
 {
     StringrLoginViewController *loginVC = [StringrLoginViewController viewController];
@@ -263,6 +266,20 @@
 {
     StringrDashboardTabBarController *dashboardViewController = [StringrDashboardTabBarController new];
     [self setContentViewController:dashboardViewController animated:animated];
+}
+
+
+- (void)transitionToDashboardTabIndex:(DashboardTabIndex)index
+{
+    if ([self.currentContentViewController isKindOfClass:[StringrDashboardTabBarController class]]) {
+        [(StringrDashboardTabBarController *)self.currentContentViewController setDashboardTabIndex:index];
+    }
+}
+
+
+- (void)transitionToStringCreator:(BOOL)animated
+{
+    
 }
 
 

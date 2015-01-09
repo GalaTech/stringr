@@ -7,19 +7,26 @@
 //
 
 #import "StringrViewController.h"
-#import "StringrLoginViewController.h"
+#import "StringrDashboardTabBarController.h"
 
-@interface StringrAppViewController : UIViewController <StringrViewController, StringrLoginViewControllerDelegate>
+@interface StringrAppViewController : UIViewController <StringrViewController>
 
 @property (strong, nonatomic, readonly) UIViewController *currentContentViewController;
 
+// Navigation
 - (void)transitionToLoginViewController:(BOOL)animated;
 - (void)transitionToDashboardViewController:(BOOL)animated;
+- (void)transitionToDashboardTabIndex:(DashboardTabIndex)index;
+- (void)transitionToStringCreator:(BOOL)animated;
 
+// User State
 - (void)signup;
 - (void)logout;
 
+// Setup
 - (void)launchSequence:(NSDictionary *)launchOptions;
+
+// Networking
 - (BOOL)isParseReachable;
 
 @end

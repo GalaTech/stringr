@@ -83,6 +83,15 @@
 }
 
 
+#pragma mark - Public
+
+- (void)setDashboardTabIndex:(DashboardTabIndex)index
+{
+    [self.delegate tabBarController:self shouldSelectViewController:self.viewControllers[index]];
+    [self setSelectedIndex:index];
+}
+
+
 #pragma mark - Activity
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item

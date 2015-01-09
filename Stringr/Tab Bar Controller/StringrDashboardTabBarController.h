@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    DashboardHomeIndex = 0,
+    DashboardExploreIndex,
+    DashboardCameraIndex,
+    DashboardActivityIndex,
+    DashboardProfileIndex
+} DashboardTabIndex;
+
 @interface StringrDashboardTabBarController : UITabBarController
 
-- (void)updateActivityNotificationsTabValue;
+- (void)setDashboardTabIndex:(DashboardTabIndex)index;
 
 @end
