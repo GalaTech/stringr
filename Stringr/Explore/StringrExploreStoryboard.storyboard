@@ -34,12 +34,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1If-Ha-a6X" id="YB8-pW-qkX">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLq-ab-kIy">
-                                                    <rect key="frame" x="68" y="19" width="244" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTf-Cq-IC6">
                                                     <rect key="frame" x="15" y="11" width="38" height="38"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,10 +42,20 @@
                                                         <constraint firstAttribute="width" constant="38" id="SrW-uw-ghf"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLq-ab-kIy">
+                                                    <rect key="frame" x="68" y="19" width="244" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="D1m-4K-0JN"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="244" id="YCh-z6-3fx"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="eTf-Cq-IC6" firstAttribute="leading" secondItem="YB8-pW-qkX" secondAttribute="leading" constant="15" id="3tA-ZM-e7g"/>
-                                                <constraint firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" constant="-0.5" id="Se5-EI-Tee"/>
+                                                <constraint firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" id="Se5-EI-Tee"/>
                                                 <constraint firstItem="qLq-ab-kIy" firstAttribute="leading" secondItem="eTf-Cq-IC6" secondAttribute="trailing" constant="15" id="f47-zE-mQj"/>
                                                 <constraint firstAttribute="trailing" secondItem="qLq-ab-kIy" secondAttribute="trailing" constant="8" id="fHN-OS-pPI"/>
                                                 <constraint firstItem="qLq-ab-kIy" firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" constant="-0.5" id="lay-Kj-V2p"/>

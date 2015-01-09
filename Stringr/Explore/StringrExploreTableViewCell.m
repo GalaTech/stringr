@@ -29,7 +29,7 @@ CGFloat const StringrExploreCellHeight = 60.0f;
     self = [super initWithCoder:aDecoder];
     
     if (self) {
-        
+        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
     return self;

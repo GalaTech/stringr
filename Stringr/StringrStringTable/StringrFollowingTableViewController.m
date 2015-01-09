@@ -21,7 +21,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"Following";
+//    self.title = @"Following";
+    
+    UIImageView *stringrImageTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 75, 75 * (87/241))];
+    stringrImageTitle.image = [UIImage imageNamed:@"stringr_logo"];
+    
+    self.navigationItem.titleView = stringrImageTitle;
 }
 
 - (void)didReceiveMemoryWarning
