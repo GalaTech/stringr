@@ -57,19 +57,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-
-}
-
-
-- (void)dealloc
-{
-    
-}
-
-
 #pragma mark - Custom Accessors
 
 - (UIStoryboard *)mainStoryboard

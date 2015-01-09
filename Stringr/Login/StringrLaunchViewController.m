@@ -26,13 +26,13 @@
     
     [self.view addSubview:stringrImageView];
     
-    CGFloat width = stringrImageView.image.size.width * 0.4;
-    CGFloat height = stringrImageView.image.size.height * 0.4;
+    CGFloat width = self.view.frame.size.width / 1.25;
+    CGFloat height = width * 87/241;
     
-    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:width], [NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:height], [NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f], [NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]]];
+    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0f constant:width], [NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0f constant:height], [NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f], [NSLayoutConstraint constraintWithItem:stringrImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:20.0f]]];
     
     
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:0.66 animations:^{
         stringrImageView.alpha = 1.0f;
     }];
 }

@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationBar.tintColor = [UIColor grayColor];
+//    self.navigationBar.tintColor = [UIColor grayColor];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
 }
 
