@@ -76,7 +76,7 @@
 - (void)setupInitialLaunchControllers
 {
     StringrLaunchViewController *launchVC = [StringrLaunchViewController new];
-    [self setCurrentContentViewController:launchVC animated:NO];
+    [self setContentViewController:launchVC animated:NO];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self transitionToLoginViewController:YES];
@@ -179,13 +179,12 @@
 
 #pragma mark - Navigation Transformations
 
-- (void)setCurrentContentViewController:(UIViewController *)currentContentViewController animated:(BOOL)animated
+- (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated
 {
-    if (self.currentContentViewController != currentContentViewController) {
-        
+    if (self.currentContentViewController != contentViewController) {
         UIViewController *previousViewController = self.currentContentViewController;
         
-        self.currentContentViewController = currentContentViewController;
+        self.currentContentViewController = contentViewController;
         
         [self transitionFromContentViewController:previousViewController toContentViewController:self.currentContentViewController animated:animated];
     }
@@ -211,7 +210,6 @@
 
 - (void)transitionFromContentViewController:(UIViewController *)fromViewController toContentViewController:(UIViewController *)toViewController animated:(BOOL)animated
 {
-    
     if (animated) {
         toViewController.view.alpha = 0.0f;
         
@@ -257,14 +255,14 @@
     [loginVC setDelegate:self];
     UINavigationController *loginNavVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
     
-    [self setCurrentContentViewController:loginNavVC animated:animated];
+    [self setContentViewController:loginNavVC animated:animated];
 }
 
 
 - (void)transitionToDashboardViewController:(BOOL)animated
 {
     StringrDashboardTabBarController *dashboardViewController = [StringrDashboardTabBarController new];
-    [self setCurrentContentViewController:dashboardViewController animated:animated];
+    [self setContentViewController:dashboardViewController animated:animated];
 }
 
 
