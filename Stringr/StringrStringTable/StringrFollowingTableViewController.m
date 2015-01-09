@@ -23,10 +23,17 @@
     // Do any additional setup after loading the view.
 //    self.title = @"Following";
     
-    UIImageView *stringrImageTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 75, 75 * (87/241))];
+    CGFloat width = 90.0f;
+    CGFloat height = width * (87.0f / 241.0f);
+    
+    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    
+    UIImageView *stringrImageTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     stringrImageTitle.image = [UIImage imageNamed:@"stringr_logo"];
     
-    self.navigationItem.titleView = stringrImageTitle;
+    [testView addSubview:stringrImageTitle];
+    
+    self.navigationItem.titleView = testView;
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +81,7 @@
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
+//    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
     
     //Need to implement a deep linking for explore buttons
 }

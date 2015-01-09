@@ -7,7 +7,6 @@
 //
 
 #import "StringrLoginViewController.h"
-#import "StringrDiscoveryTabBarViewController.h"
 #import "StringrAppViewController.h"
 #import "UIImage+Resize.h"
 #import "StringrSignUpWithEmailTableViewController.h"
@@ -16,7 +15,7 @@
 #import "ILTranslucentView.h"
 #import "StringrEmailVerificationViewController.h"
 #import "StringrNavigationController.h"
-#import "StringrHomeTabBarViewController.h"
+#import "StringrDashboardTabBarController.h"
 #import "StringrActivityTableViewController.h"
 #import "StringrStringTableViewController.h"
 #import "StringrAppDelegate.h"

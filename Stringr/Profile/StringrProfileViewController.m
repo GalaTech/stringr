@@ -85,11 +85,11 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     [super viewDidLoad];
     
-    self.title = @"Profile";
+    self.navigationItem.title = @"Profile";
     
     // Guarantee's that if the passed in user is the current user we provide the ability to edit that profile
     if (self.isDashboardProfile) {
-        self.title = @"My Profile";
+        self.navigationItem.title = @"My Profile";
         
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings_button"] style:UIBarButtonItemStylePlain target:self action:@selector(pushToEditProfile)];
         
@@ -668,12 +668,10 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 {
     if (buttonIndex == 0) {
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:newStringVC animated:YES];
     } else if (buttonIndex == 1) {
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:newStringVC animated:YES];
     }

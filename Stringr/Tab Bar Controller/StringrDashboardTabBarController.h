@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrTabBarViewController.h"
 
-@interface StringrHomeTabBarViewController : StringrTabBarViewController
+@interface StringrDashboardTabBarController : UITabBarController
 
 - (void)updateActivityNotificationsTabValue;
 

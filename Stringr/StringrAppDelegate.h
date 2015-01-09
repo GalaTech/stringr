@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StringrAppViewController.h"
 #import "StringrLoginViewController.h"
-#import "StringrHomeTabBarViewController.h"
-#import "StringrDiscoveryTabBarViewController.h"
+#import "StringrDashboardTabBarController.h"
 
 @interface StringrAppDelegate : UIResponder <UIApplicationDelegate>
 

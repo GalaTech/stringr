@@ -25,6 +25,11 @@
 }
 
 
++ (UIColor *)stringrTabBarItemColor
+{
+    return [UIColor colorWithWhite:0.78 alpha:1.0];
+}
+
 #pragma mark - TableView
 
 + (UIColor *)stringTableViewBackgroundColor

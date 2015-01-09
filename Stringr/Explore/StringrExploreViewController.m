@@ -62,7 +62,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Explore";
+    self.navigationItem.title = @"Explore";
     
     [self setupSearchDisplayAppearance];
 }

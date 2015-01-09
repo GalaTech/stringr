@@ -18,7 +18,7 @@ struct StringrRGBValue {
 
 // General
 + (UIColor *)stringrLightGrayColor;
-
++ (UIColor *)stringrTabBarItemColor;
 
 // Logo
 + (UIColor *)stringrLogoRedColor;

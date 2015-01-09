@@ -527,8 +527,6 @@
         [photoDetailVC setSelectedPhotoIndex:indexPath.item];
         [photoDetailVC setStringOwner:self.objects[collectionView.index]];
         
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
 }
@@ -601,7 +599,6 @@
         
         [profileVC setUserForProfile:user];
         [profileVC setProfileReturnState:ProfileBackReturnState];
-        [profileVC setHidesBottomBarWhenPushed:YES];
 
         [self.navigationController pushViewController:profileVC animated:YES];
     }
@@ -635,8 +632,6 @@
         StringrCommentsTableViewController *commentsVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:cell.string];
         [commentsVC setDelegate:self];
-        
-        [commentsVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:commentsVC animated:YES];
     }

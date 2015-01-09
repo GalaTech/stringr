@@ -546,7 +546,6 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
     } else if (buttonIndex == 2) { // supposed to be for returning to saved string
         
         StringrStringDetailViewController *newStringVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }
 }
@@ -565,7 +564,6 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
         [newStringVC setStringToLoad:nil]; // set to nil because we don't have a string yet.
         [newStringVC setEditDetailsEnabled:YES];
         [newStringVC setUserSelectedPhoto:image];
-        [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
 }
@@ -594,7 +592,6 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
             [newStringVC setUserSelectedPhotos:images];
         }
         
-        [newStringVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:newStringVC animated:YES];
     }];
 }

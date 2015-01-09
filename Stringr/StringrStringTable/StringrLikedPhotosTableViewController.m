@@ -233,8 +233,6 @@
         [photoDetailVC setSelectedPhotoIndex:indexPath.item];
         [photoDetailVC setStringOwner:nil];
         
-        [photoDetailVC setHidesBottomBarWhenPushed:YES];
-        
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
     
@@ -273,8 +271,8 @@
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
-    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discovery
+//    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
+//    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discovery
     
     // need to deep link to explore content
 }

@@ -10,7 +10,7 @@
 #import "StringrLaunchViewController.h"
 #import "StringrLoginViewController.h"
 #import "StringrNavigationController.h"
-#import "StringrHomeTabBarViewController.h"
+#import "StringrDashboardTabBarController.h"
 #import "StringrUpdateEngine.h"
 #import "UIFont+StringrFonts.h"
 #import "NSLayoutConstraint+StringrAdditions.h"
@@ -263,7 +263,7 @@
 
 - (void)transitionToDashboardViewController:(BOOL)animated
 {
-    StringrHomeTabBarViewController *dashboardViewController = [StringrHomeTabBarViewController new];
+    StringrDashboardTabBarController *dashboardViewController = [StringrDashboardTabBarController new];
     [self setCurrentContentViewController:dashboardViewController animated:animated];
 }
 

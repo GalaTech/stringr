@@ -437,8 +437,6 @@
             [photoDetailVC setSelectedPhotoIndex:indexPath.item];
             [photoDetailVC setStringOwner:self.stringToLoad];
             
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
-            
             StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
             
             [self.navigationController presentViewController:navVC animated:YES completion:nil];

@@ -119,8 +119,6 @@
             [photoDetailVC setStringOwner:self.objects[collectionView.index]];
             [photoDetailVC setDelegateForPhotoController:self]; // to delete from string directly
             
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
-            
             StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
             
             [self presentViewController:navVC animated:YES completion:nil];
@@ -133,8 +131,6 @@
             [photoDetailVC setPhotosToLoad:stringPhotos];
             [photoDetailVC setSelectedPhotoIndex:indexPath.item];
             [photoDetailVC setStringOwner:self.objects[collectionView.index]];
-            
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
             
             [self.navigationController pushViewController:photoDetailVC animated:YES];
         }
@@ -203,7 +199,6 @@
         // tag is set to the section number of each string
         [detailVC setStringToLoad:string];
         [detailVC setEditDetailsEnabled:YES];
-        [detailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:detailVC animated:YES];
     } else {
@@ -217,7 +212,6 @@
         
         // tag is set to the section number of each string
         [detailVC setStringToLoad:string];
-        [detailVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:detailVC animated:YES];
     }

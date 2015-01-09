@@ -61,7 +61,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"Activity";
+    self.navigationItem.title = @"Activity";
     
     self.tableView.backgroundColor = [UIColor stringTableViewBackgroundColor];
 }
@@ -143,7 +143,6 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
         StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         [stringDetailVC setStringToLoad:stringToLoad];
-        [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
         StringrPhotoDetailViewController *photoDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
         photoDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
@@ -163,7 +162,6 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
         StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
         stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
         [stringDetailVC setStringToLoad:stringToLoad];
-        [stringDetailVC setHidesBottomBarWhenPushed:YES];
         
         StringrCommentsTableViewController *commentsVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
         [commentsVC setObjectForCommentThread:stringToLoad];
@@ -182,7 +180,6 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
             StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
             stringDetailVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
             [stringDetailVC setStringToLoad:stringToLoad];
-            [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
             StringrCommentsTableViewController *commentsVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
             [commentsVC setObjectForCommentThread:stringToLoad];
@@ -198,7 +195,6 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
         } else { // Liked Your String
             StringrStringDetailViewController *stringDetailVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardStringDetailID];
             [stringDetailVC setStringToLoad:stringToLoad];
-            [stringDetailVC setHidesBottomBarWhenPushed:YES];
             
             [self.navigationController pushViewController:stringDetailVC animated:YES];
         }
@@ -210,7 +206,6 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
             
             [photoDetailVC setPhotosToLoad:@[photoToLoad]];
             [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
-            [photoDetailVC setHidesBottomBarWhenPushed:YES];
             
             StringrCommentsTableViewController *commentsVC = [mainStoryboard instantiateViewControllerWithIdentifier:kStoryboardCommentsID];
             [commentsVC setObjectForCommentThread:photoToLoad];
@@ -228,14 +223,12 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
             
              [photoDetailVC setPhotosToLoad:@[photoToLoad]];
              [photoDetailVC setStringOwner:[photoToLoad objectForKey:kStringrPhotoStringKey]];
-             [photoDetailVC setHidesBottomBarWhenPushed:YES];
-             
+            
              [self.navigationController pushViewController:photoDetailVC animated:YES];
         }
     } else if ([activityType isEqualToString:kStringrActivityTypeFollow]) { // Follow activity action
         StringrProfileViewController *profileVC = [StringrProfileViewController viewController];
         [profileVC setUserForProfile:[objectForIndexPath objectForKey:kStringrActivityFromUserKey]];
-        [profileVC setHidesBottomBarWhenPushed:YES];
         
         [self.navigationController pushViewController:profileVC animated:YES];
     }
@@ -243,7 +236,7 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 75.0f;
+    return 60.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -358,8 +351,8 @@ static NSString * const StringrActivityTableViewStoryboardName = @"StringrActivi
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
-    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discover
+//    StringrDiscoveryTabBarViewController *discoveryTabBarVC = [StringrDiscoveryTabBarViewController new];
+//    [discoveryTabBarVC setSelectedIndex:1]; // sets the selected tab to Discover
     
     //Need to implement a deep linking for explore buttons
 }
