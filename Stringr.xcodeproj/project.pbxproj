@@ -48,6 +48,7 @@
 		AB2973351A5F9948007DE1E8 /* StringrLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2973341A5F9948007DE1E8 /* StringrLaunchViewController.m */; };
 		AB29733D1A605F11007DE1E8 /* StringrSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29733A1A605F11007DE1E8 /* StringrSearchTableViewController.m */; };
 		AB29733E1A605F11007DE1E8 /* StringrUserSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29733C1A605F11007DE1E8 /* StringrUserSearchViewController.m */; };
+		AB29734C1A6085E2007DE1E8 /* StringrAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29734B1A6085E2007DE1E8 /* StringrAuthenticationManager.m */; };
 		AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */; };
 		AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */; };
 		AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA1D1911A66900A9DFF9 /* libsqlite3.dylib */; };
@@ -297,6 +298,8 @@
 		AB29733A1A605F11007DE1E8 /* StringrSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrSearchTableViewController.m; path = Explore/StringrSearchTableViewController.m; sourceTree = "<group>"; };
 		AB29733B1A605F11007DE1E8 /* StringrUserSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserSearchViewController.h; path = Explore/StringrUserSearchViewController.h; sourceTree = "<group>"; };
 		AB29733C1A605F11007DE1E8 /* StringrUserSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserSearchViewController.m; path = Explore/StringrUserSearchViewController.m; sourceTree = "<group>"; };
+		AB29734A1A6085E2007DE1E8 /* StringrAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrAuthenticationManager.h; path = Login/StringrAuthenticationManager.h; sourceTree = "<group>"; };
+		AB29734B1A6085E2007DE1E8 /* StringrAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrAuthenticationManager.m; path = Login/StringrAuthenticationManager.m; sourceTree = "<group>"; };
 		AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFlagContentHelper.h; path = Utility/StringrFlagContentHelper.h; sourceTree = "<group>"; };
 		AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFlagContentHelper.m; path = Utility/StringrFlagContentHelper.m; sourceTree = "<group>"; };
 		AB2CFA1B1911A64B00A9DFF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -894,6 +897,8 @@
 				BF3EDDFE183E89A60071E047 /* StringrUtility.m */,
 				AB4614F9187CC63D00956FF3 /* StringrConstants.h */,
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
+				AB29734A1A6085E2007DE1E8 /* StringrAuthenticationManager.h */,
+				AB29734B1A6085E2007DE1E8 /* StringrAuthenticationManager.m */,
 				AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */,
 				AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */,
 			);
@@ -1798,6 +1803,7 @@
 				ABDD30D41896EF1F0043CC28 /* QMBParallaxScrollViewController.m in Sources */,
 				AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */,
 				ABDB7E4F18D63C620047691B /* StringrTableViewController.m in Sources */,
+				AB29734C1A6085E2007DE1E8 /* StringrAuthenticationManager.m in Sources */,
 				AB29CC73199FD8C2001177DD /* StringrFlagContentHelper.m in Sources */,
 				AB1B0C8A188DB7DA0063EAC5 /* StringrStringDetailTopViewController.m in Sources */,
 				ABFBE60118D8C67A0026BCC1 /* StringrDashboardTabBarController.m in Sources */,
@@ -1977,7 +1983,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

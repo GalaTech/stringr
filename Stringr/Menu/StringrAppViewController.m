@@ -15,6 +15,7 @@
 #import "UIFont+StringrFonts.h"
 #import "NSLayoutConstraint+StringrAdditions.h"
 
+#import "StringrAuthenticationManager.h"
 #import "Reachability.h"
 
 @interface StringrAppViewController () <StringrLoginViewControllerDelegate>
@@ -108,24 +109,8 @@
 
 - (void)logout
 {
-    [PFQuery clearAllCachedResults];
-    [[StringrCache sharedCache] clear];
-    
-    // Unsubscribe from push notifications for this installation
-    [[PFInstallation currentInstallation] removeObjectForKey:kStringrInstallationUserKey];
-    
-    PFObject *currentUserPrivateChannelKey = [[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey];
-    
-    if (currentUserPrivateChannelKey) {
-        [[PFInstallation currentInstallation] removeObject:currentUserPrivateChannelKey forKey:kStringrInstallationPrivateChannelsKey];
-    }
-    
-    [[PFInstallation currentInstallation] saveEventually];
-    
-    [PFUser logOut];
-    
+    [StringrAuthenticationManager logoutCurrentUser];
     [[StringrUpdateEngine sharedEngine] stop];
-    
     [self transitionToLoginViewController:YES];
 }
 

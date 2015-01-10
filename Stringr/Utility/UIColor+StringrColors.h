@@ -53,7 +53,8 @@ struct StringrRGBValue {
 + (UIColor *)facebookBlueColor;
 + (UIColor *)twitterBlueColor;
 
-
+// Utility
 + (UIColor *)randomColor;
+- (UIColor*)blendWithColor:(UIColor*)color alpha:(CGFloat)alpha;
 
 @end

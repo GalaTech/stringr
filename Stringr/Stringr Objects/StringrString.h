@@ -26,6 +26,6 @@
 + (instancetype)stringWithObject:(PFObject *)object;
 + (instancetype)new __attribute__ ((unavailable("[+new] is not allowed, use [+stringWithObject:]")));
 
-+ (NSMutableArray *)stringsFromArray:(NSArray *)array;
++ (NSArray *)stringsFromArray:(NSArray *)array;
 
 @end

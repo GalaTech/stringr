@@ -75,11 +75,48 @@
 {
     [self.tabBar setTintColor:[UIColor grayColor]];
     [self.tabBar setBarTintColor:[UIColor whiteColor]];
+    self.tabBar.translucent = NO;
     
     for (UITabBarItem *item in self.tabBar.items) {
         item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
         item.image = [[item.selectedImage tintedImageUsingColor:[UIColor stringrTabBarItemColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
+    
+    [self addCenterButtonWithImage:nil highlightImage:nil];
+}
+
+
+-(void) addCenterButtonWithImage:(UIImage*)buttonImage highlightImage:(UIImage*)highlightImage
+{
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+    button.frame = CGRectMake(0.0, 0.0, 54, 54);
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    button.backgroundColor = [UIColor whiteColor];
+    [button addTarget:self action:@selector(cameraTabSelected:) forControlEvents:UIControlEventTouchUpInside];
+    
+    button.layer.cornerRadius = 27;
+    button.layer.borderWidth = 1.0f;
+    button.layer.borderColor = [UIColor stringrLogoBlueColor].CGColor;
+    
+    CGFloat heightDifference = 54 - self.tabBar.frame.size.height;
+    if (heightDifference == 0)
+        button.center = self.tabBar.center;
+    else
+    {
+        CGPoint center = self.tabBar.center;
+        center.y = center.y - heightDifference / 2;
+        button.center = center;
+    }
+    
+    [self.view addSubview:button];
+}
+
+
+- (IBAction)cameraTabSelected:(UIButton *)sender
+{
+    [self setDashboardTabIndex:DashboardCameraIndex];
 }
 
 
@@ -89,6 +126,12 @@
 {
     [self.delegate tabBarController:self shouldSelectViewController:self.viewControllers[index]];
     [self setSelectedIndex:index];
+}
+
+
+- (UIViewController *)currentlySelectedDashboardViewController
+{
+    return self.viewControllers[self.selectedIndex];
 }
 
 
@@ -107,7 +150,8 @@
     NSInteger numberOfNewActivities = [[StringrActivityManager sharedManager] numberOfNewActivitiesForCurrentUser];
     
     if (numberOfNewActivities > 0) {
-        UITabBarItem *activityTab = self.viewControllers[3];
+        UITabBarItem *activityTab = self.tabBar.items[DashboardActivityIndex];
+        
         [activityTab setBadgeValue:[NSString stringWithFormat:@"%ld", (long)numberOfNewActivities]];
     }
 }

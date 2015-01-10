@@ -151,4 +151,22 @@
     return [UIColor colorWithRed:red / 255.0f green:green / 255.0f blue:blue / 255.0f alpha:1.0f];
 }
 
+
+- (UIColor*)blendWithColor:(UIColor*)color alpha:(CGFloat)alpha
+{
+    alpha = MIN( 1.0, MAX( 0.0, alpha ) );
+    CGFloat beta = 1.0 - alpha;
+    
+    CGFloat r1, g1, b1, a1, r2, g2, b2, a2;
+    [self getRed:&r1 green:&g1 blue:&b1 alpha:&a1];
+    [color getRed:&r2 green:&g2 blue:&b2 alpha:&a2];
+    
+    CGFloat red     = r1 * beta + r2 * alpha;
+    CGFloat green   = g1 * beta + g2 * alpha;
+    CGFloat blue    = b1 * beta + b2 * alpha;
+    CGFloat newAlpha   = a1 * beta + a2 * alpha;
+    
+    return [UIColor colorWithRed:red green:green blue:blue alpha:newAlpha];
+}
+
 @end

@@ -66,14 +66,15 @@
 
 #pragma mark - Public
 
-+ (NSMutableArray *)stringsFromArray:(NSArray *)array
++ (NSArray *)stringsFromArray:(NSArray *)array
 {
     NSMutableArray *stringsArray = [[NSMutableArray alloc] initWithCapacity:array.count];
     
     for (id object in array) {
         if ([object isKindOfClass:[PFObject class]]) {
             StringrString *string = [StringrString stringWithObject:object];
-            [stringsArray addObject:string];
+            
+            if (string) [stringsArray addObject:string];
         }
     }
     
