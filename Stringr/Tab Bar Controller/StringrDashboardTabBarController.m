@@ -51,11 +51,13 @@
 {
     StringrFollowingTableViewController *followingVC = [StringrFollowingTableViewController new];
     StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
+    followingNavVC.navigationBar.translucent = NO;
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
     [followingNavVC setTabBarItem:followingTab];
     
     StringrExploreViewController *exploreVC = [StringrExploreViewController viewController];
     StringrNavigationController *exploreNavVC = [[StringrNavigationController alloc] initWithRootViewController:exploreVC];
+    exploreNavVC.navigationBar.translucent = NO;
     UITabBarItem *exploreTab = [[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"sailboat_icon"] tag:0];
     [exploreVC setTabBarItem:exploreTab];
     
@@ -65,6 +67,7 @@
     
     StringrActivityTableViewController *activityVC = [StringrActivityTableViewController viewController];
     StringrNavigationController *activityNavVC = [[StringrNavigationController alloc] initWithRootViewController:activityVC];
+    activityNavVC.navigationBar.translucent = NO;
     UITabBarItem *activityTab = [[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"activity_icon"] tag:0];
     [activityNavVC setTabBarItem:activityTab];
     
@@ -105,7 +108,7 @@
     [self.cameraButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
     self.cameraButton.backgroundColor = [UIColor whiteColor];
     
-    [self.cameraButton setImage:[UIImage imageNamed:@"StringrCameraPlus"] forState:UIControlStateNormal];
+    [self.cameraButton setImage:[UIImage imageNamed:@"StringrCameraPlusIcon"] forState:UIControlStateNormal];
     [self.cameraButton addTarget:self action:@selector(cameraTabSelected:) forControlEvents:UIControlEventTouchUpInside];
     [self.cameraButton addTarget:self action:@selector(cameraTabPushedDown:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton addTarget:self action:@selector(cameraButtonTocuhedUpOutside:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchDragOutside];

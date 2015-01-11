@@ -55,10 +55,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="eTf-Cq-IC6" firstAttribute="leading" secondItem="YB8-pW-qkX" secondAttribute="leading" constant="15" id="3tA-ZM-e7g"/>
-                                                <constraint firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" id="Se5-EI-Tee"/>
+                                                <constraint firstItem="eTf-Cq-IC6" firstAttribute="top" secondItem="YB8-pW-qkX" secondAttribute="top" constant="11" id="Iom-4v-YBr"/>
                                                 <constraint firstItem="qLq-ab-kIy" firstAttribute="leading" secondItem="eTf-Cq-IC6" secondAttribute="trailing" constant="15" id="f47-zE-mQj"/>
                                                 <constraint firstAttribute="trailing" secondItem="qLq-ab-kIy" secondAttribute="trailing" constant="8" id="fHN-OS-pPI"/>
                                                 <constraint firstItem="qLq-ab-kIy" firstAttribute="centerY" secondItem="eTf-Cq-IC6" secondAttribute="centerY" constant="-0.5" id="lay-Kj-V2p"/>
+                                                <constraint firstAttribute="bottom" secondItem="eTf-Cq-IC6" secondAttribute="bottom" constant="10" id="qZL-6f-TCt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

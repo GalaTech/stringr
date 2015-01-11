@@ -238,7 +238,7 @@
 {
     if (section == 0) return 0.0f;
     
-    return 30.0f;
+    return 20.0f;
 }
 
 
