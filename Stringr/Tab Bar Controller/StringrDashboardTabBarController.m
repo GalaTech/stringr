@@ -104,6 +104,8 @@
     [self.cameraButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [self.cameraButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
     self.cameraButton.backgroundColor = [UIColor whiteColor];
+    
+    [self.cameraButton setImage:[UIImage imageNamed:@"StringrCameraPlus"] forState:UIControlStateNormal];
     [self.cameraButton addTarget:self action:@selector(cameraTabSelected:) forControlEvents:UIControlEventTouchUpInside];
     [self.cameraButton addTarget:self action:@selector(cameraTabPushedDown:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton addTarget:self action:@selector(cameraButtonTocuhedUpOutside:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchDragOutside];
