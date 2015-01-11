@@ -20,6 +20,16 @@
 #import "UIColor+StringrColors.h"
 #import "UIImage+StringrImageAdditions.h"
 
+#import "StringrColorGenerator.h"
+
+@interface StringrDashboardTabBarController ()
+
+@property (strong, nonatomic) StringrColorGenerator *colorGenerator;
+
+@property (strong, nonatomic) UIButton *cameraButton;
+
+@end
+
 @implementation StringrDashboardTabBarController
 
 #pragma mark - Lifecycle
@@ -88,35 +98,60 @@
 
 -(void) addCenterButtonWithImage:(UIImage*)buttonImage highlightImage:(UIImage*)highlightImage
 {
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-    button.frame = CGRectMake(0.0, 0.0, 54, 54);
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
-    button.backgroundColor = [UIColor whiteColor];
-    [button addTarget:self action:@selector(cameraTabSelected:) forControlEvents:UIControlEventTouchUpInside];
+    self.cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.cameraButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+    self.cameraButton.frame = CGRectMake(0.0, 0.0, 54, 54);
+    [self.cameraButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [self.cameraButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    self.cameraButton.backgroundColor = [UIColor whiteColor];
+    [self.cameraButton addTarget:self action:@selector(cameraTabSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [self.cameraButton addTarget:self action:@selector(cameraTabPushedDown:) forControlEvents:UIControlEventTouchDown];
+    [self.cameraButton addTarget:self action:@selector(cameraButtonTocuhedUpOutside:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchDragOutside];
     
-    button.layer.cornerRadius = 27;
-    button.layer.borderWidth = 1.0f;
-    button.layer.borderColor = [UIColor stringrLogoBlueColor].CGColor;
+    self.cameraButton.layer.cornerRadius = 27;
+    self.cameraButton.layer.borderWidth = 1.0f;
+    
+    self.colorGenerator = [StringrColorGenerator generatorWithDefaultStringrColors];
+    self.cameraButton.layer.borderColor = [self.colorGenerator nextRandomColor].CGColor;
+    [self performSelector:@selector(changeCameraButtonColor) withObject:nil afterDelay:10.0f];
     
     CGFloat heightDifference = 54 - self.tabBar.frame.size.height;
     if (heightDifference == 0)
-        button.center = self.tabBar.center;
+        self.cameraButton.center = self.tabBar.center;
     else
     {
         CGPoint center = self.tabBar.center;
         center.y = center.y - heightDifference / 2;
-        button.center = center;
+        self.cameraButton.center = center;
     }
     
-    [self.view addSubview:button];
+    [self.view addSubview:self.cameraButton];
 }
 
+
+#pragma mark - IBActions
 
 - (IBAction)cameraTabSelected:(UIButton *)sender
 {
     [self setDashboardTabIndex:DashboardCameraIndex];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.cameraButton.backgroundColor = [UIColor whiteColor];
+    }];
+}
+
+
+- (IBAction)cameraTabPushedDown:(UIButton *)sender
+{
+    self.cameraButton.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.0f];
+}
+
+
+- (IBAction)cameraButtonTocuhedUpOutside:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.cameraButton.backgroundColor = [UIColor whiteColor];
+    }];
 }
 
 
@@ -135,13 +170,22 @@
 }
 
 
-#pragma mark - Activity
+#pragma mark - Private
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+- (void)changeCameraButtonColor
 {
-    if ([item.title isEqualToString:@"Activity"]) {
-        item.badgeValue = nil;
-    }
+    UIColor *fromColor = [UIColor colorWithCGColor:self.cameraButton.layer.borderColor];
+    UIColor *toColor = [self.colorGenerator nextRandomColor];
+    
+    CABasicAnimation *borderColorAnimation = [CABasicAnimation animationWithKeyPath:@"borderColor"];
+    borderColorAnimation.duration = 1.5f;
+    borderColorAnimation.fromValue = (id)fromColor.CGColor;
+    borderColorAnimation.toValue   = (id)toColor.CGColor;
+    self.cameraButton.layer.borderColor = toColor.CGColor;
+    
+    [self.cameraButton.layer addAnimation:borderColorAnimation forKey:@"color"];
+    
+    [self performSelector:@selector(changeCameraButtonColor) withObject:nil afterDelay:10.0f];
 }
 
 
@@ -155,5 +199,16 @@
         [activityTab setBadgeValue:[NSString stringWithFormat:@"%ld", (long)numberOfNewActivities]];
     }
 }
+
+
+#pragma mark - UITabBarDelegate
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if (self.selectedIndex == DashboardActivityIndex) {
+        item.badgeValue = nil;
+    }
+}
+
 
 @end

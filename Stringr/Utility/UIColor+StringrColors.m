@@ -89,6 +89,11 @@
     return [self colorwithRed:70.0f green:12.0f blue:128.0f];
 }
 
++ (NSArray *)defaultStringrColors
+{
+    return @[[UIColor stringrLogoRedColor], [UIColor stringrLogoOrangeColor], [UIColor stringrLogoYellowColor], [UIColor stringrLogoGreenColor], [UIColor stringrLogoTurquoiseColor], [UIColor stringrLogoBlueColor], [UIColor stringrLogoPurpleColor]];
+}
+
 
 #pragma mark - Label
 

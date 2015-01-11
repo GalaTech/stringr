@@ -30,7 +30,7 @@
     self = [super initWithCoder:aDecoder];
     
     if (self) {
-        [self setupColoredHeaderRibbon:[StringrColoredView defaultColors]];
+        [self setupColoredHeaderRibbon:[UIColor defaultStringrColors]];
     }
     
     return self;
@@ -40,7 +40,7 @@
 + (instancetype)defaultColoredView
 {
     CGRect coloredRect = CGRectMake(0.0, 0.0, CGRectGetWidth([UIScreen mainScreen].bounds), 1.0f);
-    StringrColoredView *coloredView = [[StringrColoredView alloc] initWithFrame:coloredRect colors:[self defaultColors]];
+    StringrColoredView *coloredView = [[StringrColoredView alloc] initWithFrame:coloredRect colors:[UIColor defaultStringrColors]];
     
     return coloredView;
 }
@@ -56,11 +56,6 @@
 
 
 #pragma mark - Public
-
-+ (NSArray *)defaultColors
-{
-    return @[[UIColor stringrLogoRedColor], [UIColor stringrLogoOrangeColor], [UIColor stringrLogoYellowColor], [UIColor stringrLogoGreenColor], [UIColor stringrLogoTurquoiseColor], [UIColor stringrLogoBlueColor], [UIColor stringrLogoPurpleColor]];
-}
 
 
 #pragma mark - Private

@@ -58,6 +58,7 @@
 		AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */; };
 		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
 		AB3C1DE41A126ABB00ACED69 /* StringrProfileStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB3C1DE31A126ABB00ACED69 /* StringrProfileStoryboard.storyboard */; };
+		AB423BD81A61F8130011FCFF /* StringrColorGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = AB423BD71A61F8130011FCFF /* StringrColorGenerator.m */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
 		AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08318C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m */; };
 		AB4FF08718C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF08618C6B79C000F550F /* StringrSetProfileDescriptionTableViewCell.m */; };
@@ -313,6 +314,8 @@
 		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
 		AB37EBEF19DCA74500E66580 /* StringrModelObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrModelObjects.h; path = "Stringr Objects/StringrModelObjects.h"; sourceTree = "<group>"; };
 		AB3C1DE31A126ABB00ACED69 /* StringrProfileStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrProfileStoryboard.storyboard; path = Profile/StringrProfileStoryboard.storyboard; sourceTree = "<group>"; };
+		AB423BD61A61F8130011FCFF /* StringrColorGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrColorGenerator.h; path = Utility/StringrColorGenerator.h; sourceTree = "<group>"; };
+		AB423BD71A61F8130011FCFF /* StringrColorGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrColorGenerator.m; path = Utility/StringrColorGenerator.m; sourceTree = "<group>"; };
 		AB4614F9187CC63D00956FF3 /* StringrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConstants.h; path = Utility/StringrConstants.h; sourceTree = "<group>"; };
 		AB4FF07C18C0019E000F550F /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		AB4FF07D18C0019E000F550F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -899,6 +902,8 @@
 				BF3EDDD5183AADCB0071E047 /* StringrConstants.m */,
 				AB29734A1A6085E2007DE1E8 /* StringrAuthenticationManager.h */,
 				AB29734B1A6085E2007DE1E8 /* StringrAuthenticationManager.m */,
+				AB423BD61A61F8130011FCFF /* StringrColorGenerator.h */,
+				AB423BD71A61F8130011FCFF /* StringrColorGenerator.m */,
 				AB29CC71199FD8C2001177DD /* StringrFlagContentHelper.h */,
 				AB29CC72199FD8C2001177DD /* StringrFlagContentHelper.m */,
 			);
@@ -1761,6 +1766,7 @@
 				AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */,
 				AB6C4BAE1A4A057A00CBA63C /* StringrNetworkTask+Profile.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
+				AB423BD81A61F8130011FCFF /* StringrColorGenerator.m in Sources */,
 				AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */,
 				AB1C02931A39696F000AF42D /* StringrStringProfileTableViewController.m in Sources */,
 				AB29733E1A605F11007DE1E8 /* StringrUserSearchViewController.m in Sources */,

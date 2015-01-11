@@ -29,6 +29,8 @@ struct StringrRGBValue {
 + (UIColor *)stringrLogoBlueColor;
 + (UIColor *)stringrLogoPurpleColor;
 
++ (NSArray *)defaultStringrColors;
+
 
 // Label
 + (UIColor *)stringrHashtagColor;

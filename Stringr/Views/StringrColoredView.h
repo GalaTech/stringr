@@ -14,6 +14,4 @@
 + (instancetype)coloredViewWithColors:(NSArray *)colors;
 - (instancetype)initWithFrame:(CGRect)frame colors:(NSArray *)colors;
 
-+ (NSArray *)defaultColors;
-
 @end
