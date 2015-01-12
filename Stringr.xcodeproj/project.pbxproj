@@ -65,7 +65,6 @@
 		AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810818B2967800DE933D /* AudioToolbox.framework */; };
 		AB50810B18B2967F00DE933D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810A18B2967F00DE933D /* CFNetwork.framework */; };
 		AB50810D18B2968F00DE933D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810C18B2968F00DE933D /* CoreLocation.framework */; };
-		AB50810F18B2969E00DE933D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50810E18B2969E00DE933D /* libz.dylib */; };
 		AB50811118B296A800DE933D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811018B296A800DE933D /* MobileCoreServices.framework */; };
 		AB50811318B296B500DE933D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811218B296B500DE933D /* QuartzCore.framework */; };
 		AB50811518B296BB00DE933D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811418B296BB00DE933D /* Security.framework */; };
@@ -109,6 +108,11 @@
 		AB6CB1CA19059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1C919059147008A8DB0 /* StringrFindAndInviteFriendsTableViewController.m */; };
 		AB6CB1CD1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */; };
 		AB6CB1D01906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */; };
+		AB74052D1A641C8A005F2563 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7405281A641C8A005F2563 /* Bolts.framework */; };
+		AB74052E1A641C8A005F2563 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7405291A641C8A005F2563 /* Parse.framework */; };
+		AB74052F1A641C8A005F2563 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74052A1A641C8A005F2563 /* ParseCrashReporting.framework */; };
+		AB7405301A641C8A005F2563 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74052B1A641C8A005F2563 /* ParseFacebookUtils.framework */; };
+		AB7405311A641C8A005F2563 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74052C1A641C8A005F2563 /* ParseUI.framework */; };
 		AB757A88187F173A00D32917 /* StringrPathImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757A87187F173A00D32917 /* StringrPathImageView.m */; };
 		AB757AA81887521B00D32917 /* StringrDiscoveryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB757AA71887521B00D32917 /* StringrDiscoveryTableViewController.m */; };
 		AB7D345418BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7D345318BE90000009CFC5 /* StringrSelectProfileImageTableViewCell.m */; };
@@ -116,6 +120,7 @@
 		AB9240161A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */; };
 		AB9240181A0FFB0D00395DAA /* StringrActivityTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240171A0FFB0D00395DAA /* StringrActivityTableViewStoryboard.storyboard */; };
 		AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB9240191A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard */; };
+		AB97F0641A641FCC003815DB /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB97F0631A641FCC003815DB /* libstdc++.6.0.9.dylib */; };
 		AB9D74021891A7CA003BB2B8 /* UIImage+Decompression.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */; };
 		AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D74261892D657003BB2B8 /* StringrPhotoDetailViewController.m */; };
 		AB9D742B1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9D742A1892DA92003BB2B8 /* StringrPhotoDetailTopViewController.m */; };
@@ -134,9 +139,6 @@
 		ABA2F06C1922BB430004A806 /* ZCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA2F05B1922BB430004A806 /* ZCAssetTablePicker.m */; };
 		ABA2F06D1922BB430004A806 /* ZCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA2F05D1922BB430004A806 /* ZCHelper.m */; };
 		ABA2F06E1922BB430004A806 /* ZCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA2F05F1922BB430004A806 /* ZCImagePickerController.m */; };
-		ABA3D04019EED77A00AD0EB8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03D19EED77A00AD0EB8 /* Bolts.framework */; };
-		ABA3D04119EED77A00AD0EB8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03E19EED77A00AD0EB8 /* Parse.framework */; };
-		ABA3D04219EED77A00AD0EB8 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */; };
 		ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB9A0F31A087461003B9C5F /* StringrLabel.m */; };
@@ -400,6 +402,11 @@
 		AB6CB1CC1905CA95008A8DB0 /* StringrInviteUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrInviteUserTableViewCell.m; path = TableViewCell/StringrInviteUserTableViewCell.m; sourceTree = "<group>"; };
 		AB6CB1CE1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrFBFriendPickerViewController.h; path = Settings/StringrFBFriendPickerViewController.h; sourceTree = "<group>"; };
 		AB6CB1CF1906CEEE008A8DB0 /* StringrFBFriendPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrFBFriendPickerViewController.m; path = Settings/StringrFBFriendPickerViewController.m; sourceTree = "<group>"; };
+		AB7405281A641C8A005F2563 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = External/Parse/Bolts.framework; sourceTree = "<group>"; };
+		AB7405291A641C8A005F2563 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = External/Parse/Parse.framework; sourceTree = "<group>"; };
+		AB74052A1A641C8A005F2563 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = External/Parse/ParseCrashReporting.framework; sourceTree = "<group>"; };
+		AB74052B1A641C8A005F2563 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = External/Parse/ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		AB74052C1A641C8A005F2563 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = External/Parse/ParseUI.framework; sourceTree = "<group>"; };
 		AB757A86187F173A00D32917 /* StringrPathImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPathImageView.h; path = Utility/StringrPathImageView.h; sourceTree = "<group>"; };
 		AB757A87187F173A00D32917 /* StringrPathImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPathImageView.m; path = Utility/StringrPathImageView.m; sourceTree = "<group>"; };
 		AB757AA61887521B00D32917 /* StringrDiscoveryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrDiscoveryTableViewController.h; path = StringrStringTable/StringrDiscoveryTableViewController.h; sourceTree = "<group>"; };
@@ -411,6 +418,7 @@
 		AB9240151A0FF46F00395DAA /* StringrLoginViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrLoginViewStoryboard.storyboard; path = Login/StringrLoginViewStoryboard.storyboard; sourceTree = "<group>"; };
 		AB9240171A0FFB0D00395DAA /* StringrActivityTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrActivityTableViewStoryboard.storyboard; path = StringrStringTable/StringrActivityTableViewStoryboard.storyboard; sourceTree = "<group>"; };
 		AB9240191A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrConnectionsTableViewStoryboard.storyboard; path = Users/StringrConnectionsTableViewStoryboard.storyboard; sourceTree = "<group>"; };
+		AB97F0631A641FCC003815DB /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		AB9D74001891A7CA003BB2B8 /* UIImage+Decompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Decompression.h"; sourceTree = "<group>"; };
 		AB9D74011891A7CA003BB2B8 /* UIImage+Decompression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Decompression.m"; sourceTree = "<group>"; };
 		AB9D74251892D657003BB2B8 /* StringrPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoDetailViewController.h; path = Detail/StringrPhotoDetailViewController.h; sourceTree = "<group>"; };
@@ -442,9 +450,6 @@
 		ABA2F05F1922BB430004A806 /* ZCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCImagePickerController.m; sourceTree = "<group>"; };
 		ABA2F0601922BB430004A806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZCLocalized.strings"; sourceTree = "<group>"; };
 		ABA2F0611922BB430004A806 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ZCLocalized.strings"; sourceTree = "<group>"; };
-		ABA3D03D19EED77A00AD0EB8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "External/Parse Framework/Bolts.framework"; sourceTree = "<group>"; };
-		ABA3D03E19EED77A00AD0EB8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "External/Parse Framework/Parse.framework"; sourceTree = "<group>"; };
-		ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "External/Parse Framework/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
 		ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrSettingsTableViewStoryboard.storyboard; path = StringrStringTable/StringrSettingsTableViewStoryboard.storyboard; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
@@ -566,26 +571,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABA3D04219EED77A00AD0EB8 /* ParseFacebookUtils.framework in Frameworks */,
+				AB97F0641A641FCC003815DB /* libstdc++.6.0.9.dylib in Frameworks */,
+				AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */,
+				AB50810B18B2967F00DE933D /* CFNetwork.framework in Frameworks */,
+				AB74052D1A641C8A005F2563 /* Bolts.framework in Frameworks */,
+				AB74052E1A641C8A005F2563 /* Parse.framework in Frameworks */,
+				AB74052F1A641C8A005F2563 /* ParseCrashReporting.framework in Frameworks */,
+				AB7405301A641C8A005F2563 /* ParseFacebookUtils.framework in Frameworks */,
+				AB7405311A641C8A005F2563 /* ParseUI.framework in Frameworks */,
 				AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */,
 				AB2CFA221911D2DF00A9DFF9 /* libz.1.1.3.dylib in Frameworks */,
 				AB2CFA1E1911A66900A9DFF9 /* libsqlite3.dylib in Frameworks */,
 				AB2CFA201911A68300A9DFF9 /* Social.framework in Frameworks */,
 				AB2CFA1C1911A64B00A9DFF9 /* Accounts.framework in Frameworks */,
 				AB6CB1C719058714008A8DB0 /* MessageUI.framework in Frameworks */,
-				ABA3D04119EED77A00AD0EB8 /* Parse.framework in Frameworks */,
-				ABA3D04019EED77A00AD0EB8 /* Bolts.framework in Frameworks */,
 				AB50811D18B298D100DE933D /* FacebookSDK.framework in Frameworks */,
 				AB50811918B296C900DE933D /* SystemConfiguration.framework in Frameworks */,
 				AB50811718B296C200DE933D /* StoreKit.framework in Frameworks */,
 				AB50811518B296BB00DE933D /* Security.framework in Frameworks */,
 				AB50811318B296B500DE933D /* QuartzCore.framework in Frameworks */,
 				AB50811118B296A800DE933D /* MobileCoreServices.framework in Frameworks */,
-				AB50810F18B2969E00DE933D /* libz.dylib in Frameworks */,
 				AB50810D18B2968F00DE933D /* CoreLocation.framework in Frameworks */,
 				BF8349D118297FD600D15963 /* CoreGraphics.framework in Frameworks */,
-				AB50810B18B2967F00DE933D /* CFNetwork.framework in Frameworks */,
-				AB50810918B2967800DE933D /* AudioToolbox.framework in Frameworks */,
 				BF8349D318297FD600D15963 /* UIKit.framework in Frameworks */,
 				BF8349CF18297FD600D15963 /* Foundation.framework in Frameworks */,
 				93E97CAB3589478280C0B11E /* libPods.a in Frameworks */,
@@ -1434,9 +1441,12 @@
 		BF8349CD18297FD600D15963 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABA3D03D19EED77A00AD0EB8 /* Bolts.framework */,
-				ABA3D03E19EED77A00AD0EB8 /* Parse.framework */,
-				ABA3D03F19EED77A00AD0EB8 /* ParseFacebookUtils.framework */,
+				AB97F0631A641FCC003815DB /* libstdc++.6.0.9.dylib */,
+				AB7405281A641C8A005F2563 /* Bolts.framework */,
+				AB7405291A641C8A005F2563 /* Parse.framework */,
+				AB74052A1A641C8A005F2563 /* ParseCrashReporting.framework */,
+				AB74052B1A641C8A005F2563 /* ParseFacebookUtils.framework */,
+				AB74052C1A641C8A005F2563 /* ParseUI.framework */,
 				AB2CFA231911D31500A9DFF9 /* AdSupport.framework */,
 				AB2CFA211911D2DF00A9DFF9 /* libz.1.1.3.dylib */,
 				AB2CFA1F1911A68300A9DFF9 /* Social.framework */,
@@ -1972,7 +1982,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/External/Parse",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";
@@ -1991,7 +2004,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/External/Parse",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
 				INFOPLIST_FILE = "Stringr/Stringr-Info.plist";

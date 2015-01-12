@@ -11,6 +11,7 @@
 #import "StringrLoginViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrDashboardTabBarController.h"
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import "StringrUpdateEngine.h"
 #import "UIFont+StringrFonts.h"
 #import "NSLayoutConstraint+StringrAdditions.h"
@@ -276,7 +277,7 @@
     [PFFacebookUtils initializeFacebook];
     [PFTwitterUtils initializeWithConsumerKey:@"6gI4gef1b48PR9KYoZ58hQ" consumerSecret:@"BFlTa5t2XrGF8Ez0kGPLbuaOFZwcPh5FxjCinJas"];
     
-    // Parse 'app open' analytics®
+    // Parse 'app open' analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:self.launchOptions];
 }
 
