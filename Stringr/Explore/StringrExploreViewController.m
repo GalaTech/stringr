@@ -298,7 +298,7 @@
         controller.searchBar.placeholder = @"Search Tags";
         
         [StringrNetworkTask searchForTag:searchString completion:^(NSArray *tags, NSError *error) {
-            self.filteredSearchResults = [tags copy];
+            self.filteredSearchResults = [tags mutableCopy];
             [controller.searchResultsTableView reloadData];
         }];
     }

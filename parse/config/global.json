@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "Stringr": {
+            "applicationId": "m0bUE5DhNMVo4IWlcCr5G2089J1doTDj3jGgXlzu", 
+            "masterKey": "qCiSfSdbAh7MCRosW8zpLJUUejFzyZG3SHsnJuIm"
+        }, 
+        "_default": {
+            "link": "Stringr"
+        }
+    }
+}
