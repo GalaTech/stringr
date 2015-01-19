@@ -1715,7 +1715,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Jonathan/Documents/iOS/Personal/Git/Stringr/Parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd \"$PROJECT_DIR\"/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
