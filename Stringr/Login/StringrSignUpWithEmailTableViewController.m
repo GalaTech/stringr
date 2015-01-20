@@ -214,6 +214,8 @@
         if (userIsValidForSignup == 5) {
             [newUser setObject:@(0) forKey:kStringrUserNumberOfStringsKey];
             [newUser setObject:@"" forKey:kStringrUserDescriptionKey];
+            [newUser setObject:@(0) forKey:kStringrUserNumberOfPreviousActivitiesKey];
+            
             if (self.profileImageFile && self.profileThumbnailImageFile) {
                 [newUser setObject:self.profileImageFile forKey:kStringrUserProfilePictureKey];
                 [newUser setObject:self.profileThumbnailImageFile forKey:kStringrUserProfilePictureThumbnailKey];
@@ -242,12 +244,10 @@
                     
                     NSNumber *emailIsVerified = [[PFUser currentUser] objectForKey:kStringrUserEmailVerifiedKey];
                     
-                    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
-                    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
-                    
                     if ([emailIsVerified boolValue]) {
                         [[UIApplication appDelegate].appViewController signup];
-                    } else {
+                    }
+                    else {
                         StringrEmailVerificationViewController *emailVerifyVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
                         [emailVerifyVC setUserProfileImage:self.userProfileImage];
                         
@@ -255,10 +255,12 @@
                         UIViewController *loginVC = [self.navigationController.viewControllers objectAtIndex:0];
                         [self.navigationController setViewControllers:@[loginVC, emailVerifyVC] animated:YES];
                     }
-                } else if (error.code == 202) { // 202 = username taken
+                }
+                else if (error.code == 202) { // 202 = username taken
                     UIAlertView *usernameTakenAlert = [[UIAlertView alloc] initWithTitle:@"Username Taken" message:@"The username you entered has already been taken!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
                     [usernameTakenAlert show];
-                } else if (error.code == 203) { // 203 = email address taken
+                }
+                else if (error.code == 203) { // 203 = email address taken
                     UIAlertView *emailTakenAlert = [[UIAlertView alloc] initWithTitle:@"Email Taken" message:@"The email address you entered has already been taken!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
                     [emailTakenAlert show];
                 }

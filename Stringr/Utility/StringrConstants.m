@@ -8,6 +8,18 @@
 
 #import "StringrConstants.h"
 
+
+#pragma mark - Parse
+
+// Production
+NSString * const kStringrParseApplicationID = @"m0bUE5DhNMVo4IWlcCr5G2089J1doTDj3jGgXlzu";
+NSString * const kStringrParseClientKey = @"8bfs0C7Z9kySt6uWNMYcZZIN4c6GzUZUh2pdFlxK";
+
+// Debug
+NSString * const kStringrParseDebugApplicationID = @"xHKN7JWlPi0dnaY4tasuO7bk7vmkX3ih9E7NNfc0";
+NSString * const kStringrParseDebugClientKey = @"FJYQ6lIbQcfqIQbSwme5mhKH8C8jRzTeNIuCvCHL";
+
+
 #pragma mark - Constant Numerical Values
 
 float const kStringrPFObjectDetailTableViewCellHeight = 41.5;

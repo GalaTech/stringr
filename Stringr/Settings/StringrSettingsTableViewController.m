@@ -208,6 +208,10 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#ifdef DEBUG
+    return 5;
+#endif
+    
     return 4;
 }
 
@@ -217,11 +221,6 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
         case 0:
             return 2;
             break;
-            /*
-        case 1:
-            return 2;
-            break;
-             */
         case 1:
             return 3;
             break;
@@ -231,6 +230,11 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
         case 3:
             return 1;
             break;
+#ifdef DEBUG
+        case 4:
+            return 1;
+            break;
+#endif
         default:
             return 0;
             break;
@@ -317,6 +321,11 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
                     [cell.textLabel setTextColor:redColor];
                 }
                 break;
+            case 4:
+                if (indexPath.row == 0) {
+                    cell.textLabel.text = [NSString stringWithFormat:@"Toggle Debug Mode"];
+                    cell.textLabel.textColor = [UIColor redColor];
+                }
             default:
                 break;
         }
@@ -393,6 +402,20 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
     else if (indexPath.section == 3 && indexPath.row == 0) {
         [[UIApplication appDelegate].appViewController logout];
     }
+    else if (indexPath.section == 4 && indexPath.row == 0) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL debugEnabled = [defaults boolForKey:@"kStringrDebugEnabledKey"];
+        
+        NSString *alertMessage = @"The app will now close. On relaunch %@ mode will be used.";
+        
+        alertMessage = [NSString stringWithFormat:alertMessage, (debugEnabled) ? @"PRODUCTION" : @"DEBUG"];
+        
+        UIAlertView *debugToggleAlert = [[UIAlertView alloc] initWithTitle:@"Toggle Debug" message:alertMessage delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Ok", nil];
+        
+        [debugToggleAlert show];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -599,6 +622,23 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
 - (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL debugEnabled = [defaults boolForKey:@"kStringrDebugEnabledKey"];
+        [defaults setBool:!debugEnabled forKey:@"kStringrDebugEnabledKey"];
+        [defaults synchronize];
+        
+        [[UIApplication appDelegate].appViewController logout];
+        
+        exit(1);
+    }
 }
 
 @end

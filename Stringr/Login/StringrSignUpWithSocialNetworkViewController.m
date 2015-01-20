@@ -97,9 +97,7 @@
         if (userIsValidForSignup == 4) {
             [newUser setObject:@(YES) forKey:kStringrUserSocialNetworkSignupCompleteKey];
             [newUser setObject:@"" forKey:kStringrUserDescriptionKey];
-            
-            NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
-            [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
+            [newUser setObject:@(0) forKey:kStringrUserNumberOfPreviousActivitiesKey];
             
             [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {

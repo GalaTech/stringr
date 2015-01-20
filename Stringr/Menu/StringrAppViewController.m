@@ -69,6 +69,7 @@
 {
     self.launchOptions = launchOptions;
     
+    [self firstRun];
     [self setupParse];
     [self monitorReachability];
     [self setupAppearance];
@@ -92,7 +93,8 @@
 {
     [self transitionToDashboardViewController:YES];
     
-    NSString *privateChannelName = [[PFUser currentUser] objectForKey:kStringrUserPrivateChannelKey];
+    NSString *privateChannelName = [NSString stringWithFormat:@"user_%@", [[PFUser currentUser] objectId]];
+    [[PFUser currentUser] setObject:privateChannelName forKey:kStringrUserPrivateChannelKey];
     
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
         if (!error) {
@@ -160,6 +162,21 @@
             [user saveEventually];
         }
     }
+}
+
+
+- (BOOL)isFirstRun
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults boolForKey:@"kStringrCompletedFirstRunKey"]) {
+        [defaults setBool:YES forKey:@"kStringrCompletedFirstRunKey"];
+        [defaults setBool:NO forKey:@"kStringrDebugEnabledKey"];
+        
+        return YES;
+    }
+    
+    return NO;
 }
 
 
@@ -275,7 +292,15 @@
 {
     [ParseCrashReporting enable];
     
-    [Parse setApplicationId:@"m0bUE5DhNMVo4IWlcCr5G2089J1doTDj3jGgXlzu" clientKey:@"8bfs0C7Z9kySt6uWNMYcZZIN4c6GzUZUh2pdFlxK"];
+    BOOL debugEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"kStringrDebugEnabledKey"];
+
+    if (debugEnabled) {
+        [Parse setApplicationId:kStringrParseDebugApplicationID clientKey:kStringrParseDebugClientKey];
+    }
+    else {
+        [Parse setApplicationId:kStringrParseApplicationID clientKey:kStringrParseClientKey];
+    }
+    
     [PFFacebookUtils initializeFacebook];
     [PFTwitterUtils initializeWithConsumerKey:@"6gI4gef1b48PR9KYoZ58hQ" consumerSecret:@"BFlTa5t2XrGF8Ez0kGPLbuaOFZwcPh5FxjCinJas"];
     

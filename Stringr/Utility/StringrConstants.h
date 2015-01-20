@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+#pragma mark - Parse Constants
+
+// Production
+extern NSString * const kStringrParseApplicationID;
+extern NSString * const kStringrParseClientKey;
+
+// Debug
+extern NSString * const kStringrParseDebugApplicationID;
+extern NSString * const kStringrParseDebugClientKey;
+
 #pragma mark - Constant Numerical Values
 
 extern float const kStringrPFObjectDetailTableViewCellHeight;
