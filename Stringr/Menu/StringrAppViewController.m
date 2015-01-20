@@ -165,7 +165,7 @@
 }
 
 
-- (BOOL)isFirstRun
+- (BOOL)firstRun
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
