@@ -166,21 +166,6 @@
 }
 
 
-- (BOOL)firstRun
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults boolForKey:@"kStringrCompletedFirstRunKey"]) {
-        [defaults setBool:YES forKey:@"kStringrCompletedFirstRunKey"];
-        [[StringrConfig sharedConfig] setDebugMode:NO];
-        
-        return YES;
-    }
-    
-    return NO;
-}
-
-
 #pragma mark - Navigation Transformations
 
 - (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated
