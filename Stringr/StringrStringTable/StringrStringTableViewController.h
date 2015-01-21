@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StringrTableViewController.h"
 
-@interface StringrStringTableViewController : StringrTableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface StringrStringTableViewController : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *strings;
 @property (strong, nonatomic) NSMutableArray *stringPhotos;
 
 @end

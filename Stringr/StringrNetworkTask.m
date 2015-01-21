@@ -8,6 +8,7 @@
 
 #import "StringrNetworkTask.h"
 
+#import "StringrNetworkTask+Strings.h"
 #import "StringrNetworkTask+Profile.h"
 
 @implementation StringrNetworkTask
@@ -48,12 +49,15 @@
 }
 
 
-+ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion
++ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrStringsBlock)completion
 {
     if (completion) {
         switch (dataType) {
             case StringrMyStringrNetworkTask:
                 [StringrNetworkTask stringsForUser:[PFUser currentUser] completion:completion];
+                break;
+            case StringrFollowingNetworkTask:
+                [StringrNetworkTask homeFeedForUser:user completion:completion];
                 break;
             default:
                 break;

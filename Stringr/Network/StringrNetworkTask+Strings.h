@@ -10,4 +10,6 @@
 
 @interface StringrNetworkTask (Strings)
 
++ (void)homeFeedForUser:(PFUser *)user completion:(StringrStringsBlock)completion;
+
 @end

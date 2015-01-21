@@ -15,6 +15,7 @@
 #import "StringrUpdateEngine.h"
 #import "UIFont+StringrFonts.h"
 #import "NSLayoutConstraint+StringrAdditions.h"
+#import "StringrConfig.h"
 
 #import "StringrAuthenticationManager.h"
 #import "Reachability.h"
@@ -69,7 +70,7 @@
 {
     self.launchOptions = launchOptions;
     
-    [self firstRun];
+//    [[StringrConfig sharedConfig] setup];
     [self setupParse];
     [self monitorReachability];
     [self setupAppearance];
@@ -171,7 +172,7 @@
     
     if (![defaults boolForKey:@"kStringrCompletedFirstRunKey"]) {
         [defaults setBool:YES forKey:@"kStringrCompletedFirstRunKey"];
-        [defaults setBool:NO forKey:@"kStringrDebugEnabledKey"];
+        [[StringrConfig sharedConfig] setDebugMode:NO];
         
         return YES;
     }
@@ -292,7 +293,7 @@
 {
     [ParseCrashReporting enable];
     
-    BOOL debugEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"kStringrDebugEnabledKey"];
+    BOOL debugEnabled = [StringrConfig sharedConfig].isDebugMode;
 
     if (debugEnabled) {
         [Parse setApplicationId:kStringrParseDebugApplicationID clientKey:kStringrParseDebugClientKey];

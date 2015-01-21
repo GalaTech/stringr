@@ -29,33 +29,33 @@
 
 #pragma mark - PFQueryTableViewController Delegate
 
-- (PFQuery *)queryForTable
-{
-    PFQuery *likedStringsQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [likedStringsQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
-    [likedStringsQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-    [likedStringsQuery whereKeyExists:kStringrActivityStringKey];
-    [likedStringsQuery includeKey:kStringrActivityStringKey];
-    [likedStringsQuery orderByDescending:@"createdAt"];
-    [likedStringsQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
-    
-    return likedStringsQuery;
-}
+//- (PFQuery *)queryForTable
+//{
+//    PFQuery *likedStringsQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+//    [likedStringsQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
+//    [likedStringsQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+//    [likedStringsQuery whereKeyExists:kStringrActivityStringKey];
+//    [likedStringsQuery includeKey:kStringrActivityStringKey];
+//    [likedStringsQuery orderByDescending:@"createdAt"];
+//    [likedStringsQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+//    
+//    return likedStringsQuery;
+//}
 
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You do not have any liked Strings"];
-        [noContentHeaderView setTitleForExploreOptionButton:@"Explore Strings to Like"];
-        [noContentHeaderView setDelegate:self];
-        
-        self.tableView.tableHeaderView = noContentHeaderView;
-    } else {
-        self.tableView.tableHeaderView = nil;
-    }
-}
+//- (void)objectsDidLoad:(NSError *)error
+//{
+//    [super objectsDidLoad:error];
+//    
+//    if (self.objects.count == 0) {
+//        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You do not have any liked Strings"];
+//        [noContentHeaderView setTitleForExploreOptionButton:@"Explore Strings to Like"];
+//        [noContentHeaderView setDelegate:self];
+//        
+//        self.tableView.tableHeaderView = noContentHeaderView;
+//    } else {
+//        self.tableView.tableHeaderView = nil;
+//    }
+//}
 
 
 

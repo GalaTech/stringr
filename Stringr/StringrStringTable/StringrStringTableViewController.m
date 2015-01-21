@@ -26,6 +26,7 @@
 #import "NHBalancedFlowLayout.h"
 
 #import "StringrNetworkTask+LikeActivity.h"
+#import "StringrNetworkTask+Strings.h"
 
 #import "UIColor+StringrColors.h"
 #import "StringrFlagContentHelper.h"
@@ -35,7 +36,11 @@
 
 @interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
 
+@property (strong, nonatomic) NSArray *strings;
+@property (nonatomic) StringrNetworkStringTaskType dataType;
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
+
+@property (strong, nonatomic) UIStoryboard *mainStoryboard;
 
 @end
 
@@ -48,10 +53,12 @@
     self = [super initWithStyle:style];
     
     if (self) {
-        self.parseClassName = kStringrStringClassKey;
-        self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = NO;
-        self.objectsPerPage = 2;
+        self.mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.dataType = StringrFollowingNetworkTask;
+//        self.parseClassName = kStringrStringClassKey;
+//        self.pullToRefreshEnabled = YES;
+//        self.paginationEnabled = NO;
+//        self.objectsPerPage = 2;
     }
     
     return self;
@@ -101,10 +108,63 @@
 
 #pragma mark - Accessors
 
+- (void)setDataType:(StringrNetworkStringTaskType)dataType
+{
+    _dataType = dataType;
+    
+    [StringrNetworkTask homeFeedForUser:[PFUser currentUser] completion:^(NSArray *strings, NSError *error) {
+        self.strings = strings;
+    }];
+}
+
 - (void)setStrings:(NSMutableArray *)strings
 {
-    _strings = [StringrString stringsFromArray:strings];
+    _strings = strings;
+    
+    
+    [self.tableView reloadData];
+    
+    [self loadedData];
 }
+
+
+- (void)loadedData
+{
+    if (self.strings.count > 0) {
+        // instantiates string photos with blank objects of count self.objects
+        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.strings.count];
+        for (int i = 0; i < self.strings.count; i++) {
+            [self.stringPhotos addObject:@""];
+        }
+
+        // Querries all of the photos for the strings and puts them in an array
+        for (int i = 0; i < self.strings.count; i++) {
+            PFObject *string = [StringrUtility stringFromObject:self.strings[i]];
+
+            if (string) {
+                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+                    if (!error) {
+                        for (PFObject *photo in photos) {
+                            if (!photo) {
+                                return;
+                            }
+                        }
+
+                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+
+                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    }
+                }];
+            }
+        }
+    }
+}
+
 
 - (NSMutableDictionary *)contentOffsetDictionary
 {
@@ -151,7 +211,8 @@
 //        return self.objects.count + 1;
 //    }
     
-    return self.objects.count;
+//    return self.objects.count;
+    return self.strings.count;
 }
 
 
@@ -183,7 +244,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    PFObject *string = [StringrUtility stringFromObject:self.objects[section]];
+    PFObject *string = [StringrUtility stringFromObject:self.strings[section]];
     
     StringTableViewHeader *headerView = [[NSBundle mainBundle] loadNibNamed:@"StringTableViewHeader" owner:self options:nil][0];
     [headerView configureHeaderWithString:string];
@@ -195,7 +256,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section < self.objects.count) {
+    if (indexPath.section < self.strings.count) {
         if (indexPath.row == 0) {
             return StringTableCellHeight;
         }
@@ -235,7 +296,7 @@
         sizingCell = [self.tableView dequeueReusableCellWithIdentifier:StringTableViewTitleCellIdentifier];
     });
     
-    PFObject *string = [StringrUtility stringFromObject:self.objects[indexPath.section]];
+    PFObject *string = [StringrUtility stringFromObject:self.strings[indexPath.section]];
     
     [self configureTitleCell:sizingCell atIndexPath:indexPath string:string];
     
@@ -270,68 +331,68 @@
 
 #pragma mark - PFQueryTableViewController
 
-- (PFQuery *)queryForTable
+//- (PFQuery *)queryForTable
+//{
+//    PFQuery *query = [self getQueryForTable];
+//    query.limit = 100;
+//    
+//    if (self.objects.count == 0) {
+//        query.cachePolicy = kPFCachePolicyNetworkElseCache;
+//    }
+//    
+//    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
+//    if (![appDelegate.appViewController isParseReachable]) {
+//        query = [PFQuery queryWithClassName:@"no_class"];
+//    }
+//
+//    return query;
+//}
+//
+//
+//
+//- (void)objectsDidLoad:(NSError *)error
+//{
+//    [super objectsDidLoad:error];
+//    
+//    if (self.objects.count > 0) {
+//        // instantiates string photos with blank objects of count self.objects
+//        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
+//        for (int i = 0; i < self.objects.count; i++) {
+//            [self.stringPhotos addObject:@""];
+//        }
+//        
+//        // Querries all of the photos for the strings and puts them in an array
+//        for (int i = 0; i < self.objects.count; i++) {
+//            PFObject *string = [StringrUtility stringFromObject:self.objects[i]];
+//            
+//            if (string) {
+//                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
+//                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
+//                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
+//                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+//                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
+//                    if (!error) {
+//                        for (PFObject *photo in photos) {
+//                            if (!photo) {
+//                                return;
+//                            }
+//                        }
+//                        
+//                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
+//                        
+//                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+//                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//                    }
+//                }];
+//            }
+//        }
+//    }
+//}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFQuery *query = [self getQueryForTable];
-    query.limit = 100;
-    
-    if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyNetworkElseCache;
-    }
-    
-    StringrAppDelegate *appDelegate = (StringrAppDelegate *)[UIApplication sharedApplication].delegate;
-    if (![appDelegate.appViewController isParseReachable]) {
-        query = [PFQuery queryWithClassName:@"no_class"];
-    }
-
-    return query;
-}
-
-
-
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (self.objects.count > 0) {
-        // instantiates string photos with blank objects of count self.objects
-        self.stringPhotos = [[NSMutableArray alloc] initWithCapacity:self.objects.count];
-        for (int i = 0; i < self.objects.count; i++) {
-            [self.stringPhotos addObject:@""];
-        }
-        
-        // Querries all of the photos for the strings and puts them in an array
-        for (int i = 0; i < self.objects.count; i++) {
-            PFObject *string = [StringrUtility stringFromObject:self.objects[i]];
-            
-            if (string) {
-                PFQuery *stringPhotoQuery = [PFQuery queryWithClassName:kStringrPhotoClassKey];
-                [stringPhotoQuery whereKey:kStringrPhotoStringKey equalTo:string];
-                [stringPhotoQuery orderByAscending:@"photoOrder"]; // photoOrder: each photo has a number associated with where it falls into the string
-                [stringPhotoQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
-                [stringPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *error) {
-                    if (!error) {
-                        for (PFObject *photo in photos) {
-                            if (!photo) {
-                                return;
-                            }
-                        }
-                        
-                        [self.stringPhotos replaceObjectAtIndex:i withObject:photos];
-                        
-                        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-                        [self.tableView reloadRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    }
-                }];
-            }
-        }
-    }
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
-{
-    PFObject *string = [StringrUtility stringFromObject:object];
+    PFObject *string = [StringrUtility stringFromObject:self.strings[indexPath.section]];
     
 //    if (indexPath.section == self.objects.count) {
 //        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
@@ -432,8 +493,8 @@
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
 {
     // returns the object for every collection string and footer cell
-    if (indexPath.section < self.objects.count) {
-        return [self.objects objectAtIndex:indexPath.section];
+    if (indexPath.section < self.strings.count) {
+        return [self.strings objectAtIndex:indexPath.section];
     } else {
         return nil;
     }
@@ -525,7 +586,7 @@
         // Sets the photos to be displayed in the photo pager
         [photoDetailVC setPhotosToLoad:stringPhotos];
         [photoDetailVC setSelectedPhotoIndex:indexPath.item];
-        [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+        [photoDetailVC setStringOwner:self.strings[collectionView.index]];
         
         [self.navigationController pushViewController:photoDetailVC animated:YES];
     }
@@ -651,7 +712,7 @@
 
 - (void)actionSheet:(StringrActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
+//    [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
     
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         [actionSheet resignFirstResponder];

@@ -55,7 +55,7 @@
 
 - (void)editedStringSuccessfully
 {
-    [self loadObjects];
+//    [self loadObjects];
 }
 
 
@@ -102,82 +102,82 @@
 
 #pragma mark - UICollectionView Delegate
 
-- (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
-    
-    if (stringPhotos) {
-        
-        if (self.editingStringsEnabled) {
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            
-            [photoDetailVC setEditDetailsEnabled:YES];
-            
-            // Sets the photos to be displayed in the photo pager
-            [photoDetailVC setPhotosToLoad:stringPhotos];
-            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
-            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
-            [photoDetailVC setDelegateForPhotoController:self]; // to delete from string directly
-            
-            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
-            
-            [self presentViewController:navVC animated:YES completion:nil];
-        } else {
-            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
-            
-            [photoDetailVC setEditDetailsEnabled:NO];
-            
-            // Sets the photos to be displayed in the photo pager
-            [photoDetailVC setPhotosToLoad:stringPhotos];
-            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
-            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
-            
-            [self.navigationController pushViewController:photoDetailVC animated:YES];
-        }
-
-    }
-}
+//- (void)collectionView:(StringCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSArray *stringPhotos = self.stringPhotos[collectionView.index];
+//    
+//    if (stringPhotos) {
+//        
+//        if (self.editingStringsEnabled) {
+//            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+//            
+//            [photoDetailVC setEditDetailsEnabled:YES];
+//            
+//            // Sets the photos to be displayed in the photo pager
+//            [photoDetailVC setPhotosToLoad:stringPhotos];
+//            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+//            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+//            [photoDetailVC setDelegateForPhotoController:self]; // to delete from string directly
+//            
+//            StringrNavigationController *navVC = [[StringrNavigationController alloc] initWithRootViewController:photoDetailVC];
+//            
+//            [self presentViewController:navVC animated:YES completion:nil];
+//        } else {
+//            StringrPhotoDetailViewController *photoDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardPhotoDetailID];
+//            
+//            [photoDetailVC setEditDetailsEnabled:NO];
+//            
+//            // Sets the photos to be displayed in the photo pager
+//            [photoDetailVC setPhotosToLoad:stringPhotos];
+//            [photoDetailVC setSelectedPhotoIndex:indexPath.item];
+//            [photoDetailVC setStringOwner:self.objects[collectionView.index]];
+//            
+//            [self.navigationController pushViewController:photoDetailVC animated:YES];
+//        }
+//
+//    }
+//}
 
 
 
 #pragma mark - PFQueryTableViewController Delegate
 
-- (PFQuery *)queryForTable
-{
-    PFQuery *myStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [myStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
-    [myStringsQuery orderByDescending:@"createdAt"];
-    
-    return myStringsQuery;
-}
+//- (PFQuery *)queryForTable
+//{
+//    PFQuery *myStringsQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+//    [myStringsQuery whereKey:kStringrStringUserKey equalTo:[PFUser currentUser]];
+//    [myStringsQuery orderByDescending:@"createdAt"];
+//    
+//    return myStringsQuery;
+//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
 }
 
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You haven't uploaded any Strings!"];
-        [noContentHeaderView setTitleForExploreOptionButton:@"Upload your first String"];
-        [noContentHeaderView setDelegate:self];
-        
-        self.tableView.tableHeaderView = noContentHeaderView;
-    } else {
-        self.tableView.tableHeaderView = nil;
-    }
-    
-}
+//- (void)objectsDidLoad:(NSError *)error
+//{
+//    [super objectsDidLoad:error];
+//    
+//    if (self.objects.count == 0) {
+//        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"You haven't uploaded any Strings!"];
+//        [noContentHeaderView setTitleForExploreOptionButton:@"Upload your first String"];
+//        [noContentHeaderView setDelegate:self];
+//        
+//        self.tableView.tableHeaderView = noContentHeaderView;
+//    } else {
+//        self.tableView.tableHeaderView = nil;
+//    }
+//    
+//}
 
 
 #pragma mark - StringrNoContentView Delegate
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    [self addNewString];
+//    [self addNewString];
 }
 
 

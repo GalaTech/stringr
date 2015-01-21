@@ -26,6 +26,7 @@
 #import "StringrUpdateEngine.h"
 #import "UIColor+StringrColors.h"
 #import "StringrAppDelegate.h"
+#import "StringrConfig.h"
 
 
 static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettingsTableViewStoryboard";
@@ -323,7 +324,7 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
                 break;
             case 4:
                 if (indexPath.row == 0) {
-                    cell.textLabel.text = [NSString stringWithFormat:@"Toggle Debug Mode"];
+                    cell.textLabel.text = [NSString stringWithFormat:@"Toggle Debug Mode %@", [StringrConfig sharedConfig].isDebugMode ? @"Off" : @"On"];
                     cell.textLabel.textColor = [UIColor redColor];
                 }
             default:
@@ -403,16 +404,8 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
         [[UIApplication appDelegate].appViewController logout];
     }
     else if (indexPath.section == 4 && indexPath.row == 0) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL debugEnabled = [defaults boolForKey:@"kStringrDebugEnabledKey"];
-        
-        NSString *alertMessage = @"The app will now close. On relaunch %@ mode will be used.";
-        
-        alertMessage = [NSString stringWithFormat:alertMessage, (debugEnabled) ? @"PRODUCTION" : @"DEBUG"];
-        
-        UIAlertView *debugToggleAlert = [[UIAlertView alloc] initWithTitle:@"Toggle Debug" message:alertMessage delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Ok", nil];
-        
-        [debugToggleAlert show];
+        BOOL currentDebugMode = [StringrConfig sharedConfig].isDebugMode;
+        [[StringrConfig sharedConfig] setDebugMode:!currentDebugMode];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -622,23 +615,6 @@ static NSString * const StringrSettingsTableViewStoryboardName = @"StringrSettin
 - (void)zcImagePickerControllerDidCancel:(ZCImagePickerController *)imagePickerController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL debugEnabled = [defaults boolForKey:@"kStringrDebugEnabledKey"];
-        [defaults setBool:!debugEnabled forKey:@"kStringrDebugEnabledKey"];
-        [defaults synchronize];
-        
-        [[UIApplication appDelegate].appViewController logout];
-        
-        exit(1);
-    }
 }
 
 @end

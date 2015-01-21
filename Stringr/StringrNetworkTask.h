@@ -37,7 +37,7 @@ typedef void (^StringrPhotosBlock)(NSArray *photos, NSError *error);
 
 + (StringrObjectType)objectType:(PFObject *)object;
 
-+ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion;
++ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrStringsBlock)completion;
 
 + (void)photosForDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user completion:(StringrPhotosBlock)completion;
 

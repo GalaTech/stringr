@@ -140,6 +140,7 @@
 		ABA2F06C1922BB430004A806 /* ZCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA2F05B1922BB430004A806 /* ZCAssetTablePicker.m */; };
 		ABA2F06D1922BB430004A806 /* ZCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA2F05D1922BB430004A806 /* ZCHelper.m */; };
 		ABA2F06E1922BB430004A806 /* ZCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA2F05F1922BB430004A806 /* ZCImagePickerController.m */; };
+		ABA3BA7A1A6F1D6300059DB1 /* StringrConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA3BA791A6F1D6300059DB1 /* StringrConfig.m */; };
 		ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB9A0F31A087461003B9C5F /* StringrLabel.m */; };
@@ -453,6 +454,8 @@
 		ABA2F05F1922BB430004A806 /* ZCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCImagePickerController.m; sourceTree = "<group>"; };
 		ABA2F0601922BB430004A806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZCLocalized.strings"; sourceTree = "<group>"; };
 		ABA2F0611922BB430004A806 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ZCLocalized.strings"; sourceTree = "<group>"; };
+		ABA3BA781A6F1D6300059DB1 /* StringrConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrConfig.h; path = "Data Backend/StringrConfig.h"; sourceTree = "<group>"; };
+		ABA3BA791A6F1D6300059DB1 /* StringrConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrConfig.m; path = "Data Backend/StringrConfig.m"; sourceTree = "<group>"; };
 		ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrSettingsTableViewStoryboard.storyboard; path = StringrStringTable/StringrSettingsTableViewStoryboard.storyboard; sourceTree = "<group>"; };
 		ABB7F76918908BA0006B32AB /* StringCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCollectionView.h; path = String/StringCollectionView.h; sourceTree = "<group>"; };
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
@@ -710,6 +713,8 @@
 		AB04A2DB19E0CE940030C241 /* Data Backend */ = {
 			isa = PBXGroup;
 			children = (
+				ABA3BA781A6F1D6300059DB1 /* StringrConfig.h */,
+				ABA3BA791A6F1D6300059DB1 /* StringrConfig.m */,
 				AB04A2DC19E0CFCD0030C241 /* StringrUpdateEngine.h */,
 				AB04A2DD19E0CFCD0030C241 /* StringrUpdateEngine.m */,
 				AB0BDFD418E4929A006FAB57 /* StringrCache.h */,
@@ -1746,6 +1751,7 @@
 				AB2973351A5F9948007DE1E8 /* StringrLaunchViewController.m in Sources */,
 				ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */,
 				AB6C4B041A4242D800CBA63C /* StringrExploreCategory.m in Sources */,
+				ABA3BA7A1A6F1D6300059DB1 /* StringrConfig.m in Sources */,
 				AB1FDF4F19AC38B40059338B /* StringrString.m in Sources */,
 				AB9D74271892D657003BB2B8 /* StringrPhotoDetailViewController.m in Sources */,
 				ABA2F06E1922BB430004A806 /* ZCImagePickerController.m in Sources */,

@@ -35,32 +35,32 @@
 
 #pragma mark - PFQueryTableViewController Delegate
 
-- (PFQuery *)queryForTable
-{
-    PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
-    [popularQuery whereKeyExists:kStringrStatisticsStringKey];
-    [popularQuery includeKey:kStringrStatisticsStringKey];
-    [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
-    [popularQuery addDescendingOrder:kStringrStatisticsLikeCountKey];
-    [popularQuery setLimit:100];
-    
-    return popularQuery;
-}
+//- (PFQuery *)queryForTable
+//{
+//    PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+//    [popularQuery whereKeyExists:kStringrStatisticsStringKey];
+//    [popularQuery includeKey:kStringrStatisticsStringKey];
+//    [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
+//    [popularQuery addDescendingOrder:kStringrStatisticsLikeCountKey];
+//    [popularQuery setLimit:100];
+//    
+//    return popularQuery;
+//}
 
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"There are no Popular Strings"];
-        [noContentHeaderView setTitleForExploreOptionButton:@"Why don't you add the first one?"];
-        [noContentHeaderView setDelegate:self];
-        
-        self.tableView.tableHeaderView = noContentHeaderView;
-    } else {
-        self.tableView.tableHeaderView = nil;
-    }
-}
+//- (void)objectsDidLoad:(NSError *)error
+//{
+//    [super objectsDidLoad:error];
+//    
+//    if (self.objects.count == 0) {
+//        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"There are no Popular Strings"];
+//        [noContentHeaderView setTitleForExploreOptionButton:@"Why don't you add the first one?"];
+//        [noContentHeaderView setDelegate:self];
+//        
+//        self.tableView.tableHeaderView = noContentHeaderView;
+//    } else {
+//        self.tableView.tableHeaderView = nil;
+//    }
+//}
 
 
 
@@ -68,7 +68,7 @@
 
 - (void)noContentView:(StringrNoContentView *)noContentView didSelectExploreOptionButton:(UIButton *)exploreButton
 {
-    [self addNewString];
+//    [self addNewString];
 }
 
 @end

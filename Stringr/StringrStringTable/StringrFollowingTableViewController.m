@@ -45,36 +45,36 @@
 
 #pragma mark - PFQueryTableViewController Delegate
 
-- (PFQuery *)queryForTable
-{
-    PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
-    [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
-    [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-    [followingUsersQuery setLimit:1000];
-    
-    PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-    [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
-    
-    PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
-    [query orderByDescending:@"createdAt"];
-    
-    return query;
-}
+//- (PFQuery *)queryForTable
+//{
+//    PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+//    [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
+//    [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+//    [followingUsersQuery setLimit:1000];
+//    
+//    PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+//    [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
+//    
+//    PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
+//    [query orderByDescending:@"createdAt"];
+//    
+//    return query;
+//}
 
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    if (self.objects.count == 0) {
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"There are no strings from users you're following"];
-        [noContentHeaderView setTitleForExploreOptionButton:@"Discover People to Follow"];
-        [noContentHeaderView setDelegate:self];
-        
-        self.tableView.tableHeaderView = noContentHeaderView;
-    } else {
-        self.tableView.tableHeaderView = nil;
-    }
-}
+//- (void)objectsDidLoad:(NSError *)error
+//{
+//    [super objectsDidLoad:error];
+//    
+//    if (self.objects.count == 0) {
+//        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithNoContentText:@"There are no strings from users you're following"];
+//        [noContentHeaderView setTitleForExploreOptionButton:@"Discover People to Follow"];
+//        [noContentHeaderView setDelegate:self];
+//        
+//        self.tableView.tableHeaderView = noContentHeaderView;
+//    } else {
+//        self.tableView.tableHeaderView = nil;
+//    }
+//}
 
 
 #pragma mark - StringrNoContentView Delegate

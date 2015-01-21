@@ -36,7 +36,7 @@
 - (void)searchStringsWithText:(NSString *)searchText
 {
     self.searchText = searchText;
-    [self loadObjects];
+//    [self loadObjects];
 }
 
 
@@ -80,21 +80,21 @@
     return nilQuery;
 }
 
-- (void)objectsDidLoad:(NSError *)error
-{
-    [super objectsDidLoad:error];
-    
-    /*
-    if (self.objects.count == 0) {
-        CGFloat searchBarHeight = CGRectGetHeight(self.searchBar.frame);
-        
-        
-        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, searchBarHeight, 640, 200) andNoContentText:@"Search for Strings or #hashtags"];
-        
-        [self.tableView.tableHeaderView addSubview:noContentHeaderView];
-    }
-     */
-}
+//- (void)objectsDidLoad:(NSError *)error
+//{
+//    [super objectsDidLoad:error];
+//    
+//    /*
+//    if (self.objects.count == 0) {
+//        CGFloat searchBarHeight = CGRectGetHeight(self.searchBar.frame);
+//        
+//        
+//        StringrNoContentView *noContentHeaderView = [[StringrNoContentView alloc] initWithFrame:CGRectMake(0, searchBarHeight, 640, 200) andNoContentText:@"Search for Strings or #hashtags"];
+//        
+//        [self.tableView.tableHeaderView addSubview:noContentHeaderView];
+//    }
+//     */
+//}
 
 
 
@@ -118,7 +118,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     self.searchText = searchBar.text;
-    [self loadObjects];
+//    [self loadObjects];
     [searchBar resignFirstResponder];
 }
 
