@@ -7,11 +7,8 @@
 //
 
 #import "StringrNavigateProfileCommand.h"
-#import "StringrFollowingTableViewController.h"
-#import "StringrProfileTableViewController.h"
+#import "StringrUserStringFeedViewController.h"
 #import "StringrPhotoCollectionViewController.h"
-#import "StringrPopularTableViewController.h"
-#import "StringrDiscoveryTableViewController.h"
 
 #import "StringrNetworkTask.h"
 
@@ -20,24 +17,22 @@
 - (UIViewController *)commandViewController
 {
     if (self.commandType == ProfileCommandUserStrings) {
-        StringrProfileTableViewController *myStringsVC = [StringrProfileTableViewController new];
-        myStringsVC.userForProfile = self.user;
+        StringrUserStringFeedViewController *userStringsFeedVC = [StringrUserStringFeedViewController stringFeedWithDataType:StringrUserStringsNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
-            myStringsVC.delegate = self.delegate;
+            userStringsFeedVC.delegate = self.delegate;
         }
         
-        return myStringsVC;
+        return userStringsFeedVC;
     }
     else if (self.commandType == ProfileCommandLikedStrings) {
-        StringrProfileTableViewController *myStringsVC = [StringrProfileTableViewController new];
-        myStringsVC.userForProfile = self.user;
+        StringrUserStringFeedViewController *userLikedStringsFeedVC = [StringrUserStringFeedViewController stringFeedWithDataType:StringrLikedStringsNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
-            myStringsVC.delegate = self.delegate;
+            userLikedStringsFeedVC.delegate = self.delegate;
         }
         
-        return myStringsVC;
+        return userLikedStringsFeedVC;
     }
     else if (self.commandType == ProfileCommandLikedPhotos) {
         StringrPhotoCollectionViewController *photoCollectionVC = [[StringrPhotoCollectionViewController alloc] initWithDataType:StringrUserPhotosNetworkTask user:self.user];

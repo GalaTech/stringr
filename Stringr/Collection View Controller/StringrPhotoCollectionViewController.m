@@ -11,6 +11,7 @@
 #import "StringCollectionViewCell.h"
 #import "NHBalancedFlowLayout.h"
 
+#import "StringrNetworkTask+Photos.h"
 #import "StringrNetworkTask+Profile.h"
 
 #import "UIColor+StringrColors.h"

@@ -11,7 +11,7 @@
 #import "StringrNetworkTask+Activity.h"
 
 #import "StringrNavigationController.h"
-#import "StringrFollowingTableViewController.h"
+#import "StringrHomeFeedViewController.h"
 
 #import "StringrProfileViewController.h"
 #import "StringrExploreViewController.h"
@@ -49,8 +49,8 @@
 
 - (void)setupDashboardViewControllers
 {
-    StringrFollowingTableViewController *followingVC = [StringrFollowingTableViewController new];
-    StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:followingVC];
+    StringrHomeFeedViewController *homeFeedVC = [StringrHomeFeedViewController viewController];
+    StringrNavigationController *followingNavVC = [[StringrNavigationController alloc] initWithRootViewController:homeFeedVC];
     followingNavVC.navigationBar.translucent = NO;
     UITabBarItem *followingTab = [[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"rabbit_icon"] tag:0];
     [followingNavVC setTabBarItem:followingTab];

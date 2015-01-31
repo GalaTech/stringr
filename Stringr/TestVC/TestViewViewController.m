@@ -33,8 +33,9 @@ static NSString * const StringrStringTableViewController = @"StringTable";
 
 + (instancetype)viewController
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringTableViewController bundle:nil];
-    return (TestViewViewController *)[storyboard instantiateInitialViewController];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StringrStringFeedViewController bundle:nil];
+//    return (TestViewViewController *)[storyboard instantiateInitialViewController];
+    return nil;
 }
 
 

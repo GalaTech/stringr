@@ -17,7 +17,7 @@
 #import "StringrNavigationController.h"
 #import "StringrDashboardTabBarController.h"
 #import "StringrActivityTableViewController.h"
-#import "StringrStringTableViewController.h"
+#import "StringrStringFeedViewController.h"
 #import "StringrAppDelegate.h"
 
 //#import "StringrProfileViewController.h"

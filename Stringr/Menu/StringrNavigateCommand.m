@@ -7,7 +7,7 @@
 //
 
 #import "StringrNavigateCommand.h"
-#import "StringrFollowingTableViewController.h"
+#import "StringrHomeFeedViewController.h"
 #import "StringrPopularTableViewController.h"
 #import "StringrDiscoveryTableViewController.h"
 

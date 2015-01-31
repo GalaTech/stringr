@@ -7,38 +7,25 @@
 //
 
 #import "StringrProfileViewController.h"
-#import "StringrUtility.h"
-#import "StringrPathImageView.h"
-#import "StringrEditProfileViewController.h"
-#import "StringrProfileTopViewController.h"
-#import "StringrProfileTableViewController.h"
+
 #import "StringrStringDetailViewController.h"
+#import "StringrConnectionsTableViewController.h"
+#import "StringrSegmentedView.h"
+#import "StringrNavigateProfileCommand.h"
+#import "StringrSettingsTableViewController.h"
+#import "StringrContainerScrollViewDelegate.h"
+
 #import "UIColor+StringrColors.h"
 #import "UIDevice+StringrAdditions.h"
 #import "UIFont+StringrFonts.h"
-#import "StringrFollowingTableViewController.h"
-#import "ACPButton.h"
-#import "StringrConnectionsTableViewController.h"
-#import "StringrSegmentedView.h"
-#import "StringrFollowingTableViewController.h"
-#import "StringrNavigateProfileCommand.h"
-#import "StringrSettingsTableViewController.h"
-#import "StringrNavigationController.h"
 
-#import "StringrStringProfileTableViewController.h"
-#import "StringrPhotoCollectionViewController.h"
-#import "StringrContainerScrollViewDelegate.h"
+#import "StringrPathImageView.h"
+#import "ACPButton.h"
 
 static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboard";
 
-/**
- * Initialize's a user profile as a parallax view controller. The top half is a users information and
- * the bottom is a tableView of their String's. You must provide a user for the profile in order for it to work
- * as well as a profileReturnState. The return state refers to how the profile is being displayed: From the menu,
- * as a modal presentation, or just pushed onto a nav controller. The return state provides information on what return
- * navigation item will be displayed.
- */
-@interface StringrProfileViewController () <StringrEditProfileDelegate, UIActionSheetDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, StringrContainerScrollViewDelegate>
+
+@interface StringrProfileViewController () <UIActionSheetDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, StringrContainerScrollViewDelegate>
 
 @property (strong, nonatomic) NSArray *profileViewControllers;
 @property (strong, nonatomic) UIPageViewController *pageViewController;

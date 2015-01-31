@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringTableViewController.h"
+#import "StringrStringFeedViewController.h"
 
-@interface StringrNearYouTableViewController : StringrStringTableViewController
+@interface StringrNearYouTableViewController : StringrStringFeedViewController
 
 @end

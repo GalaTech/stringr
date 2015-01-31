@@ -8,7 +8,19 @@
 
 #import "StringrNetworkTask.h"
 
+typedef enum {
+    StringrFollowingNetworkTask = 0,
+    StringrUserStringsNetworkTask,
+    StringrLikedStringsNetworkTask
+} StringrNetworkStringTaskType;
+
+typedef void (^StringrStringsBlock)(NSArray *strings, NSError *error);
+
+
 @interface StringrNetworkTask (Strings)
+
++ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion;
++ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrStringsBlock)completion;
 
 + (void)homeFeedForUser:(PFUser *)user completion:(StringrStringsBlock)completion;
 

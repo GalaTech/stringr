@@ -6,47 +6,51 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringTableViewController.h"
+#import "StringrStringFeedViewController.h"
 
 #import "StringrNavigationController.h"
-#import "StringrStringDetailViewController.h"
 #import "StringrPhotoDetailViewController.h"
 #import "StringrProfileViewController.h"
 #import "StringrCommentsTableViewController.h"
-#import "StringrMyStringsTableViewController.h"
-#import "StringrUserTableViewController.h"
 
 #import "StringTableViewHeader.h"
 #import "StringTableViewCell.h"
 #import "StringTableViewTitleCell.h"
 #import "StringTableViewActionCell.h"
 #import "StringrLoadMoreTableViewCell.h"
-
 #import "StringCollectionViewCell.h"
-#import "NHBalancedFlowLayout.h"
 
 #import "StringrNetworkTask+LikeActivity.h"
-#import "StringrNetworkTask+Strings.h"
-
-#import "UIColor+StringrColors.h"
-#import "StringrFlagContentHelper.h"
-#import "StringrActionSheet.h"
 
 #import "StringrString.h"
 
-@interface StringrStringTableViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
+#import "UIColor+StringrColors.h"
 
-@property (strong, nonatomic) NSArray *strings;
-@property (nonatomic) StringrNetworkStringTaskType dataType;
+#import "StringrFlagContentHelper.h"
+#import "StringrActionSheet.h"
+#import "NHBalancedFlowLayout.h"
+
+
+
+@interface StringrStringFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
+
+@property (strong, nonatomic) NSMutableArray *stringPhotos;
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
 @property (strong, nonatomic) UIStoryboard *mainStoryboard;
 
 @end
 
-@implementation StringrStringTableViewController
+@implementation StringrStringFeedViewController
 
 #pragma mark - Lifecycle
+
++ (StringrStringFeedViewController *)viewController
+{
+    StringrStringFeedViewController *stringFeedVC = [StringrStringFeedViewController new];
+    return stringFeedVC;
+}
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -54,14 +58,47 @@
     
     if (self) {
         self.mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.dataType = StringrFollowingNetworkTask;
-//        self.parseClassName = kStringrStringClassKey;
-//        self.pullToRefreshEnabled = YES;
-//        self.paginationEnabled = NO;
-//        self.objectsPerPage = 2;
     }
     
     return self;
+}
+
+
+- (instancetype)initWithDataType:(StringrNetworkStringTaskType)taskType
+{
+    self = [super init];
+    
+    if (self) {
+        self.dataType = taskType;
+    }
+    
+    return self;
+}
+
+
+- (instancetype)initWithStrings:(NSArray *)strings
+{
+    self = [super init];
+    
+    if (self) {
+        self.strings = strings;
+    }
+    
+    return self;
+}
+
+
++ (StringrStringFeedViewController *)stringFeedWithDataType:(StringrNetworkStringTaskType)taskType
+{
+    StringrStringFeedViewController *stringFeedVC = [[StringrStringFeedViewController alloc] initWithDataType:taskType];
+    return stringFeedVC;
+}
+
+
++ (StringrStringFeedViewController *)stringFeedWithStrings:(NSArray *)strings
+{
+    StringrStringFeedViewController *stringFeedVC = [[StringrStringFeedViewController alloc] initWithStrings:strings];
+    return stringFeedVC;
 }
 
 
@@ -111,16 +148,14 @@
 - (void)setDataType:(StringrNetworkStringTaskType)dataType
 {
     _dataType = dataType;
-    
-    [StringrNetworkTask homeFeedForUser:[PFUser currentUser] completion:^(NSArray *strings, NSError *error) {
-        self.strings = strings;
-    }];
+
+    [self startStringNetworkTask];
 }
+
 
 - (void)setStrings:(NSMutableArray *)strings
 {
     _strings = strings;
-    
     
     [self.tableView reloadData];
     
@@ -202,16 +237,18 @@
 }
 
 
+- (void)startStringNetworkTask
+{
+    [StringrNetworkTask stringsForDataType:self.dataType completion:^(NSArray *strings, NSError *error) {
+        self.strings = strings;
+    }];
+}
+
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-//    if (self.objects.count == self.objectsPerPage) {
-//        return self.objects.count + 1;
-//    }
-    
-//    return self.objects.count;
     return self.strings.count;
 }
 

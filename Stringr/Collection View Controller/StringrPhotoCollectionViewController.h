@@ -10,7 +10,7 @@
 #import "StringrViewController.h"
 #import "StringrContainerScrollViewDelegate.h"
 
-#import "StringrNetworkTask.h"
+#import "StringrNetworkTask+Photos.h"
 
 @protocol StringrContainerScrollViewDelegate;
 

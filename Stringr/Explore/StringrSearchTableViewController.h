@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringTableViewController.h"
+#import "StringrStringFeedViewController.h"
 
-@interface StringrSearchTableViewController : StringrStringTableViewController
+@interface StringrSearchTableViewController : StringrStringFeedViewController
 
 - (void)searchStringsWithText:(NSString *)searchText;
 
