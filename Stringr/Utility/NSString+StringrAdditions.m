@@ -79,6 +79,18 @@
 }
 
 
++ (NSString *)stringWithUsernameFormat:(NSString *)username
+{
+    return [NSString stringWithFormat:@"@%@", username];
+}
+
+
++ (NSString *)stringWithHashtagFormat:(NSString *)tag
+{
+    return [NSString stringWithFormat:@"#%@", tag];
+}
+
+
 - (NSString *)formattedWithDecimalPlaceValue
 {
     NSNumber *stringValue = @([self integerValue]);

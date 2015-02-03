@@ -47,13 +47,13 @@
     PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
     [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
-    [followingUsersQuery setLimit:1000];
+    [followingUsersQuery setLimit:5];
 
     PFQuery *stringsFromFollowedUsersQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
 
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[stringsFromFollowedUsersQuery]];
-    [query orderByDescending:@"createdAt"];
+    [query orderByDescending:@"updatedAt"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (completion) {

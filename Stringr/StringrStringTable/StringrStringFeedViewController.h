@@ -15,9 +15,6 @@
 @property (nonatomic) StringrNetworkStringTaskType dataType;
 @property (strong, nonatomic) NSArray *strings;
 
-- (instancetype)initWithDataType:(StringrNetworkStringTaskType)taskType;
-- (instancetype)initWithStrings:(NSArray *)strings;
-
 + (instancetype)stringFeedWithDataType:(StringrNetworkStringTaskType)taskType;
 + (instancetype)stringFeedWithStrings:(NSArray *)strings;
 

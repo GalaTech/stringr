@@ -30,7 +30,7 @@
 #import "StringrActionSheet.h"
 #import "NHBalancedFlowLayout.h"
 
-
+static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewController";
 
 @interface StringrStringFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringrCommentsTableViewDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate>
 
@@ -52,9 +52,9 @@
 }
 
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     
     if (self) {
         self.mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -64,40 +64,18 @@
 }
 
 
-- (instancetype)initWithDataType:(StringrNetworkStringTaskType)taskType
-{
-    self = [super init];
-    
-    if (self) {
-        self.dataType = taskType;
-    }
-    
-    return self;
-}
-
-
-- (instancetype)initWithStrings:(NSArray *)strings
-{
-    self = [super init];
-    
-    if (self) {
-        self.strings = strings;
-    }
-    
-    return self;
-}
-
-
 + (StringrStringFeedViewController *)stringFeedWithDataType:(StringrNetworkStringTaskType)taskType
 {
-    StringrStringFeedViewController *stringFeedVC = [[StringrStringFeedViewController alloc] initWithDataType:taskType];
+    StringrStringFeedViewController *stringFeedVC = [StringrStringFeedViewController viewController];
+    stringFeedVC.dataType = taskType;
     return stringFeedVC;
 }
 
 
 + (StringrStringFeedViewController *)stringFeedWithStrings:(NSArray *)strings
 {
-    StringrStringFeedViewController *stringFeedVC = [[StringrStringFeedViewController alloc] initWithStrings:strings];
+    StringrStringFeedViewController *stringFeedVC = [StringrStringFeedViewController viewController];
+    stringFeedVC.strings = strings;
     return stringFeedVC;
 }
 
@@ -113,6 +91,7 @@
 {
     [super viewDidLoad];
     
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, -13, 0);
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"StringTableViewFooter"];
     [self.tableView setBackgroundColor:[UIColor stringTableViewBackgroundColor]];
     self.tableView.allowsSelection = NO;

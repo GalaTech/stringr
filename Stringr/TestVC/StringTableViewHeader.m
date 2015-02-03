@@ -12,6 +12,7 @@
 #import "UIColor+StringrColors.h"
 #import "PFUser+StringrAdditions.h"
 #import "NSDate+StringrAdditions.h"
+#import "NSString+StringrAdditions.h"
 
 @interface StringTableViewHeader ()
 
@@ -120,7 +121,7 @@
 
 - (void)configureProfileUploaderLabelWithUser:(PFUser *)user
 {
-    NSString *formattedUsername = [StringrUtility usernameFormattedWithMentionSymbol:user[kStringrUserUsernameCaseSensitive]];
+    NSString *formattedUsername = [NSString stringWithUsernameFormat:user[kStringrUserUsernameCaseSensitive]];
     
     [UIView animateWithDuration:0.33
                           delay:0.0
@@ -139,7 +140,7 @@
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          if (self.string) {
-                             NSString *uploadTime = [self.string.createdAt timeAgoFromDate];
+                             NSString *uploadTime = [self.string.updatedAt timeAgoFromDate];
                              [self.stringUploadDate setText:uploadTime];
                          } else {
                              [self.stringUploadDate setText:@"Now"];

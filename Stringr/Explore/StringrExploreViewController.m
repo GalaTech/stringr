@@ -21,6 +21,7 @@
 #import "StringrProfileViewController.h"
 
 #import "UIImage+StringrImageAdditions.h"
+#import "NSString+StringrAdditions.h"
 
 #import "StringrPhotoCollectionViewController.h"
 
@@ -215,6 +216,8 @@
 
 - (void)selectedSearchRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row >= self.filteredSearchResults.count) return;
+        
     if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
         PFUser *user = self.filteredSearchResults[indexPath.row];
         
@@ -223,7 +226,17 @@
         [self.navigationController pushViewController:profileVC animated:YES];
     }
     else {
-        // tags
+        PFObject *tag = self.filteredSearchResults[indexPath.row];
+        
+        PFRelation *tagRelation = [tag relationForKey:@"Strings"];
+        
+        __weak typeof(self) weakSelf = self;
+        PFQuery *tagQuery = [tagRelation query];
+        [tagQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            StringrStringFeedViewController *taggedStringFeedVC = [StringrStringFeedViewController stringFeedWithStrings:objects];
+            taggedStringFeedVC.navigationItem.title = [NSString stringWithHashtagFormat:[tag objectForKey:@"Hashtag"]];
+            [weakSelf.navigationController pushViewController:taggedStringFeedVC animated:YES];
+        }];
     }
 }
 

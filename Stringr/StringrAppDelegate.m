@@ -49,8 +49,6 @@
     [self.appViewController launchSequence:launchOptions];
     self.window.rootViewController = self.appViewController;
     [self.window makeKeyAndVisible];
-    
-//    [self testLaunchSequence];
 
     return YES;
 }
@@ -158,19 +156,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-
-#pragma mark - Private
-
-- (void)testLaunchSequence
-{
-    TestTableViewController *testVC = [TestTableViewController new];
-    
-    self.window.rootViewController = testVC;
-    
-    [self.window makeKeyAndVisible];
-}
-
 
 @end
 

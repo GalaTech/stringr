@@ -87,6 +87,7 @@
 		AB5B5950189AE30300790510 /* StringrStringDetailEditTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5B594F189AE30300790510 /* StringrStringDetailEditTopViewController.m */; };
 		AB5C7E5319FF58B5005AFED0 /* StringrActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5C7E5219FF58B5005AFED0 /* StringrActionSheet.m */; };
 		AB5CCFB51A7D5F1200F2B7C9 /* StringrUserStringFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5CCFB41A7D5F1200F2B7C9 /* StringrUserStringFeedViewController.m */; };
+		AB5CCFC21A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB5CCFC11A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard */; };
 		AB5F56B918E0B98F00D27372 /* StringrEmailVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */; };
 		AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5F56BE18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m */; };
 		AB6243B019F9440500BA231D /* PFUser+StringrAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6243AF19F9440500BA231D /* PFUser+StringrAdditions.m */; };
@@ -360,6 +361,7 @@
 		AB5C7E5219FF58B5005AFED0 /* StringrActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrActionSheet.m; path = Utility/StringrActionSheet.m; sourceTree = "<group>"; };
 		AB5CCFB31A7D5F1200F2B7C9 /* StringrUserStringFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUserStringFeedViewController.h; path = Users/StringrUserStringFeedViewController.h; sourceTree = "<group>"; };
 		AB5CCFB41A7D5F1200F2B7C9 /* StringrUserStringFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUserStringFeedViewController.m; path = Users/StringrUserStringFeedViewController.m; sourceTree = "<group>"; };
+		AB5CCFC11A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrStringFeedViewController.storyboard; path = StringrStringTable/StringrStringFeedViewController.storyboard; sourceTree = "<group>"; };
 		AB5F56B718E0B98F00D27372 /* StringrEmailVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrEmailVerificationViewController.h; path = Login/StringrEmailVerificationViewController.h; sourceTree = "<group>"; };
 		AB5F56B818E0B98F00D27372 /* StringrEmailVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrEmailVerificationViewController.m; path = Login/StringrEmailVerificationViewController.m; sourceTree = "<group>"; };
 		AB5F56BD18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSignUpWithSocialNetworkViewController.h; path = Login/StringrSignUpWithSocialNetworkViewController.h; sourceTree = "<group>"; };
@@ -1319,6 +1321,7 @@
 			children = (
 				BF3EDE1D183EA4F10071E047 /* StringrStringFeedViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringFeedViewController.m */,
+				AB5CCFC11A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard */,
 				ABCEFA4C1919FEAA0018C547 /* Header */,
 				AB0F5325190AF14E00A29E59 /* String TableViewCells */,
 				AB1B0C8E188DEE0F0063EAC5 /* Footer */,
@@ -1616,6 +1619,7 @@
 				ABF613431A5D8CB3001655DE /* MainWindow.xib in Resources */,
 				AB5AFBEE19F76C86002F88B9 /* StringTableViewHeader.xib in Resources */,
 				AB5AFBEA19F617FB002F88B9 /* StringTableViewTitleCell.xib in Resources */,
+				AB5CCFC21A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard in Resources */,
 				AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */,
 				AB6C4BB41A4A81C700CBA63C /* StringrPhotoCollectionStoryboard.storyboard in Resources */,
 				AB6C4AF71A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard in Resources */,
