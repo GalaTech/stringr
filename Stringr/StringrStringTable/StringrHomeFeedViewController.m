@@ -20,7 +20,7 @@
 + (StringrHomeFeedViewController *)viewController
 {
     StringrHomeFeedViewController *homeFeedVC = [StringrHomeFeedViewController new];
-    homeFeedVC.dataType = StringrFollowingNetworkTask;
+    homeFeedVC.modelController.dataType = StringrFollowingNetworkTask;
     return homeFeedVC;
 }
 
@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    CGFloat width = 90.0f;
+    CGFloat width = 95.0f;
     CGFloat height = width * (87.0f / 241.0f);
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];

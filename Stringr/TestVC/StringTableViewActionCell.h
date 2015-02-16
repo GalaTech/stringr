@@ -15,10 +15,10 @@ static CGFloat FooterActionCellHeight = 80.0f;
 
 @interface StringTableViewActionCell : UITableViewCell
 
-@property (strong, nonatomic, readonly) PFObject *string;
+@property (strong, nonatomic, readonly) StringrString *string;
 @property (weak, nonatomic) id<StringTableViewActionCellDelegate> delegate;
 
-- (void)configureActionCellWithString:(PFObject *)string;
+- (void)configureActionCellWithString:(StringrString *)string;
 
 @end
 

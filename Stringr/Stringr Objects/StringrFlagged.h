@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrFlagged : StringrObject
+@interface StringrFlagged : NSObject
 
 @end

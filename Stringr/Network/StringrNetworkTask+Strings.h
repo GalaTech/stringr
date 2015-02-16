@@ -8,10 +8,13 @@
 
 #import "StringrNetworkTask.h"
 
+@class StringrExploreCategory;
+
 typedef enum {
     StringrFollowingNetworkTask = 0,
     StringrUserStringsNetworkTask,
-    StringrLikedStringsNetworkTask
+    StringrLikedStringsNetworkTask,
+    StringrExploreCategoryNetworkTask
 } StringrNetworkStringTaskType;
 
 typedef void (^StringrStringsBlock)(NSArray *strings, NSError *error);
@@ -19,9 +22,11 @@ typedef void (^StringrStringsBlock)(NSArray *strings, NSError *error);
 
 @interface StringrNetworkTask (Strings)
 
-+ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion;
-+ (void)stringsForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrStringsBlock)completion;
+- (void)stringCountForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrCountBlock)completion;
 
-+ (void)homeFeedForUser:(PFUser *)user completion:(StringrStringsBlock)completion;
+- (void)stringsForDataType:(StringrNetworkStringTaskType)dataType completion:(StringrStringsBlock)completion;
+- (void)stringsForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrStringsBlock)completion;
+
+- (void)stringsForCategory:(StringrExploreCategory *)category completion:(StringrStringsBlock)completion;
 
 @end

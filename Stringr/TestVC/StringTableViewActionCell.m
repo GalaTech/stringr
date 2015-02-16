@@ -14,7 +14,7 @@
 
 @interface StringTableViewActionCell ()
 
-@property (strong, nonatomic, readwrite) PFObject *string;
+@property (strong, nonatomic, readwrite) StringrString *string;
 
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
@@ -51,10 +51,17 @@
 
 #pragma mark - Public
 
-- (void)configureActionCellWithString:(PFObject *)string
+- (void)configureActionCellWithString:(StringrString *)string
 {
     self.string = string;
-    [self setCommentsAndLikesWithObject:string];
+    
+    [self setLikesButtonState:string.isLikedByCurrentUser];
+    
+    NSString *likeString = [NSString stringWithFormat:@"Likes %ld", string.likeCount];
+    self.likesLabel.text = likeString;
+    
+    NSString *commentString = [NSString stringWithFormat:@"Comments %ld", string.commentCount];
+    self.commentsLabel.text = commentString;
 }
 
 
@@ -76,80 +83,6 @@
     
     self.commentsLabel.textColor = [UIColor stringrSecondaryLabelColor];
     self.likesLabel.font = [UIFont stringrPrimaryLabelFontWithSize:12.0f];
-}
-
-
-- (void)setCommentsAndLikesWithObject:(PFObject *)object
-{
-    if (object) {
-        NSDictionary *objectAttributes = [[StringrCache sharedCache] attributesForObject:object];
-        //NSDictionary *objectAttributes = nil;
-        if (objectAttributes) {
-            [self setLikesButtonState:[[StringrCache sharedCache] isObjectLikedByCurrentUser:object]];
-            
-            NSInteger likeCount = [[[StringrCache sharedCache] likeCountForObject:object] integerValue];
-            NSString *decimalLikeCountString = [NSString formattedFromInteger:likeCount];
-            self.likesLabel.text = [NSString stringWithFormat:@"Likes %@", decimalLikeCountString];
-            
-            NSInteger commentCount = [[[StringrCache sharedCache] commentCountForObject:object] integerValue];
-            NSString *decimalCommentCountString = [NSString formattedFromInteger:commentCount];
-            self.commentsLabel.text = [NSString stringWithFormat:@"Comments %@", decimalCommentCountString];
-        } else {
-            // set alpha to 0 so that they can later fade in
-            self.likesLabel.alpha = 0.0f;
-            self.commentsLabel.alpha = 0.0f;
-            
-            @synchronized(self) {
-                PFQuery *objectActivitiesQuery = [StringrUtility queryForActivitiesOnObject:object cachePolicy:kPFCachePolicyNetworkOnly];
-                [objectActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-                    if (error) {
-                        return;
-                    }
-                    
-                    NSMutableArray *likers = [[NSMutableArray alloc] init];
-                    NSMutableArray *commentors = [[NSMutableArray alloc] init];
-                    
-                    BOOL isLikedByCurrentUser = NO;
-                    
-                    for (PFObject *activity in activities) {
-                        PFUser *likerUser = [activity objectForKey:kStringrActivityFromUserKey];
-                        
-                        // add user to likers array if they like the current string/photo
-                        if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeLike] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            
-                            if (![likers containsObject:likerUser]) {
-                                [likers addObject:likerUser];
-                            }
-                            
-                            // if the current user is one of the likers we set them to liking the string/photo
-                            if ([[likerUser objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                            
-                            // add user to commentors if they commented on the current string/photo
-                        } else if ([[activity objectForKey:kStringrActivityTypeKey] isEqualToString:kStringrActivityTypeComment] && [activity objectForKey:kStringrActivityFromUserKey]) {
-                            [commentors addObject:likerUser];
-                        }
-                    }
-                    
-                    [[StringrCache sharedCache] setAttributesForObject:object likeCount:@(likers.count) commentCount:@(commentors.count) likedByCurrentUser:isLikedByCurrentUser];
-                    
-                    [self setLikesButtonState:isLikedByCurrentUser];
-                    
-                    [UIView animateWithDuration:0.33 animations:^ {
-                        self.likesLabel.alpha = 1.0f;
-                        NSString *decimalLikeCountString = [NSString formattedFromInteger:likers.count];
-                        self.likesLabel.text = [NSString stringWithFormat:@"Likes %@", decimalLikeCountString];
-                        
-                        self.commentsLabel.alpha = 1.0f;
-                        NSString *decimalCommentCountString = [NSString formattedFromInteger:commentors.count];
-                        self.commentsLabel.text = [NSString stringWithFormat:@"Comments %@", decimalCommentCountString];
-                    }];
-                    
-                }];
-            }
-        }
-    }
 }
 
 

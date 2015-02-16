@@ -18,5 +18,6 @@ typedef void (^StringrPhotosBlock)(NSArray *photos, NSError *error);
 @interface StringrNetworkTask (Photos)
 
 + (void)photosForDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user completion:(StringrPhotosBlock)completion;
++ (void)photosForString:(PFObject *)string completion:(StringrPhotosBlock)completion;
 
 @end

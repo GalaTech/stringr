@@ -9,7 +9,7 @@
 #import "StringrObject.h"
 #import "UIColor+StringrColors.h"
 
-@interface StringrExploreCategory : StringrObject
+@interface StringrExploreCategory : NSObject
 
 @property (copy, nonatomic) NSString *name;
 @property (nonatomic) struct StringrRGBValue rgbColor;

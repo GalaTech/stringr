@@ -15,16 +15,16 @@
 
 @optional
 - (void)profileImageTappedForUser:(PFUser *)user;
-- (void)stringTableViewHeader:(StringTableViewHeader *)tableViewHeader tappedInfoButton:(UIButton *)infoButton;
+- (void)stringHeader:(StringTableViewHeader *)header didTapPhotoViewForString:(StringrString *)string;
 
 @end
 
 @interface StringTableViewHeader : UITableViewHeaderFooterView
 
-@property (strong, nonatomic, readonly) PFObject *string;
+@property (strong, nonatomic, readonly) StringrString *string;
 @property (nonatomic) BOOL editingEnabled;
 @property (weak, nonatomic) id<StringTableViewHeaderDelegate> delegate;
 
-- (void)configureHeaderWithString:(PFObject *)string;
+- (void)configureHeaderWithString:(StringrString *)string;
 
 @end

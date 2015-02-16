@@ -21,8 +21,8 @@
         return;
     }
     
-    [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:object liked:YES];
-    [[StringrCache sharedCache] incrementLikeCountForObject:object];
+//    [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:object liked:YES];
+//    [[StringrCache sharedCache] incrementLikeCountForObject:object];
     
     if ([StringrUtility objectIsString:object]) {
         [self likeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
@@ -49,8 +49,8 @@
         return;
     }
     
-    [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:object liked:NO];
-    [[StringrCache sharedCache] decrementLikeCountForObject:object];
+//    [[StringrCache sharedCache] setObjectIsLikedByCurrentUser:object liked:NO];
+//    [[StringrCache sharedCache] decrementLikeCountForObject:object];
     
     if ([StringrUtility objectIsString:object]) {
         [self unlikeStringInBackground:object block:^(BOOL succeeded, NSError *error) {
@@ -119,6 +119,8 @@
 
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    
+    
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
     [likeActivity setObject:kStringrActivityTypeLike forKey:kStringrActivityTypeKey];
     [likeActivity setObject:[PFUser currentUser] forKey:kStringrActivityFromUserKey];
@@ -155,6 +157,8 @@
 
 + (void)unlikeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
+    [string incrementKey:kStringrStringLikeCountKey byAmount:@(-1)];
+    
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [queryExistingLikes whereKey:kStringrActivityStringKey equalTo:string];
     [queryExistingLikes whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];

@@ -8,7 +8,7 @@
 
 #import "StringrNavigateProfileCommand.h"
 #import "StringrUserStringFeedViewController.h"
-#import "StringrPhotoCollectionViewController.h"
+#import "StringrPhotoFeedViewController.h"
 
 #import "StringrNetworkTask.h"
 
@@ -35,22 +35,22 @@
         return userLikedStringsFeedVC;
     }
     else if (self.commandType == ProfileCommandLikedPhotos) {
-        StringrPhotoCollectionViewController *photoCollectionVC = [[StringrPhotoCollectionViewController alloc] initWithDataType:StringrUserPhotosNetworkTask user:self.user];
+        StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController photoFeedWithDataType:StringrUserPhotosNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
-            photoCollectionVC.delegate = self.delegate;
+            photoFeedVC.delegate = self.delegate;
         }
         
-        return photoCollectionVC;
+        return photoFeedVC;
     }
     else if (self.commandType == ProfileCommandPublicPhotos) {
-        StringrPhotoCollectionViewController *photoCollectionVC = [[StringrPhotoCollectionViewController alloc] initWithDataType:StringrUserPublicPhotosNetworkTask user:self.user];
+        StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController photoFeedWithDataType:StringrUserPublicPhotosNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
-            photoCollectionVC.delegate = self.delegate;
+            photoFeedVC.delegate = self.delegate;
         }
         
-        return photoCollectionVC;
+        return photoFeedVC;
     }
     
     return [UIViewController new];

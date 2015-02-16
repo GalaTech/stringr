@@ -186,25 +186,23 @@ static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
         if (!user) {
             if (!error) {
                 NSLog(@"The user cancelled the Facebook login.");
-                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Uh oh. The user cancelled the Facebook login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-                //[alert show];
             }
-        } else if (user.isNew) {
+        }
+        else if (user.isNew) {
             [self userFacebookLoginData];
             StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
             [facebookSignUpVC setNetworkType:FacebookNetworkType];
             [self setDelegate:facebookSignUpVC];
             [self.navigationController pushViewController:facebookSignUpVC animated:YES];
-        } else {
+        }
+        else {
             NSLog(@"User with facebook logged in!");
             
             if ([StringrUtility facebookUserCanLogin:user]) {
-                // instantiates the main logged in content area
-//                [(StringrAppDelegate *)[[UIApplication sharedApplication] delegate] setupLoggedInContent];
-                
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate logInViewController:self didLogInUser:user];
-            } else {
+            }
+            else {
                 [self.userNeedsToVerifyEmailButton setHidden:YES];
                 StringrSignUpWithSocialNetworkViewController *facebookSignUpVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardSignupWithSocialNetworkID];
                 [facebookSignUpVC setNetworkType:FacebookNetworkType];
@@ -327,11 +325,13 @@ static NSString * const StringrLoginStoryboard = @"StringrLoginViewStoryboard";
             
             // alert delegate that we logged in with user
             [self.delegate logInViewController:self didLogInUser:[PFUser currentUser]];
-        } else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
+        }
+        else if ([StringrUtility usernameUserNeedsToVerifyEmail:[PFUser currentUser]]) { // if the user has not verified their email
             StringrEmailVerificationViewController *emailVerificationVC = [self.storyboard instantiateViewControllerWithIdentifier:kStoryboardEmailVerificationID];
             [self.loginActivityIndicator stopAnimating];
             [self.navigationController pushViewController:emailVerificationVC animated:YES];
-        } else {
+        }
+        else {
             [self.loginActivityIndicator stopAnimating];
         }
     });

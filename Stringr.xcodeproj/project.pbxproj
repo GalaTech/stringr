@@ -36,7 +36,6 @@
 		AB1FDF3F19AC20D00059338B /* StringrNetworkTask+User.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF3E19AC20D00059338B /* StringrNetworkTask+User.m */; };
 		AB1FDF4219AC22310059338B /* StringrNetworkTask+Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4119AC22310059338B /* StringrNetworkTask+Activity.m */; };
 		AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4419AC37DA0059338B /* StringrUser.m */; };
-		AB1FDF4919AC388B0059338B /* StringrObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4819AC388B0059338B /* StringrObject.m */; };
 		AB1FDF4C19AC38A90059338B /* StringrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4B19AC38A90059338B /* StringrPhoto.m */; };
 		AB1FDF4F19AC38B40059338B /* StringrString.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF4E19AC38B40059338B /* StringrString.m */; };
 		AB1FDF5219AC38C70059338B /* StringrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1FDF5119AC38C70059338B /* StringrComment.m */; };
@@ -55,6 +54,14 @@
 		AB2CFA241911D31500A9DFF9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2CFA231911D31500A9DFF9 /* AdSupport.framework */; };
 		AB2CFA2719142D7E00A9DFF9 /* TestViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */; };
 		AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */; };
+		AB342DEA1A81EC1F00838297 /* StringrStringFeedModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB342DE91A81EC1F00838297 /* StringrStringFeedModelController.m */; };
+		AB342E011A829D9500838297 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7405281A641C8A005F2563 /* Bolts.framework */; };
+		AB342E021A829D9500838297 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7405291A641C8A005F2563 /* Parse.framework */; };
+		AB342E031A829D9500838297 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74052A1A641C8A005F2563 /* ParseCrashReporting.framework */; };
+		AB342E041A829D9500838297 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74052B1A641C8A005F2563 /* ParseFacebookUtils.framework */; };
+		AB342E051A829D9500838297 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74052C1A641C8A005F2563 /* ParseUI.framework */; };
+		AB342E061A829DC600838297 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB97F0681A642C22003815DB /* Twitter.framework */; };
+		AB342E071A829DD100838297 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB50811C18B298D100DE933D /* FacebookSDK.framework */; };
 		AB3C1DE41A126ABB00ACED69 /* StringrProfileStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB3C1DE31A126ABB00ACED69 /* StringrProfileStoryboard.storyboard */; };
 		AB423BD81A61F8130011FCFF /* StringrColorGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = AB423BD71A61F8130011FCFF /* StringrColorGenerator.m */; };
 		AB4FF07E18C0019E000F550F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4FF07D18C0019E000F550F /* UIImage+Resize.m */; };
@@ -100,7 +107,7 @@
 		AB6C4B0A1A42937300CBA63C /* StringrTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4B091A42937300CBA63C /* StringrTableSection.m */; };
 		AB6C4B0D1A43660400CBA63C /* StringrNetworkTask+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4B0C1A43660400CBA63C /* StringrNetworkTask+Search.m */; };
 		AB6C4BAE1A4A057A00CBA63C /* StringrNetworkTask+Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4BAD1A4A057A00CBA63C /* StringrNetworkTask+Profile.m */; };
-		AB6C4BB21A4A7FD200CBA63C /* StringrPhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4BB11A4A7FD200CBA63C /* StringrPhotoCollectionViewController.m */; };
+		AB6C4BB21A4A7FD200CBA63C /* StringrPhotoFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4BB11A4A7FD200CBA63C /* StringrPhotoFeedViewController.m */; };
 		AB6C4BB41A4A81C700CBA63C /* StringrPhotoCollectionStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB6C4BB31A4A81C700CBA63C /* StringrPhotoCollectionStoryboard.storyboard */; };
 		AB6C4BB71A4B686C00CBA63C /* StringrNetworkTask+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4BB61A4B686C00CBA63C /* StringrNetworkTask+Strings.m */; };
 		AB6C4BBA1A4B687700CBA63C /* StringrNetworkTask+Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6C4BB91A4B687700CBA63C /* StringrNetworkTask+Photos.m */; };
@@ -144,6 +151,7 @@
 		ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB7DD101A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard */; };
 		ABB7F76B18908BA0006B32AB /* StringCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB7F76A18908BA0006B32AB /* StringCollectionView.m */; };
 		ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB9A0F31A087461003B9C5F /* StringrLabel.m */; };
+		ABC57B0F1A896F3900BCA6C8 /* StringrPhotoFeedModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC57B0E1A896F3900BCA6C8 /* StringrPhotoFeedModelController.m */; };
 		ABC8883E19FA957100218F62 /* StringrImageAndTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC8883D19FA957100218F62 /* StringrImageAndTextButton.m */; };
 		ABC8884019FA958B00218F62 /* StringrImageAndTextButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC8883F19FA958B00218F62 /* StringrImageAndTextButton.xib */; };
 		ABDB7CAD18D3C0960047691B /* StringrDetailTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDB7CAC18D3C0960047691B /* StringrDetailTitleTableViewCell.m */; };
@@ -158,6 +166,9 @@
 		ABDFDE6918CFC1E000682EDD /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6518CFC1E000682EDD /* KICamera.png */; };
 		ABDFDE6A18CFC1E000682EDD /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */; };
 		ABDFDE6B18CFC1E000682EDD /* ParseImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */; };
+		ABE4F6851A8C7068000B4D2D /* StringrLoadingContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABE4F6841A8C7068000B4D2D /* StringrLoadingContentView.xib */; };
+		ABE4F6881A8C7162000B4D2D /* StringrLoadingContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F6871A8C7162000B4D2D /* StringrLoadingContentView.m */; };
+		ABE4F6D21A8D6371000B4D2D /* UIApplication+StringrParse.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F6D11A8D6371000B4D2D /* UIApplication+StringrParse.m */; };
 		ABE9DE811A27DB8C00B228F5 /* StringrColoredView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */; };
 		ABE9DE841A28026E00B228F5 /* StringrSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DE831A28026E00B228F5 /* StringrSegmentedView.m */; };
 		ABE9DEDD1A29463F00B228F5 /* UIImage+StringrImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE9DEDC1A29463F00B228F5 /* UIImage+StringrImageAdditions.m */; };
@@ -275,8 +286,6 @@
 		AB1FDF4119AC22310059338B /* StringrNetworkTask+Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StringrNetworkTask+Activity.m"; sourceTree = "<group>"; };
 		AB1FDF4319AC37DA0059338B /* StringrUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrUser.h; path = "Stringr Objects/StringrUser.h"; sourceTree = "<group>"; };
 		AB1FDF4419AC37DA0059338B /* StringrUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrUser.m; path = "Stringr Objects/StringrUser.m"; sourceTree = "<group>"; };
-		AB1FDF4719AC388B0059338B /* StringrObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrObject.h; path = "Stringr Objects/StringrObject.h"; sourceTree = "<group>"; };
-		AB1FDF4819AC388B0059338B /* StringrObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrObject.m; path = "Stringr Objects/StringrObject.m"; sourceTree = "<group>"; };
 		AB1FDF4A19AC38A90059338B /* StringrPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhoto.h; path = "Stringr Objects/StringrPhoto.h"; sourceTree = "<group>"; };
 		AB1FDF4B19AC38A90059338B /* StringrPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhoto.m; path = "Stringr Objects/StringrPhoto.m"; sourceTree = "<group>"; };
 		AB1FDF4D19AC38B40059338B /* StringrString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrString.h; path = "Stringr Objects/StringrString.h"; sourceTree = "<group>"; };
@@ -308,6 +317,9 @@
 		AB2CFA2619142D7E00A9DFF9 /* TestViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestViewViewController.m; path = TestVC/TestViewViewController.m; sourceTree = "<group>"; };
 		AB2E0C5C18EF359400B5681A /* StringrLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLoadMoreTableViewCell.h; path = StringrStringTable/StringrLoadMoreTableViewCell.h; sourceTree = "<group>"; };
 		AB2E0C5D18EF359400B5681A /* StringrLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLoadMoreTableViewCell.m; path = StringrStringTable/StringrLoadMoreTableViewCell.m; sourceTree = "<group>"; };
+		AB342DE81A81EC1F00838297 /* StringrStringFeedModelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrStringFeedModelController.h; path = StringrStringTable/StringrStringFeedModelController.h; sourceTree = "<group>"; };
+		AB342DE91A81EC1F00838297 /* StringrStringFeedModelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrStringFeedModelController.m; path = StringrStringTable/StringrStringFeedModelController.m; sourceTree = "<group>"; };
+		AB342E2A1A83BFAD00838297 /* StringrObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrObject.h; path = "Stringr Objects/StringrObject.h"; sourceTree = "<group>"; };
 		AB37EBEF19DCA74500E66580 /* StringrModelObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrModelObjects.h; path = "Stringr Objects/StringrModelObjects.h"; sourceTree = "<group>"; };
 		AB3C1DE31A126ABB00ACED69 /* StringrProfileStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrProfileStoryboard.storyboard; path = Profile/StringrProfileStoryboard.storyboard; sourceTree = "<group>"; };
 		AB423BD61A61F8130011FCFF /* StringrColorGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrColorGenerator.h; path = Utility/StringrColorGenerator.h; sourceTree = "<group>"; };
@@ -385,8 +397,8 @@
 		AB6C4B0C1A43660400CBA63C /* StringrNetworkTask+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+Search.m"; path = "Network/StringrNetworkTask+Search.m"; sourceTree = "<group>"; };
 		AB6C4BAC1A4A057A00CBA63C /* StringrNetworkTask+Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+Profile.h"; path = "Network/StringrNetworkTask+Profile.h"; sourceTree = "<group>"; };
 		AB6C4BAD1A4A057A00CBA63C /* StringrNetworkTask+Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+Profile.m"; path = "Network/StringrNetworkTask+Profile.m"; sourceTree = "<group>"; };
-		AB6C4BB01A4A7FD200CBA63C /* StringrPhotoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoCollectionViewController.h; path = "Collection View Controller/StringrPhotoCollectionViewController.h"; sourceTree = "<group>"; };
-		AB6C4BB11A4A7FD200CBA63C /* StringrPhotoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoCollectionViewController.m; path = "Collection View Controller/StringrPhotoCollectionViewController.m"; sourceTree = "<group>"; };
+		AB6C4BB01A4A7FD200CBA63C /* StringrPhotoFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrPhotoFeedViewController.h; path = "Collection View Controller/StringrPhotoFeedViewController.h"; sourceTree = "<group>"; };
+		AB6C4BB11A4A7FD200CBA63C /* StringrPhotoFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrPhotoFeedViewController.m; path = "Collection View Controller/StringrPhotoFeedViewController.m"; sourceTree = "<group>"; };
 		AB6C4BB31A4A81C700CBA63C /* StringrPhotoCollectionStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StringrPhotoCollectionStoryboard.storyboard; path = "Collection View Controller/StringrPhotoCollectionStoryboard.storyboard"; sourceTree = "<group>"; };
 		AB6C4BB51A4B686C00CBA63C /* StringrNetworkTask+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StringrNetworkTask+Strings.h"; path = "Network/StringrNetworkTask+Strings.h"; sourceTree = "<group>"; };
 		AB6C4BB61A4B686C00CBA63C /* StringrNetworkTask+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StringrNetworkTask+Strings.m"; path = "Network/StringrNetworkTask+Strings.m"; sourceTree = "<group>"; };
@@ -456,6 +468,8 @@
 		ABB7F76A18908BA0006B32AB /* StringCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCollectionView.m; path = String/StringCollectionView.m; sourceTree = "<group>"; };
 		ABB9A0F21A087461003B9C5F /* StringrLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrLabel.h; path = Utility/StringrLabel.h; sourceTree = "<group>"; };
 		ABB9A0F31A087461003B9C5F /* StringrLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrLabel.m; path = Utility/StringrLabel.m; sourceTree = "<group>"; };
+		ABC57B0D1A896F3900BCA6C8 /* StringrPhotoFeedModelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrPhotoFeedModelController.h; sourceTree = "<group>"; };
+		ABC57B0E1A896F3900BCA6C8 /* StringrPhotoFeedModelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrPhotoFeedModelController.m; sourceTree = "<group>"; };
 		ABC8883C19FA957100218F62 /* StringrImageAndTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrImageAndTextButton.h; path = Views/StringrImageAndTextButton.h; sourceTree = "<group>"; };
 		ABC8883D19FA957100218F62 /* StringrImageAndTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrImageAndTextButton.m; path = Views/StringrImageAndTextButton.m; sourceTree = "<group>"; };
 		ABC8883F19FA958B00218F62 /* StringrImageAndTextButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StringrImageAndTextButton.xib; path = Views/StringrImageAndTextButton.xib; sourceTree = "<group>"; };
@@ -481,6 +495,11 @@
 		ABDFDE6618CFC1E000682EDD /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		ABDFDE6718CFC1E000682EDD /* ParseImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseImagePager.h; sourceTree = "<group>"; };
 		ABDFDE6818CFC1E000682EDD /* ParseImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseImagePager.m; sourceTree = "<group>"; };
+		ABE4F6841A8C7068000B4D2D /* StringrLoadingContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringrLoadingContentView.xib; sourceTree = "<group>"; };
+		ABE4F6861A8C7162000B4D2D /* StringrLoadingContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringrLoadingContentView.h; sourceTree = "<group>"; };
+		ABE4F6871A8C7162000B4D2D /* StringrLoadingContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringrLoadingContentView.m; sourceTree = "<group>"; };
+		ABE4F6D01A8D6371000B4D2D /* UIApplication+StringrParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+StringrParse.h"; sourceTree = "<group>"; };
+		ABE4F6D11A8D6371000B4D2D /* UIApplication+StringrParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+StringrParse.m"; sourceTree = "<group>"; };
 		ABE9DE7F1A27DB8C00B228F5 /* StringrColoredView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrColoredView.h; path = Views/StringrColoredView.h; sourceTree = "<group>"; };
 		ABE9DE801A27DB8C00B228F5 /* StringrColoredView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringrColoredView.m; path = Views/StringrColoredView.m; sourceTree = "<group>"; };
 		ABE9DE821A28026E00B228F5 /* StringrSegmentedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringrSegmentedView.h; path = Views/StringrSegmentedView.h; sourceTree = "<group>"; };
@@ -597,6 +616,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB342E071A829DD100838297 /* FacebookSDK.framework in Frameworks */,
+				AB342E061A829DC600838297 /* Twitter.framework in Frameworks */,
+				AB342E011A829D9500838297 /* Bolts.framework in Frameworks */,
+				AB342E021A829D9500838297 /* Parse.framework in Frameworks */,
+				AB342E031A829D9500838297 /* ParseCrashReporting.framework in Frameworks */,
+				AB342E041A829D9500838297 /* ParseFacebookUtils.framework in Frameworks */,
+				AB342E051A829D9500838297 /* ParseUI.framework in Frameworks */,
 				BF8349EE18297FD600D15963 /* XCTest.framework in Frameworks */,
 				BF8349F018297FD600D15963 /* UIKit.framework in Frameworks */,
 				BF8349EF18297FD600D15963 /* Foundation.framework in Frameworks */,
@@ -802,8 +828,7 @@
 		AB1FDF4619AC37E10059338B /* Stringr Objects */ = {
 			isa = PBXGroup;
 			children = (
-				AB1FDF4719AC388B0059338B /* StringrObject.h */,
-				AB1FDF4819AC388B0059338B /* StringrObject.m */,
+				AB342E2A1A83BFAD00838297 /* StringrObject.h */,
 				AB1FDF4319AC37DA0059338B /* StringrUser.h */,
 				AB1FDF4419AC37DA0059338B /* StringrUser.m */,
 				AB1FDF4D19AC38B40059338B /* StringrString.h */,
@@ -923,6 +948,8 @@
 		AB5AFC0119F9C834002F88B9 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				ABE4F6D01A8D6371000B4D2D /* UIApplication+StringrParse.h */,
+				ABE4F6D11A8D6371000B4D2D /* UIApplication+StringrParse.m */,
 				AB5AFBEF19F87FB6002F88B9 /* UIColor+StringrColors.h */,
 				AB5AFBF019F87FB6002F88B9 /* UIColor+StringrColors.m */,
 				AB5AFBFE19F8B3A9002F88B9 /* UIFont+StringrFonts.h */,
@@ -997,8 +1024,10 @@
 		AB6C4BAF1A4A7D5A00CBA63C /* CollectionView Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AB6C4BB01A4A7FD200CBA63C /* StringrPhotoCollectionViewController.h */,
-				AB6C4BB11A4A7FD200CBA63C /* StringrPhotoCollectionViewController.m */,
+				AB6C4BB01A4A7FD200CBA63C /* StringrPhotoFeedViewController.h */,
+				AB6C4BB11A4A7FD200CBA63C /* StringrPhotoFeedViewController.m */,
+				ABC57B0D1A896F3900BCA6C8 /* StringrPhotoFeedModelController.h */,
+				ABC57B0E1A896F3900BCA6C8 /* StringrPhotoFeedModelController.m */,
 				AB6C4BB31A4A81C700CBA63C /* StringrPhotoCollectionStoryboard.storyboard */,
 			);
 			name = "CollectionView Controllers";
@@ -1190,6 +1219,9 @@
 			children = (
 				ABF0554B192962C000BB08A7 /* StringrNoContentView.h */,
 				ABF0554C192962C000BB08A7 /* StringrNoContentView.m */,
+				ABE4F6861A8C7162000B4D2D /* StringrLoadingContentView.h */,
+				ABE4F6871A8C7162000B4D2D /* StringrLoadingContentView.m */,
+				ABE4F6841A8C7068000B4D2D /* StringrLoadingContentView.xib */,
 			);
 			name = "No Content View";
 			sourceTree = "<group>";
@@ -1321,6 +1353,8 @@
 			children = (
 				BF3EDE1D183EA4F10071E047 /* StringrStringFeedViewController.h */,
 				BF3EDE1E183EA4F10071E047 /* StringrStringFeedViewController.m */,
+				AB342DE81A81EC1F00838297 /* StringrStringFeedModelController.h */,
+				AB342DE91A81EC1F00838297 /* StringrStringFeedModelController.m */,
 				AB5CCFC11A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard */,
 				ABCEFA4C1919FEAA0018C547 /* Header */,
 				AB0F5325190AF14E00A29E59 /* String TableViewCells */,
@@ -1622,6 +1656,7 @@
 				AB5CCFC21A7D719D00F2B7C9 /* StringrStringFeedViewController.storyboard in Resources */,
 				AB92401A1A100C4800395DAA /* StringrConnectionsTableViewStoryboard.storyboard in Resources */,
 				AB6C4BB41A4A81C700CBA63C /* StringrPhotoCollectionStoryboard.storyboard in Resources */,
+				ABE4F6851A8C7068000B4D2D /* StringrLoadingContentView.xib in Resources */,
 				AB6C4AF71A3F5B0700CBA63C /* StringrExploreStoryboard.storyboard in Resources */,
 				AB3C1DE41A126ABB00ACED69 /* StringrProfileStoryboard.storyboard in Resources */,
 				ABB7DD111A3603E9005C70DA /* StringrSettingsTableViewStoryboard.storyboard in Resources */,
@@ -1708,7 +1743,7 @@
 				BF3EDE17183E9FD40071E047 /* StringrSettingsTableViewController.m in Sources */,
 				BF3EDE1F183EA4F10071E047 /* StringrStringFeedViewController.m in Sources */,
 				AB1FDF3819AC1F9F0059338B /* StringrNetworkUtility.m in Sources */,
-				AB6C4BB21A4A7FD200CBA63C /* StringrPhotoCollectionViewController.m in Sources */,
+				AB6C4BB21A4A7FD200CBA63C /* StringrPhotoFeedViewController.m in Sources */,
 				AB2973351A5F9948007DE1E8 /* StringrLaunchViewController.m in Sources */,
 				ABFBE60418D8C7CA0026BCC1 /* StringrActivityTableViewController.m in Sources */,
 				AB6C4B041A4242D800CBA63C /* StringrExploreCategory.m in Sources */,
@@ -1738,10 +1773,12 @@
 				AB5B59401899DCD500790510 /* StringrDetailViewController.m in Sources */,
 				ABB9A0F41A087461003B9C5F /* StringrLabel.m in Sources */,
 				AB29733D1A605F11007DE1E8 /* StringrSearchTableViewController.m in Sources */,
+				AB342DEA1A81EC1F00838297 /* StringrStringFeedModelController.m in Sources */,
 				ABDD30D51896EF1F0043CC28 /* UIViewController+QMBParallaxScrollViewController.m in Sources */,
 				AB5B5946189AC88B00790510 /* StringrDetailTableViewController.m in Sources */,
 				AB6C4B0D1A43660400CBA63C /* StringrNetworkTask+Search.m in Sources */,
 				AB04A30119EF6BD50030C241 /* StringTableViewActionCell.m in Sources */,
+				ABC57B0F1A896F3900BCA6C8 /* StringrPhotoFeedModelController.m in Sources */,
 				AB1FDF4519AC37DA0059338B /* StringrUser.m in Sources */,
 				ABA2F06B1922BB430004A806 /* ZCAssetCell.m in Sources */,
 				AB5C7E5319FF58B5005AFED0 /* StringrActionSheet.m in Sources */,
@@ -1753,13 +1790,14 @@
 				AB5F56BF18E1F67400D27372 /* StringrSignUpWithSocialNetworkViewController.m in Sources */,
 				AB04A2A719D522C40030C241 /* StringrFollow.m in Sources */,
 				BF3EDDFB183E842A0071E047 /* StringrLoginViewController.m in Sources */,
+				ABE4F6D21A8D6371000B4D2D /* UIApplication+StringrParse.m in Sources */,
 				AB04A2DE19E0CFCD0030C241 /* StringrUpdateEngine.m in Sources */,
 				ABF05555192D607C00BB08A7 /* StringrHomeFeedViewController.m in Sources */,
 				AB2E0C5E18EF359400B5681A /* StringrLoadMoreTableViewCell.m in Sources */,
 				AB5B594D189ADEA700790510 /* StringrStringDetailEditTableViewController.m in Sources */,
-				AB1FDF4919AC388B0059338B /* StringrObject.m in Sources */,
 				BF3EDE02183E92340071E047 /* StringrProfileViewController.m in Sources */,
 				AB4FF08418C6B78B000F550F /* StringrSetProfileDisplayNameTableViewCell.m in Sources */,
+				ABE4F6881A8C7162000B4D2D /* StringrLoadingContentView.m in Sources */,
 				AB5AFC0019F8B3A9002F88B9 /* UIFont+StringrFonts.m in Sources */,
 				AB6C4BAE1A4A057A00CBA63C /* StringrNetworkTask+Profile.m in Sources */,
 				BF3EDDD6183AADCB0071E047 /* StringrConstants.m in Sources */,
@@ -2011,6 +2049,8 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/External/Parse",
+					"$(PROJECT_DIR)/External",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";
@@ -2033,6 +2073,8 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/External/Parse",
+					"$(PROJECT_DIR)/External",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stringr/Stringr-Prefix.pch";

@@ -20,8 +20,24 @@ typedef enum {
     StringrNoType
 } StringrObjectType;
 
+typedef NS_ENUM(NSInteger, StringrNetworkTaskQueryType) {
+    StringrNetworkTaskStandardQuery = 0,
+    StringrNetworkTaskCountQuery
+};
+
+typedef enum {
+    StringrNetworkTaskUpdatedAt = 0,
+    StringrNetworkTaskCreatedAt
+} StringrNetworkTaskOrderType;
+
+typedef void(^StringrCountBlock)(NSInteger count, NSError *error);
 
 @interface StringrNetworkTask : NSObject
+
+@property (nonatomic) NSInteger limit;
+@property (nonatomic) NSInteger skip;
+@property (nonatomic) StringrNetworkTaskOrderType orderBy;
+@property (nonatomic) BOOL resultsAreAscending;
 
 + (StringrObjectType)objectType:(PFObject *)object;
 

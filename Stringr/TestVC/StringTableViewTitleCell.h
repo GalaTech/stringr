@@ -14,9 +14,9 @@ static CGFloat FooterTitleCellHeight = 28.0f;
 
 @interface StringTableViewTitleCell : UITableViewCell
 
-@property (strong, nonatomic, readonly) PFObject *string;
+@property (strong, nonatomic, readonly) StringrString *string;
 @property (weak, nonatomic) IBOutlet StringrLabel *stringTitle;
 
-- (void)configureFooterCellWithString:(PFObject *)string;
+- (void)configureFooterCellWithString:(StringrString *)string;
 
 @end

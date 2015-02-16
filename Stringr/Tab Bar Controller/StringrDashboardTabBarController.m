@@ -113,7 +113,7 @@
     [self.cameraButton addTarget:self action:@selector(cameraTabPushedDown:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton addTarget:self action:@selector(cameraButtonTocuhedUpOutside:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchDragOutside];
     
-    self.cameraButton.layer.cornerRadius = 27;
+    self.cameraButton.layer.cornerRadius = self.cameraButton.frame.size.width * 0.5;
     self.cameraButton.layer.borderWidth = 1.0f;
     
     self.colorGenerator = [StringrColorGenerator generatorWithDefaultStringrColors];

@@ -16,13 +16,13 @@
 
 @interface StringTableViewHeader ()
 
-@property (strong, nonatomic, readwrite) PFObject *string;
+@property (strong, nonatomic, readwrite) StringrString *string;
 
 @property (weak, nonatomic) IBOutlet StringrPathImageView *stringProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *stringProfileUploader;
 @property (weak, nonatomic) IBOutlet UILabel *stringUploadDate;
 @property (weak, nonatomic) IBOutlet UIImageView *stringPrivacySettings;
-@property (strong, nonatomic) IBOutlet UIButton *stringInfoButton;
+@property (weak, nonatomic) IBOutlet UIButton *viewStringPhotosButton;
 
 @end
 
@@ -73,19 +73,25 @@
 
 #pragma mark - Public
 
-- (void)configureHeaderWithString:(PFObject *)string
+- (void)configureHeaderWithString:(StringrString *)string
 {
     self.string = string;
     
-    PFUser *user = self.string[kStringrStringUserKey];
+    PFUser *user = self.string.uploader;
     
-    [user fetchUserIfNeededInBackgroundWithBlock:^(PFUser *user, NSError *error) {
+    if (!user.isDataAvailable) {
+        [user fetchUserIfNeededInBackgroundWithBlock:^(PFUser *user, NSError *error) {
+            [self configureProfileImageViewWithUser:user];
+            [self configureProfileUploaderLabelWithUser:user];
+            [self configureUploadDateLabel];
+        }];
+    }
+    else {
         [self configureProfileImageViewWithUser:user];
         [self configureProfileUploaderLabelWithUser:user];
         [self configureUploadDateLabel];
-    }];
+    }
     
-    [self configureStringInfoButton];
     [self configurePrivacyButton];
 }
 
@@ -104,8 +110,6 @@
     self.stringUploadDate.font = [UIFont stringrHeaderSecondaryLabelFont];
     self.stringUploadDate.textColor = [UIColor stringrSecondaryLabelColor];
     self.stringUploadDate.alpha = 0.0f;
-    
-    self.stringInfoButton.hidden = !self.editingEnabled;
 }
 
 - (void)configureProfileImageViewWithUser:(PFUser *)user
@@ -151,21 +155,9 @@
 }
 
 
-- (void)configureStringInfoButton
-{
-    [UIView animateWithDuration:0.33
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         self.stringInfoButton.hidden = !self.editingEnabled;
-                         self.stringInfoButton.alpha = self.stringInfoButton.hidden ? 0.0f : 1.0f;
-    } completion:nil];
-}
-
-
 - (void)configurePrivacyButton
 {
-    if ([self.string.ACL getPublicWriteAccess]) {
+    if ([self.string.parseString.ACL getPublicWriteAccess]) {
         self.stringPrivacySettings.image = [UIImage imageNamed:@"unlock_button"];
     }
     else {
@@ -176,26 +168,21 @@
 
 #pragma mark - IBActions
 
-- (IBAction)tappedInfoButton:(UIButton *)sender
+- (IBAction)viewStringPhotosButtonTouched:(UIButton *)sender
 {
-    [self infoButtonTapped];
+    [self.delegate stringHeader:self didTapPhotoViewForString:self.string];
 }
+
 
 #pragma mark - Actions
 
 - (void)profileImageTapped
 {
     if ([self.delegate respondsToSelector:@selector(profileImageTappedForUser:)]) {
-        [self.delegate profileImageTappedForUser:self.string[kStringrStringUserKey]];
+        [self.delegate profileImageTappedForUser:self.string.uploader];
     }
 }
 
 
-- (void)infoButtonTapped
-{
-    if ([ self.delegate respondsToSelector:@selector(stringTableViewHeader:tappedInfoButton:)]) {
-        [self.delegate stringTableViewHeader:self tappedInfoButton:self.stringInfoButton];
-    }
-}
 
 @end

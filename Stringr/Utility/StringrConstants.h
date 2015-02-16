@@ -126,6 +126,8 @@ extern NSString * const kStringrStringTitleKey;
 extern NSString * const kStringrStringDescriptionKey;
 extern NSString * const kStringrStringStatisticsKey;
 extern NSString * const kStringrStringLocationKey;
+extern NSString * const kStringrStringLikeCountKey;
+extern NSString * const kStringrStringCommentCountKey;
 
 
 #pragma mark - PFObject Photo Class

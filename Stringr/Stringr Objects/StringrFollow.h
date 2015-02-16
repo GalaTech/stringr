@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrFollow : StringrObject
+@interface StringrFollow : NSObject
 
 @end

@@ -8,6 +8,6 @@
 
 #import "StringrObject.h"
 
-@interface StringrComment : StringrObject
+@interface StringrComment : NSObject
 
 @end

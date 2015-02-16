@@ -14,6 +14,7 @@
 
 #pragma mark - Like/Unlike Photo/String
 
+/*
 + (void)likeObjectInBackground:(PFObject *)object block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
     if ([StringrUtility objectIsString:object]) {
@@ -47,6 +48,7 @@
         }];
     }
 }
+*/
 
 + (void)likePhotoInBackground:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
@@ -122,6 +124,7 @@
     }];
 }
 
+/*
 + (void)likeStringInBackground:(PFObject *)string block:(void (^)(BOOL succeeded, NSError *error))completionBlock
 {
     PFObject *likeActivity = [PFObject objectWithClassName:kStringrActivityClassKey];
@@ -144,7 +147,7 @@
             if (succeeded && ![[[string objectForKey:kStringrPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
                 [StringrNetworkTask sendLikedPushNotification:string];
                 
-                /*
+                
                 // TODO: Set private channel to that of the string uploader
                 NSString *stringUploaderPrivatePushChannel = [[string objectForKey:kStringrPhotoUserKey] objectForKey:kStringrUserPrivateChannelKey];
                 
@@ -165,7 +168,7 @@
                     [likeStringPushNotification setData:data];
                     [likeStringPushNotification sendPushInBackground];
                 }
-                 */
+                
             }
         }
     }];
@@ -215,7 +218,7 @@
         }
     }];
 }
-
+*/
 
 
 #pragma mark - Follow/Unfollow Users

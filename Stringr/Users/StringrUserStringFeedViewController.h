@@ -12,7 +12,6 @@
 
 @interface StringrUserStringFeedViewController : StringrStringFeedViewController<StringrContainerScrollViewDelegate>
 
-@property (strong, nonatomic) PFUser *user;
 @property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
 
 + (instancetype)stringFeedWithDataType:(StringrNetworkStringTaskType)taskType user:(PFUser *)user;

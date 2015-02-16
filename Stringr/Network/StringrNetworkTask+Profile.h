@@ -15,7 +15,7 @@ typedef void (^StringrUserItemsBlock)(NSArray *items, NSError *error);
 
 + (void)stringsForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion;
 + (void)likedStringsForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion;
-+ (void)likedPhotosForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion;
-+ (void)publicPhotosForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion;
+//+ (void)likedPhotosForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion;
+//+ (void)publicPhotosForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion;
 
 @end

@@ -12,7 +12,7 @@
 
 @interface StringTableViewTitleCell ()
 
-@property (strong, nonatomic, readwrite) PFObject *string;
+@property (strong, nonatomic, readwrite) StringrString *string;
 
 @end
 
@@ -36,10 +36,10 @@
 }
 
 
-- (void)configureFooterCellWithString:(PFObject *)string
+- (void)configureFooterCellWithString:(StringrString *)string
 {
     self.string = string;
-    self.stringTitle.text = string[kStringrStringTitleKey];
+    self.stringTitle.text = string.title;
 }
 
 

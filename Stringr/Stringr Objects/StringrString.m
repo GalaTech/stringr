@@ -17,7 +17,7 @@
     self = [super init];
     
     if (self) {
-        _string = object;
+        self.parseString = object;
     }
     
     return self;
@@ -32,9 +32,9 @@
 
 #pragma mark - Accessors - Setters
 
-- (void)setString:(PFObject *)string
+- (void)setParseString:(PFObject *)parseString
 {
-    _string = [StringrUtility stringFromObject:string];
+    _parseString = [StringrUtility stringFromObject:parseString];
 }
 
 
@@ -42,27 +42,34 @@
 
 - (PFUser *)uploader
 {
-    return self.string[kStringrStringUserKey];
+    return self.parseString[kStringrStringUserKey];
 }
 
 
 - (NSString *)title
 {
-    return self.string[kStringrStringTitleKey];
+    return self.parseString[kStringrStringTitleKey];
 }
 
 
-- (NSDate *)createdAt
+- (NSInteger)likeCount
 {
-    return self.string.createdAt;
+    PFObject *statistics = self.parseString[@"stringStatistics"];
+    return [statistics[kStringrStatisticsLikeCountKey] integerValue];
 }
 
 
-- (NSDate *)updatedAt
+- (NSInteger)commentCount
 {
-    return self.string.updatedAt;
+    PFObject *statistics = self.parseString[@"stringStatistics"];
+    return [statistics[kStringrStatisticsCommentCountKey] integerValue];
 }
 
+
+- (PFObject *)parseStatistics
+{
+    return self.parseString[@"stringStatistics"];
+}
 
 #pragma mark - Public
 
@@ -79,6 +86,32 @@
     }
     
     return [stringsArray copy];
+}
+
+
+#pragma mark - <StringrObject>
+
+- (NSString *)parseClassName
+{
+    return self.parseString.parseClassName;
+}
+
+
+- (NSString *)objectID
+{
+    return self.parseString.objectId;
+}
+
+
+- (NSDate *)updatedAt
+{
+    return self.parseString.updatedAt;
+}
+
+
+- (NSDate *)createdAt
+{
+    return self.parseString.createdAt;
 }
 
 @end

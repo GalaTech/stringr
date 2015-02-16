@@ -486,39 +486,39 @@ static NSString * const StringrProfileStoryboardName = @"StringrProfileStoryboar
 }
 
 
-- (void)panTopProfileView:(UIPanGestureRecognizer *)gesture
-{
-    CGPoint translation = [gesture translationInView:gesture.view];
-    
-    UIScrollView *scrollView = [self currentProfileScrollView];
-    
-    self.isScrollingContainerView = YES;
-    
-    UIEdgeInsets currentScrollViewInset = scrollView.contentInset;
-    CGPoint currentScrollViewOffset = scrollView.contentOffset;
-    
-    // Since we have an inset the initial scrollViewOffset y value is a positive value that is decreasing
-    // because the content is not at the frame's 0,0 position.
-    NSInteger dy = (NSInteger)(currentScrollViewInset.top + translation.y);
-    
-    if (dy < 0 && currentScrollViewInset.top > 0) {
-        UIEdgeInsets newInsets = currentScrollViewInset;
-        newInsets.top = MAX(currentScrollViewInset.top + dy, 0.);
-        scrollView.contentInset = newInsets;
-        
-        
-        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
-    }
-    else if (dy > 0 && currentScrollViewInset.top < self.profileContainerView.frame.size.height) {
-        UIEdgeInsets newInsets = currentScrollViewInset;
-        newInsets.top = MIN(currentScrollViewInset.top + dy, self.profileContainerView.frame.size.height);
-        scrollView.contentInset = newInsets;
-        
-        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
-    }
-    
-    self.currentScrollViewTopInset = scrollView.contentInset.top;
-}
+//- (void)panTopProfileView:(UIPanGestureRecognizer *)gesture
+//{
+//    CGPoint translation = [gesture translationInView:gesture.view];
+//    
+//    UIScrollView *scrollView = [self currentProfileScrollView];
+//    
+//    self.isScrollingContainerView = YES;
+//    
+//    UIEdgeInsets currentScrollViewInset = scrollView.contentInset;
+//    CGPoint currentScrollViewOffset = scrollView.contentOffset;
+//    
+//    // Since we have an inset the initial scrollViewOffset y value is a positive value that is decreasing
+//    // because the content is not at the frame's 0,0 position.
+//    NSInteger dy = (NSInteger)(currentScrollViewInset.top + translation.y);
+//    
+//    if (dy < 0 && currentScrollViewInset.top > 0) {
+//        UIEdgeInsets newInsets = currentScrollViewInset;
+//        newInsets.top = MAX(currentScrollViewInset.top + dy, 0.);
+//        scrollView.contentInset = newInsets;
+//        
+//        
+//        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
+//    }
+//    else if (dy > 0 && currentScrollViewInset.top < self.profileContainerView.frame.size.height) {
+//        UIEdgeInsets newInsets = currentScrollViewInset;
+//        newInsets.top = MIN(currentScrollViewInset.top + dy, self.profileContainerView.frame.size.height);
+//        scrollView.contentInset = newInsets;
+//        
+//        self.profileContainerSegmentTopConstraint.constant = -(self.profileContainerView.frame.size.height - newInsets.top);
+//    }
+//    
+//    self.currentScrollViewTopInset = scrollView.contentInset.top;
+//}
 
 
 - (UIScrollView *)currentProfileScrollView

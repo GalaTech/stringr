@@ -7,15 +7,15 @@
 //
 
 #import "StringrAppViewController.h"
-#import "StringrLaunchViewController.h"
 #import "StringrLoginViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrDashboardTabBarController.h"
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import "StringrUpdateEngine.h"
-#import "UIFont+StringrFonts.h"
 #import "NSLayoutConstraint+StringrAdditions.h"
 #import "StringrConfig.h"
+
+#import "UIFont+StringrFonts.h"
 
 #import "StringrAuthenticationManager.h"
 #import "Reachability.h"
@@ -24,8 +24,6 @@
 
 @property (strong, nonatomic, readwrite) UIViewController *currentContentViewController;
 @property (strong, nonatomic) IBOutlet UIView *contentContainerView;
-
-@property (strong, nonatomic) NSDictionary *launchOptions;
 
 @property (nonatomic, strong) Reachability *hostReach;
 @property (nonatomic, strong) Reachability *internetReach;
@@ -62,29 +60,10 @@
 {
     [super viewDidLoad];
     
-    [self setupInitialLaunchControllers];
-}
-
-
-- (void)launchSequence:(NSDictionary *)launchOptions
-{
-    self.launchOptions = launchOptions;
-    
-//    [[StringrConfig sharedConfig] setup];
-    [self setupParse];
     [self monitorReachability];
     [self setupAppearance];
-}
-
-
-- (void)setupInitialLaunchControllers
-{
-    StringrLaunchViewController *launchVC = [StringrLaunchViewController new];
-    [self setContentViewController:launchVC animated:NO];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self transitionToLoginViewController:YES];
-    });
+    [self transitionToLoginViewController:NO];
 }
 
 
@@ -274,25 +253,25 @@
 
 #pragma mark - Parse Setup
 
-- (void)setupParse
-{
-    [ParseCrashReporting enable];
-    
-    BOOL debugEnabled = [StringrConfig sharedConfig].isDebugMode;
-
-    if (debugEnabled) {
-        [Parse setApplicationId:kStringrParseDebugApplicationID clientKey:kStringrParseDebugClientKey];
-    }
-    else {
-        [Parse setApplicationId:kStringrParseApplicationID clientKey:kStringrParseClientKey];
-    }
-    
-    [PFFacebookUtils initializeFacebook];
-    [PFTwitterUtils initializeWithConsumerKey:@"6gI4gef1b48PR9KYoZ58hQ" consumerSecret:@"BFlTa5t2XrGF8Ez0kGPLbuaOFZwcPh5FxjCinJas"];
-    
-    // Parse 'app open' analytics
-    [PFAnalytics trackAppOpenedWithLaunchOptions:self.launchOptions];
-}
+//- (void)setupParse
+//{
+//    [ParseCrashReporting enable];
+//    
+//    BOOL debugEnabled = [StringrConfig sharedConfig].isDebugMode;
+//
+//    if (debugEnabled) {
+//        [Parse setApplicationId:kStringrParseDebugApplicationID clientKey:kStringrParseDebugClientKey];
+//    }
+//    else {
+//        [Parse setApplicationId:kStringrParseApplicationID clientKey:kStringrParseClientKey];
+//    }
+//    
+//    [PFFacebookUtils initializeFacebook];
+//    [PFTwitterUtils initializeWithConsumerKey:@"6gI4gef1b48PR9KYoZ58hQ" consumerSecret:@"BFlTa5t2XrGF8Ez0kGPLbuaOFZwcPh5FxjCinJas"];
+//    
+//    // Parse 'app open' analytics
+//    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
+//}
 
 
 #pragma mark - Reachability

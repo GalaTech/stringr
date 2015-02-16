@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrUser : StringrObject
+@interface StringrUser : NSObject <StringrObject>
 
-@property (strong, nonatomic, readonly) PFUser *PFUser;
+@property (strong, nonatomic, readonly) PFUser *parseUser;
 
 @end

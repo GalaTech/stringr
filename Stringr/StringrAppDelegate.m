@@ -7,6 +7,7 @@
 //
 
 #import "StringrAppDelegate.h"
+#import "StringrLaunchViewController.h"
 #import "StringrAppViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrStringFeedViewController.h"
@@ -23,6 +24,8 @@
 #import "StringrObject.h"
 
 #import "NSString+StringrAdditions.h"
+#import "UIDevice+StringrAdditions.h"
+#import "UIApplication+StringrParse.h"
 
 #import "TestTableViewController.h"
 
@@ -36,20 +39,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Registers the app for notification types via in app alert view
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-     UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
+    [[UIApplication sharedApplication] setupParse];
     
-//    [application registerForRemoteNotifications];
-    
-    // setup and initialize the login controller
-    StringrAppViewController *appController = [StringrAppViewController viewController];
-    self.appViewController = appController;
-    [self.appViewController launchSequence:launchOptions];
-    self.window.rootViewController = self.appViewController;
+    StringrLaunchViewController *launchVC = [StringrLaunchViewController new];
+    self.window.rootViewController = launchVC;
     [self.window makeKeyAndVisible];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setupApplicationViewController];
+    });
 
+    if ([[UIDevice currentDevice] isAtLeastiOS8]) {
+        [application registerForRemoteNotifications];
+    }
+    else {
+        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+         UIRemoteNotificationTypeAlert|
+         UIRemoteNotificationTypeSound];
+    }
+    
     return YES;
 }
 
@@ -155,6 +163,25 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark - Setup
+
+- (void)setupApplicationViewController
+{
+    StringrAppViewController *appController = [StringrAppViewController viewController];
+    self.appViewController = appController;
+    
+    [UIView transitionWithView:self.window
+                      duration:0.5f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        BOOL oldAnimationsEnabled = [UIView areAnimationsEnabled];
+                        [UIView setAnimationsEnabled:NO];
+                        self.window.rootViewController = self.appViewController;
+                        [UIView setAnimationsEnabled:oldAnimationsEnabled];
+                    } completion:nil];
 }
 
 @end

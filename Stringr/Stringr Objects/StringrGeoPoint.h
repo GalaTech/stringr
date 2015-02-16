@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrGeoPoint : StringrObject
+@interface StringrGeoPoint : NSObject
 
 @end

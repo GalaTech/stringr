@@ -10,4 +10,29 @@
 
 @implementation StringrUser
 
+#pragma mark - <StringrObject>
+
+- (NSString *)parseClassName
+{
+    return self.parseUser.parseClassName;
+}
+
+
+- (NSString *)objectID
+{
+    return self.parseUser.objectId;
+}
+
+
+- (NSDate *)updatedAt
+{
+    return self.parseUser.updatedAt;
+}
+
+
+- (NSDate *)createdAt
+{
+    return self.parseUser.createdAt;
+}
+
 @end

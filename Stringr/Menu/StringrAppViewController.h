@@ -23,9 +23,6 @@
 - (void)signup;
 - (void)logout;
 
-// Setup
-- (void)launchSequence:(NSDictionary *)launchOptions;
-
 // Networking
 - (BOOL)isParseReachable;
 

@@ -19,28 +19,10 @@
 + (instancetype)stringFeedWithDataType:(StringrNetworkStringTaskType)taskType user:(PFUser *)user
 {
     StringrUserStringFeedViewController *userStringFeedVC = [StringrUserStringFeedViewController new];
-    userStringFeedVC.user = user;
-    userStringFeedVC.dataType = taskType;
+    userStringFeedVC.modelController.userForFeed = user;
+    userStringFeedVC.modelController.dataType = taskType;
     
     return userStringFeedVC;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    
-}
-
-
-#pragma mark - Private
-
-- (void)startStringNetworkTask
-{
-    [StringrNetworkTask stringsForDataType:self.dataType user:self.user completion:^(NSArray *strings, NSError *error) {
-        self.strings = strings;
-    }];
 }
 
 

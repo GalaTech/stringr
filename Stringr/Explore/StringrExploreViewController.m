@@ -23,7 +23,7 @@
 #import "UIImage+StringrImageAdditions.h"
 #import "NSString+StringrAdditions.h"
 
-#import "StringrPhotoCollectionViewController.h"
+#import "StringrPhotoFeedViewController.h"
 
 @interface StringrExploreViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
@@ -193,22 +193,9 @@
     
     StringrExploreCategory *category = tableSection.sectionRows[indexPath.row];
     
-    if ([category.name isEqualToString:@"Popular"]) {
-        StringrPopularTableViewController *popularVC = [StringrPopularTableViewController new];
-        [self.navigationController pushViewController:popularVC animated:YES];
-    }
-    else if ([category.name isEqualToString:@"Discover"]) {
-        StringrDiscoveryTableViewController *discoverVC = [StringrDiscoveryTableViewController new];
-        [self.navigationController pushViewController:discoverVC animated:YES];
-    }
-    else if ([category.name isEqualToString:@"Near You"]) {
-        StringrNearYouTableViewController *nearYouVC = [StringrNearYouTableViewController new];
-        [self.navigationController pushViewController:nearYouVC animated:YES];
-    }
-    else {
-        StringrPhotoCollectionViewController *photosVC = [StringrPhotoCollectionViewController viewController];
-        [self.navigationController pushViewController:photosVC animated:YES];
-    }
+    StringrStringFeedViewController *exploreStringVC = [StringrStringFeedViewController stringFeedWithCategory:category];
+    exploreStringVC.navigationItem.title = category.name;
+    [self.navigationController pushViewController:exploreStringVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

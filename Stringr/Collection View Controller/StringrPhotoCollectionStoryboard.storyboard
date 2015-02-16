@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="mqd-nW-LN9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="mqd-nW-LN9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Stringr Photo Collection View Controller-->
+        <!--Stringr Photo Feed View Controller-->
         <scene sceneID="4WR-0S-QwF">
             <objects>
-                <viewController id="mqd-nW-LN9" customClass="StringrPhotoCollectionViewController" sceneMemberID="viewController">
+                <viewController id="mqd-nW-LN9" customClass="StringrPhotoFeedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pUz-xo-cYU"/>
                         <viewControllerLayoutGuide type="bottom" id="iM0-QE-Odl"/>

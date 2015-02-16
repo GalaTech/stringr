@@ -8,17 +8,21 @@
 
 #import "StringrObject.h"
 
-@interface StringrString : StringrObject
+@class StringrExploreCategory;
 
-@property (strong, nonatomic) PFObject *string;
+@interface StringrString : NSObject <StringrObject>
 
+@property (strong, nonatomic) PFObject *parseString;
 @property (copy, nonatomic) NSString *title;
 @property (strong, nonatomic) PFUser *uploader;
-@property (copy, nonatomic) NSString *category;
+@property (copy, nonatomic) StringrExploreCategory *category;
 
-@property (strong, nonatomic) NSArray *photos;
-@property (strong, nonatomic) NSArray *comments;
-@property (strong, nonatomic) NSArray *likers;
+@property (strong, nonatomic) NSMutableArray *photos;
+@property (nonatomic) NSInteger likeCount;
+@property (nonatomic) NSInteger commentCount;
+@property (nonatomic) BOOL isLikedByCurrentUser;
+
+@property (strong, nonatomic) PFObject *parseStatistics;
 
 - (instancetype)initWithObject:(PFObject *)object;
 - (instancetype)init __attribute__ ((unavailable("[-init] is not allowed, use [-initWithObject:]")));

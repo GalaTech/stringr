@@ -156,6 +156,8 @@ NSString * const kStringrStringTitleKey = @"title";
 NSString * const kStringrStringDescriptionKey = @"description";
 NSString * const kStringrStringStatisticsKey = @"statistics";
 NSString * const kStringrStringLocationKey = @"location";
+NSString * const kStringrStringLikeCountKey = @"likeCount";
+NSString * const kStringrStringCommentCountKey = @"commentCount";
 
 
 #pragma mark - Cached User Attributes

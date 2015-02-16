@@ -14,14 +14,12 @@
 
 @protocol StringrContainerScrollViewDelegate;
 
-@interface StringrPhotoCollectionViewController : UIViewController <StringrViewController>
-
-- (instancetype)initWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user;
-
-@property (strong, nonatomic) NSArray *photos;
+@interface StringrPhotoFeedViewController : UIViewController <StringrViewController>
 
 @property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
 
-@property (strong, nonatomic) PFUser *user;
++ (StringrPhotoFeedViewController *)photoFeedWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user;
++ (StringrPhotoFeedViewController *)photoFeedFromString:(StringrString *)string;
++ (StringrPhotoFeedViewController *)photoFeedFromPhotos:(NSArray *)photos;
 
 @end

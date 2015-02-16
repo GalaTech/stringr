@@ -8,6 +8,6 @@
 
 #import "StringrObject.h"
 
-@interface StringrActivity : StringrObject
+@interface StringrActivity : NSObject
 
 @end

@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrPushNotification : StringrObject
+@interface StringrPushNotification : NSObject
 
 @end

@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "StringrObject.h"
 
-@interface StringrStringStatistics : StringrObject
+@interface StringrStringStatistics : NSObject
 
 @end
