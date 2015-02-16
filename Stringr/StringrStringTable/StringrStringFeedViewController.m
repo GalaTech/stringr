@@ -195,11 +195,15 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
 
 - (void)stringFeedDataDidLoadForIndexSets:(NSArray *)indexSets
 {
+    [self.tableView beginUpdates];
+    
     for (NSIndexSet *indexSet in indexSets) {
-        [self.tableView beginUpdates];
-        [self.tableView insertSections:indexSets withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
+        
+        [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        
     }
+    
+    [self.tableView endUpdates];
 }
 
 
