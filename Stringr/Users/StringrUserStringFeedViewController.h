@@ -8,11 +8,7 @@
 
 #import "StringrStringFeedViewController.h"
 
-#import "StringrContainerScrollViewDelegate.h"
-
-@interface StringrUserStringFeedViewController : StringrStringFeedViewController<StringrContainerScrollViewDelegate>
-
-@property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
+@interface StringrUserStringFeedViewController : StringrStringFeedViewController
 
 + (instancetype)stringFeedWithDataType:(StringrNetworkStringTaskType)taskType user:(PFUser *)user;
 

@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 #import "StringrLoginViewController.h"
 #import "StringrDashboardTabBarController.h"
 
 @interface StringrAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) IBOutlet UIWindow *window;
-@property (strong, nonatomic) StringrAppViewController *appViewController;
+@property (strong, nonatomic) STGRAppViewController *appViewController;
 
 @end
 

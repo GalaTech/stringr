@@ -8,7 +8,7 @@
 
 #import "StringrAppDelegate.h"
 #import "StringrLaunchViewController.h"
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrStringFeedViewController.h"
 #import "StringrActivityTableViewController.h"
@@ -40,6 +40,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[UIApplication sharedApplication] setupParse];
+    [self setupAppearance];
     
     StringrLaunchViewController *launchVC = [StringrLaunchViewController new];
     self.window.rootViewController = launchVC;
@@ -154,8 +155,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    
     [[StringrUpdateEngine sharedEngine] start];
 }
 
@@ -168,9 +167,17 @@
 
 #pragma mark - Setup
 
+- (void)setupAppearance
+{
+    self.window.layer.cornerRadius = 6.0f;
+    self.window.layer.masksToBounds = YES;
+    self.window.layer.opaque = NO;
+}
+
+
 - (void)setupApplicationViewController
 {
-    StringrAppViewController *appController = [StringrAppViewController viewController];
+    STGRAppViewController *appController = [STGRAppViewController viewController];
     self.appViewController = appController;
     
     [UIView transitionWithView:self.window

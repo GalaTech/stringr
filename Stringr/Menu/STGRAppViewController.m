@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 #import "StringrLoginViewController.h"
 #import "StringrNavigationController.h"
 #import "StringrDashboardTabBarController.h"
@@ -20,7 +20,7 @@
 #import "StringrAuthenticationManager.h"
 #import "Reachability.h"
 
-@interface StringrAppViewController () <StringrLoginViewControllerDelegate>
+@interface STGRAppViewController () <StringrLoginViewControllerDelegate>
 
 @property (strong, nonatomic, readwrite) UIViewController *currentContentViewController;
 @property (strong, nonatomic) IBOutlet UIView *contentContainerView;
@@ -32,15 +32,15 @@
 
 @end
 
-@implementation StringrAppViewController
+@implementation STGRAppViewController
 
 #pragma mark - Lifecycle
 
-+ (StringrAppViewController *)viewController
++ (STGRAppViewController *)viewController
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StringrAppControllerStoryboard" bundle:nil];
     
-    return (StringrAppViewController *)[storyboard instantiateInitialViewController];
+    return (STGRAppViewController *)[storyboard instantiateInitialViewController];
 }
 
 

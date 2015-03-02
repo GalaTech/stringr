@@ -35,7 +35,7 @@
 
 static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewController";
 
-@interface StringrStringFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, StringrStringFeedModelControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate, UIGestureRecognizerDelegate>
+@interface StringrStringFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, STGRStringFeedModelControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -118,10 +118,10 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
 
 #pragma mark - Accessors
 
-- (StringrStringFeedModelController *)modelController
+- (STGRStringFeedModelController *)modelController
 {
     if (!_modelController) {
-        _modelController = [StringrStringFeedModelController new];
+        _modelController = [STGRStringFeedModelController new];
         _modelController.delegate = self;
     }
     
@@ -167,24 +167,24 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
 }
 
 
-- (void)stringFeedDataDidUpdate
+- (void)stringFeedLoadedContent
 {
     [self.loadingContentView stopLoading];
     
-    [UIView transitionWithView:self.view
-                      duration:0.33f
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:^{
-                        [self.loadingContentView removeFromSuperview];
-                        self.loadingContentView = nil;
-                        
-                        [self.view addSubview:self.tableView];
-                        [self.view addConstraints:[NSLayoutConstraint constraintsToFillSuperviewWithView:self.tableView]];
-    } completion:^(BOOL finished) {
-//        [self.tableView reloadData];
-    }];
+    if (self.tableView.superview != self.view) {
+        [UIView transitionWithView:self.view
+                          duration:0.33f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [self.loadingContentView removeConstraints:[NSLayoutConstraint constraintsToFillSuperviewWithView:self.loadingContentView]];
+                            [self.loadingContentView removeFromSuperview];
+                            self.loadingContentView = nil;
+                            
+                            [self.view addSubview:self.tableView];
+                            [self.view addConstraints:[NSLayoutConstraint constraintsToFillSuperviewWithView:self.tableView]];
+                        } completion:nil];
+    }
 }
-
 
 - (void)stringFeedLoadedNoContent
 {
@@ -198,24 +198,17 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
     [self.tableView beginUpdates];
     
     for (NSIndexSet *indexSet in indexSets) {
-        
-        [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-        
+        [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     
     [self.tableView endUpdates];
 }
 
 
-- (void)stringPhotosWillUpdateAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-
 - (void)stringFeedPhotosDidUpdateAtIndexPath:(NSIndexPath *)indexPath
 {
     StringTableViewCell *stringCell = (StringTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+
     [stringCell.stringCollectionView reloadData];
 }
 
@@ -416,7 +409,7 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
     CGFloat height = self.tableView.contentSize.height - self.tableView.frame.size.height;
     CGFloat scrolledPercentage = yOffset / height;
     
-    if (scrolledPercentage > .95f && !self.modelController.isLoading && self.modelController.hasNextPage) {
+    if (scrolledPercentage > .6f && !self.modelController.isLoading && self.modelController.hasNextPage) {
         [self.modelController loadNextPage];
     }
 }

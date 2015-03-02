@@ -9,6 +9,8 @@
 #import "StringrNavigateProfileCommand.h"
 #import "StringrUserStringFeedViewController.h"
 #import "StringrPhotoFeedViewController.h"
+#import "StringrProfileStringFeedViewController.h"
+#import "StringrProfilePhotoFeedViewController.h"
 
 #import "StringrNetworkTask.h"
 
@@ -17,7 +19,7 @@
 - (UIViewController *)commandViewController
 {
     if (self.commandType == ProfileCommandUserStrings) {
-        StringrUserStringFeedViewController *userStringsFeedVC = [StringrUserStringFeedViewController stringFeedWithDataType:StringrUserStringsNetworkTask user:self.user];
+        StringrProfileStringFeedViewController *userStringsFeedVC = [StringrProfileStringFeedViewController stringFeedWithDataType:StringrUserStringsNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
             userStringsFeedVC.delegate = self.delegate;
@@ -26,7 +28,7 @@
         return userStringsFeedVC;
     }
     else if (self.commandType == ProfileCommandLikedStrings) {
-        StringrUserStringFeedViewController *userLikedStringsFeedVC = [StringrUserStringFeedViewController stringFeedWithDataType:StringrLikedStringsNetworkTask user:self.user];
+        StringrProfileStringFeedViewController *userLikedStringsFeedVC = [StringrProfileStringFeedViewController stringFeedWithDataType:StringrLikedStringsNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
             userLikedStringsFeedVC.delegate = self.delegate;
@@ -35,7 +37,7 @@
         return userLikedStringsFeedVC;
     }
     else if (self.commandType == ProfileCommandLikedPhotos) {
-        StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController photoFeedWithDataType:StringrUserPhotosNetworkTask user:self.user];
+        StringrProfilePhotoFeedViewController *photoFeedVC = [StringrProfilePhotoFeedViewController photoFeedWithDataType:StringrUserPhotosNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
             photoFeedVC.delegate = self.delegate;
@@ -44,7 +46,7 @@
         return photoFeedVC;
     }
     else if (self.commandType == ProfileCommandPublicPhotos) {
-        StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController photoFeedWithDataType:StringrUserPublicPhotosNetworkTask user:self.user];
+        StringrProfilePhotoFeedViewController *photoFeedVC = [StringrProfilePhotoFeedViewController photoFeedWithDataType:StringrUserPublicPhotosNetworkTask user:self.user];
         
         if ([self.delegate conformsToProtocol:@protocol(StringrContainerScrollViewDelegate)]) {
             photoFeedVC.delegate = self.delegate;
@@ -54,6 +56,12 @@
     }
     
     return [UIViewController new];
+}
+
+
+- (void)dealloc
+{
+    NSLog(@"Dealloc'd StringrNavigateProfileCommand");
 }
 
 @end

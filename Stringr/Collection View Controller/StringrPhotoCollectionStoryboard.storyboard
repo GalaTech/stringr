@@ -79,6 +79,80 @@
             </objects>
             <point key="canvasLocation" x="138.66666666666666" y="365.41333333333336"/>
         </scene>
+        <!--Stringr Profile Photo Feed View Controller-->
+        <scene sceneID="VW3-BX-wiQ">
+            <objects>
+                <viewController storyboardIdentifier="StringrProfilePhotoFeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MeX-7X-Vlc" customClass="StringrProfilePhotoFeedViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QcG-3s-qI7"/>
+                        <viewControllerLayoutGuide type="bottom" id="4fn-Q1-vgo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ejd-4j-MJe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rGA-q1-2ib">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TuF-PQ-c4E">
+                                    <size key="itemSize" width="150" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Hhg-Ub-KqS" customClass="StringCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tnj-Rd-tCv" customClass="PFImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-3O-nbk">
+                                                    <rect key="frame" x="65" y="65" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Tnj-Rd-tCv" firstAttribute="top" secondItem="Hhg-Ub-KqS" secondAttribute="top" id="4JY-8i-LAz"/>
+                                            <constraint firstItem="mpb-3O-nbk" firstAttribute="centerY" secondItem="Tnj-Rd-tCv" secondAttribute="centerY" id="HHu-02-yVi"/>
+                                            <constraint firstItem="Tnj-Rd-tCv" firstAttribute="leading" secondItem="Hhg-Ub-KqS" secondAttribute="leading" id="p21-8W-0da"/>
+                                            <constraint firstAttribute="bottom" secondItem="Tnj-Rd-tCv" secondAttribute="bottom" id="umZ-VR-ciS"/>
+                                            <constraint firstItem="mpb-3O-nbk" firstAttribute="centerX" secondItem="Tnj-Rd-tCv" secondAttribute="centerX" id="vi2-Pp-MPE"/>
+                                            <constraint firstAttribute="trailing" secondItem="Tnj-Rd-tCv" secondAttribute="trailing" id="w2v-t4-h6B"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="cellImage" destination="Tnj-Rd-tCv" id="29F-GN-uoU"/>
+                                            <outlet property="loadingImageIndicator" destination="mpb-3O-nbk" id="eyz-VM-ogA"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="MeX-7X-Vlc" id="mft-d3-rxG"/>
+                                    <outlet property="delegate" destination="MeX-7X-Vlc" id="7bN-55-cek"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4fn-Q1-vgo" firstAttribute="top" secondItem="rGA-q1-2ib" secondAttribute="bottom" id="DZp-01-Epo"/>
+                            <constraint firstAttribute="trailing" secondItem="rGA-q1-2ib" secondAttribute="trailing" id="FeW-Rn-e0d"/>
+                            <constraint firstItem="rGA-q1-2ib" firstAttribute="leading" secondItem="Ejd-4j-MJe" secondAttribute="leading" id="cze-hI-5PN"/>
+                            <constraint firstItem="rGA-q1-2ib" firstAttribute="top" secondItem="Ejd-4j-MJe" secondAttribute="top" id="fUv-Nu-KxS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="rGA-q1-2ib" id="jgk-9U-1Fd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TfB-Tg-m4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="590" y="365"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

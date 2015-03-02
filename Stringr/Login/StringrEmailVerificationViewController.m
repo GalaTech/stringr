@@ -9,7 +9,7 @@
 #import "StringrEmailVerificationViewController.h"
 #import "StringrPathImageView.h"
 #import "ACPButton.h"
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 #import "StringrAppDelegate.h"
 #import "UIColor+StringrColors.h"
 #import "StringrColoredView.h"

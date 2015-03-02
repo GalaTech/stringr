@@ -7,7 +7,6 @@
 //
 
 #import "StringrPhotoFeedViewController.h"
-#import "StringrPhotoFeedModelController.h"
 
 #import "StringCollectionViewCell.h"
 #import "NHBalancedFlowLayout.h"
@@ -19,12 +18,6 @@
 
 @interface StringrPhotoFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, StringrPhotoFeedModelControllerDelegate, NHBalancedFlowLayoutDelegate>
 
-@property (strong, nonatomic) StringrPhotoFeedModelController *modelController;
-
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
-
-@property (nonatomic) CGFloat topInset;
-
 @property (nonatomic) StringrNetworkPhotoTaskType dataType;
 
 @end
@@ -33,14 +26,14 @@
 
 #pragma mark - Lifecycle
 
-+ (StringrPhotoFeedViewController *)viewController
++ (instancetype)viewController
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StringrPhotoCollectionStoryboard" bundle:nil];
     return (StringrPhotoFeedViewController *)[storyboard instantiateInitialViewController];
 }
 
 
-+ (StringrPhotoFeedViewController *)photoFeedWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user
++ (instancetype)photoFeedWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user
 {
     StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController viewController];
     photoFeedVC.modelController.user = user;
@@ -50,7 +43,7 @@
 }
 
 
-+ (StringrPhotoFeedViewController *)photoFeedFromString:(StringrString *)string
++ (instancetype)photoFeedFromString:(StringrString *)string
 {
     StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController viewController];
     photoFeedVC.modelController.string = string;
@@ -59,7 +52,7 @@
 }
 
 
-+ (StringrPhotoFeedViewController *)photoFeedFromPhotos:(NSArray *)photos
++ (instancetype)photoFeedFromPhotos:(NSArray *)photos
 {
     StringrPhotoFeedViewController *photoFeedVC = [StringrPhotoFeedViewController viewController];
     photoFeedVC.modelController.photos = photos;
@@ -161,39 +154,6 @@
     }
     
     return CGSizeMake(width, height);
-}
-
-
-#pragma mark - <StringrContainerScrollViewDelegate>
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.delegate containerViewDidScroll:scrollView];
-}
-
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
-{
-    if (self.delegate) {
-        return [self.delegate containerViewShouldScrollToTop:scrollView];
-    }
-    
-    return YES;
-}
-
-
-- (void)adjustScrollViewTopInset:(CGFloat)inset
-{
-    UIEdgeInsets newInsets = self.collectionView.contentInset;
-    newInsets.top = inset;
-    self.topInset = inset;
-    self.collectionView.contentInset = newInsets;
-}
-
-
-- (UIScrollView *)containerScrollView
-{
-    return self.collectionView;
 }
 
 @end

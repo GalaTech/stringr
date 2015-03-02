@@ -45,13 +45,13 @@
     if (completion) {
         switch (dataType) {
             case StringrUserStringsNetworkTask:
-                [StringrNetworkTask stringsForUser:user completion:completion];
+                [self stringsForUser:user completion:completion];
                 break;
             case StringrFollowingNetworkTask:
                 [self homeFeedForUser:user completion:completion];
                 break;
             case StringrLikedStringsNetworkTask:
-                [StringrNetworkTask likedStringsForUser:user completion:completion];
+                [self likedStringsForUser:user completion:completion];
             default:
                 break;
         }
@@ -63,6 +63,40 @@
 
 - (void)stringCountForDataType:(StringrNetworkStringTaskType)dataType user:(PFUser *)user completion:(StringrCountBlock)completion
 {
+    if (completion) {
+        switch (dataType) {
+            case StringrUserStringsNetworkTask:
+                [self stringCountForUser:user completion:completion];
+                break;
+            case StringrFollowingNetworkTask:
+                [self homeStringCountForUser:user completion:completion];
+                break;
+            case StringrLikedStringsNetworkTask:
+                [self likedStringCountForUser:user completion:completion];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+- (void)stringCountForUser:(PFUser *)user completion:(StringrCountBlock)completion
+{
+    PFQuery *profileStringsQuery = [self.class defaultStringQuery];
+    [profileStringsQuery whereKey:kStringrStringUserKey equalTo:user];
+    [profileStringsQuery orderByDescending:@"createdAt"];
+    [profileStringsQuery setLimit:300];
+    [profileStringsQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (completion) {
+            completion(number, error);
+        }
+    }];
+}
+
+
+- (void)homeStringCountForUser:(PFUser *)user completion:(StringrCountBlock)completion
+{
     PFQuery *followingUsersQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [followingUsersQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeFollow];
     [followingUsersQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
@@ -70,7 +104,7 @@
     PFQuery *stringsFromFollowedUsersQuery = [self.class defaultStringQuery];
     [stringsFromFollowedUsersQuery whereKey:kStringrStringUserKey matchesKey:kStringrActivityToUserKey inQuery:followingUsersQuery];
     [stringsFromFollowedUsersQuery includeKey:@"stringStatistics"];
-    [stringsFromFollowedUsersQuery setLimit:600];
+    [stringsFromFollowedUsersQuery setLimit:300];
     [stringsFromFollowedUsersQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (completion) {
             completion(number, error);
@@ -79,94 +113,86 @@
 }
 
 
-#pragma mark - Explore Strings
-
-//+ (void)stringsForCategory:(StringrExploreCategory *)category completion:(StringrStringsBlock)completion
-//{
-//    if ([category.name isEqualToString:@"Popular"]) {
-//        [self popularStrings:completion];
-//    }
-//    else if ([category.name isEqualToString:@"Discover"]) {
-//        [self discoverStrings:completion];
-//    }
-//    else if ([category.name isEqualToString:@"Near You"]) {
-//        [self nearYouStrings:completion];
-//    }
-//    else {
-//        PFQuery *exploreCategoryQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
-//        [exploreCategoryQuery whereKey:@"category" equalTo:[category.name lowercaseString]];
-//        
-//        [exploreCategoryQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//            if (completion) {
-//                completion([StringrString stringsFromArray:objects], error);
-//            }
-//        }];
-//    }
-//}
+- (void)likedStringCountForUser:(PFUser *)user completion:(StringrCountBlock)completion
+{
+    PFQuery *likedStringsActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
+    [likedStringsActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
+    [likedStringsActivityQuery whereKey:kStringrActivityFromUserKey equalTo:user];
+    
+    //    PFQuery *likedStringsQuery = [self defaultStringQuery];
+    //    [likedStringsQuery whereKey:@"objectId" matchesKey:kStringrActivityStringKey inQuery:likedStringsActivityQuery];
+    //    [likedStringsQuery orderByDescending:@"createdAt"];
+    
+    [likedStringsActivityQuery whereKeyExists:kStringrActivityStringKey];
+    [likedStringsActivityQuery includeKey:kStringrActivityStringKey];
+    [likedStringsActivityQuery orderByDescending:@"createdAt"];
+    [likedStringsActivityQuery setLimit:300];
+    [likedStringsActivityQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+    [likedStringsActivityQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (completion) {
+            completion(number, error);
+        }
+    }];
+}
 
 
-- (void)stringsForCategory:(StringrExploreCategory *)category completion:(StringrStringsBlock)completion
+- (void)stringCountForCategory:(StringrExploreCategory *)category user:(PFUser *)user completion:(StringrCountBlock)completion
 {
     if ([category.name isEqualToString:@"Popular"]) {
-        [self.class popularStrings:completion];
+        [self popularStringsCount:completion];
     }
     else if ([category.name isEqualToString:@"Discover"]) {
-        [self.class discoverStrings:completion];
+        [self discoverStringsCount:completion];
     }
     else if ([category.name isEqualToString:@"Near You"]) {
-        [self.class nearYouStrings:completion];
+        [self nearYouStringsCount:completion];
     }
     else {
         PFQuery *exploreCategoryQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
         [exploreCategoryQuery whereKey:@"category" equalTo:[category.name lowercaseString]];
         
-        [exploreCategoryQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [exploreCategoryQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if (completion) {
-                completion([StringrString stringsFromArray:objects], error);
+                completion(number, error);
             }
         }];
     }
 }
 
 
-+ (void)popularStrings:(StringrStringsBlock)completion
+- (void)popularStringsCount:(StringrCountBlock)completion
 {
     PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
     [popularQuery whereKeyExists:kStringrStatisticsStringKey];
     [popularQuery includeKey:kStringrStatisticsStringKey];
     [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
     [popularQuery addDescendingOrder:kStringrStatisticsLikeCountKey];
-
-    [popularQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSMutableArray *stringsArray = [[NSMutableArray alloc] initWithCapacity:objects.count];
-        for (PFObject *statisticObject in objects) {
-            PFObject *string = [statisticObject objectForKey:kStringrStatisticsStringKey];
-            [string[kStringrStringUserKey] fetchIfNeededInBackground];
-            [stringsArray addObject:string];
-        }
-        
+    [popularQuery setLimit:300];
+    
+    [popularQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (completion) {
-            completion([StringrString stringsFromArray:objects], error);
+            completion(number, error);
         }
     }];
 }
 
 
-+ (void)discoverStrings:(StringrStringsBlock)completion
+- (void)discoverStringsCount:(StringrCountBlock)completion
 {
     PFQuery *discoverQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     [discoverQuery includeKey:kStringrStringUserKey];
     [discoverQuery orderByDescending:@"updatedAt"];
+    [discoverQuery setLimit:300];
     
-    [discoverQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [discoverQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (completion) {
-            completion([StringrString stringsFromArray:objects], error);
+            completion(number, error);
         }
     }];
 }
 
 
-+ (void)nearYouStrings:(StringrStringsBlock)completion
+- (void)nearYouStringsCount:(StringrCountBlock)completion
 {
     PFQuery *nearYouQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
     if ([[PFUser currentUser] objectForKey:kStringrUserLocationKey]) {
@@ -179,11 +205,128 @@
     [nearYouQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
     [nearYouQuery includeKey:kStringrStringUserKey];
     [nearYouQuery orderByDescending:@"createdAt"];
+    [nearYouQuery setLimit:300];
+    
+    [nearYouQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (completion) {
+            completion(number, error);
+        }
+    }];
+}
+
+
+#pragma mark - Explore Strings
+
+- (void)stringsForCategory:(StringrExploreCategory *)category completion:(StringrStringsBlock)completion
+{
+    if ([category.name isEqualToString:@"Popular"]) {
+        [self popularStrings:completion];
+    }
+    else if ([category.name isEqualToString:@"Discover"]) {
+        [self discoverStrings:completion];
+    }
+    else if ([category.name isEqualToString:@"Near You"]) {
+        [self nearYouStrings:completion];
+    }
+    else {
+        PFQuery *exploreCategoryQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+        [exploreCategoryQuery whereKey:@"category" equalTo:[category.name lowercaseString]];
+        [exploreCategoryQuery includeKey:@"stringStatistics"];
+        
+        [exploreCategoryQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            NSArray *strings = [StringrString stringsFromArray:objects];
+            [StringrNetworkTask addActivityInfoToStrings:strings completion:^(NSArray *updatedStrings, NSError *error) {
+                if (completion) {
+                    completion(updatedStrings, error);
+                }
+            }];
+        }];
+    }
+}
+
+
+- (void)popularStrings:(StringrStringsBlock)completion
+{
+    PFQuery *popularQuery = [PFQuery queryWithClassName:kStringrStatisticsClassKey];
+    [popularQuery whereKeyExists:kStringrStatisticsStringKey];
+    [popularQuery includeKey:kStringrStatisticsStringKey];
+    [popularQuery orderByDescending:kStringrStatisticsCommentCountKey];
+    [popularQuery addDescendingOrder:kStringrStatisticsLikeCountKey];
+    
+    if (self.limit > 0) {
+        [popularQuery setLimit:self.limit];
+        [popularQuery setSkip:self.skip];
+    }
+    
+    [popularQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSMutableArray *stringsArray = [[NSMutableArray alloc] initWithCapacity:objects.count];
+        for (PFObject *statisticObject in objects) {
+            PFObject *string = [statisticObject objectForKey:kStringrStatisticsStringKey];
+            [string[@"stringStatistics"] fetchIfNeededInBackground];
+            [string[kStringrStringUserKey] fetchIfNeededInBackground];
+            [stringsArray addObject:string];
+        }
+        
+        NSArray *strings = [StringrString stringsFromArray:objects];
+        [StringrNetworkTask addActivityInfoToStrings:strings completion:^(NSArray *updatedStrings, NSError *error) {
+            if (completion) {
+                completion(updatedStrings, error);
+            }
+        }];
+    }];
+}
+
+
+- (void)discoverStrings:(StringrStringsBlock)completion
+{
+    PFQuery *discoverQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    [discoverQuery includeKey:kStringrStringUserKey];
+    [discoverQuery includeKey:@"stringStatistics"];
+    [discoverQuery orderByDescending:@"updatedAt"];
+    
+    if (self.limit > 0) {
+        [discoverQuery setLimit:self.limit];
+        [discoverQuery setSkip:self.skip];
+    }
+    
+    [discoverQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSArray *strings = [StringrString stringsFromArray:objects];
+        [StringrNetworkTask addActivityInfoToStrings:strings completion:^(NSArray *updatedStrings, NSError *error) {
+            if (completion) {
+                completion(updatedStrings, error);
+            }
+        }];
+    }];
+}
+
+
+- (void)nearYouStrings:(StringrStringsBlock)completion
+{
+    PFQuery *nearYouQuery = [PFQuery queryWithClassName:kStringrStringClassKey];
+    if ([[PFUser currentUser] objectForKey:kStringrUserLocationKey]) {
+        [nearYouQuery whereKey:kStringrStringLocationKey nearGeoPoint:[[PFUser currentUser] objectForKey:kStringrUserLocationKey] withinMiles:100.0];
+    }
+    else {
+        [nearYouQuery whereKey:kStringrStringTitleKey equalTo:@"!@#%@#$^%^&*"];
+    }
+    
+    [nearYouQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [nearYouQuery includeKey:kStringrStringUserKey];
+    [nearYouQuery orderByDescending:@"createdAt"];
+    [nearYouQuery includeKey:@"stringStatistics"];
+    
+    if (self.limit > 0) {
+        [nearYouQuery setLimit:self.limit];
+        [nearYouQuery setSkip:self.skip];
+    }
     
     [nearYouQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (completion) {
-            completion([StringrString stringsFromArray:objects], error);
-        }
+        NSArray *strings = [StringrString stringsFromArray:objects];
+        [StringrNetworkTask addActivityInfoToStrings:strings completion:^(NSArray *updatedStrings, NSError *error) {
+            if (completion) {
+                completion(updatedStrings, error);
+            }
+        }];
     }];
 }
 
@@ -225,24 +368,34 @@
 
 #pragma mark - Profile
 
-+ (void)stringsForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion
+- (void)stringsForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion
 {
-    PFQuery *profileStringsQuery = [self defaultStringQuery];
+    PFQuery *profileStringsQuery = [self.class defaultStringQuery];
     [profileStringsQuery whereKey:kStringrStringUserKey equalTo:user];
     [profileStringsQuery orderByDescending:@"createdAt"];
+    [profileStringsQuery includeKey:@"stringStatistics"];
+    
+    if (self.limit > 0) {
+        [profileStringsQuery setLimit:self.limit];
+        [profileStringsQuery setSkip:self.skip];
+    }
+    
     [profileStringsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (completion) {
-            completion([StringrString stringsFromArray:objects], error);
-        }
+        NSArray *strings = [StringrString stringsFromArray:objects];
+        [StringrNetworkTask addActivityInfoToStrings:strings completion:^(NSArray *updatedStrings, NSError *error) {
+            if (completion) {
+                completion(updatedStrings, error);
+            }
+        }];
     }];
 }
 
 
-+ (void)likedStringsForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion
+- (void)likedStringsForUser:(PFUser *)user completion:(StringrUserItemsBlock)completion
 {
     PFQuery *likedStringsActivityQuery = [PFQuery queryWithClassName:kStringrActivityClassKey];
     [likedStringsActivityQuery whereKey:kStringrActivityTypeKey equalTo:kStringrActivityTypeLike];
-    [likedStringsActivityQuery whereKey:kStringrActivityFromUserKey equalTo:[PFUser currentUser]];
+    [likedStringsActivityQuery whereKey:kStringrActivityFromUserKey equalTo:user];
     
 //    PFQuery *likedStringsQuery = [self defaultStringQuery];
 //    [likedStringsQuery whereKey:@"objectId" matchesKey:kStringrActivityStringKey inQuery:likedStringsActivityQuery];
@@ -252,10 +405,19 @@
     [likedStringsActivityQuery includeKey:kStringrActivityStringKey];
     [likedStringsActivityQuery orderByDescending:@"createdAt"];
     [likedStringsActivityQuery setCachePolicy:kPFCachePolicyNetworkElseCache];
+    
+    if (self.limit > 0) {
+        [likedStringsActivityQuery setLimit:self.limit];
+        [likedStringsActivityQuery setSkip:self.skip];
+    }
+    
     [likedStringsActivityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (completion) {
-            completion([StringrString stringsFromArray:[self likedStringsFromActivityArray:objects]], error);
-        }
+        NSArray *strings = [StringrString stringsFromArray:[self.class likedStringsFromActivityArray:objects]];
+        [StringrNetworkTask addActivityInfoToStrings:strings completion:^(NSArray *updatedStrings, NSError *error) {
+            if (completion) {
+                completion(updatedStrings, error);
+            }
+        }];
     }];
 }
 
@@ -266,6 +428,7 @@
     
     for (PFObject *activityObject in activities) {
         PFObject *string = activityObject[kStringrActivityStringKey];
+        [string[@"stringStatistics"] fetchIfNeededInBackground];
         [string[kStringrStringUserKey] fetchIfNeededInBackground];
         if (string) {
             [strings addObject:string];

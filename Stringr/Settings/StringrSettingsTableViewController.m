@@ -10,7 +10,7 @@
 #import "StringrNavigationController.h"
 #import "StringrLoginViewController.h"
 #import "StringrUtility.h"
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 #import "StringrFindAndInviteFriendsTableViewController.h"
 #import "StringrPrivacyPolicyTermsOfServiceViewController.h"
 #import "StringrFBFriendPickerViewController.h"

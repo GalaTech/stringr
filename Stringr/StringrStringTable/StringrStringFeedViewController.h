@@ -10,11 +10,11 @@
 #import "StringrTableViewController.h"
 #import "StringrNetworkTask+Strings.h"
 
-#import "StringrStringFeedModelController.h"
+#import "STGRStringFeedModelController.h"
 
 @interface StringrStringFeedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, StringrViewController>
 
-@property (strong, nonatomic) StringrStringFeedModelController *modelController;
+@property (strong, nonatomic) STGRStringFeedModelController *modelController;
 
 @property (strong, nonatomic) UITableView *tableView;
 

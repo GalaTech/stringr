@@ -9,7 +9,7 @@
 #import "StringrViewController.h"
 #import "StringrDashboardTabBarController.h"
 
-@interface StringrAppViewController : UIViewController <StringrViewController>
+@interface STGRAppViewController : UIViewController <StringrViewController>
 
 @property (strong, nonatomic, readonly) UIViewController *currentContentViewController;
 

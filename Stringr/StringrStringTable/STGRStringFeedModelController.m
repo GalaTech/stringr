@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 GalaTech LLC. All rights reserved.
 //
 
-#import "StringrStringFeedModelController.h"
+#import "STGRStringFeedModelController.h"
 
 #import "StringrNetworkTask+Strings.h"
 #import "StringrNetworkTask+Photos.h"
@@ -17,14 +17,14 @@
 
 static NSInteger StringQueryResultsLimit = 6;
 
-@interface StringrStringFeedModelController ()
+@interface STGRStringFeedModelController ()
 
 @property (nonatomic, readwrite) NSInteger currentPageNumber;
 @property (nonatomic) NSInteger totalStringLimit;
 
 @end
 
-@implementation StringrStringFeedModelController
+@implementation STGRStringFeedModelController
 
 @synthesize strings = _strings;
 @synthesize userForFeed = _userForFeed;
@@ -37,7 +37,7 @@ static NSInteger StringQueryResultsLimit = 6;
     self = [super init];
     
     if (self) {
-
+        self.currentPageNumber = 0;
     }
     
     return self;
@@ -65,16 +65,11 @@ static NSInteger StringQueryResultsLimit = 6;
 {
     _strings = strings;
     
-    self.isLoading = NO;
-    
-    if (strings.count == 0) {
-        [self.delegate stringFeedLoadedNoContent];
-        return;
-    }
-    
-    [self.delegate stringFeedDataDidUpdate];
     [self postUpdateForUpdatedStrings];
-    [self loadStringPhotoData];
+    
+    if ([self.delegate respondsToSelector:@selector(stringFeedLoadedContent)]) {
+        [self.delegate stringFeedLoadedContent];
+    }
 }
 
 
@@ -114,7 +109,8 @@ static NSInteger StringQueryResultsLimit = 6;
 
 - (NSInteger)currentPageNumber
 {
-    return [self pageNumberFromNumber:self.strings.count secondNumber:StringQueryResultsLimit];
+    _currentPageNumber = [self pageNumberFromNumber:self.strings.count secondNumber:StringQueryResultsLimit];
+    return _currentPageNumber;
 }
 
 
@@ -131,21 +127,19 @@ static NSInteger StringQueryResultsLimit = 6;
     if (self.isLoading) return;
     self.isLoading = YES;
     
-    if ([self.delegate respondsToSelector:@selector(stringFeedDataWillUpdate)]) {
-        [self.delegate stringFeedDataWillUpdate];
-    }
-    
     StringrNetworkTask *networkTask = [StringrNetworkTask new];
     networkTask.limit = StringQueryResultsLimit;
     networkTask.skip = self.strings.count;
     
     if (self.category) {
         [networkTask stringsForCategory:self.category completion:^(NSArray *strings, NSError *error) {
-            self.strings = strings;
+            self.isLoading = NO;
+            self.strings = [self.strings arrayByAddingObjectsFromArray:strings];
         }];
     }
     else {
         [networkTask stringsForDataType:self.dataType user:self.userForFeed completion:^(NSArray *strings, NSError *error) {
+            self.isLoading = NO;
             self.strings = [self.strings arrayByAddingObjectsFromArray:strings];
         }];
     }
@@ -154,10 +148,38 @@ static NSInteger StringQueryResultsLimit = 6;
 
 - (void)startStringNetworkTask
 {
-    [[StringrNetworkTask new] stringCountForDataType:self.dataType user:self.userForFeed completion:^(NSInteger count, NSError *error) {
-        self.totalStringLimit = count;
-        [self loadNextPage];
-    }];
+    if ([self.delegate respondsToSelector:@selector(stringFeedDataWillUpdate)]) {
+        [self.delegate stringFeedDataWillUpdate];
+    }
+    
+    if (self.category) {
+        [[StringrNetworkTask new] stringCountForCategory:self.category user:self.userForFeed completion:^(NSInteger count, NSError *error) {
+            self.totalStringLimit = count;
+            
+            if (count == 0) {
+                if ([self.delegate respondsToSelector:@selector(stringFeedLoadedNoContent)]) {
+                    [self.delegate stringFeedLoadedNoContent];
+                }
+            }
+            else {
+                [self loadNextPage];
+            }
+        }];
+    }
+    else {
+        [[StringrNetworkTask new] stringCountForDataType:self.dataType user:self.userForFeed completion:^(NSInteger count, NSError *error) {
+            self.totalStringLimit = count;
+            
+            if (count == 0) {
+                if ([self.delegate respondsToSelector:@selector(stringFeedLoadedNoContent)]) {
+                    [self.delegate stringFeedLoadedNoContent];
+                }
+            }
+            else {
+                [self loadNextPage];
+            }
+        }];
+    }
 }
 
 
@@ -165,7 +187,7 @@ static NSInteger StringQueryResultsLimit = 6;
 {
     if (self.strings.count == 0) return;
     
-    for (int i = 0; i < self.strings.count; i++) {
+    for (NSInteger i = (self.currentPageNumber - 1) * StringQueryResultsLimit; i < self.strings.count; i++) {
         StringrString *string = self.strings[i];
         
         if (!string) continue;
@@ -180,7 +202,9 @@ static NSInteger StringQueryResultsLimit = 6;
             if (!error) {
                 string.photos = [photos mutableCopy];
                 
-                [self.delegate stringFeedPhotosDidUpdateAtIndexPath:cellIndexPath];
+                if ([self.delegate respondsToSelector:@selector(stringFeedPhotosDidUpdateAtIndexPath:)]) {
+                    [self.delegate stringFeedPhotosDidUpdateAtIndexPath:cellIndexPath];
+                }
             }
         }];
     }
@@ -208,7 +232,11 @@ static NSInteger StringQueryResultsLimit = 6;
         [indexSets addObject:indexSet];
     }
     
-    [self.delegate stringFeedDataDidLoadForIndexSets:[indexSets copy]];
+    if ([self.delegate respondsToSelector:@selector(stringFeedPhotosDidUpdateAtIndexPath:)]) {
+        [self.delegate stringFeedDataDidLoadForIndexSets:[indexSets copy]];
+    }
+    
+    [self loadStringPhotoData];
 }
 
 @end

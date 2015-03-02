@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="mi7-wA-1Ic">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="mi7-wA-1Ic">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -92,7 +92,7 @@
                                         <color key="textColor" red="0.2113196332" green="0.2113196332" blue="0.2113196332" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="749" misplaced="YES" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="0.0" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhy-ew-9b4" userLabel="Description Label">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="0.0" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhy-ew-9b4" userLabel="Description Label">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
@@ -204,7 +204,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WCK-KO-lpd" firstAttribute="top" secondItem="byb-d1-SqW" secondAttribute="bottom" id="0FT-Gf-ytD"/>
-                            <constraint firstItem="PnL-Lw-NaG" firstAttribute="top" secondItem="cg3-Gz-3jz" secondAttribute="top" priority="750" id="27T-bE-F5V"/>
+                            <constraint firstItem="PnL-Lw-NaG" firstAttribute="top" secondItem="cg3-Gz-3jz" secondAttribute="top" id="27T-bE-F5V"/>
                             <constraint firstAttribute="trailing" secondItem="byb-d1-SqW" secondAttribute="trailing" id="FTh-Gw-1SR"/>
                             <constraint firstItem="byb-d1-SqW" firstAttribute="leading" secondItem="cg3-Gz-3jz" secondAttribute="leading" id="HiE-4D-BIc"/>
                             <constraint firstItem="byb-d1-SqW" firstAttribute="top" secondItem="cg3-Gz-3jz" secondAttribute="top" id="SO4-QL-bd3"/>
@@ -220,9 +220,8 @@
                         <outlet property="followersLabel" destination="4Jc-90-8ID" id="8qF-eD-SEb"/>
                         <outlet property="followingButton" destination="Hku-gY-Yrc" id="l50-sV-7e2"/>
                         <outlet property="followingLabel" destination="zY3-5W-Kgz" id="dgS-fc-Szd"/>
-                        <outlet property="profileContainerHeightConstraint" destination="zx4-hm-aGA" id="cl0-is-Cjk"/>
-                        <outlet property="profileContainerSegmentTopConstraint" destination="27T-bE-F5V" id="rEx-mf-OCG"/>
                         <outlet property="profileContainerView" destination="PnL-Lw-NaG" id="OFL-Wp-eQQ"/>
+                        <outlet property="profileContainerViewTopConstraint" destination="27T-bE-F5V" id="CJT-N6-0g2"/>
                         <outlet property="profileDescriptionLabel" destination="vhy-ew-9b4" id="gfj-AF-qzR"/>
                         <outlet property="profileImage" destination="cCu-gZ-vQk" id="Yvu-pm-5ax"/>
                         <outlet property="segmentedControl" destination="DSY-jG-mlE" id="kVM-67-Wm9"/>

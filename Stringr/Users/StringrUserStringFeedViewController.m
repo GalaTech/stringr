@@ -26,33 +26,4 @@
 }
 
 
-#pragma mark - Stringr Container ScrollView Delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [super scrollViewDidScroll:scrollView];
-    
-    [self.delegate containerViewDidScroll:scrollView];
-}
-
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
-{
-    return [self.delegate containerViewShouldScrollToTop:scrollView];
-}
-
-
-- (void)adjustScrollViewTopInset:(CGFloat)inset
-{
-    UIEdgeInsets newInsets = self.tableView.contentInset;
-    newInsets.top = inset;
-    self.tableView.contentInset = newInsets;
-}
-
-
-- (UIScrollView *)containerScrollView
-{
-    return self.tableView;
-}
-
 @end

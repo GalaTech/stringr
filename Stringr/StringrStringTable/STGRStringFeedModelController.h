@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "StringrNetworkTask+Strings.h"
 
-@protocol StringrStringFeedModelControllerDelegate;
+@protocol STGRStringFeedModelControllerDelegate;
 
-@interface StringrStringFeedModelController : NSObject
+@interface STGRStringFeedModelController : NSObject
 
 @property (strong, nonatomic) NSArray *strings;
 @property (strong, nonatomic) NSMutableArray *stringPhotos;
@@ -23,16 +23,17 @@
 @property (nonatomic, readonly) NSInteger currentPageNumber;
 @property (nonatomic) BOOL hasNextPage;
 
-@property (weak, nonatomic) id<StringrStringFeedModelControllerDelegate> delegate;
+@property (weak, nonatomic) id<STGRStringFeedModelControllerDelegate> delegate;
 
 - (void)loadNextPage;
 
 @end
 
 
-@protocol StringrStringFeedModelControllerDelegate <NSObject>
+@protocol STGRStringFeedModelControllerDelegate <NSObject>
 
 - (void)stringFeedLoadedNoContent;
+- (void)stringFeedLoadedContent;
 
 - (void)stringFeedDataDidUpdate;
 - (void)stringFeedDataDidLoadForIndexSets:(NSArray *)indexSets;

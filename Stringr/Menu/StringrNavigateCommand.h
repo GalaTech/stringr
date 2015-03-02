@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol StringrContainerScrollViewDelegate;
+
 @interface StringrNavigateCommand : NSObject
 
-@property (copy, nonatomic) void(^segmentDisplayBlock)(UIViewController *);
+@property (strong, nonatomic) void(^segmentDisplayBlock)(UIViewController <StringrContainerScrollViewDelegate>*);
 
 @property (nonatomic) Class viewControllerClass;
-@property (strong, nonatomic) UIViewController *viewController;
+@property (strong, nonatomic) UIViewController <StringrContainerScrollViewDelegate>*viewController;
 @property (weak, nonatomic) id delegate;
 
 - (instancetype)initWithViewControllerClass:(Class)class delegate:(id)delegate NS_DESIGNATED_INITIALIZER;

@@ -8,7 +8,7 @@
 
 #import "StringrConfig.h"
 #import "StringrAppDelegate.h"
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 
 static NSString * StringrFirstRunKey = @"kStringrCompletedFirstRunKey";
 static NSString * StringrDebugEnabledKey = @"kStringrDebugEnabledKey";

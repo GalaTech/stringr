@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StringrViewController.h"
-#import "StringrContainerScrollViewDelegate.h"
+#import "StringrPhotoFeedModelController.h"
 
 #import "StringrNetworkTask+Photos.h"
 
@@ -16,10 +16,11 @@
 
 @interface StringrPhotoFeedViewController : UIViewController <StringrViewController>
 
-@property (weak, nonatomic) id<StringrContainerScrollViewDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) StringrPhotoFeedModelController *modelController;
 
-+ (StringrPhotoFeedViewController *)photoFeedWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user;
-+ (StringrPhotoFeedViewController *)photoFeedFromString:(StringrString *)string;
-+ (StringrPhotoFeedViewController *)photoFeedFromPhotos:(NSArray *)photos;
++ (instancetype)photoFeedWithDataType:(StringrNetworkPhotoTaskType)dataType user:(PFUser *)user;
++ (instancetype)photoFeedFromString:(StringrString *)string;
++ (instancetype)photoFeedFromPhotos:(NSArray *)photos;
 
 @end

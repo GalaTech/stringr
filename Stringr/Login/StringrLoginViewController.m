@@ -7,7 +7,7 @@
 //
 
 #import "StringrLoginViewController.h"
-#import "StringrAppViewController.h"
+#import "STGRAppViewController.h"
 #import "UIImage+Resize.h"
 #import "StringrSignUpWithEmailTableViewController.h"
 #import "StringrSignUpWithSocialNetworkViewController.h"

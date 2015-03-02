@@ -62,7 +62,6 @@
 }
 
 
-
 #pragma mark - Public
 
 -(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index

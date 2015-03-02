@@ -11,5 +11,7 @@
 @interface NSLayoutConstraint (StringrAdditions)
 
 + (NSArray *)constraintsToFillSuperviewWithView:(UIView *)view;
++ (NSArray *)constraintsToSizeView:(UIView *)view size:(CGSize)size;
++ (NSArray *)constraintsToCenterView:(UIView *)view inView:(UIView *)superView;
 
 @end

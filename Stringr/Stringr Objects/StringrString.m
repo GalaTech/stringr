@@ -42,33 +42,38 @@
 
 - (PFUser *)uploader
 {
-    return self.parseString[kStringrStringUserKey];
+    _uploader = self.parseString[kStringrStringUserKey];
+    return _uploader;
 }
 
 
 - (NSString *)title
 {
-    return self.parseString[kStringrStringTitleKey];
+    _title = self.parseString[kStringrStringTitleKey];
+    return _title;
 }
 
 
 - (NSInteger)likeCount
 {
     PFObject *statistics = self.parseString[@"stringStatistics"];
-    return [statistics[kStringrStatisticsLikeCountKey] integerValue];
+    _likeCount = [statistics[kStringrStatisticsLikeCountKey] integerValue];
+    return _likeCount;
 }
 
 
 - (NSInteger)commentCount
 {
     PFObject *statistics = self.parseString[@"stringStatistics"];
-    return [statistics[kStringrStatisticsCommentCountKey] integerValue];
+    _commentCount = [statistics[kStringrStatisticsCommentCountKey] integerValue];
+    return _commentCount;
 }
 
 
 - (PFObject *)parseStatistics
 {
-    return self.parseString[@"stringStatistics"];
+    _parseStatistics = self.parseString[@"stringStatistics"];
+    return _parseStatistics;
 }
 
 #pragma mark - Public
