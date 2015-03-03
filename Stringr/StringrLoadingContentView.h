@@ -8,7 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class StringrLoadingContentView;
+
+
+@protocol StringrLoadingContentViewDelegate <NSObject>
+
+- (void)loadingContentViewDidTapRefresh:(StringrLoadingContentView *)loadingContentView;
+
+@end
+
+
 @interface StringrLoadingContentView : UIView
+
+@property (weak, nonatomic) id<StringrLoadingContentViewDelegate> delegate;
 
 - (void)startLoading;
 - (void)stopLoading;

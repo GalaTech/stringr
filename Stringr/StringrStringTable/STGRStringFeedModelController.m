@@ -120,6 +120,14 @@ static NSInteger StringQueryResultsLimit = 6;
 }
 
 
+#pragma mark - Public
+
+- (void)refresh
+{
+    [self startStringNetworkTask];
+}
+
+
 #pragma mark - Networking
 
 - (void)loadNextPage

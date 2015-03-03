@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *noContentLabel;
 
+@property (strong, nonatomic) IBOutlet UIButton *refreshButton;
+
 @end
 
 @implementation StringrLoadingContentView
@@ -24,6 +26,7 @@
 - (void)awakeFromNib
 {
     self.noContentLabel.alpha = 0.0f;
+    self.refreshButton.alpha = 0.0f;
 }
 
 - (void)startLoading
@@ -35,6 +38,11 @@
 - (void)stopLoading
 {
     [self.activityIndicator stopAnimating];
+    [UIView animateWithDuration:0.33f animations:^{
+        self.refreshButton.alpha = 1.0f;
+        self.loadingLabel.alpha = 0.0f;
+        self.activityIndicator.alpha = 0.0f;
+    }];
 }
 
 
@@ -50,12 +58,22 @@
     [self addSubview:coloredLineView];
     
     [UIView animateWithDuration:0.33f animations:^{
-        self.loadingLabel.alpha = 0.0f;
-        self.activityIndicator.alpha = 0.0f;
-        
         self.noContentLabel.alpha = 1.0f;
         coloredLineView.alpha = 1.0f;
     }];
+}
+
+
+- (IBAction)refreshButtonTouched:(UIButton *)sender
+{
+    self.refreshButton.alpha = 0.0f;
+    self.loadingLabel.alpha = 1.0f;
+    self.activityIndicator.alpha = 1.0f;
+    [self.activityIndicator startAnimating];
+    
+    if ([self.delegate respondsToSelector:@selector(loadingContentViewDidTapRefresh:)]) {
+        [self.delegate loadingContentViewDidTapRefresh:self];
+    }
 }
 
 @end

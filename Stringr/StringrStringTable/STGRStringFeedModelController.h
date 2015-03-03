@@ -25,6 +25,7 @@
 
 @property (weak, nonatomic) id<STGRStringFeedModelControllerDelegate> delegate;
 
+- (void)refresh;
 - (void)loadNextPage;
 
 @end

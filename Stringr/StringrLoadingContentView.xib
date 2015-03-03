@@ -30,7 +30,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Strings" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiJ-H8-D5G">
-                    <rect key="frame" x="163" y="50" width="275" height="36"/>
+                    <rect key="frame" x="163" y="155" width="275" height="36"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="275" id="1ys-T2-EEY"/>
                         <constraint firstAttribute="height" constant="36" id="6bc-It-Crv"/>
@@ -39,28 +39,48 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b38-tB-nC6">
+                    <rect key="frame" x="223" y="278" width="154" height="43"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="154" id="Spo-1M-9qF"/>
+                        <constraint firstAttribute="height" constant="43" id="Vwo-lp-M8e"/>
+                    </constraints>
+                    <state key="normal" title="Refresh">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="refreshButtonTouched:" destination="iN0-l3-epB" eventType="touchUpInside" id="fns-nC-KWP"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="uIg-6H-8il" firstAttribute="centerY" secondItem="irc-fN-K3D" secondAttribute="centerY" id="BZm-H1-QN6"/>
                 <constraint firstAttribute="centerX" secondItem="HiJ-H8-D5G" secondAttribute="centerX" constant="-0.5" id="Cc7-rl-6KC"/>
+                <constraint firstAttribute="centerY" secondItem="b38-tB-nC6" secondAttribute="centerY" constant="0.5" id="FTy-nb-arg"/>
+                <constraint firstAttribute="centerX" secondItem="b38-tB-nC6" secondAttribute="centerX" id="Kfo-5l-hQF"/>
                 <constraint firstAttribute="centerY" secondItem="uIg-6H-8il" secondAttribute="centerY" id="TvL-5c-1vO"/>
                 <constraint firstAttribute="centerY" secondItem="HiJ-H8-D5G" secondAttribute="centerY" id="kEM-5b-b1m"/>
                 <constraint firstItem="irc-fN-K3D" firstAttribute="leading" secondItem="uIg-6H-8il" secondAttribute="trailing" constant="8" id="kfr-fL-h3u"/>
                 <constraint firstItem="HiJ-H8-D5G" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="n3u-ic-jgC"/>
                 <constraint firstAttribute="centerX" secondItem="uIg-6H-8il" secondAttribute="centerX" constant="14" id="twS-nt-ZiA"/>
+                <constraint firstAttribute="centerY" secondItem="HiJ-H8-D5G" secondAttribute="centerY" constant="127" id="yQb-An-cap"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="kEM-5b-b1m"/>
+                    <exclude reference="n3u-ic-jgC"/>
                 </mask>
             </variation>
             <connections>
                 <outlet property="activityIndicator" destination="irc-fN-K3D" id="jcW-U3-DA0"/>
                 <outlet property="loadingLabel" destination="uIg-6H-8il" id="rTe-X2-A3O"/>
                 <outlet property="noContentLabel" destination="HiJ-H8-D5G" id="yaB-9l-BaQ"/>
+                <outlet property="refreshButton" destination="b38-tB-nC6" id="7FQ-Y9-ds8"/>
             </connections>
+            <point key="canvasLocation" x="316" y="343"/>
         </view>
     </objects>
 </document>

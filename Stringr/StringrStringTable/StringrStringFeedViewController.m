@@ -35,7 +35,7 @@
 
 static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewController";
 
-@interface StringrStringFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, STGRStringFeedModelControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate, UIGestureRecognizerDelegate>
+@interface StringrStringFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate, STGRStringFeedModelControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NHBalancedFlowLayoutDelegate, StringTableViewHeaderDelegate, StringTableViewActionCellDelegate, UIGestureRecognizerDelegate, StringrLoadingContentViewDelegate>
 
 @property (strong, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 
@@ -133,6 +133,7 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
 {
     if (!_loadingContentView) {
         _loadingContentView = [[[NSBundle mainBundle] loadNibNamed:@"StringrLoadingContentView" owner:self options:nil] firstObject];
+        _loadingContentView.delegate = self;
     }
     
     return _loadingContentView;
@@ -597,6 +598,14 @@ static NSString * const StringrStringFeedStoryboard = @"StringrStringFeedViewCon
     else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Flag"]) {
         [StringrFlagContentHelper flagContent:actionSheet.object withFlaggingUser:[PFUser currentUser]];
     }
+}
+
+
+#pragma mark - <StringrLoadingContentViewDelegate>
+
+- (void)loadingContentViewDidTapRefresh:(StringrLoadingContentView *)loadingContentView
+{
+    [self.modelController refresh];
 }
 
 @end
